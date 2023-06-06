@@ -1,0 +1,23 @@
+{
+  "name": "bau",
+  "description": "Bau.js is a reactive library for building high performance user interface for the web",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "bundle-visualizer": "vite-bundle-visualizer",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "vite": "4.3.9",
+    "vite-bundle-visualizer": "0.7.0",
+    "vitest": "0.31.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:FredericHeem/bau.git"
+  }
+}
