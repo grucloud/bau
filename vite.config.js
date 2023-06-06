@@ -13,5 +13,11 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     server: {
       open: true,
     },
+    test: {
+      browser: {
+        enabled: true,
+        name: "chrome",
+      },
+    },
   };
 });

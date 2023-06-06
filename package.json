@@ -12,9 +12,12 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
+    "@vitest/browser": "0.31.4",
+    "@vitest/coverage-c8": "0.31.4",
     "vite": "4.3.9",
     "vite-bundle-visualizer": "0.7.0",
-    "vitest": "0.31.4"
+    "vitest": "0.31.4",
+    "webdriverio": "8.10.7"
   },
   "repository": {
     "type": "git",

@@ -219,7 +219,11 @@ export default function Bau() {
       }
       return add(dom, ...children);
     },
-    { get: (tag, name) => tag.bind(undefined, name) }
+    {
+      get: (tag, name) => {
+        return tag.bind(undefined, name);
+      },
+    }
   );
 
   let bind = ({ deps, render, renderItem }) => {
