@@ -18,6 +18,9 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         enabled: true,
         name: "chrome",
       },
+      coverage: {
+        provider: "istanbul", // or 'c8'
+      },
     },
   };
 });
