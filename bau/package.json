@@ -1,13 +1,13 @@
 {
   "name": "@grucloud/bau",
   "description": "Bau.js is a reactive library for building high performance user interface for the web",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "main": "./dist/my-lib.umd.cjs",
   "module": "./dist/my-lib.js",
   "exports": {
     ".": {
-      "import": "./dist/bao.js",
+      "import": "./dist/bau.js",
       "require": "./dist/bau.umd.cjs"
     }
   },
@@ -39,6 +39,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:FredericHeem/bau.git"
+    "url": "git@github.com:grucloud/bau.git"
   }
 }
