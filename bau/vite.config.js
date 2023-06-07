@@ -14,13 +14,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       open: true,
     },
     test: {
-      browser: {
-        enabled: true,
-        name: "chrome",
-      },
-      coverage: {
-        provider: "istanbul", // or 'c8'
-      },
+      environment: "happy-dom",
     },
   };
 });
