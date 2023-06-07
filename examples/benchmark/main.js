@@ -1,4 +1,5 @@
 import Bau from "@grucloud/bau";
+//import Bau from "../../bau/src/bau";
 
 const bau = Bau();
 
@@ -148,10 +149,7 @@ const Row = ({ id, label }) =>
       { class: "col-md-1" },
       a(
         { onclick: (event) => remove({ id, event }) },
-        span(
-          { class: "glyphicon glyphicon-remove", "aria-hidden": true },
-          "delete"
-        )
+        span({ class: "glyphicon glyphicon-remove", "aria-hidden": true })
       )
     ),
     td({ class: "col-md-6" })
@@ -171,7 +169,7 @@ const Jumbotron = ({}) =>
     { class: "jumbotron" },
     div(
       { class: "row" },
-      div({ class: "col-md-6" }, h1("Bau")),
+      div({ class: "col-md-6" }, h1("Bau Benchmark")),
       div(
         { class: "col-md-6" },
         div(

@@ -28,7 +28,7 @@ const bau = Bau();
 const { div, h1, p } = bau.tags;
 
 // Create a component defined by a function
-const Main = () => div(h1("Hello Bau"), p("My first example")));
+const Main = () => div(h1("Hello Bau"), p("My first example"));
 
 // Your html file must contain an element with the id "app"
 const app = document.getElementById("app");
