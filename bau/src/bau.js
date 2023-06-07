@@ -115,10 +115,12 @@ export default function Bau() {
       ) {
         dom.children[i].remove();
       }
-      const domNewItems = newItems.forEach(renderDomItem);
-      dom.children[start]
-        ? dom.children[i].after(domNewItems)
-        : dom.appendChild(domNewItems);
+      if (newItems.length > 0) {
+        const domNewItems = newItems.forEach(renderDomItem);
+        dom.children[start]
+          ? dom.children[start].after(domNewItems)
+          : dom.appendChild(domNewItems);
+      }
     },
   });
 
