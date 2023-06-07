@@ -11,9 +11,16 @@
       "require": "./dist/bau.umd.cjs"
     }
   },
+  "license": "BSD",
   "files": [
     "dist"
   ],
+  "keywords": [
+    "ui",
+    "frontend",
+    "reactive"
+  ],
+  "author": "Frederic Heem",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
