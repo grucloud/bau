@@ -200,7 +200,7 @@ export default function Bau() {
       let dom = document.createElement(name);
       for (let [k, v] of Object.entries(props)) {
         let setter =
-          dom[k] !== undefined
+          dom[k] != undefined
             ? (v) => (dom[k] = v)
             : (v) => dom.setAttribute(k, v);
         if (v == null) {
