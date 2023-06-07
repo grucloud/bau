@@ -8,7 +8,13 @@ const filterBindings = (state) =>
   (state.bindings = state.bindings.filter((b) => b.dom?.isConnected));
 
 export default function Bau() {
-  let changedStatesSet = new Set();
+  const schedule = (set, callback, waitMs) => (state) => {
+    set.size == 0 && setTimeout(callback, waitMs);
+    set.add(state);
+  };
+
+  const gcSet = new Set();
+  const scheduleGc = schedule(gcSet, () => gcSet.forEach(filterBindings), 1e3);
 
   let updateDoms = () => {
     let changedStatesArray = [...changedStatesSet];
@@ -51,10 +57,8 @@ export default function Bau() {
     }
   };
 
-  const schedule = (state, waitMs) => {
-    changedStatesSet.size == 0 && setTimeout(updateDoms, waitMs);
-    changedStatesSet.add(state);
-  };
+  const changedStatesSet = new Set();
+  const scheduleDom = schedule(changedStatesSet, updateDoms);
 
   // array is mutated with the following functions. These functions tracked an array thanks to a Javascript Proxy.
   // TODO add sort
@@ -74,7 +78,7 @@ export default function Bau() {
               newArray: target,
               //oldArray,
             });
-            schedule(_state);
+            scheduleDom(_state);
             return result;
           };
         }
@@ -86,7 +90,7 @@ export default function Bau() {
           method: "set",
           args: [prop, val],
         });
-        schedule(_state);
+        scheduleDom(_state);
         return result;
       },
     });
@@ -139,11 +143,11 @@ export default function Bau() {
           newArray: value,
           oldArray: currentValue,
         });
-        schedule(state);
+        scheduleDom(state);
       } else {
         if (value !== currentValue) {
           if (state.oldVal === currentValue) {
-            schedule(state);
+            scheduleDom(state);
           } else if (value === state.oldVal) {
             changedStatesSet.delete(state);
           }
@@ -233,7 +237,7 @@ export default function Bau() {
       dom: toDom(result),
     };
     for (let dep of deps) {
-      setInterval(() => filterBindings(dep), 1e3);
+      scheduleGc(dep);
       dep.bindings.push(binding);
     }
     return binding.dom;

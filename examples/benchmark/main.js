@@ -94,14 +94,14 @@ const runLots = () => {
 };
 
 const add = () => {
-  dataState.val = [...dataState.val, ...buildData(1000)];
+  dataState.val.push(...buildData(1000));
 };
 
 const update = () => {
   for (let i = 0; i < dataState.val.length; i += 10) {
     const r = dataState.val[i];
-    //    dataState.val[i] = { id: r.id, label: r.label + " !!!" };
-    dataState.val[i].label = r.label + " !!!";
+    dataState.val[i] = { id: r.id, label: r.label + " !!!" };
+    //dataState.val[i].label = r.label + " !!!";
   }
 };
 
