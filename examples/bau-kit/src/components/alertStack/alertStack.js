@@ -42,28 +42,26 @@ export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
     `,
   };
 
-  const AlertItem = (message) => {
-    const domItem = div(
+  const AlertItem = (message) =>
+    div(
       {
-        "data-id": message.id,
         class: styles.item,
-        onclick: () => domItem.remove(),
+        onclick: () => AlertStack.remove(message),
       },
       message.component()
     );
-    return domItem;
-  };
 
   const domRoot = div(
     {
       class: styles.stack,
     },
-    "AlertStack",
     bau.bind({
       deps: [messagesState],
-      render: () => (messages) => {
-        return div(messages.map(AlertItem));
-      },
+      render:
+        ({ renderItem }) =>
+        (arr) =>
+          div(arr.map(renderItem())),
+      renderItem: () => AlertItem,
     })
   );
 
@@ -82,9 +80,7 @@ export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
       AlertStack.remove({ id: messagesState.val[0].id });
     }
 
-    messagesState.val = [...messagesState.val, message];
-
-    //domRoot.appendChild(AlertItem(message));
+    messagesState.val.push(message);
 
     setTimeout(() => AlertStack.remove(message), deleteAfterDuration);
   };
@@ -98,14 +94,9 @@ export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
 
   AlertStack.remove = ({ id }) => {
     setStatus({ id, status: "removing" });
-    const item = document.querySelector(`[data-id=${id}]`);
-    item?.remove();
     const idx = messagesState.val.findIndex((message) => message.id === id);
     if (idx != -1) {
-      // setTimeout(
-      //   () => (messagesState.val = messagesState.val.toSpliced(idx, 1)),
-      //   500
-      // );
+      messagesState.val.splice(idx, 1);
     } else {
       // console.log("remove: no id", id);
     }

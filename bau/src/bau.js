@@ -66,13 +66,13 @@ export default function Bau() {
         if (arrayOperationMutation.includes(prop)) {
           const origMethod = target[prop];
           return (...args) => {
-            const oldArray = structuredClone(target);
+            //const oldArray = structuredClone(target);
             const result = origMethod.apply(target, args);
             _state.arrayOps.push({
               method: prop,
               args,
               newArray: target,
-              oldArray,
+              //oldArray,
             });
             schedule(_state);
             return result;
@@ -116,7 +116,7 @@ export default function Bau() {
         dom.children[i].remove();
       }
       if (newItems) {
-        for (let i = start - 1; i < newItems.length; i++) {
+        for (let i = start - 1; i < newItems.length - 1; i++) {
           const domItem = renderDomItem(newItems[i + 1 - start]);
           dom.children[i]
             ? dom.children[i].after(domItem)
