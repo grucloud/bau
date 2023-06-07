@@ -15,7 +15,7 @@
     "vite-plugin-virtual-mpa": "1.8.3"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.5.0",
+    "@grucloud/bau": "^0.6.0",
     "goober": "2.1.13",
     "rubico": "1.9.7"
   }

@@ -1,0 +1,17 @@
+{
+  "name": "van-playground",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@grucloud/bau": "^0.6.0"
+  },
+  "devDependencies": {
+    "vite": "^4.3.9"
+  }
+}
