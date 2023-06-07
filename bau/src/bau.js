@@ -134,13 +134,14 @@ export default function Bau() {
       let state = this;
       let currentValue = state._val;
       if (Array.isArray(value)) {
-        this.arrayOps.push({
+        state._val = createArrayProxy(state, value);
+        state.arrayOps.push({
           method: "assign",
           args: value,
           newArray: value,
           oldArray: currentValue,
         });
-        schedule(this);
+        schedule(state);
       } else {
         if (value !== currentValue) {
           if (state.oldVal === currentValue) {
@@ -148,7 +149,6 @@ export default function Bau() {
           } else if (value === state.oldVal) {
             changedStatesSet.delete(state);
           }
-
           state.listeners.forEach((listener) => listener(value, currentValue));
         }
         state._val = value;

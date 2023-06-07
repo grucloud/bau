@@ -1,8 +1,8 @@
-import Ban from "@grucloud/bau";
+import Bau from "@grucloud/bau";
 
-const ban = Ban();
+const bau = Bau();
 
-const { a, button, div, tr, td, table, tbody, h1, span } = ban.tags;
+const { a, button, div, tr, td, table, tbody, h1, span } = bau.tags;
 
 const random = (max) => Math.round(Math.random() * 1000) % max;
 
