@@ -1,5 +1,5 @@
-import Bau from "@grucloud/bau";
-//import Bau from "../../bau/src/bau";
+//import Bau from "@grucloud/bau";
+import Bau from "../../bau/src/bau";
 
 const bau = Bau();
 
@@ -100,7 +100,8 @@ const add = () => {
 const update = () => {
   for (let i = 0; i < dataState.val.length; i += 10) {
     const r = dataState.val[i];
-    dataState.val[i] = { id: r.id, label: r.label + " !!!" };
+    //    dataState.val[i] = { id: r.id, label: r.label + " !!!" };
+    dataState.val[i].label = r.label + " !!!";
   }
 };
 
@@ -169,7 +170,7 @@ const Jumbotron = ({}) =>
     { class: "jumbotron" },
     div(
       { class: "row" },
-      div({ class: "col-md-6" }, h1("Bau Benchmark")),
+      div({ class: "col-md-6" }, h1("Bau Benchmark Local")),
       div(
         { class: "col-md-6" },
         div(

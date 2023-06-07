@@ -99,7 +99,7 @@ export default function Bau() {
         child.replaceWith(renderDomItem(args[1]));
       }
     },
-    push: () => args.map((v) => dom.appendChild(renderDomItem(v))),
+    push: () => dom.append(args.map(renderDomItem)),
     pop: () => dom.lastChild && dom.removeChild(dom.lastChild),
     shift: () => dom.firstChild && dom.removeChild(dom.firstChild),
     unshift: () => {
@@ -115,14 +115,10 @@ export default function Bau() {
       ) {
         dom.children[i].remove();
       }
-      if (newItems) {
-        for (let i = start - 1; i < newItems.length - 1; i++) {
-          const domItem = renderDomItem(newItems[i + 1 - start]);
-          dom.children[i]
-            ? dom.children[i].after(domItem)
-            : dom.appendChild(domItem);
-        }
-      }
+      const domNewItems = newItems.forEach(renderDomItem);
+      dom.children[start]
+        ? dom.children[i].after(domNewItems)
+        : dom.appendChild(domNewItems);
     },
   });
 
@@ -199,10 +195,9 @@ export default function Bau() {
         : [{}, ...args];
       let dom = document.createElement(name);
       for (let [k, v] of Object.entries(props)) {
-        let setter =
-          dom[k] != undefined
-            ? (v) => (dom[k] = v)
-            : (v) => dom.setAttribute(k, v);
+        let setter = k.startsWith("on")
+          ? (v) => (dom[k] = v)
+          : (v) => dom.setAttribute(k, v);
         if (v == null) {
         } else if (isProtoOf(v, stateProto)) {
           bind({ deps: [v], render: () => (v) => (setter(v), dom) });
