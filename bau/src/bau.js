@@ -1,35 +1,35 @@
 import morphdom from "nanomorph";
 
+const arrayOperationMutation = ["splice", "push", "pop", "shift", "unshift"];
+
 const O = Object;
 const pOf = O.getPrototypeOf;
 
 const isProtoOf = (obj, proto) => pOf(obj) === proto;
 const objProto = pOf({});
 
-function isObject(val) {
-  return val instanceof Object;
-}
+const isObject = (val) => val instanceof Object;
 
 const filterBindings = (state) =>
   (state.bindings = state.bindings.filter((b) => b.dom?.isConnected));
 
 export default function Bau() {
   let _debounce;
+  const changedStatesSet = new Set();
+  const stateSet = new Set();
 
   function debounceSchedule(callback) {
-    if (_debounce) {
-      window.cancelAnimationFrame(_debounce);
-    }
+    _debounce && window.cancelAnimationFrame(_debounce);
     _debounce = window.requestAnimationFrame(callback);
   }
+
+  const bindingCleanUp = () =>
+    debounceSchedule(() => stateSet.forEach(filterBindings));
 
   const schedule = (set, callback) => (state) => {
     set.size == 0 && debounceSchedule(callback);
     set.add(state);
   };
-
-  const gcSet = new Set();
-  const scheduleGc = schedule(gcSet, () => gcSet.forEach(filterBindings));
 
   let updateDom = (state) => {
     for (let binding of state.bindings) {
@@ -49,6 +49,7 @@ export default function Bau() {
               toDom(renderItem({ deps: depsValues })(value)),
           })[method]?.call();
         }
+        bindingCleanUp();
       } else {
         // Primitive or object
         let newDom = render({ dom, oldValues: deps.map((d) => d.oldVal) })(
@@ -72,19 +73,11 @@ export default function Bau() {
     let changedStatesArray = [...changedStatesSet];
     changedStatesSet.clear();
     for (let state of changedStatesArray) {
-      scheduleGc(state);
       updateDom(state);
-      state.oldVal = state._val;
-      state.arrayOps = [];
     }
   };
 
-  const changedStatesSet = new Set();
   const scheduleDom = schedule(changedStatesSet, updateDoms);
-
-  // array is mutated with the following functions. These functions tracked an array thanks to a Javascript Proxy.
-  // TODO add sort
-  const arrayOperationMutation = ["splice", "push", "pop", "shift", "unshift"];
 
   const handler = (state) => ({
     get(target, prop, receiver) {
@@ -118,9 +111,7 @@ export default function Bau() {
     new Proxy(initVal, handler(_state));
 
   const methodToActionMapping = ({ dom, args, depsValues, renderDomItem }) => ({
-    assign: () => {
-      return dom.replaceChildren(...args.map(renderDomItem));
-    },
+    assign: () => dom.replaceChildren(...args.map(renderDomItem)),
     set: () => {
       morphdom(dom.children[args[0]], renderDomItem(args[1]));
       /**
@@ -254,9 +245,7 @@ export default function Bau() {
       return add(dom, children);
     },
     {
-      get: (tag, name) => {
-        return tag.bind(undefined, name);
-      },
+      get: (tag, name) => tag.bind(undefined, name),
     }
   );
 
@@ -269,8 +258,9 @@ export default function Bau() {
       renderItem,
       dom: toDom(result),
     };
+
     for (let dep of deps) {
-      scheduleGc(dep);
+      stateSet.add(dep);
       dep.bindings.push(binding);
     }
     return binding.dom;
