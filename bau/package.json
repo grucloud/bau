@@ -1,7 +1,7 @@
 {
   "name": "@grucloud/bau",
   "description": "Bau.js is a reactive library for building high performance user interface for the web",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "type": "module",
   "main": "./dist/my-lib.umd.cjs",
   "module": "./dist/my-lib.js",
