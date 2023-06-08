@@ -1,6 +1,6 @@
 const O = Object;
 const pOf = O.getPrototypeOf;
-
+import morphdom from "nanomorph";
 const isProtoOf = (obj, proto) => pOf(obj) === proto;
 const objProto = pOf({});
 
@@ -14,9 +14,7 @@ export default function Bau() {
     if (_debounce) {
       window.cancelAnimationFrame(_debounce);
     }
-    _debounce = window.requestAnimationFrame(function () {
-      callback();
-    });
+    _debounce = window.requestAnimationFrame(callback);
   }
 
   const schedule = (set, callback, waitMs) => (state) => {
@@ -90,15 +88,12 @@ export default function Bau() {
       if (arrayOperationMutation.includes(prop)) {
         const origMethod = target[prop];
         return (...args) => {
-          //const oldArray = structuredClone(target);
           const result = origMethod.apply(target, args);
           state.arrayOps.push({
             method: prop,
             args,
             newArray: target,
-            //oldArray,
           });
-          //scheduleDom(state);
           updateDom(state);
           return result;
         };
@@ -111,8 +106,9 @@ export default function Bau() {
         method: "set",
         args: [prop, val],
       });
-      //  scheduleDom(state);
+      //      scheduleDom(state);
       updateDom(state);
+
       return result;
     },
   });
@@ -121,12 +117,23 @@ export default function Bau() {
     new Proxy(initVal, handler(_state));
 
   const methodToActionMapping = ({ dom, args, depsValues, renderDomItem }) => ({
-    assign: () => dom.replaceChildren(...args.map(renderDomItem)),
+    assign: () => {
+      // const div = document.createElement("div");
+      // div.append(...args.map(renderDomItem));
+      // morphdom(dom, div, { childrenOnly: true });
+      // return dom;
+
+      return dom.replaceChildren(...args.map(renderDomItem));
+    },
     set: () => {
-      const child = dom.children[args[0]];
+      morphdom(dom.children[args[0]], renderDomItem(args[1]));
+      /**
+       * Implementation without morphdom, a bit slower
+       * const child = dom.children[args[0]];
       if (child) {
         child.replaceWith(renderDomItem(args[1]));
       }
+       */
     },
     push: () => dom.append(...args.map(renderDomItem)),
     pop: () => dom.lastChild && dom.removeChild(dom.lastChild),
@@ -148,7 +155,7 @@ export default function Bau() {
         const domNewItems = newItems.forEach(renderDomItem);
         dom.children[start]
           ? dom.children[start].after(domNewItems)
-          : dom.appendChild(domNewItems);
+          : dom.append(...domNewItems);
       }
     },
   });
@@ -192,6 +199,7 @@ export default function Bau() {
       bindings: [],
       listeners: [],
       arrayOps: [],
+      __isState: true,
     };
 
     return {
@@ -206,24 +214,26 @@ export default function Bau() {
   let toDom = (v) => (v.nodeType ? v : new Text(v));
 
   let add = (dom, ...children) => (
-    children
-      .flat(Infinity)
-      .filter((c) => c != null)
-      .forEach((child) =>
-        dom.appendChild(
-          isProtoOf(child, stateProto)
+    dom.append(
+      ...children
+        .flat(Infinity)
+        .filter((c) => c != null)
+        .map((child) =>
+          child.__isState
             ? bind({ deps: [child], render: () => (v) => v })
             : toDom(child)
         )
-      ),
+    ),
     dom
   );
 
+  function isObject(val) {
+    return val instanceof Object;
+  }
+
   let tags = new Proxy(
     (name, ...args) => {
-      let [props, ...children] = isProtoOf(args[0] ?? 0, objProto)
-        ? args
-        : [{}, ...args];
+      let [props, ...children] = isObject(args[0]) ? args : [{}, ...args];
       let dom = document.createElement(name);
       for (let [k, v] of Object.entries(props)) {
         let setter = k.startsWith("on")
