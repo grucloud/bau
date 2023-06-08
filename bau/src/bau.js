@@ -1,8 +1,14 @@
+import morphdom from "nanomorph";
+
 const O = Object;
 const pOf = O.getPrototypeOf;
-import morphdom from "nanomorph";
+
 const isProtoOf = (obj, proto) => pOf(obj) === proto;
 const objProto = pOf({});
+
+function isObject(val) {
+  return val instanceof Object;
+}
 
 const filterBindings = (state) =>
   (state.bindings = state.bindings.filter((b) => b.dom?.isConnected));
@@ -17,16 +23,15 @@ export default function Bau() {
     _debounce = window.requestAnimationFrame(callback);
   }
 
-  const schedule = (set, callback, waitMs) => (state) => {
+  const schedule = (set, callback) => (state) => {
     set.size == 0 && debounceSchedule(callback);
     set.add(state);
   };
 
   const gcSet = new Set();
-  const scheduleGc = schedule(gcSet, () => gcSet.forEach(filterBindings), 1e3);
+  const scheduleGc = schedule(gcSet, () => gcSet.forEach(filterBindings));
 
   let updateDom = (state) => {
-    //filterBindings(state);
     for (let binding of state.bindings) {
       if (!binding.dom?.isConnected) {
         continue;
@@ -67,10 +72,8 @@ export default function Bau() {
     let changedStatesArray = [...changedStatesSet];
     changedStatesSet.clear();
     for (let state of changedStatesArray) {
-      //filterBindings(state);
+      scheduleGc(state);
       updateDom(state);
-    }
-    for (let state of changedStatesArray) {
       state.oldVal = state._val;
       state.arrayOps = [];
     }
@@ -106,9 +109,7 @@ export default function Bau() {
         method: "set",
         args: [prop, val],
       });
-      //      scheduleDom(state);
-      updateDom(state);
-
+      scheduleDom(state);
       return result;
     },
   });
@@ -118,11 +119,6 @@ export default function Bau() {
 
   const methodToActionMapping = ({ dom, args, depsValues, renderDomItem }) => ({
     assign: () => {
-      // const div = document.createElement("div");
-      // div.append(...args.map(renderDomItem));
-      // morphdom(dom, div, { childrenOnly: true });
-      // return dom;
-
       return dom.replaceChildren(...args.map(renderDomItem));
     },
     set: () => {
@@ -213,7 +209,7 @@ export default function Bau() {
 
   let toDom = (v) => (v.nodeType ? v : new Text(v));
 
-  let add = (dom, ...children) => (
+  let add = (dom, children) => (
     dom.append(
       ...children
         .flat(Infinity)
@@ -226,10 +222,6 @@ export default function Bau() {
     ),
     dom
   );
-
-  function isObject(val) {
-    return val instanceof Object;
-  }
 
   let tags = new Proxy(
     (name, ...args) => {
@@ -259,7 +251,7 @@ export default function Bau() {
           setter(v);
         }
       }
-      return add(dom, ...children);
+      return add(dom, children);
     },
     {
       get: (tag, name) => {

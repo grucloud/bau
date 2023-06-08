@@ -213,7 +213,7 @@ const Main = () =>
     table(
       { class: "table table-hover table-striped test-data" },
       bau.bind({
-        deps: [dataState, selectedState],
+        deps: [dataState],
         render:
           ({ renderItem }) =>
           (arr) => {
