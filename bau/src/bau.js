@@ -8,7 +8,7 @@ const pOf = O.getPrototypeOf;
 const isProtoOf = (obj, proto) => pOf(obj) === proto;
 const objProto = pOf({});
 
-const isObject = (val) => val instanceof Object;
+const isObject = (val) => isProtoOf(val, objProto);
 
 const filterBindings = (state) =>
   (state.bindings = state.bindings.filter((b) => b.dom?.isConnected));
@@ -200,7 +200,7 @@ export default function Bau() {
 
   let toDom = (v) => (v.nodeType ? v : new Text(v));
 
-  let add = (dom, children) => (
+  let add = (dom, ...children) => (
     dom.append(
       ...children
         .flat(Infinity)
@@ -242,7 +242,7 @@ export default function Bau() {
           setter(v);
         }
       }
-      return add(dom, children);
+      return add(dom, ...children);
     },
     {
       get: (tag, name) => tag.bind(undefined, name),
