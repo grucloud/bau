@@ -8,48 +8,69 @@ const filterBindings = (state) =>
   (state.bindings = state.bindings.filter((b) => b.dom?.isConnected));
 
 export default function Bau() {
+  let _debounce;
+
+  function debounceSchedule(callback) {
+    if (_debounce) {
+      window.cancelAnimationFrame(_debounce);
+    }
+    _debounce = window.requestAnimationFrame(function () {
+      callback();
+    });
+  }
+
   const schedule = (set, callback, waitMs) => (state) => {
-    set.size == 0 && setTimeout(callback, waitMs);
+    set.size == 0 && debounceSchedule(callback);
     set.add(state);
   };
 
   const gcSet = new Set();
   const scheduleGc = schedule(gcSet, () => gcSet.forEach(filterBindings), 1e3);
 
+  let updateDom = (state) => {
+    //filterBindings(state);
+    for (let binding of state.bindings) {
+      if (!binding.dom?.isConnected) {
+        continue;
+      }
+      let { deps, dom, render, renderItem } = binding;
+      const depsValues = deps.map((d) => d._val);
+      // Array handling
+      if (renderItem) {
+        for (let { method, args } of state.arrayOps) {
+          methodToActionMapping({
+            dom,
+            args,
+            depsValues,
+            renderDomItem: (value) =>
+              toDom(renderItem({ deps: depsValues })(value)),
+          })[method]?.call();
+        }
+      } else {
+        // Primitive or object
+        let newDom = render({ dom, oldValues: deps.map((d) => d.oldVal) })(
+          ...depsValues
+        );
+        if (newDom !== dom) {
+          if (newDom != undefined) {
+            dom.replaceWith((binding.dom = toDom(newDom)));
+          } else {
+            dom.remove();
+            binding.dom = undefined;
+          }
+        }
+      }
+    }
+    state.oldVal = state._val;
+    state.arrayOps = [];
+  };
+
   let updateDoms = () => {
     let changedStatesArray = [...changedStatesSet];
     changedStatesSet.clear();
     for (let state of changedStatesArray) {
-      filterBindings(state);
-      for (let binding of state.bindings) {
-        let { deps, dom, render, renderItem } = binding;
-        const depsValues = deps.map((d) => d._val);
-        // Array handling
-        if (renderItem) {
-          for (let { method, args } of state.arrayOps) {
-            methodToActionMapping({
-              dom,
-              args,
-              depsValues,
-              renderDomItem: (value) =>
-                toDom(renderItem({ deps: depsValues })(value)),
-            })[method]?.call();
-          }
-        } else {
-          // Primitive or object
-          let newDom = render({ dom, oldValues: deps.map((d) => d.oldVal) })(
-            ...depsValues
-          );
-          if (newDom !== dom) {
-            if (newDom != undefined) {
-              dom.replaceWith((binding.dom = toDom(newDom)));
-            } else {
-              dom.remove();
-              binding.dom = undefined;
-            }
-          }
-        }
-      }
+      //filterBindings(state);
+      updateDom(state);
     }
     for (let state of changedStatesArray) {
       state.oldVal = state._val;
@@ -64,36 +85,40 @@ export default function Bau() {
   // TODO add sort
   const arrayOperationMutation = ["splice", "push", "pop", "shift", "unshift"];
 
+  const handler = (state) => ({
+    get(target, prop, receiver) {
+      if (arrayOperationMutation.includes(prop)) {
+        const origMethod = target[prop];
+        return (...args) => {
+          //const oldArray = structuredClone(target);
+          const result = origMethod.apply(target, args);
+          state.arrayOps.push({
+            method: prop,
+            args,
+            newArray: target,
+            //oldArray,
+          });
+          //scheduleDom(state);
+          updateDom(state);
+          return result;
+        };
+      }
+      return Reflect.get(target, prop, receiver);
+    },
+    set(target, prop, val, receiver) {
+      const result = Reflect.set(target, prop, val, receiver);
+      state.arrayOps.push({
+        method: "set",
+        args: [prop, val],
+      });
+      //  scheduleDom(state);
+      updateDom(state);
+      return result;
+    },
+  });
+
   const createArrayProxy = (_state, initVal) =>
-    new Proxy(initVal, {
-      get(target, prop, receiver) {
-        if (arrayOperationMutation.includes(prop)) {
-          const origMethod = target[prop];
-          return (...args) => {
-            //const oldArray = structuredClone(target);
-            const result = origMethod.apply(target, args);
-            _state.arrayOps.push({
-              method: prop,
-              args,
-              newArray: target,
-              //oldArray,
-            });
-            scheduleDom(_state);
-            return result;
-          };
-        }
-        return Reflect.get(target, prop, receiver);
-      },
-      set(target, prop, val, receiver) {
-        const result = Reflect.set(target, prop, val, receiver);
-        _state.arrayOps.push({
-          method: "set",
-          args: [prop, val],
-        });
-        scheduleDom(_state);
-        return result;
-      },
-    });
+    new Proxy(initVal, handler(_state));
 
   const methodToActionMapping = ({ dom, args, depsValues, renderDomItem }) => ({
     assign: () => dom.replaceChildren(...args.map(renderDomItem)),
@@ -103,7 +128,7 @@ export default function Bau() {
         child.replaceWith(renderDomItem(args[1]));
       }
     },
-    push: () => dom.append(args.map(renderDomItem)),
+    push: () => dom.append(...args.map(renderDomItem)),
     pop: () => dom.lastChild && dom.removeChild(dom.lastChild),
     shift: () => dom.firstChild && dom.removeChild(dom.firstChild),
     unshift: () => {
@@ -211,8 +236,14 @@ export default function Bau() {
           bind({
             deps: v["deps"],
             render:
-              () =>
-              (...deps) => (setter(v["f"](...deps)), dom),
+              ({}) =>
+              (...deps) => {
+                const newPropValue = v["f"](...deps);
+                if (newPropValue != dom.getAttribute(k)) {
+                  setter(newPropValue);
+                }
+                return dom;
+              },
           });
         } else {
           setter(v);
