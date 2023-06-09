@@ -8,7 +8,11 @@ const pOf = O.getPrototypeOf;
 const isProtoOf = (obj, proto) => pOf(obj) === proto;
 const objProto = pOf({});
 
-const isObject = (val) => isProtoOf(val, objProto);
+const isObject = (val) => isProtoOf(val ?? 0, objProto);
+
+function getType(obj) {
+  return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
+}
 
 const filterBindings = (state) =>
   (state.bindings = state.bindings.filter((b) => b.dom?.isConnected));
@@ -40,14 +44,13 @@ export default function Bau() {
       const depsValues = deps.map((d) => d._val);
       // Array handling
       if (renderItem) {
-        for (let { method, args } of state.arrayOps) {
+        for (let op of state.arrayOps) {
           methodToActionMapping({
+            ...op,
             dom,
-            args,
-            depsValues,
             renderDomItem: (value) =>
               toDom(renderItem({ deps: depsValues })(value)),
-          })[method]?.call();
+          })[op.method]?.call();
         }
         bindingCleanUp();
       } else {
@@ -79,9 +82,22 @@ export default function Bau() {
 
   const scheduleDom = schedule(changedStatesSet, updateDoms);
 
-  const handler = (state) => ({
+  const proxyHandler = ({ state, data, parentProp = [] }) => ({
     get(target, prop, receiver) {
-      if (arrayOperationMutation.includes(prop)) {
+      if (prop === "_isProxy") return true;
+      if (
+        ["object", "array"].includes(getType(target[prop])) &&
+        !target[prop]._isProxy
+      ) {
+        target[prop] = new Proxy(
+          target[prop],
+          proxyHandler({
+            state,
+            data,
+            parentProp: [...parentProp, prop],
+          })
+        );
+      } else if (arrayOperationMutation.includes(prop)) {
         const origMethod = target[prop];
         return (...args) => {
           const result = origMethod.apply(target, args);
@@ -96,24 +112,38 @@ export default function Bau() {
       }
       return Reflect.get(target, prop, receiver);
     },
-    set(target, prop, val, receiver) {
-      const result = Reflect.set(target, prop, val, receiver);
+    set(target, prop, value, receiver) {
+      const result = Reflect.set(target, prop, value, receiver);
       state.arrayOps.push({
-        method: "set",
-        args: [prop, val],
+        method: "setItem",
+        args: { prop, value },
+        newTarget: target,
+        parentProp: [...parentProp, prop],
+        data,
       });
+
       scheduleDom(state);
       return result;
     },
   });
 
-  const createArrayProxy = (_state, initVal) =>
-    new Proxy(initVal, handler(_state));
+  const createArrayProxy = (state, data) =>
+    new Proxy(data, proxyHandler({ state, data }));
 
-  const methodToActionMapping = ({ dom, args, depsValues, renderDomItem }) => ({
+  const methodToActionMapping = ({
+    dom,
+    parentProp,
+    args,
+    depsValues,
+    renderDomItem,
+    data,
+  }) => ({
     assign: () => dom.replaceChildren(...args.map(renderDomItem)),
-    set: () => {
-      morphdom(dom.children[args[0]], renderDomItem(args[1]));
+    setItem: () => {
+      const index = parentProp[0];
+      const oldDom = dom.children[index];
+      const newDom = renderDomItem(data[index]);
+      morphdom(oldDom, newDom);
       /**
        * Implementation without morphdom, a bit slower
        * const child = dom.children[args[0]];
@@ -215,7 +245,7 @@ export default function Bau() {
   );
 
   let tags = new Proxy(
-    (name, ...args) => {
+    function createTag(name, ...args) {
       let [props, ...children] = isObject(args[0]) ? args : [{}, ...args];
       let dom = document.createElement(name);
       for (let [k, v] of Object.entries(props)) {
