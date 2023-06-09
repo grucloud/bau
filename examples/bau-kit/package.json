@@ -10,12 +10,12 @@
     "bundle-visualizer": "vite-bundle-visualizer"
   },
   "devDependencies": {
-    "vite": "4.3.2",
+    "vite": "4.3.9",
     "vite-bundle-visualizer": "0.7.0",
-    "vite-plugin-virtual-mpa": "1.8.3"
+    "vite-plugin-virtual-mpa": "1.9.1"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.6.0",
+    "@grucloud/bau": "^0.11.0",
     "goober": "2.1.13",
     "rubico": "1.9.7"
   }

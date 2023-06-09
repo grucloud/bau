@@ -142,8 +142,8 @@ export default function Bau() {
     setItem: () => {
       const index = parentProp[0];
       const oldDom = dom.children[index];
-      const newDom = renderDomItem(data[index]);
-      morphdom(oldDom, newDom);
+      const dataEl = data[index];
+      dataEl ? morphdom(oldDom, renderDomItem(data[index])) : null;
       /**
        * Implementation without morphdom, a bit slower
        * const child = dom.children[args[0]];
