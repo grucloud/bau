@@ -10,11 +10,12 @@ export default function Bau() {
   const stateSet = new Set();
 
   function debounceSchedule(callback) {
-    _debounce && window.cancelAnimationFrame(_debounce);
-    _debounce = window.requestAnimationFrame(() => {
-      callback();
-      _debounce = undefined;
-    });
+    if (!_debounce) {
+      _debounce = window.requestAnimationFrame(() => {
+        callback();
+        _debounce = undefined;
+      });
+    }
   }
 
   const bindingCleanUp = () =>
@@ -107,8 +108,7 @@ export default function Bau() {
         parentProp: [...parentProp, prop],
         data,
       });
-
-      scheduleDom(state);
+      updateDom(state);
       return result;
     },
   });
