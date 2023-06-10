@@ -171,7 +171,7 @@ export default function Bau() {
           method: "assign",
           args: value,
         });
-        scheduleDom(state);
+        updateDom(state);
       } else {
         if (value !== currentValue) {
           if (state.oldVal === currentValue) {
