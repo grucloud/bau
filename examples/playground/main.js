@@ -1,28 +1,47 @@
 import "./style.css";
-import Bau from "@grucloud/bau";
-//import Bau from "../../bau/src/bau";
+//import Bau from "@grucloud/bau";
+import Bau from "../../bau/src/bau";
 
 const bau = Bau();
+//bau.useVDom(true);
+const { a, p, button, div, h1, tr, td, tbody, datalist } = bau.tags;
 
-const { a, button, div, h1, ul, option, input, datalist } = bau.tags;
+const Row = ({ label }) => {
+  return tr(td(label));
+};
 
 const App = () => {
-  return div(
+  const appState = bau.state([{ label: "Ciao" }, { label: "Hello" }]);
+
+  const el = div(
     h1("Playground"),
-    input({
-      list: "ice-cream-flavors",
-      id: "ice-cream-choice",
-      name: "ice-cream-choice",
-    }),
-    datalist(
-      { id: "ice-cream-flavors" },
-      option({ value: "Chocolate" }),
-      option({ value: "Coconut" }),
-      option({ value: "Mint" }),
-      option({ value: "Strawberry" }),
-      option({ value: "Vanilla" })
-    )
+    button(
+      {
+        onclick: () => {
+          appState.val[0].label = "Ciao Mondo";
+        },
+        class: "myclass",
+      },
+      "Set nested"
+    ),
+    button(
+      {
+        onclick: () => {
+          appState.val[0] = { label: "Ciao Mondo" };
+        },
+      },
+      "Set "
+    ),
+    bau.bind({
+      deps: [appState],
+      render:
+        ({ renderItem }) =>
+        (arr) =>
+          tbody(arr.map(renderItem())),
+      renderItem: () => Row,
+    })
   );
+  return el;
 };
 
 const app = document.getElementById("app");

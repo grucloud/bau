@@ -1,18 +1,5 @@
-import morphdom from "nanomorph";
-
-const arrayOperationMutation = ["splice", "push", "pop", "shift", "unshift"];
-
-const O = Object;
-const pOf = O.getPrototypeOf;
-
-const isProtoOf = (obj, proto) => pOf(obj) === proto;
-const objProto = pOf({});
-
-const isObject = (val) => isProtoOf(val ?? 0, objProto);
-
-function getType(obj) {
-  return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
-}
+const getType = (obj) => Object.prototype.toString.call(obj ?? 0).slice(8, -1);
+const isObject = (val) => getType(val) == "Object";
 
 const filterBindings = (state) =>
   (state.bindings = state.bindings.filter((b) => b.dom?.isConnected));
@@ -24,7 +11,10 @@ export default function Bau() {
 
   function debounceSchedule(callback) {
     _debounce && window.cancelAnimationFrame(_debounce);
-    _debounce = window.requestAnimationFrame(callback);
+    _debounce = window.requestAnimationFrame(() => {
+      callback();
+      _debounce = undefined;
+    });
   }
 
   const bindingCleanUp = () =>
@@ -37,9 +27,6 @@ export default function Bau() {
 
   let updateDom = (state) => {
     for (let binding of state.bindings) {
-      if (!binding.dom?.isConnected) {
-        continue;
-      }
       let { deps, dom, render, renderItem } = binding;
       const depsValues = deps.map((d) => d._val);
       // Array handling
@@ -86,8 +73,8 @@ export default function Bau() {
     get(target, prop, receiver) {
       if (prop === "_isProxy") return true;
       if (
-        ["object", "array"].includes(getType(target[prop])) &&
-        !target[prop]._isProxy
+        !target[prop]._isProxy &&
+        ["Array", "Object"].includes(getType(target[prop]))
       ) {
         target[prop] = new Proxy(
           target[prop],
@@ -97,14 +84,13 @@ export default function Bau() {
             parentProp: [...parentProp, prop],
           })
         );
-      } else if (arrayOperationMutation.includes(prop)) {
+      } else if (["splice", "push", "pop", "shift", "unshift"].includes(prop)) {
         const origMethod = target[prop];
         return (...args) => {
           const result = origMethod.apply(target, args);
           state.arrayOps.push({
             method: prop,
             args,
-            newArray: target,
           });
           updateDom(state);
           return result;
@@ -141,16 +127,11 @@ export default function Bau() {
     assign: () => dom.replaceChildren(...args.map(renderDomItem)),
     setItem: () => {
       const index = parentProp[0];
-      const oldDom = dom.children[index];
+      const child = dom.children[index];
       const dataEl = data[index];
-      dataEl ? morphdom(oldDom, renderDomItem(data[index])) : null;
-      /**
-       * Implementation without morphdom, a bit slower
-       * const child = dom.children[args[0]];
       if (child) {
-        child.replaceWith(renderDomItem(args[1]));
+        child.replaceWith(renderDomItem(dataEl));
       }
-       */
     },
     push: () => dom.append(...args.map(renderDomItem)),
     pop: () => dom.lastChild && dom.removeChild(dom.lastChild),
@@ -189,8 +170,6 @@ export default function Bau() {
         state.arrayOps.push({
           method: "assign",
           args: value,
-          newArray: value,
-          oldArray: currentValue,
         });
         scheduleDom(state);
       } else {
@@ -200,13 +179,9 @@ export default function Bau() {
           } else if (value === state.oldVal) {
             changedStatesSet.delete(state);
           }
-          state.listeners.forEach((listener) => listener(value, currentValue));
         }
         state._val = value;
       }
-    },
-    onnew(listener) {
-      this.listeners.push(listener);
     },
   };
 
@@ -249,13 +224,14 @@ export default function Bau() {
       let [props, ...children] = isObject(args[0]) ? args : [{}, ...args];
       let dom = document.createElement(name);
       for (let [k, v] of Object.entries(props)) {
-        let setter = k.startsWith("on")
-          ? (v) => (dom[k] = v)
-          : (v) => dom.setAttribute(k, v);
+        let setter =
+          k.indexOf("on") == 0
+            ? (v) => (dom[k] = v)
+            : (v) => dom.setAttribute(k, v);
         if (v == null) {
-        } else if (isProtoOf(v, stateProto)) {
+        } else if (v.__isState) {
           bind({ deps: [v], render: () => (v) => (setter(v), dom) });
-        } else if (isProtoOf(v, objProto)) {
+        } else if (isObject(v)) {
           bind({
             deps: v["deps"],
             render:
@@ -280,20 +256,21 @@ export default function Bau() {
   );
 
   let bind = ({ deps, render, renderItem }) => {
-    let result = render({ renderItem })(...deps.map((d) => d._val));
+    const result = render({ renderItem })(...deps.map((d) => d._val));
     if (result == undefined) return [];
-    let binding = {
+    const dom = toDom(result);
+    const binding = {
       deps,
       render,
       renderItem,
-      dom: toDom(result),
+      dom,
     };
 
     for (let dep of deps) {
       stateSet.add(dep);
       dep.bindings.push(binding);
     }
-    return binding.dom;
+    return dom;
   };
 
   return { tags, state, bind };
