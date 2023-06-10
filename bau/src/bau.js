@@ -1,5 +1,6 @@
 const getType = (obj) => Object.prototype.toString.call(obj ?? 0).slice(8, -1);
 const isObject = (val) => getType(val) == "Object";
+const protoOf = Object.getPrototypeOf;
 
 const filterBindings = (state) =>
   (state.bindings = state.bindings.filter((b) => b.dom?.isConnected));
@@ -61,7 +62,7 @@ export default function Bau() {
   };
 
   const updateDoms = () => {
-    for (let state of changedStatesSet.entries()) {
+    for (let state of changedStatesSet) {
       updateDom(state);
     }
     changedStatesSet.clear();
@@ -73,7 +74,7 @@ export default function Bau() {
     get(target, prop, receiver) {
       if (prop === "_isProxy") return true;
       if (
-        !target[prop]._isProxy &&
+        !target[prop]?._isProxy &&
         ["Array", "Object"].includes(getType(target[prop]))
       ) {
         target[prop] = new Proxy(
@@ -173,13 +174,10 @@ export default function Bau() {
         updateDom(state);
       } else {
         if (value !== currentValue) {
-          if (state.oldVal === currentValue) {
-            scheduleDom(state);
-          } else if (value === state.oldVal) {
-            changedStatesSet.delete(state);
-          }
+          state._val = value;
+          state.oldVal = currentValue;
+          updateDom(state);
         }
-        state._val = value;
       }
     },
   };
@@ -205,20 +203,34 @@ export default function Bau() {
   let toDom = (v) => (v.nodeType ? v : new Text(v));
 
   let add = (dom, ...children) => {
-    const childDom = [];
+    if (children.length == 0) return dom;
+    const fragment = document.createDocumentFragment();
     for (let child of children.flat(Infinity))
       if (child != null) {
-        childDom.push(
+        fragment.appendChild(
           child.__isState
             ? bind({ deps: [child], render: () => (v) => v })
             : toDom(child)
         );
       }
-    dom.append(...childDom);
+    dom.appendChild(fragment);
     return dom;
   };
 
-  let tagsNS = (namespace) =>
+  const isSettablePropCache = {};
+
+  const getPropDescriptor = (proto, key) =>
+    proto
+      ? Object.getOwnPropertyDescriptor(proto, key) ??
+        getPropDescriptor(protoOf(proto), key)
+      : undefined;
+
+  const isSettableProp = (tag, key, proto) =>
+    isSettablePropCache[tag + "," + key] ??
+    (isSettablePropCache[tag + "," + key] =
+      getPropDescriptor(proto, key)?.set ?? 0);
+
+  const tagsNS = (namespace) =>
     new Proxy(
       function createTag(name, ...args) {
         let [props, ...children] = isObject(args[0]) ? args : [{}, ...args];
@@ -226,10 +238,9 @@ export default function Bau() {
           ? document.createElementNS(namespace, name)
           : document.createElement(name);
         for (let [k, v] of Object.entries(props)) {
-          let setter =
-            k.indexOf("on") == 0
-              ? (v) => (dom[k] = v)
-              : (v) => dom.setAttribute(k, v);
+          let setter = isSettableProp(name, k, protoOf(dom))
+            ? (v) => (dom[k] = v)
+            : (v) => dom.setAttribute(k, v);
           if (v == null) {
           } else if (v.__isState) {
             bind({ deps: [v], render: () => (v) => (setter(v), dom) });

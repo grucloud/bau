@@ -3,7 +3,6 @@ import "./style.css";
 import Bau from "../../bau/src/bau";
 
 const bau = Bau();
-//bau.useVDom(true);
 const { a, p, button, div, h1, tr, td, tbody, datalist } = bau.tags;
 
 const Row = ({ label }) => {
