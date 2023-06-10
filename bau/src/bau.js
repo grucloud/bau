@@ -219,41 +219,44 @@ export default function Bau() {
     dom
   );
 
-  let tags = new Proxy(
-    function createTag(name, ...args) {
-      let [props, ...children] = isObject(args[0]) ? args : [{}, ...args];
-      let dom = document.createElement(name);
-      for (let [k, v] of Object.entries(props)) {
-        let setter =
-          k.indexOf("on") == 0
-            ? (v) => (dom[k] = v)
-            : (v) => dom.setAttribute(k, v);
-        if (v == null) {
-        } else if (v.__isState) {
-          bind({ deps: [v], render: () => (v) => (setter(v), dom) });
-        } else if (isObject(v)) {
-          bind({
-            deps: v["deps"],
-            render:
-              ({}) =>
-              (...deps) => {
-                const newPropValue = v["f"](...deps);
-                if (newPropValue != dom.getAttribute(k)) {
-                  setter(newPropValue);
-                }
-                return dom;
-              },
-          });
-        } else {
-          setter(v);
+  let tagsNS = (namespace) =>
+    new Proxy(
+      function createTag(name, ...args) {
+        let [props, ...children] = isObject(args[0]) ? args : [{}, ...args];
+        let dom = namespace
+          ? document.createElementNS(namespace, name)
+          : document.createElement(name);
+        for (let [k, v] of Object.entries(props)) {
+          let setter =
+            k.indexOf("on") == 0
+              ? (v) => (dom[k] = v)
+              : (v) => dom.setAttribute(k, v);
+          if (v == null) {
+          } else if (v.__isState) {
+            bind({ deps: [v], render: () => (v) => (setter(v), dom) });
+          } else if (isObject(v)) {
+            bind({
+              deps: v["deps"],
+              render:
+                ({}) =>
+                (...deps) => {
+                  const newPropValue = v["f"](...deps);
+                  if (newPropValue != dom.getAttribute(k)) {
+                    setter(newPropValue);
+                  }
+                  return dom;
+                },
+            });
+          } else {
+            setter(v);
+          }
         }
+        return add(dom, ...children);
+      },
+      {
+        get: (tag, name) => tag.bind(undefined, name),
       }
-      return add(dom, ...children);
-    },
-    {
-      get: (tag, name) => tag.bind(undefined, name),
-    }
-  );
+    );
 
   let bind = ({ deps, render, renderItem }) => {
     const result = render({ renderItem })(...deps.map((d) => d._val));
@@ -273,5 +276,5 @@ export default function Bau() {
     return dom;
   };
 
-  return { tags, state, bind };
+  return { tags: tagsNS(), tagsNS, state, bind };
 }
