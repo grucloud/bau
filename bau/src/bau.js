@@ -60,12 +60,11 @@ export default function Bau() {
     state.arrayOps = [];
   };
 
-  let updateDoms = () => {
-    let changedStatesArray = [...changedStatesSet];
-    changedStatesSet.clear();
-    for (let state of changedStatesArray) {
+  const updateDoms = () => {
+    for (let state of changedStatesSet.entries()) {
       updateDom(state);
     }
+    changedStatesSet.clear();
   };
 
   const scheduleDom = schedule(changedStatesSet, updateDoms);
