@@ -16,7 +16,7 @@ describe("tags", async () => {
   });
   it("p with props", () => {
     const el = p({ style: "border: 1px solid" }, "hello");
-    assert.equal(el.outerHTML, '<p style="border: 1px solid;">hello</p>');
+    assert.equal(el.outerHTML, '<p style="border: 1px solid">hello</p>');
   });
   it("button", () => {
     const spyClick = vi.fn();

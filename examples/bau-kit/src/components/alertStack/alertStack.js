@@ -65,9 +65,20 @@ export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
     })
   );
 
-  function AlertStack(props, ...children) {
-    return domRoot;
-  }
+  const AlertStack = (props, ...children) =>
+    div(
+      {
+        class: styles.stack,
+      },
+      bau.bind({
+        deps: [messagesState],
+        render:
+          ({ renderItem }) =>
+          (arr) =>
+            div(arr.map(renderItem())),
+        renderItem: () => AlertItem,
+      })
+    );
 
   AlertStack.add = ({ component }) => {
     const message = {
