@@ -205,19 +205,19 @@ export default function Bau() {
 
   let toDom = (v) => (v.nodeType ? v : new Text(v));
 
-  let add = (dom, ...children) => (
-    dom.append(
-      ...children
-        .flat(Infinity)
-        .filter((c) => c != null)
-        .map((child) =>
+  let add = (dom, ...children) => {
+    const childDom = [];
+    for (let child of children.flat(Infinity))
+      if (child != null) {
+        childDom.push(
           child.__isState
             ? bind({ deps: [child], render: () => (v) => v })
             : toDom(child)
-        )
-    ),
-    dom
-  );
+        );
+      }
+    dom.append(...childDom);
+    return dom;
+  };
 
   let tagsNS = (namespace) =>
     new Proxy(
