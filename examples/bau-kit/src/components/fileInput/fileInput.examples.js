@@ -9,10 +9,17 @@ export default (context) => {
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
   const { section, div, h3, h2, span, input } = bau.tags;
 
-  const fileState = bau.state("");
+  const fileState = bau.state("No file selected");
 
   const FileInput = fileInput(context);
-
+  const onchange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      fileState.val = file.name;
+    } else {
+      fileState.val = "No file selected";
+    }
+  };
   const FileInputLabel = ({ disabled }) =>
     div(
       {
@@ -55,29 +62,16 @@ export default (context) => {
         Component: FileInputLabel,
         name: "file",
         accept: "text/*",
-        onchange: (event) => {
-          const file = event.target.files[0];
-          if (file) {
-            fileState.val = file.name;
-          } else {
-            fileState.val = "";
-          }
-        },
+        onchange,
       }),
+      div("File selected: ", fileState),
       h3("File Input disabled"),
       FileInput({
         Component: FileInputLabel,
         name: "file",
         accept: "text/*",
         disabled: true,
-        onchange: (event) => {
-          const file = event.target.files[0];
-          if (file) {
-            fileState.val = file.name;
-          } else {
-            fileState.val = "";
-          }
-        },
+        onchange,
       })
     );
 };

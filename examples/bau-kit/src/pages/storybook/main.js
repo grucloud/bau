@@ -7,6 +7,7 @@ import buttonExamples from "../../components/button/button.examples";
 import checkboxExamples from "../../components/checkbox/checkbox.examples";
 import fileInputExamples from "../../components/fileInput/fileInput.examples";
 import inputExamples from "../../components/input/input.examples";
+import spinnerExamples from "../../components/spinner/spinner.examples";
 
 export const main = (context) => {
   const { tr, bau } = context;
@@ -22,13 +23,15 @@ export const main = (context) => {
         `,
       },
       h1(tr("Examples")),
-      fileInputExamples(context)(),
+
       alertStackExamples(context)(),
       animateExamples(context)(),
       alertExamples(context)(),
       buttonExamples(context)(),
       checkboxExamples(context)(),
-      inputExamples(context)()
+      fileInputExamples(context)(),
+      inputExamples(context)(),
+      spinnerExamples(context)()
     );
   };
 };
