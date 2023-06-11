@@ -1,6 +1,6 @@
 # TODO App
 
-The typical TODO app built with Bau.js
+The typical [Todo app](https://todomvc.com/) built with Bau.js,
 
 ## Workflow
 

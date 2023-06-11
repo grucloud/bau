@@ -32,7 +32,7 @@ export default function Bau() {
       let { deps, dom, render, renderItem } = binding;
       const depsValues = deps.map((d) => d._val);
       // Array handling
-      if (renderItem) {
+      if (renderItem && state.arrayOps.length > 0) {
         for (let op of state.arrayOps) {
           methodToActionMapping({
             ...op,
@@ -44,9 +44,11 @@ export default function Bau() {
         bindingCleanUp();
       } else {
         // Primitive or object
-        let newDom = render({ dom, oldValues: deps.map((d) => d.oldVal) })(
-          ...depsValues
-        );
+        let newDom = render({
+          dom,
+          oldValues: deps.map((d) => d.oldVal),
+          renderItem,
+        })(...depsValues);
         if (newDom !== dom) {
           if (newDom != undefined) {
             dom.replaceWith((binding.dom = toDom(newDom)));
@@ -270,7 +272,7 @@ export default function Bau() {
 
   let bind = ({ deps, render, renderItem }) => {
     const result = render({ renderItem })(...deps.map((d) => d._val));
-    if (result == undefined) return [];
+    if (result == null) return [];
     const dom = toDom(result);
     const binding = {
       deps,
