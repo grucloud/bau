@@ -6,5 +6,10 @@ export default (context) => {
 
   const Component = component(context);
 
-  return () => section(h2(tr("Component Examples")), h3("Info"));
+  return () =>
+    section(
+      { id: "my-component-examples" },
+      h2(tr("Component Examples")),
+      h3("Info")
+    );
 };

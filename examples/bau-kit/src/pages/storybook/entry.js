@@ -1,3 +1,4 @@
+import "./storybook.css";
 import { initialScreenFadeOut } from "../../utils/initialScreenFadeOut";
 import { createContext } from "../../utils/context";
 
