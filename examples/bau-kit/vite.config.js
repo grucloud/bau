@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import pkg from "./package.json";
 import path from "path";
+import createSvgSpritePlugin from "vite-plugin-svg-sprite";
 
 import { createMpaPlugin, createPages } from "vite-plugin-virtual-mpa";
 
@@ -56,6 +57,9 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       __VERSION__: JSON.stringify(pkg.version),
     },
     plugins: [
+      createSvgSpritePlugin({
+        symbolId: "icon-[name]-[hash]",
+      }),
       createMpaPlugin({
         template: "src/pages/template.html",
         pages,
