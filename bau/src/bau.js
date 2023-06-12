@@ -2,8 +2,7 @@ const getType = (obj) => Object.prototype.toString.call(obj ?? 0).slice(8, -1);
 const isObject = (val) => getType(val) == "Object";
 const protoOf = Object.getPrototypeOf;
 
-const filterBindings = (state) =>
-  (state.bindings = state.bindings.filter((b) => b.dom?.isConnected));
+const isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
 
 export default function Bau() {
   let _debounce;
@@ -26,22 +25,25 @@ export default function Bau() {
   }
 
   const bindingCleanUp = () =>
-    debounceSchedule(() => stateSet.forEach(filterBindings));
+    debounceSchedule(() =>
+      stateSet.forEach(
+        (state) =>
+          (state.bindings = state.bindings.filter((b) => b.dom?.isConnected))
+      )
+    );
 
   let updateDom = (state) => {
     for (let binding of state.bindings) {
       let { deps, dom, render, renderItem } = binding;
       const depsValues = vals(deps);
       // Array handling
-      if (renderItem && state.arrayOps.length > 0) {
-        for (let op of state.arrayOps) {
-          methodToActionMapping({
-            ...op,
-            dom,
-            renderDomItem: (value) =>
-              toDom(renderItem({ deps: depsValues })(value)),
-          })[op.method]?.call();
-        }
+      if (renderItem && state.arrayOp) {
+        methodToActionMapping({
+          ...state.arrayOp,
+          dom,
+          renderDomItem: (value) =>
+            toDom(renderItem({ deps: depsValues })(value)),
+        })[state.arrayOp.method]?.call();
         bindingCleanUp();
       } else {
         // Primitive or object
@@ -60,26 +62,13 @@ export default function Bau() {
         }
       }
     }
-    state.oldVal = state._val;
-    state.arrayOps = [];
+    state.arrayOp = null;
   };
-
-  // const updateDoms = () => {
-  //   for (let state of changedStatesSet) {
-  //     updateDom(state);
-  //   }
-  //   changedStatesSet.clear();
-  // };
-
-  //const scheduleDom = schedule(changedStatesSet, updateDoms);
 
   const proxyHandler = ({ state, data, parentProp = [] }) => ({
     get(target, prop, receiver) {
       if (prop === "_isProxy") return true;
-      if (
-        !target[prop]?._isProxy &&
-        ["Array", "Object"].includes(getType(target[prop]))
-      ) {
+      if (!target[prop]?._isProxy && isArrayOrObject(target[prop])) {
         target[prop] = new Proxy(
           target[prop],
           proxyHandler({
@@ -92,10 +81,10 @@ export default function Bau() {
         const origMethod = target[prop];
         return (...args) => {
           const result = origMethod.apply(target, args);
-          state.arrayOps.push({
+          state.arrayOp = {
             method: prop,
             args,
-          });
+          };
           updateDom(state);
           return result;
         };
@@ -104,19 +93,19 @@ export default function Bau() {
     },
     set(target, prop, value, receiver) {
       const result = Reflect.set(target, prop, value, receiver);
-      state.arrayOps.push({
+      state.arrayOp = {
         method: "setItem",
         args: { prop, value },
         newTarget: target,
         parentProp: [...parentProp, prop],
         data,
-      });
+      };
       updateDom(state);
       return result;
     },
   });
 
-  const createArrayProxy = (state, data) =>
+  const createProxy = (state, data) =>
     new Proxy(data, proxyHandler({ state, data }));
 
   const methodToActionMapping = ({
@@ -168,20 +157,20 @@ export default function Bau() {
     set val(value) {
       let state = this;
       let currentValue = state._val;
-      if (Array.isArray(value)) {
-        state._val = createArrayProxy(state, value);
-        state.arrayOps.push({
+      if (isArrayOrObject(value)) {
+        state._val = createProxy(state, value);
+        state.arrayOp = {
           method: "assign",
           args: value,
-        });
+        };
         updateDom(state);
       } else {
         if (value !== currentValue) {
           state._val = value;
-          state.oldVal = currentValue;
           updateDom(state);
         }
       }
+      state.oldVal = currentValue;
     },
   };
 
@@ -189,17 +178,14 @@ export default function Bau() {
     const _state = {
       oldVal: initVal,
       bindings: [],
-      listeners: [],
-      arrayOps: [],
+      arrayOp: null,
       __isState: true,
     };
 
     return {
       ..._state,
       __proto__: stateProto,
-      _val: Array.isArray(initVal)
-        ? createArrayProxy(_state, initVal)
-        : initVal,
+      _val: isArrayOrObject(initVal) ? createProxy(_state, initVal) : initVal,
     };
   };
 
@@ -252,10 +238,7 @@ export default function Bau() {
               deps: v["deps"],
               render:
                 ({}) =>
-                (...deps) => {
-                  setter(v["renderProp"](...deps));
-                  return dom;
-                },
+                (...deps) => (setter(v["renderProp"](...deps)), dom),
             });
           } else {
             setter(v);
