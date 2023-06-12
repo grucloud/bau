@@ -61,7 +61,7 @@ export default (context) => {
             },
             "Remove Tab"
           ),
-          p(faker.lorem.paragraph())
+          p("My Content")
         ),
 
       enter: async () => console.log("tab1 enter"),
@@ -70,7 +70,7 @@ export default (context) => {
     {
       name: "Tab2",
       Header: ({ tab }) => div("TAB 2"),
-      Content: ({ store }) => div(p(faker.lorem.paragraph())),
+      Content: ({ store }) => div(p("My Content")),
       enter: async () => console.log("tab2 enter"),
       exit: async () => console.log("tab2 exit"),
     },
@@ -83,5 +83,6 @@ export default (context) => {
 
   const Tabs = tabs(context, { tabDefs });
 
-  return () => section(h2(tr("Tabs Examples")), h3("Info"), Tabs({}));
+  return () =>
+    section({ id: "tabs" }, h2(tr("Tabs Examples")), h3("Info"), Tabs({}));
 };

@@ -56,6 +56,7 @@ export default (context) => {
 
   return () =>
     section(
+      { id: "fileInput" },
       h2(tr("FileInput Examples")),
       h3("File Input"),
       FileInput({

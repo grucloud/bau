@@ -8,6 +8,7 @@ export default (context) => {
   const Spinner = spinner(context);
   return () =>
     section(
+      { id: "spinner" },
       h2(tr("Spinner Examples")),
       div(
         Spinner(),

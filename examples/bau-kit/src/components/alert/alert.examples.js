@@ -6,6 +6,7 @@ export default (context) => {
   const Alert = alert(context);
   return () =>
     section(
+      { id: "alert" },
       h2(tr("Alert Examples")),
       h3("Info"),
       div(

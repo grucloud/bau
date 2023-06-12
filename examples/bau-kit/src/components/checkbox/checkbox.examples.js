@@ -31,7 +31,7 @@ export default (context) => {
 
   return () =>
     section(
-      { id: "checkbox-examples" },
+      { id: "checkbox" },
       form(
         h2(tr("Checkbox Examples")),
         CheckboxContainer(

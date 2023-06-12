@@ -6,6 +6,7 @@ export default (context) => {
   const Button = button(context);
   return () =>
     section(
+      { id: "button" },
       h2(tr("Button Examples")),
       h3("Flat"),
       p(

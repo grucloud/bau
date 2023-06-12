@@ -7,7 +7,7 @@ export default (context) => {
 
   return function () {
     const showState = bau.state(true);
-    const dom = section();
+    const dom = section({ id: "animate" });
     dom.appendChild(
       div(
         h3("Test Animate"),

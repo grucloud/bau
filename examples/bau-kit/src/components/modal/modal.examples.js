@@ -44,7 +44,7 @@ export default (context) => {
 
   return () =>
     section(
-      { id: "modal-examples" },
+      { id: "modal" },
       h2(tr("Modal Examples")),
       Button(
         {

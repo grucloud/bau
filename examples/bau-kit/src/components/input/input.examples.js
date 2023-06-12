@@ -6,6 +6,7 @@ export default (context) => {
   const Input = input(context);
   return () =>
     section(
+      { id: "input" },
       h2(tr("Input Examples")),
       h3("Standard"),
       div(Input({ id: "my-Input", label: "my Input" })),
