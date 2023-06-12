@@ -7,7 +7,6 @@ const filterBindings = (state) =>
 
 export default function Bau() {
   let _debounce;
-  //const changedStatesSet = new Set();
   const stateSet = new Set();
 
   const isState = (state) => state.__isState;
@@ -28,11 +27,6 @@ export default function Bau() {
 
   const bindingCleanUp = () =>
     debounceSchedule(() => stateSet.forEach(filterBindings));
-
-  // const schedule = (set, callback) => (state) => {
-  //   set.size == 0 && debounceSchedule(callback);
-  //   set.add(state);
-  // };
 
   let updateDom = (state) => {
     for (let binding of state.bindings) {
@@ -213,16 +207,16 @@ export default function Bau() {
 
   let add = (dom, ...children) => {
     if (children.length == 0) return dom;
-    const fragment = document.createDocumentFragment();
+    const childrenDom = [];
     for (let child of children.flat(Infinity))
       if (child != null) {
-        fragment.appendChild(
+        childrenDom.push(
           isState(child)
             ? bind({ deps: [child], render: () => (v) => v })
             : toDom(child)
         );
       }
-    dom.appendChild(fragment);
+    dom.append(...childrenDom);
     return dom;
   };
 
@@ -253,14 +247,13 @@ export default function Bau() {
           if (v == null) {
           } else if (isState(v)) {
             bind({ deps: [v], render: () => (v) => (setter(v), dom) });
-          } else if (isObject(v)) {
+          } else if (v.renderProp) {
             bind({
               deps: v["deps"],
               render:
                 ({}) =>
                 (...deps) => {
-                  const renderProp = v["renderProp"] ?? v["f"];
-                  setter(renderProp(...deps));
+                  setter(v["renderProp"](...deps));
                   return dom;
                 },
             });
