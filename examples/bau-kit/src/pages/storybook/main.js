@@ -5,6 +5,8 @@ import animateExamples from "../../components/animate/animate.examples";
 import alertStackExamples from "../../components/alertStack/alertStack.examples";
 import buttonExamples from "../../components/button/button.examples";
 import checkboxExamples from "../../components/checkbox/checkbox.examples";
+import drawerExamples from "../../components/drawer/drawer.examples";
+
 import fileInputExamples from "../../components/fileInput/fileInput.examples";
 import inputExamples from "../../components/input/input.examples";
 import modalExamples from "../../components/modal/modal.examples";
@@ -33,6 +35,7 @@ export const main = (context) => {
       alertExamples(context)(),
       buttonExamples(context)(),
       checkboxExamples(context)(),
+      drawerExamples(context)(),
       fileInputExamples(context)(),
       inputExamples(context)(),
       modalExamples(context)(),
