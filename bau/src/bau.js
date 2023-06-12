@@ -7,8 +7,15 @@ const filterBindings = (state) =>
 
 export default function Bau() {
   let _debounce;
-  const changedStatesSet = new Set();
+  //const changedStatesSet = new Set();
   const stateSet = new Set();
+
+  const isState = (state) => state.__isState;
+
+  let toVal = (state) => (isState(state) ? state._val : state);
+  let toOldVal = (state) => (isState(state) ? state.oldVal : state);
+
+  let vals = (deps) => deps.map(toVal);
 
   function debounceSchedule(callback) {
     if (!_debounce) {
@@ -22,15 +29,15 @@ export default function Bau() {
   const bindingCleanUp = () =>
     debounceSchedule(() => stateSet.forEach(filterBindings));
 
-  const schedule = (set, callback) => (state) => {
-    set.size == 0 && debounceSchedule(callback);
-    set.add(state);
-  };
+  // const schedule = (set, callback) => (state) => {
+  //   set.size == 0 && debounceSchedule(callback);
+  //   set.add(state);
+  // };
 
   let updateDom = (state) => {
     for (let binding of state.bindings) {
       let { deps, dom, render, renderItem } = binding;
-      const depsValues = deps.map((d) => d._val);
+      const depsValues = vals(deps);
       // Array handling
       if (renderItem && state.arrayOps.length > 0) {
         for (let op of state.arrayOps) {
@@ -46,7 +53,7 @@ export default function Bau() {
         // Primitive or object
         let newDom = render({
           dom,
-          oldValues: deps.map((d) => d.oldVal),
+          oldValues: deps.map(toOldVal),
           renderItem,
         })(...depsValues);
         if (newDom !== dom) {
@@ -63,14 +70,14 @@ export default function Bau() {
     state.arrayOps = [];
   };
 
-  const updateDoms = () => {
-    for (let state of changedStatesSet) {
-      updateDom(state);
-    }
-    changedStatesSet.clear();
-  };
+  // const updateDoms = () => {
+  //   for (let state of changedStatesSet) {
+  //     updateDom(state);
+  //   }
+  //   changedStatesSet.clear();
+  // };
 
-  const scheduleDom = schedule(changedStatesSet, updateDoms);
+  //const scheduleDom = schedule(changedStatesSet, updateDoms);
 
   const proxyHandler = ({ state, data, parentProp = [] }) => ({
     get(target, prop, receiver) {
@@ -210,7 +217,7 @@ export default function Bau() {
     for (let child of children.flat(Infinity))
       if (child != null) {
         fragment.appendChild(
-          child.__isState
+          isState(child)
             ? bind({ deps: [child], render: () => (v) => v })
             : toDom(child)
         );
@@ -244,7 +251,7 @@ export default function Bau() {
             ? (v) => (dom[k] = v)
             : (v) => dom.setAttribute(k, v);
           if (v == null) {
-          } else if (v.__isState) {
+          } else if (isState(v)) {
             bind({ deps: [v], render: () => (v) => (setter(v), dom) });
           } else if (isObject(v)) {
             bind({
@@ -269,21 +276,24 @@ export default function Bau() {
     );
 
   let bind = ({ deps, render, renderItem }) => {
-    const result = render({ renderItem })(...deps.map((d) => d._val));
-    if (result == null) return [];
-    const dom = toDom(result);
-    const binding = {
-      deps,
-      render,
-      renderItem,
-      dom,
-    };
+    const result = render({ renderItem })(...vals(deps));
+    if (result != null) {
+      const dom = toDom(result);
+      const binding = {
+        deps,
+        render,
+        renderItem,
+        dom,
+      };
 
-    for (let dep of deps) {
-      stateSet.add(dep);
-      dep.bindings.push(binding);
+      for (let dep of deps) {
+        if (isState(dep)) {
+          stateSet.add(dep);
+          dep.bindings.push(binding);
+        }
+      }
+      return dom;
     }
-    return dom;
   };
 
   return { tags: tagsNS(), tagsNS, state, bind };
