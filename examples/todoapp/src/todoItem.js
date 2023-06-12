@@ -74,7 +74,7 @@ export function todoItem({ bau, todosState, editingIdState, onSave }) {
       {
         class: {
           deps: [editingIdState],
-          f: (editingId) =>
+          renderProp: (editingId) =>
             classNames(completed && "completed", id == editingId && "editing"),
         },
       },

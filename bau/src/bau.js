@@ -252,10 +252,8 @@ export default function Bau() {
               render:
                 ({}) =>
                 (...deps) => {
-                  const newPropValue = v["f"](...deps);
-                  if (newPropValue != dom.getAttribute(k)) {
-                    setter(newPropValue);
-                  }
+                  const renderProp = v["renderProp"] ?? v["f"];
+                  setter(renderProp(...deps));
                   return dom;
                 },
             });

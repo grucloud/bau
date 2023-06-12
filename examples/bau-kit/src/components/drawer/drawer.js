@@ -54,14 +54,14 @@ export default function (context, { openState }) {
       div({
         class: {
           deps: [openState],
-          f: (open) => classNames("overlay", open && "overlay-open"),
+          renderProp: (open) => classNames("overlay", open && "overlay-open"),
         },
       }),
       div(
         {
           class: {
             deps: [openState],
-            f: (open) => classNames("content", open && "content-open"),
+            renderProp: (open) => classNames("content", open && "content-open"),
           },
         },
         ...children
