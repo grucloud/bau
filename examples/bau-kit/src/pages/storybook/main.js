@@ -6,11 +6,10 @@ import alertStackExamples from "../../components/alertStack/alertStack.examples"
 import buttonExamples from "../../components/button/button.examples";
 import checkboxExamples from "../../components/checkbox/checkbox.examples";
 import drawerExamples from "../../components/drawer/drawer.examples";
-
 import fileInputExamples from "../../components/fileInput/fileInput.examples";
 import inputExamples from "../../components/input/input.examples";
 import modalExamples from "../../components/modal/modal.examples";
-
+//import selectMenuExamples from "../../components/selectmenu/selectmenu.examples";
 import spinnerExamples from "../../components/spinner/spinner.examples";
 import tabsExamples from "../../components/tabs/tabs.examples";
 
@@ -39,6 +38,7 @@ export const main = (context) => {
       fileInputExamples(context)(),
       inputExamples(context)(),
       modalExamples(context)(),
+      // selectMenuExamples(context)(),
       spinnerExamples(context)(),
       tabsExamples(context)()
     );
