@@ -1,2 +1,1 @@
-import animate from "./animate";
-export default animate;
+export { default } from "./animate";

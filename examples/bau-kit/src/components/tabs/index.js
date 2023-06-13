@@ -1,2 +1,1 @@
-import tabs from "./tabs";
-export default tabs;
+export { default } from "./tabs";

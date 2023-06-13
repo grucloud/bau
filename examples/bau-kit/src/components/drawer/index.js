@@ -1,2 +1,1 @@
-import drawer from "./drawer";
-export default drawer;
+export { default } from "./drawer";

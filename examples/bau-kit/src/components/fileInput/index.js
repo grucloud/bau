@@ -1,2 +1,1 @@
-import fileInput from "./fileInput";
-export default fileInput;
+export { default } from "./fileInput";

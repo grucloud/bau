@@ -1,3 +1,1 @@
-import alertStack from "./alertStack";
-
-export default alertStack;
+export { default } from "./alertStack";

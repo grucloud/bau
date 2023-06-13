@@ -1,2 +1,1 @@
-import selectmenu from "./selectmenu";
-export default selectmenu;
+export { default } from "./selectmenu";

@@ -1,2 +1,1 @@
-import alert from "./alert";
-export default alert;
+export { default } from "./alert";
