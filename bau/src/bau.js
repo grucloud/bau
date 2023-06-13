@@ -175,18 +175,17 @@ export default function Bau() {
   };
 
   let state = (initVal) => {
-    const _state = {
-      oldVal: initVal,
-      bindings: [],
-      arrayOp: null,
-      __isState: true,
-    };
+    const _st = Object.create(stateProto);
+    (_st.oldVal = initVal),
+      (_st.bindings = []),
+      (_st.listeners = []),
+      (_st.arrayOps = []),
+      (st._isState = true),
+      (_st._val = Array.isArray(initVal)
+        ? createArrayProxy(_st, initVal)
+        : initVal);
 
-    return {
-      ..._state,
-      __proto__: stateProto,
-      _val: isArrayOrObject(initVal) ? createProxy(_state, initVal) : initVal,
-    };
+    return _st;
   };
 
   let toDom = (v) => (v.nodeType ? v : new Text(v));
