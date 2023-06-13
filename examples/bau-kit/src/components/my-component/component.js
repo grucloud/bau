@@ -5,9 +5,7 @@ export default function (context, options = {}) {
   const { palette, shape, shadows } = theme;
   const { div, span, pre, h3, h4 } = bau.tags;
 
-  return function Checkbox(props, ...children) {
-    const {} = props;
-
+  return function MyComponent(props, ...children) {
     return div("TODO");
   };
 }

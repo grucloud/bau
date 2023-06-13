@@ -2,6 +2,7 @@ import { css } from "goober";
 
 import alertExamples from "../../components/alert/alert.examples";
 import animateExamples from "../../components/animate/animate.examples";
+import avatarExamples from "../../components/avatar/avatar.examples";
 import alertStackExamples from "../../components/alertStack/alertStack.examples";
 import buttonExamples from "../../components/button/button.examples";
 import checkboxExamples from "../../components/checkbox/checkbox.examples";
@@ -32,6 +33,7 @@ export const main = (context) => {
       alertStackExamples(context)(),
       animateExamples(context)(),
       alertExamples(context)(),
+      avatarExamples(context)(),
       buttonExamples(context)(),
       checkboxExamples(context)(),
       drawerExamples(context)(),
