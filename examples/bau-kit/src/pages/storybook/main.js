@@ -12,6 +12,8 @@ import inputExamples from "../../components/input/input.examples";
 import modalExamples from "../../components/modal/modal.examples";
 //import selectMenuExamples from "../../components/selectmenu/selectmenu.examples";
 import spinnerExamples from "../../components/spinner/spinner.examples";
+import switchExamples from "../../components/switch/switch.examples";
+
 import tabsExamples from "../../components/tabs/tabs.examples";
 
 export const main = (context) => {
@@ -46,6 +48,7 @@ export const main = (context) => {
       modalExamples(context)(),
       // selectMenuExamples(context)(),
       spinnerExamples(context)(),
+      switchExamples(context)(),
       tabsExamples(context)()
     );
   };

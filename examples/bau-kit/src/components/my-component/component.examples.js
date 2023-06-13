@@ -7,9 +7,5 @@ export default (context) => {
   const Component = component(context);
 
   return () =>
-    section(
-      { id: "my-component-examples" },
-      h2(tr("Component Examples")),
-      h3("Info")
-    );
+    section({ id: "my-component" }, h2(tr("Component Examples")), h3("Info"));
 };
