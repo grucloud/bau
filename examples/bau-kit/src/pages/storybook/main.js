@@ -22,10 +22,14 @@ export const main = (context) => {
     return main(
       {
         class: css`
-          section {
-            margin: 1rem;
-            border: 1px dotted grey;
-            padding: 1rem;
+          grid-row: 2;
+          padding: 10px;
+          margin-top: 20px;
+          grid-column: 2 / 3;
+          > section {
+            padding: 10px;
+            margin: 10px;
+            box-shadow: ${context.theme.shadows[1]};
           }
         `,
       },

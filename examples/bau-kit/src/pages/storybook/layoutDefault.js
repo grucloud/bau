@@ -1,4 +1,6 @@
-import { header } from "./header";
+import { css } from "goober";
+
+import header from "./header";
 import { footer } from "./footer";
 
 export const layoutDefault = (context) => {
@@ -10,16 +12,32 @@ export const layoutDefault = (context) => {
   return function LayoutDefault({ component }) {
     return div(
       {
-        style: `
-          display: flex; 
-          min-width: 100vw;
-          min-height: 100vh;
-          flex-direction: column;
+        class: css`
+          display: grid;
+          grid-template-columns: 180px 1fr;
+          grid-template-rows: 60px 1fr;
+
+          > header {
+            grid-row: 1;
+            grid-column: 1 / 3;
+            z-index: 2;
+            position: sticky;
+            top: 0;
+          }
+
+          @media (max-width: ${context.theme.breakpoints.values.sm}) {
+            nav {
+              visibility: hidden;
+            }
+            main {
+              grid-column: 1 / 3;
+            }
+          }
         `,
       },
       Header(),
-      div({ style: "flex-grow: 1" }, component()),
-      Footer()
+      component()
+      //  Footer()
     );
   };
 };

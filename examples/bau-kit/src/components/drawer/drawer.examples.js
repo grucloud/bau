@@ -8,7 +8,7 @@ export default (context) => {
 
   const openState = bau.state(false);
 
-  const Drawer = drawer(context, {});
+  const Drawer = drawer(context);
   const Button = button(context);
 
   return () =>

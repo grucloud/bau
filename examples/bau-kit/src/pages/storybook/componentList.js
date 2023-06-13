@@ -8,6 +8,10 @@ export const componentlist = () => [
     id: "alert-stack",
   },
   {
+    name: "Avatar",
+    id: "avatar",
+  },
+  {
     name: "Button",
     id: "button",
   },

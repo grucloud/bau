@@ -18,7 +18,7 @@ export default (context) => {
 
   return () =>
     section(
-      { id: "avatar-examples" },
+      { id: "avatar" },
       h2(tr("Avatar")),
       Avatar({
         src: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=robohash&f=y",

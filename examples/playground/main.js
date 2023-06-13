@@ -3,44 +3,47 @@ import "./style.css";
 import Bau from "../../bau/src/bau";
 
 const bau = Bau();
-const { a, p, button, div, h1, tr, td, tbody, datalist } = bau.tags;
+const { a, p, button, div, h1, span, td, tbody, datalist } = bau.tags;
 
 // const Row = ({ label }) => {
 //   return tr(td(label));
 // };
 
 const App = () => {
-  const appState = bau.state([{ label: "Ciao" }, { label: "Hello" }]);
+  const appState = bau.state({
+    label: "Ciao",
+    address: { city: "barranquilla" },
+  });
 
-  const el = div(
-    h1("Playground")
-    // button(
-    //   {
-    //     onclick: () => {
-    //       appState.val[0].label = "Ciao Mondo";
-    //     },
-    //     class: "myclass",
-    //   },
-    //   "Set nested"
-    // ),
-    // button(
-    //   {
-    //     onclick: () => {
-    //       appState.val[0] = { label: "Ciao Mondo" };
-    //     },
-    //   },
-    //   "Set "
-    // ),
-    // bau.bind({
-    //   deps: [appState],
-    //   render:
-    //     ({ renderItem }) =>
-    //     (arr) =>
-    //       tbody(arr.map(renderItem())),
-    //   renderItem: () => Row,
-    // })
+  return div(
+    h1("Playground"),
+    button(
+      {
+        onclick: () => {
+          appState.val.label = "Ciao Mondo";
+        },
+        class: "myclass",
+      },
+      "Set nested"
+    ),
+    button(
+      {
+        onclick: () => {
+          appState.val.address.city = "Fortaleza";
+        },
+        class: "myclass",
+      },
+      "Deep nested"
+    ),
+
+    bau.bind({
+      deps: [appState],
+      render:
+        ({ renderItem }) =>
+        (app) =>
+          div(div("Label: ", app.label), div("City: ", app.address.city)),
+    })
   );
-  return el;
 };
 
 const app = document.getElementById("app");
