@@ -1,10 +1,10 @@
 {
   "name": "@grucloud/bau-css",
-  "description": "A CSS in JS library for Bau.js",
+  "description": "A CSS in JS library in 35 lines of code",
   "version": "0.15.0",
   "type": "module",
   "main": "./dist/bau-css.umd.cjs",
-  "module": "./dist/my-lib.js",
+  "module": "./dist/bau-css.js",
   "exports": {
     ".": {
       "import": "./dist/bau-css.js",
@@ -40,7 +40,5 @@
     "type": "git",
     "url": "git@github.com:grucloud/bau.git"
   },
-  "dependencies": {
-    "goober": "2.1.13"
-  }
+  "dependencies": {}
 }
