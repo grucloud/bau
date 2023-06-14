@@ -3,8 +3,8 @@
   "description": "Bau.js is a reactive library for building high performance user interface for the web",
   "version": "0.15.0",
   "type": "module",
-  "main": "./dist/my-lib.umd.cjs",
-  "module": "./dist/my-lib.js",
+  "main": "./dist/bau.umd.cjs",
+  "module": "./dist/bau.js",
   "exports": {
     ".": {
       "import": "./dist/bau.js",
@@ -40,7 +40,5 @@
     "type": "git",
     "url": "git@github.com:grucloud/bau.git"
   },
-  "dependencies": {
-    "nanomorph": "5.4.3"
-  }
+  "dependencies": {}
 }
