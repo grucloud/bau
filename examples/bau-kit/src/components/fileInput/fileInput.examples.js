@@ -1,10 +1,9 @@
-import { css } from "goober";
 import { classNames } from "../../utils/classNames";
 import IconUpload from "./uploadIcon.svg";
 import fileInput from "./fileInput";
 
 export default (context) => {
-  const { tr, bau, theme } = context;
+  const { tr, bau, theme, css } = context;
   const { palette, shape, shadows } = theme;
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
   const { section, div, h3, h2, span, input } = bau.tags;

@@ -1,8 +1,7 @@
 import createSwitch from "./switch";
-import { css } from "goober";
 
 export default (context) => {
-  const { tr, bau } = context;
+  const { tr, bau, css } = context;
   const { section, form, label, div, h2 } = bau.tags;
 
   const Switch = createSwitch(context);

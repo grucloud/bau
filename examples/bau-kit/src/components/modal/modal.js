@@ -1,7 +1,5 @@
-import { css } from "goober";
-
 export default function (context, options = {}) {
-  const { theme, bau, tr } = context;
+  const { theme, bau, css } = context;
   const { palette, shape, shadows } = theme;
   const { dialog } = bau.tags;
 
@@ -17,7 +15,7 @@ export default function (context, options = {}) {
     min-width: 400px;
     padding: 0px;
     border: 0px;
-    header {
+    & header {
       padding: 1rem;
       font-size: 1.8rem;
       font-weight: 800;
@@ -25,7 +23,7 @@ export default function (context, options = {}) {
       background-color: ${palette.primary.main};
       color: ${palette.primary.contrastText};
     }
-    footer {
+    & footer {
       display: flex;
       justify-content: flex-end;
       margin: 0px;
@@ -34,7 +32,7 @@ export default function (context, options = {}) {
         margin: 12px;
       }
     }
-    > main {
+    & > main {
       margin: 12px;
       flex-grow: 1;
       overflow: scroll;

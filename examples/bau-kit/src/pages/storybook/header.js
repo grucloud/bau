@@ -1,10 +1,9 @@
-import { css } from "goober";
 //import drawer from "../../components/drawer";
 import button from "../../components/button";
 import navBarMenu from "./navBarMenu";
 
 export default function (context) {
-  const { tr, bau, theme } = context;
+  const { tr, bau, theme, css } = context;
   const { palette } = theme;
   const { header, h1, div, a } = bau.tags;
   const { svg, path } = bau.tagsNS("http://www.w3.org/2000/svg");

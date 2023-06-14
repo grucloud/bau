@@ -4,7 +4,7 @@ This project implements a _Multi Page App_, all batteries included under **5Kb**
 
 A dependency-free _router_ is also included, featuring nested routes that can be loaded dynamically, reducing the bundling size significantly.
 
-CSS support is provided by [goober](https://goober.js.org/), a less than 1KB css-in-js solution.
+CSS support is provided by [bau-css](https://github.com/grucloud/bau/tree/main/bau-css), a 35 lines css-in-js solution.
 
 Centralized theming for your components, the theme object provides information about the colors, shape, transitions, typography common to your components. See [theme.js](./src/utils/theme.js)
 

@@ -1,8 +1,7 @@
 import avatar from "./avatar";
-import { css } from "goober";
 
 export default (context) => {
-  const { tr, bau, theme } = context;
+  const { tr, bau, theme, css } = context;
   const { palette } = theme;
   const { section, h2 } = bau.tags;
 

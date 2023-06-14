@@ -1,5 +1,3 @@
-import { css } from "goober";
-
 import alertExamples from "../../components/alert/alert.examples";
 import animateExamples from "../../components/animate/animate.examples";
 import avatarExamples from "../../components/avatar/avatar.examples";
@@ -17,7 +15,7 @@ import switchExamples from "../../components/switch/switch.examples";
 import tabsExamples from "../../components/tabs/tabs.examples";
 
 export const main = (context) => {
-  const { tr, bau } = context;
+  const { tr, bau, css } = context;
   const { div, main, h1 } = bau.tags;
 
   return function Main() {

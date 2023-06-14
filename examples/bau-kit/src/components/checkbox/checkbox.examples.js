@@ -1,9 +1,7 @@
-import { css } from "goober";
-
 import checkbox from "./checkbox";
 
 export default (context) => {
-  const { tr, bau } = context;
+  const { tr, bau, css } = context;
   const { section, div, label, h2, form } = bau.tags;
 
   const Checkbox = checkbox(context);

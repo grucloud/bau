@@ -1,10 +1,8 @@
-import { css } from "goober";
-
 import header from "./header";
 import { footer } from "./footer";
 
 export const layoutDefault = (context) => {
-  const { bau } = context;
+  const { bau, css } = context;
   const { div } = bau.tags;
   const Header = header(context);
   const Footer = footer(context);

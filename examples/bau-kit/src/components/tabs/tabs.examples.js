@@ -1,11 +1,10 @@
-import { css } from "goober";
 //import { faker } from "@faker-js/faker";
 
 import tabs from "./tabs";
 import button from "../button";
 
 export default (context) => {
-  const { tr, bau } = context;
+  const { tr, bau, css } = context;
   const { section, div, h3, h2, p } = bau.tags;
 
   // const createRandomTab = () => ({

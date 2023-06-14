@@ -1,8 +1,7 @@
-import { css } from "goober";
 import { classNames } from "../../utils/classNames";
 
 export default function (context) {
-  const { theme, bau, tr } = context;
+  const { theme, bau, css } = context;
   const { palette, shape, shadows } = theme;
   const { div } = bau.tags;
 

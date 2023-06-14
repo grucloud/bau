@@ -1,12 +1,9 @@
-import { css } from "goober";
 import { classNames } from "../../utils/classNames";
 
 export default function (context, options = {}) {
-  const { theme, bau, tr } = context;
+  const { theme, bau, css } = context;
   const { palette, shape, shadows } = theme;
   const { div, span, label, input } = bau.tags;
-
-  const NoFileSelected = "No file selected";
 
   const style = {
     base: css`
@@ -15,7 +12,7 @@ export default function (context, options = {}) {
       > * {
         margin: 1rem 0;
       }
-      input {
+      & input {
         width: 0.1px;
         height: 0.1px;
         opacity: 0;
@@ -29,7 +26,7 @@ export default function (context, options = {}) {
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      label {
+      & label {
         border-radius: ${shape.borderRadius}px;
         display: flex;
         justify-content: center;
@@ -44,7 +41,7 @@ export default function (context, options = {}) {
     `,
     disabled: css`
       color: ${palette.grey[500]};
-      label {
+      & label {
         background-color: ${palette.grey[100]};
         border: 2px ${palette.grey[500]} dotted;
         &:hover {

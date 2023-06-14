@@ -1,8 +1,7 @@
-import { css } from "goober";
 import { componentlist } from "./componentList";
 
 export default function (context) {
-  const { tr, bau, theme } = context;
+  const { tr, bau, theme, css } = context;
   const { palette } = theme;
   const { ul, li, nav, a } = bau.tags;
 
@@ -18,7 +17,7 @@ export default function (context) {
           overflow-y: scroll;
           box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
           max-height: 95vh;
-          ul {
+          & ul {
             padding: 0;
             > li {
               cursor: pointer;

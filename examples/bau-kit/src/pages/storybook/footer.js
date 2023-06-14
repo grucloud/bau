@@ -1,6 +1,4 @@
-import { css } from "goober";
-
-export const footer = ({ tr, bau }) => {
+export const footer = ({ tr, bau, css }) => {
   const { footer, span, a, ul, li, p } = bau.tags;
 
   return function Footer() {
