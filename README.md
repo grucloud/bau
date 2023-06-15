@@ -86,7 +86,7 @@ Please report bugs and suggestions to https://github.com/grucloud/bau
 
 ## History
 
-Bau is mostly inpired by [van.js](https://vanjs.org/), with the following difference:
+Bau is mostly inspired by [van.js](https://vanjs.org/), with the following difference:
 
 - Van.js only support primitive value as state, Bau state management also supports array and object.
 - The `bind` function input parameters are differents, in van.js, they spreads the state dependencies and the render function at the end, bau `bind` uses an object with keys: deps, render, renderItem and eventually more in the future.

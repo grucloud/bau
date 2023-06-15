@@ -1,16 +1,22 @@
 import { initialScreenFadeOut } from "../../utils/initialScreenFadeOut";
+//import BauRouter  from "@grucloud/bau-router";
+import BauRouter from "../../../../../bau-router/src/bau-router";
 import { createContext } from "../../utils/context";
 
 import { layoutDefault } from "./layoutDefault";
-import { Router } from "../../utils/router";
 import { createRoutes } from "./routes";
+import { notFoundRouteDefault } from "../../utils/notFoundRoute";
+import { onLocationChange } from "../../utils/onLocationChange";
 
 initialScreenFadeOut();
+const config = { title: "Landing", base: "" };
+const context = createContext({ config });
 
-const context = createContext({ config: { title: "Landing", base: "" } });
-
-Router({
-  context,
+BauRouter({
   routes: createRoutes({ context }),
-  LayoutDefault: layoutDefault(context),
+  onLocationChange: onLocationChange({
+    LayoutDefault: layoutDefault(context),
+    config,
+  }),
+  notFoundRoute: notFoundRouteDefault(context),
 });

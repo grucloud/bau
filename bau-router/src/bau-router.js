@@ -1,5 +1,4 @@
-import { asyncView } from "../pages/asyncView";
-
+// A lean router
 const routeFullPath = (route, paths) => ({
   ...route,
   paths: [...paths, route.path],
@@ -36,50 +35,42 @@ const LeanRouter = ({ routes = [], notFoundRoute }) => {
   return {
     resolve: ({ pathname }) => {
       const route = _routes.find(({ regex }) => regex.test(pathname));
-      if (route) {
-        return route.action({ match: pathname.match(route.regex) });
-      } else {
-        return notFoundRoute;
-      }
+      return route
+        ? route.action({ match: pathname.match(route.regex) })
+        : notFoundRoute;
     },
   };
 };
 
-export const Router = ({ context, routes, LayoutDefault }) => {
-  const { tr, config } = context;
+export default function Router({ routes, notFoundRoute, onLocationChange }) {
   const router = LeanRouter({
     routes,
-    notFoundRoute: {
-      title: tr("Page Not Found"),
-      component: asyncView({
-        context,
-        getModule: () => import("../pages/notFound"),
-        Loader: () => "Loading",
-      }),
-    },
+    notFoundRoute,
   });
 
-  const onLocationChange = () => {
-    const {
-      title,
-      component,
-      Layout = LayoutDefault,
-    } = router.resolve({
-      pathname: location.pathname.replace(config.base, ""),
-    });
-    const app = document.getElementById("app");
-    app.replaceChildren(Layout({ component }));
-    document.title = `${title}`;
-  };
+  window.addEventListener("popstate", (event) => onLocationChange({ router }));
 
-  window.addEventListener("popstate", onLocationChange);
   window.history.pushState = new Proxy(window.history.pushState, {
     apply: (target, thisArg, argArray) => {
       target.apply(thisArg, argArray);
-      onLocationChange();
+      onLocationChange({ router });
     },
   });
 
-  onLocationChange();
+  document.addEventListener("click", (event) => {
+    const { target } = event;
+    // Beware: target.href and target.getAttribute("href") are different !
+    const href = target.getAttribute("href");
+    if (
+      target.tagName === "A" &&
+      !href.startsWith("http") &&
+      !href.startsWith("#")
+    ) {
+      history.pushState({}, null, href);
+      event.preventDefault();
+    }
+  });
+
+  onLocationChange({ router });
   return router;
-};
+}

@@ -94,4 +94,4 @@ _BauCss_ skips steps 2, 3 and 4 as no longer needed because modern browers nativ
 
 ## Contribution
 
-Bugs and suggestion can be discusses on its [GitHub project page](https://github.com/grucloud/bau/tree/main/bau-css).
+Bugs and suggestion can be discussed on its [GitHub project page](https://github.com/grucloud/bau/tree/main/bau-css).
