@@ -1,7 +1,7 @@
 {
   "name": "@grucloud/bau-css",
   "description": "A CSS in JS library in 35 lines of code",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "type": "module",
   "main": "./dist/bau-css.umd.cjs",
   "module": "./dist/bau-css.js",
@@ -30,7 +30,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.17.0"
+    "@grucloud/bau": "^0.18.0"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "0.32.0",

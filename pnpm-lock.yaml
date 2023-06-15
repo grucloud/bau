@@ -29,6 +29,10 @@ importers:
         version: 0.31.4(happy-dom@9.20.3)
 
   bau-css:
+    dependencies:
+      "@grucloud/bau":
+        specifier: ^0.18.0
+        version: link:../bau
     devDependencies:
       "@vitest/coverage-c8":
         specifier: 0.32.0
@@ -47,6 +51,10 @@ importers:
         version: 0.31.4(happy-dom@9.20.3)
 
   bau-router:
+    dependencies:
+      "@grucloud/bau":
+        specifier: ^0.18.0
+        version: link:../bau
     devDependencies:
       "@vitest/coverage-c8":
         specifier: 0.32.0
@@ -67,13 +75,13 @@ importers:
   examples/bau-kit:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.15.0
-        version: 0.15.0
+        specifier: ^0.18.0
+        version: link:../../bau
       "@grucloud/bau-css":
-        specifier: ^0.17.0
+        specifier: ^0.18.0
         version: link:../../bau-css
       "@grucloud/bau-router":
-        specifier: ^0.17.0
+        specifier: ^0.18.0
         version: link:../../bau-router
       rubico:
         specifier: 1.9.7
@@ -95,8 +103,8 @@ importers:
   examples/benchmark:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.5.0
-        version: 0.5.0
+        specifier: ^0.18.0
+        version: link:../../bau
       bootstrap:
         specifier: 3.3.6
         version: 3.3.6
@@ -108,8 +116,8 @@ importers:
   examples/button:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.9.0
-        version: 0.9.0
+        specifier: ^0.18.0
+        version: link:../../bau
     devDependencies:
       vite:
         specifier: ^4.3.9
@@ -118,8 +126,8 @@ importers:
   examples/counter:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.9.0
-        version: 0.9.0
+        specifier: ^0.18.0
+        version: link:../../bau
     devDependencies:
       vite:
         specifier: ^4.3.9
@@ -128,8 +136,8 @@ importers:
   examples/mathml:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.13.0
-        version: 0.13.0
+        specifier: ^0.18.0
+        version: link:../../bau
     devDependencies:
       vite:
         specifier: ^4.3.9
@@ -138,8 +146,8 @@ importers:
   examples/playground:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.9.0
-        version: 0.9.0
+        specifier: ^0.18.0
+        version: link:../../bau
     devDependencies:
       vite:
         specifier: ^4.3.9
@@ -148,8 +156,8 @@ importers:
   examples/todoapp:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.13.0
-        version: 0.13.0
+        specifier: ^0.18.0
+        version: link:../../bau
       todomvc-app-css:
         specifier: ^2.0.0
         version: 2.0.0
@@ -480,40 +488,6 @@ packages:
         integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==,
       }
     dev: true
-
-  /@grucloud/bau@0.13.0:
-    resolution:
-      {
-        integrity: sha512-oDuapC1pfVYVIg0mUpChB1MMIAUCEuKgtQ6vsX8UjLl+WISUGqf675Q8YAZhpv2AvUwsQnqfmmn4iLSIYwytPQ==,
-      }
-    dependencies:
-      nanomorph: 5.4.3
-    dev: false
-
-  /@grucloud/bau@0.15.0:
-    resolution:
-      {
-        integrity: sha512-OJuxt5xd45rAcIsL2R/IlZ7nPvI56j69+c3moVZzzjVd0FVO+jYCisN226b4rWex9Jff5rU0fbQwS4t5N+QmYQ==,
-      }
-    dependencies:
-      nanomorph: 5.4.3
-    dev: false
-
-  /@grucloud/bau@0.5.0:
-    resolution:
-      {
-        integrity: sha512-FoPPs2JOnglwfZRJaHUH3R6ktpsRvp/TMdNE5UecWx7XKvoTP5Be5RA0wMOjKg/QMI0Kdhjz7xyeI3zStwKQmw==,
-      }
-    dev: false
-
-  /@grucloud/bau@0.9.0:
-    resolution:
-      {
-        integrity: sha512-PnU1PwGCHPNMbf+NgYj2aQLYSaVfbXmLu2xUAYyGIIx/nDstEDG/3alt+gBRFN84WT89oFUsrwyg8w9Ti7L73w==,
-      }
-    dependencies:
-      nanomorph: 5.4.3
-    dev: false
 
   /@hutson/parse-repository-url@3.0.2:
     resolution:
@@ -6030,13 +6004,6 @@ packages:
       }
     dev: true
 
-  /nanoassert@1.1.0:
-    resolution:
-      {
-        integrity: sha512-C40jQ3NzfkP53NsO8kEOFd79p4b9kDXQMwgiY1z8ZwrDZgUyom0AHwGegF4Dm99L+YoYhuaB0ceerUcXmqr1rQ==,
-      }
-    dev: false
-
   /nanoid@3.3.6:
     resolution:
       {
@@ -6067,15 +6034,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /nanomorph@5.4.3:
-    resolution:
-      {
-        integrity: sha512-uPP5y0x21KISffZCKHh1A0QW0RHZFQS0BR7LetlHBlay6UWAbjwhjiJTxOO6JeMHko5Cigl617zFoGrYFJ8ZLg==,
-      }
-    dependencies:
-      nanoassert: 1.1.0
-    dev: false
 
   /negotiator@0.6.3:
     resolution:
