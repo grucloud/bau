@@ -1,9 +1,11 @@
 import animate from "./animate";
+import button from "../button";
 
 export default (context) => {
   const { tr, bau } = context;
-  const { section, div, button, h3 } = bau.tags;
+  const { section, div, h3 } = bau.tags;
   const Animate = animate(context);
+  const Button = button(context);
 
   return function () {
     const showState = bau.state(true);
@@ -12,7 +14,7 @@ export default (context) => {
       div(
         h3("Test Animate"),
         div(
-          button(
+          Button(
             {
               onclick: () => {
                 showState.val = !showState.val;

@@ -1,8 +1,7 @@
-import { css } from "goober";
 import { classNames } from "../../utils/classNames";
 
 export default function (context, { tabDefs }) {
-  const { theme, bau } = context;
+  const { theme, bau, css } = context;
   const { palette } = theme;
   const { div, ul, li } = bau.tags;
   const tabsState = bau.state(tabDefs);
@@ -15,7 +14,7 @@ export default function (context, { tabDefs }) {
     base: css`
       display: flex;
       flex-direction: column;
-      ul {
+      & ul {
         display: flex;
         align-items: center;
         justify-content: space-between;

@@ -1,4 +1,3 @@
-import { css } from "goober";
 import button from "../button";
 
 const severityMap = {
@@ -7,13 +6,6 @@ const severityMap = {
   success: { icon: "\u2714" },
   info: { icon: "\u2139" },
 };
-
-const toCss = (type) =>
-  css`
-    border-left: 8px solid ${type.dark};
-    color: ${type.main};
-    background-color: ${type.light};
-  `;
 
 const severityToStyle = ({ severity, message }) => {
   const style = severityMap[severity];
@@ -24,9 +16,16 @@ const severityToStyle = ({ severity, message }) => {
 };
 
 export default function (context, options = {}) {
-  const { theme, bau, tr } = context;
+  const { theme, bau, css, tr } = context;
   const { palette, shape, shadows } = theme;
   const { div, span, pre, h3, h4 } = bau.tags;
+
+  const toCss = (type) =>
+    css`
+      border-left: 8px solid ${type.dark};
+      color: ${type.main};
+      background-color: ${type.light};
+    `;
 
   const Button = button(context);
 

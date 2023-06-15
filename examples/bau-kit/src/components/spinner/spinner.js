@@ -1,7 +1,5 @@
-import { css } from "goober";
-
 export default function (context, options = {}) {
-  const { theme, bau, tr } = context;
+  const { theme, bau, css } = context;
 
   const { svg, animate, animateTransform, rect } = bau.tagsNS(
     "http://www.w3.org/2000/svg"

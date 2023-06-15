@@ -1,8 +1,7 @@
-import { css } from "goober";
 import { classNames } from "../../utils/classNames";
 
 export default function (context, options = {}) {
-  const { theme, bau } = context;
+  const { theme, bau, css } = context;
   const { palette, shape, shadows } = theme;
   const { div, input, label } = bau.tags;
   const style = {
@@ -11,7 +10,7 @@ export default function (context, options = {}) {
       display: inline-block;
       font-size: 1rem;
       min-height: 3rem;
-      input {
+      & input {
         box-shadow: ${shadows[2]};
         border-radius: ${shape.borderRadius}px;
         border: 2px solid transparent;
@@ -35,7 +34,7 @@ export default function (context, options = {}) {
           color: ${palette.primary.main};
         }
       }
-      label {
+      & label {
         display: block;
         top: 1.5rem;
         line-height: 0;
@@ -48,24 +47,24 @@ export default function (context, options = {}) {
           font-style: normal;
         }
       }
-      > div {
+      & > div {
         margin: 0.2rem 0;
         position: absolute;
       }
     `,
     disabled: css`
-      * {
+      & * {
         color: ${palette.text.disabled} !important;
       }
-      input {
+      & input {
         border: 1px dashed ${palette.text.disabled};
       }
     `,
     error: css`
-      * {
+      & * {
         color: ${palette.error.main} !important;
       }
-      input {
+      & input {
         border: 1px dashed ${palette.error.main} !important;
       }
     `,

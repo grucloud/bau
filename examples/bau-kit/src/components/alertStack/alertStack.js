@@ -1,7 +1,5 @@
-import { css, keyframes } from "goober";
-
 export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
-  const { theme, bau, tr } = context;
+  const { theme, bau, css, keyframes } = context;
   const { palette, shape, shadows } = theme;
   const { div } = bau.tags;
   const messagesState = bau.state([]);

@@ -1,5 +1,3 @@
-import { css } from "goober";
-
 import { useQuery } from "../../utils/useQuery";
 
 async function fetchJSON(request) {
@@ -15,7 +13,7 @@ async function fetchJSON(request) {
   }
 }
 
-export const footer = ({ tr, bau }) => {
+export const footer = ({ tr, bau, css }) => {
   const { footer, span, a, ul, li, p } = bau.tags;
 
   const op = useQuery({

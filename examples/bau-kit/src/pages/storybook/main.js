@@ -1,5 +1,3 @@
-import { css } from "goober";
-
 import alertExamples from "../../components/alert/alert.examples";
 import animateExamples from "../../components/animate/animate.examples";
 import avatarExamples from "../../components/avatar/avatar.examples";
@@ -12,10 +10,12 @@ import inputExamples from "../../components/input/input.examples";
 import modalExamples from "../../components/modal/modal.examples";
 //import selectMenuExamples from "../../components/selectmenu/selectmenu.examples";
 import spinnerExamples from "../../components/spinner/spinner.examples";
+import switchExamples from "../../components/switch/switch.examples";
+
 import tabsExamples from "../../components/tabs/tabs.examples";
 
 export const main = (context) => {
-  const { tr, bau } = context;
+  const { tr, bau, css } = context;
   const { div, main, h1 } = bau.tags;
 
   return function Main() {
@@ -46,6 +46,7 @@ export const main = (context) => {
       modalExamples(context)(),
       // selectMenuExamples(context)(),
       spinnerExamples(context)(),
+      switchExamples(context)(),
       tabsExamples(context)()
     );
   };

@@ -1,4 +1,3 @@
-import "./style.css";
 //import Bau from "@grucloud/bau";
 import Bau from "../../bau/src/bau";
 
@@ -6,8 +5,9 @@ const bau = Bau();
 
 const { button, span } = bau.tags;
 
+const counter = bau.state(0);
+
 function Counter() {
-  const counter = bau.state(0);
   return span(
     "❤️ ",
     counter,

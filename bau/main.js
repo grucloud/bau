@@ -1,4 +1,3 @@
-import "./style.css";
 import Bau from "./src/bau";
 
 const bau = Bau({});

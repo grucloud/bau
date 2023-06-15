@@ -1,7 +1,5 @@
-import { css } from "goober";
-
 export default function (context, options = {}) {
-  const { theme, bau } = context;
+  const { theme, bau, css } = context;
   const { palette, shape, shadows } = theme;
   const { input } = bau.tags;
   const style = {
