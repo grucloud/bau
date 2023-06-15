@@ -2,6 +2,7 @@
   "name": "js-framework-benchmark-bau",
   "version": "1.2.0",
   "description": "bau demo benchmark",
+  "private": true,
   "main": "index.js",
   "js-framework-benchmark": {
     "frameworkVersionFromPackage": "bau",
