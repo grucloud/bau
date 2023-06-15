@@ -10,7 +10,6 @@
       }
     },
     "publish": {
-      "ignoreChanges": ["@grucloud/examples/**"],
       "create-release": "github",
       "conventional-commits": true
     },
