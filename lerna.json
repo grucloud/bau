@@ -1,0 +1,21 @@
+{
+  "packages": ["bau/**/*", "bau-css/**/*", "bau-router/**/*", "examples/**/*"],
+  "npmClient": "pnpm",
+  "useWorkspaces": true,
+  "version": "12.3.0",
+  "command": {
+    "command": {
+      "bootstrap": {
+        "npmClientArgs": ["--no-audit"]
+      }
+    },
+    "publish": {
+      "ignoreChanges": ["@grucloud/examples/**"],
+      "create-release": "github",
+      "conventional-commits": true
+    },
+    "run": {
+      "ignore": []
+    }
+  }
+}
