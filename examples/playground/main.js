@@ -1,6 +1,5 @@
 import "./style.css";
-//import Bau from "@grucloud/bau";
-import Bau from "../../bau/src/bau";
+import Bau from "@grucloud/bau";
 
 const bau = Bau();
 const { a, p, button, div, h1, span, td, tbody, datalist } = bau.tags;

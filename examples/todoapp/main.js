@@ -1,6 +1,5 @@
 import "./style.css";
-//import Bau from "@grucloud/bau";
-import Bau from "../../bau/src/bau";
+import Bau from "@grucloud/bau";
 
 import app from "./src/app";
 

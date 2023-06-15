@@ -1,8 +1,5 @@
-//import Bau from "@grucloud/bau";
-//import BauCss from "@grucloud/bau-css";
-
-import Bau from "../../../../bau/src/bau";
-import BauCss from "../../../../bau-css/src/bau-css";
+import Bau from "@grucloud/bau";
+import BauCss from "@grucloud/bau-css";
 
 const { css, keyframes } = BauCss();
 import { createTheme } from "./theme";
