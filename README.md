@@ -73,7 +73,7 @@ Need a CSS in JS solution ? Checkout [bau-css](./bau-css), a 35 lines CSS in JS 
 
 ## Components
 
-A set of [UI components](./examples/bau-kit/components) has been created that helps to get you started, for instance Button, Input, Modal, Tabs etc...
+A set of [UI components](./examples/bau-kit/src/components) has been created that helps to get you started, for instance Button, Input, Modal, Tabs etc...
 
 ## Multi Page app
 
