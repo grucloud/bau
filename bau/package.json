@@ -39,6 +39,5 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:grucloud/bau.git"
-  },
-  "dependencies": {}
+  }
 }
