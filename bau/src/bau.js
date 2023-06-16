@@ -165,6 +165,9 @@ export default function Bau() {
         _state.valProxy)
       );
     },
+    set _val(value) {
+      this.valProxy = value;
+    },
     get val() {
       return this._val;
     },
