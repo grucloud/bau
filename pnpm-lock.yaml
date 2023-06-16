@@ -31,7 +31,7 @@ importers:
   bau-css:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.18.0
+        specifier: ^0.19.0
         version: link:../bau
     devDependencies:
       "@vitest/coverage-c8":
@@ -53,7 +53,7 @@ importers:
   bau-router:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.18.0
+        specifier: ^0.19.0
         version: link:../bau
     devDependencies:
       "@vitest/coverage-c8":
@@ -75,13 +75,13 @@ importers:
   examples/bau-kit:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.18.0
+        specifier: ^0.19.0
         version: link:../../bau
       "@grucloud/bau-css":
-        specifier: ^0.18.0
+        specifier: ^0.19.0
         version: link:../../bau-css
       "@grucloud/bau-router":
-        specifier: ^0.18.0
+        specifier: ^0.19.0
         version: link:../../bau-router
       rubico:
         specifier: 1.9.7
@@ -103,7 +103,7 @@ importers:
   examples/benchmark:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.18.0
+        specifier: ^0.19.0
         version: link:../../bau
       bootstrap:
         specifier: 3.3.6
@@ -116,7 +116,7 @@ importers:
   examples/button:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.18.0
+        specifier: ^0.19.0
         version: link:../../bau
     devDependencies:
       vite:
@@ -126,7 +126,7 @@ importers:
   examples/counter:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.18.0
+        specifier: ^0.19.0
         version: link:../../bau
     devDependencies:
       vite:
@@ -136,7 +136,7 @@ importers:
   examples/mathml:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.18.0
+        specifier: ^0.19.0
         version: link:../../bau
     devDependencies:
       vite:
@@ -146,7 +146,7 @@ importers:
   examples/playground:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.18.0
+        specifier: ^0.19.0
         version: link:../../bau
     devDependencies:
       vite:
@@ -156,7 +156,7 @@ importers:
   examples/todoapp:
     dependencies:
       "@grucloud/bau":
-        specifier: ^0.18.0
+        specifier: ^0.19.0
         version: link:../../bau
       todomvc-app-css:
         specifier: ^2.0.0
