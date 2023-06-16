@@ -150,7 +150,21 @@ export default function Bau() {
     },
   });
 
-  let stateProto = {
+  let state = (initVal) => ({
+    oldVal: initVal,
+    bindings: [],
+    arrayOp: null,
+    __isState: true,
+    get _val() {
+      const _state = this;
+      return (
+        _state.valProxy ??
+        ((_state.valProxy = isArrayOrObject(initVal)
+          ? createProxy(_state, initVal)
+          : initVal),
+        _state.valProxy)
+      );
+    },
     get val() {
       return this._val;
     },
@@ -172,22 +186,7 @@ export default function Bau() {
       }
       state.oldVal = currentValue;
     },
-  };
-
-  let state = (initVal) => {
-    const _state = {
-      oldVal: initVal,
-      bindings: [],
-      arrayOp: null,
-      __isState: true,
-    };
-
-    return {
-      ..._state,
-      __proto__: stateProto,
-      _val: isArrayOrObject(initVal) ? createProxy(_state, initVal) : initVal,
-    };
-  };
+  });
 
   let toDom = (v) => (v.nodeType ? v : new Text(v));
 
