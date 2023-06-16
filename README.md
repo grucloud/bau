@@ -74,7 +74,7 @@ All of these features packed under 5KB, a 20X decreased compared to the combo Re
 
 ## Guide
 
-- [create an state array and display views](../doc/BauStateArray.md)
+- [create an state array and display views](./doc/BauStateArray.md)
 
 ## Contribution
 
