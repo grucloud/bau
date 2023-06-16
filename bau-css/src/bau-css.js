@@ -16,7 +16,7 @@ const compile = (strings, args) =>
   strings.reduce((acc, value, i) => acc + value + (args[i] ?? ""), "");
 
 export default function BauCss({ target = document.head } = {}) {
-  const process =
+  const doIt =
     (styleMake) =>
     (strings, ...args) => {
       const compiled = compile(strings, args);
@@ -25,11 +25,9 @@ export default function BauCss({ target = document.head } = {}) {
         addStyle(target, name, styleMake(name, compiled));
       return name;
     };
-
   return {
-    css: process((className, compiled) => `.${className} { ${compiled} }`),
-    keyframes: process(
-      (keyframesName, compiled) => `@keyframes ${keyframesName} { ${compiled} }`
-    ),
+    css: doIt((className, compiled) => `.${className} { ${compiled} }`),
+    keyframes: doIt((name, compiled) => `@keyframes ${name} { ${compiled} }`),
+    createGlobalStyles: doIt((name, compiled) => compiled),
   };
 }

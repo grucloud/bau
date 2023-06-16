@@ -1,8 +1,8 @@
 # BauCss
 
-A CSS in JS library in less than [35 lines of code](./src/bau-css.js).
+A CSS in JS library in less than [33 lines of code](./src/bau-css.js).
 
-_BauCss_ exports 2 functions: `css` and `keyframes`.
+_BauCss_ exports 3 functions: `css`, `keyframes`, and `createGlobalStyles`.
 
 This API is the same as other popular css-in-js libraries such as [styled-components](https://styled-components.com/), [emotion](https://emotion.sh/) and [goober](https://goober.js.org/).
 
@@ -29,7 +29,7 @@ Import `@grucloud/bau-css` and instantiate the library:
 ```js
 import BauCss from "@grucloud/bau-css";
 
-const { css, keyframes } = BauCss();
+const { css, keyframes, createGlobalStyles } = BauCss();
 ```
 
 The following [example](./main.js) demonstrates how to use the _css_ and _keyframes_ functions with the [Bau reactive library](https://github.com/grucloud/bau).
@@ -45,10 +45,18 @@ const bau = Bau({});
 const { p, h1, div } = bau.tags;
 
 const color = "red";
+const backgroundColor = "teal";
 
 const rotate = keyframes`
 0% {transform: rotate(0deg);}
 100% {transform: rotate(360deg);}
+`;
+
+createGlobalStyles`
+:root {
+  background-color: ${backgroundColor};
+  font-family: Open-Sans, Helvetica, Sans-Serif;
+}
 `;
 
 const App = () =>
@@ -85,6 +93,14 @@ Under the hood, other CSS in JS libraries performs the following steps:
 - 6 Add a style dom element in the DOM.
 
 _BauCss_ skips steps 2, 3 and 4 as no longer needed because modern browers natively support nested CSS.
+
+## Examples
+
+_bau-css_ integrates seamlessly with UI libraries, here is a list of examples:
+
+- [React with bau-css](./examples/react-bau-css)
+- [Bau with bau-css](./examples/bau-bau-css)
+- [Vanilla JS with bau-css](./examples/vanillajs-bau-css)
 
 ## Contribution
 

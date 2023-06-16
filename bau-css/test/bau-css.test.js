@@ -1,32 +1,50 @@
 import assert from "assert";
 import { describe, it, vi, expect } from "vitest";
 
-import Bau from "../Bau/src/bau";
 import BauCss from "../src/bau-css";
 
-const bau = Bau();
-const { div, p, button } = bau.tags;
-
 const bauCss = BauCss();
-const { css } = bauCss;
+const { css, keyframes, createGlobalStyles } = bauCss;
 
-const countState = bau.state(0);
-
-const Counter = () =>
-  div(
-    p(
-      {
-        class: css`
-          color: red;
-        `,
-      },
-      "Counter: ",
-      countState
-    )
-  );
+const classPrefix = "bau";
 
 describe("BauCSS", async () => {
-  it("div", () => {
-    document.body.appendChild(Counter());
+  it("css", () => {
+    const color = "red";
+    const className = css`
+      color: ${color};
+    `;
+    assert(className.startsWith(classPrefix));
+    const styleEl = document.getElementById(className);
+    assert.equal(
+      styleEl.innerHTML,
+      `.bau412773214 { \n      color: red;\n     }`
+    );
+  });
+
+  it("keyframes", () => {
+    const keyframesName = keyframes`
+        0% {transform: rotate(0deg);}
+        100% {transform: rotate(360deg);}
+    `;
+    assert(keyframesName.startsWith(classPrefix));
+    const styleEl = document.getElementById(keyframesName);
+    assert(styleEl);
+    assert.equal(
+      styleEl.innerHTML,
+      "@keyframes bau4055669395 { \n        0% {transform: rotate(0deg);}\n        100% {transform: rotate(360deg);}\n     }"
+    );
+  });
+  it("createGlobalStyles", () => {
+    const id = createGlobalStyles`
+      body {
+          background: teal;
+        }
+`;
+    const styleEl = document.getElementById(id);
+    assert(
+      styleEl.innerHTML,
+      "\n      body {\n          background: teal;\n        }\n"
+    );
   });
 });

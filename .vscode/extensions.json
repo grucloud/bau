@@ -1,3 +1,7 @@
 {
-  "recommendations": ["zixuanchen.vitest-explorer", "esbenp.prettier-vscode"]
+  "recommendations": [
+    "zixuanchen.vitest-explorer",
+    "esbenp.prettier-vscode",
+    "styled-components.vscode-styled-components"
+  ]
 }
