@@ -12,13 +12,7 @@ _BauCss_ is framework agnostic and integrates with Bau, React, Preact, SolidJs e
 
 Let's compare the bundle sizes thanks to [bundlephobia](https://bundlephobia.com/):
 
-![bau-css gzip size](https://img.shields.io/bundlephobia/minzip/@grucloud/bau-css.svg?label=@grucloud/bau-css%20gzip%20size)
-
-![@goober gzip size](https://img.shields.io/bundlephobia/minzip/goober.svg?label=@goober%20gzip%20size)
-
-![@emotion/react gzip size](https://img.shields.io/bundlephobia/minzip/@emotion/react.svg?label=@emotion/react%20gzip%20size)
-
-![styles-components gzip size](https://img.shields.io/bundlephobia/minzip/styled-components.svg?label=styled-components%20gzip%20size)
+![bundle size](../doc/css-in-js-library-bundle-size.svg)
 
 The difference is between 3 times and 26 times leaner.
 

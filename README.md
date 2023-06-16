@@ -12,15 +12,7 @@ Data can be an array, an object or a primitive value such as boolean/integer/str
 
 Let's compare the bundle sizes thanks to [bundlephobia](https://bundlephobia.com/):
 
-![bau gzip size](https://img.shields.io/bundlephobia/minzip/@grucloud/bau.svg?label=@grucloud/bau%20gzip%20size)
-
-![solid-js gzip size](https://img.shields.io/bundlephobia/minzip/solid-js.svg?label=solid-js%20gzip%20size)
-
-![vue gzip size](https://img.shields.io/bundlephobia/minzip/vue.svg?label=vue%20gzip%20size)
-
-![react-dom gzip size](https://img.shields.io/bundlephobia/minzip/react-dom.svg?label=react-dom%20gzip%20size)
-
-![angular gzip size](https://img.shields.io/bundlephobia/minzip/angular.svg?label=angular%20gzip%20size)
+![bundle size](./doc/ui-library-bundle-size.svg)
 
 ## Dependencies
 
