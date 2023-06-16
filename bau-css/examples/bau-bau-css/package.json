@@ -2,6 +2,7 @@
   "name": "bau-bau-css",
   "description": "Exmaple on how to use bau-css with bau",
   "version": "0.20.0",
+  "private": true,
   "type": "module",
   "license": "BSD",
   "files": [
