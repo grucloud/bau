@@ -6,7 +6,7 @@ _BauCss_ exports 3 functions: `css`, `keyframes`, and `createGlobalStyles`.
 
 This API is the same as other popular css-in-js libraries such as [styled-components](https://styled-components.com/), [emotion](https://emotion.sh/) and [goober](https://goober.js.org/).
 
-_BauCss_ is framework agnostic and integrates with Bau, React, Preact, SolidJs etc ...
+_BauCss_ is framework agnostic and integrates with [Bau](https://github.com/grucloud/bau), React, Preact, SolidJs etc ...
 
 ## Bundle size
 
@@ -32,11 +32,11 @@ import BauCss from "@grucloud/bau-css";
 const { css, keyframes, createGlobalStyles } = BauCss();
 ```
 
-The following [example](./main.js) demonstrates how to use the _css_ and _keyframes_ functions with the [Bau reactive library](https://github.com/grucloud/bau).
+The following [example](./examples/bau-bau-css/main.js) demonstrates how to use the _css_ and _keyframes_ functions with the [Bau reactive library](https://github.com/grucloud/bau).
 
 ```js
-import Bau from "../bau/src/bau";
-import BauCss from "./src/bau-css";
+import Bau from "@grucloud/bau";
+import BauCss from "@grucloud/bau-css";
 
 const bauCss = BauCss();
 const { css, keyframes } = bauCss;
