@@ -49,20 +49,6 @@ export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
       message.component()
     );
 
-  const domRoot = div(
-    {
-      class: styles.stack,
-    },
-    bau.bind({
-      deps: [messagesState],
-      render:
-        ({ renderItem }) =>
-        (arr) =>
-          div(arr.map(renderItem())),
-      renderItem: () => AlertItem,
-    })
-  );
-
   const AlertStack = (props, ...children) =>
     div(
       {

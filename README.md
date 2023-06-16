@@ -72,14 +72,20 @@ A set of [UI components](./examples/bau-kit/src/components) has been created tha
 Looking for a complete frontend solution, try [bau-kit](./examples/bau-kit), a themable multi page app, with a router than can handle dynamic nested route.
 All of these features packed under 5KB, a 20X decreased compared to the combo React/Redux/React Router/Style Component.
 
+## Guide
+
+- [create an state array and display views](../doc/BauStateArray.md)
+
 ## Contribution
 
 Please report bugs and suggestions to https://github.com/grucloud/bau
 
 ## History
 
-Bau is mostly inspired by [van.js](https://vanjs.org/), with the following difference:
+Bau is mostly inspired by [van.js](https://vanjs.org/), with the following differences:
 
 - Van.js only support primitive value as state, Bau state management also supports array and object.
 - The `bind` function input parameters are differents, in van.js, they spreads the state dependencies and the render function at the end, bau `bind` uses an object with keys: deps, render, renderItem and eventually more in the future.
+- Bau does not use global variable, multiple instances of Bau could evetually created. Van.js uses global variable
+- Bau promotes only one paradigm: views derive from the state. Van could mix paradigms, imperative and state derived view. The imperative way is when the your code directly maniplates the DOM, in the same way as vanilla js and jquery. This style of programming is error prone, therefore, preventing its use makes bau _hard to misuse_
 - Bau supports undefined or null attribute, see [issue 39](https://github.com/vanjs-org/van/pull/39)
