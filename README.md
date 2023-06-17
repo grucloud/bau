@@ -14,17 +14,9 @@ Let's compare the bundle sizes thanks to [bundlephobia](https://bundlephobia.com
 
 ![bundle size](./doc/ui-library-bundle-size.svg)
 
-## Dependencies
-
-Install the dependencies:
-
-```sh
-npm install @grucloud/bau
-```
-
 ## Sample code
 
-Next, in you main js file:
+Bau aims to be easy to use and its API surface consits of only 3 functions: `tags`, `state` and `bind`
 
 ```js
 // main.js
@@ -55,6 +47,14 @@ function Counter() {
 document.getElementById("app").replaceChildren(Counter());
 ```
 
+## Dependencies
+
+Install the dependencies:
+
+```sh
+npm install @grucloud/bau
+```
+
 ## Examples
 
 Have a look at the [examples](./examples) directory to find out how to use this library.
@@ -74,7 +74,7 @@ All of these features packed under 5KB, a 20X decreased compared to the combo Re
 
 ## Guide
 
-- [create an state array and display views](./doc/BauStateArray.md)
+- [create a state array and display views](./doc/BauStateArray.md)
 
 ## Contribution
 
@@ -87,5 +87,5 @@ Bau is mostly inspired by [van.js](https://vanjs.org/), with the following diffe
 - Van.js only support primitive value as state, Bau state management also supports array and object.
 - The `bind` function input parameters are differents, in van.js, they spreads the state dependencies and the render function at the end, bau `bind` uses an object with keys: deps, render, renderItem and eventually more in the future.
 - Bau does not use global variable, multiple instances of Bau could evetually created. Van.js uses global variable
-- Bau promotes only one paradigm: views derive from the state. Van could mix paradigms, imperative and state derived view. The imperative way is when the your code directly maniplates the DOM, in the same way as vanilla js and jquery. This style of programming is error prone, therefore, preventing its use makes bau _hard to misuse_
+- Bau promotes only one paradigm: views derive from the state. Van could mix paradigms, imperative and state derived view. The imperative way is when your code directly maniplates the DOM, in the same way as vanilla js and jquery. This style of programming is error prone, therefore, preventing its use makes bau _hard to misuse_
 - Bau supports undefined or null attribute, see [issue 39](https://github.com/vanjs-org/van/pull/39)

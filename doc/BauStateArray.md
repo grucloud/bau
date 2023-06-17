@@ -1,6 +1,6 @@
 # Observing Array
 
-This describe how to observe an array with the `state` function, and create binding views reacting to the array mutation with the `bind` function.
+This guide describes how to observe an array with the `state` function, and create binding views reacting to the array mutation with the `bind` function.
 
 ## Creation
 
@@ -75,5 +75,5 @@ const TBody = () =>
 Check out our examples to observe and display array of data:
 
 - [todo list minimal](../examples/todo-minimal)
-- [todoMVC](../examples/todo-app)
+- [todoMVC](../examples/todoapp)
 - [benchmark](../examples/benchmark)
