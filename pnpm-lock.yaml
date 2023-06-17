@@ -202,6 +202,36 @@ importers:
         specifier: ^4.3.9
         version: 4.3.9(@types/node@20.2.5)
 
+  examples/fetch-data:
+    dependencies:
+      '@grucloud/bau':
+        specifier: ^0.21.0
+        version: link:../../bau
+    devDependencies:
+      vite:
+        specifier: ^4.3.9
+        version: 4.3.9(@types/node@20.2.5)
+
+  examples/form-login:
+    dependencies:
+      '@grucloud/bau':
+        specifier: ^0.21.0
+        version: link:../../bau
+    devDependencies:
+      vite:
+        specifier: ^4.3.9
+        version: 4.3.9(@types/node@20.2.5)
+
+  examples/form-stateless-login:
+    dependencies:
+      '@grucloud/bau':
+        specifier: ^0.21.0
+        version: link:../../bau
+    devDependencies:
+      vite:
+        specifier: ^4.3.9
+        version: 4.3.9(@types/node@20.2.5)
+
   examples/mathml:
     dependencies:
       '@grucloud/bau':
@@ -213,6 +243,16 @@ importers:
         version: 4.3.9(@types/node@20.2.5)
 
   examples/playground:
+    dependencies:
+      '@grucloud/bau':
+        specifier: ^0.21.0
+        version: link:../../bau
+    devDependencies:
+      vite:
+        specifier: ^4.3.9
+        version: 4.3.9(@types/node@20.2.5)
+
+  examples/todo-minimal:
     dependencies:
       '@grucloud/bau':
         specifier: ^0.21.0
