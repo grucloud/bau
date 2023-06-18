@@ -13,6 +13,7 @@ import spinnerExamples from "../../components/spinner/spinner.examples";
 import switchExamples from "../../components/switch/switch.examples";
 
 import tabsExamples from "../../components/tabs/tabs.examples";
+import treeViewExamples from "../../components/treeView/treeView.examples";
 
 export const main = (context) => {
   const { tr, bau, css } = context;
@@ -47,7 +48,8 @@ export const main = (context) => {
       // selectMenuExamples(context)(),
       spinnerExamples(context)(),
       switchExamples(context)(),
-      tabsExamples(context)()
+      tabsExamples(context)(),
+      treeViewExamples(context)()
     );
   };
 };

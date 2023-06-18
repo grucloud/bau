@@ -1,6 +1,7 @@
 import "./storybook.css";
 //import  BauRouter  from "@grucloud/bau-router";
 import BauRouter from "../../../../../bau-router/src/bau-router";
+import { globalStyle } from "../../utils/globalStyle";
 
 import { initialScreenFadeOut } from "../../utils/initialScreenFadeOut";
 import { createContext } from "../../utils/context";
@@ -14,6 +15,8 @@ initialScreenFadeOut();
 
 const config = { title: "Story Book", base: "/storybook" };
 const context = createContext({ config });
+
+globalStyle(context);
 
 BauRouter({
   routes: createRoutes({ context }),

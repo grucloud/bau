@@ -16,7 +16,7 @@ export function footer({ bau, todosState, nowShowingState }) {
 
   const linkClass = (showType) => ({
     deps: [nowShowingState],
-    renderProp: (nowShowing) =>
+    renderProp: () => (nowShowing) =>
       classNames(nowShowing == showType && "selected"),
   });
 

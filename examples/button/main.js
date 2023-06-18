@@ -9,7 +9,7 @@ const app = ({ bau }) => {
       {
         style: {
           deps: [color],
-          renderProp: (color) => `background-color: ${color};`,
+          renderProp: () => (color) => `background-color: ${color};`,
         },
         onclick,
       },

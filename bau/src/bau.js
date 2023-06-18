@@ -240,7 +240,7 @@ export default function Bau() {
               deps: v["deps"],
               render:
                 ({}) =>
-                (...deps) => (setter(v["renderProp"](...deps)), dom),
+                (...deps) => (setter(v["renderProp"]({ dom })(...deps)), dom),
             });
           } else {
             setter(v);

@@ -51,7 +51,7 @@ const Tree = ({ depth = 0 }) => {
           {
             style: {
               deps: [hideState],
-              renderProp: (hide) => (hide ? "display: none" : ""),
+              renderProp: () => (hide) => hide ? "display: none" : "",
             },
           },
           value

@@ -135,7 +135,7 @@ const Row = ({ id, label }) =>
     {
       class: {
         deps: [selectedState],
-        renderProp: (selected) => (selected == id ? "danger" : ""),
+        renderProp: () => (selected) => selected == id ? "danger" : "",
       },
     },
 

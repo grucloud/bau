@@ -35,18 +35,18 @@ export const componentlist = () => [
     name: "Input",
     id: "input",
   },
-  {
-    name: "List",
-    id: "list",
-  },
+  // {
+  //   name: "List",
+  //   id: "list",
+  // },
   {
     name: "Modal",
     id: "modal",
   },
-  {
-    name: "Select",
-    id: "select",
-  },
+  // {
+  //   name: "Select",
+  //   id: "select",
+  // },
   {
     name: "Switch",
     id: "switch",
@@ -56,7 +56,11 @@ export const componentlist = () => [
     id: "tabs",
   },
   {
-    name: "Wizard",
-    id: "wizard",
+    name: "TreeView",
+    id: "treeview",
   },
+  // {
+  //   name: "Wizard",
+  //   id: "wizard",
+  // },
 ];
