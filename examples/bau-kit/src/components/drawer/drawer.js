@@ -1,49 +1,47 @@
 import { classNames } from "../../utils/classNames";
 
 export default function (context) {
-  const { theme, bau, css } = context;
-  const { palette, shape, shadows } = theme;
+  const { bau, css } = context;
   const { div } = bau.tags;
-
   const style = css`
     position: fixed;
     top: 80px;
     left: 0px;
     z-index: 2;
-    .overlay {
+    & .overlay {
       position: absolute;
       z-index: -1;
       opacity: 0;
-      background-color: ${palette.background.default};
+      background-color: var(--background-color);
       top: 0;
       left: 0;
       height: 100%;
       width: 100%;
-      transition: opacity 0.3s ease-out;
+      transition: opacity var(--transition-fast) ease-out;
     }
-    .overlay-open {
+    & .overlay-open {
       z-index: 1;
       opacity: 0.5;
     }
-    .content {
+    & .content {
       transform: translate(-100%, 0px);
       z-index: 2;
       position: absolute;
-      box-shadow: ${shadows[2]};
-      background-color: ${palette.background.default};
+      box-shadow: var(--global-shadow-md);
+      background-color: var(--background-color);
       top: 0;
       left: 0;
-      transition: transform 0.3s ease-out;
+      transition: transform var(--transition-fast) ease-out;
     }
-    .content-open {
+    & .content-open {
       transform: translate(0%, 0px);
       z-index: 2;
       position: absolute;
-      box-shadow: ${shadows[2]};
-      background-color: ${palette.background.default};
+      box-shadow: var(--global-shadow-md);
+      background-color: var(--background-color);
       top: 0;
       left: 0;
-      transition: transform 0.3s ease-out;
+      transition: transform var(--transition-fast) ease-out;
     }
   `;
 

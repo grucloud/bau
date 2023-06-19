@@ -1,121 +1,96 @@
 import button from "../button";
 
 const severityMap = {
-  error: { icon: "\u26A0" },
-  warning: { icon: "\u26A0" },
-  success: { icon: "\u2714" },
-  info: { icon: "\u2139" },
+  danger: "\u26A0",
+  warning: "\u26A0",
+  success: "\u2714",
+  info: "\u2139",
 };
 
-const severityToStyle = ({ severity, message }) => {
-  const style = severityMap[severity];
-  if (!style) {
-    throw Error(`invalid severity: '${severity}', message: ${message}`);
-  }
-  return style;
-};
+const darkVar = (severity) => `var(--color-${severity}-darkest)`;
 
-export default function (context, options = {}) {
-  const { theme, bau, css, tr } = context;
-  const { palette, shape, shadows } = theme;
-  const { div, span, pre, h3, h4 } = bau.tags;
+const severitiesToCss = () =>
+  Object.keys(severityMap)
+    .map(
+      (severity) =>
+        `.alert-${severity} {
+    border-left: var(--alert-border-left-width) solid ${darkVar(severity)};
+    color: ${darkVar(severity)};
+    background-color: var(--background-color);
+    & .button-close {
+      color: ${darkVar(severity)};
+    }
+  }`
+    )
+    .join("\n");
 
-  const toCss = (type) =>
-    css`
-      border-left: 8px solid ${type.dark};
-      color: ${type.main};
-      background-color: ${type.light};
-    `;
+const createStyles = ({ css, createGlobalStyles }) => {
+  createGlobalStyles`
+:root {
+  --alert-border-left-width: 8px;
+}
+${severitiesToCss()}
+`;
 
-  const Button = button(context);
-
-  const CloseIcon = ({ onclick, severity }) =>
-    Button(
-      {
-        onclick,
-      },
-      span(
-        {
-          class: css`
-            color: ${palette[severity].dark};
-          `,
-        },
-        "\u2716"
-      )
-    );
-
-  const style = {
+  return {
     base: css`
       display: flex;
       max-width: 600px;
       justify-content: flex-start;
-      align-items: stretch;
+      align-items: center;
       margin: 0.5rem;
-      font-weight: 500;
-      box-shadow: ${shadows[3]};
-      border-radius: ${shape.borderRadius}px;
+      font-weight: var(--font-weight-semibold);
+      box-shadow: var(--global-shadow-md);
+      border-radius: var(--global-radius);
+      & .icon {
+        padding: 0 1rem;
+        font-size: 2.5rem;
+      }
+      & .content {
+        padding: 0 0.5rem;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+      }
+      & .button-close {
+        margin: 1rem;
+      }
     `,
   };
+};
+
+export default function (context, options = {}) {
+  const { bau, css, createGlobalStyles, tr } = context;
+  const { div } = bau.tags;
+
+  const styles = createStyles({ css, createGlobalStyles });
+
+  const Button = button(context);
+
+  const CloseIcon = ({ onclick }) =>
+    Button(
+      {
+        "aria-label": "Close",
+        onclick,
+        class: "button-close",
+      },
+      "\u2716"
+    );
 
   return function Alert(props, ...children) {
-    const {
-      name,
-      severity = "info",
-      message,
-      details,
-      onRemove,
-      ...other
-    } = props;
-
-    const alertStyle = severityToStyle({ severity, message });
+    const { severity = "info", onRemove, ...otherProps } = props;
 
     return div(
       {
-        class: `${style.base} ${toCss(palette[severity])}`,
+        ...otherProps,
+        class: `${styles.base} alert-${severity}`,
         role: "alert",
       },
-      div(
-        {
-          class: css`
-            padding: 0 1.5rem;
-            font-size: 3rem;
-            background-color: ${palette[severity].light};
-            min-height: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          `,
-        },
-        div(alertStyle.icon)
-      ),
-      div(
-        {
-          class: css`
-            padding: 0 1rem;
-            display: flex;
-            flex-grow: 1;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: space-around;
-          `,
-        },
-        name && h3(tr(name)),
-        message && h4(message),
-        details && pre(details)
-      ),
-      div(
-        {
-          class: css`
-            padding: 0 1.5rem;
-            font-size: 3rem;
-            min-height: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          `,
-        },
-        onRemove && CloseIcon({ severity, onclick: onRemove })
-      )
+      div({ class: "icon" }, severityMap[severity]),
+      div({ class: "content" }, ...children),
+      onRemove && CloseIcon({ onclick: onRemove })
     );
   };
 }

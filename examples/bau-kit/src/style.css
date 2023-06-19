@@ -1,8 +1,6 @@
 html {
-  position: relative;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+  font-family: var(--font-family);
+  color-scheme: var(--color-scheme);
 }
 
 html,

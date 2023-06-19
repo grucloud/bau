@@ -1,167 +1,100 @@
-/**
- @each $color in (primary, secondary, success, info, warning, danger) {
-    --ifm-color-$(color)-dark: color-mod(
-      var(--ifm-color-$(color)) shade(var(--ifm-dark-value))
-    );
-    --ifm-color-$(color)-darker: color-mod(
-      var(--ifm-color-$(color)),
-      shade(var(--ifm-darker-value))
-    );
-    --ifm-color-$(color)-darkest: color-mod(
-      var(--ifm-color-$(color)),
-      shade(var(--ifm-darkest-value))
-    );
-    --ifm-color-$(color)-light: color-mod(
-      var(--ifm-color-$(color)),
-      tint(var(--ifm-light-value))
-    );
-    --ifm-color-$(color)-lighter: color-mod(
-      var(--ifm-color-$(color)),
-      tint(var(--ifm-lighter-value))
-    );
-    --ifm-color-$(color)-lightest: color-mod(
-      var(--ifm-color-$(color)),
-      tint(var(--ifm-lightest-value))
-    );
-    --ifm-color-$(color)-contrast-background: color-mod(
-      var(--ifm-color-$(color)),
-      tint(var(--ifm-contrast-background-value))
-    );
-    --ifm-color-$(color)-contrast-foreground: color-mod(
-      var(--ifm-color-$(color)),
-      shade(var(--ifm-contrast-foreground-value))
-    );
-  }
- */
+const COLORS = [
+  ["primary", { h: "230", s: "48%", l: "47%" }],
+  ["secondary", { h: "338", s: "100%", l: "48%" }],
+  ["success", { h: "120", s: "100%", l: "32%" }],
+  ["info", { h: "194", s: "80%", l: "62%" }],
+  ["warning", { h: "43", s: "100%", l: "50%" }],
+  ["danger", { h: "358", s: "95%", l: "60%" }],
+];
+
+const SHADES_LIGHT = [
+  ["light", "1.15"],
+  ["lighter", "1.3"],
+  ["lightest", "1.5"],
+];
+const SHADES_DARK = [
+  ["dark", "0.9"],
+  ["darker", "0.85"],
+  ["darkest", "0.7"],
+];
+
+const buildGrays = () =>
+  new Array(10)
+    .fill("")
+    .map(
+      (v, index) =>
+        `--color-gray-${index * 100}: hsl(0, 0%, ${100 - 10 * index}%);`
+    )
+    .join("\n");
+
+const buildEmphasis = () =>
+  new Array(10)
+    .fill("")
+    .map(
+      (v, index) =>
+        `--color-emphasis-${index * 100}: var(--color-gray-${index * 100});`
+    )
+    .join("\n");
+
+const buildColor = ([color, { h, s, l }]) =>
+  [
+    `--color-${color}-h: ${h};`,
+    `--color-${color}-s: ${s};`,
+    `--color-${color}-l: ${l};`,
+    `--color-${color}-hsl: var(--color-${color}-h), var(--color-${color}-s), var(--color-${color}-l);`,
+    `--color-${color}: hsl(var(--color-${color}-hsl));`,
+    ...SHADES_LIGHT.map(
+      ([shade, value]) =>
+        `--color-${color}-${shade}: hsl(var(--color-${color}-h), var(--color-${color}-s), calc(var(--color-${color}-l) * ${value}));`
+    ),
+    ...SHADES_DARK.map(
+      ([shade, value]) =>
+        `--color-${color}-${shade}: hsl(var(--color-${color}-h), var(--color-${color}-s), calc(var(--color-${color}-l) * ${value}));`
+    ),
+    `--color-${color}-contrast-background: hsl(var(--color-${color}-h), var(--color-${color}-s), calc(var(--color-${color}-l) / var(--contrast-background-value)));`,
+    `--color-${color}-contrast-foreground: hsl(var(--color-${color}-h), var(--color-${color}-s), calc(var(--color-${color}-l) * var(--contrast-foreground-value)));`,
+  ].join("\n");
 
 export function globalStyle({ createGlobalStyles }) {
   createGlobalStyles`
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 :root {
-  --ifm-color-scheme: light;
-
-  /* Colors. */
-  --ifm-dark-value: 10%;
-  --ifm-darker-value: 15%;
-  --ifm-darkest-value: 30%;
-  --ifm-light-value: 15%;
-  --ifm-lighter-value: 30%;
-  --ifm-lightest-value: 50%;
-
-  /*
-  This seems like a lot, but we want to ensure enough contrast.
-  Goal is to have a min score of 3 on https://www.myndex.com/APCA/fullmatrix
-  For fontWeight 400 + score 3, the cell must show a value < 16px (fontsize we use in places like alerts)
-  See also https://github.com/facebookincubator/infima/issues/55#issuecomment-884023075
-   */
-  --ifm-contrast-background-value: 90%;
-  --ifm-contrast-foreground-value: 70%;
-  /* Using slightly different values for dark mode */
-  --ifm-contrast-background-dark-value: 70%;
-  --ifm-contrast-foreground-dark-value: 90%;
-
-  --ifm-color-primary: #3578e5;
-  --ifm-color-secondary: #ebedf0;
-  --ifm-color-success: #00a400;
-  --ifm-color-info: #54c7ec;
-  --ifm-color-warning: #ffba00;
-  --ifm-color-danger: #fa383e;
-
- 
-
-  --ifm-color-white: #fff;
-  --ifm-color-black: #000;
-
-  --ifm-color-gray-0: var(--ifm-color-white);
-  --ifm-color-gray-100: #f5f6f7;
-  --ifm-color-gray-200: #ebedf0;
-  --ifm-color-gray-300: #dadde1;
-  --ifm-color-gray-400: #ccd0d5;
-  --ifm-color-gray-500: #bec3c9;
-  --ifm-color-gray-600: #8d949e;
-  --ifm-color-gray-700: #606770;
-  --ifm-color-gray-800: #444950;
-  --ifm-color-gray-900: #1c1e21;
-  --ifm-color-gray-1000: var(--ifm-color-black);
-
-  --ifm-color-emphasis-0: var(--ifm-color-gray-0);
-  --ifm-color-emphasis-100: var(--ifm-color-gray-100);
-  --ifm-color-emphasis-200: var(--ifm-color-gray-200);
-  --ifm-color-emphasis-300: var(--ifm-color-gray-300);
-  --ifm-color-emphasis-400: var(--ifm-color-gray-400);
-  --ifm-color-emphasis-500: var(--ifm-color-gray-500);
-  --ifm-color-emphasis-600: var(--ifm-color-gray-600);
-  --ifm-color-emphasis-700: var(--ifm-color-gray-700);
-  --ifm-color-emphasis-800: var(--ifm-color-gray-800);
-  --ifm-color-emphasis-900: var(--ifm-color-gray-900);
-  --ifm-color-emphasis-1000: var(--ifm-color-gray-1000);
-
-  /* Base. */
-  --ifm-color-content: var(--ifm-color-emphasis-900);
-  --ifm-color-content-inverse: var(--ifm-color-emphasis-0);
-  --ifm-color-content-secondary: #525860;
-
-  --ifm-background-color: transparent; /* Body's background. */
-  --ifm-background-surface-color: var(--ifm-color-content-inverse);
-  --ifm-global-border-width: 1px;
-  --ifm-global-radius: 0.4rem;
-
-  --ifm-hover-overlay: rgba(0, 0, 0, 0.05);
-
-  /* Typography. */
-  --ifm-font-color-base: var(--ifm-color-content);
-  --ifm-font-color-base-inverse: var(--ifm-color-content-inverse);
-  --ifm-font-color-secondary: var(--ifm-color-content-secondary);
-  --ifm-font-family-base: system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol';
-  --ifm-font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
-  --ifm-font-size-base: 100%;
-
-  --ifm-font-weight-light: 300;
-  --ifm-font-weight-normal: 400;
-  --ifm-font-weight-semibold: 500;
-  --ifm-font-weight-bold: 700;
-
-  --ifm-font-weight-base: var(--ifm-font-weight-normal);
-  --ifm-line-height-base: 1.65;
-
-  /* Spacing. */
-  --ifm-global-spacing: 1rem;
-  --ifm-spacing-vertical: var(--ifm-global-spacing);
-  --ifm-spacing-horizontal: var(--ifm-global-spacing);
-
-  /* Transitions. */
-  --ifm-transition-fast: 200ms;
-  --ifm-transition-slow: 400ms;
-  --ifm-transition-timing-default: cubic-bezier(0.08, 0.52, 0.52, 1);
-
-  /* Shadows. */
-  --ifm-global-shadow-lw: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-  --ifm-global-shadow-md: 0 5px 40px rgba(0, 0, 0, 0.2);
-  --ifm-global-shadow-tl: 0 12px 28px 0 rgba(0, 0, 0, 0.2),
+  --color-scheme: light;
+  --contrast-background-value: 90%;
+  --contrast-foreground-value: 70%;
+  --contrast-background-dark-value: 70%;
+  --contrast-foreground-dark-value: 90%;
+  --color-white: #fff;
+  --color-black: #000;
+  ${COLORS.map(([color, hsl]) => buildColor([color, hsl])).join("\n")}
+  ${buildGrays()}
+  ${buildEmphasis()}
+  --color-content: var(--color-emphasis-900);
+  --color-content-inverse: var(--color-emphasis-0);
+  --color-content-secondary: #525860;
+  --background-color: var(--color-white);
+  --background-surface-color: var(--color-content-inverse);
+  --global-border-width: 1px;
+  --global-radius: 0.4rem;
+  --font-color-base: var(--color-content);
+  --font-color-disabled: var(--color-emphasis-600);
+  --font-color-base-inverse: var(--color-content-inverse);
+  --font-color-secondary: var(--color-content-secondary);
+  --font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  --font-family-monospace: Consolas, monospace;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 500;
+  --font-weight-bold: 700;
+  --global-spacing: 1rem;
+  --spacing-vertical: var(--global-spacing);
+  --spacing-horizontal: var(--global-spacing);
+  --transition-fast: 200ms;
+  --transition-slow: 400ms;
+  --global-shadow-lw: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  --global-shadow-md: 0 5px 40px rgba(0, 0, 0, 0.2);
+  --global-shadow-tl: 0 12px 28px 0 rgba(0, 0, 0, 0.2),
     0 2px 4px 0 rgba(0, 0, 0, 0.1);
-
-  /* Z-index. */
-  --ifm-z-index-dropdown: 100;
-  --ifm-z-index-fixed: 200;
-  --ifm-z-index-overlay: 400;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --ifm-transition-fast: 0ms;
-    --ifm-transition-slow: 0ms;
-  }
-}
-
-@custom-media --ifm-narrow-window (max-width: 996px);
+@custom-media --narrow-window (max-width: 996px);
 `;
 }

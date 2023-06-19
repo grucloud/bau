@@ -48,6 +48,10 @@ export const componentlist = () => [
   //   id: "select",
   // },
   {
+    name: "Spinner",
+    id: "spinner",
+  },
+  {
     name: "Switch",
     id: "switch",
   },

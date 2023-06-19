@@ -11,18 +11,18 @@ function expandSection(element) {
 const createStyles = ({ css, createGlobalStyles }) => {
   createGlobalStyles`
 :root {
-  --ifm-menu-color: var(--ifm-color-emphasis-700);
-  --ifm-menu-color-active: var(--ifm-color-primary);
-  --ifm-menu-color-background-active: var(--ifm-hover-overlay);
-  --ifm-menu-color-background-hover: var(--ifm-hover-overlay);
-  --ifm-menu-link-padding-horizontal: 0.75rem;
-  --ifm-menu-link-padding-vertical: 0.375rem;
-  --ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+  --menu-color: var(--color-emphasis-700);
+  --menu-color-active: var(--color-primary);
+  --menu-color-background-active: var(--hover-overlay);
+  --menu-color-background-hover: var(--hover-overlay);
+  --menu-link-padding-horizontal: 0.75rem;
+  --menu-link-padding-vertical: 0.375rem;
+  --menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
 }
 `;
 
   const nav = css`
-    font-weight: var(--ifm-font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
     overflow-x: hidden;
     & ul {
       display: block;
@@ -31,24 +31,24 @@ const createStyles = ({ css, createGlobalStyles }) => {
       padding-left: 0;
       overflow: hidden;
       will-change: height;
-      transition: height var(--ifm-transition-fast) ease-out;
+      transition: height var(--transition-fast) ease-out;
       & li {
-        padding-left: var(--ifm-menu-link-padding-horizontal);
+        padding-left: var(--menu-link-padding-horizontal);
         border-radius: 0.25rem;
         > div {
           display: flex;
           &:hover {
-            background: var(--ifm-menu-color-background-hover);
+            background: var(--menu-color-background-hover);
           }
           > a {
             display: flex;
             text-decoration: none;
-            color: var(--ifm-menu-color);
-            padding: var(--ifm-menu-link-padding-vertical)
-              var(--ifm-menu-link-padding-horizontal);
+            color: var(--menu-color);
+            padding: var(--menu-link-padding-vertical)
+              var(--menu-link-padding-horizontal);
             &::before {
-              transition: transform var(--ifm-transition-fast) linear;
-              background: var(--ifm-menu-link-sublist-icon) 50% / 2rem 2rem;
+              transition: transform var(--transition-fast) linear;
+              background: var(--menu-link-sublist-icon) 50% / 2rem 2rem;
               height: 1.25rem;
               width: 1.25rem;
             }

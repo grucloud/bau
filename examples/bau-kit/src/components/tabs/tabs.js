@@ -1,8 +1,7 @@
 import { classNames } from "../../utils/classNames";
 
 export default function (context, { tabDefs }) {
-  const { theme, bau, css } = context;
-  const { palette } = theme;
+  const { bau, css } = context;
   const { div, ul, li } = bau.tags;
   const tabsState = bau.state(tabDefs);
 
@@ -28,10 +27,10 @@ export default function (context, { tabDefs }) {
         text-align: center;
         margin: 4px;
         cursor: pointer;
-        transition: 0.2s ease-in-out;
+        transition: var(--transition-fast) ease-in-out;
         overflow: hidden;
         &:hover {
-          color: ${palette.primary.main.light};
+          color: var(--color-primary-light);
           &::after {
             transform: translateX(0%);
           }
@@ -39,7 +38,7 @@ export default function (context, { tabDefs }) {
         &::after {
           transition: 0.3s ease-in-out;
           transform: translateX(-101%);
-          background-color: ${palette.primary.main};
+          background-color: var(--color-primary);
           content: "";
           margin-top: 0.3rem;
           height: 0.4rem;
@@ -48,19 +47,19 @@ export default function (context, { tabDefs }) {
         }
       `,
       active: css`
-        color: ${palette.primary.main};
+        color: var(--color-primary);
         &::after {
-          background-color: ${palette.primary.main};
+          background-color: var(--color-primary);
           transform: translateX(0%);
         }
       `,
       disabled: css`
         cursor: not-allowed;
         font-style: italic;
-        color: ${palette.text.disabled};
+        color: var(--font-color-disabled);
         background-color: white;
         &:hover {
-          color: ${palette.text.disabled};
+          color: var(--font-color-disabled);
           background-color: white;
           border: none;
           &::after {

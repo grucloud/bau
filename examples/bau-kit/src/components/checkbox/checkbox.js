@@ -1,28 +1,27 @@
 export default function (context, options = {}) {
-  const { theme, bau, css } = context;
-  const { palette, shape, shadows } = theme;
+  const { bau, css } = context;
   const { input } = bau.tags;
   const style = {
     base: css`
       width: 1.5rem;
       height: 1.5rem;
-      border-radius: 4px;
+      border-radius: var(--global-radius);
       appearance: none;
       outline: none;
       box-sizing: border-box;
-      transition: all 0.2s ease-in-out;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-      border: 2px solid ${palette.grey["600"]};
+      transition: all var(--transition-fast) ease-in-out;
+      box-shadow: var(--global-shadow-lw);
+      border: 2px solid var(--color-gray-600);
       position: relative;
       &:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
       }
       &:disabled {
-        border: 2px dashed ${palette.text.disabled};
+        border: 2px dashed var(--color-gray-500);
       }
       &:checked {
-        border: 2px solid ${palette.primary.main};
-        background-color: ${palette.primary.main};
+        border: 2px solid var(--color-primary);
+        background-color: var(--color-primary);
       }
       &::after {
         content: "\u2716";
@@ -31,11 +30,11 @@ export default function (context, options = {}) {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        color: ${palette.primary.main};
+        color: var(--color-primary);
         opacity: 0;
       }
       &:checked::after {
-        color: ${palette.grey["200"]};
+        color: var(--color-gray-100);
         opacity: 1;
       }
     `,

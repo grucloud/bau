@@ -1,8 +1,7 @@
 import { classNames } from "../../utils/classNames";
 
 export default function (context, options = {}) {
-  const { theme, bau, css } = context;
-  const { palette, shape, shadows } = theme;
+  const { bau, css } = context;
   const { div, span, label, input } = bau.tags;
 
   const style = {
@@ -20,32 +19,32 @@ export default function (context, options = {}) {
         position: absolute;
         z-index: -1;
       }
-      .filename-display {
+      & .filename-display {
         display: inline-block;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
       & label {
-        border-radius: ${shape.borderRadius}px;
+        border-radius: var(--global-radius);
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        border: 2px dotted;
-        box-shadow: ${shadows[2]};
+        border: var(--global-border-width) dotted;
+        box-shadow: var(--global-shadow-lw);
         &:hover {
-          box-shadow: ${shadows[5]};
+          box-shadow: var(--global-shadow-md);
         }
       }
     `,
     disabled: css`
-      color: ${palette.grey[500]};
+      color: var(--color-gray-500);
       & label {
-        background-color: ${palette.grey[100]};
-        border: 2px ${palette.grey[500]} dotted;
+        background-color: var(--color-gray-100);
+        border: var(--global-border-width) var(--color-gray-500) dotted;
         &:hover {
-          box-shadow: ${shadows[2]};
+          box-shadow: var(--global-shadow-lw);
         }
         cursor: not-allowed;
       }

@@ -1,7 +1,6 @@
 // See https://open-ui.org/components/selectmenu/
 export default function (context, options = {}) {
-  const { theme, bau, css } = context;
-  const { palette, shape, shadows } = theme;
+  const { bau, css } = context;
   const { div, selectmenu, option, h3, h4 } = bau.tags;
 
   return function Selectmenu(props, ...children) {

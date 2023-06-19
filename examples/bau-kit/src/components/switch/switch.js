@@ -1,39 +1,36 @@
-import { classNames } from "../../utils/classNames";
-
 export default function (context, options = {}) {
-  const { theme, bau, css } = context;
-  const { palette, shape, shadows } = theme;
-  const { div, input, label } = bau.tags;
+  const { bau, css } = context;
+  const { input } = bau.tags;
 
   const style = css`
     position: relative;
     width: 2rem;
     height: 1rem;
-    background-color: ${palette.grey["400"]};
-    border-radius: 5px;
+    background-color: var(--color-gray-300);
+    border-radius: var(--global-radius);
     appearance: none;
     outline: none;
-    transition: all 0.5s;
-    box-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
+    transition: all var(--transition-fast);
+    box-shadow: var(--global-shadow-md);
     &::after {
       content: "";
-      background: #ffffff;
+      background: var(--background-color);
       transform: translateX(0%) scale(1.3);
       width: 1rem;
       height: 1rem;
       border-radius: 50%;
       position: absolute;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      background-color: ${palette.grey["700"]};
-      transition: all 0.5s;
+      box-shadow: var(--global-shadow-md);
+      background-color: var(--color-gray-700);
+      transition: all var(--transition-fast);
     }
     &:checked {
-      background-color: ${palette.primary.light};
+      background-color: var(--color-primary-lighter);
     }
     &:checked::after {
       content: "";
       transform: translateX(100%) scale(1.3);
-      background-color: ${palette.primary.main};
+      background-color: var(--color-primary);
     }
   `;
 

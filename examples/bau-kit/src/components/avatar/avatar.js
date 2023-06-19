@@ -1,9 +1,8 @@
 import { classNames } from "../../utils/classNames";
 
 export default function (context, options = {}) {
-  const { theme, bau, css } = context;
+  const { bau, css } = context;
   const { cssOverride } = options;
-  const { palette, shape, shadows } = theme;
   const { span, img } = bau.tags;
 
   const loadingState = bau.state(true);

@@ -1,11 +1,10 @@
 export default function (context, options = {}) {
-  const { theme, bau, css } = context;
-  const { palette, shape, shadows } = theme;
+  const { bau, css } = context;
   const { dialog } = bau.tags;
 
   const style = css`
-    box-shadow: ${shadows[2]};
-    background-color: ${palette.background.default};
+    box-shadow: var(--global-shadow-lw);
+    background-color: var(--background-color);
     top: 0;
     left: 0;
     max-height: 90vh;
@@ -20,14 +19,14 @@ export default function (context, options = {}) {
       font-size: 1.8rem;
       font-weight: 800;
       text-align: center;
-      background-color: ${palette.primary.main};
-      color: ${palette.primary.contrastText};
+      background-color: var(--color-primary);
+      color: var(--font-color-base);
     }
     & footer {
       display: flex;
       justify-content: flex-end;
       margin: 0px;
-      box-shadow: ${shadows[2]};
+      box-shadow: var(--global-shadow-lw);
       > * {
         margin: 12px;
       }

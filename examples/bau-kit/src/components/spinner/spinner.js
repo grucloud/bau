@@ -1,18 +1,19 @@
 export default function (context, options = {}) {
-  const { theme, bau, css } = context;
+  const { bau, css } = context;
 
   const { svg, animate, animateTransform, rect } = bau.tagsNS(
     "http://www.w3.org/2000/svg"
   );
   return function Spinner({
     size = 36,
-    color = "black",
+    color = "primary",
     visibility = true,
   } = {}) {
     return svg(
       {
         class: css`
           visibility: ${visibility ? "visible" : "hidden"};
+          color: var(--color-${color});
         `,
         version: "1.1",
         id: "L6",
@@ -26,7 +27,7 @@ export default function (context, options = {}) {
       rect(
         {
           fill: "none",
-          stroke: color,
+          stroke: "currentColor",
           strokeWidth: "4",
           x: "25",
           y: "25",
@@ -35,7 +36,7 @@ export default function (context, options = {}) {
         },
         animateTransform({
           attributeName: "transform",
-          dur: "0.5s",
+          dur: "0.4s",
           from: "0 50 50",
           to: "180 50 50",
           type: "rotate",
@@ -45,7 +46,7 @@ export default function (context, options = {}) {
         })
       ),
       rect(
-        { x: "27", y: "27", fill: color, width: "46", height: "50" },
+        { x: "27", y: "27", fill: "currentColor", width: "46", height: "50" },
         animate({
           attributeName: "height",
           dur: "1.3s",

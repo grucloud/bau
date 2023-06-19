@@ -1,6 +1,5 @@
 export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
-  const { theme, bau, css, keyframes } = context;
-  const { palette, shape, shadows } = theme;
+  const { bau, css, keyframes } = context;
   const { div } = bau.tags;
   const messagesState = bau.state([]);
 
@@ -19,8 +18,8 @@ export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
       min-width: 300px;
       max-width: 600px;
       position: fixed;
-      right: 1rem;
-      top: 1rem;
+      right: var(--global-spacing);
+      top: var(--global-spacing);
       z-index: 10;
     `,
     item: css`
@@ -30,13 +29,10 @@ export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
       justify-content: flex-start;
       align-items: center;
       cursor: pointer;
-      animation: ${animation.inserting} 0.2s ease-out;
+      animation: ${animation.inserting} var(--transition-slow) ease-out;
     `,
-    // itemIn: css`
-    //   animation: ${animation.inserting} 0.2s ease-out;
-    // `,
     itemOut: css`
-      animation: ${animation.removing} 0.2s ease-out;
+      animation: ${animation.removing} var(--transition-slow) ease-out;
     `,
   };
 

@@ -3,10 +3,9 @@ import IconUpload from "./uploadIcon.svg";
 import fileInput from "./fileInput";
 
 export default (context) => {
-  const { tr, bau, theme, css } = context;
-  const { palette, shape, shadows } = theme;
+  const { tr, bau, css } = context;
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
-  const { section, div, h3, h2, span, input } = bau.tags;
+  const { section, div, h3, h2, span } = bau.tags;
 
   const fileState = bau.state("No file selected");
 
@@ -27,23 +26,23 @@ export default (context) => {
             display: flex;
             align-items: center;
             flex-direction: column;
-            color: ${palette.text.primary};
+            color: var(--font-color-base);
             > * {
               margin: 1rem;
             }
             svg {
               height: 3rem;
               path {
-                fill: ${palette.text.primary};
+                fill: var(--font-color-base);
               }
             }
           `,
           disabled &&
             css`
-              color: ${palette.grey[500]};
+              color: var(--color-gray-500);
               svg {
                 path {
-                  fill: ${palette.grey[500]};
+                  fill: var(--color-gray-500);
                 }
               }
             `
