@@ -91,10 +91,6 @@ export default function (context, options = {}) {
       text-align: center;
       width: 100%;
     `,
-    label: css``,
-    icon: css`
-      padding: 0.4rem;
-    `,
     ripple: css`
       position: relative;
       overflow: hidden;
@@ -156,7 +152,6 @@ export default function (context, options = {}) {
         href,
         ...(!href && { type: "button" }),
       },
-      icon && span({ class: styles.icon }, icon),
       children
     );
   };

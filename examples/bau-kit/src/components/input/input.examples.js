@@ -23,6 +23,15 @@ export default (context) => {
           disabled: true,
           value: "with value",
         })
+      ),
+      h3("Input with error"),
+      div(
+        Input({
+          name: "my-input-error",
+          id: "my-input-with-error",
+          label: "my-input",
+          error: "should be greater than 2",
+        })
       )
     );
 };

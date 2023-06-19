@@ -45,9 +45,10 @@ export default function (context, options = {}) {
           font-style: normal;
         }
       }
-      & > div {
+      & div[data-input-error] {
         margin: 0.2rem 0;
         position: absolute;
+        background: var(--background-color);
       }
     `,
     disabled: css`
@@ -59,11 +60,12 @@ export default function (context, options = {}) {
       }
     `,
     error: css`
+      color: var(--color-danger) !important;
       & * {
-        color: var(--color-error) !important;
+        color: var(--color-danger) !important;
       }
       & input {
-        border: 1px dashed var(--color-error) !important;
+        border: 1px dashed var(--color-danger) !important;
       }
     `,
   };
@@ -93,7 +95,8 @@ export default function (context, options = {}) {
         disabled,
         ...otherProps,
       }),
-      label({ htmlFor: id }, labelValue)
+      label({ htmlFor: id }, labelValue),
+      div({ "data-input-error": name }, error)
     );
   };
 }
