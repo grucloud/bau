@@ -23,7 +23,7 @@ const buildGrays = () =>
     .fill("")
     .map(
       (v, index) =>
-        `--color-gray-${index * 100}: hsl(0, 0%, ${100 - 10 * index}%);`
+        `--color-gray-${index * 100}: hsl(0, 0%, ${100 - 7 * index}%);`
     )
     .join("\n");
 

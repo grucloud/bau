@@ -9,7 +9,7 @@ export default (context) => {
       { id: "input" },
       h2(tr("Input Examples")),
       h3("Standard"),
-      div(Input({ id: "my-Input", label: "my Input" })),
+      div(Input({ id: "my-Input", label: "Label" })),
       h3("Disabled"),
       div(
         Input({

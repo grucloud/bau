@@ -1,27 +1,37 @@
 import { classNames } from "../../utils/classNames";
 
-export default function (context, options = {}) {
-  const { bau, css } = context;
-  const { div, input, label } = bau.tags;
-  const style = {
+const createStyles = ({ css, createGlobalStyles }) => {
+  createGlobalStyles`
+:root {
+  --input-border-bottom-size: 2px;
+}
+`;
+
+  return {
     base: css`
       position: relative;
       display: inline-block;
-      font-size: 1rem;
       min-height: 3rem;
+
       & input {
+        font-size: 1.2rem;
+        background: var(--color-emphasis-100);
         box-shadow: var(--global-shadow-lw);
         border-radius: var(--global-radius);
-        border: 2px solid transparent;
+        border: var(--input-border-bottom-size) solid transparent;
+        border-bottom: var(--input-border-bottom-size) solid
+          var(--color-emphasis-900);
         box-sizing: border-box;
         padding: 26px 10px 4px 10px;
         outline: none;
+        transition: background-color var(--transition-fast) ease-in-out;
         &:hover {
-          box-shadow: var(--global-shadow-md);
+          background: var(--color-emphasis-200);
         }
         &:focus,
         &:valid {
-          border: 2px solid var(--color-primary);
+          border-bottom: var(--input-border-bottom-size) solid
+            var(--color-primary);
         }
         &:focus + label,
         &:valid + label,
@@ -56,7 +66,8 @@ export default function (context, options = {}) {
         color: var(--font-color-disabled) !important;
       }
       & input {
-        border: 1px dashed var(--font-color-disabled);
+        border-bottom: var(--input-border-bottom-size) dashed
+          var(--font-color-disabled);
       }
     `,
     error: css`
@@ -65,10 +76,18 @@ export default function (context, options = {}) {
         color: var(--color-danger) !important;
       }
       & input {
-        border: 1px dashed var(--color-danger) !important;
+        border-bottom: var(--input-border-bottom-size) dashed
+          var(--color-danger) !important;
       }
     `,
   };
+};
+
+export default function (context, options = {}) {
+  const { bau, css, createGlobalStyles } = context;
+  const { div, input, label } = bau.tags;
+
+  const styles = createStyles({ css, createGlobalStyles });
 
   return function Input(props) {
     const {
@@ -82,9 +101,10 @@ export default function (context, options = {}) {
     return div(
       {
         class: classNames(
-          style.base,
-          disabled && style.disabled,
-          error && style.error
+          styles.base,
+          disabled && styles.disabled,
+          error && styles.error,
+          props.class
         ),
       },
       input({
