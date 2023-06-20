@@ -1,7 +1,7 @@
 import assert from "assert";
 import { describe, it, vi, expect } from "vitest";
 
-import Bau from "../src/bau";
+import Bau from "../bau";
 
 describe("tags", async () => {
   const bau = Bau();
