@@ -1,0 +1,7 @@
+examples/
+test
+node_modules
+*.log
+.vscode
+*.tgz
+my-component/

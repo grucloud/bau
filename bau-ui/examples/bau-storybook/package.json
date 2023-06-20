@@ -1,13 +1,10 @@
 {
-  "name": "bau-bau-css",
-  "description": "Example on how to use bau-css with bau",
+  "name": "@grucloud/bau-ui-storybook",
+  "description": "Display the various BauUI components",
   "version": "0.21.0",
   "private": true,
   "type": "module",
   "license": "BSD",
-  "files": [
-    "dist"
-  ],
   "keywords": [
     "CSS",
     "cssinjs",
@@ -24,13 +21,16 @@
   },
   "dependencies": {
     "@grucloud/bau": "^0.21.0",
-    "@grucloud/bau-css": "^0.21.0"
+    "@grucloud/bau-css": "^0.21.0",
+    "@grucloud/bau-router": "^0.21.0",
+    "@grucloud/bau-ui": "^0.21.0"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "0.32.0",
     "happy-dom": "9.20.3",
     "vite": "4.3.9",
     "vite-bundle-visualizer": "0.7.0",
+    "vite-plugin-svg-sprite": "0.3.2",
     "vitest": "0.31.4"
   },
   "repository": {

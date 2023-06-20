@@ -1,0 +1,24 @@
+{
+  "name": "@grucloud/bau-ui",
+  "description": "Components library built with Bau",
+  "version": "0.21.0",
+  "type": "module",
+  "license": "BSD",
+  "keywords": [
+    "Component",
+    "Bau",
+    "Design System",
+    "CSS in JS"
+  ],
+  "author": "Frederic Heem",
+  "scripts": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:grucloud/bau.git"
+  },
+  "dependencies": {
+    "@grucloud/bau": "0.21.0",
+    "@grucloud/bau-css": "0.21.0"
+  }
+}

@@ -26,15 +26,6 @@ const pages = createPages([
       description: "Admin Area",
     },
   },
-  {
-    name: "storybook",
-    filename: "storybook.html",
-    entry: "/src/pages/storybook/entry.js",
-    data: {
-      title: "Story Book",
-      description: "Story Book",
-    },
-  },
 ]);
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
