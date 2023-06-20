@@ -1,7 +1,7 @@
 {
   "name": "vanillajs-bau-css",
   "private": true,
-  "version": "0.21.0",
+  "version": "0.22.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,6 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
-    "@grucloud/bau-css": "^0.21.0"
+    "@grucloud/bau-css": "^0.22.0"
   }
 }
