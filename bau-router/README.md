@@ -1,6 +1,6 @@
 # BauRouter
 
-A Router for the browser in [75 lines of code](./src/bau-router.js) with the following features:
+A Router for the browser in [75 lines of code](./bau-router.js) with the following features:
 
 - Nested route
 - Layout support

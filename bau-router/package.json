@@ -3,17 +3,15 @@
   "description": "A lean router",
   "version": "0.23.0",
   "type": "module",
-  "main": "./dist/bau-router.umd.cjs",
-  "module": "./dist/bau-router.js",
+  "module": "./bau-router.js",
   "exports": {
     ".": {
-      "import": "./dist/bau-router.js",
-      "require": "./dist/bau-router.umd.cjs"
+      "import": "./bau-router.js"
     }
   },
   "license": "BSD",
   "files": [
-    "dist"
+    "bau-router.js"
   ],
   "keywords": [
     "router"

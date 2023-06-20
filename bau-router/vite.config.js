@@ -5,7 +5,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   return {
     build: {
       lib: {
-        entry: resolve(__dirname, "src/bau-router.js"),
+        entry: resolve(__dirname, "bau-router.js"),
         name: "BauRouter",
         fileName: "bau-router",
       },
