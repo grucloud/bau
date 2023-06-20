@@ -15,60 +15,63 @@ export default function (context, { tabDefs }) {
       flex-direction: column;
       & ul {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0rem;
+        align-items: flex-end;
+        justify-content: flex-start;
+        padding: 0;
         list-style: none;
-      }
-    `,
-    li: {
-      base: css`
-        flex-grow: 1;
-        text-align: center;
-        margin: 4px;
-        cursor: pointer;
-        transition: var(--transition-fast) ease-in-out;
-        overflow: hidden;
-        &:hover {
-          color: var(--color-primary-light);
+        border-bottom: 2px solid var(--color-emphasis-100);
+        & li {
+          text-align: center;
+          padding: 0.5rem;
+          padding-bottom: 0rem;
+          cursor: pointer;
+          font-weight: var(--font-weight-semibold);
+          transition: var(--transition-fast) ease-in-out;
+          overflow: hidden;
+
+          &:hover {
+            color: var(--color-primary-light);
+            background-color: var(--color-emphasis-100);
+            &::after {
+              transform: translateY(0%);
+            }
+          }
           &::after {
-            transform: translateX(0%);
+            transition: var(--transition-fast) ease-in-out;
+            transform: translateY(400%);
+            background-color: var(--color-primary);
+            opacity: 1;
+            content: "";
+            margin-top: 0.3rem;
+            height: 2px;
+            width: 100%;
+            display: block;
           }
         }
-        &::after {
-          transition: 0.3s ease-in-out;
-          transform: translateX(-101%);
-          background-color: var(--color-primary);
-          content: "";
-          margin-top: 0.3rem;
-          height: 0.4rem;
-          width: 100%;
-          display: block;
+        & .active {
+          color: var(--color-primary);
+          font-weight: bolder;
+          &::after {
+            background-color: var(--color-primary);
+            transform: translateY(0%);
+          }
         }
-      `,
-      active: css`
-        color: var(--color-primary);
-        &::after {
-          background-color: var(--color-primary);
-          transform: translateX(0%);
-        }
-      `,
-      disabled: css`
-        cursor: not-allowed;
-        font-style: italic;
-        color: var(--font-color-disabled);
-        background-color: white;
-        &:hover {
+        & .disabled {
+          cursor: not-allowed;
+          font-style: italic;
           color: var(--font-color-disabled);
           background-color: white;
-          border: none;
-          &::after {
-            transform: translateX(-100%);
-            background-color: white;
+          transform: none;
+          &:hover {
+            color: var(--font-color-disabled);
+            border: none;
+            &::after {
+              transform: none;
+            }
           }
         }
-      `,
-    },
+      }
+    `,
   };
 
   return function Tabs(props, ...children) {
@@ -76,7 +79,15 @@ export default function (context, { tabDefs }) {
       const { Header, disabled, name } = tab;
       return li(
         {
-          class: classNames(style.li.base, disabled && style.li.disabled),
+          class: {
+            deps: [tabCurrentState],
+            renderProp: () => (tabCurrent) => {
+              return classNames(
+                tabCurrent.name == name && "active",
+                disabled && "disabled"
+              );
+            },
+          },
           onclick: (event) =>
             event.srcElement.dispatchEvent(
               new CustomEvent("tab.select", {
@@ -90,21 +101,23 @@ export default function (context, { tabDefs }) {
     };
 
     const rootEl = div(
-      { class: classNames(style.base) },
+      { class: classNames(style.base, props.class) },
+      // Header
       bau.bind({
         deps: [tabsState],
         render:
           ({ renderItem }) =>
           (arr) =>
-            ul({ class: style.base.ul }, arr.map(renderItem())),
+            ul(arr.map(renderItem())),
         renderItem: () => TabHeader,
       }),
+      // Content
       bau.bind({
         deps: [tabCurrentState],
         render:
           () =>
           ({ Content }) =>
-            Content && Content({}),
+            Content ? Content({}) : "",
       })
     );
 

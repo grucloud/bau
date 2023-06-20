@@ -11,7 +11,7 @@ function expandSection(element) {
 const createStyles = ({ css, createGlobalStyles }) => {
   createGlobalStyles`
 :root {
-  --menu-color: var(--color-emphasis-700);
+  --menu-color: var(--font-color-base);
   --menu-color-active: var(--color-primary);
   --menu-color-background-active: var(--hover-overlay);
   --menu-color-background-hover: var(--hover-overlay);
