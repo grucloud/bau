@@ -6,7 +6,12 @@ No JSX, no templating, no virtual DOM, just a simple way to write UI components 
 
 Bau is reactive, data mutation drives the various views binded to this data. When the data is modified, the mutation is intercepted via carefully crafted Javascript proxies, and the DOM is updated accordingly.
 
-Data can be an array, an object or a primitive value such as boolean/integer/string.
+In addition to this core library, a set of others has been released to provide a full ecosystem:
+
+- [bau-css](./bau-css): a CSS in JS library in 33 lines of code.
+- [bau-ui](./bau-ui): a set of themable components such as Button, Input, Tabs, Tree View, Model, etc...
+- [bau-router](./bau-router): a router with nested route, asynchronous loading, layout. Under 0.6kB
+- [bau-kit](./examples/bau-kit): a Multi Page App starter kit, all of these features packed under 5KB, a **20X** decreased compared to the combo React/Redux/React Router/Style Component.
 
 ## Bundle size
 
@@ -59,18 +64,10 @@ npm install @grucloud/bau
 
 Have a look at the [examples](./examples) directory to find out how to use this library.
 
-## CSS in JS
+## Benchmark
 
-Need a CSS in JS solution ? Checkout [bau-css](./bau-css), a 35 lines CSS in JS library. 20 times leaner than the popular css in js solution.
-
-## Components
-
-A set of [UI components](./examples/bau-kit/src/components) has been created that helps to get you started, for instance Button, Input, Modal, Tabs etc...
-
-## Multi Page app
-
-Looking for a complete frontend solution, try [bau-kit](./examples/bau-kit), a themable multi page app, with a router than can handle dynamic nested route.
-All of these features packed under 5KB, a 20X decreased compared to the combo React/Redux/React Router/Style Component.
+Bau has been benchmarked against other thanks to the project [js-framework-benchmark](https://github.com/krausest/js-framework-benchmark),
+It scores very well on most use cases, see prelimanary results [here](https://github.com/krausest/js-framework-benchmark/pull/1271)
 
 ## Guide
 
