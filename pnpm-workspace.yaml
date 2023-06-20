@@ -3,6 +3,7 @@ packages:
   - "bau/**"
   - "bau-css/**"
   - "bau-router/**"
+  - "bau-ui/**"
 
   # all packages in subdirs of components/
   - "examples/**/*"

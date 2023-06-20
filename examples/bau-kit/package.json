@@ -19,6 +19,7 @@
   "dependencies": {
     "@grucloud/bau": "^0.21.0",
     "@grucloud/bau-css": "^0.21.0",
+    "@grucloud/bau-ui": "^0.21.0",
     "@grucloud/bau-router": "^0.21.0",
     "rubico": "1.9.7"
   }

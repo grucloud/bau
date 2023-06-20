@@ -45,22 +45,22 @@ npm run build
 ```
 
 ```txt
+> vite build
+
+[vite-plugin-virtual-mpa]: Generated virtual files:
 <dist>/index.html
 <dist>/admin.html
-<dist>/storybook.html
 vite v4.3.9 building for production...
-✓ 37 modules transformed.
-dist/index.html                    0.69 kB │ gzip: 0.40 kB
-dist/storybook.html                0.69 kB │ gzip: 0.41 kB
-dist/admin.html                    0.76 kB │ gzip: 0.42 kB
-dist/assets/router-00fe99d8.css    0.89 kB │ gzip: 0.48 kB
-dist/assets/notFound-b8464423.js   0.10 kB │ gzip: 0.11 kB
-dist/assets/formLogin-f93433b9.js  0.47 kB │ gzip: 0.32 kB
-dist/assets/landing-30eb12da.js    1.02 kB │ gzip: 0.53 kB
-dist/assets/admin-2cc5bb6c.js      1.63 kB │ gzip: 0.83 kB
-dist/assets/storybook-01f85d43.js  7.50 kB │ gzip: 2.39 kB
-dist/assets/router-5c735e0c.js     7.87 kB │ gzip: 3.80 kB
-✓ built in 140ms
+✓ 27 modules transformed.
+dist/admin.html                            0.70 kB │ gzip: 0.41 kB
+dist/index.html                            0.71 kB │ gzip: 0.41 kB
+dist/assets/onLocationChange-55f1c9cd.css  1.04 kB │ gzip: 0.49 kB
+dist/assets/notFound-6f3918d2.js           0.10 kB │ gzip: 0.11 kB
+dist/assets/index-00c3d4a3.js              1.09 kB │ gzip: 0.58 kB
+dist/assets/admin-c2bad55b.js              2.15 kB │ gzip: 1.09 kB
+dist/assets/onLocationChange-008182f3.js   6.51 kB │ gzip: 3.05 kB
+✓ built in 123ms
+
 
 ```
 
