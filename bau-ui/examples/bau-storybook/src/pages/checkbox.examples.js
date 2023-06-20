@@ -49,7 +49,7 @@ export default (context) => {
             checked: checkboxDisabledState,
             onchange: onChange(checkboxDisabledState),
           }),
-          label({ for: "myCheckbox" }, "My Disabled Checkbox")
+          label({ for: "myCheckbox-disabled" }, "My Disabled Checkbox")
         )
       )
     );

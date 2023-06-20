@@ -11,7 +11,7 @@ import { onLocationChange } from "./onLocationChange";
 
 initialScreenFadeOut();
 
-const config = { title: "Story Book", base: "/storybook" };
+const config = { title: "Bau", base: "/bau" };
 const context = createContext({ config });
 
 globalStyle(context);

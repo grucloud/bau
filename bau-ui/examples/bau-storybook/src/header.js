@@ -48,7 +48,10 @@ export default function (context) {
         `,
       },
       Button(
-        { onclick: () => (drawerOpenState.val = !drawerOpenState.val) },
+        {
+          "aria-label": "drawer",
+          onclick: () => (drawerOpenState.val = !drawerOpenState.val),
+        },
         BurgerIcon()
       ),
       h1(tr("Bau Components Story Book"))
