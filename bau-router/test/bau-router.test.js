@@ -1,8 +1,7 @@
 import assert from "assert";
 import { describe, it, vi, expect } from "vitest";
 
-import Bau from "../Bau/src/bau";
-// import BauCss from "../src/bau-css";
+import Bau from "@grucloud/bau";
 
 const bau = Bau();
 const { div, p, button } = bau.tags;

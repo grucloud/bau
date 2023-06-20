@@ -3,17 +3,15 @@
   "description": "A CSS in JS library in 35 lines of code",
   "version": "0.23.0",
   "type": "module",
-  "main": "./dist/bau-css.umd.cjs",
-  "module": "./dist/bau-css.js",
+  "module": "./bau-css.js",
   "exports": {
     ".": {
-      "import": "./dist/bau-css.js",
-      "require": "./dist/bau-css.umd.cjs"
+      "import": "./bau-css.js"
     }
   },
   "license": "BSD",
   "files": [
-    "dist"
+    "bau-css.js"
   ],
   "keywords": [
     "CSS",

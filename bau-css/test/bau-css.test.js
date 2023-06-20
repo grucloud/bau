@@ -1,7 +1,7 @@
 import assert from "assert";
 import { describe, it, vi, expect } from "vitest";
 
-import BauCss from "../src/bau-css";
+import BauCss from "../bau-css";
 
 const bauCss = BauCss();
 const { css, keyframes, createGlobalStyles } = bauCss;

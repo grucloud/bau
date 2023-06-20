@@ -1,5 +1,5 @@
 import Bau from "@grucloud/bau";
-import BauRouter from "./src/bau-router";
+import BauRouter from "./bau-router";
 
 // The context is passed around your components through the dependency injection pattern
 const context = {
