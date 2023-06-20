@@ -3,17 +3,15 @@
   "description": "Bau.js is a reactive library for building high performance user interface for the web",
   "version": "0.22.0",
   "type": "module",
-  "main": "./dist/bau.umd.cjs",
-  "module": "./dist/bau.js",
+  "module": "bau.js",
   "exports": {
     ".": {
-      "import": "./dist/bau.js",
-      "require": "./dist/bau.umd.cjs"
+      "import": "./bau.js"
     }
   },
   "license": "BSD",
   "files": [
-    "dist"
+    "bau.js"
   ],
   "keywords": [
     "ui",
@@ -29,11 +27,13 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@vitest/coverage-c8": "0.32.0",
+    "@vitest/browser": "0.32.2",
+    "@vitest/coverage-c8": "0.32.2",
     "happy-dom": "9.20.3",
     "vite": "4.3.9",
     "vite-bundle-visualizer": "0.7.0",
-    "vitest": "0.31.4"
+    "vitest": "0.32.2",
+    "webdriverio": "8.11.2"
   },
   "repository": {
     "type": "git",

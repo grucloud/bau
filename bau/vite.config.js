@@ -5,7 +5,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   return {
     build: {
       lib: {
-        entry: resolve(__dirname, "src/bau.js"),
+        entry: resolve(__dirname, "bau.js"),
         name: "Bau",
         fileName: "bau",
       },
@@ -14,7 +14,14 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       open: true,
     },
     test: {
-      environment: "happy-dom",
+      browser: {
+        enabled: true,
+        name: "chrome", // browser name is required
+      },
+    },
+    // pnpm
+    resolve: {
+      preserveSymlinks: true,
     },
   };
 });

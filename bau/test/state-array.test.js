@@ -1,7 +1,7 @@
 import assert from "assert";
 import { beforeEach, describe, it, vi } from "vitest";
 
-import Bau from "../src/bau";
+import Bau from "../bau";
 
 describe("state array", async () => {
   const bau = Bau();

@@ -1,7 +1,7 @@
 import assert from "assert";
 import { describe, it, vi, expect } from "vitest";
 
-import Bau from "../src/bau";
+import Bau from "../bau";
 
 describe("tags", async () => {
   const bau = Bau();
@@ -16,12 +16,20 @@ describe("tags", async () => {
   });
   it("p with props", () => {
     const el = p({ style: "border: 1px solid" }, "hello");
-    assert.equal(el.outerHTML, '<p style="border: 1px solid">hello</p>');
+    assert.equal(el.outerHTML, '<p style="border: 1px solid;">hello</p>');
   });
   it("button", () => {
     const spyClick = vi.fn();
-    const el = button({ id: "my-button", onclick: spyClick }, "Click");
-    document.body.replaceChildren(el);
+    const el = button(
+      {
+        id: "my-button",
+        onclick: () => {
+          spyClick();
+        },
+      },
+      "Click"
+    );
+    document.body.append(el);
     document.getElementById("my-button").click();
     expect(spyClick).toHaveBeenCalled();
   });
