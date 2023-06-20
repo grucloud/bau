@@ -1,6 +1,5 @@
 import { initialScreenFadeOut } from "../../utils/initialScreenFadeOut";
-//import BauRouter  from "@grucloud/bau-router";
-import BauRouter from "../../../../../bau-router/src/bau-router";
+import BauRouter from "@grucloud/bau-router";
 import { createContext } from "../../utils/context";
 
 import { layoutDefault } from "./layoutDefault";
