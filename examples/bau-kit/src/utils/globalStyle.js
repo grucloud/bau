@@ -23,7 +23,7 @@ const buildGrays = () =>
     .fill("")
     .map(
       (v, index) =>
-        `--color-gray-${index * 100}: hsl(0, 0%, ${100 - 7 * index}%);`
+        `--color-gray-${index * 100}: hsl(0, 0%, ${100 - 8 * index}%);`
     )
     .join("\n");
 
@@ -68,8 +68,8 @@ export function globalStyle({ createGlobalStyles }) {
   ${COLORS.map(([color, hsl]) => buildColor([color, hsl])).join("\n")}
   ${buildGrays()}
   ${buildEmphasis()}
-  --color-content: var(--color-emphasis-900);
-  --color-content-inverse: var(--color-emphasis-0);
+  --color-content: hsl(0, 0%, 10%);
+  --color-content-inverse: hsl(0, 0%, 90%);
   --color-content-secondary: #525860;
   --background-color: var(--color-white);
   --background-surface-color: var(--color-content-inverse);
@@ -77,7 +77,7 @@ export function globalStyle({ createGlobalStyles }) {
   --global-radius: 0.4rem;
   --font-color-base: var(--color-content);
   --font-color-disabled: var(--color-emphasis-600);
-  --font-color-base-inverse: var(--color-content-inverse);
+  --font-color-inverse: var(--color-content-inverse);
   --font-color-secondary: var(--color-content-secondary);
   --font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
   --font-family-monospace: Consolas, monospace;

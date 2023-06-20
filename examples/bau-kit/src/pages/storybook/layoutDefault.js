@@ -6,7 +6,7 @@ export const layoutDefault = (context) => {
   const { div } = bau.tags;
   const Header = header(context);
   const Footer = footer(context);
-
+  // TODO use CSS var
   return function LayoutDefault({ component }) {
     return div(
       {
@@ -23,7 +23,7 @@ export const layoutDefault = (context) => {
             top: 0;
           }
 
-          @media (max-width: ${context.theme.breakpoints.values.sm}) {
+          @media (max-width: 640px) {
             nav {
               visibility: hidden;
             }

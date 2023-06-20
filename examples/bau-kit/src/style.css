@@ -1,6 +1,7 @@
 html {
   font-family: var(--font-family);
   color-scheme: var(--color-scheme);
+  color: var(--color-content);
 }
 
 html,

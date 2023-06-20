@@ -30,7 +30,7 @@ export const main = (context) => {
           > section {
             padding: 10px;
             margin: 10px;
-            box-shadow: ${context.theme.shadows[1]};
+            box-shadow: var(--global-shadow-lw);
           }
         `,
       },

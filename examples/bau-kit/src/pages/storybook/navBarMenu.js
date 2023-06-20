@@ -1,8 +1,7 @@
 import { componentlist } from "./componentList";
 
 export default function (context) {
-  const { tr, bau, theme, css } = context;
-  const { palette } = theme;
+  const { tr, bau, css } = context;
   const { ul, li, nav, a } = bau.tags;
 
   return function DrawerMenu() {
@@ -29,11 +28,11 @@ export default function (context) {
                 text-decoration-line: none;
                 letter-spacing: 0.1em;
                 font-weight: bold;
-                color: ${palette.text.primary};
+                color: var(--font-color-base);
                 &:hover {
-                  color: ${palette.primary.main};
+                  color: var(--color-primary);
                   &::after {
-                    background-color: ${palette.primary.main};
+                    background-color: var(--color-primary);
                     transform: translate(0%);
                   }
                 }
