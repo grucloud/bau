@@ -1,6 +1,6 @@
 {
   "name": "js-framework-benchmark-bau",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "description": "bau demo benchmark",
   "private": true,
   "main": "index.js",
@@ -21,7 +21,7 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.22.0",
+    "@grucloud/bau": "^0.23.0",
     "bootstrap": "3.3.6"
   }
 }

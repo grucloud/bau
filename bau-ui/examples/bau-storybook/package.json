@@ -1,7 +1,7 @@
 {
   "name": "@grucloud/bau-ui-storybook",
   "description": "Display the various BauUI components",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "private": true,
   "type": "module",
   "license": "BSD",
@@ -20,10 +20,10 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.22.0",
-    "@grucloud/bau-css": "^0.22.0",
-    "@grucloud/bau-router": "^0.22.0",
-    "@grucloud/bau-ui": "^0.22.0"
+    "@grucloud/bau": "^0.23.0",
+    "@grucloud/bau-css": "^0.23.0",
+    "@grucloud/bau-router": "^0.23.0",
+    "@grucloud/bau-ui": "^0.23.0"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "0.32.0",
