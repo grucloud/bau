@@ -1,4 +1,4 @@
-const COLORS = [
+const ColorPaletteDefault = [
   ["primary", { h: "230", s: "48%", l: "47%" }],
   ["secondary", { h: "338", s: "100%", l: "48%" }],
   ["success", { h: "120", s: "100%", l: "32%" }],
@@ -55,7 +55,10 @@ const buildColor = ([color, { h, s, l }]) =>
     `--color-${color}-contrast-foreground: hsl(var(--color-${color}-h), var(--color-${color}-s), calc(var(--color-${color}-l) * var(--contrast-foreground-value)));`,
   ].join("\n");
 
-export function globalStyle({ createGlobalStyles }) {
+export default function globalStyle(
+  { createGlobalStyles },
+  { colorPalette = ColorPaletteDefault } = {}
+) {
   createGlobalStyles`
 :root {
   --color-scheme: light;
@@ -65,7 +68,7 @@ export function globalStyle({ createGlobalStyles }) {
   --contrast-foreground-dark-value: 90%;
   --color-white: #fff;
   --color-black: #000;
-  ${COLORS.map(([color, hsl]) => buildColor([color, hsl])).join("\n")}
+  ${colorPalette.map(([color, hsl]) => buildColor([color, hsl])).join("\n")}
   ${buildGrays()}
   ${buildEmphasis()}
   --color-content: hsl(0, 0%, 10%);
@@ -76,7 +79,7 @@ export function globalStyle({ createGlobalStyles }) {
   --global-border-width: 1px;
   --global-radius: 0.4rem;
   --font-color-base: var(--color-content);
-  --font-color-disabled: var(--color-emphasis-800);
+  --font-color-disabled: var(--color-emphasis-600);
   --font-color-inverse: var(--color-content-inverse);
   --font-color-secondary: var(--color-content-secondary);
   --font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
