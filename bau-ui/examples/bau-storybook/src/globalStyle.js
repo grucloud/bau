@@ -96,5 +96,10 @@ export function globalStyle({ createGlobalStyles }) {
     0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 @custom-media --narrow-window (max-width: 996px);
+:root {
+  font-family: var(--font-family);
+  color-scheme: var(--color-scheme);
+  color: var(--color-content);
+}
 `;
 }

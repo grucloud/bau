@@ -1,4 +1,3 @@
-import "./storybook.css";
 import BauRouter from "@grucloud/bau-router";
 import { globalStyle } from "./globalStyle";
 
