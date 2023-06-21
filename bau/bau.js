@@ -42,7 +42,7 @@ export default function Bau() {
           ...state.arrayOp,
           dom,
           renderDomItem: (value) =>
-            toDom(renderItem({ deps: depsValues })(value)),
+            toDom(renderItem({ deps: depsValues, dom })(value)),
         })[state.arrayOp.method]?.call();
         bindingCleanUp();
       } else {
