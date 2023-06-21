@@ -4,7 +4,7 @@ import navBarMenu from "./navBarMenu";
 
 export default function (context) {
   const { tr, bau, css } = context;
-  const { i, header, h1, div, a } = bau.tags;
+  const { i, header, h1, div, a, img } = bau.tags;
   const { svg, path } = bau.tagsNS("http://www.w3.org/2000/svg");
 
   const drawerOpenState = bau.state(true);
@@ -36,15 +36,12 @@ export default function (context) {
     );
   };
 
-  const AppBar = () =>
+  const NavBarLeft = () =>
     div(
       {
         class: css`
           display: flex;
-          justify-content: flex-start;
           align-items: center;
-          background-color: var(--color-primary);
-          color: var(--font-color-inverse);
         `,
       },
       Button(
@@ -55,6 +52,33 @@ export default function (context) {
         BurgerIcon()
       ),
       h1(tr("Bau Components Story Book"))
+    );
+
+  const NavBarRight = () =>
+    a(
+      {
+        class: css`
+          padding: 1rem;
+        `,
+        target: "_blank",
+        href: "https://github.com/grucloud/bau",
+      },
+      img({ src: "public/github-mark-white.svg", width: 40, height: 40 })
+    );
+
+  const AppBar = () =>
+    div(
+      {
+        class: css`
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background-color: var(--color-primary);
+          color: var(--font-color-inverse);
+        `,
+      },
+      NavBarLeft(),
+      NavBarRight()
     );
 
   return function headerNav() {
