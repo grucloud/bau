@@ -79,7 +79,7 @@ export default function globalStyle(
   --global-border-width: 1px;
   --global-radius: 0.4rem;
   --font-color-base: var(--color-content);
-  --font-color-disabled: var(--color-emphasis-600);
+  --font-color-disabled: var(--color-emphasis-700);
   --font-color-inverse: var(--color-content-inverse);
   --font-color-secondary: var(--color-content-secondary);
   --font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;

@@ -21,10 +21,9 @@ export const main = (context) => {
     return main(
       {
         class: css`
-          grid-row: 2;
+          grid-area: main;
           padding: 10px;
           margin-top: 20px;
-          grid-column: 2 / 3;
           > section {
             padding: 10px;
             margin: 10px;

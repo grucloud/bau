@@ -1,6 +1,5 @@
 //import drawer from "../../components/drawer";
 import button from "@grucloud/bau-ui/button";
-import navBarMenu from "./navBarMenu";
 
 export default function (context) {
   const { tr, bau, css } = context;
@@ -11,7 +10,6 @@ export default function (context) {
 
   //const Drawer = drawer(context);
   const Button = button(context);
-  const NavBarMenu = navBarMenu(context);
 
   const BurgerIcon = () => {
     return i(
@@ -51,7 +49,7 @@ export default function (context) {
         },
         BurgerIcon()
       ),
-      h1(tr("Bau Components Story Book"))
+      h1(tr("Bau Story Book"))
     );
 
   const NavBarRight = () =>
@@ -71,10 +69,14 @@ export default function (context) {
       })
     );
 
-  const AppBar = () =>
-    div(
+  return function headerNav() {
+    return header(
       {
         class: css`
+          z-index: 2;
+          position: sticky;
+          top: 0;
+          grid-area: header;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -85,8 +87,5 @@ export default function (context) {
       NavBarLeft(),
       NavBarRight()
     );
-
-  return function headerNav() {
-    return header(AppBar(), NavBarMenu());
   };
 }

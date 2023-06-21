@@ -1,41 +1,39 @@
 import header from "./header";
-//import { footer } from "./footer";
+import footer from "./footer";
+import navBarMenu from "./navBarMenu";
 
 export const layoutDefault = (context) => {
   const { bau, css } = context;
   const { div } = bau.tags;
+
   const Header = header(context);
-  //const Footer = footer(context);
+  const NavBarMenu = navBarMenu(context);
+
+  const Footer = footer(context);
   // TODO use CSS var
+
   return function LayoutDefault({ component }) {
     return div(
       {
         class: css`
           display: grid;
-          grid-template-columns: 180px 1fr;
-          grid-template-rows: 60px 1fr;
-
-          > header {
-            grid-row: 1;
-            grid-column: 1 / 3;
-            z-index: 2;
-            position: sticky;
-            top: 0;
-          }
+          grid-template-columns: 2fr;
+          grid-template-areas:
+            "header header"
+            "sidebar main"
+            "footer footer";
 
           @media (max-width: 640px) {
-            nav {
-              visibility: hidden;
-            }
-            main {
-              grid-column: 1 / 3;
+            & nav {
+              display: none;
             }
           }
         `,
       },
       Header(),
-      component()
-      //  Footer()
+      NavBarMenu(),
+      component(),
+      Footer()
     );
   };
 };
