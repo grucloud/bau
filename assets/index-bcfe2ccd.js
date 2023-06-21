@@ -1,4 +1,4 @@
-(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))o(a);new MutationObserver(a=>{for(const n of a)if(n.type==="childList")for(const s of n.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&o(s)}).observe(document,{childList:!0,subtree:!0});function t(a){const n={};return a.integrity&&(n.integrity=a.integrity),a.referrerPolicy&&(n.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?n.credentials="include":a.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function o(a){if(a.ep)return;a.ep=!0;const n=t(a);fetch(a.href,n)}})();const q=(e,r)=>({...e,paths:[...r,e.path]}),j=({paths:e=[],routes:r})=>r.flatMap(({children:t,...o})=>{const a=q(o,e);return t?[a,...j({paths:[...e,o.path],routes:t})]:a}),X=({paths:e})=>{const r=e.map(t=>t instanceof RegExp?t.source:t).map(t=>String.raw`\/${t}`).join("");return new RegExp(`^${r}$`)},Y=({routes:e=[],notFoundRoute:r})=>{const t=j({routes:e}).map(o=>({...o,regex:X(o)}));return{resolve:({pathname:o})=>{const a=t.find(({regex:n})=>n.test(o));return a?a.action({match:o.match(a.regex)}):r}}};function U({routes:e,notFoundRoute:r,onLocationChange:t}){const o=Y({routes:e,notFoundRoute:r});return window.addEventListener("popstate",a=>t({router:o})),window.history.pushState=new Proxy(window.history.pushState,{apply:(a,n,s)=>{a.apply(n,s),t({router:o})}}),document.addEventListener("click",a=>{const{target:n}=a,s=n.getAttribute("href");n.tagName==="A"&&!s.startsWith("http")&&!s.startsWith("#")&&(history.pushState({},null,s),a.preventDefault())}),t({router:o}),o}const K=[["primary",{h:"230",s:"48%",l:"47%"}],["secondary",{h:"338",s:"100%",l:"48%"}],["success",{h:"120",s:"100%",l:"32%"}],["info",{h:"194",s:"80%",l:"62%"}],["warning",{h:"43",s:"100%",l:"50%"}],["danger",{h:"358",s:"95%",l:"60%"}]],J=[["light","1.15"],["lighter","1.3"],["lightest","1.5"]],Q=[["dark","0.9"],["darker","0.85"],["darkest","0.7"]],Z=()=>new Array(10).fill("").map((e,r)=>`--color-gray-${r*100}: hsl(0, 0%, ${100-8*r}%);`).join(`
+(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))o(a);new MutationObserver(a=>{for(const n of a)if(n.type==="childList")for(const s of n.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&o(s)}).observe(document,{childList:!0,subtree:!0});function t(a){const n={};return a.integrity&&(n.integrity=a.integrity),a.referrerPolicy&&(n.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?n.credentials="include":a.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function o(a){if(a.ep)return;a.ep=!0;const n=t(a);fetch(a.href,n)}})();const q=(e,r)=>({...e,paths:[...r,e.path]}),j=({paths:e=[],routes:r})=>r.flatMap(({children:t,...o})=>{const a=q(o,e);return t?[a,...j({paths:[...e,o.path],routes:t})]:a}),X=({paths:e})=>{const r=e.map(t=>t instanceof RegExp?t.source:t).map(t=>String.raw`\/${t}`).join("");return new RegExp(`^${r}$`)},Y=({routes:e=[],notFoundRoute:r})=>{const t=j({routes:e}).map(o=>({...o,regex:X(o)}));return{resolve:({pathname:o})=>{const a=t.find(({regex:n})=>n.test(o));return a?a.action({match:o.match(a.regex)}):r}}};function U({routes:e,notFoundRoute:r,onLocationChange:t}){const o=Y({routes:e,notFoundRoute:r});return window.addEventListener("popstate",a=>t({router:o})),window.history.pushState=new Proxy(window.history.pushState,{apply:(a,n,s)=>{a.apply(n,s),t({router:o})}}),document.addEventListener("click",a=>{const{target:n}=a,s=n.getAttribute("href");n.tagName==="A"&&!s.startsWith("http")&&!s.startsWith("#")&&(history.pushState({},null,s),a.preventDefault())}),t({router:o}),o}const K=[["primary",{h:"230",s:"48%",l:"47%"}],["secondary",{h:"338",s:"100%",l:"48%"}],["success",{h:"120",s:"100%",l:"32%"}],["info",{h:"194",s:"80%",l:"62%"}],["warning",{h:"43",s:"100%",l:"50%"}],["danger",{h:"358",s:"95%",l:"60%"}]],J=[["light","1.15"],["lighter","1.3"],["lightest","1.5"]],Q=[["dark","0.9"],["darker","0.7"],["darkest","0.5"]],Z=()=>new Array(10).fill("").map((e,r)=>`--color-gray-${r*100}: hsl(0, 0%, ${100-8*r}%);`).join(`
 `),ee=()=>new Array(10).fill("").map((e,r)=>`--color-emphasis-${r*100}: var(--color-gray-${r*100});`).join(`
 `),te=([e,{h:r,s:t,l:o}])=>[`--color-${e}-h: ${r};`,`--color-${e}-s: ${t};`,`--color-${e}-l: ${o};`,`--color-${e}-hsl: var(--color-${e}-h), var(--color-${e}-s), var(--color-${e}-l);`,`--color-${e}: hsl(var(--color-${e}-hsl));`,...J.map(([a,n])=>`--color-${e}-${a}: hsl(var(--color-${e}-h), var(--color-${e}-s), calc(var(--color-${e}-l) * ${n}));`),...Q.map(([a,n])=>`--color-${e}-${a}: hsl(var(--color-${e}-h), var(--color-${e}-s), calc(var(--color-${e}-l) * ${n}));`),`--color-${e}-contrast-background: hsl(var(--color-${e}-h), var(--color-${e}-s), calc(var(--color-${e}-l) / var(--contrast-background-value)));`,`--color-${e}-contrast-foreground: hsl(var(--color-${e}-h), var(--color-${e}-s), calc(var(--color-${e}-l) * var(--contrast-foreground-value)));`].join(`
 `);function re({createGlobalStyles:e}){e`
@@ -22,7 +22,7 @@
   --global-border-width: 1px;
   --global-radius: 0.4rem;
   --font-color-base: var(--color-content);
-  --font-color-disabled: var(--color-emphasis-600);
+  --font-color-disabled: var(--color-emphasis-800);
   --font-color-inverse: var(--color-content-inverse);
   --font-color-secondary: var(--color-content-secondary);
   --font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
@@ -99,17 +99,17 @@
     `,flatPrimary:o`
       color: var(--color-primary);
     `,flatAccent:o`
-      color: var(--color-secondary);
+      color: var(--color-secondary-darkest);
     `,raised:o`
       box-shadow: var(--global-shadow-lw);
       &:active {
         box-shadow: var(--global-shadow-md);
       }
     `,raisedPrimary:o`
-      background-color: var(--color-primary);
+      background-color: var(--color-primary-darkest);
       color: var(--color-content-inverse);
     `,raisedAccent:o`
-      background-color: var(--color-secondary);
+      background-color: var(--color-secondary-darkest);
       color: var(--color-content-inverse);
     `,disabled:o`
       color: rgba(0, 0, 0, 0.26);
@@ -276,13 +276,13 @@ ${he()}
     transform: translateX(0%);
     opacity: 1;
   }
- `}),we=e=>{const{tr:r,bau:t,keyframes:o}=e,{section:a,div:n,h3:s}=t.tags,i=ve(),l=M(e),m=ye({keyframes:o});return function(){const u=t.state(!0),d=a({id:"animate"});return d.appendChild(n(s("Test Animate"),n(l({onclick:()=>{u.val=!u.val}},t.bind({deps:[u],render:()=>h=>h?"Hide":"Show"}))),n(t.bind({deps:[u],render:()=>h=>h?i({parent:d,Component:()=>n("Ciao"),animationHide:`${m.hideRight} 0.5s`,animationShow:`${m.showRight} 0.5s`}):""})))),d}};function xe(e,r={}){const{bau:t,css:o}=e,{cssOverride:a}=r,{span:n,img:s}=t.tags,i=t.state(!0),l=t.state(!1),m=()=>i.val=!1,u=d=>{i.val=!1,l.val=!0};return function({width:h=60,height:p=60,...b},...g){return n({class:B(a)},t.bind({deps:[i],render:()=>y=>y?"Loading...":""}),t.bind({deps:[l],render:()=>y=>y?"Error":""}),s({width:h,height:p,onload:m,onerror:u,...b}))}}const ke=e=>{const{tr:r,bau:t,css:o}=e,{section:a,h2:n}=t.tags,s=xe(e,{cssOverride:o`
+ `}),we=e=>{const{tr:r,bau:t,keyframes:o}=e,{section:a,div:n,h1:s}=t.tags,i=ve(),l=M(e),m=ye({keyframes:o});return function(){const u=t.state(!0),d=a({id:"animate"});return d.appendChild(n(s("Test Animate"),n(l({onclick:()=>{u.val=!u.val}},t.bind({deps:[u],render:()=>h=>h?"Hide":"Show"}))),n(t.bind({deps:[u],render:()=>h=>h?i({parent:d,Component:()=>n("Ciao"),animationHide:`${m.hideRight} 0.5s`,animationShow:`${m.showRight} 0.5s`}):""})))),d}};function xe(e,r={}){const{bau:t,css:o}=e,{cssOverride:a}=r,{span:n,img:s}=t.tags,i=t.state(!0),l=t.state(!1),m=()=>i.val=!1,u=d=>{i.val=!1,l.val=!0};return function({width:h=60,height:p=60,...b},...g){return n({class:B(a)},t.bind({deps:[i],render:()=>y=>y?"Loading...":""}),t.bind({deps:[l],render:()=>y=>y?"Error":""}),s({width:h,height:p,onload:m,onerror:u,...b}))}}const ke=e=>{const{tr:r,bau:t,css:o}=e,{section:a,h2:n}=t.tags,s=xe(e,{cssOverride:o`
       > img {
         background: var(--color-gray-100);
         border-radius: 50%;
         margin: 0.3rem;
       }
-    `});return()=>a({id:"avatar"},n(r("Avatar")),s({src:"https://www.gravatar.com/avatar/00000000000000000000000000000000?d=robohash&f=y",alt:"my avatar",width:40,height:40}),s({src:"https://www.grucloud.com/img/cloud.svg",alt:"GruCloud",width:40,height:40}))},Se=(e,{limit:r=10,deleteAfterDuration:t=5e3}={})=>{const{bau:o,css:a,keyframes:n}=e,{div:s}=o.tags,i=o.state([]),l={inserting:n`
+    `});return()=>a({id:"avatar"},n(r("Avatar")),s({src:"https://www.gravatar.com/avatar/00000000000000000000000000000000?d=robohash&f=y",alt:"my avatar",width:40,height:40}),s({src:"./grucloud.svg",alt:"GruCloud",width:40,height:40}))},Se=(e,{limit:r=10,deleteAfterDuration:t=5e3}={})=>{const{bau:o,css:a,keyframes:n}=e,{div:s}=o.tags,i=o.state([]),l={inserting:n`
     0% { transform: scale(0.5); opacity: 0 }
     100% { transform: scale(1); opacity: 1 }
   `,removing:n`
@@ -518,13 +518,13 @@ ${he()}
           var(--font-color-disabled);
       }
     `,error:e`
-      color: var(--color-danger) !important;
+      color: var(--color-danger-darkest) !important;
       & * {
-        color: var(--color-danger) !important;
+        color: var(--color-danger-darkest) !important;
       }
       & input {
         border-bottom: var(--input-border-bottom-size) dashed
-          var(--color-danger) !important;
+          var(--color-danger-darkest) !important;
       }
     `});function Re(e,r={}){const{bau:t,css:o,createGlobalStyles:a}=e,{div:n,input:s,label:i}=t.tags,l=Le({css:o,createGlobalStyles:a});return function(u){const{name:d,id:h,disabled:p,label:b="",error:g="",...y}=u;return n({class:B(l.base,p&&l.disabled,g&&l.error,u.class)},s({id:h,name:d,type:"text",required:!0,disabled:p,...y}),i({htmlFor:h},b),n({"data-input-error":d},g))}}const Oe=e=>{const{tr:r,bau:t}=e,{section:o,div:a,h3:n,h2:s}=t.tags,i=Re(e);return()=>o({id:"input"},s(r("Input Examples")),n("Standard"),a(i({id:"my-Input",label:"Label"})),n("Disabled"),a(i({id:"my-input-disabled",label:"my Input disabled",disabled:!0}),i({id:"my-input-disabled-value",label:"my input disabled",disabled:!0,value:"with value"})),n("Input with error"),a(i({name:"my-input-error",id:"my-input-with-error",label:"my-input",error:"should be greater than 2"})))};function ze(e,r={}){const{bau:t,css:o}=e,{dialog:a}=t.tags,n=o`
     box-shadow: var(--global-shadow-lw);
