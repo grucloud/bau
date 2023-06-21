@@ -63,7 +63,12 @@ export default function (context) {
         target: "_blank",
         href: "https://github.com/grucloud/bau",
       },
-      img({ src: "public/github-mark-white.svg", width: 40, height: 40 })
+      img({
+        alt: "GitHub",
+        src: "./github-mark-white.svg",
+        width: 40,
+        height: 40,
+      })
     );
 
   const AppBar = () =>
