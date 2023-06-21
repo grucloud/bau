@@ -1,4 +1,5 @@
 import BauRouter from "@grucloud/bau-router";
+import globalStyle from "@grucloud/bau-ui/globalStyle";
 
 import { initialScreenFadeOut } from "../../utils/initialScreenFadeOut";
 import { createContext } from "../../utils/context";
@@ -12,6 +13,8 @@ initialScreenFadeOut();
 
 const config = { title: "My Admin App", base: "/admin" };
 const context = createContext({ config });
+
+globalStyle(context);
 
 BauRouter({
   context,

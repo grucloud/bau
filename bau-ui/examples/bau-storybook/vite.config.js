@@ -1,4 +1,5 @@
 import { resolve } from "path";
+import pkg from "./package.json";
 import { defineConfig } from "vite";
 import createSvgSpritePlugin from "vite-plugin-svg-sprite";
 
@@ -8,6 +9,9 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     build: {},
     server: {
       open: true,
+    },
+    define: {
+      __VERSION__: JSON.stringify(pkg.version),
     },
     plugins: [
       createSvgSpritePlugin({

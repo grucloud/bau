@@ -8,6 +8,7 @@ export default function (context) {
     return nav(
       {
         class: css`
+          grid-area: sidebar;
           top: 20px;
           bottom: 0px;
           left: 0;
