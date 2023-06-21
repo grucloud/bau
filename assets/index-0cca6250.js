@@ -194,7 +194,7 @@
           align-items: center;
         `},p({"aria-label":"drawer",onclick:()=>h.val=!h.val},g()),s(r("Bau Components Story Book"))),S=()=>l({class:o`
           padding: 1rem;
-        `,target:"_blank",alt:"GitHub",href:"https://github.com/grucloud/bau"},m({src:"./github-mark-white.svg",width:40,height:40})),C=()=>i({class:o`
+        `,target:"_blank",href:"https://github.com/grucloud/bau"},m({alt:"GitHub",src:"./github-mark-white.svg",width:40,height:40})),C=()=>i({class:o`
           display: flex;
           justify-content: space-between;
           align-items: center;
