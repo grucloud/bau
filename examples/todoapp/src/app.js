@@ -83,7 +83,7 @@ export default function app({ bau }) {
             (arr, nowShowing) =>
               ul(
                 { class: "todo-list" },
-                arr.filter(showTodos(nowShowing)).map(renderItem({}))
+                arr.filter(showTodos(nowShowing)).map(renderItem)
               ),
           renderItem: ({}) => TodoItem,
         })

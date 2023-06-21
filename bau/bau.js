@@ -50,7 +50,7 @@ export default function Bau() {
         let newDom = render({
           dom,
           oldValues: deps.map(toOldVal),
-          renderItem,
+          renderItem: renderItem && renderItem({ deps: depsValues, dom }),
         })(...depsValues);
         if (newDom !== dom) {
           if (newDom != undefined) {
@@ -254,7 +254,10 @@ export default function Bau() {
     );
 
   let bind = ({ deps, render, renderItem }) => {
-    const result = render({ renderItem })(...vals(deps));
+    const result = render({
+      deps,
+      renderItem: renderItem && renderItem({ deps }),
+    })(...vals(deps));
     if (result != null) {
       const dom = toDom(result);
       const binding = {

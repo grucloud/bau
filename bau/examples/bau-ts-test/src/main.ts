@@ -2,7 +2,7 @@ import Bau from "../../../bau";
 
 const bau = Bau();
 
-const { div, ul, li } = bau.tags;
+const { div, ul, li, table, tbody, tr, td } = bau.tags;
 
 const myBoolState = bau.state(false);
 myBoolState.val = true;
@@ -92,22 +92,33 @@ const App = ({}) => {
       render:
         ({ renderItem }) =>
         (arr) =>
-          ul(arr.map(renderItem())),
-      renderItem: () => (value) => li("renderItem", value),
+          div("render Array with UL LI ", ul(arr.map(renderItem))),
+      renderItem: () => (value) => li("renderItem li ", value),
     }),
     bau.bind({
       deps: [myArrayState],
       render:
-        ({ renderItem, dom }) =>
+        ({ renderItem }) =>
         (arr) =>
-          ul(arr.map(renderItem({ dom }))),
+          table(
+            "render Array with table tbody tr and td ",
+            tbody(arr.map(renderItem))
+          ),
+      renderItem: () => (value) => tr(td("renderItem tr td "), td(value)),
+    }),
+    bau.bind({
+      deps: [myArrayState],
+      render:
+        ({ renderItem /* dom*/ }) =>
+        (arr) =>
+          ul(arr.map(renderItem)),
       renderItem:
         ({ dom /* deps*/ }) =>
         (value) => {
           if (dom) {
             //dom.style.height = dom.scrollHeight + "px";
           }
-          return li("renderItem with dom modification", value);
+          return li("renderItem with dom modification ", value);
         },
     }),
     bau.bind({
@@ -118,6 +129,12 @@ const App = ({}) => {
       deps: [myObjetState],
       render: () => (myObjetState) =>
         div("state as object: ", JSON.stringify(myObjetState)),
+    }),
+    bau.bind({
+      deps: [myObjetState],
+      render: () => (myObject) =>
+        div("state as object: ", JSON.stringify(myObject)),
+      //renderItem: () => () => li("dd"),
     })
   );
 };

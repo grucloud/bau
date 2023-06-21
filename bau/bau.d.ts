@@ -33,7 +33,7 @@ export interface DerivedProp {
 }
 
 export interface renderItemInput {
-  readonly dom: HTMLElement;
+  readonly dom?: HTMLElement;
   readonly deps: Deps;
 }
 
@@ -44,8 +44,8 @@ declare function RenderItem(
 export interface renderInput {
   readonly dom: HTMLElement;
   readonly renderItem: (
-    input?: renderPropInput
-  ) => (...args: readonly StatePrimitive[]) => HTMLElement | StatePrimitive;
+    ...args: readonly StatePrimitive[]
+  ) => HTMLElement | StatePrimitive;
   readonly oldValues: any[];
 }
 

@@ -55,7 +55,7 @@ export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
         render:
           ({ renderItem }) =>
           (arr) =>
-            div(arr.map(renderItem())),
+            div(arr.map(renderItem)),
         renderItem: () => AlertItem,
       })
     );

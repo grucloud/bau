@@ -38,7 +38,7 @@ const App = () => {
     bau.bind({
       deps: [appState],
       render:
-        ({ renderItem }) =>
+        ({}) =>
         (app) =>
           div(div("Label: ", app.label), div("City: ", app.address.city)),
     })

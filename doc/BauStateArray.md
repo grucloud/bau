@@ -65,7 +65,7 @@ const TBody = () =>
     render:
       ({ renderItem }) =>
       (arr) =>
-        tbody(arr.map(renderItem())),
+        tbody(arr.map(renderItem)),
     renderItem: () => TodoItem,
   });
 ```
