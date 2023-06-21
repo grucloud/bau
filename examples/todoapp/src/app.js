@@ -36,9 +36,7 @@ export default function app({ bau }) {
   };
 
   const toggleAll = (event) =>
-    (todosState.val = todosState.val.map(
-      (todo) => (todo.completed = event.target.checked)
-    ));
+    todosState.val.map((todo) => (todo.completed = true));
 
   const TodoItem = todoItem({
     bau,
