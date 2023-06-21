@@ -25,7 +25,7 @@ export default (context) => {
         height: 40,
       }),
       Avatar({
-        src: "https://www.grucloud.com/img/cloud.svg",
+        src: "./grucloud.svg",
         alt: "GruCloud",
         width: 40,
         height: 40,

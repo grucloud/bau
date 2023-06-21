@@ -14,8 +14,8 @@ const SHADES_LIGHT = [
 ];
 const SHADES_DARK = [
   ["dark", "0.9"],
-  ["darker", "0.85"],
-  ["darkest", "0.7"],
+  ["darker", "0.7"],
+  ["darkest", "0.5"],
 ];
 
 const buildGrays = () =>
@@ -76,7 +76,7 @@ export function globalStyle({ createGlobalStyles }) {
   --global-border-width: 1px;
   --global-radius: 0.4rem;
   --font-color-base: var(--color-content);
-  --font-color-disabled: var(--color-emphasis-600);
+  --font-color-disabled: var(--color-emphasis-800);
   --font-color-inverse: var(--color-content-inverse);
   --font-color-secondary: var(--color-content-secondary);
   --font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;

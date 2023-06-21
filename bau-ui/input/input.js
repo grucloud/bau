@@ -71,13 +71,13 @@ const createStyles = ({ css, createGlobalStyles }) => {
       }
     `,
     error: css`
-      color: var(--color-danger) !important;
+      color: var(--color-danger-darkest) !important;
       & * {
-        color: var(--color-danger) !important;
+        color: var(--color-danger-darkest) !important;
       }
       & input {
         border-bottom: var(--input-border-bottom-size) dashed
-          var(--color-danger) !important;
+          var(--color-danger-darkest) !important;
       }
     `,
   };

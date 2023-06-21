@@ -28,7 +28,7 @@ const createStyles = ({ keyframes }) => {
 
 export default (context) => {
   const { tr, bau, keyframes } = context;
-  const { section, div, h3 } = bau.tags;
+  const { section, div, h1 } = bau.tags;
   const Animate = animate(context);
   const Button = button(context);
 
@@ -39,7 +39,7 @@ export default (context) => {
     const dom = section({ id: "animate" });
     dom.appendChild(
       div(
-        h3("Test Animate"),
+        h1("Test Animate"),
         div(
           Button(
             {

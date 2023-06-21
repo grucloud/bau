@@ -62,7 +62,7 @@ export default function (context, options = {}) {
       color: var(--color-primary);
     `,
     flatAccent: css`
-      color: var(--color-secondary);
+      color: var(--color-secondary-darkest);
     `,
     raised: css`
       box-shadow: var(--global-shadow-lw);
@@ -71,11 +71,11 @@ export default function (context, options = {}) {
       }
     `,
     raisedPrimary: css`
-      background-color: var(--color-primary);
+      background-color: var(--color-primary-darkest);
       color: var(--color-content-inverse);
     `,
     raisedAccent: css`
-      background-color: var(--color-secondary);
+      background-color: var(--color-secondary-darkest);
       color: var(--color-content-inverse);
     `,
     disabled: css`
