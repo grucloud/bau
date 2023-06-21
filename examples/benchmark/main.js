@@ -215,7 +215,7 @@ const Main = () =>
         render:
           ({ renderItem }) =>
           (arr) => {
-            return tbody(arr.map(renderItem()));
+            return tbody(arr.map(renderItem));
           },
         renderItem: () => (value) => {
           return Row({

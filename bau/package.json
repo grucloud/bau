@@ -11,8 +11,10 @@
   },
   "license": "BSD",
   "files": [
-    "bau.js"
+    "bau.js",
+    "bau.d.ts"
   ],
+  "types": "bau.d.ts",
   "keywords": [
     "ui",
     "frontend",

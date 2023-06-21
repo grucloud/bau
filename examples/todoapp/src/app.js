@@ -36,9 +36,7 @@ export default function app({ bau }) {
   };
 
   const toggleAll = (event) =>
-    (todosState.val = todosState.val.map(
-      (todo) => (todo.completed = event.target.checked)
-    ));
+    todosState.val.map((todo) => (todo.completed = true));
 
   const TodoItem = todoItem({
     bau,
@@ -85,7 +83,7 @@ export default function app({ bau }) {
             (arr, nowShowing) =>
               ul(
                 { class: "todo-list" },
-                arr.filter(showTodos(nowShowing)).map(renderItem({}))
+                arr.filter(showTodos(nowShowing)).map(renderItem)
               ),
           renderItem: ({}) => TodoItem,
         })

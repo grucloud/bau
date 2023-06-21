@@ -108,7 +108,7 @@ export default function (context, { tabDefs }) {
         render:
           ({ renderItem }) =>
           (arr) =>
-            ul(arr.map(renderItem())),
+            ul(arr.map(renderItem)),
         renderItem: () => TabHeader,
       }),
       // Content
