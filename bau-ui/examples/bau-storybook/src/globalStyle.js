@@ -101,5 +101,8 @@ export function globalStyle({ createGlobalStyles }) {
   color-scheme: var(--color-scheme);
   color: var(--color-content);
 }
+body {
+  margin: 0;
+}
 `;
 }
