@@ -69,6 +69,12 @@ Have a look at the [examples](./examples) directory to find out how to use this 
 Bau has been benchmarked against other thanks to the project [js-framework-benchmark](https://github.com/krausest/js-framework-benchmark),
 It scores very well on most use cases, see prelimanary results [here](https://github.com/krausest/js-framework-benchmark/pull/1271)
 
+The Chrome Lighthouse perfomance tool reports an overall 100% score even for an app built with all Bau UI components.
+
+## Typescript
+
+The Bau ecosystem exports Typescript definition files allowing to improve the Developer's eXperience. Enjoy the code completion with VS Code or your favorite IDE, which is obviously VS Code.
+
 ## Guide
 
 - [create a state array and display views](./doc/BauStateArray.md)
