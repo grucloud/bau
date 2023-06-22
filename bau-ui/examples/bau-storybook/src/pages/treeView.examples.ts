@@ -39,5 +39,6 @@ export default (context: Context) => {
 
   const TreeView = treeView(context, { renderMenuItem });
 
-  return () => section({ id: "treeview" }, h2(tr("TreeView")), TreeView(menu));
+  return () =>
+    section({ id: "treeview" }, h2(tr("TreeView")), TreeView({ tree: menu }));
 };

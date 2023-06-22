@@ -18,6 +18,7 @@ export default (context: Context) => {
           name: "my-input-disabled",
           label: "my Input disabled",
           disabled: true,
+          // onclick: (event)=> {}
         }),
         Input({
           id: "my-input-disabled-value",

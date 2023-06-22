@@ -5,10 +5,7 @@ declare module "@grucloud/bau-ui/spinner" {
     visibility?: boolean;
   };
 
-  type Component = import("../bau-ui").Component<
-    SpinnerProps,
-    HTMLOrSVGElement
-  >;
+  type Component = import("../bau-ui").Component<SpinnerProps>;
 
   export default function (context: any): Component;
 }
