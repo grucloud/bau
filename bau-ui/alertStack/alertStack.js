@@ -15,10 +15,11 @@ export default (context, { limit = 10, deleteAfterDuration = 15e3 } = {}) => {
     100% { transform: scale(0); opacity: 0 }
   `,
   };
+
   const styles = {
     stack: css`
       min-width: 300px;
-      max-width: 600px;
+      max-width: 90% vw;
       position: fixed;
       right: var(--global-spacing);
       top: var(--global-spacing);
@@ -38,17 +39,51 @@ export default (context, { limit = 10, deleteAfterDuration = 15e3 } = {}) => {
     `,
   };
 
-  const AlertItem = (message) =>
-    div(
-      {
-        class: styles.item,
-        onclick: () => AlertStack.remove(message),
-      },
-      message.component()
-    );
+  const setStatus = ({ id, status }) => {
+    const idx = messagesState.val.findIndex((message) => message.id === id);
+    if (idx != -1) {
+      messagesState.val[idx].status = status;
+    }
+  };
 
-  const AlertStack = (props = {}) =>
-    div(
+  return function AlertStack(props = {}, ...children) {
+    const remove = ({ id }) => {
+      setStatus({ id, status: "removing" });
+      const idx = messagesState.val.findIndex((message) => message.id === id);
+      if (idx != -1) {
+        messagesState.val.splice(idx, 1);
+      }
+    };
+
+    const add = ({ Component }) => {
+      const message = {
+        id: Math.random().toString(10).split(".")[1],
+        Component,
+        status: "inserting",
+      };
+
+      if (messagesState.val.length >= limit) {
+        remove({ id: messagesState.val[0].id });
+      }
+
+      messagesState.val.push(message);
+
+      setTimeout(() => remove(message), deleteAfterDuration);
+    };
+
+    const AlertItem = (message) =>
+      div(
+        {
+          class: styles.item,
+          onclick: () => remove(message),
+        },
+        message.Component()
+      );
+
+    document.addEventListener("alert.add", (event) => add(event.detail));
+    document.addEventListener("alert.remove", (event) => remove(event.detail));
+
+    return div(
       {
         class: classNames(styles.stack, props.class),
       },
@@ -61,39 +96,5 @@ export default (context, { limit = 10, deleteAfterDuration = 15e3 } = {}) => {
         renderItem: () => AlertItem,
       })
     );
-
-  AlertStack.add = ({ component }) => {
-    const message = {
-      id: Math.random().toString(10).split(".")[1],
-      component,
-      status: "inserting",
-    };
-
-    if (messagesState.val.length >= limit) {
-      AlertStack.remove({ id: messagesState.val[0].id });
-    }
-
-    messagesState.val.push(message);
-
-    setTimeout(() => AlertStack.remove(message), deleteAfterDuration);
   };
-
-  const setStatus = ({ id, status }) => {
-    const idx = messagesState.val.findIndex((message) => message.id === id);
-    if (idx != -1) {
-      messagesState.val[idx].status = status;
-    }
-  };
-
-  AlertStack.remove = ({ id }) => {
-    setStatus({ id, status: "removing" });
-    const idx = messagesState.val.findIndex((message) => message.id === id);
-    if (idx != -1) {
-      messagesState.val.splice(idx, 1);
-    } else {
-      // console.log("remove: no id", id);
-    }
-  };
-
-  return AlertStack;
 };

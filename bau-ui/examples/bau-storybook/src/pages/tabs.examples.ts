@@ -90,7 +90,7 @@ export default (context: Context) => {
               onclick: (event: any) =>
                 event.srcElement.dispatchEvent(
                   new CustomEvent("tab.remove", {
-                    detail: { tabName: "Tab2" },
+                    detail: { tabName: "New Tab" },
                     bubbles: true,
                   })
                 ),

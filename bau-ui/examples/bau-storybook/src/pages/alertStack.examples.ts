@@ -22,15 +22,19 @@ export default (context: Context) => {
         {
           raised: true,
           onclick: () => {
-            AlertStack.add({
-              component: () =>
-                Alert(
-                  {
-                    severity: "success",
-                  },
-                  tr("Infrastructure Created")
-                ),
-            });
+            document.dispatchEvent(
+              new CustomEvent("alert.add", {
+                detail: {
+                  Component: () =>
+                    Alert(
+                      {
+                        severity: "success",
+                      },
+                      tr("Infrastructure Created")
+                    ),
+                },
+              })
+            );
           },
         },
         "success alert"
@@ -39,15 +43,19 @@ export default (context: Context) => {
         {
           raised: true,
           onclick: () => {
-            AlertStack.add({
-              component: () =>
-                Alert(
-                  {
-                    severity: "danger",
-                  },
-                  tr("Error creating infrastructure")
-                ),
-            });
+            document.dispatchEvent(
+              new CustomEvent("alert.add", {
+                detail: {
+                  Component: () =>
+                    Alert(
+                      {
+                        severity: "danger",
+                      },
+                      tr("Error creating infrastructure")
+                    ),
+                },
+              })
+            );
           },
         },
         "danger alert"
