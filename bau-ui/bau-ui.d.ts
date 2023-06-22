@@ -6,6 +6,11 @@ export type Component<TProps, TElement = HTMLElement> = (
   ...rest: readonly ChildDom[]
 ) => TElement;
 
+export type ComponentWithProp<TProps, TElement = HTMLElement> = (
+  props: (TProps & Props) | ChildDom,
+  ...rest: readonly ChildDom[]
+) => TElement | string | number | boolean | bigint | null | undefined;
+
 export type ComponentOneChild<TProps, TElement = HTMLElement> = (
   props: TProps & Props,
   child: ChildDom

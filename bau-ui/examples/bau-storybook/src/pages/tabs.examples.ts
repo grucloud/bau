@@ -1,4 +1,4 @@
-import tabs from "@grucloud/bau-ui/tabs";
+import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
 import button from "@grucloud/bau-ui/button";
 import { Context } from "../context";
 
@@ -25,30 +25,31 @@ export default (context: Context) => {
 
   const Button = button(context);
 
-  const tabDefs = [
+  const tabDefs: Tabs = [
     {
       name: "Tab1",
-      Header: ({}) => div("TAB 1"),
-      Content: ({}) => div(p("My Tab 1 Content")),
+      Header: () => div("TAB"),
+      Content: () => div(p("My Tab 1 Content")),
     },
     {
       name: "Tab2",
-      Header: ({}) => div("TAB 2"),
-      Content: ({}) => div(p("My tab 2 Content")),
+      Header: () => div("TAB 2"),
+      Content: () => div(p("My tab 2 Content")),
     },
     {
       name: "Tab Disabled",
       disabled: true,
-      Header: ({}) => div("Tab Disabled"),
+      Header: () => div("Tab Disabled"),
+      Content: () => div(p("My tab Disabled")),
     },
   ];
 
   const Tabs = tabs(context, { tabDefs });
 
-  const tabDefsExtented = [
+  const tabDefsExtented: Tabs = [
     {
       name: "Tab1",
-      Header: ({}) =>
+      Header: () =>
         div(
           i(
             {
@@ -61,7 +62,7 @@ export default (context: Context) => {
           ),
           "TAB 1"
         ),
-      Content: ({}) =>
+      Content: () =>
         div(
           {
             class: css`
@@ -104,15 +105,16 @@ export default (context: Context) => {
     },
     {
       name: "Tab2",
-      Header: ({}) => div("TAB 2"),
-      Content: ({}) => div(p("My Content")),
+      Header: () => div("TAB 2"),
+      Content: () => div(p("My Content")),
       enter: async () => console.log("tab2 enter"),
       exit: async () => console.log("tab2 exit"),
     },
     {
       name: "Tab Disabled",
       disabled: true,
-      Header: ({}) => div("Tab Disabled"),
+      Header: () => div("Tab Disabled"),
+      Content: () => div(p("My Content")),
     },
   ];
 
@@ -122,7 +124,6 @@ export default (context: Context) => {
     section(
       { id: "tabs" },
       h2(tr("Tabs")),
-
       h3("Basic Tabs"),
       TabsContainer(Tabs({})),
       h3("Full Witdth"),

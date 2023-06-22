@@ -3,5 +3,25 @@ declare module "@grucloud/bau-ui/tabs" {
 
   type Component = import("../bau-ui").Component<TabsProps>;
 
-  export default function (context: any, option: Object): Component;
+  type TabPropBase = {
+    name: string;
+    disabled?: boolean;
+    enter?: Function;
+    exit?: Function;
+  };
+
+  type ComponentTab = import("../bau-ui").ComponentWithProp<TabPropBase>;
+
+  export type Tab = {
+    Header: ComponentTab;
+    Content: ComponentTab;
+  } & TabPropBase;
+
+  export type Tabs = Tab[];
+
+  type Option = {
+    tabDefs: Tab[];
+  };
+
+  export default function (context: any, option: Option): Component;
 }
