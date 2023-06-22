@@ -1,4 +1,4 @@
-import classNames from "@grucloud/bau-css/classNames";
+import cn from "@grucloud/bau-css/classNames";
 
 export default function (context) {
   const { bau, css } = context;
@@ -9,7 +9,8 @@ export default function (context) {
     left: 0px;
     z-index: 2;
     & .overlay {
-      position: absolute;
+      position: fixed;
+      visibility: hidden;
       z-index: -1;
       opacity: 0;
       background-color: var(--background-color);
@@ -20,6 +21,7 @@ export default function (context) {
       transition: opacity var(--transition-fast) ease-out;
     }
     & .overlay-open {
+      visibility: visible;
       z-index: 1;
       opacity: 0.5;
     }
@@ -45,22 +47,25 @@ export default function (context) {
     }
   `;
 
-  return function Drawer({ openState }, ...children) {
+  return function Drawer({ openState, ...otherProps }, ...children) {
     return div(
-      { class: style },
+      { class: cn(style, otherProps.class) },
+      // Overlay
       div({
         class: {
           deps: [openState],
-          renderProp: () => (open) =>
-            classNames("overlay", open && "overlay-open"),
+          renderProp: () => (open) => cn("overlay", open && "overlay-open"),
+        },
+        onclick: () => {
+          openState.val = false;
         },
       }),
+      // Content
       div(
         {
           class: {
             deps: [openState],
-            renderProp: () => (open) =>
-              classNames("content", open && "content-open"),
+            renderProp: () => (open) => cn("content", open && "content-open"),
           },
         },
         ...children

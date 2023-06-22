@@ -1,20 +1,27 @@
+import classNames from "@grucloud/bau-css/classNames";
+
 export default function (context, options = {}) {
   const { bau, css } = context;
 
   const { svg, animate, animateTransform, rect } = bau.tagsNS(
     "http://www.w3.org/2000/svg"
   );
+
   return function Spinner({
     size = 36,
     color = "primary",
     visibility = true,
+    ...otherProps
   } = {}) {
     return svg(
       {
-        class: css`
-          visibility: ${visibility ? "visible" : "hidden"};
-          color: var(--color-${color});
-        `,
+        class: classNames(
+          css`
+            visibility: ${visibility ? "visible" : "hidden"};
+            color: var(--color-${color});
+          `,
+          otherProps.class
+        ),
         version: "1.1",
         id: "L6",
         x: "0px",
