@@ -1,6 +1,6 @@
 import classNames from "@grucloud/bau-css/classNames";
 
-export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
+export default (context, { limit = 10, deleteAfterDuration = 15e3 } = {}) => {
   const { bau, css, keyframes } = context;
   const { div } = bau.tags;
   const messagesState = bau.state([]);
@@ -28,7 +28,7 @@ export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
       margin: 0.2rem;
       padding: 0.2rem;
       display: flex;
-      justify-content: flex-start;
+      justify-content: flex-end;
       align-items: center;
       cursor: pointer;
       animation: ${animation.inserting} var(--transition-slow) ease-out;
