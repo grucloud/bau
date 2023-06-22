@@ -4,11 +4,6 @@
   "version": "0.24.0",
   "type": "module",
   "module": "bau.js",
-  "exports": {
-    ".": {
-      "import": "./bau.js"
-    }
-  },
   "license": "BSD",
   "files": [
     "bau.js",

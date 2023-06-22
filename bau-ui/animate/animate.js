@@ -1,6 +1,6 @@
 export default function (context, options = {}) {
-  return function Animate({ Component, parent, animationHide, animationShow }) {
-    const node = Component();
+  return function Animate({ parent, animationHide, animationShow }, child) {
+    const node = child;
     // Show
     node.style.animation = animationShow;
     const animationEndHandler = () => {

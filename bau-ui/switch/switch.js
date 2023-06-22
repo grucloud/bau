@@ -34,12 +34,11 @@ export default function (context, options = {}) {
     }
   `;
 
-  return function Switch({ id, ...otherProps }, ...children) {
+  return function Switch({ ...otherProps }, ...children) {
     return input({
       class: style,
       type: "checkbox",
       required: "required",
-      id,
       ...otherProps,
     });
   };

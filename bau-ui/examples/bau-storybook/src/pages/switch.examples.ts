@@ -1,6 +1,8 @@
 import createSwitch from "@grucloud/bau-ui/switch";
 
-export default (context) => {
+import { Context } from "../context";
+
+export default (context: Context) => {
   const { tr, bau, css } = context;
   const { section, form, label, div, h2 } = bau.tags;
 

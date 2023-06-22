@@ -1,3 +1,5 @@
+import classNames from "@grucloud/bau-css/classNames";
+
 export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
   const { bau, css, keyframes } = context;
   const { div } = bau.tags;
@@ -45,10 +47,10 @@ export default (context, { limit = 10, deleteAfterDuration = 5e3 } = {}) => {
       message.component()
     );
 
-  const AlertStack = (props, ...children) =>
+  const AlertStack = (props = {}) =>
     div(
       {
-        class: styles.stack,
+        class: classNames(styles.stack, props.class),
       },
       bau.bind({
         deps: [messagesState],

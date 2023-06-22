@@ -1,8 +1,7 @@
-import { classNames } from "../utils/classNames";
+import classNames from "@grucloud/bau-css/classNames";
 
-export default function (context, options = {}) {
+export default function (context) {
   const { bau, css } = context;
-  const { span } = bau.tags;
 
   const styles = {
     root: css`
@@ -121,8 +120,6 @@ export default function (context, options = {}) {
 
   return function Button(props, ...children) {
     const {
-      fullWidth,
-      label,
       primary,
       accent,
       raised,
@@ -146,7 +143,6 @@ export default function (context, options = {}) {
           raised && accent && styles.raisedAccent,
           ripple && styles.rippledisabled && styles.disabled,
           disabled && raised && styles.raisedDisabled,
-          fullWidth && styles.fullWidth,
           props.class
         ),
         href,

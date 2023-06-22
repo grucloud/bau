@@ -1,16 +1,16 @@
 import fileInput from "@grucloud/bau-ui/fileInput";
-import { classNames } from "@grucloud/bau-ui/utils/classNames";
-import IconUpload from "./uploadIcon.svg";
+import classNames from "@grucloud/bau-css/classNames";
 
-export default (context) => {
+import { Context } from "../context";
+
+export default (context: Context) => {
   const { tr, bau, css } = context;
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
   const { section, div, h3, h2, span } = bau.tags;
 
   const fileState = bau.state("No file selected");
-
   const FileInput = fileInput(context);
-  const onchange = (event) => {
+  const onchange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
       fileState.val = file.name;
@@ -18,7 +18,7 @@ export default (context) => {
       fileState.val = "No file selected";
     }
   };
-  const FileInputLabel = ({ disabled }) =>
+  const FileInputLabel = ({ disabled }: any) =>
     div(
       {
         class: classNames(
@@ -48,7 +48,7 @@ export default (context) => {
             `
         ),
       },
-      svg(use({ href: `#${IconUpload}` })),
+      svg(use({ href: `uploadIcon.svg#Capa_1` })),
       span(tr("Choose a file to upload"))
     );
 

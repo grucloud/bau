@@ -1,10 +1,11 @@
 import drawer from "@grucloud/bau-ui/drawer";
+import { Context } from "../context";
 
 import button from "@grucloud/bau-ui/button";
 
-export default (context) => {
+export default (context: Context) => {
   const { tr, bau } = context;
-  const { section, div, h3, h2 } = bau.tags;
+  const { section, h2 } = bau.tags;
 
   const openState = bau.state(false);
 

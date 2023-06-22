@@ -1,6 +1,8 @@
 import treeView from "@grucloud/bau-ui/treeView";
 
-export default (context) => {
+import { Context } from "../context";
+
+export default (context: Context) => {
   const { tr, bau } = context;
   const { section, div, a, h2 } = bau.tags;
 
@@ -24,12 +26,12 @@ export default (context) => {
     ],
   };
 
-  const renderMenuItem = ({ name, href }) =>
+  const renderMenuItem = ({ name, href }: any) =>
     div(
       a(
         {
           href,
-          onclick: (event) => {},
+          onclick: () => {},
         },
         name
       )

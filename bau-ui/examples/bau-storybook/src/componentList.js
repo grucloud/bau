@@ -8,6 +8,10 @@ export const componentlist = () => [
     id: "alert-stack",
   },
   {
+    name: "Animate",
+    id: "animate",
+  },
+  {
     name: "Avatar",
     id: "avatar",
   },
@@ -25,12 +29,12 @@ export const componentlist = () => [
   },
   {
     name: "File Input",
-    id: "file-input",
+    id: "fileInput",
   },
-  {
-    name: "Form",
-    id: "form",
-  },
+  // {
+  //   name: "Form",
+  //   id: "form",
+  // },
   {
     name: "Input",
     id: "input",

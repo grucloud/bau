@@ -1,7 +1,8 @@
 import animate from "@grucloud/bau-ui/animate";
 import button from "@grucloud/bau-ui/button";
+import { Context } from "../context";
 
-const createStyles = ({ keyframes }) => {
+const createStyles = ({ keyframes }: Context) => {
   return {
     hideRight: keyframes`
    from {
@@ -26,13 +27,13 @@ const createStyles = ({ keyframes }) => {
   };
 };
 
-export default (context) => {
-  const { tr, bau, keyframes } = context;
+export default (context: Context) => {
+  const { bau } = context;
   const { section, div, h1 } = bau.tags;
   const Animate = animate(context);
   const Button = button(context);
 
-  const styles = createStyles({ keyframes });
+  const styles = createStyles(context);
 
   return function () {
     const showState = bau.state(true);
@@ -58,12 +59,14 @@ export default (context) => {
             deps: [showState],
             render: () => (show) =>
               show
-                ? Animate({
-                    parent: dom,
-                    Component: () => div("Ciao"),
-                    animationHide: `${styles.hideRight} 0.5s`,
-                    animationShow: `${styles.showRight} 0.5s`,
-                  })
+                ? Animate(
+                    {
+                      parent: dom,
+                      animationHide: `${styles.hideRight} 0.5s`,
+                      animationShow: `${styles.showRight} 0.5s`,
+                    },
+                    div("Ciao")
+                  )
                 : "",
           })
         )

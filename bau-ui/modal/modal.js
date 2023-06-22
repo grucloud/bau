@@ -1,4 +1,6 @@
-export default function (context, options = {}) {
+import classNames from "@grucloud/bau-css/classNames";
+
+export default function (context) {
   const { bau, css } = context;
   const { dialog } = bau.tags;
 
@@ -38,7 +40,7 @@ export default function (context, options = {}) {
     }
   `;
 
-  return function Modal({ open }, ...children) {
-    return dialog({ class: style }, ...children);
+  return function Modal(props, ...children) {
+    return dialog({ class: classNames(style, props.class) }, ...children);
   };
 }

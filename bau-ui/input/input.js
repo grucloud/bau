@@ -1,4 +1,4 @@
-import { classNames } from "../utils/classNames";
+import classNames from "@grucloud/bau-css/classNames";
 
 const createStyles = ({ css, createGlobalStyles }) => {
   createGlobalStyles`
