@@ -1,17 +1,16 @@
 const getType = (obj) => Object.prototype.toString.call(obj ?? 0).slice(8, -1);
 const isObject = (val) => getType(val) == "Object";
 const protoOf = Object.getPrototypeOf;
-
+const h = (tag) => document.createElement(tag);
+const ghost = () => h("span");
 const isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
+const isState = (state) => state.__isState;
+let toVal = (state) => (isState(state) ? state._val : state);
+let toOldVal = (state) => (isState(state) ? state.oldVal : state);
 
 export default function Bau() {
   let _debounce;
   const stateSet = new Set();
-
-  const isState = (state) => state.__isState;
-
-  let toVal = (state) => (isState(state) ? state._val : state);
-  let toOldVal = (state) => (isState(state) ? state.oldVal : state);
 
   let vals = (deps) => deps.map(toVal);
 
@@ -28,41 +27,38 @@ export default function Bau() {
     debounceSchedule(() =>
       stateSet.forEach(
         (state) =>
-          (state.bindings = state.bindings.filter((b) => b.dom?.isConnected))
+          (state.bindings = state.bindings.filter(
+            (b) => b.element?.isConnected
+          ))
       )
     );
 
-  let updateDom = (state) => {
+  let updateDom = (state, arrayOp) => {
     for (let binding of state.bindings) {
-      let { deps, dom, render, renderItem } = binding;
+      let { deps, element, render, renderItem } = binding;
       const depsValues = vals(deps);
-      // Array handling
-      if (renderItem && state.arrayOp) {
+      if (renderItem && arrayOp) {
         methodToActionMapping({
-          ...state.arrayOp,
-          dom,
+          ...arrayOp,
+          element,
           renderDomItem: (value) =>
-            toDom(renderItem({ deps: depsValues, dom })(value)),
-        })[state.arrayOp.method]?.call();
+            toDom(renderItem({ deps: depsValues, element })(value)),
+        })[arrayOp.method]?.call();
         bindingCleanUp();
       } else {
-        // Primitive or object
-        let newDom = render({
-          dom,
+        let newElement = render({
+          element,
           oldValues: deps.map(toOldVal),
-          renderItem: renderItem && renderItem({ deps: depsValues, dom }),
+          renderItem: renderItem?.({ deps: depsValues, element }),
         })(...depsValues);
-        if (newDom !== dom) {
-          if (newDom != undefined) {
-            dom.replaceWith((binding.dom = toDom(newDom)));
-          } else {
-            dom.remove();
-            binding.dom = undefined;
-          }
+        if (newElement !== element) {
+          element.replaceWith(
+            (binding.element =
+              newElement != undefined ? toDom(newElement) : ghost())
+          );
         }
       }
     }
-    state.arrayOp = null;
   };
 
   const proxyHandler = ({ state, data, parentProp = [] }) => ({
@@ -81,11 +77,10 @@ export default function Bau() {
         const origMethod = target[prop];
         return (...args) => {
           const result = origMethod.apply(target, args);
-          state.arrayOp = {
+          updateDom(state, {
             method: prop,
             args,
-          };
-          updateDom(state);
+          });
           return result;
         };
       }
@@ -93,14 +88,12 @@ export default function Bau() {
     },
     set(target, prop, value, receiver) {
       const result = Reflect.set(target, prop, value, receiver);
-      state.arrayOp = {
+      updateDom(state, {
         method: "setItem",
         args: { prop, value },
-        newTarget: target,
         parentProp: [...parentProp, prop],
         data,
-      };
-      updateDom(state);
+      });
       return result;
     },
   });
@@ -109,43 +102,44 @@ export default function Bau() {
     new Proxy(data, proxyHandler({ state, data }));
 
   const methodToActionMapping = ({
-    dom,
+    element,
     parentProp,
     args,
     depsValues,
     renderDomItem,
     data,
   }) => ({
-    assign: () => dom.replaceChildren(...args.map(renderDomItem)),
+    assign: () => element.replaceChildren(...args.map(renderDomItem)),
     setItem: () => {
       const index = parentProp[0];
-      const child = dom.children[index];
-      const dataEl = data[index];
+      const child = element.children[index];
       if (child) {
-        child.replaceWith(renderDomItem(dataEl));
+        child.replaceWith(renderDomItem(data[index]));
       }
     },
-    push: () => dom.append(...args.map(renderDomItem)),
-    pop: () => dom.lastChild && dom.removeChild(dom.lastChild),
-    shift: () => dom.firstChild && dom.removeChild(dom.firstChild),
+    push: () => element.append(...args.map(renderDomItem)),
+    pop: () => element.lastChild && element.removeChild(element.lastChild),
+    shift: () => element.firstChild && element.removeChild(element.firstChild),
     unshift: () => {
       const item = renderDomItem(args[0], depsValues);
-      dom.firstChild ? dom.firstChild.before(item) : dom.appendChild(item);
+      element.firstChild
+        ? element.firstChild.before(item)
+        : element.appendChild(item);
     },
     splice: () => {
       const [start, deleteCount, ...newItems] = args;
       for (
-        let i = Math.min(start + deleteCount - 1, dom.children.length - 1);
+        let i = Math.min(start + deleteCount - 1, element.children.length - 1);
         i >= start;
         i--
       ) {
-        dom.children[i].remove();
+        element.children[i].remove();
       }
       if (newItems.length > 0) {
-        const domNewItems = newItems.forEach(renderDomItem);
-        dom.children[start]
-          ? dom.children[start].after(domNewItems)
-          : dom.append(...domNewItems);
+        const elementNewItems = newItems.forEach(renderDomItem);
+        element.children[start]
+          ? element.children[start].after(elementNewItems)
+          : element.append(...elementNewItems);
       }
     },
   });
@@ -153,7 +147,6 @@ export default function Bau() {
   let state = (initVal) => ({
     oldVal: initVal,
     bindings: [],
-    arrayOp: null,
     __isState: true,
     get _val() {
       const _state = this;
@@ -176,11 +169,10 @@ export default function Bau() {
       let currentValue = state._val;
       if (isArrayOrObject(value)) {
         state._val = createProxy(state, value);
-        state.arrayOp = {
+        updateDom(state, {
           method: "assign",
           args: value,
-        };
-        updateDom(state);
+        });
       } else {
         if (value !== currentValue) {
           state._val = value;
@@ -193,8 +185,8 @@ export default function Bau() {
 
   let toDom = (v) => (v.nodeType ? v : new Text(v));
 
-  let add = (dom, ...children) => {
-    if (children.length == 0) return dom;
+  let add = (element, ...children) => {
+    if (children.length == 0) return element;
     const childrenDom = [];
     for (let child of children.flat(Infinity))
       if (child != null) {
@@ -204,8 +196,8 @@ export default function Bau() {
             : toDom(child)
         );
       }
-    dom.append(...childrenDom);
-    return dom;
+    element.append(...childrenDom);
+    return element;
   };
 
   const isSettablePropCache = {};
@@ -221,32 +213,58 @@ export default function Bau() {
     (isSettablePropCache[tag + "," + key] =
       getPropDescriptor(proto, key)?.set ?? 0);
 
+  const observerRemovedNode = (element, bauUnmounted) => {
+    new MutationObserver((mutationList, observer) => {
+      mutationList
+        .filter((record) => record.removedNodes)
+        .forEach((record) =>
+          [...record.removedNodes].find(
+            (removedNode) =>
+              removedNode === element &&
+              (bauUnmounted({ element }), observer.disconnect(), true)
+          )
+        );
+    }).observe(element.parentNode, { childList: true });
+  };
+
   const tagsNS = (namespace) =>
     new Proxy(
       function createTag(name, ...args) {
         let [props, ...children] = isObject(args[0]) ? args : [{}, ...args];
-        let dom = namespace
+        let element = namespace
           ? document.createElementNS(namespace, name)
-          : document.createElement(name);
+          : h(name);
         for (let [k, v] of Object.entries(props)) {
-          let setter = isSettableProp(name, k, protoOf(dom))
-            ? (v) => (dom[k] = v)
-            : (v) => dom.setAttribute(k, v);
+          if (["bauCreated", "bauMounted", "bauUnmounted"].includes(k))
+            continue;
+          let setter = isSettableProp(name, k, protoOf(element))
+            ? (v) => (element[k] = v)
+            : (v) => element.setAttribute(k, v);
           if (v == null) {
           } else if (isState(v)) {
-            bind({ deps: [v], render: () => (v) => (setter(v), dom) });
+            bind({ deps: [v], render: () => (v) => (setter(v), element) });
           } else if (v.renderProp) {
             bind({
               deps: v["deps"],
               render:
                 ({}) =>
-                (...deps) => (setter(v["renderProp"]({ dom })(...deps)), dom),
+                (...deps) => (
+                  setter(v["renderProp"]({ element })(...deps)), element
+                ),
             });
           } else {
             setter(v);
           }
         }
-        return add(dom, ...children);
+        add(element, ...children);
+        props.bauCreated?.({ element });
+        props.bauMounted &&
+          window.requestAnimationFrame(() => props.bauMounted({ element }));
+        props.bauUnmounted &&
+          window.requestAnimationFrame(() =>
+            observerRemovedNode(element, props.bauUnmounted)
+          );
+        return element;
       },
       {
         get: (tag, name) => tag.bind(undefined, name),
@@ -258,24 +276,20 @@ export default function Bau() {
       deps,
       renderItem: renderItem && renderItem({ deps }),
     })(...vals(deps));
-    if (result != null) {
-      const dom = toDom(result);
-      const binding = {
-        deps,
-        render,
-        renderItem,
-        dom,
-      };
-
-      for (let dep of deps) {
-        if (isState(dep)) {
-          stateSet.add(dep);
-          dep.bindings.push(binding);
-        }
+    const element = toDom(result ?? ghost());
+    const binding = {
+      deps,
+      render,
+      renderItem,
+      element,
+    };
+    for (let dep of deps) {
+      if (isState(dep)) {
+        stateSet.add(dep);
+        dep.bindings.push(binding);
       }
-      return dom;
     }
+    return element;
   };
-
   return { tags: tagsNS(), tagsNS, state, bind };
 }

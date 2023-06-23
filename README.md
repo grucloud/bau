@@ -64,6 +64,8 @@ npm install @grucloud/bau
 
 Have a look at the [examples](./examples) directory to find out how to use this library.
 
+Check out the minimalistic [hello world example](https://codesandbox.io/s/bau-helloworld-twdxl5?file=/src/index.js) on CodeSanbox
+
 ## Benchmark
 
 Bau has been benchmarked against other thanks to the project [js-framework-benchmark](https://github.com/krausest/js-framework-benchmark),
@@ -79,6 +81,7 @@ The Bau ecosystem exports Typescript definition files allowing to improve the De
 
 ## Guide
 
+- [Lifecycle Methods: bauCreated, bauMounted, bauUnmounted](./doc/BauLifecycle.md)
 - [create a state array and display views](./doc/BauStateArray.md)
 
 ## Contribution
@@ -90,7 +93,29 @@ Please report bugs and suggestions to https://github.com/grucloud/bau
 Bau is mostly inspired by [van.js](https://vanjs.org/), with the following differences:
 
 - Van.js only support primitive value as state, Bau state management also supports array and object.
+- Bau supports lifecycle methods such as **bauCreated**, **bauMounted** and **bauUnmounted**
 - The `bind` function input parameters are differents, in van.js, they spreads the state dependencies and the render function at the end, bau `bind` uses an object with keys: deps, render, renderItem and eventually more in the future.
-- Bau does not use global variable, multiple instances of Bau could evetually created. Van.js uses global variable
+
+```js
+const scrollState = bau.state(0);
+
+const ScrollNumber = () =>
+  bau.bind({
+    deps: [scrollState],
+    render:
+      ({ element }) =>
+      (scroll) =>
+        div({ class: "scroll-number" }, "scroll: ", scroll),
+  });
+```
+
+- Bau does not use a global variable, multiple instances of Bau could eventually be created.
+
+```js
+import Bau from "@grucloud/bau";
+const bau = Bau();
+const { div } = bau.tags;
+```
+
 - Bau promotes only one paradigm: views derive from the state. Van could mix paradigms, imperative and state derived view. The imperative way is when your code directly maniplates the DOM, in the same way as vanilla js and jquery. This style of programming is error prone, therefore, preventing its use makes bau _hard to misuse_
 - Bau supports undefined or null attribute, see [issue 39](https://github.com/vanjs-org/van/pull/39)

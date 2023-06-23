@@ -26,7 +26,7 @@ const App = ({}) => {
       {
         class: {
           deps: [myBoolState],
-          renderProp: () => (myBool) => myBool ?? "active",
+          renderProp: () => (myBool) => myBool && "active",
         },
       },
       "renderProp conditional class"
@@ -36,17 +36,17 @@ const App = ({}) => {
         class: {
           deps: [],
           renderProp:
-            ({ dom }) =>
+            ({ element }) =>
             () => {
-              if (dom) {
-                // dom.style.height = dom.scrollHeight + "px";
+              if (element) {
+                // element.style.height = element.scrollHeight + "px";
               }
 
               return "";
             },
         },
       },
-      "renderProp modifying the dom element"
+      "renderProp modifying the element element"
     ),
     div(
       {
@@ -83,7 +83,7 @@ const App = ({}) => {
     bau.bind({
       deps: [myBoolState, myNumberState],
       render:
-        ({ oldValues /* dom*/ }) =>
+        ({ oldValues /* element*/ }) =>
         () =>
           div("Old values ", oldValues),
     }),
@@ -93,7 +93,7 @@ const App = ({}) => {
         ({ renderItem }) =>
         (arr) =>
           div("render Array with UL LI ", ul(arr.map(renderItem))),
-      renderItem: () => (value) => li("renderItem li ", value),
+      renderItem: () => (value: any) => li("renderItem li ", value),
     }),
     bau.bind({
       deps: [myArrayState],
@@ -109,16 +109,16 @@ const App = ({}) => {
     bau.bind({
       deps: [myArrayState],
       render:
-        ({ renderItem /* dom*/ }) =>
+        ({ renderItem /* element*/ }) =>
         (arr) =>
           ul(arr.map(renderItem)),
       renderItem:
-        ({ dom /* deps*/ }) =>
+        ({ element /* deps*/ }) =>
         (value) => {
-          if (dom) {
-            //dom.style.height = dom.scrollHeight + "px";
+          if (element) {
+            //element.style.height = element.scrollHeight + "px";
           }
-          return li("renderItem with dom modification ", value);
+          return li("renderItem with element modification ", value);
         },
     }),
     bau.bind({

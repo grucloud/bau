@@ -43,7 +43,7 @@ todosState.val.unshift({ label: "my-label" });
 todosState.val.shift({ label: "my-label" });
 ```
 
-5. Splice the array: Remove one or more item from an index, and evetually add some items at the index
+5. Splice the array: Remove one or more item from an index, and eventually add some items at the index
 
 ```js
 // Remove the third element
