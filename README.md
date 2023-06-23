@@ -71,6 +71,8 @@ It scores very well on most use cases, see prelimanary results [here](https://gi
 
 The Chrome Lighthouse perfomance tool reports an overall 100% score even for an app built with all Bau UI components.
 
+![bau lighthouse](https://user-images.githubusercontent.com/4118089/248206941-b3a3bb7f-1502-498d-988f-635cf65bfdbc.png)
+
 ## Typescript
 
 The Bau ecosystem exports Typescript definition files allowing to improve the Developer's eXperience. Enjoy the code completion with VS Code or your favorite IDE, which is obviously VS Code.
