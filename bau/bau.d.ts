@@ -17,7 +17,7 @@ export type Deps = State<StateValue>[];
 export type PropValue = StatePrimitive | Function | null | undefined;
 
 export interface renderPropInput {
-  readonly dom: HTMLElement;
+  readonly element: HTMLElement;
 }
 
 export interface DerivedProp {
@@ -28,7 +28,7 @@ export interface DerivedProp {
 }
 
 export interface renderItemInput {
-  readonly dom?: HTMLElement;
+  readonly element?: HTMLElement;
   readonly deps: Deps;
 }
 
@@ -37,7 +37,7 @@ declare function RenderItem(
 ): (...args: readonly StatePrimitive[]) => HTMLElement | StatePrimitive;
 
 export interface renderInput {
-  readonly dom: HTMLElement;
+  readonly element: HTMLElement;
   readonly renderItem: (
     ...args: readonly StatePrimitive[]
   ) => HTMLElement | StatePrimitive;
@@ -56,6 +56,11 @@ export type Props = {
   readonly [key: string]: PropValue | StateView<PropValue> | DerivedProp;
 };
 
+export type PropsLifecycle<TElement extends HTMLElement> = {
+  bauCreated: (input: { element: TElement }) => TElement;
+  bauMounted: (input: { element: TElement }) => TElement;
+};
+
 export type PropsHTMLElement<TElement = HTMLElement> = {
   readonly [key in keyof TElement]?:
     | PropValue
@@ -72,7 +77,7 @@ export type ChildDom =
   | undefined;
 
 export type TagFunc<Result> = (
-  first?: Props | PropsHTMLElement<Result> | ChildDom,
+  first?: Props | PropsLifecycle<Result> | PropsHTMLElement<Result> | ChildDom,
   ...rest: readonly ChildDom[]
 ) => Result;
 

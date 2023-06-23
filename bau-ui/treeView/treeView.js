@@ -111,9 +111,9 @@ export default function (context, { renderMenuItem }) {
               "aria-expanded": {
                 deps: [closeState],
                 renderProp:
-                  ({ dom }) =>
+                  ({ element }) =>
                   (close) => {
-                    close ? collapseSection(dom) : expandSection(dom);
+                    close ? collapseSection(element) : expandSection(element);
                     return !close;
                   },
               },
