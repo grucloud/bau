@@ -49,17 +49,17 @@ export default function Bau() {
         bindingCleanUp();
       } else {
         // Primitive or object
-        let newDom = render({
+        let newElement = render({
           element,
           oldValues: deps.map(toOldVal),
-          renderItem: renderItem && renderItem({ deps: depsValues, element }),
+          renderItem: renderItem?.({ deps: depsValues, element }),
         })(...depsValues);
-        if (newDom !== element) {
-          if (newDom != undefined) {
-            element.replaceWith((binding.element = toDom(newDom)));
+        if (newElement !== element) {
+          if (newElement != undefined) {
+            element.replaceWith((binding.element = toDom(newElement)));
           } else {
-            element.remove();
-            binding.element = undefined;
+            element.style.display = "none";
+            element.innerHTML = "";
           }
         }
       }
@@ -98,7 +98,6 @@ export default function Bau() {
       state.arrayOp = {
         method: "setItem",
         args: { prop, value },
-        newTarget: target,
         parentProp: [...parentProp, prop],
         data,
       };
