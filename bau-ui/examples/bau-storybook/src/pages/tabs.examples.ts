@@ -1,11 +1,12 @@
-import tabs from "@grucloud/bau-ui/tabs";
+import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
 import button from "@grucloud/bau-ui/button";
+import { Context } from "../context";
 
-export default (context) => {
+export default (context: Context) => {
   const { tr, bau, css } = context;
   const { section, div, h3, h2, p, i } = bau.tags;
 
-  const TabsContainer = (...children) =>
+  const TabsContainer = (...children: any[]) =>
     div(
       {
         class: css`
@@ -18,36 +19,37 @@ export default (context) => {
 
   const createRandomTab = () => ({
     name: "New Tab",
-    Header: ({ name }) => div(name),
+    Header: ({ name }: any) => div(name),
     Content: () => div("My Paragraph"),
   });
 
   const Button = button(context);
 
-  const tabDefs = [
+  const tabDefs: Tabs = [
     {
       name: "Tab1",
-      Header: ({}) => div("TAB 1"),
-      Content: ({}) => div(p("My Tab 1 Content")),
+      Header: () => div("TAB"),
+      Content: () => div(p("My Tab 1 Content")),
     },
     {
       name: "Tab2",
-      Header: ({ tab }) => div("TAB 2"),
-      Content: ({}) => div(p("My tab 2 Content")),
+      Header: () => div("TAB 2"),
+      Content: () => div(p("My tab 2 Content")),
     },
     {
       name: "Tab Disabled",
       disabled: true,
-      Header: ({}) => div("Tab Disabled"),
+      Header: () => div("Tab Disabled"),
+      Content: () => div(p("My tab Disabled")),
     },
   ];
 
   const Tabs = tabs(context, { tabDefs });
 
-  const tabDefsExtented = [
+  const tabDefsExtented: Tabs = [
     {
       name: "Tab1",
-      Header: ({ store }) =>
+      Header: () =>
         div(
           i(
             {
@@ -60,7 +62,7 @@ export default (context) => {
           ),
           "TAB 1"
         ),
-      Content: ({ store }) =>
+      Content: () =>
         div(
           {
             class: css`
@@ -72,7 +74,7 @@ export default (context) => {
           Button(
             {
               raised: true,
-              onclick: (event) =>
+              onclick: (event: any) =>
                 event.srcElement.dispatchEvent(
                   new CustomEvent("tab.add", {
                     detail: { tab: createRandomTab() },
@@ -85,10 +87,10 @@ export default (context) => {
           Button(
             {
               accent: true,
-              onclick: (event) =>
+              onclick: (event: any) =>
                 event.srcElement.dispatchEvent(
                   new CustomEvent("tab.remove", {
-                    detail: { tabName: "Tab2" },
+                    detail: { tabName: "New Tab" },
                     bubbles: true,
                   })
                 ),
@@ -103,15 +105,16 @@ export default (context) => {
     },
     {
       name: "Tab2",
-      Header: ({ tab }) => div("TAB 2"),
-      Content: ({ store }) => div(p("My Content")),
+      Header: () => div("TAB 2"),
+      Content: () => div(p("My Content")),
       enter: async () => console.log("tab2 enter"),
       exit: async () => console.log("tab2 exit"),
     },
     {
       name: "Tab Disabled",
       disabled: true,
-      Header: ({ store }) => div("Tab Disabled"),
+      Header: () => div("Tab Disabled"),
+      Content: () => div(p("My Content")),
     },
   ];
 
@@ -121,7 +124,6 @@ export default (context) => {
     section(
       { id: "tabs" },
       h2(tr("Tabs")),
-
       h3("Basic Tabs"),
       TabsContainer(Tabs({})),
       h3("Full Witdth"),

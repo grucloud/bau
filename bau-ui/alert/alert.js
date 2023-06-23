@@ -1,3 +1,5 @@
+import classNames from "@grucloud/bau-css/classNames";
+
 import button from "../button";
 
 const severityMap = {
@@ -61,7 +63,7 @@ ${severitiesToCss()}
   };
 };
 
-export default function (context, options = {}) {
+export default function (context) {
   const { bau, css, createGlobalStyles, tr } = context;
   const { div } = bau.tags;
 
@@ -81,11 +83,10 @@ export default function (context, options = {}) {
 
   return function Alert(props, ...children) {
     const { severity = "info", onRemove, ...otherProps } = props;
-
     return div(
       {
         ...otherProps,
-        class: `${styles.base} alert-${severity}`,
+        class: classNames(styles.base, `alert-${severity}`, props.class),
         role: "alert",
       },
       div({ class: "icon" }, severityMap[severity]),

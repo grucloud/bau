@@ -15,6 +15,7 @@ export default function (context) {
           min-width: 150px;
           max-width: 180px;
           overflow-y: scroll;
+          height: max-content;
           box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
           max-height: 95vh;
           & ul {

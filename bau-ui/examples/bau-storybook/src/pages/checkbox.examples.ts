@@ -1,6 +1,9 @@
-import checkbox from "@grucloud/bau-ui/checkbox/checkbox";
+import checkbox from "@grucloud/bau-ui/checkbox";
 
-export default (context) => {
+import { Context } from "../context";
+import { State } from "@grucloud/bau";
+
+export default (context: Context) => {
   const { tr, bau, css } = context;
   const { section, div, label, h2, form } = bau.tags;
 
@@ -9,11 +12,11 @@ export default (context) => {
   const checkboxState = bau.state(false);
   const checkboxDisabledState = bau.state(false);
 
-  const onChange = (state) => (event) => {
+  const onChange = (state: State<boolean>) => (event: any) => {
     state.val = event.target.checked ? true : false;
   };
 
-  const CheckboxContainer = (...children) =>
+  const CheckboxContainer = (...children: any) =>
     div(
       {
         class: css`

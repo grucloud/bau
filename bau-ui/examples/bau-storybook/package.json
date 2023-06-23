@@ -13,7 +13,7 @@
   "author": "Frederic Heem",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "bundle-visualizer": "vite-bundle-visualizer",
     "test": "vitest",
@@ -30,6 +30,7 @@
     "@vitest/coverage-c8": "0.32.0",
     "gh-pages": "5.0.0",
     "happy-dom": "9.20.3",
+    "typescript": "5.0.2",
     "vite": "4.3.9",
     "vite-bundle-visualizer": "0.7.0",
     "vite-plugin-svg-sprite": "0.3.2",

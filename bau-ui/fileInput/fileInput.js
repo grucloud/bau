@@ -1,4 +1,4 @@
-import { classNames } from "../utils/classNames";
+import classNames from "@grucloud/bau-css/classNames";
 
 export default function (context, options = {}) {
   const { bau, css } = context;
@@ -7,7 +7,7 @@ export default function (context, options = {}) {
   const style = {
     base: css`
       display: inline-block;
-      width: 25rem;
+      width: 20rem;
       > * {
         margin: 1rem 0;
       }
@@ -55,7 +55,9 @@ export default function (context, options = {}) {
     const { Component, disabled, ...otherProps } = props;
 
     return div(
-      { class: classNames(style.base, disabled && style.disabled) },
+      {
+        class: classNames(style.base, disabled && style.disabled, props.class),
+      },
       label(
         Component({ disabled }),
         input({ type: "file", disabled, ...otherProps })

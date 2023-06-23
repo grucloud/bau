@@ -6,14 +6,9 @@ export interface StateView<T> {
   readonly val: T;
 }
 
-export type StatePrimitive =
-  | string
-  | number
-  | boolean
-  | bigint
-  | null
-  | undefined
-  | object;
+export type Primitive = string | number | boolean | bigint | null | undefined;
+
+export type StatePrimitive = Primitive | object;
 
 export type StateValue = StatePrimitive | StatePrimitive[];
 
@@ -57,25 +52,32 @@ export interface BindInput {
   readonly renderItem?: typeof RenderItem;
 }
 
-export interface Props {
+export type Props = {
   readonly [key: string]: PropValue | StateView<PropValue> | DerivedProp;
-}
+};
+
+export type PropsHTMLElement<TElement = HTMLElement> = {
+  readonly [key in keyof TElement]?:
+    | PropValue
+    | StateView<PropValue>
+    | DerivedProp;
+};
 
 export type ChildDom =
-  | StatePrimitive
+  | Primitive
   | Node
-  | StateView<StatePrimitive | null | undefined>
+  | StateView<Primitive | null | undefined>
   | readonly ChildDom[]
   | null
   | undefined;
 
 export type TagFunc<Result> = (
-  first?: Props | ChildDom,
+  first?: Props | PropsHTMLElement<Result> | ChildDom,
   ...rest: readonly ChildDom[]
 ) => Result;
 
 interface TagsBase {
-  readonly [key: string]: TagFunc<Element>;
+  readonly [key: string]: TagFunc<HTMLElement>;
 }
 
 interface Tags extends TagsBase {

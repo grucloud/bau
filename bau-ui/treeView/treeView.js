@@ -1,4 +1,4 @@
-import { classNames } from "../utils/classNames";
+import classNames from "@grucloud/bau-css/classNames";
 
 function collapseSection(element) {
   element.style.height = "0px";
@@ -123,7 +123,10 @@ export default function (context, { renderMenuItem }) {
       );
     };
 
-  return function TreeView(tree) {
-    return nav({ class: styles.nav }, ul(tree.children.map(Tree({}))));
+  return function TreeView({ tree, ...otherProps }) {
+    return nav(
+      { class: classNames(styles.nav, otherProps.class) },
+      ul(tree.children.map(Tree({})))
+    );
   };
 }

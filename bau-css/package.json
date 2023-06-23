@@ -4,15 +4,13 @@
   "version": "0.24.0",
   "type": "module",
   "module": "./bau-css.js",
-  "exports": {
-    ".": {
-      "import": "./bau-css.js"
-    }
-  },
   "license": "BSD",
   "files": [
-    "bau-css.js"
+    "bau-css.js",
+    "bau-css.d.ts",
+    "classNames.js"
   ],
+  "types": "bau-css.d.ts",
   "keywords": [
     "CSS",
     "cssinjs",

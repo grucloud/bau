@@ -1,4 +1,6 @@
-export default function (context, options = {}) {
+import classNames from "@grucloud/bau-css/classNames";
+
+export default function (context) {
   const { bau, css } = context;
   const { input } = bau.tags;
 
@@ -34,13 +36,15 @@ export default function (context, options = {}) {
     }
   `;
 
-  return function Switch({ id, ...otherProps }, ...children) {
-    return input({
-      class: style,
-      type: "checkbox",
-      required: "required",
-      id,
-      ...otherProps,
-    });
+  return function Switch(props, ...children) {
+    return input(
+      {
+        ...props,
+        class: classNames(style, props.class),
+        type: "checkbox",
+        required: "required",
+      },
+      ...children
+    );
   };
 }

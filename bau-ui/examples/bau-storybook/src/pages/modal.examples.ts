@@ -1,10 +1,11 @@
 import modal from "@grucloud/bau-ui/modal";
 import button from "@grucloud/bau-ui/button";
 //import { faker } from "@faker-js/faker";
+import { Context } from "../context";
 
-export default (context) => {
+export default (context: Context) => {
   const { tr, bau } = context;
-  const { section, div, main, h3, h2, header, footer, p } = bau.tags;
+  const { section, main, h2, header, footer, p } = bau.tags;
 
   const Button = button(context);
   const Modal = modal(context);
@@ -13,7 +14,7 @@ export default (context) => {
     main(
       Array(10)
         .fill("")
-        .map((v, k) => p(k + 1, ". " /*faker.lorem.paragraph()*/))
+        .map((_, k) => p(k + 1, ". " /*faker.lorem.paragraph()*/))
     );
 
   const modalEl = Modal(

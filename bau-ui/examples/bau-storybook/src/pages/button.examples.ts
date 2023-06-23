@@ -1,6 +1,7 @@
 import button from "@grucloud/bau-ui/button";
+import { Context } from "../context";
 
-export default (context) => {
+export default (context: Context) => {
   const { tr, bau, css } = context;
   const { section, p, h2, h3 } = bau.tags;
   const Button = button(context);
@@ -106,7 +107,6 @@ export default (context) => {
           {
             disabled: true,
             raised: true,
-            label: tr("Raised DISABLED"),
           },
           tr("Raised DISABLED")
         )
@@ -115,15 +115,18 @@ export default (context) => {
       p(
         Button(
           {
-            fullWidth: true,
-            label: tr("FLAT"),
+            class: css`
+              width: 100%;
+            `,
             raised: true,
           },
           tr("raised FLAT")
         ),
         Button(
           {
-            fullWidth: true,
+            class: css`
+              width: 100%;
+            `,
             primary: true,
           },
           tr("Raised PRIMARY")
@@ -133,7 +136,8 @@ export default (context) => {
       p(
         Button({ "aria-label": "Close" }, "\u2716"),
         Button({ primary: true }, "\u2716"),
-        Button({ raised: true }, "\u2716")
+        Button({ raised: true }, "\u2716"),
+        Button({}, "TODO")
       )
     );
 };

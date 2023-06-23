@@ -1,6 +1,8 @@
 import alert from "@grucloud/bau-ui/alert";
 
-export default (context) => {
+import { Context } from "../context";
+
+export default (context: Context) => {
   const { tr, bau } = context;
   const { section, div, h3, h2, h4, p } = bau.tags;
   const Alert = alert(context);
@@ -21,7 +23,7 @@ export default (context) => {
         Alert(
           {
             severity: "warning",
-            onRemove: (event) => {
+            onRemove: (event: any) => {
               event.preventDefault();
             },
           },
