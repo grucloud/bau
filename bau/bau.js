@@ -33,17 +33,17 @@ export default function Bau() {
       )
     );
 
-  let updateDom = (state) => {
+  let updateDom = (state, arrayOp) => {
     for (let binding of state.bindings) {
       let { deps, element, render, renderItem } = binding;
       const depsValues = vals(deps);
-      if (renderItem && state.arrayOp) {
+      if (renderItem && arrayOp) {
         methodToActionMapping({
-          ...state.arrayOp,
+          ...arrayOp,
           element,
           renderDomItem: (value) =>
             toDom(renderItem({ deps: depsValues, element })(value)),
-        })[state.arrayOp.method]?.call();
+        })[arrayOp.method]?.call();
         bindingCleanUp();
       } else {
         let newElement = render({
@@ -59,7 +59,6 @@ export default function Bau() {
         }
       }
     }
-    state.arrayOp = null;
   };
 
   const proxyHandler = ({ state, data, parentProp = [] }) => ({
@@ -78,11 +77,10 @@ export default function Bau() {
         const origMethod = target[prop];
         return (...args) => {
           const result = origMethod.apply(target, args);
-          state.arrayOp = {
+          updateDom(state, {
             method: prop,
             args,
-          };
-          updateDom(state);
+          });
           return result;
         };
       }
@@ -90,13 +88,12 @@ export default function Bau() {
     },
     set(target, prop, value, receiver) {
       const result = Reflect.set(target, prop, value, receiver);
-      state.arrayOp = {
+      updateDom(state, {
         method: "setItem",
         args: { prop, value },
         parentProp: [...parentProp, prop],
         data,
-      };
-      updateDom(state);
+      });
       return result;
     },
   });
@@ -150,7 +147,6 @@ export default function Bau() {
   let state = (initVal) => ({
     oldVal: initVal,
     bindings: [],
-    arrayOp: null,
     __isState: true,
     get _val() {
       const _state = this;
@@ -173,11 +169,10 @@ export default function Bau() {
       let currentValue = state._val;
       if (isArrayOrObject(value)) {
         state._val = createProxy(state, value);
-        state.arrayOp = {
+        updateDom(state, {
           method: "assign",
           args: value,
-        };
-        updateDom(state);
+        });
       } else {
         if (value !== currentValue) {
           state._val = value;
