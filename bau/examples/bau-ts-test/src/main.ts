@@ -26,7 +26,7 @@ const App = ({}) => {
       {
         class: {
           deps: [myBoolState],
-          renderProp: () => (myBool) => myBool ?? "active",
+          renderProp: () => (myBool) => myBool && "active",
         },
       },
       "renderProp conditional class"

@@ -1,54 +1,35 @@
 import "./style.css";
 import Bau from "@grucloud/bau";
-
 const bau = Bau();
-const { div, h1, li, ul, button } = bau.tags;
+const { div, h1, ul, li } = bau.tags;
 
-const showState = bau.state(true);
 const scrollState = bau.state(0);
 
-const handleScroll = () => {
-  console.log("scroll");
-  scrollState.val = window.scrollY;
-};
+const handleScroll = (/*event*/) => (scrollState.val = window.scrollY);
 
-const App = () => {
-  return div(
-    h1("Bau Lifecycle"),
-    bau.bind({
-      deps: [scrollState],
-      render: () => (scroll) => div("scroll: ", scroll),
-    }),
-    button(
+const ScrollNumber = () =>
+  bau.bind({
+    deps: [scrollState],
+    render: () => (scroll) =>
+      div({ class: "scroll-number" }, "scroll: ", scroll),
+  });
+
+const App = () =>
+  div(
+    h1("Bau Lifecycle methods"),
+    div(
       {
-        onclick: () => {
-          showState.val = !showState.val;
+        bauMounted: (/*{ element }*/) => {
+          window.addEventListener("scroll", handleScroll);
+        },
+        bauUnmounted: (/*{ element }*/) => {
+          window.removeEventListener("scroll", handleScroll);
         },
       },
-      "Toogle scroll detection"
-    ),
-    bau.bind({
-      deps: [showState],
-      render: () => (show) =>
-        show
-          ? div(
-              {
-                bauMounted: ({ element }) => {
-                  console.log("bauMounted", element.tagName);
-                  window.addEventListener("scroll", handleScroll);
-                },
-                bauUnmounted: ({ element }) => {
-                  console.log("bauUnMounted", element.tagName);
-                  window.removeEventListener("scroll", handleScroll);
-                },
-              },
-              "listening to scroll"
-            )
-          : undefined,
-    }),
-    ul([...Array(30)].map((_, i) => li(i)))
+      ScrollNumber(),
+      ul(new Array(1000).fill("").map((_, index) => li("index ", index)))
+    )
   );
-};
 
 const app = document.getElementById("app");
 app?.replaceChildren(App());
