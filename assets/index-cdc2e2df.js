@@ -173,7 +173,7 @@ body {
           margin: 1rem;
           span {
           }
-        `},n("version: 0.24.0"))}}const ue=()=>[{name:"Alert",id:"alert"},{name:"Alert Stack",id:"alert-stack"},{name:"Animate",id:"animate"},{name:"Avatar",id:"avatar"},{name:"Button",id:"button"},{name:"Checkbox",id:"checkbox"},{name:"Drawer",id:"drawer"},{name:"File Input",id:"fileInput"},{name:"Input",id:"input"},{name:"Modal",id:"modal"},{name:"Spinner",id:"spinner"},{name:"Switch",id:"switch"},{name:"Tabs",id:"tabs"},{name:"TreeView",id:"treeview"}];function j(e){const{tr:a,bau:t,css:r}=e,{ul:n,li:o,nav:s,a:i}=t.tags;return function(){return s({class:r`
+        `},n("version: 0.25.0"))}}const ue=()=>[{name:"Alert",id:"alert"},{name:"Alert Stack",id:"alert-stack"},{name:"Animate",id:"animate"},{name:"Avatar",id:"avatar"},{name:"Button",id:"button"},{name:"Checkbox",id:"checkbox"},{name:"Drawer",id:"drawer"},{name:"File Input",id:"fileInput"},{name:"Input",id:"input"},{name:"Modal",id:"modal"},{name:"Spinner",id:"spinner"},{name:"Switch",id:"switch"},{name:"Tabs",id:"tabs"},{name:"TreeView",id:"treeview"}];function j(e){const{tr:a,bau:t,css:r}=e,{ul:n,li:o,nav:s,a:i}=t.tags;return function(){return s({class:r`
           grid-area: sidebar;
           top: 20px;
           bottom: 0px;
