@@ -78,7 +78,7 @@ export type ChildDom =
   | undefined;
 
 export type TagFunc<Result> = (
-  first?: Props | PropsLifecycle<Result> | PropsHTMLElement<Result> | ChildDom,
+  props?: Props | PropsLifecycle<Result> | PropsHTMLElement<Result> | ChildDom,
   ...rest: readonly ChildDom[]
 ) => Result;
 

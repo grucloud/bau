@@ -2,9 +2,9 @@
 
 Bau provides several lifecycle methods to act upon a DOM element creation and destruction:
 
-- `bauCreated`: Called after the element been created, but before being inserted to the tree. One use case is to overide the _innerHTML_ property of the element, required be some third party libraries such as [highlight.js](https://highlightjs.org/).
-- `bauMounted`: Called after the element has been added to the tree. At this time, the position and dimensions are known.
-- `bauUnmounted`: Called when the element is beeing deleted. It is opportunity to clean up things, and also to eventually clone the element for animation purposes.
+- `bauCreated`: Called after the element has been created, but before being inserted into the tree. One use case is to overide the _innerHTML_ property of the element, required by some third party libraries such as [highlight.js](https://highlightjs.org/).
+- `bauMounted`: Called after the element has been added into the tree. At this time, the position and dimensions are known.
+- `bauUnmounted`: Called when the element is being deleted. It is opportunity to clean up things, and also to eventually for animation purposes. Under the hood, [Mutation Observer](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) is created on the parent element which listens for deletion of its child.
 
 ```js
 const MyComponent = ({ someData }) =>

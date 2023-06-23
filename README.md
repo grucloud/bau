@@ -109,7 +109,7 @@ const ScrollNumber = () =>
   });
 ```
 
-- Bau does not use a global variable, multiple instances of Bau could evetually be created.
+- Bau does not use a global variable, multiple instances of Bau could eventually be created.
 
 ```js
 import Bau from "@grucloud/bau";
