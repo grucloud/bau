@@ -4,15 +4,13 @@ const protoOf = Object.getPrototypeOf;
 const h = (tag) => document.createElement(tag);
 const ghost = () => h("span");
 const isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
+const isState = (state) => state.__isState;
+let toVal = (state) => (isState(state) ? state._val : state);
+let toOldVal = (state) => (isState(state) ? state.oldVal : state);
 
 export default function Bau() {
   let _debounce;
   const stateSet = new Set();
-
-  const isState = (state) => state.__isState;
-
-  let toVal = (state) => (isState(state) ? state._val : state);
-  let toOldVal = (state) => (isState(state) ? state.oldVal : state);
 
   let vals = (deps) => deps.map(toVal);
 
@@ -39,7 +37,6 @@ export default function Bau() {
     for (let binding of state.bindings) {
       let { deps, element, render, renderItem } = binding;
       const depsValues = vals(deps);
-      // Array handling
       if (renderItem && state.arrayOp) {
         methodToActionMapping({
           ...state.arrayOp,
@@ -49,7 +46,6 @@ export default function Bau() {
         })[state.arrayOp.method]?.call();
         bindingCleanUp();
       } else {
-        // Primitive or object
         let newElement = render({
           element,
           oldValues: deps.map(toOldVal),
@@ -120,9 +116,8 @@ export default function Bau() {
     setItem: () => {
       const index = parentProp[0];
       const child = element.children[index];
-      const dataEl = data[index];
       if (child) {
-        child.replaceWith(renderDomItem(dataEl));
+        child.replaceWith(renderDomItem(data[index]));
       }
     },
     push: () => element.append(...args.map(renderDomItem)),
@@ -266,7 +261,6 @@ export default function Bau() {
             setter(v);
           }
         }
-
         add(element, ...children);
         props.bauCreated?.({ element });
         props.bauMounted &&
