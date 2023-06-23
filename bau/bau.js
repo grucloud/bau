@@ -1,7 +1,8 @@
 const getType = (obj) => Object.prototype.toString.call(obj ?? 0).slice(8, -1);
 const isObject = (val) => getType(val) == "Object";
 const protoOf = Object.getPrototypeOf;
-
+const h = (tag) => document.createElement(tag);
+const ghost = () => h("span");
 const isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
 
 export default function Bau() {
@@ -55,12 +56,10 @@ export default function Bau() {
           renderItem: renderItem?.({ deps: depsValues, element }),
         })(...depsValues);
         if (newElement !== element) {
-          if (newElement != undefined) {
-            element.replaceWith((binding.element = toDom(newElement)));
-          } else {
-            element.style.display = "none";
-            element.innerHTML = "";
-          }
+          element.replaceWith(
+            (binding.element =
+              newElement != undefined ? toDom(newElement) : ghost())
+          );
         }
       }
     }
@@ -224,14 +223,30 @@ export default function Bau() {
     (isSettablePropCache[tag + "," + key] =
       getPropDescriptor(proto, key)?.set ?? 0);
 
+  const observerRemovedNode = (element, bauUnmounted) => {
+    new MutationObserver((mutationList, observer) => {
+      mutationList
+        .filter((record) => record.removedNodes)
+        .forEach((record) =>
+          [...record.removedNodes].find(
+            (removedNode) =>
+              removedNode === element &&
+              (bauUnmounted({ element }), observer.disconnect(), true)
+          )
+        );
+    }).observe(element.parentNode, { childList: true });
+  };
+
   const tagsNS = (namespace) =>
     new Proxy(
       function createTag(name, ...args) {
         let [props, ...children] = isObject(args[0]) ? args : [{}, ...args];
         let element = namespace
           ? document.createElementNS(namespace, name)
-          : document.createElement(name);
+          : h(name);
         for (let [k, v] of Object.entries(props)) {
+          if (["bauCreated", "bauMounted", "bauUnmounted"].includes(k))
+            continue;
           let setter = isSettableProp(name, k, protoOf(element))
             ? (v) => (element[k] = v)
             : (v) => element.setAttribute(k, v);
@@ -253,11 +268,13 @@ export default function Bau() {
         }
 
         add(element, ...children);
-
         props.bauCreated?.({ element });
         props.bauMounted &&
           window.requestAnimationFrame(() => props.bauMounted({ element }));
-
+        props.bauUnmounted &&
+          window.requestAnimationFrame(() =>
+            observerRemovedNode(element, props.bauUnmounted)
+          );
         return element;
       },
       {
@@ -270,24 +287,20 @@ export default function Bau() {
       deps,
       renderItem: renderItem && renderItem({ deps }),
     })(...vals(deps));
-    if (result != null) {
-      const element = toDom(result);
-      const binding = {
-        deps,
-        render,
-        renderItem,
-        element,
-      };
-
-      for (let dep of deps) {
-        if (isState(dep)) {
-          stateSet.add(dep);
-          dep.bindings.push(binding);
-        }
+    const element = toDom(result ?? ghost());
+    const binding = {
+      deps,
+      render,
+      renderItem,
+      element,
+    };
+    for (let dep of deps) {
+      if (isState(dep)) {
+        stateSet.add(dep);
+        dep.bindings.push(binding);
       }
-      return element;
     }
+    return element;
   };
-
   return { tags: tagsNS(), tagsNS, state, bind };
 }
