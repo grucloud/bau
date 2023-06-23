@@ -1,7 +1,7 @@
 {
   "name": "bau-mathml",
   "private": true,
-  "version": "0.24.0",
+  "version": "0.25.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.24.0"
+    "@grucloud/bau": "^0.25.0"
   },
   "devDependencies": {
     "vite": "^4.3.9"
