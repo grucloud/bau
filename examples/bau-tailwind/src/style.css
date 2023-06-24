@@ -1,0 +1,26 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.scroll-number {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  font-size: x-large;
+  padding: 2rem;
+  border: 2px dotted red;
+  width: 200px;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
