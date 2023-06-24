@@ -1,6 +1,6 @@
 # Bau.js ACE Editor
 
-ACE Editor with Bau
+[ACE Editor](https://ace.c9.io/) with Bau
 
 ## Workflow
 
