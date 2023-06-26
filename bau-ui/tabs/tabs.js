@@ -79,15 +79,11 @@ export default function (context, { tabDefs }) {
       const { Header, disabled, name } = tab;
       return li(
         {
-          class: {
-            deps: [tabCurrentState],
-            renderProp: () => (tabCurrent) => {
-              return classNames(
-                tabCurrent.name == name && "active",
-                disabled && "disabled"
-              );
-            },
-          },
+          class: () =>
+            classNames(
+              tabCurrentState.val.name == name && "active",
+              disabled && "disabled"
+            ),
           onclick: (event) =>
             event.srcElement.dispatchEvent(
               new CustomEvent("tab.select", {
@@ -105,20 +101,11 @@ export default function (context, { tabDefs }) {
       // Header
       bau.bind({
         deps: [tabsState],
-        render:
-          ({ renderItem }) =>
-          (arr) =>
-            ul(arr.map(renderItem)),
-        renderItem: () => TabHeader,
+        render: ({ renderItem }) => ul(tabsState.val.map(renderItem)),
+        renderItem: TabHeader,
       }),
       // Content
-      bau.bind({
-        deps: [tabCurrentState],
-        render:
-          () =>
-          ({ Content }) =>
-            Content ? Content({}) : "",
-      })
+      () => (tabCurrentState.val.Content ? tabCurrentState.val.Content({}) : "")
     );
 
     rootEl.addEventListener(

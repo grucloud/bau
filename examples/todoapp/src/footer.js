@@ -14,11 +14,8 @@ export function footer({ bau, todosState, nowShowingState }) {
     todosState.val = todosState.val.filter(({ completed }) => !completed);
   };
 
-  const linkClass = (showType) => ({
-    deps: [nowShowingState],
-    renderProp: () => (nowShowing) =>
-      classNames(nowShowing == showType && "selected"),
-  });
+  const linkClass = (showType) => () =>
+    classNames(nowShowingState.val == showType && "selected");
 
   const onclick = (showType) => (event) => {
     nowShowingState.val = showType;
@@ -34,31 +31,24 @@ export function footer({ bau, todosState, nowShowingState }) {
   return function Footer({}) {
     return footer(
       { class: "footer" },
-      bau.bind({
-        deps: [todosState],
-        render: () => (todos) =>
-          span(
-            { class: "todo-count" },
-            strong(todos.length),
-            ` ${pluralize(todos.length, "item")} left`
-          ),
-      }),
+      () =>
+        span(
+          { class: "todo-count" },
+          strong(String(todosState.val.length)),
+          ` ${pluralize(todosState.val.length, "item")} left`
+        ),
       ul(
         { class: "filters" },
         li(a(linkProp("app"), "All")),
         li(a(linkProp("active"), "Active")),
         li(a(linkProp("completed"), "Completed"))
       ),
-      bau.bind({
-        name: "clear completed",
-        deps: [todosState],
-        render: () => (todos) => {
-          const completedCount = todos.filter(
-            ({ completed }) => completed
-          ).length;
-          return completedCount > 0 ? ClearButton({ onClearCompleted }) : "";
-        },
-      })
+      () => {
+        const completedCount = todosState.val.filter(
+          ({ completed }) => completed
+        ).length;
+        return completedCount > 0 ? ClearButton({ onClearCompleted }) : "";
+      }
     );
   };
 }

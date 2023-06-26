@@ -48,10 +48,7 @@ const Tree = ({ depth = 0 }) => {
     isObject(value)
       ? div(
           {
-            style: {
-              deps: [hideState],
-              renderProp: () => (hide) => hide ? "display: none" : "",
-            },
+            style: () => (hideState.val ? "display: none" : ""),
           },
           value
         )

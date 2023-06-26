@@ -52,10 +52,7 @@ export default function (context) {
       { class: cn(style, otherProps.class) },
       // Overlay
       div({
-        class: {
-          deps: [openState],
-          renderProp: () => (open) => cn("overlay", open && "overlay-open"),
-        },
+        class: () => cn("overlay", openState.val && "overlay-open"),
         onclick: () => {
           openState.val = false;
         },
@@ -63,10 +60,7 @@ export default function (context) {
       // Content
       div(
         {
-          class: {
-            deps: [openState],
-            renderProp: () => (open) => cn("content", open && "content-open"),
-          },
+          class: () => cn("content", openState.val && "content-open"),
         },
         ...children
       )

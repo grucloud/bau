@@ -49,7 +49,6 @@ const createStyles = ({ css, createGlobalStyles }) => {
             &::before {
               transition: transform var(--transition-fast) linear;
               background: var(--menu-link-sublist-icon) 50% / 2rem 2rem;
-              height: 1.25rem;
               width: 1.25rem;
             }
           }
@@ -92,13 +91,14 @@ export default function (context, { renderMenuItem }) {
       const closeState = bau.state(true);
       return li(
         {
-          class: {
-            deps: [closeState],
-            renderProp: () => (close) =>
-              classNames(
-                children ? (close ? styles.collapsable : styles.collapsed) : ""
-              ),
-          },
+          class: () =>
+            classNames(
+              children
+                ? closeState.val
+                  ? styles.collapsable
+                  : styles.collapsed
+                : ""
+            ),
           onclick: (event) => {
             closeState.val = !closeState.val;
             event.preventDefault();
@@ -108,14 +108,11 @@ export default function (context, { renderMenuItem }) {
         children &&
           ul(
             {
-              "aria-expanded": {
-                deps: [closeState],
-                renderProp:
-                  ({ element }) =>
-                  (close) => {
-                    close ? collapseSection(element) : expandSection(element);
-                    return !close;
-                  },
+              "aria-expanded": ({ element }) => {
+                closeState.val
+                  ? collapseSection(element)
+                  : expandSection(element);
+                return !closeState.val;
               },
             },
             children.map(Tree({ depth: depth + 1 }))

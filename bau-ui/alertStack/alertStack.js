@@ -89,11 +89,8 @@ export default (context, { limit = 10, deleteAfterDuration = 15e3 } = {}) => {
       },
       bau.bind({
         deps: [messagesState],
-        render:
-          ({ renderItem }) =>
-          (arr) =>
-            div(arr.map(renderItem)),
-        renderItem: () => AlertItem,
+        render: ({ renderItem }) => div(messagesState.val.map(renderItem)),
+        renderItem: AlertItem,
       })
     );
   };
