@@ -5,24 +5,31 @@ const toHash = (str) => {
   return "bau" + out;
 };
 
-const addStyle = (target, className, cssText) => {
+const addStyle = (document, target, className, cssText) => {
   const style = document.createElement("style");
   style.id = className;
-  style.appendChild(new Text(cssText));
-  target.appendChild(style);
+  style.append(cssText);
+  if (target) {
+    target.append(style);
+  } else {
+    console.error("no target");
+  }
 };
 
 const compile = (strings, args) =>
   strings.reduce((acc, value, i) => acc + value + (args[i] ?? ""), "");
 
-export default function BauCss({ target = document.head } = {}) {
+export default function BauCss({
+  document = window.document,
+  target = document.head,
+} = {}) {
   const doIt =
     (styleMake) =>
     (strings, ...args) => {
       const compiled = compile(strings, args);
       const name = toHash(compiled);
       !document.getElementById(name) &&
-        addStyle(target, name, styleMake(name, compiled));
+        addStyle(document, target, name, styleMake(name, compiled));
       return name;
     };
   return {

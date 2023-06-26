@@ -73,7 +73,7 @@ export default function globalStyle(
   ${buildEmphasis()}
   --color-content: hsl(0, 0%, 10%);
   --color-content-inverse: hsl(0, 0%, 90%);
-  --color-content-secondary: #525860;
+  --color-content-secondary: hsl(0, 0%, 30%);
   --background-color: var(--color-white);
   --background-surface-color: var(--color-content-inverse);
   --global-border-width: 1px;
@@ -97,12 +97,14 @@ export default function globalStyle(
   --global-shadow-md: 0 5px 40px rgba(0, 0, 0, 0.2);
   --global-shadow-tl: 0 12px 28px 0 rgba(0, 0, 0, 0.2),
     0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --font-size-base: 100%;
+  --line-height-base: 1.65;
 }
-@custom-media --narrow-window (max-width: 996px);
 :root {
   font-family: var(--font-family);
   color-scheme: var(--color-scheme);
   color: var(--color-content);
+  font: var(--font-size-base) / var(--line-height-base) var(--font-family)
 }
 body {
   margin: 0;
