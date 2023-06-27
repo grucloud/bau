@@ -1,18 +1,18 @@
 const getType = (obj) => Object.prototype.toString.call(obj ?? 0).slice(8, -1);
 const isObject = (val) => getType(val) == "Object";
 const protoOf = Object.getPrototypeOf;
-const h = (tag) => document.createElement(tag);
 const ghost = () => h("span");
 const isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
 const isState = (state) => state.__isState;
 let toVal = (state) => (isState(state) ? state._val : state);
 let toOldVal = (state) => (isState(state) ? state.oldVal : state);
+let vals = (deps) => deps.map(toVal);
 
-export default function Bau() {
+export default function Bau({ document = window.document } = {}) {
   let _debounce;
   const stateSet = new Set();
 
-  let vals = (deps) => deps.map(toVal);
+  const h = (tag) => document.createElement(tag);
 
   function debounceSchedule(callback) {
     if (!_debounce) {
@@ -183,13 +183,13 @@ export default function Bau() {
     },
   });
 
-  let toDom = (v) => (v.nodeType ? v : new Text(v));
+  let toDom = (v) => (v.nodeType ? v : document.createTextNode(v));
 
   let add = (element, ...children) => {
     if (children.length == 0) return element;
     const childrenDom = [];
     for (let child of children.flat(Infinity))
-      if (child != null) {
+      if (child) {
         childrenDom.push(
           isState(child)
             ? bind({ deps: [child], render: () => (v) => v })
