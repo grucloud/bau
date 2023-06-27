@@ -1,17 +1,17 @@
-const getType = (obj) => Object.prototype.toString.call(obj ?? 0).slice(8, -1);
-const isObject = (val) => getType(val) == "Object";
-const protoOf = Object.getPrototypeOf;
-const isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
-const isFunction = (obj) => getType(obj) == "Function";
+let getType = (obj) => Object.prototype.toString.call(obj ?? 0).slice(8, -1);
+let isObject = (val) => getType(val) == "Object";
+let protoOf = Object.getPrototypeOf;
+let isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
+let isFunction = (obj) => getType(obj) == "Function";
 
-const isState = (state) => state.__isState;
+let isState = (state) => state.__isState;
 
 export default function Bau({ document = window.document } = {}) {
-  const stateSet = new Set();
+  let stateSet = new Set();
   let _curDeps;
 
-  const h = (tag) => document.createElement(tag);
-  const ghost = () => h("span");
+  let h = (tag) => document.createElement(tag);
+  let ghost = () => h("span");
 
   let runAndCaptureDeps = (render, deps, arg) => {
     let prevDeps = _curDeps;
@@ -45,7 +45,7 @@ export default function Bau({ document = window.document } = {}) {
     }
   };
 
-  const proxyHandler = (state, data, parentProp = []) => ({
+  let proxyHandler = (state, data, parentProp = []) => ({
     get(target, prop, receiver) {
       _curDeps?.add(state);
       if (prop === "_isProxy") return true;
@@ -55,9 +55,9 @@ export default function Bau({ document = window.document } = {}) {
           proxyHandler(state, data, [...parentProp, prop])
         );
       } else if (["splice", "push", "pop", "shift", "unshift"].includes(prop)) {
-        const origMethod = target[prop];
+        let origMethod = target[prop];
         return (...args) => {
-          const result = origMethod.apply(target, args);
+          let result = origMethod.apply(target, args);
           updateDom(state, {
             method: prop,
             args,
@@ -69,7 +69,7 @@ export default function Bau({ document = window.document } = {}) {
       return Reflect.get(target, prop, receiver);
     },
     set(target, prop, value, receiver) {
-      const result = Reflect.set(target, prop, value, receiver);
+      let result = Reflect.set(target, prop, value, receiver);
       updateDom(state, {
         method: "setItem",
         args: { prop, value },
@@ -80,10 +80,9 @@ export default function Bau({ document = window.document } = {}) {
     },
   });
 
-  const createProxy = (state, data) =>
-    new Proxy(data, proxyHandler(state, data));
+  let createProxy = (state, data) => new Proxy(data, proxyHandler(state, data));
 
-  const methodToActionMapping = ({
+  let methodToActionMapping = ({
     element,
     parentProp,
     args,
@@ -93,8 +92,8 @@ export default function Bau({ document = window.document } = {}) {
   }) => ({
     assign: () => element.replaceChildren(...args.map(renderDomItem)),
     setItem: () => {
-      const index = parentProp[0];
-      const child = element.children[index];
+      let index = parentProp[0];
+      let child = element.children[index];
       if (child) {
         child.replaceWith(renderDomItem(data[index]));
       }
@@ -103,13 +102,13 @@ export default function Bau({ document = window.document } = {}) {
     pop: () => element.lastChild && element.removeChild(element.lastChild),
     shift: () => element.firstChild && element.removeChild(element.firstChild),
     unshift: () => {
-      const item = renderDomItem(args[0], depsValues);
+      let item = renderDomItem(args[0], depsValues);
       element.firstChild
         ? element.firstChild.before(item)
         : element.appendChild(item);
     },
     splice: () => {
-      const [start, deleteCount, ...newItems] = args;
+      let [start, deleteCount, ...newItems] = args;
       for (
         let i = Math.min(start + deleteCount - 1, element.children.length - 1);
         i >= start;
@@ -118,7 +117,7 @@ export default function Bau({ document = window.document } = {}) {
         element.children[i].remove();
       }
       if (newItems.length > 0) {
-        const elementNewItems = newItems.forEach(renderDomItem);
+        let elementNewItems = newItems.forEach(renderDomItem);
         element.children[start]
           ? element.children[start].after(elementNewItems)
           : element.append(...elementNewItems);
@@ -131,7 +130,7 @@ export default function Bau({ document = window.document } = {}) {
     bindings: [],
     __isState: true,
     get _val() {
-      const _state = this;
+      let _state = this;
       return (
         _state.valProxy ??
         ((_state.valProxy = isArrayOrObject(initVal)
@@ -170,7 +169,7 @@ export default function Bau({ document = window.document } = {}) {
 
   let add = (element, ...children) => {
     if (children.length) {
-      const childrenDom = [];
+      let childrenDom = [];
       for (let child of children.flat(Infinity))
         child &&
           childrenDom.push(
@@ -180,25 +179,24 @@ export default function Bau({ document = window.document } = {}) {
               ? bind({ render: child })
               : toDom(child)
           );
-
       element.append(...childrenDom);
     }
   };
 
-  const isSettablePropCache = {};
+  let isSettablePropCache = {};
 
-  const getPropDescriptor = (proto, key) =>
+  let getPropDescriptor = (proto, key) =>
     proto
       ? Object.getOwnPropertyDescriptor(proto, key) ??
         getPropDescriptor(protoOf(proto), key)
       : undefined;
 
-  const isSettableProp = (tag, key, proto) =>
+  let isSettableProp = (tag, key, proto) =>
     isSettablePropCache[tag + "," + key] ??
     (isSettablePropCache[tag + "," + key] =
       getPropDescriptor(proto, key)?.set ?? 0);
 
-  const observerRemovedNode = (element, bauUnmounted) =>
+  let observerRemovedNode = (element, bauUnmounted) =>
     new MutationObserver((mutationList, observer) => {
       mutationList
         .filter((record) => record.removedNodes)
@@ -211,7 +209,7 @@ export default function Bau({ document = window.document } = {}) {
         );
     }).observe(element.parentNode, { childList: true });
 
-  const tagsNS = (namespace) =>
+  let tagsNS = (namespace) =>
     new Proxy(
       function createTag(name, ...args) {
         let [props, ...children] = isObject(args[0]) ? args : [{}, ...args];
@@ -259,9 +257,9 @@ export default function Bau({ document = window.document } = {}) {
     let newElement = /* @__PURE__ */ depsOveride
       ? render(renderArgs)
       : runAndCaptureDeps(render, depsInfered, renderArgs);
-    const deps = depsOveride ?? depsInfered;
-    const element = toDom(newElement ? newElement : ghost());
-    const binding = {
+    let deps = depsOveride ?? depsInfered;
+    let element = toDom(newElement ? newElement : ghost());
+    let binding = {
       deps,
       render,
       renderItem,
