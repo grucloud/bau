@@ -27,26 +27,20 @@ async function fetchJSON(request) {
 const App = () => {
   // Dot not await here
   fetchJSON(`https://api.github.com/repos/grucloud/bau`);
-  return div(
-    h1("Fetch Data example"),
-    bau.bind({
-      deps: [dataState, loadingState, errorState],
-      render: () => (data, loading, error) => {
-        if (error) {
-          return span(
-            "Error Loading Data: status ",
-            error.status,
-            " status text: ",
-            error.statusText
-          );
-        } else if (loading) {
-          return "Loading";
-        } else {
-          return div("Star Count: ", data.stargazers_count);
-        }
-      },
-    })
-  );
+  return div(h1("Fetch Data example"), () => {
+    if (errorState.val) {
+      return span(
+        "Error Loading Data: status ",
+        errorState.val.status,
+        " status text: ",
+        errorState.val.statusText
+      );
+    } else if (loadingState.val) {
+      return "Loading";
+    } else {
+      return div("Star Count: ", dataState.val.stargazers_count);
+    }
+  });
 };
 
 document.getElementById("app").replaceChildren(App({}));

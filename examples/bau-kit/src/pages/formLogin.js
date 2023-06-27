@@ -32,17 +32,13 @@ export default function ({ bau, tr }) {
           oninput: oninput(formState),
         })
       ),
-      bau.bind({
-        deps: [formState],
-        render: () => (formData) =>
-          button(
-            {
-              type: "submit",
-              disabled: submitIsDisabled(formData),
-              onclick: onsubmit(formData),
-            },
-            tr("Submit")
-          ),
-      })
+      button(
+        {
+          type: "submit",
+          disabled: () => submitIsDisabled(formState.val),
+          onclick: () => onsubmit(formState.val),
+        },
+        tr("Submit")
+      )
     );
 }

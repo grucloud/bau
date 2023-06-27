@@ -34,14 +34,11 @@ const App = () => {
       },
       "Deep nested"
     ),
-
-    bau.bind({
-      deps: [appState],
-      render:
-        ({}) =>
-        (app) =>
-          div(div("Label: ", app.label), div("City: ", app.address.city)),
-    })
+    () =>
+      div(
+        div("Label: ", appState.val.label),
+        div("City: ", appState.val.address.city)
+      )
   );
 };
 

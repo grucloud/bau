@@ -36,21 +36,15 @@ export const footer = ({ tr, bau, css }) => {
         `,
       },
       span(`version FE: ${__VERSION__}`),
-      span(
-        `BE: `,
-        bau.bind({
-          deps: [op.isLoading, op.data, op.error],
-          render: () => (isLoading, data, error) => {
-            if (isLoading) {
-              return "Loading";
-            } else if (error) {
-              return "Error";
-            } else {
-              return data;
-            }
-          },
-        })
-      )
+      span(`BE: `, () => {
+        if (op.isLoading.val) {
+          return "Loading";
+        } else if (op.error.val) {
+          return "Error";
+        } else {
+          return op.data.val;
+        }
+      })
     );
   };
 };
