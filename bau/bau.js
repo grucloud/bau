@@ -7,7 +7,6 @@ const isFunction = (obj) => getType(obj) == "Function";
 const isState = (state) => state.__isState;
 
 export default function Bau({ document = window.document } = {}) {
-  let _debounce;
   const stateSet = new Set();
   let _curDeps;
 
@@ -21,28 +20,6 @@ export default function Bau({ document = window.document } = {}) {
     _curDeps = prevDeps;
     return result;
   };
-
-  function debounceSchedule(callback) {
-    if (!_debounce) {
-      _debounce = window.requestAnimationFrame(() => {
-        callback();
-        _debounce = undefined;
-      });
-    }
-  }
-
-  const bindingCleanUp = () =>
-    debounceSchedule(() =>
-      stateSet.forEach(
-        (state) =>
-          (state.bindings = state.bindings.filter((b) => {
-            if (!b.element?.isConnected) {
-              debugger;
-            }
-            return b.element?.isConnected;
-          }))
-      )
-    );
 
   let updateDom = (state, arrayOp) => {
     for (let binding of state.bindings) {
@@ -65,7 +42,6 @@ export default function Bau({ document = window.document } = {}) {
           );
         }
       }
-      bindingCleanUp();
     }
   };
 
