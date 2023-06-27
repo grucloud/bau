@@ -101,8 +101,11 @@ export default function (context, { tabDefs }) {
       // Header
       bau.bind({
         deps: [tabsState],
-        render: ({ renderItem }) => ul(tabsState.val.map(renderItem)),
-        renderItem: TabHeader,
+        render:
+          ({ renderItem }) =>
+          (arr) =>
+            ul(arr.map(renderItem)),
+        renderItem: () => TabHeader,
       }),
       // Content
       () => (tabCurrentState.val.Content ? tabCurrentState.val.Content({}) : "")

@@ -16,32 +16,24 @@ export type Deps = State<StateValue>[];
 
 export type PropValue = StatePrimitive | Function | null | undefined;
 
-export interface renderPropInput {
-  readonly element: HTMLElement;
-}
-
 export interface DerivedProp {
   readonly deps: Deps;
-  readonly renderProp: (input: renderPropInput) => PropValue;
+  readonly renderProp: (input: { element: HTMLElement }) => PropValue;
 }
 
-export interface renderItemInput {
+declare function RenderItem(input: {
   readonly element?: HTMLElement;
-}
-
-declare function RenderItem(
-  input: renderItemInput
-): HTMLElement | StatePrimitive;
+}): (...args: readonly StatePrimitive[]) => HTMLElement | StatePrimitive;
 
 export interface BindInput {
-  readonly deps?: Deps;
+  readonly deps: Deps;
   readonly render: (input: {
-    readonly element: HTMLElement;
+    element: HTMLElement;
     readonly renderItem: (
       ...args: readonly StatePrimitive[]
-    ) => HTMLElement | Primitive;
-    //readonly oldValues: any[];
-  }) => HTMLElement | StatePrimitive;
+    ) => HTMLElement | StatePrimitive;
+    readonly oldValues: any[];
+  }) => (...args: readonly any[]) => HTMLElement | StatePrimitive;
   readonly renderItem?: typeof RenderItem;
 }
 
@@ -206,5 +198,5 @@ export default function Bau(input?: { document?: Document }): {
   tags: Tags;
   tagsNS: (namespaceURI: string) => TagsBase;
   state: <T>(initVal: T) => State<T>;
-  bind: (input: BindInput) => HTMLElement;
+  bind: (input: BindInput) => (...args: any) => HTMLElement;
 };

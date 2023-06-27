@@ -209,8 +209,11 @@ const Main = () =>
       { class: "table table-hover table-striped test-data" },
       bau.bind({
         deps: [dataState],
-        render: ({ renderItem }) => tbody(dataState.val.map(renderItem)),
-        renderItem: (value) =>
+        render:
+          ({ renderItem }) =>
+          (arr) =>
+            tbody(arr.map(renderItem)),
+        renderItem: () => (value) =>
           Row({
             id: value.id,
             item: value,
