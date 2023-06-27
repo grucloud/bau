@@ -22,9 +22,7 @@ export interface renderPropInput {
 
 export interface DerivedProp {
   readonly deps: Deps;
-  readonly renderProp: (
-    input: renderPropInput
-  ) => (...args: readonly StatePrimitive[]) => PropValue;
+  readonly renderProp: (input: renderPropInput) => PropValue;
 }
 
 export interface renderItemInput {

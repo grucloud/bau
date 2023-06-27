@@ -3,7 +3,7 @@ let isObject = (val) => getType(val) == "Object";
 let protoOf = Object.getPrototypeOf;
 let isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
 let isFunction = (obj) => getType(obj) == "Function";
-
+let toVal = (state) => (isState(state) ? state._val : state);
 let isState = (state) => state.__isState;
 
 export default function Bau({ document = window.document } = {}) {
@@ -109,7 +109,7 @@ export default function Bau({ document = window.document } = {}) {
       ) {
         element.children[i].remove();
       }
-      if (newItems.length > 0) {
+      if (newItems.length) {
         let elementNewItems = newItems.forEach(renderDomItem);
         element.children[start]
           ? element.children[start].after(elementNewItems)
@@ -217,6 +217,14 @@ export default function Bau({ document = window.document } = {}) {
             bind({ render: () => (setter(v.val), element) });
           } else if (isFunction(v) && (!k.startsWith("on") || v.isDerived)) {
             bind({ render: () => (setter(v({ element })), element) });
+          } else if (v.renderProp) {
+            bind({
+              deps: v["deps"],
+              render: () => (
+                setter(v["renderProp"]({ element })(...v["deps"].map(toVal))),
+                element
+              ),
+            });
           } else {
             setter(v);
           }

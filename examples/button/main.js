@@ -7,7 +7,10 @@ const app = ({ bau }) => {
   const Button = ({ color, onclick }, ...children) =>
     button(
       {
-        style: () => `background-color: ${colorState.val};`,
+        style: {
+          deps: [color],
+          renderProp: () => (color) => `background-color: ${color};`,
+        },
         onclick,
       },
       ...children
