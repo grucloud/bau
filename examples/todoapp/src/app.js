@@ -78,14 +78,14 @@ export default function app({ bau }) {
         label({ for: "toggle-all" }),
         bau.bind({
           deps: [todosState, nowShowingState],
-          render:
-            ({ renderItem }) =>
-            (arr, nowShowing) =>
-              ul(
-                { class: "todo-list" },
-                arr.filter(showTodos(nowShowing)).map(renderItem)
-              ),
-          renderItem: ({}) => TodoItem,
+          render: ({ renderItem }) =>
+            ul(
+              { class: "todo-list" },
+              todosState.val
+                .filter(showTodos(nowShowingState.val))
+                .map(renderItem)
+            ),
+          renderItem: TodoItem,
         })
       ),
       Footer({})

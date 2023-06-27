@@ -9,11 +9,7 @@ const addStyle = (document, target, className, cssText) => {
   const style = document.createElement("style");
   style.id = className;
   style.append(cssText);
-  if (target) {
-    target.append(style);
-  } else {
-    console.error("no target");
-  }
+  target.append(style);
 };
 
 const compile = (strings, args) =>

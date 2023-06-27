@@ -1,56 +1,42 @@
-const getType = (obj) => Object.prototype.toString.call(obj ?? 0).slice(8, -1);
-const isObject = (val) => getType(val) == "Object";
-const protoOf = Object.getPrototypeOf;
-const ghost = () => h("span");
-const isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
-const isState = (state) => state.__isState;
+let getType = (obj) => Object.prototype.toString.call(obj ?? 0).slice(8, -1);
+let isObject = (val) => getType(val) == "Object";
+let protoOf = Object.getPrototypeOf;
+let isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
+let isFunction = (obj) => getType(obj) == "Function";
 let toVal = (state) => (isState(state) ? state._val : state);
-let toOldVal = (state) => (isState(state) ? state.oldVal : state);
-let vals = (deps) => deps.map(toVal);
+let isState = (state) => state.__isState;
 
 export default function Bau({ document = window.document } = {}) {
-  let _debounce;
-  const stateSet = new Set();
+  let stateSet = new Set();
+  let _curDeps;
 
-  const h = (tag) => document.createElement(tag);
+  let h = (tag) => document.createElement(tag);
+  let ghost = () => h("span");
 
-  function debounceSchedule(callback) {
-    if (!_debounce) {
-      _debounce = window.requestAnimationFrame(() => {
-        callback();
-        _debounce = undefined;
-      });
-    }
-  }
+  let runAndCaptureDeps = (render, deps, arg) => {
+    let prevDeps = _curDeps;
+    _curDeps = deps;
+    let result = render(arg);
+    _curDeps = prevDeps;
+    return result;
+  };
 
-  const bindingCleanUp = () =>
-    debounceSchedule(() =>
-      stateSet.forEach(
-        (state) =>
-          (state.bindings = state.bindings.filter(
-            (b) => b.element?.isConnected
-          ))
-      )
-    );
-
-  let updateDom = (state, arrayOp) => {
+  let updateDom = (state, method, args, parentProp, data) => {
     for (let binding of state.bindings) {
-      let { deps, element, render, renderItem } = binding;
-      const depsValues = vals(deps);
-      if (renderItem && arrayOp) {
-        methodToActionMapping({
-          ...arrayOp,
+      let { element, render, renderItem } = binding;
+      if (renderItem && method) {
+        methodToActionMapping(
           element,
-          renderDomItem: (value) =>
-            toDom(renderItem({ deps: depsValues, element })(value)),
-        })[arrayOp.method]?.call();
-        bindingCleanUp();
+          parentProp,
+          args,
+          (value) => toDom(renderItem(value)),
+          data
+        )[method]?.call();
       } else {
         let newElement = render({
           element,
-          oldValues: deps.map(toOldVal),
-          renderItem: renderItem?.({ deps: depsValues, element }),
-        })(...depsValues);
+          renderItem,
+        });
         if (newElement !== element) {
           element.replaceWith(
             (binding.element =
@@ -61,58 +47,46 @@ export default function Bau({ document = window.document } = {}) {
     }
   };
 
-  const proxyHandler = ({ state, data, parentProp = [] }) => ({
+  let proxyHandler = (state, data, parentProp = []) => ({
     get(target, prop, receiver) {
+      _curDeps?.add(state);
       if (prop === "_isProxy") return true;
       if (!target[prop]?._isProxy && isArrayOrObject(target[prop])) {
         target[prop] = new Proxy(
           target[prop],
-          proxyHandler({
-            state,
-            data,
-            parentProp: [...parentProp, prop],
-          })
+          proxyHandler(state, data, [...parentProp, prop])
         );
       } else if (["splice", "push", "pop", "shift", "unshift"].includes(prop)) {
-        const origMethod = target[prop];
+        let origMethod = target[prop];
         return (...args) => {
-          const result = origMethod.apply(target, args);
-          updateDom(state, {
-            method: prop,
-            args,
-          });
+          let result = origMethod.apply(target, args);
+          updateDom(state, prop, args);
           return result;
         };
       }
+
       return Reflect.get(target, prop, receiver);
     },
     set(target, prop, value, receiver) {
-      const result = Reflect.set(target, prop, value, receiver);
-      updateDom(state, {
-        method: "setItem",
-        args: { prop, value },
-        parentProp: [...parentProp, prop],
-        data,
-      });
+      let result = Reflect.set(target, prop, value, receiver);
+      updateDom(state, "setItem", { prop, value }, [...parentProp, prop], data);
       return result;
     },
   });
 
-  const createProxy = (state, data) =>
-    new Proxy(data, proxyHandler({ state, data }));
+  let createProxy = (state, data) => new Proxy(data, proxyHandler(state, data));
 
-  const methodToActionMapping = ({
+  let methodToActionMapping = (
     element,
     parentProp,
     args,
-    depsValues,
     renderDomItem,
-    data,
-  }) => ({
+    data
+  ) => ({
     assign: () => element.replaceChildren(...args.map(renderDomItem)),
     setItem: () => {
-      const index = parentProp[0];
-      const child = element.children[index];
+      let index = parentProp[0];
+      let child = element.children[index];
       if (child) {
         child.replaceWith(renderDomItem(data[index]));
       }
@@ -121,13 +95,13 @@ export default function Bau({ document = window.document } = {}) {
     pop: () => element.lastChild && element.removeChild(element.lastChild),
     shift: () => element.firstChild && element.removeChild(element.firstChild),
     unshift: () => {
-      const item = renderDomItem(args[0], depsValues);
+      let item = renderDomItem(args[0]);
       element.firstChild
         ? element.firstChild.before(item)
         : element.appendChild(item);
     },
     splice: () => {
-      const [start, deleteCount, ...newItems] = args;
+      let [start, deleteCount, ...newItems] = args;
       for (
         let i = Math.min(start + deleteCount - 1, element.children.length - 1);
         i >= start;
@@ -135,8 +109,8 @@ export default function Bau({ document = window.document } = {}) {
       ) {
         element.children[i].remove();
       }
-      if (newItems.length > 0) {
-        const elementNewItems = newItems.forEach(renderDomItem);
+      if (newItems.length) {
+        let elementNewItems = newItems.forEach(renderDomItem);
         element.children[start]
           ? element.children[start].after(elementNewItems)
           : element.append(...elementNewItems);
@@ -149,7 +123,7 @@ export default function Bau({ document = window.document } = {}) {
     bindings: [],
     __isState: true,
     get _val() {
-      const _state = this;
+      let _state = this;
       return (
         _state.valProxy ??
         ((_state.valProxy = isArrayOrObject(initVal)
@@ -162,6 +136,7 @@ export default function Bau({ document = window.document } = {}) {
       this.valProxy = value;
     },
     get val() {
+      _curDeps?.add(this);
       return this._val;
     },
     set val(value) {
@@ -169,10 +144,7 @@ export default function Bau({ document = window.document } = {}) {
       let currentValue = state._val;
       if (isArrayOrObject(value)) {
         state._val = createProxy(state, value);
-        updateDom(state, {
-          method: "assign",
-          args: value,
-        });
+        updateDom(state, "assign", value);
       } else {
         if (value !== currentValue) {
           state._val = value;
@@ -186,34 +158,35 @@ export default function Bau({ document = window.document } = {}) {
   let toDom = (v) => (v.nodeType ? v : document.createTextNode(v));
 
   let add = (element, ...children) => {
-    if (children.length == 0) return element;
-    const childrenDom = [];
-    for (let child of children.flat(Infinity))
-      if (child) {
-        childrenDom.push(
-          isState(child)
-            ? bind({ deps: [child], render: () => (v) => v })
-            : toDom(child)
-        );
-      }
-    element.append(...childrenDom);
-    return element;
+    if (children.length) {
+      let childrenDom = [];
+      for (let child of children.flat(Infinity))
+        child &&
+          childrenDom.push(
+            isState(child)
+              ? bind({ render: () => child.val })
+              : isFunction(child)
+              ? bind({ render: child })
+              : toDom(child)
+          );
+      element.append(...childrenDom);
+    }
   };
 
-  const isSettablePropCache = {};
+  let isSettablePropCache = {};
 
-  const getPropDescriptor = (proto, key) =>
+  let getPropDescriptor = (proto, key) =>
     proto
       ? Object.getOwnPropertyDescriptor(proto, key) ??
         getPropDescriptor(protoOf(proto), key)
       : undefined;
 
-  const isSettableProp = (tag, key, proto) =>
+  let isSettableProp = (tag, key, proto) =>
     isSettablePropCache[tag + "," + key] ??
     (isSettablePropCache[tag + "," + key] =
       getPropDescriptor(proto, key)?.set ?? 0);
 
-  const observerRemovedNode = (element, bauUnmounted) => {
+  let observerRemovedNode = (element, bauUnmounted) =>
     new MutationObserver((mutationList, observer) => {
       mutationList
         .filter((record) => record.removedNodes)
@@ -225,9 +198,8 @@ export default function Bau({ document = window.document } = {}) {
           )
         );
     }).observe(element.parentNode, { childList: true });
-  };
 
-  const tagsNS = (namespace) =>
+  let tagsNS = (namespace) =>
     new Proxy(
       function createTag(name, ...args) {
         let [props, ...children] = isObject(args[0]) ? args : [{}, ...args];
@@ -242,15 +214,16 @@ export default function Bau({ document = window.document } = {}) {
             : (v) => element.setAttribute(k, v);
           if (v == null) {
           } else if (isState(v)) {
-            bind({ deps: [v], render: () => (v) => (setter(v), element) });
+            bind({ render: () => (setter(v.val), element) });
+          } else if (isFunction(v) && (!k.startsWith("on") || v.isDerived)) {
+            bind({ render: () => (setter(v({ element })), element) });
           } else if (v.renderProp) {
             bind({
               deps: v["deps"],
-              render:
-                ({}) =>
-                (...deps) => (
-                  setter(v["renderProp"]({ element })(...deps)), element
-                ),
+              render: () => (
+                setter(v["renderProp"]({ element })(...v["deps"].map(toVal))),
+                element
+              ),
             });
           } else {
             setter(v);
@@ -271,13 +244,20 @@ export default function Bau({ document = window.document } = {}) {
       }
     );
 
-  let bind = ({ deps, render, renderItem }) => {
-    const result = render({
-      deps,
-      renderItem: renderItem && renderItem({ deps }),
-    })(...vals(deps));
-    const element = toDom(result ?? ghost());
-    const binding = {
+  let bind = ({
+    deps: depsOveride,
+    render,
+    element: currentElement,
+    renderItem,
+  }) => {
+    let depsInfered = new Set();
+    let renderArgs = { element: currentElement, renderItem };
+    let newElement = /* @__PURE__ */ depsOveride
+      ? render(renderArgs)
+      : runAndCaptureDeps(render, depsInfered, renderArgs);
+    let deps = depsOveride ?? depsInfered;
+    let element = toDom(newElement ? newElement : ghost());
+    let binding = {
       deps,
       render,
       renderItem,
@@ -291,5 +271,5 @@ export default function Bau({ document = window.document } = {}) {
     }
     return element;
   };
-  return { tags: tagsNS(), tagsNS, state, bind };
+  return { tags: tagsNS(), tagsNS, state, bind, stateSet };
 }

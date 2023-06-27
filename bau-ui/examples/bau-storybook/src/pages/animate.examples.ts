@@ -44,31 +44,22 @@ export default (context: Context) => {
         div(
           Button(
             {
-              onclick: () => {
-                showState.val = !showState.val;
-              },
+              onclick: () => (showState.val = !showState.val),
             },
-            bau.bind({
-              deps: [showState],
-              render: () => (show) => show ? "Hide" : "Show",
-            })
+            () => (showState.val ? "Hide" : "Show")
           )
         ),
-        div(
-          bau.bind({
-            deps: [showState],
-            render: () => (show) =>
-              show
-                ? Animate(
-                    {
-                      parent: dom,
-                      animationHide: `${styles.hideRight} 0.5s`,
-                      animationShow: `${styles.showRight} 0.5s`,
-                    },
-                    div("Ciao")
-                  )
-                : "",
-          })
+        div(() =>
+          showState.val
+            ? Animate(
+                {
+                  parent: dom,
+                  animationHide: `${styles.hideRight} 0.5s`,
+                  animationShow: `${styles.showRight} 0.5s`,
+                },
+                div("Ciao")
+              )
+            : ""
         )
       )
     );

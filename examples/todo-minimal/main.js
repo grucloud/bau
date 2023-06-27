@@ -19,11 +19,8 @@ const TodoItem = ({ label }) => tr(td(label));
 const TBody = () =>
   bau.bind({
     deps: [todosState],
-    render:
-      ({ renderItem }) =>
-      (arr) =>
-        tbody(arr.map(renderItem)),
-    renderItem: () => TodoItem,
+    render: ({ renderItem }) => tbody(todosState.val.map(renderItem)),
+    renderItem: TodoItem,
   });
 
 const App = () =>
@@ -39,6 +36,7 @@ const App = () =>
       },
       "Add"
     ),
+    div("item(s): ", () => String(todosState.val.length)),
     table(thead(th("Todo List"))),
     TBody()
   );

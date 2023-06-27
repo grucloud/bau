@@ -133,10 +133,7 @@ const select = ({ id, event }) => {
 const Row = ({ id, label }) =>
   tr(
     {
-      class: {
-        deps: [selectedState],
-        renderProp: () => (selected) => selected == id ? "danger" : "",
-      },
+      class: () => (selectedState.val == id ? "danger" : ""),
     },
 
     td({ class: "col-md-1" }, id),
@@ -212,18 +209,13 @@ const Main = () =>
       { class: "table table-hover table-striped test-data" },
       bau.bind({
         deps: [dataState],
-        render:
-          ({ renderItem }) =>
-          (arr) => {
-            return tbody(arr.map(renderItem));
-          },
-        renderItem: () => (value) => {
-          return Row({
+        render: ({ renderItem }) => tbody(dataState.val.map(renderItem)),
+        renderItem: (value) =>
+          Row({
             id: value.id,
             item: value,
             label: value.label,
-          });
-        },
+          }),
       }),
       span({
         class: "preloadicon glyphicon glyphicon-remove",

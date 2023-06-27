@@ -72,11 +72,11 @@ export function todoItem({ bau, todosState, editingIdState, onSave }) {
 
     return li(
       {
-        class: {
-          deps: [editingIdState],
-          renderProp: () => (editingId) =>
-            classNames(completed && "completed", id == editingId && "editing"),
-        },
+        class: () =>
+          classNames(
+            completed && "completed",
+            id == editingIdState.val && "editing"
+          ),
       },
       div(
         { class: "view" },

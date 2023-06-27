@@ -20,15 +20,9 @@ export const asyncView = ({ context, getModule, Loader }) => {
   return function AsyncView() {
     fetchModule();
     return div(
-      bau.bind({
-        deps: [loading],
-        render: () => (loading) => loading ? Loader() : "",
-      }),
+      () => (loading.val ? Loader() : ""),
       error,
-      bau.bind({
-        deps: [view],
-        render: () => (view) => view ? view() : "",
-      })
+      (view) => (view.val ? view.val() : "")
     );
   };
 };

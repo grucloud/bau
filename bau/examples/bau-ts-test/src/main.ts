@@ -2,7 +2,7 @@ import Bau from "../../../bau";
 
 const bau = Bau();
 
-const { div, ul, li, table, tbody, tr, td } = bau.tags;
+const { div, section, button, ul, li, table, tbody, tr, td, span } = bau.tags;
 
 const myBoolState = bau.state(false);
 myBoolState.val = true;
@@ -19,123 +19,113 @@ const myObjetState = bau.state({ name: "Freddy", rank: 2 });
 myObjetState.val.name = "toto";
 myObjetState.val.rank = 2;
 
+const TestArrayLength = () =>
+  section(
+    "testArrayLength",
+    span("length ", () => myArrayState.val.length),
+    div(
+      button(
+        { onclick: () => myArrayState.val.push("yo") },
+        "Click to push an element to an array"
+      )
+    )
+  );
+
+const TestArrayReadIndex = () =>
+  section(
+    "testArrayLength",
+    span("value at index 0:", () => myArrayState.val[0]),
+    div(
+      button(
+        {
+          onclick: () =>
+            myArrayState.val.unshift(String(myArrayState.val.length)),
+        },
+        "Click to prepend an element to an array"
+      )
+    )
+  );
+
+const TestPropsStyle = () =>
+  section(
+    {
+      style: () => (myBoolState.val ? "color:red;" : ""),
+    },
+    "renderProp conditional class",
+    div(
+      button(
+        { onclick: () => (myBoolState.val = !myBoolState.val) },
+        "Click to change the style"
+      )
+    )
+  );
+
+const TestAttributeReturnString = () =>
+  section(
+    {
+      class: () => "",
+    },
+    "attributes returns a string"
+  );
+
+const TestAttributeReturnNull = () =>
+  section(
+    {
+      class: () => null,
+    },
+    "attributes returns null"
+  );
+
+const TestElementTernary = () =>
+  section(
+    () => (myBoolState.val ? "result" : ""),
+    "Conditonal with ternary: cond ? a : '' "
+  );
+
+const TestElementAnd = () =>
+  section(() =>
+    myBoolState.val ? "Conditonal with ternary: cond ? a : '' " : ""
+  );
+
+const TestElementObject = () =>
+  section(() => JSON.stringify(myObjetState.val), "state as object: ");
+
+const TestBindArrayUL = () =>
+  section(
+    bau.bind({
+      render: ({ renderItem }) =>
+        div("render Array with UL LI ", ul(myArrayState.val.map(renderItem))),
+      renderItem: (value: any) => li("renderItem li ", value),
+    }),
+    "TestBindArrayUL"
+  );
+
+const TestBindArrayTBODY = () =>
+  section(
+    bau.bind({
+      render: ({ renderItem }) =>
+        table(
+          "render Array with table tbody tr and td ",
+          tbody(myArrayState.val.map(renderItem))
+        ),
+      renderItem: (value: any) => tr(td("renderItem tr td "), td(value)),
+    }),
+    "TestBindArrayTBODY"
+  );
+
 const App = ({}) => {
   return div(
     "Bau testing with Typescript",
-    div(
-      {
-        class: {
-          deps: [myBoolState],
-          renderProp: () => (myBool) => myBool && "active",
-        },
-      },
-      "renderProp conditional class"
-    ),
-    div(
-      {
-        class: {
-          deps: [],
-          renderProp:
-            ({ element }) =>
-            () => {
-              if (element) {
-                // element.style.height = element.scrollHeight + "px";
-              }
-
-              return "";
-            },
-        },
-      },
-      "renderProp modifying the element element"
-    ),
-    div(
-      {
-        class: {
-          deps: [],
-          renderProp: () => () => "",
-        },
-      },
-      "renderProp returns a string"
-    ),
-    div(
-      {
-        class: {
-          deps: [],
-          renderProp: () => () => undefined,
-        },
-      },
-      "renderProp returns undefined"
-    ),
-    div(
-      {
-        class: {
-          deps: [],
-          renderProp: () => () => null,
-        },
-      },
-      "renderProp returns null"
-    ),
-    bau.bind({
-      deps: [myBoolState, myNumberState],
-      render: () => (myBool, myNumber) =>
-        myBool ? div("Conditonal with ternary: cond ? a : '' ", myNumber) : "",
-    }),
-    bau.bind({
-      deps: [myBoolState, myNumberState],
-      render:
-        ({ oldValues /* element*/ }) =>
-        () =>
-          div("Old values ", oldValues),
-    }),
-    bau.bind({
-      deps: [myArrayState],
-      render:
-        ({ renderItem }) =>
-        (arr) =>
-          div("render Array with UL LI ", ul(arr.map(renderItem))),
-      renderItem: () => (value: any) => li("renderItem li ", value),
-    }),
-    bau.bind({
-      deps: [myArrayState],
-      render:
-        ({ renderItem }) =>
-        (arr) =>
-          table(
-            "render Array with table tbody tr and td ",
-            tbody(arr.map(renderItem))
-          ),
-      renderItem: () => (value) => tr(td("renderItem tr td "), td(value)),
-    }),
-    bau.bind({
-      deps: [myArrayState],
-      render:
-        ({ renderItem /* element*/ }) =>
-        (arr) =>
-          ul(arr.map(renderItem)),
-      renderItem:
-        ({ element /* deps*/ }) =>
-        (value) => {
-          if (element) {
-            //element.style.height = element.scrollHeight + "px";
-          }
-          return li("renderItem with element modification ", value);
-        },
-    }),
-    bau.bind({
-      deps: [myBoolState, myNumberState],
-      render: () => (myBool) => myBool && "Conditional with &&",
-    }),
-    bau.bind({
-      deps: [myObjetState],
-      render: () => (myObjetState) =>
-        div("state as object: ", JSON.stringify(myObjetState)),
-    }),
-    bau.bind({
-      deps: [myObjetState],
-      render: () => (myObject) =>
-        div("state as object: ", JSON.stringify(myObject)),
-      //renderItem: () => () => li("dd"),
-    })
+    TestArrayLength(),
+    TestArrayReadIndex(),
+    TestPropsStyle(),
+    TestAttributeReturnString(),
+    TestAttributeReturnNull(),
+    TestElementTernary(),
+    TestElementAnd(),
+    TestElementObject(),
+    TestBindArrayUL(),
+    TestBindArrayTBODY()
   );
 };
 

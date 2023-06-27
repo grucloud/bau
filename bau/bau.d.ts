@@ -22,38 +22,46 @@ export interface renderPropInput {
 
 export interface DerivedProp {
   readonly deps: Deps;
-  readonly renderProp: (
-    input: renderPropInput
-  ) => (...args: readonly StatePrimitive[]) => PropValue;
+  readonly renderProp: (input: renderPropInput) => PropValue;
 }
 
 export interface renderItemInput {
   readonly element?: HTMLElement;
-  readonly deps: Deps;
 }
 
 declare function RenderItem(
   input: renderItemInput
-): (...args: readonly StatePrimitive[]) => HTMLElement | StatePrimitive;
-
-export interface renderInput {
-  readonly element: HTMLElement;
-  readonly renderItem: (
-    ...args: readonly StatePrimitive[]
-  ) => HTMLElement | StatePrimitive;
-  readonly oldValues: any[];
-}
+): HTMLElement | StatePrimitive;
 
 export interface BindInput {
-  readonly deps: Deps;
-  readonly render: (
-    input: renderInput
-  ) => (...args: readonly any[]) => HTMLElement | StatePrimitive;
+  readonly deps?: Deps;
+  readonly render: (input: {
+    readonly element: HTMLElement;
+    readonly renderItem: (
+      ...args: readonly StatePrimitive[]
+    ) => HTMLElement | Primitive;
+    //readonly oldValues: any[];
+  }) => HTMLElement | StatePrimitive;
   readonly renderItem?: typeof RenderItem;
 }
 
-export type Props = {
-  readonly [key: string]: PropValue | StateView<PropValue> | DerivedProp;
+export type BindAttributeFunc<TElement extends HTMLElement> = (input: {
+  element: TElement;
+}) => Primitive | Function;
+
+export type Props<TElement extends HTMLElement> = {
+  readonly [key: string]:
+    | PropValue
+    | StateView<PropValue>
+    | BindAttributeFunc<TElement>
+    | DerivedProp;
+};
+
+export type PropsHTMLElement<TElement extends HTMLElement> = {
+  readonly [key in keyof TElement]?:
+    | PropValue
+    | StateView<PropValue>
+    | BindAttributeFunc<TElement>;
 };
 
 export type PropsLifecycle<TElement extends HTMLElement> = {
@@ -62,12 +70,9 @@ export type PropsLifecycle<TElement extends HTMLElement> = {
   bauUnmounted: (input: { element: TElement }) => TElement;
 };
 
-export type PropsHTMLElement<TElement = HTMLElement> = {
-  readonly [key in keyof TElement]?:
-    | PropValue
-    | StateView<PropValue>
-    | DerivedProp;
-};
+export type BindElementFunc = (input?: {
+  element: HTMLElement;
+}) => HTMLElement | Primitive;
 
 export type ChildDom =
   | Primitive
@@ -75,10 +80,15 @@ export type ChildDom =
   | StateView<Primitive | null | undefined>
   | readonly ChildDom[]
   | null
-  | undefined;
+  | undefined
+  | BindElementFunc;
 
 export type TagFunc<Result> = (
-  props?: Props | PropsLifecycle<Result> | PropsHTMLElement<Result> | ChildDom,
+  props?:
+    | PropsHTMLElement<Result>
+    | Props<Result>
+    | PropsLifecycle<Result>
+    | ChildDom,
   ...rest: readonly ChildDom[]
 ) => Result;
 
@@ -192,9 +202,7 @@ interface Tags extends TagsBase {
   readonly template: TagFunc<HTMLTemplateElement>;
 }
 
-//type ValOf<T> = T extends StateView<unknown> ? T["val"] : T;
-
-export default function Bau(): {
+export default function Bau(input?: { document?: Document }): {
   tags: Tags;
   tagsNS: (namespaceURI: string) => TagsBase;
   state: <T>(initVal: T) => State<T>;

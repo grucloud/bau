@@ -17,18 +17,8 @@ export default function (context, options = {}) {
   return function Avatar({ width = 60, height = 60, ...props }, ...children) {
     return span(
       { class: classNames(options.cssOverride, props.class) },
-      bau.bind({
-        deps: [loadingState],
-        render: () => (loading) => {
-          if (loading) {
-            return "Loading...";
-          } else return "";
-        },
-      }),
-      bau.bind({
-        deps: [errorState],
-        render: () => (error) => error ? "Error" : "",
-      }),
+      () => (loadingState.val ? "Loading..." : ""),
+      () => errorState.val && "Error",
       img({ width, height, onload, onerror, ...props })
     );
   };

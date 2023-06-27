@@ -24,14 +24,8 @@ const myData = {
 const Tree = ({ depth = 0 }) => {
   const Key = ({ key, value, hideState }) => {
     const keyEl = key !== "" ? `${key}: ` : "";
-    const prefixIcon = bau.bind({
-      deps: [hideState],
-      render: () => (hide) => hide ? "➕ " : "➖ ",
-    });
-    const postIcon = bau.bind({
-      deps: [hideState],
-      render: () => (hide) => hide ? "…" : "",
-    });
+    const prefixIcon = () => (hideState.val ? "➕ " : "➖ ");
+    const postIcon = () => (hideState.val ? "…" : "");
 
     return Array.isArray(value)
       ? a(
@@ -48,10 +42,7 @@ const Tree = ({ depth = 0 }) => {
     isObject(value)
       ? div(
           {
-            style: {
-              deps: [hideState],
-              renderProp: () => (hide) => hide ? "display: none" : "",
-            },
+            style: () => (hideState.val ? "display: none" : ""),
           },
           value
         )
