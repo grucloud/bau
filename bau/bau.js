@@ -45,18 +45,14 @@ export default function Bau({ document = window.document } = {}) {
     }
   };
 
-  const proxyHandler = ({ state, data, parentProp = [] }) => ({
+  const proxyHandler = (state, data, parentProp = []) => ({
     get(target, prop, receiver) {
       _curDeps?.add(state);
       if (prop === "_isProxy") return true;
       if (!target[prop]?._isProxy && isArrayOrObject(target[prop])) {
         target[prop] = new Proxy(
           target[prop],
-          proxyHandler({
-            state,
-            data,
-            parentProp: [...parentProp, prop],
-          })
+          proxyHandler(state, data, [...parentProp, prop])
         );
       } else if (["splice", "push", "pop", "shift", "unshift"].includes(prop)) {
         const origMethod = target[prop];
@@ -85,7 +81,7 @@ export default function Bau({ document = window.document } = {}) {
   });
 
   const createProxy = (state, data) =>
-    new Proxy(data, proxyHandler({ state, data }));
+    new Proxy(data, proxyHandler(state, data));
 
   const methodToActionMapping = ({
     element,
