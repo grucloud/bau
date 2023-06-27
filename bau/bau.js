@@ -23,7 +23,7 @@ export default function Bau({ document = window.document } = {}) {
 
   let updateDom = (state, method, args, parentProp, data) => {
     for (let binding of state.bindings) {
-      let { element, render, renderItem } = binding;
+      let { deps, element, renderInferred, render, renderItem } = binding;
       if (renderItem && method) {
         methodToActionMapping(
           element,
@@ -33,10 +33,11 @@ export default function Bau({ document = window.document } = {}) {
           data
         )[method]?.call();
       } else {
-        let newElement = render({
-          element,
-          renderItem,
-        });
+        let newElement = renderInferred
+          ? renderInferred({
+              element,
+            })
+          : render({ element, renderItem })(...deps.map(toVal));
         if (newElement !== element) {
           element.replaceWith(
             (binding.element =
@@ -164,9 +165,9 @@ export default function Bau({ document = window.document } = {}) {
         child &&
           childrenDom.push(
             isState(child)
-              ? bind({ render: () => child.val })
+              ? bind({ deps: [child], render: () => (v) => v })
               : isFunction(child)
-              ? bind({ render: child })
+              ? bindInferred({ renderInferred: child })
               : toDom(child)
           );
       element.append(...childrenDom);
@@ -214,13 +215,15 @@ export default function Bau({ document = window.document } = {}) {
             : (v) => element.setAttribute(k, v);
           if (v == null) {
           } else if (isState(v)) {
-            bind({ render: () => (setter(v.val), element) });
+            bind({ deps: [v], render: () => () => (setter(v.val), element) });
           } else if (isFunction(v) && (!k.startsWith("on") || v.isDerived)) {
-            bind({ render: () => (setter(v({ element })), element) });
+            bindInferred({
+              renderInferred: () => (setter(v({ element })), element),
+            });
           } else if (v.renderProp) {
             bind({
               deps: v["deps"],
-              render: () => (
+              render: () => () => (
                 setter(v["renderProp"]({ element })(...v["deps"].map(toVal))),
                 element
               ),
@@ -244,32 +247,41 @@ export default function Bau({ document = window.document } = {}) {
       }
     );
 
-  let bind = ({
-    deps: depsOveride,
-    render,
-    element: currentElement,
-    renderItem,
-  }) => {
-    let depsInfered = new Set();
-    let renderArgs = { element: currentElement, renderItem };
-    let newElement = /* @__PURE__ */ depsOveride
-      ? render(renderArgs)
-      : runAndCaptureDeps(render, depsInfered, renderArgs);
-    let deps = depsOveride ?? depsInfered;
-    let element = toDom(newElement ? newElement : ghost());
-    let binding = {
-      deps,
-      render,
-      renderItem,
-      element,
-    };
+  let bindFinalize = (binding, deps, newElement) => {
+    binding.element = toDom(newElement ? newElement : ghost());
     for (let dep of deps) {
       if (isState(dep)) {
         stateSet.add(dep);
         dep.bindings.push(binding);
       }
     }
-    return element;
+    return binding.element;
   };
+
+  let bindInferred = ({ renderInferred, element }) => {
+    let deps = new Set();
+    let newElement = runAndCaptureDeps(renderInferred, deps, {
+      element,
+    });
+    let binding = {
+      renderInferred,
+    };
+    return bindFinalize(binding, deps, newElement);
+  };
+
+  let bind = ({ deps, element, render, renderItem: renderItemHL }) => {
+    let renderItem = renderItemHL?.({ deps, element });
+    let newElement = render({
+      element,
+      renderItem,
+    })(...deps.map(toVal));
+    let binding = {
+      deps,
+      render,
+      renderItem,
+    };
+    return bindFinalize(binding, deps, newElement);
+  };
+
   return { tags: tagsNS(), tagsNS, state, bind, stateSet };
 }

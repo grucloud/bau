@@ -93,9 +93,12 @@ const TestElementObject = () =>
 const TestBindArrayUL = () =>
   section(
     bau.bind({
-      render: ({ renderItem }) =>
-        div("render Array with UL LI ", ul(myArrayState.val.map(renderItem))),
-      renderItem: (value: any) => li("renderItem li ", value),
+      deps: [myArrayState],
+      render:
+        ({ renderItem }) =>
+        (arr) =>
+          div("render Array with UL LI ", ul(arr.map(renderItem))),
+      renderItem: () => (value: any) => li("renderItem li ", value),
     }),
     "TestBindArrayUL"
   );
@@ -103,12 +106,16 @@ const TestBindArrayUL = () =>
 const TestBindArrayTBODY = () =>
   section(
     bau.bind({
-      render: ({ renderItem }) =>
-        table(
-          "render Array with table tbody tr and td ",
-          tbody(myArrayState.val.map(renderItem))
-        ),
-      renderItem: (value: any) => tr(td("renderItem tr td "), td(value)),
+      deps: [myArrayState],
+
+      render:
+        ({ renderItem }) =>
+        (arr) =>
+          table(
+            "render Array with table tbody tr and td ",
+            tbody(arr.map(renderItem))
+          ),
+      renderItem: () => (value: any) => tr(td("renderItem tr td "), td(value)),
     }),
     "TestBindArrayTBODY"
   );

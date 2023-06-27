@@ -22,7 +22,7 @@ export default function (context) {
       font-weight: 800;
       text-align: center;
       background-color: var(--color-primary);
-      color: var(--font-color-base);
+      color: var(--font-color-inverse);
     }
     & footer {
       display: flex;
