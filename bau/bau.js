@@ -35,9 +35,12 @@ export default function Bau({ document = window.document } = {}) {
     debounceSchedule(() =>
       stateSet.forEach(
         (state) =>
-          (state.bindings = state.bindings.filter(
-            (b) => b.element?.isConnected
-          ))
+          (state.bindings = state.bindings.filter((b) => {
+            if (!b.element?.isConnected) {
+              debugger;
+            }
+            return b.element?.isConnected;
+          }))
       )
     );
 
@@ -50,7 +53,6 @@ export default function Bau({ document = window.document } = {}) {
           element,
           renderDomItem: (value) => toDom(renderItem(value)),
         })[arrayOp.method]?.call();
-        bindingCleanUp();
       } else {
         let newElement = render({
           element,
@@ -63,6 +65,7 @@ export default function Bau({ document = window.document } = {}) {
           );
         }
       }
+      bindingCleanUp();
     }
   };
 
@@ -286,18 +289,19 @@ export default function Bau({ document = window.document } = {}) {
       : runAndCaptureDeps(render, depsInfered, renderArgs);
     const deps = depsOveride ?? depsInfered;
     const element = toDom(newElement ? newElement : ghost());
+    const binding = {
+      deps,
+      render,
+      renderItem,
+      element,
+    };
     for (let dep of deps) {
       if (isState(dep)) {
         stateSet.add(dep);
-        dep.bindings.push({
-          deps,
-          render,
-          renderItem,
-          element,
-        });
+        dep.bindings.push(binding);
       }
     }
     return element;
   };
-  return { tags: tagsNS(), tagsNS, state, bind };
+  return { tags: tagsNS(), tagsNS, state, bind, stateSet };
 }
