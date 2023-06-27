@@ -21,15 +21,17 @@ export default function Bau({ document = window.document } = {}) {
     return result;
   };
 
-  let updateDom = (state, arrayOp) => {
+  let updateDom = (state, method, args, parentProp, data) => {
     for (let binding of state.bindings) {
       let { element, render, renderItem } = binding;
-      if (renderItem && arrayOp) {
-        methodToActionMapping({
-          ...arrayOp,
+      if (renderItem && method) {
+        methodToActionMapping(
           element,
-          renderDomItem: (value) => toDom(renderItem(value)),
-        })[arrayOp.method]?.call();
+          parentProp,
+          args,
+          (value) => toDom(renderItem(value)),
+          data
+        )[method]?.call();
       } else {
         let newElement = render({
           element,
@@ -58,10 +60,7 @@ export default function Bau({ document = window.document } = {}) {
         let origMethod = target[prop];
         return (...args) => {
           let result = origMethod.apply(target, args);
-          updateDom(state, {
-            method: prop,
-            args,
-          });
+          updateDom(state, prop, args);
           return result;
         };
       }
@@ -70,26 +69,20 @@ export default function Bau({ document = window.document } = {}) {
     },
     set(target, prop, value, receiver) {
       let result = Reflect.set(target, prop, value, receiver);
-      updateDom(state, {
-        method: "setItem",
-        args: { prop, value },
-        parentProp: [...parentProp, prop],
-        data,
-      });
+      updateDom(state, "setItem", { prop, value }, [...parentProp, prop], data);
       return result;
     },
   });
 
   let createProxy = (state, data) => new Proxy(data, proxyHandler(state, data));
 
-  let methodToActionMapping = ({
+  let methodToActionMapping = (
     element,
     parentProp,
     args,
-    depsValues,
     renderDomItem,
-    data,
-  }) => ({
+    data
+  ) => ({
     assign: () => element.replaceChildren(...args.map(renderDomItem)),
     setItem: () => {
       let index = parentProp[0];
@@ -102,7 +95,7 @@ export default function Bau({ document = window.document } = {}) {
     pop: () => element.lastChild && element.removeChild(element.lastChild),
     shift: () => element.firstChild && element.removeChild(element.firstChild),
     unshift: () => {
-      let item = renderDomItem(args[0], depsValues);
+      let item = renderDomItem(args[0]);
       element.firstChild
         ? element.firstChild.before(item)
         : element.appendChild(item);
@@ -151,10 +144,7 @@ export default function Bau({ document = window.document } = {}) {
       let currentValue = state._val;
       if (isArrayOrObject(value)) {
         state._val = createProxy(state, value);
-        updateDom(state, {
-          method: "assign",
-          args: value,
-        });
+        updateDom(state, "assign", value);
       } else {
         if (value !== currentValue) {
           state._val = value;
