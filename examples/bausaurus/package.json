@@ -1,15 +1,15 @@
 {
   "name": "bausaurus",
   "private": true,
-  "version": "0.27.0",
+  "version": "0.28.0",
   "type": "module",
   "scripts": {
     "test": "node test/*"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.27.0",
-    "@grucloud/bau-css": "^0.27.0",
-    "@grucloud/bau-ui": "^0.27.0",
+    "@grucloud/bau": "^0.28.0",
+    "@grucloud/bau-css": "^0.28.0",
+    "@grucloud/bau-ui": "^0.28.0",
     "@sindresorhus/slugify": "2.2.1",
     "gray-matter": "4.0.3",
     "jsdom": "22.1.0",
