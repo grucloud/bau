@@ -6,7 +6,7 @@ import { describe, it } from "node:test";
 const { pipe, tap } = rubico;
 
 import { walkDirectory } from "../src/utils.js";
-import { onFile, writeFiles } from "../src/main.js";
+import { onFile, writeFiles } from "../src/bausaurus.js";
 
 import body from "../src/Body.js";
 

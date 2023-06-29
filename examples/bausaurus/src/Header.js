@@ -66,12 +66,13 @@ export default function (context) {
         target: "_blank",
         href: "https://github.com/grucloud/bau",
       },
-      img({
-        alt: "GitHub",
-        src: "./github-mark-white.svg",
-        width: 30,
-        height: 30,
-      })
+      "GitHub"
+      // img({
+      //   alt: "GitHub",
+      //   src: "./github-mark-white.svg",
+      //   width: 30,
+      //   height: 30,
+      // })
     );
 
   return function headerNav() {
