@@ -1,4 +1,4 @@
-import classNames from "@grucloud/bau-css/classNames";
+import classNames from "@grucloud/bau-css/classNames.js";
 
 function collapseSection(element) {
   element.style.height = "0px";

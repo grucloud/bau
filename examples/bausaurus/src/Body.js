@@ -7,7 +7,7 @@ import globalStyle from "@grucloud/bau-ui/globalStyle/globalStyle.js";
 
 export default function (context) {
   const { bau, css, createGlobalStyles } = context;
-  const { body, main } = bau.tags;
+  const { div, main } = bau.tags;
   globalStyle(context);
 
   createGlobalStyles`
@@ -32,7 +32,7 @@ img  {
   };
 
   return function ({ contentHtml, toc }) {
-    return body(
+    return div(
       {
         class: css`
           display: grid;

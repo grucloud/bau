@@ -12,7 +12,29 @@ import { md2Html } from "./md2Html.js";
 
 const { pipe, tap, map, assign } = rubico;
 
-const buildHtml = ({ body, contentHtml, toc }) => {
+export const buildBodyHtml = ({ body, contentHtml, toc }) => {
+  const { JSDOM } = jsdom;
+  // See https://github.com/jsdom/jsdom/issues/2230
+  const virtualConsole = new jsdom.VirtualConsole();
+  virtualConsole.on("error", (error) => {
+    console.log(error);
+  });
+  const dom = new JSDOM(``, { virtualConsole });
+
+  const bau = Bau({ document: dom.window.document });
+  const bauCss = BauCss({
+    document: dom.window.document,
+  });
+  const context = { bau, ...bauCss, tr: (x) => x };
+  const Body = body(context);
+  const content = Body({ contentHtml, toc }).outerHTML;
+  return {
+    head: dom.window.document.head.innerHTML,
+    body: content,
+  };
+};
+//TODO remove
+export const buildHtml = ({ body, contentHtml, toc }) => {
   const { JSDOM } = jsdom;
   // See https://github.com/jsdom/jsdom/issues/2230
   const virtualConsole = new jsdom.VirtualConsole();
@@ -35,23 +57,31 @@ const buildHtml = ({ body, contentHtml, toc }) => {
   return `<!DOCTYPE html>${result.outerHTML}`;
 };
 
+export const processMarkdownContent = ({ id, code }) =>
+  pipe([
+    tap((params) => {
+      assert(true);
+    }),
+    () => code,
+    matter,
+    ({ content, data }) => ({
+      filename: id,
+      contentMd: content,
+      data,
+    }),
+    assign({
+      contentHtml: md2Html,
+      toc: md2Toc,
+    }),
+  ])();
+
 export const onFile =
   ({}) =>
   ({ dirent, pathsNested }) =>
     pipe([
       () => path.resolve(dirent.path, dirent.name),
       (file) => fs.readFile(file, "utf-8"),
-      matter,
-      ({ content, data }) => ({
-        dirent,
-        contentMd: content,
-        pathsNested,
-        data,
-      }),
-      assign({
-        contentHtml: md2Html,
-        toc: md2Toc,
-      }),
+      processMarkdownContent,
       tap((params) => {
         assert(true);
       }),

@@ -4,7 +4,11 @@
   "version": "0.28.0",
   "type": "module",
   "scripts": {
-    "test": "node test/*"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node test/*",
+    "test-watch": "node --watch test/*"
   },
   "dependencies": {
     "@grucloud/bau": "^0.28.0",
@@ -25,6 +29,8 @@
     "retext": "8.1.0",
     "rubico": "2.0.1",
     "unified": "10.1.2",
-    "unist-util-visit": "4.1.2"
+    "unist-util-visit": "4.1.2",
+    "vite": "4.3.9",
+    "@vitejs/plugin-vue": "^4.2.3"
   }
 }

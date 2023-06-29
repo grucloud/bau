@@ -33,6 +33,6 @@ export const md2Html = ({ contentMd, data }) =>
         .use(rehypeStringify)
         .process(content),
     tap((tree) => {
-      //console.log(tree);
+      assert(true);
     }),
   ])();
