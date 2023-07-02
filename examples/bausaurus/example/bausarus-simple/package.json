@@ -1,0 +1,17 @@
+{
+  "name": "bausaurus-example",
+  "private": true,
+  "version": "0.28.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node ../../src/server/buildDev.js",
+    "build": "node ../../src/server/buildProd.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@grucloud/bau": "^0.28.0",
+    "@grucloud/bau-css": "^0.28.0",
+    "@grucloud/bau-ui": "^0.28.0",
+    "rubico": "2.0.1"
+  }
+}

@@ -6,9 +6,11 @@ export default function ({ bau, css }) {
     link.innerHTML = value;
     return li(link, children.length > 0 && ul(children.map(TocItem)));
   };
+
   return function Toc({ toc }) {
     return nav(
       {
+        "data-toc": JSON.stringify(toc),
         class: css`
           grid-area: toc;
           border-left: 1px solid red;
@@ -17,7 +19,6 @@ export default function ({ bau, css }) {
           list-style: none;
           & ul {
             padding-left: 1rem;
-
             list-style: none;
           }
           & a {

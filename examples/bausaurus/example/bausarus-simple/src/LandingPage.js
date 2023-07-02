@@ -1,7 +1,5 @@
 import header from "./Header.js";
-import navBar from "./NavBar.mjs";
-import footer from "./Footer.mjs";
-import toc from "./Toc.mjs";
+import footer from "./Footer.js";
 
 import globalStyle from "@grucloud/bau-ui/globalStyle/globalStyle.js";
 
@@ -16,22 +14,11 @@ img  {
 }`;
 
   const Header = header(context);
-  const NavBar = navBar(context);
   const Footer = footer(context);
-  const Toc = toc(context);
 
-  const Main = ({ contentHtml }) => {
-    const el = main({
-      class: css`
-        grid-area: main;
-        margin: 1rem;
-      `,
-    });
-    el.innerHTML = contentHtml.value;
-    return el;
-  };
+  const Main = ({}) => div("Main");
 
-  return function ({ contentHtml, toc }) {
+  return function LandingPage({}) {
     return div(
       {
         class: css`
@@ -41,16 +28,16 @@ img  {
               20%,
               350px
             );
+          grid-template-rows: auto 1fr auto;
           grid-template-areas:
             "header header header"
             "navbar main toc"
             "footer footer footer";
+          min-height: 100vh;
         `,
       },
       Header(),
-      NavBar(),
-      Main({ contentHtml }),
-      Toc({ toc }),
+      Main({}),
       Footer()
     );
   };

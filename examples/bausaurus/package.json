@@ -4,17 +4,15 @@
   "version": "0.28.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test": "node test/*",
-    "test-watch": "node --watch test/*"
+    "dev": "node src/server/buildDev.js",
+    "build": "node src/server/buildProd.js"
   },
   "dependencies": {
     "@grucloud/bau": "^0.28.0",
     "@grucloud/bau-css": "^0.28.0",
     "@grucloud/bau-ui": "^0.28.0",
     "@sindresorhus/slugify": "2.2.1",
+    "fs-extra": "11.1.1",
     "gray-matter": "4.0.3",
     "jsdom": "22.1.0",
     "mdast-util-to-string": "3.2.0",
@@ -30,7 +28,6 @@
     "rubico": "2.0.1",
     "unified": "10.1.2",
     "unist-util-visit": "4.1.2",
-    "vite": "4.3.9",
-    "@vitejs/plugin-vue": "^4.2.3"
+    "vite": "4.3.9"
   }
 }

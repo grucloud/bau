@@ -37,12 +37,13 @@ export default function (context) {
 
   const TreeView = treeView(context, { renderMenuItem });
 
-  return function () {
+  return function NavBar() {
     return nav(
       {
         class: css`
           grid-area: navbar;
           padding: 1rem;
+          border: 1px red dotted;
         `,
       },
       TreeView({ tree: menu })

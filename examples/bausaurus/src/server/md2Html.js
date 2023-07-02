@@ -11,28 +11,22 @@ import rehypeStringify from "rehype-stringify";
 const { pipe, tap } = rubico;
 const { when, prepend } = rubicox;
 
-// export default function retextSentenceSpacing() {
-//   return (tree) => {
-//     visit(tree, "custom", function (node, index, parent) {
-//       parent.children.splice(index, 1);
-//       return [SKIP, index];
-//     });
-//   };
-// }
-
-export const md2Html = ({ contentMd, data }) =>
+export const md2Html = ({ contentMd = "", frontmatter }) =>
   pipe([
+    tap((tree) => {
+      //assert(contentMd);
+      assert(frontmatter);
+    }),
     () => contentMd,
-    when(() => data.title, prepend(`# ${data.title}`)),
+    when(() => frontmatter.title, prepend(`# ${frontmatter.title}`)),
     (content) =>
       unified()
         .use(remarkParse)
         .use(remarkGfm)
-        //.use(retextSentenceSpacing)
         .use(remarkRehype)
         .use(rehypeStringify)
         .process(content),
-    tap((tree) => {
+    tap((params) => {
       assert(true);
     }),
   ])();
