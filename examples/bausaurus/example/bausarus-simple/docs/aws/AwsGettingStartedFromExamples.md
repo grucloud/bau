@@ -1,8 +1,13 @@
+---
+id: AwsGettingStarted
+title: Aws Getting Started From Example
+---
+
 This tutorial explains the deployment automation of a simple [AWS EC2 instance](https://aws.amazon.com/ec2/) with the [GruCloud AWS provider](https://www.npmjs.com/package/@grucloud/provider-aws).
 
 Instead of manually creating, updating, and destroying EC2 instances, the infrastructure will be described as Javascript code. The GruCloud CLI then reads this code, retrieves the lives resources through the AWS API, and decides what needs to be created, updated, or destroyed.
 
-![graph-diagram-ec2.svg](https://raw.githubusercontent.com/grucloud/grucloud/main/examples/aws/ec2-simple/artifacts/diagram-target.svg)
+![graph-diagram-ec2.svg](https://raw.githubusercontent.com/grucloud/grucloud/main/examples/aws/EC2/Instance/ec2-simple/artifacts/diagram-target.svg)
 
 ## Requirements
 
@@ -309,7 +314,7 @@ gc list --graph --all
 
 This will include the default AWS resources such as VPC, subnet, internet gateway, and security group.
 
-![graph-live](https://raw.githubusercontent.com/grucloud/grucloud/main/examples/aws/ec2/ec2-simple/artifacts/diagram-live.svg)
+![graph-live](https://raw.githubusercontent.com/grucloud/grucloud/main/examples/aws/EC2/Instance/ec2-simple/artifacts/diagram-live.svg)
 
 To list only the resources created by GruCloud:
 

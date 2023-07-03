@@ -13,7 +13,7 @@ export default function ({ bau, css }) {
         "data-toc": JSON.stringify(toc),
         class: css`
           grid-area: toc;
-          border-left: 1px solid red;
+          border-left: 1px solid var(--color-emphasis-200);
           font-size: 0.9rem;
           margin-right: 1rem;
           list-style: none;

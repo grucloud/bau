@@ -19,25 +19,42 @@ const context = {
 const createDocAppProp = async () => {
   const mainEls = document.getElementsByTagName("main");
   if (mainEls[0]) {
+    // Prod
     const tocEl = document.querySelector("nav[data-toc]");
-    //const toc = JSON.parse(tocEl.dataset.toc);
+    const navBarTreeEl = document.querySelector("nav[data-navbar]");
     return {
       contentHtml: mainEls[0].innerHTML,
       toc: tocEl.dataset.toc,
+      navBarTree: JSON.parse(navBarTreeEl.dataset.navbar),
     };
   } else {
+    // Dev
     const pathname = location.pathname;
+    // content and toc per page
     const { default: content } = await import(
       /* @vite-ignore */ `${pathname}.md`
     );
-    return content();
+    const { contentHtml, toc } = content();
+
+    // Nav Bar Tree
+    const navBarTreeFile = `/navBarTree.json`;
+    const { default: navBarTree } = await import(
+      /* @vite-ignore */ navBarTreeFile
+    );
+    return { contentHtml, toc, navBarTree };
   }
 };
 const loadDocs = async () => {
   try {
     const DocApp = docApp(context);
-    const { contentHtml, toc } = await createDocAppProp();
-    mountApp(DocApp({ contentHtml, toc: JSON.parse(toc) }));
+    const { contentHtml, toc, navBarTree } = await createDocAppProp();
+    mountApp(
+      DocApp({
+        contentHtml,
+        toc: JSON.parse(toc),
+        navBarTree,
+      })
+    );
   } catch (error) {
     console.error("Error: ", error);
     console.error("pathname", location.pathname);

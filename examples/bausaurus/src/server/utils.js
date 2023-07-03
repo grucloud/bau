@@ -14,13 +14,16 @@ export const isPageChunk = and([
   pipe([get("facadeModuleId", ""), callProp("endsWith", ".md")]),
 ]);
 
+const removeFirstSlash = callProp("slice", 1);
+
 export const findMarkdownInputs =
   () =>
-  ({ site: { rootDir, srcDir } }) =>
+  ({ site: { rootDir, srcDir, base } }) =>
     pipe([
       tap((params) => {
         assert(rootDir);
         assert(srcDir);
+        assert(base);
       }),
       () => Path.resolve(rootDir, srcDir),
       walkDirectory({
@@ -29,7 +32,11 @@ export const findMarkdownInputs =
           (path) =>
             pipe([
               () => path,
-              callProp("replace", `${Path.resolve(rootDir, srcDir)}/`, ""),
+              callProp(
+                "replace",
+                `${Path.resolve(rootDir, srcDir)}/`,
+                removeFirstSlash(base)
+              ),
               (key) => ({ key, path }),
             ])(),
         ]),

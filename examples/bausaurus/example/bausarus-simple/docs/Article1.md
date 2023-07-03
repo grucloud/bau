@@ -1,3 +1,8 @@
+---
+id: Article1
+title: Article 1
+---
+
 # Bausaurus
 
 Ciao Ciccio
@@ -15,7 +20,3 @@ More `text`.
 ## License
 
 MIT
-
-### Other
-
-bal

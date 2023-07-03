@@ -16,6 +16,7 @@ import createJSDOM from "./jsdom.js";
 import { sanitizeFileName } from "./sanitizeFileName.js";
 import { isPageChunk } from "./utils.js";
 import { EXTERNAL_URL_RE } from "./constants.js";
+import { pagesHashMapToString } from "./pagesHashMap.js";
 
 export const isOutputJs = and([
   eq(get("type"), "chunk"),
@@ -48,14 +49,16 @@ export const renderPages = (config) => (output) =>
     }),
   ])();
 
-const renderDocApp = ({ docApp, contentHtml, toc }) => {
-  const dom = createJSDOM();
-  const context = createContext({ document: dom.window.document });
+const renderDocApp = ({ docApp, navBarTree, contentHtml, toc }) => {
+  assert(navBarTree);
   assert(contentHtml);
   assert(toc);
+
+  const dom = createJSDOM();
+  const context = createContext({ document: dom.window.document });
   const DocApp = docApp(context);
   // This will fill the dom.window.document.head with the style
-  const content = DocApp({ contentHtml, toc }).outerHTML;
+  const content = DocApp({ navBarTree, contentHtml, toc }).outerHTML;
   return {
     head: dom.window.document.head.innerHTML,
     body: content,
@@ -64,11 +67,12 @@ const renderDocApp = ({ docApp, contentHtml, toc }) => {
 
 const resolvePageImports = ({ site, pageMd, output, appChunk }) => {
   assert(site.srcDir);
+  assert(site.rootDir);
+
   assert(pageMd);
   assert(output);
   assert(appChunk);
-  //TODO add rootDir
-  let srcPath = path.resolve(site.srcDir, pageMd);
+  let srcPath = path.resolve(site.rootDir, site.srcDir, pageMd);
   try {
     srcPath = fs.realpathSync(srcPath);
   } catch (e) {}
@@ -96,8 +100,10 @@ export const renderPage =
     assert(site);
     assert(site.srcDir);
     assert(site.outDir);
+    assert(site.base);
+    assert(config.pageToHashMap);
 
-    const pageMd = chunk.name;
+    const pageMd = chunk.name.replace(site.base.slice(1), "");
     const page = pageMd.replace(".md", "");
     assert(page);
     const pageHtml = `${page}.html`;
@@ -119,6 +125,7 @@ export const renderPage =
 
     const content = renderDocApp({
       docApp: config.docApp,
+      navBarTree: config.navBarTree,
       contentHtml,
       toc,
     });
@@ -129,7 +136,7 @@ export const renderPage =
     const title = siteData.title;
     const description = siteData.description;
     const stylesheetLink = cssChunk
-      ? `<link rel="preload stylesheet" href="${siteData.base}${cssChunk.fileName}" as="style">`
+      ? `<link rel="preload stylesheet" href="/${cssChunk.fileName}" as="style">`
       : "";
 
     let preloadLinks = appChunk
@@ -157,8 +164,9 @@ export const renderPage =
     const prefetchHeadTags = toHeadTags(prefetchLinks, "prefetch");
 
     let inlinedScript = "";
-    //    let metadataScript = `__VP_HASH_MAP__ = JSON.parse(${hashMapString})\n`;
-    let metadataScript = "";
+    let metadataScript = `__BAUSAURUS_HASH_MAP__ = ${pagesHashMapToString(
+      config.pageToHashMap
+    )}\n`;
     // if (siteDataString.includes("_vp-fn_")) {
     //   metadataScript += `${deserializeFunctions.toString()}\n__VP_SITE_DATA__ = deserializeFunctions(JSON.parse(${siteDataString}))`;
     // } else {
@@ -176,7 +184,7 @@ export const renderPage =
       ${stylesheetLink}
       ${
         appChunk
-          ? `<script type="module" src="${siteData.base}${appChunk.fileName}"></script>`
+          ? `<script type="module" src="/${appChunk.fileName}"></script>`
           : ``
       }
       ${content.head}

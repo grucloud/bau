@@ -3,50 +3,112 @@ import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
 import fs from "fs/promises";
 import Path from "path";
+import matter from "gray-matter";
 
-const { pipe, tap, map, flatMap, switchCase, filter, or } = rubico;
-const { callProp } = rubicox;
+const { pipe, tap, map, get, switchCase, all, assign, tryCatch, eq } = rubico;
+const { callProp, when, unless, isEmpty, find } = rubicox;
+
+const isMarkdownFile = callProp("endsWith", ".md");
+
+// If a navbav.json is present, use it to filter and order the markown files.
+
+const readNavBarJson = pipe([
+  (directory) => Path.resolve(directory, "navbar.json"),
+  tryCatch(
+    pipe([(path) => fs.readFile(path, "utf-8"), JSON.parse]),
+    () => undefined
+  ),
+]);
+
+const getDirEntries = (directory) =>
+  pipe([
+    () => directory,
+    all({
+      navbarData: pipe([readNavBarJson]),
+      dirents: pipe([() => fs.readdir(directory, { withFileTypes: true })]),
+    }),
+    switchCase([
+      get("navbarData"),
+      ({ navbarData, dirents }) =>
+        pipe([
+          () => navbarData,
+          get("children"),
+          map((child) => pipe([() => dirents, find(eq(get("name"), child))])()),
+        ])(),
+      // No navbarData
+      get("dirents"),
+    ]),
+    tap((params) => {
+      assert(true);
+    }),
+  ])();
 
 const walkTree =
-  ({ tree = { children: [] }, pathsNested = [] }) =>
+  ({ base, tree = { children: [] }, pathsNested = [] }) =>
   (directory) =>
     pipe([
       tap(() => {
+        assert(base);
         assert(tree);
         assert(directory);
         assert(pathsNested);
       }),
-      () => fs.readdir(directory, { withFileTypes: true }),
-      map(
+      () => directory,
+      getDirEntries,
+      map.series(
         pipe([
           switchCase([
             callProp("isDirectory"),
+            // Dir
             ({ name }) =>
               pipe([
                 () => Path.resolve(directory, name),
                 walkTree({
+                  base,
                   tree: { children: [], name },
                   pathsNested: [...pathsNested, name],
                 }),
+                (child) => tree.children.push(child),
               ])(),
+            // File
             pipe([
-              (dirent) => ({ name: [...pathsNested, dirent.name].join("/") }),
+              switchCase([
+                pipe([get("name"), isMarkdownFile]),
+                pipe([
+                  all({
+                    frontmatter: pipe([
+                      ({ name }) => Path.resolve(directory, name),
+                      (path) => fs.readFile(path, "utf-8"),
+                      matter,
+                      get("data"),
+                    ]),
+                    name: pipe([get("name"), callProp("replace", ".md", "")]),
+                  }),
+                  assign({
+                    href: pipe([
+                      ({ name }) => Path.join(base, ...pathsNested, name),
+                    ]),
+                  }),
+                  (child) => tree.children.push(child),
+                ]),
+                () => undefined,
+              ]),
             ]),
           ]),
-          (child) => tree.children.push(child),
         ])
       ),
       () => tree,
     ])();
 
-export const buildNavBarTree = ({ rootDir, srcDir }) =>
+export const buildNavBarTree = ({ base, rootDir, srcDir }) =>
   pipe([
     tap(() => {
       assert(rootDir);
       assert(srcDir);
+      assert(base);
     }),
     () => Path.resolve(rootDir, srcDir),
-    walkTree({}),
+    walkTree({ base }),
     tap((tree) => {
       assert(true);
     }),

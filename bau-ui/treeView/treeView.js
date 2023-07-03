@@ -80,7 +80,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
 
 export default function (context, { renderMenuItem }) {
   const { bau, css, createGlobalStyles } = context;
-  const { ul, li, nav } = bau.tags;
+  const { ul, li, nav, div } = bau.tags;
 
   const styles = createStyles({ css, createGlobalStyles });
 
@@ -99,12 +99,21 @@ export default function (context, { renderMenuItem }) {
                   : styles.collapsed
                 : ""
             ),
-          onclick: (event) => {
-            closeState.val = !closeState.val;
-            event.preventDefault();
-          },
         },
-        renderMenuItem(item),
+        div(
+          {
+            class: css`
+              cursor: pointer;
+            `,
+            onclick: (event) => {
+              if (children) {
+                closeState.val = !closeState.val;
+                event.preventDefault();
+              }
+            },
+          },
+          renderMenuItem(item)
+        ),
         children &&
           ul(
             {
@@ -122,7 +131,10 @@ export default function (context, { renderMenuItem }) {
 
   return function TreeView({ tree, ...otherProps }) {
     return nav(
-      { class: classNames(styles.nav, otherProps.class) },
+      {
+        class: classNames(styles.nav, otherProps.class),
+        "data-navbar": JSON.stringify(tree),
+      },
       ul(tree.children.map(Tree({})))
     );
   };

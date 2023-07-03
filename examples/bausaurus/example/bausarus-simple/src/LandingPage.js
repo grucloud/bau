@@ -10,7 +10,7 @@ export default function (context) {
 
   createGlobalStyles`
 img  {
-  width: 100%;
+  max-width: 100%;
 }`;
 
   const Header = header(context);

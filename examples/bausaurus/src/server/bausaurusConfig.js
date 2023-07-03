@@ -3,8 +3,10 @@ import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
 import path from "path";
 
-const { pipe, tap } = rubico;
+const { pipe, tap, assign, get } = rubico;
 const { callProp, defaultsDeep } = rubicox;
+
+import { buildNavBarTree } from "./navBarTree.js";
 
 export const createBausaurusConfig = ({ rootDir }) =>
   pipe([
@@ -14,4 +16,8 @@ export const createBausaurusConfig = ({ rootDir }) =>
     () => import(path.resolve(rootDir, "bausaurus.config.js")),
     callProp("default", { rootDir }),
     defaultsDeep({ rootDir, pageToHashMap: new Map() }),
+    assign({ navBarTree: pipe([get("site"), buildNavBarTree]) }),
+    tap((params) => {
+      assert(true);
+    }),
   ])();

@@ -19,7 +19,15 @@ export default defineConfig((config) =>
       optimizeDeps: {
         include: ["@grucloud/bau"],
       },
+      // server: {
+      //   fs: {
+      //     allow: [config.site.srcDir],
+      //     strict: false,
+      //   },
+      // },
       build: {
+        // TODO false for now
+        minify: false,
         rollupOptions: {
           preserveEntrySignatures: "allow-extension",
           output: {

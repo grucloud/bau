@@ -3,12 +3,11 @@ import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
 
 import { isPageChunk } from "./utils.js";
-import { buildNavBarTree } from "./navBarTree.js";
 import { DIST_CLIENT_PATH, hashRE } from "./constants.js";
 import { processMarkdownContent } from "./markdown.js";
 
-const { pipe, tap } = rubico;
-const { when } = rubicox;
+const { pipe, tap, eq, switchCase } = rubico;
+const { when, identity } = rubicox;
 
 const escape = (content) => content.replace(/\\|`|\$/g, "\\$&");
 
@@ -41,52 +40,6 @@ const transform =
       ),
     ])();
 
-// const configureServer = (server) => {
-//   return () => {
-//     server.middlewares.use((req, res, next) =>
-//       pipe([
-//         tap((params) => {
-//           console.log(`middlewares ${req.method.toUpperCase()} ${req.url}`);
-//         }),
-//         () => req,
-//         when(
-//           pipe([get("url", ""), callProp("endsWith", ".html")]),
-//           pipe([
-//             tap((params) => {
-//               assert(true);
-//             }),
-//             async () => {
-//               res.statusCode = 200;
-//               res.setHeader("Content-Type", "text/html");
-//               let html = `<!DOCTYPE html>
-// <html>
-// <head>
-// <title></title>
-// <meta charset="utf-8">
-// <meta name="viewport" content="width=device-width,initial-scale=1">
-// <meta name="description" content="">
-// </head>
-// <body>
-// <div id="app"></div>
-// <script type="module" src="/@fs/${APP_PATH}/index.js"></script>
-// </body>
-// </html>`;
-//               html = await server.transformIndexHtml(
-//                 req.url,
-//                 html,
-//                 req.originalUrl
-//               );
-//               res.end(html);
-//               return;
-//             },
-//           ])
-//         ),
-//         () => next(),
-//       ])()
-//     );
-//   };
-// };
-
 const generateBundle =
   ({ pageToHashMap }) =>
   (_options, bundle) => {
@@ -101,6 +54,19 @@ const generateBundle =
       }
     }
   };
+
+const load = ({ navBarTree }) =>
+  pipe([
+    tap((id) => {
+      assert(id);
+      assert(navBarTree);
+    }),
+    switchCase([
+      eq(identity, "/navBarTree.json"),
+      () => JSON.stringify(navBarTree),
+      () => undefined,
+    ]),
+  ]);
 
 const makeConfig =
   ({ site }) =>
@@ -122,16 +88,14 @@ const renderChunk = (config) => (code, chunk) => {
 
 export default async function pluginBausaurus(config) {
   assert(config);
-  const { pageToHashMap } = config;
-  assert(pageToHashMap);
-  const navBarTree = await buildNavBarTree(config.site);
   return [
     {
       name: "vite-plugin-bausaurus",
       config: makeConfig(config),
+      load: load(config),
       transform: transform(config),
       renderChunk: renderChunk(config),
-      generateBundle: generateBundle({ pageToHashMap }),
+      generateBundle: generateBundle(config),
     },
   ];
 }

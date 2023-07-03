@@ -3,10 +3,9 @@ import docApp from "./src/DocApp.js";
 export default ({ rootDir }) => {
   return {
     docApp,
-    rootDir,
     site: {
       rootDir,
-      base: "/",
+      base: "/docs/",
       outDir: "dist/docs",
       //srcDir: "../../../../../grucloud/docusaurus/docs",
       srcDir: "docs",
