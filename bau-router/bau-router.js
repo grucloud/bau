@@ -60,9 +60,10 @@ export default function Router({ routes, notFoundRoute, onLocationChange }) {
   document.addEventListener("click", (event) => {
     const { target } = event;
     // Beware: target.href and target.getAttribute("href") are different !
-    const href = target.getAttribute("href") ?? "";
+    const href = target.getAttribute("href");
     if (
       target.tagName === "A" &&
+      href &&
       !href.startsWith("http") &&
       !href.startsWith("#")
     ) {
