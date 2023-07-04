@@ -31,6 +31,20 @@ const jsAssetFileFromHref = (href) => {
   }
 };
 
+const onLocationChange = async ({ mainEl, tocEl, Toc, nextPage }) => {
+  const jsFile = jsAssetFileFromHref(nextPage);
+  const { default: content } = await import(/* @vite-ignore */ jsFile);
+  const { contentHtml, toc } = content();
+  mainEl.innerHTML = contentHtml;
+  tocEl.innerHTML = Toc({ toc: JSON.parse(toc) }).innerHTML;
+};
+
+const registerHistoryBack = ({ mainEl, tocEl, Toc }) => {
+  window.addEventListener("popstate", (event) =>
+    onLocationChange({ mainEl, tocEl, Toc, nextPage: location.pathname })
+  );
+};
+
 const onClickAnchor =
   ({ mainEl, tocEl, Toc }) =>
   async (event) => {
@@ -47,12 +61,7 @@ const onClickAnchor =
 
       history.pushState({}, null, nextPage);
       event.preventDefault();
-
-      const jsFile = jsAssetFileFromHref(nextPage);
-      const { default: content } = await import(/* @vite-ignore */ jsFile);
-      const { contentHtml, toc } = content();
-      mainEl.innerHTML = contentHtml;
-      tocEl.innerHTML = Toc({ toc: JSON.parse(toc) }).innerHTML;
+      onLocationChange({ mainEl, tocEl, Toc, nextPage });
     }
   };
 
@@ -86,6 +95,8 @@ img  {
   return function DocApp({ navBarTree, contentHtml, toc }) {
     const mainEl = Main({ contentHtml });
     const tocEl = Toc({ toc });
+
+    registerHistoryBack({ mainEl, tocEl, Toc });
 
     return div(
       {
