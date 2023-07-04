@@ -2,11 +2,7 @@ import Bau from "@grucloud/bau";
 import BauCss from "@grucloud/bau-css";
 import docApp from "./DocApp";
 import landingPage from "./LandingPage";
-
-const docPath = "/docs";
-const navBarTreeFile = `${docPath}/navBarTree.json`;
-
-console.log("start pathname", location.pathname);
+import { docPath, navBarTreeFile } from "./constants.js";
 
 const getAppId = () => document.getElementById("app");
 const mountApp = (el) => getAppId()?.replaceChildren(el);
@@ -25,7 +21,6 @@ const fetchNavBarTree = async () => {
 
 const importNavBarTree = async () => {
   const navBarTree = await import(/* @vite-ignore */ navBarTreeFile);
-
   return navBarTree;
 };
 
@@ -33,6 +28,7 @@ const createDocAppProp = async () => {
   const mainEls = document.getElementsByTagName("main");
   if (mainEls[0]) {
     // Prod
+
     const navBarTree = await fetchNavBarTree();
     const tocEl = document.querySelector("nav[data-toc]");
     return {

@@ -5,6 +5,7 @@ import rubicox from "rubico/x/index.js";
 import { isPageChunk } from "./utils.js";
 import { DIST_CLIENT_PATH, hashRE } from "./constants.js";
 import { processMarkdownContent } from "./markdown.js";
+import { pagesHashMapToString } from "./pagesHashMap.js";
 
 const { pipe, tap, eq, switchCase } = rubico;
 const { when, identity } = rubicox;
@@ -55,16 +56,20 @@ const generateBundle =
     }
   };
 
-const load = ({ navBarTree }) =>
+const load = ({ navBarTree, pageToHashMap }) =>
   pipe([
     tap((id) => {
       assert(id);
       assert(navBarTree);
+      assert(pageToHashMap);
       console.log("load", id);
     }),
+    //TODO
     switchCase([
       eq(identity, "/docs/navBarTree.json"),
       pipe([() => navBarTree, JSON.stringify]),
+      eq(identity, "/docs/hashmap.json"),
+      pipe([() => pageToHashMap, pagesHashMapToString]),
       () => undefined,
     ]),
   ]);

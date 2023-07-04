@@ -1,10 +1,11 @@
 import assert from "assert";
 import fs from "fs-extra";
-import path from "path";
-
+import Path from "path";
+import os from "os";
 import { normalizePath } from "vite";
 import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
+import { createHash } from "crypto";
 
 const { pipe, eq, get, tap, filter, and, all, map } = rubico;
 const { callProp, find } = rubicox;
@@ -16,7 +17,6 @@ import createJSDOM from "./jsdom.js";
 import { sanitizeFileName } from "./sanitizeFileName.js";
 import { isPageChunk } from "./utils.js";
 import { EXTERNAL_URL_RE } from "./constants.js";
-import { pagesHashMapToString } from "./pagesHashMap.js";
 
 export const isOutputJs = and([
   eq(get("type"), "chunk"),
@@ -36,6 +36,7 @@ export const renderPages = (config) => (output) =>
       config: () => config,
       output: () => output,
       appChunk: find(isOutputJs),
+      //TODO
       //cssChunk: find(isOutputCss),
     }),
     (renderParam) =>
@@ -49,7 +50,41 @@ export const renderPages = (config) => (output) =>
     }),
   ])();
 
+const extractCSS = pipe([
+  tap(({ document }) => {
+    assert(document);
+  }),
+  ({ document }) => [...document.getElementsByTagName("style")],
+  map(pipe([get("innerHTML")])),
+  callProp("join", os.EOL),
+]);
+
+const inferCssFileName = pipe([
+  tap(({ cssContent }) => {
+    assert(cssContent);
+  }),
+  ({ cssContent }) =>
+    createHash("sha256").update(cssContent).digest("hex").substring(0, 10),
+  (hash) => `bau-css.${hash}.css`,
+]);
+
+const writeExtractedCss = ({ site, cssContent, cssFilename }) =>
+  pipe([
+    tap(() => {
+      assert(cssContent);
+      assert(site.rootDir);
+      assert(site.outDir);
+    }),
+    //TODO
+    () => Path.resolve(site.rootDir, "dist", "assets", cssFilename),
+    tap((path) => {
+      assert(path);
+    }),
+    (path) => fs.writeFile(path, cssContent),
+  ])();
+
 const renderDocApp = ({ docApp, navBarTree, contentHtml, toc }) => {
+  assert(docApp);
   assert(navBarTree);
   assert(contentHtml);
   assert(toc);
@@ -59,9 +94,12 @@ const renderDocApp = ({ docApp, navBarTree, contentHtml, toc }) => {
   const DocApp = docApp(context);
   // This will fill the dom.window.document.head with the style
   const content = DocApp({ navBarTree, contentHtml, toc }).outerHTML;
+  const cssContent = extractCSS({ document: dom.window.document });
+  const cssFilename = inferCssFileName({ cssContent });
   return {
-    head: dom.window.document.head.innerHTML,
     body: content,
+    cssContent,
+    cssFilename,
   };
 };
 
@@ -72,7 +110,7 @@ const resolvePageImports = ({ site, pageMd, output, appChunk }) => {
   assert(pageMd);
   assert(output);
   assert(appChunk);
-  let srcPath = path.resolve(site.rootDir, site.srcDir, pageMd);
+  let srcPath = Path.resolve(site.rootDir, site.srcDir, pageMd);
   try {
     srcPath = fs.realpathSync(srcPath);
   } catch (e) {}
@@ -129,6 +167,7 @@ export const renderPage =
       contentHtml,
       toc,
     });
+
     const pageHash = config.pageToHashMap.get(chunk.name);
     assert(pageHash);
     const pageClientJsFileName = `assets/${pageName}.${pageHash}.js`;
@@ -139,39 +178,7 @@ export const renderPage =
       ? `<link rel="preload stylesheet" href="/${cssChunk.fileName}" as="style">`
       : "";
 
-    let preloadLinks = appChunk
-      ? [
-          ...new Set([
-            ...resolvePageImports({ site, pageMd, output, appChunk }),
-            pageClientJsFileName,
-          ]),
-        ]
-      : [];
-
-    let prefetchLinks = [];
-
-    const toHeadTags = (files, rel) =>
-      files.map((file) => [
-        "link",
-        {
-          rel,
-          // don't add base to external urls
-          href: (EXTERNAL_URL_RE.test(file) ? "" : siteData.base) + file,
-        },
-      ]);
-
-    const preloadHeadTags = toHeadTags(preloadLinks, "modulepreload");
-    const prefetchHeadTags = toHeadTags(prefetchLinks, "prefetch");
-
-    let inlinedScript = "";
-    let metadataScript = `__BAUSAURUS_HASH_MAP__ = ${pagesHashMapToString(
-      config.pageToHashMap
-    )}\n`;
-    // if (siteDataString.includes("_vp-fn_")) {
-    //   metadataScript += `${deserializeFunctions.toString()}\n__VP_SITE_DATA__ = deserializeFunctions(JSON.parse(${siteDataString}))`;
-    // } else {
-    //   metadataScript += `__VP_SITE_DATA__ = JSON.parse(${siteDataString})`;
-    // }
+    let metadataScript = "";
 
     const html = `
   <!DOCTYPE html>
@@ -181,26 +188,30 @@ export const renderPage =
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <title>${title}</title>
       <meta name="description" content="${description}">
+      <link rel="stylesheet" href="/assets/${content.cssFilename}">
       ${stylesheetLink}
       ${
         appChunk
           ? `<script type="module" src="/${appChunk.fileName}"></script>`
           : ``
       }
-      ${content.head}
     </head>
     <body>
       <div id="app">${content.body}</div>
       <script>${metadataScript}</script>
-      ${inlinedScript}
     </body>
   </html>`.trim();
-    const htmlFileName = path.join(
+    const htmlFileName = Path.join(
       config.rootDir,
       config.site.outDir,
       pageHtml
     );
 
-    await fs.ensureDir(path.dirname(htmlFileName));
+    await fs.ensureDir(Path.dirname(htmlFileName));
     await fs.writeFile(htmlFileName, html);
+    await writeExtractedCss({
+      site: config.site,
+      cssContent: content.cssContent,
+      cssFilename: content.cssFilename,
+    });
   };

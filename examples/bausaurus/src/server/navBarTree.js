@@ -5,7 +5,7 @@ import fs from "fs/promises";
 import Path from "path";
 import matter from "gray-matter";
 
-const { pipe, tap, map, get, switchCase, all, assign, tryCatch, eq } = rubico;
+const { pipe, tap, map, get, switchCase, all, or, tryCatch, eq } = rubico;
 const { callProp, when, unless, isEmpty, find } = rubicox;
 
 const isMarkdownFile = callProp("endsWith", ".md");
@@ -82,11 +82,17 @@ const walkTree =
                       matter,
                       get("data"),
                     ]),
-                    name: pipe([get("name"), callProp("replace", ".md", "")]),
+                    fileName: pipe([
+                      get("name"),
+                      callProp("replace", ".md", ""),
+                    ]),
                   }),
-                  assign({
+                  all({
+                    name: ({ frontmatter, fileName }) =>
+                      frontmatter.title ?? fileName,
                     href: pipe([
-                      ({ name }) => Path.join(base, ...pathsNested, name),
+                      ({ fileName }) =>
+                        Path.join(base, ...pathsNested, fileName),
                     ]),
                   }),
                   (child) => tree.children.push(child),

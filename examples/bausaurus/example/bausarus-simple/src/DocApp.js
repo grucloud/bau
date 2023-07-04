@@ -1,9 +1,26 @@
+import globalStyle from "@grucloud/bau-ui/globalStyle/globalStyle.js";
 import header from "./Header.js";
 import navBar from "./NavBar.js";
 import footer from "./Footer.js";
 import toc from "./Toc.js";
 
-import globalStyle from "@grucloud/bau-ui/globalStyle/globalStyle.js";
+import { hashMapFile } from "./constants.js";
+import { inBrowser } from "./utils.js";
+
+let __BAUSAURUS_HASH_MAP__;
+
+const fetchHashMap = async () => {
+  try {
+    const res = await fetch(hashMapFile);
+    const hashMap = await res.json();
+    __BAUSAURUS_HASH_MAP__ = hashMap;
+    return hashMap;
+  } catch (error) {
+    //console.log("fetchHashMap", error);
+  }
+};
+
+inBrowser() && fetchHashMap();
 
 const jsAssetFileFromHref = (href) => {
   try {
@@ -19,16 +36,19 @@ const onClickAnchor =
   async (event) => {
     const { target } = event;
     const href = target.getAttribute("href");
+
     if (
       target.tagName === "A" &&
       href &&
       !href.startsWith("http") &&
       !href.startsWith("#")
     ) {
-      history.pushState({}, null, href);
+      const nextPage = href.replace(".md", "");
+
+      history.pushState({}, null, nextPage);
       event.preventDefault();
 
-      const jsFile = jsAssetFileFromHref(href);
+      const jsFile = jsAssetFileFromHref(nextPage);
       const { default: content } = await import(/* @vite-ignore */ jsFile);
       const { contentHtml, toc } = content();
       mainEl.innerHTML = contentHtml;
@@ -39,6 +59,7 @@ const onClickAnchor =
 export default function (context) {
   const { bau, css, createGlobalStyles } = context;
   const { div, main } = bau.tags;
+
   globalStyle(context);
 
   createGlobalStyles`

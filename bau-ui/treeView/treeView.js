@@ -85,7 +85,7 @@ export default function (context, { renderMenuItem }) {
   const styles = createStyles({ css, createGlobalStyles });
 
   const Tree =
-    ({ depth = 0 }) =>
+    ({ depth = 1, maxDepth }) =>
     (item) => {
       const { children } = item;
       const closeState = bau.state(true);
@@ -115,6 +115,7 @@ export default function (context, { renderMenuItem }) {
           renderMenuItem(item)
         ),
         children &&
+          depth < maxDepth &&
           ul(
             {
               "aria-expanded": ({ element }) => {
@@ -124,17 +125,17 @@ export default function (context, { renderMenuItem }) {
                 return !closeState.val;
               },
             },
-            children.map(Tree({ depth: depth + 1 }))
+            children.map(Tree({ depth: depth + 1, maxDepth }))
           )
       );
     };
 
-  return function TreeView({ tree, ...otherProps }) {
+  return function TreeView({ tree, maxDepth = Infinity, ...otherProps }) {
     return nav(
       {
         class: classNames(styles.nav, otherProps.class),
       },
-      ul(tree.children.map(Tree({})))
+      ul(tree.children.map(Tree({ maxDepth })))
     );
   };
 }
