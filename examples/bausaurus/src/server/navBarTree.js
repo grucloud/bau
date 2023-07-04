@@ -5,8 +5,9 @@ import fs from "fs/promises";
 import Path from "path";
 import matter from "gray-matter";
 
-const { pipe, tap, map, get, switchCase, all, or, tryCatch, eq } = rubico;
-const { callProp, when, unless, isEmpty, find } = rubicox;
+const { pipe, tap, map, get, switchCase, all, assign, filter, tryCatch, eq } =
+  rubico;
+const { callProp, find, isEmpty, unless, filterOut } = rubicox;
 
 const isMarkdownFile = callProp("endsWith", ".md");
 
@@ -43,6 +44,55 @@ const getDirEntries = (directory) =>
     }),
   ])();
 
+const isIndexFile = pipe([get("href"), callProp("endsWith", "index")]);
+
+const processDir =
+  ({ directory, tree, base, pathsNested }) =>
+  ({ name }) =>
+    pipe([
+      () => Path.resolve(directory, name),
+      walkTree({
+        base,
+        tree: { children: [], name },
+        pathsNested: [...pathsNested, name],
+      }),
+      (child) =>
+        pipe([
+          () => child.children,
+          find(isIndexFile),
+          unless(isEmpty, (item) => Object.assign(child, item)),
+          assign({ children: pipe([get("children"), filterOut(isIndexFile)]) }),
+          tap((child) => tree.children.push(child)),
+        ])(),
+    ])();
+
+const processFile = ({ directory, tree, base, pathsNested }) =>
+  pipe([
+    switchCase([
+      pipe([get("name"), isMarkdownFile]),
+      pipe([
+        all({
+          frontmatter: pipe([
+            ({ name }) => Path.resolve(directory, name),
+            (path) => fs.readFile(path, "utf-8"),
+            matter,
+            get("data"),
+          ]),
+          fileName: pipe([get("name"), callProp("replace", ".md", "")]),
+        }),
+        all({
+          name: ({ frontmatter, fileName }) => frontmatter.title ?? fileName,
+          href: pipe([
+            ({ fileName }) => Path.join(base, ...pathsNested, fileName),
+          ]),
+        }),
+        tap((child) => tree.children.push(child)),
+      ]),
+      // Not a markdown
+      () => undefined,
+    ]),
+  ]);
+
 const walkTree =
   ({ base, tree = { children: [] }, pathsNested = [] }) =>
   (directory) =>
@@ -51,7 +101,6 @@ const walkTree =
         assert(base);
         assert(tree);
         assert(directory);
-        assert(pathsNested);
       }),
       () => directory,
       getDirEntries,
@@ -59,50 +108,14 @@ const walkTree =
         pipe([
           switchCase([
             callProp("isDirectory"),
-            // Dir
-            ({ name }) =>
-              pipe([
-                () => Path.resolve(directory, name),
-                walkTree({
-                  base,
-                  tree: { children: [], name },
-                  pathsNested: [...pathsNested, name],
-                }),
-                (child) => tree.children.push(child),
-              ])(),
-            // File
-            pipe([
-              switchCase([
-                pipe([get("name"), isMarkdownFile]),
-                pipe([
-                  all({
-                    frontmatter: pipe([
-                      ({ name }) => Path.resolve(directory, name),
-                      (path) => fs.readFile(path, "utf-8"),
-                      matter,
-                      get("data"),
-                    ]),
-                    fileName: pipe([
-                      get("name"),
-                      callProp("replace", ".md", ""),
-                    ]),
-                  }),
-                  all({
-                    name: ({ frontmatter, fileName }) =>
-                      frontmatter.title ?? fileName,
-                    href: pipe([
-                      ({ fileName }) =>
-                        Path.join(base, ...pathsNested, fileName),
-                    ]),
-                  }),
-                  (child) => tree.children.push(child),
-                ]),
-                () => undefined,
-              ]),
-            ]),
+            processDir({ directory, tree, base, pathsNested }),
+            processFile({ directory, tree, base, pathsNested }),
           ]),
         ])
       ),
+      tap((params) => {
+        assert(true);
+      }),
       () => tree,
     ])();
 
