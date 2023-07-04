@@ -24,11 +24,15 @@ const importNavBarTree = async () => {
   return navBarTree;
 };
 
+const pathFromLocation = (location) => {
+  let pathname = location.pathname;
+  return pathname.endsWith("/") ? `${pathname}index` : pathname;
+};
+
 const createDocAppProp = async () => {
   const mainEls = document.getElementsByTagName("main");
   if (mainEls[0]) {
     // Prod
-
     const navBarTree = await fetchNavBarTree();
     const tocEl = document.querySelector("nav[data-toc]");
     return {
@@ -39,8 +43,7 @@ const createDocAppProp = async () => {
   } else {
     // Dev
     const navBarTree = await importNavBarTree();
-
-    const pathname = location.pathname;
+    const pathname = pathFromLocation(location);
     // content and toc per page
     const { default: content } = await import(
       /* @vite-ignore */ `${pathname}.md`
@@ -49,6 +52,7 @@ const createDocAppProp = async () => {
     return { contentHtml, toc, navBarTree };
   }
 };
+
 const loadDocs = async () => {
   try {
     const DocApp = docApp(context);
