@@ -36,9 +36,19 @@ const createStyles = ({ css, createGlobalStyles }) => {
         padding-left: var(--menu-link-padding-horizontal);
         border-radius: 0.25rem;
         > div {
+          width: 100%;
           display: flex;
+          justify-content: space-between;
+          transition: background-color var(--transition-fast) ease-in-out;
+
           &:hover {
-            background: var(--menu-color-background-hover);
+            background: var(--color-emphasis-100);
+          }
+          &::after {
+            transition: transform var(--transition-fast) linear;
+            background: var(--menu-link-sublist-icon) 50% / 2rem 2rem;
+            width: 1.25rem;
+            padding: 0.5rem;
           }
           > a {
             display: flex;
@@ -46,11 +56,6 @@ const createStyles = ({ css, createGlobalStyles }) => {
             color: var(--menu-color);
             padding: var(--menu-link-padding-vertical)
               var(--menu-link-padding-horizontal);
-            &::before {
-              transition: transform var(--transition-fast) linear;
-              background: var(--menu-link-sublist-icon) 50% / 2rem 2rem;
-              width: 1.25rem;
-            }
           }
         }
       }
@@ -60,16 +65,16 @@ const createStyles = ({ css, createGlobalStyles }) => {
   return {
     nav,
     collapsable: css`
-      > div > a {
-        &::before {
+      > div {
+        &::after {
           content: "";
           transform: rotate(90deg);
         }
       }
     `,
     collapsed: css`
-      > div > a {
-        &::before {
+      > div {
+        &::after {
           content: "";
           transform: rotate(180deg);
         }
