@@ -25,7 +25,7 @@ const transform =
       tap((params) => {
         assert(code);
         assert(id);
-        console.log("transform", id);
+        //console.log("transform", id);
       }),
       when(
         () => id.endsWith(".md"),
@@ -60,10 +60,11 @@ const load = ({ navBarTree }) =>
     tap((id) => {
       assert(id);
       assert(navBarTree);
+      console.log("load", id);
     }),
     switchCase([
-      eq(identity, "/navBarTree.json"),
-      () => JSON.stringify(navBarTree),
+      eq(identity, "/docs/navBarTree.json"),
+      pipe([() => navBarTree, JSON.stringify]),
       () => undefined,
     ]),
   ]);

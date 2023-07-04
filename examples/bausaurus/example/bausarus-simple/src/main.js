@@ -3,10 +3,11 @@ import BauCss from "@grucloud/bau-css";
 import docApp from "./DocApp";
 import landingPage from "./LandingPage";
 
+const docPath = "/docs";
+const navBarTreeFile = `${docPath}/navBarTree.json`;
+
 console.log("start pathname", location.pathname);
 
-// TODO
-const docPath = "/docs";
 const getAppId = () => document.getElementById("app");
 const mountApp = (el) => getAppId()?.replaceChildren(el);
 
@@ -16,31 +17,39 @@ const context = {
   tr: (text) => text,
 };
 
+const fetchNavBarTree = async () => {
+  const res = await fetch(navBarTreeFile);
+  const navBarTree = await res.json();
+  return navBarTree;
+};
+
+const importNavBarTree = async () => {
+  const navBarTree = await import(/* @vite-ignore */ navBarTreeFile);
+
+  return navBarTree;
+};
+
 const createDocAppProp = async () => {
   const mainEls = document.getElementsByTagName("main");
   if (mainEls[0]) {
     // Prod
+    const navBarTree = await fetchNavBarTree();
     const tocEl = document.querySelector("nav[data-toc]");
-    const navBarTreeEl = document.querySelector("nav[data-navbar]");
     return {
       contentHtml: mainEls[0].innerHTML,
       toc: tocEl.dataset.toc,
-      navBarTree: JSON.parse(navBarTreeEl.dataset.navbar),
+      navBarTree,
     };
   } else {
     // Dev
+    const navBarTree = await importNavBarTree();
+
     const pathname = location.pathname;
     // content and toc per page
     const { default: content } = await import(
       /* @vite-ignore */ `${pathname}.md`
     );
     const { contentHtml, toc } = content();
-
-    // Nav Bar Tree
-    const navBarTreeFile = `/navBarTree.json`;
-    const { default: navBarTree } = await import(
-      /* @vite-ignore */ navBarTreeFile
-    );
     return { contentHtml, toc, navBarTree };
   }
 };

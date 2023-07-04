@@ -113,3 +113,19 @@ export const buildNavBarTree = ({ base, rootDir, srcDir }) =>
       assert(true);
     }),
   ])();
+
+export const writeNavBarTree = ({ site: { rootDir, outDir }, navBarTree }) =>
+  pipe([
+    tap(() => {
+      assert(rootDir);
+      assert(outDir);
+      assert(navBarTree);
+    }),
+    () => navBarTree,
+    JSON.stringify,
+    (navBarTreeString) =>
+      fs.writeFile(
+        Path.resolve(rootDir, outDir, "navBarTree.json"),
+        navBarTreeString
+      ),
+  ])();

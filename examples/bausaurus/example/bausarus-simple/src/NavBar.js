@@ -22,7 +22,6 @@ export default function (context) {
         padding: 1rem;
         border: 1px red dotted;
       `,
-      //"data-navbar": JSON.stringify(tree),
     });
   };
 }

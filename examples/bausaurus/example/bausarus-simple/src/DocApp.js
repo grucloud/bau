@@ -5,26 +5,34 @@ import toc from "./Toc.js";
 
 import globalStyle from "@grucloud/bau-ui/globalStyle/globalStyle.js";
 
+const jsAssetFileFromHref = (href) => {
+  try {
+    const hash = __BAUSAURUS_HASH_MAP__[href];
+    return hash ? `/assets${href}.md.${hash}.js` : `/assets${href}.md.js`;
+  } catch (error) {
+    return `${href}.md`;
+  }
+};
+
 const onClickAnchor =
   ({ mainEl, tocEl, Toc }) =>
   async (event) => {
     const { target } = event;
-    const href = target.getAttribute("href") ?? "";
+    const href = target.getAttribute("href");
     if (
       target.tagName === "A" &&
+      href &&
       !href.startsWith("http") &&
       !href.startsWith("#")
     ) {
-      const hash = __BAUSAURUS_HASH_MAP__[href];
-      if (hash) {
-        history.pushState({}, null, href);
-        event.preventDefault();
-        const jsFile = `/assets${href}.md.${hash}.js`;
-        const { default: content } = await import(/* @vite-ignore */ jsFile);
-        const { contentHtml, toc } = content();
-        mainEl.innerHTML = contentHtml;
-        tocEl.innerHTML = Toc({ toc: JSON.parse(toc) }).innerHTML;
-      }
+      history.pushState({}, null, href);
+      event.preventDefault();
+
+      const jsFile = jsAssetFileFromHref(href);
+      const { default: content } = await import(/* @vite-ignore */ jsFile);
+      const { contentHtml, toc } = content();
+      mainEl.innerHTML = contentHtml;
+      tocEl.innerHTML = Toc({ toc: JSON.parse(toc) }).innerHTML;
     }
   };
 

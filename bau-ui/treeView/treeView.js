@@ -133,7 +133,6 @@ export default function (context, { renderMenuItem }) {
     return nav(
       {
         class: classNames(styles.nav, otherProps.class),
-        "data-navbar": JSON.stringify(tree),
       },
       ul(tree.children.map(Tree({})))
     );

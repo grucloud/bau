@@ -35,7 +35,11 @@ export default defineConfig((config) =>
             assetFileNames: "assets/[name].[hash].[ext]",
             entryFileNames: "assets/[name].[hash].js",
           },
-          input: { ...inputs, index: "/index.html", main: "/src/main.js" },
+          input: {
+            ...inputs,
+            index: "/index.html",
+            main: "/src/main.js",
+          },
         },
       },
       plugins: [bausaurusPlugin(config)],
