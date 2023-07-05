@@ -2,12 +2,13 @@ import hljs from "highlight.js/lib/core";
 import js from "highlight.js/lib/languages/javascript";
 import sh from "highlight.js/lib/languages/shell";
 
-const defaultLanguages = { js: js, sh: sh };
+const defaultLanguagesMap = { js: js, sh: sh };
+const defaultLanguages = Object.keys(defaultLanguagesMap);
 
 // TODO await import("highlight.js/lib/languages/javascript") does not work
 const registerLanguage = async ({ languages }) =>
-  Object.keys(languages).forEach(async (language) => {
-    hljs.registerLanguage(language, defaultLanguages[language]);
+  languages.forEach(async (language) => {
+    hljs.registerLanguage(language, defaultLanguagesMap[language] ?? "sh");
   });
 
 const createHighlightStyle = (
@@ -29,8 +30,8 @@ const htmlDecode = (window, input) => {
 };
 
 const findLanguage = (el) => {
-  const language = el.getAttribute("class").replace("language-", "");
-  return language;
+  const language = el.getAttribute("class")?.replace("language-", "");
+  return defaultLanguages.includes(language) ? language : "sh";
 };
 
 export default async function ({ bau, css, createGlobalStyles, window }) {
