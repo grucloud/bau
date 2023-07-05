@@ -51,6 +51,8 @@ export default async function ({ bau, css, createGlobalStyles, window }) {
     });
     el.innerHTML = contentHtml;
     el.querySelectorAll("code").forEach((codeEl) => {
+      // Already processed
+      if (codeEl.classList.contains("hljs")) return;
       const language = findLanguage(codeEl);
       codeEl.innerHTML = hljs.highlight(htmlDecode(window, codeEl.innerHTML), {
         language,
