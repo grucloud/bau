@@ -90,7 +90,9 @@ const renderDocApp = ({ docApp, navBarTree, contentHtml, toc }) => {
   assert(toc);
 
   const dom = createJSDOM();
-  const context = createContext({ document: dom.window.document });
+  const context = createContext({
+    window: dom.window,
+  });
   const DocApp = docApp(context);
   // This will fill the dom.window.document.head with the style
   const content = DocApp({ navBarTree, contentHtml, toc }).outerHTML;

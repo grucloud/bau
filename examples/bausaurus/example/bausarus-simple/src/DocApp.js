@@ -1,11 +1,13 @@
 import globalStyle from "@grucloud/bau-ui/globalStyle/globalStyle.js";
-import header from "./Header.js";
-import navBar from "./NavBar.js";
-import footer from "./Footer.js";
-import toc from "./Toc.js";
 
 import { hashMapFile } from "./constants.js";
 import { inBrowser } from "./utils.js";
+
+import header from "./Header.js";
+import navBar from "./NavBar.js";
+import mainContent from "./MainContent.js";
+import toc from "./Toc.js";
+import footer from "./Footer.js";
 
 let __BAUSAURUS_HASH_MAP__;
 
@@ -39,7 +41,7 @@ const onLocationChange = async ({ mainEl, tocEl, Toc, nextPage }) => {
   tocEl.innerHTML = Toc({ toc: JSON.parse(toc) }).innerHTML;
 };
 
-const registerHistoryBack = ({ mainEl, tocEl, Toc }) => {
+const registerHistoryBack = ({ window, mainEl, tocEl, Toc }) => {
   window.addEventListener("popstate", (event) =>
     onLocationChange({ mainEl, tocEl, Toc, nextPage: location.pathname })
   );
@@ -66,8 +68,8 @@ const onClickAnchor =
   };
 
 export default function (context) {
-  const { bau, css, createGlobalStyles } = context;
-  const { div, main } = bau.tags;
+  const { bau, css, createGlobalStyles, window } = context;
+  const { div } = bau.tags;
 
   globalStyle(context);
 
@@ -78,25 +80,15 @@ img  {
 
   const Header = header(context);
   const NavBar = navBar(context);
-  const Footer = footer(context);
+  const MainContent = mainContent(context);
   const Toc = toc(context);
-
-  const Main = ({ contentHtml }) => {
-    const el = main({
-      class: css`
-        grid-area: main;
-        margin: 1rem;
-      `,
-    });
-    el.innerHTML = contentHtml;
-    return el;
-  };
+  const Footer = footer(context);
 
   return function DocApp({ navBarTree, contentHtml, toc }) {
-    const mainEl = Main({ contentHtml });
+    const mainEl = MainContent({ contentHtml });
     const tocEl = Toc({ toc });
 
-    registerHistoryBack({ mainEl, tocEl, Toc });
+    registerHistoryBack({ window, mainEl, tocEl, Toc });
 
     return div(
       {

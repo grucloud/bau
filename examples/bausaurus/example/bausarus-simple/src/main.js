@@ -11,6 +11,7 @@ const context = {
   bau: Bau(),
   ...BauCss(),
   tr: (text) => text,
+  window,
 };
 
 const fetchNavBarTree = async () => {

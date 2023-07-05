@@ -44,7 +44,7 @@ const getDirEntries = (directory) =>
     }),
   ])();
 
-const isIndexFile = pipe([get("href"), callProp("endsWith", "index")]);
+const isIndexFile = pipe([get("href", ""), callProp("endsWith", "index")]);
 
 const processDir =
   ({ directory, tree, base, pathsNested }) =>
@@ -60,10 +60,14 @@ const processDir =
         pipe([
           () => child.children,
           find(isIndexFile),
-          unless(isEmpty, (item) => Object.assign(child, item)),
+          switchCase([
+            () => child,
+            isEmpty,
+            (item) => Object.assign(child, item),
+          ]),
           assign({ children: pipe([get("children"), filterOut(isIndexFile)]) }),
-          tap((child) => tree.children.push(child)),
         ])(),
+      tap((child) => tree.children.push(child)),
     ])();
 
 const processFile = ({ directory, tree, base, pathsNested }) =>
