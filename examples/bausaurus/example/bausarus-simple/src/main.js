@@ -33,10 +33,9 @@ const createDocAppProp = async () => {
     const navBarTree = await importNavBarTree();
     const pathname = pathFromLocation(location.pathname);
     // content and toc per page
-    const { default: content } = await import(
+    const { contentHtml, toc } = await import(
       /* @vite-ignore */ `${pathname}.md`
     );
-    const { contentHtml, toc } = content();
     return { contentHtml, toc, navBarTree };
   }
 };

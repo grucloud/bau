@@ -31,8 +31,7 @@ const jsAssetFileFromHref = (href) => {
 
 const onLocationChange = async ({ mainEl, tocEl, Toc, nextPage }) => {
   const jsFile = jsAssetFileFromHref(nextPage);
-  const { default: content } = await import(/* @vite-ignore */ jsFile);
-  const { contentHtml, toc } = content();
+  const { contentHtml, toc } = await import(/* @vite-ignore */ jsFile);
   mainEl.innerHTML = contentHtml;
   tocEl.innerHTML = Toc({ toc: JSON.parse(toc) }).innerHTML;
 };
