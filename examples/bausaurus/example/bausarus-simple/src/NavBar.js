@@ -21,7 +21,7 @@ export default function (context) {
       class: css`
         grid-area: navbar;
         padding: 1rem;
-        border: 1px red dotted;
+        border: 1px gray dotted;
       `,
       // TODO limit to 2 when render on server
       maxDepth: inBrowser() ? Infinity : 2,

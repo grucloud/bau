@@ -56,17 +56,18 @@ const processDir =
         tree: { children: [], name },
         pathsNested: [...pathsNested, name],
       }),
-      (child) =>
+      unless(pipe([get("children"), isEmpty]), (child) =>
         pipe([
           () => child.children,
           find(isIndexFile),
           switchCase([
-            () => child,
             isEmpty,
+            () => child,
             (item) => Object.assign(child, item),
           ]),
           assign({ children: pipe([get("children"), filterOut(isIndexFile)]) }),
-        ])(),
+        ])()
+      ),
       tap((child) => tree.children.push(child)),
     ])();
 

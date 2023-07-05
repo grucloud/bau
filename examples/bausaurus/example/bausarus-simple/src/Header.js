@@ -22,7 +22,7 @@ export default function (context) {
       },
       // TODO use baseUrl
       a({ class: "title", href: "/" }, tr("Bausaurus")),
-      a({ href: "/docs/Article1" }, tr("Doc"))
+      a({ href: "/docs/" }, tr("Doc"))
     );
 
   const NavBarRight = () =>

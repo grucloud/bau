@@ -1,18 +1,10 @@
-import Bau from "@grucloud/bau";
-import BauCss from "@grucloud/bau-css";
 import docApp from "./DocApp";
 import landingPage from "./LandingPage";
 import { docPath, navBarTreeFile } from "./constants.js";
+import createContext from "./context";
+import { pathFromLocation, mountApp } from "./utils.js";
 
-const getAppId = () => document.getElementById("app");
-const mountApp = (el) => getAppId()?.replaceChildren(el);
-
-const context = {
-  bau: Bau(),
-  ...BauCss(),
-  tr: (text) => text,
-  window,
-};
+const context = createContext({ window });
 
 const fetchNavBarTree = async () => {
   const res = await fetch(navBarTreeFile);
@@ -23,11 +15,6 @@ const fetchNavBarTree = async () => {
 const importNavBarTree = async () => {
   const navBarTree = await import(/* @vite-ignore */ navBarTreeFile);
   return navBarTree;
-};
-
-const pathFromLocation = (location) => {
-  let pathname = location.pathname;
-  return pathname.endsWith("/") ? `${pathname}index` : pathname;
 };
 
 const createDocAppProp = async () => {
@@ -44,7 +31,7 @@ const createDocAppProp = async () => {
   } else {
     // Dev
     const navBarTree = await importNavBarTree();
-    const pathname = pathFromLocation(location);
+    const pathname = pathFromLocation(location.pathname);
     // content and toc per page
     const { default: content } = await import(
       /* @vite-ignore */ `${pathname}.md`
@@ -56,7 +43,7 @@ const createDocAppProp = async () => {
 
 const loadDocs = async () => {
   try {
-    const DocApp = docApp(context);
+    const DocApp = await docApp(context);
     const { contentHtml, toc, navBarTree } = await createDocAppProp();
     mountApp(
       DocApp({
