@@ -2,7 +2,7 @@ import assert from "assert";
 import fs from "fs-extra";
 import Path from "path";
 import os from "os";
-import { normalizePath } from "vite";
+//import { normalizePath } from "vite";
 import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
 import { createHash } from "crypto";
@@ -16,7 +16,6 @@ import createJSDOM from "./jsdom.js";
 
 import { sanitizeFileName } from "./sanitizeFileName.js";
 import { isPageChunk } from "./utils.js";
-import { EXTERNAL_URL_RE } from "./constants.js";
 
 export const isOutputJs = and([
   eq(get("type"), "chunk"),
@@ -83,7 +82,7 @@ const writeExtractedCss = ({ site, cssContent, cssFilename }) =>
     (path) => fs.writeFile(path, cssContent),
   ])();
 
-const renderDocApp = ({ docApp, navBarTree, contentHtml, toc }) => {
+const renderDocApp = async ({ docApp, navBarTree, contentHtml, toc }) => {
   assert(docApp);
   assert(navBarTree);
   assert(contentHtml);
@@ -93,9 +92,9 @@ const renderDocApp = ({ docApp, navBarTree, contentHtml, toc }) => {
   const context = createContext({
     window: dom.window,
   });
-  const DocApp = docApp(context);
+  const DocApp = await docApp(context);
   // This will fill the dom.window.document.head with the style
-  const content = DocApp({ navBarTree, contentHtml, toc }).outerHTML;
+  const content = await DocApp({ navBarTree, contentHtml, toc }).outerHTML;
   const cssContent = extractCSS({ document: dom.window.document });
   const cssFilename = inferCssFileName({ cssContent });
   return {
@@ -105,29 +104,29 @@ const renderDocApp = ({ docApp, navBarTree, contentHtml, toc }) => {
   };
 };
 
-const resolvePageImports = ({ site, pageMd, output, appChunk }) => {
-  assert(site.srcDir);
-  assert(site.rootDir);
+// const resolvePageImports = ({ site, pageMd, output, appChunk }) => {
+//   assert(site.srcDir);
+//   assert(site.rootDir);
 
-  assert(pageMd);
-  assert(output);
-  assert(appChunk);
-  let srcPath = Path.resolve(site.rootDir, site.srcDir, pageMd);
-  try {
-    srcPath = fs.realpathSync(srcPath);
-  } catch (e) {}
-  srcPath = normalizePath(srcPath);
-  const pageChunk = output.find(
-    (chunk) => chunk.type === "chunk" && chunk.facadeModuleId === srcPath
-  );
-  assert(pageChunk);
-  return [
-    ...appChunk.imports,
-    ...appChunk.dynamicImports,
-    ...pageChunk.imports,
-    ...pageChunk.dynamicImports,
-  ];
-};
+//   assert(pageMd);
+//   assert(output);
+//   assert(appChunk);
+//   let srcPath = Path.resolve(site.rootDir, site.srcDir, pageMd);
+//   try {
+//     srcPath = fs.realpathSync(srcPath);
+//   } catch (e) {}
+//   srcPath = normalizePath(srcPath);
+//   const pageChunk = output.find(
+//     (chunk) => chunk.type === "chunk" && chunk.facadeModuleId === srcPath
+//   );
+//   assert(pageChunk);
+//   return [
+//     ...appChunk.imports,
+//     ...appChunk.dynamicImports,
+//     ...pageChunk.imports,
+//     ...pageChunk.dynamicImports,
+//   ];
+// };
 
 export const renderPage =
   ({ config, output, appChunk, cssChunk, assets }) =>
@@ -163,7 +162,7 @@ export const renderPage =
     assert(toc);
     assert(frontmatter);
 
-    const content = renderDocApp({
+    const content = await renderDocApp({
       docApp: config.docApp,
       navBarTree: config.navBarTree,
       contentHtml,

@@ -8,13 +8,14 @@ import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 
+import remarkHeading from "./remarkHeading.js";
+
 const { pipe, tap } = rubico;
 const { when, prepend } = rubicox;
 
 export const md2Html = ({ contentMd = "", frontmatter }) =>
   pipe([
     tap((tree) => {
-      //assert(contentMd);
       assert(frontmatter);
     }),
     () => contentMd,
@@ -23,6 +24,7 @@ export const md2Html = ({ contentMd = "", frontmatter }) =>
       unified()
         .use(remarkParse)
         .use(remarkGfm)
+        .use(remarkHeading)
         .use(remarkRehype)
         .use(rehypeStringify)
         .process(content),

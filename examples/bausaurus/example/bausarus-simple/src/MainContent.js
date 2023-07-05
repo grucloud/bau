@@ -46,6 +46,7 @@ export default async function ({ bau, css, createGlobalStyles, window }) {
       class: css`
         grid-area: main;
         margin: 1rem;
+        overflow-y: scroll;
       `,
     });
     el.innerHTML = contentHtml;

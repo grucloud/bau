@@ -15,20 +15,25 @@ export default async function (context) {
   globalStyle(context);
 
   createGlobalStyles`
-blockquote {
-  margin: 1rem 0;
-  border-left: .2rem solid var(--color-primary-lighter);
-  padding: .25rem 0 .25rem 1rem;
-  font-size: 1rem;
-  color: var(--color-emphasis-900);
-}
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top:5rem
+    }
+    blockquote {
+      margin: 1rem 0;
+      border-left: 0.2rem solid var(--color-primary-lighter);
+      padding: 0.25rem 0 0.25rem 1rem;
+      font-size: 1rem;
+      color: var(--color-emphasis-900);
+    }
 
-blockquote > p {
-  margin: 0;
-}
-img  {
-  width: 100%;
-}`;
+    blockquote > p {
+      margin: 0;
+    }
+    img {
+      max-width: 100%;
+    }
+  `;
 
   const Header = header(context);
   const NavBar = navBar(context);

@@ -6,6 +6,7 @@ import { visit } from "unist-util-visit";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import slugify from "@sindresorhus/slugify";
+import { toString } from "mdast-util-to-string";
 
 const { pipe, map, get, switchCase, eq } = rubico;
 const { callProp, prepend, append } = rubicox;
@@ -39,7 +40,7 @@ export const md2Toc = ({ contentMd }) =>
 
         headings.push({
           value,
-          id: slugify(value),
+          id: slugify(toString(child)),
           level: child.depth,
         });
       });
