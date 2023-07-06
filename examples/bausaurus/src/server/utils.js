@@ -4,9 +4,21 @@ import rubicox from "rubico/x/index.js";
 import fs from "fs/promises";
 import Path from "path";
 
+// TODO should read from .gitignore
+export const ExcludeFiles = [
+  "node_modules",
+  ".git",
+  ".DS_Store",
+  "coverage",
+  "dist",
+  "build",
+  "public",
+  ".vscode",
+];
+
 const { pipe, tap, get, eq, flatMap, switchCase, filter, or, and, reduce } =
   rubico;
-const { callProp } = rubicox;
+const { callProp, filterOut, isIn } = rubicox;
 
 export const isPageChunk = and([
   eq(get("type"), "chunk"),
@@ -53,6 +65,7 @@ export const walkDirectory =
     pipe([
       () => Path.resolve(directory),
       (thePath) => fs.readdir(thePath, { withFileTypes: true }),
+      filterOut(pipe([get("name"), isIn(ExcludeFiles)])),
       filter(
         or([
           callProp("isDirectory"),

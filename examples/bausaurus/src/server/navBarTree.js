@@ -4,10 +4,11 @@ import rubicox from "rubico/x/index.js";
 import fs from "fs/promises";
 import Path from "path";
 import matter from "gray-matter";
+import { ExcludeFiles } from "./utils.js";
 
 const { pipe, tap, map, get, switchCase, all, assign, filter, tryCatch, eq } =
   rubico;
-const { callProp, find, isEmpty, unless, filterOut } = rubicox;
+const { callProp, find, isEmpty, unless, filterOut, isIn } = rubicox;
 
 const isMarkdownFile = callProp("endsWith", ".md");
 
@@ -109,6 +110,7 @@ const walkTree =
       }),
       () => directory,
       getDirEntries,
+      filterOut(pipe([get("name"), isIn(ExcludeFiles)])),
       map.series(
         pipe([
           switchCase([
