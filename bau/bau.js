@@ -6,7 +6,9 @@ let isFunction = (obj) => getType(obj) == "Function";
 let toVal = (state) => (isState(state) ? state._val : state);
 let isState = (state) => state.__isState;
 
-export default function Bau({ document = window.document } = {}) {
+export default function Bau(input) {
+  let _window = input?.window ?? window;
+  let { document } = _window;
   let stateSet = new Set();
   let _curDeps;
 
@@ -235,9 +237,9 @@ export default function Bau({ document = window.document } = {}) {
         add(element, ...children);
         props.bauCreated?.({ element });
         props.bauMounted &&
-          window.requestAnimationFrame(() => props.bauMounted({ element }));
+          _window.requestAnimationFrame(() => props.bauMounted({ element }));
         props.bauUnmounted &&
-          window.requestAnimationFrame(() =>
+          _window.requestAnimationFrame(() =>
             observerRemovedNode(element, props.bauUnmounted)
           );
         return element;

@@ -17,12 +17,12 @@ export const layoutDefault = (context) => {
       {
         class: css`
           display: grid;
-          grid-template-columns: 2fr;
+          grid-template-columns: minmax(20%, 300px) auto;
           grid-template-areas:
             "header header"
             "sidebar main"
             "footer footer";
-
+          min-height: 100vh;
           @media (max-width: 640px) {
             & nav {
               display: none;

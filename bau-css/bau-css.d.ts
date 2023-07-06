@@ -1,5 +1,5 @@
 export default function BauCss(input?: {
-  document?: Document;
+  window?: Window;
   target?: HTMLElement;
 }): {
   css: (any) => string;

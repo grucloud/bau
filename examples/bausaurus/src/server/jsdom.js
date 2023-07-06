@@ -7,5 +7,5 @@ export default function createJSDOM() {
   virtualConsole.on("error", (error) => {
     console.log(error);
   });
-  return new JSDOM(``, { virtualConsole });
+  return new JSDOM(``, { virtualConsole, pretendToBeVisual: true });
 }

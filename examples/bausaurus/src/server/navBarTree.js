@@ -6,9 +6,8 @@ import Path from "path";
 import matter from "gray-matter";
 import { ExcludeFiles } from "./utils.js";
 
-const { pipe, tap, map, get, switchCase, all, assign, filter, tryCatch, eq } =
-  rubico;
-const { callProp, find, isEmpty, unless, filterOut, isIn } = rubicox;
+const { pipe, tap, map, get, switchCase, all, assign, tryCatch, eq } = rubico;
+const { callProp, find, isEmpty, unless, filterOut, isIn, pluck } = rubicox;
 
 const isMarkdownFile = callProp("endsWith", ".md");
 
@@ -35,69 +34,83 @@ const getDirEntries = (directory) =>
         pipe([
           () => navbarData,
           get("children"),
-          map((child) => pipe([() => dirents, find(eq(get("name"), child))])()),
+          map((treeItem) =>
+            pipe([
+              () => dirents,
+              find(eq(get("name"), treeItem.data.name)),
+              tap((params) => {
+                assert(true);
+              }),
+              // TODO display an error if the name if the navbar.json does not match a file
+              unless(isEmpty, (dirent) => ({ dirent, treeItem })),
+            ])()
+          ),
+          filterOut(isEmpty),
         ])(),
       // No navbarData
-      get("dirents"),
+      pipe([get("dirents"), map((dirent) => ({ dirent }))]),
     ]),
     tap((params) => {
       assert(true);
     }),
   ])();
 
-const isIndexFile = pipe([get("href", ""), callProp("endsWith", "index")]);
+const isIndexFile = pipe([get("data.href", ""), callProp("endsWith", "index")]);
 
 const processDir =
   ({ directory, tree, base, pathsNested }) =>
-  ({ name }) =>
+  ({ dirent: { name }, treeItem }) =>
     pipe([
       () => Path.resolve(directory, name),
       walkTree({
         base,
-        tree: { children: [], name },
+        tree: { children: [], data: { name }, ...treeItem },
         pathsNested: [...pathsNested, name],
       }),
-      unless(pipe([get("children"), isEmpty]), (child) =>
+      unless(pipe([get("children"), isEmpty]), (subTree) =>
         pipe([
-          () => child.children,
+          () => subTree.children,
           find(isIndexFile),
           switchCase([
             isEmpty,
-            () => child,
-            (item) => Object.assign(child, item),
+            () => subTree,
+            ({ data }) => ({ ...subTree, ...treeItem, data }),
           ]),
           assign({ children: pipe([get("children"), filterOut(isIndexFile)]) }),
         ])()
       ),
-      tap((child) => tree.children.push(child)),
+      tap((subTree) => tree.children.push(subTree)),
     ])();
 
-const processFile = ({ directory, tree, base, pathsNested }) =>
-  pipe([
-    switchCase([
-      pipe([get("name"), isMarkdownFile]),
-      pipe([
-        all({
-          frontmatter: pipe([
-            ({ name }) => Path.resolve(directory, name),
-            (path) => fs.readFile(path, "utf-8"),
-            matter,
-            get("data"),
-          ]),
-          fileName: pipe([get("name"), callProp("replace", ".md", "")]),
-        }),
-        all({
-          name: ({ frontmatter, fileName }) => frontmatter.title ?? fileName,
-          href: pipe([
-            ({ fileName }) => Path.join(base, ...pathsNested, fileName),
-          ]),
-        }),
-        tap((child) => tree.children.push(child)),
+const processFile =
+  ({ directory, tree, base, pathsNested }) =>
+  ({ dirent, treeItem }) =>
+    pipe([
+      () => dirent,
+      switchCase([
+        pipe([get("name"), isMarkdownFile]),
+        pipe([
+          all({
+            frontmatter: pipe([
+              ({ name }) => Path.resolve(directory, name),
+              (path) => fs.readFile(path, "utf-8"),
+              matter,
+              get("data"),
+            ]),
+            fileName: pipe([get("name"), callProp("replace", ".md", "")]),
+          }),
+          all({
+            name: ({ frontmatter, fileName }) => frontmatter.title ?? fileName,
+            href: pipe([
+              ({ fileName }) => Path.join(base, ...pathsNested, fileName),
+            ]),
+          }),
+          tap((data) => tree.children.push({ ...treeItem, data })),
+        ]),
+        // Not a markdown
+        () => undefined,
       ]),
-      // Not a markdown
-      () => undefined,
-    ]),
-  ]);
+    ])();
 
 const walkTree =
   ({ base, tree = { children: [] }, pathsNested = [] }) =>
@@ -110,11 +123,11 @@ const walkTree =
       }),
       () => directory,
       getDirEntries,
-      filterOut(pipe([get("name"), isIn(ExcludeFiles)])),
+      filterOut(pipe([get("dirent.name"), isIn(ExcludeFiles)])),
       map.series(
         pipe([
           switchCase([
-            callProp("isDirectory"),
+            pipe([get("dirent"), callProp("isDirectory")]),
             processDir({ directory, tree, base, pathsNested }),
             processFile({ directory, tree, base, pathsNested }),
           ]),

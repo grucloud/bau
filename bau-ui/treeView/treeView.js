@@ -1,5 +1,9 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 
+const collapseOrExpandSection = ({ element, closeState }) => {
+  closeState.val ? collapseSection(element) : expandSection(element);
+};
+
 function collapseSection(element) {
   element.style.height = "0px";
 }
@@ -64,11 +68,11 @@ const createStyles = ({ css, createGlobalStyles }) => {
 
   return {
     nav,
-    collapsable: css`
+    expanded: css`
       > div {
         &::after {
           content: "";
-          transform: rotate(90deg);
+          transform: rotate(180deg);
         }
       }
     `,
@@ -76,7 +80,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
       > div {
         &::after {
           content: "";
-          transform: rotate(180deg);
+          transform: rotate(90deg);
         }
       }
     `,
@@ -92,16 +96,16 @@ export default function (context, { renderMenuItem }) {
   const Tree =
     ({ depth = 1, maxDepth }) =>
     (item) => {
-      const { children } = item;
-      const closeState = bau.state(true);
+      const { children, expanded } = item;
+      const closeState = bau.state(!expanded);
       return li(
         {
           class: () =>
             classNames(
               children
                 ? closeState.val
-                  ? styles.collapsable
-                  : styles.collapsed
+                  ? styles.collapsed
+                  : styles.expanded
                 : ""
             ),
         },
@@ -117,16 +121,17 @@ export default function (context, { renderMenuItem }) {
               }
             },
           },
-          renderMenuItem(item)
+          renderMenuItem(item.data)
         ),
         children &&
           depth < maxDepth &&
           ul(
             {
+              bauMounted: ({ element }) => {
+                collapseOrExpandSection({ element, closeState });
+              },
               "aria-expanded": ({ element }) => {
-                closeState.val
-                  ? collapseSection(element)
-                  : expandSection(element);
+                collapseOrExpandSection({ element, closeState });
                 return !closeState.val;
               },
             },
@@ -140,7 +145,7 @@ export default function (context, { renderMenuItem }) {
       {
         class: classNames(styles.nav, otherProps.class),
       },
-      ul(tree.children.map(Tree({ maxDepth })))
+      tree.children && ul(tree.children.map(Tree({ maxDepth })))
     );
   };
 }
