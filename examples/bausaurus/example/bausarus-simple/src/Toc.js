@@ -39,7 +39,7 @@ export default function ({ bau, css }) {
         "data-toc": JSON.stringify(toc),
         class: className,
       },
-      ul(toc.children.map(TocItem))
+      toc?.children && ul(toc.children.map(TocItem))
     );
   };
 }

@@ -20,6 +20,17 @@ export default async function (context) {
   const Toc = toc(context);
   const Footer = footer(context);
 
+  const className = css`
+    display: grid;
+    grid-template-columns: minmax(15%, 300px) minmax(50%, 70%) minmax(15%, 20%);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "header header header"
+      "navbar main toc"
+      "footer footer footer";
+    min-height: 100vh;
+  `;
+
   return function DocApp({ navBarTree, contentHtml, toc }) {
     const mainEl = MainContent({ contentHtml });
     const tocEl = Toc({ toc });
@@ -28,25 +39,13 @@ export default async function (context) {
 
     return div(
       {
-        class: css`
-          display: grid;
-          grid-template-columns: minmax(15%, 300px) minmax(50%, 70%) minmax(
-              15%,
-              20%
-            );
-          grid-template-rows: auto 1fr auto;
-          grid-template-areas:
-            "header header header"
-            "navbar main toc"
-            "footer footer footer";
-          min-height: 100vh;
-        `,
+        class: className,
         onclick: onClickAnchor({ mainEl, tocEl, Toc }),
       },
       Header(),
-      NavBar({ tree: navBarTree }),
+      navBarTree && NavBar({ tree: navBarTree }),
       mainEl,
-      tocEl,
+      toc && tocEl,
       Footer()
     );
   };

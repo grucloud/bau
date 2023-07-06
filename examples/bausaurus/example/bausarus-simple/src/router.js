@@ -1,5 +1,6 @@
 import { hashMapFile } from "./constants.js";
 import { inBrowser, pathFromLocation } from "./utils.js";
+import pageNotFound from "./NotFound";
 
 let __BAUSAURUS_HASH_MAP__;
 
@@ -29,9 +30,19 @@ const jsAssetFileFromHref = (href) => {
   }
 };
 
-const onLocationChange = async ({ mainEl, tocEl, Toc, nextPage }) => {
-  const jsFile = jsAssetFileFromHref(nextPage);
-  const { contentHtml, toc } = await import(/* @vite-ignore */ jsFile);
+export const loadContent = async ({ nextPage, context }) => {
+  try {
+    const jsFile = jsAssetFileFromHref(nextPage);
+    const { contentHtml, toc } = await import(/* @vite-ignore */ jsFile);
+    return { contentHtml, toc };
+  } catch (error) {
+    const PageNotFound = pageNotFound(context);
+    return { contentHtml: PageNotFound().outerHTML, toc: "{}" };
+  }
+};
+
+const onLocationChange = async ({ mainEl, tocEl, Toc, nextPage, context }) => {
+  const { contentHtml, toc } = loadContent({ nextPage, context });
   mainEl.innerHTML = contentHtml;
   tocEl.innerHTML = Toc({ toc: JSON.parse(toc) }).innerHTML;
 };

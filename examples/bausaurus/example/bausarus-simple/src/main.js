@@ -2,7 +2,8 @@ import docApp from "./DocApp";
 import landingPage from "./LandingPage";
 import { docPath, navBarTreeFile } from "./constants.js";
 import createContext from "./context";
-import { pathFromLocation, mountApp } from "./utils.js";
+import { mountApp } from "./utils.js";
+import { loadContent } from "./router";
 
 const context = createContext({ window });
 
@@ -17,7 +18,7 @@ const importNavBarTree = async () => {
   return navBarTree;
 };
 
-const createDocAppProp = async () => {
+const createDocAppProp = async ({ context }) => {
   const mainEls = document.getElementsByTagName("main");
   if (mainEls[0]) {
     // Prod
@@ -31,11 +32,10 @@ const createDocAppProp = async () => {
   } else {
     // Dev
     const navBarTree = await importNavBarTree();
-    const pathname = pathFromLocation(location.pathname);
-    // content and toc per page
-    const { contentHtml, toc } = await import(
-      /* @vite-ignore */ `${pathname}.md`
-    );
+    const { contentHtml, toc } = await loadContent({
+      nextPage: location.pathname,
+      context,
+    });
     return { contentHtml, toc, navBarTree };
   }
 };
@@ -43,7 +43,9 @@ const createDocAppProp = async () => {
 const loadDocs = async () => {
   try {
     const DocApp = await docApp(context);
-    const { contentHtml, toc, navBarTree } = await createDocAppProp();
+    const { contentHtml, toc, navBarTree } = await createDocAppProp({
+      context,
+    });
     mountApp(
       DocApp({
         contentHtml,

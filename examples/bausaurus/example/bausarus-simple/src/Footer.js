@@ -1,17 +1,19 @@
 export default function ({ bau, css }) {
   const { footer } = bau.tags;
 
-  return function () {
+  const className = css`
+    grid-area: footer;
+    border: 1px dotted lightgray;
+    min-height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
+
+  return function Footer() {
     return footer(
       {
-        class: css`
-          grid-area: footer;
-          border: 1px dotted lightgray;
-          min-height: 4rem;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        `,
+        class: className,
       },
       `Copyright © ${new Date().getFullYear()} World Company`
     );
