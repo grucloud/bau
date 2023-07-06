@@ -41,14 +41,7 @@ export default async function ({ bau, css, createGlobalStyles, window }) {
 
   createHighlightStyle(createGlobalStyles);
 
-  return function MainContent({ contentHtml }) {
-    const el = main({
-      class: css`
-        grid-area: main;
-        margin: 1rem;
-        overflow-y: scroll;
-      `,
-    });
+  const updateContent = (el, { contentHtml }) => {
     el.innerHTML = contentHtml;
     el.querySelectorAll("code").forEach((codeEl) => {
       // Already processed
@@ -59,6 +52,18 @@ export default async function ({ bau, css, createGlobalStyles, window }) {
       }).value;
       codeEl.classList.add("hljs");
     });
+  };
+
+  return function MainContent({ contentHtml }) {
+    const el = main({
+      class: css`
+        grid-area: main;
+        margin: 1rem;
+        overflow-y: scroll;
+      `,
+    });
+
+    updateContent(el, { contentHtml });
 
     return el;
   };

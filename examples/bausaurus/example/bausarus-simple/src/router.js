@@ -44,13 +44,14 @@ export const loadContent = async ({ nextPage, context }) => {
 };
 
 const onLocationChange = async ({
-  window,
+  context,
   mainEl,
   tocEl,
+  MainContent,
   Toc,
   nextPage,
-  context,
 }) => {
+  const { window } = context;
   const { contentHtml, toc, frontmatter } = await loadContent({
     nextPage,
     context,
@@ -59,22 +60,36 @@ const onLocationChange = async ({
   frontmatter.description &&
     (window.document.description = frontmatter.description);
 
-  mainEl.innerHTML = contentHtml;
+  mainEl.innerHTML = MainContent({ contentHtml }).innerHTML;
   tocEl.innerHTML = Toc({ toc }).innerHTML;
 };
 
-export const registerHistoryBack = ({ window, mainEl, tocEl, Toc }) => {
+export const registerHistoryBack = ({
+  context,
+  mainEl,
+  tocEl,
+  Toc,
+  MainContent,
+}) => {
+  const { window } = context;
+
   window.addEventListener("popstate", () =>
-    onLocationChange({ mainEl, tocEl, Toc, nextPage: location.pathname })
+    onLocationChange({
+      context,
+      mainEl,
+      tocEl,
+      MainContent,
+      Toc,
+      nextPage: window.location.pathname,
+    })
   );
 };
 
 export const onClickAnchor =
-  ({ window, mainEl, tocEl, Toc }) =>
+  ({ context, mainEl, tocEl, MainContent, Toc }) =>
   async (event) => {
     const { target } = event;
     const href = target.getAttribute("href");
-
     if (
       target.tagName === "A" &&
       href &&
@@ -82,9 +97,8 @@ export const onClickAnchor =
       !href.startsWith("#")
     ) {
       const nextPage = href.replace(".md", "");
-
-      history.pushState({}, null, nextPage);
+      context.window.history.pushState({}, null, nextPage);
       event.preventDefault();
-      onLocationChange({ window, mainEl, tocEl, Toc, nextPage });
+      onLocationChange({ context, mainEl, tocEl, Toc, MainContent, nextPage });
     }
   };

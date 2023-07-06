@@ -3,13 +3,11 @@ import navBar from "./NavBar.js";
 import mainContent from "./MainContent.js";
 import toc from "./Toc.js";
 import footer from "./Footer.js";
-
 import { registerHistoryBack, onClickAnchor } from "./router.js";
-
 import { createStyles } from "./style.js";
 
 export default async function (context) {
-  const { bau, css, window } = context;
+  const { bau, css } = context;
   const { div } = bau.tags;
 
   createStyles(context);
@@ -35,12 +33,18 @@ export default async function (context) {
     const mainEl = MainContent({ contentHtml });
     const tocEl = Toc({ toc });
 
-    registerHistoryBack({ window, mainEl, tocEl, Toc });
+    registerHistoryBack({ context, mainEl, tocEl, MainContent, Toc });
 
     return div(
       {
         class: className,
-        onclick: onClickAnchor({ window, mainEl, tocEl, Toc }),
+        onclick: onClickAnchor({
+          context,
+          mainEl,
+          tocEl,
+          MainContent,
+          Toc,
+        }),
       },
       Header(),
       navBarTree && NavBar({ tree: navBarTree }),
