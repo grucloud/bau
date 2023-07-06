@@ -12,10 +12,10 @@ const { when, identity } = rubicox;
 
 const escape = (content) => content.replace(/\\|`|\$/g, "\\$&");
 
-const contentToEsModule = ({ contentHtml, toc }) => `
-
+const contentToEsModule = ({ contentHtml, toc, frontmatter }) => `
+export const frontmatter = ${JSON.stringify(frontmatter)}
+export const toc = ${JSON.stringify(toc)}
 export const contentHtml = \`${escape(contentHtml.value)}\`
-export const toc = \`${JSON.stringify(toc)}\`
 `;
 
 const transform =

@@ -49,7 +49,7 @@ const loadDocs = async () => {
     mountApp(
       DocApp({
         contentHtml,
-        toc: JSON.parse(toc),
+        toc,
         navBarTree,
       })
     );

@@ -40,7 +40,7 @@ export default async function (context) {
     return div(
       {
         class: className,
-        onclick: onClickAnchor({ mainEl, tocEl, Toc }),
+        onclick: onClickAnchor({ window, mainEl, tocEl, Toc }),
       },
       Header(),
       navBarTree && NavBar({ tree: navBarTree }),

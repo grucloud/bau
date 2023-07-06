@@ -1,6 +1,6 @@
 import { hashMapFile } from "./constants.js";
 import { inBrowser, pathFromLocation } from "./utils.js";
-import pageNotFound from "./NotFound";
+import pageNotFound from "./NotFound.js";
 
 let __BAUSAURUS_HASH_MAP__;
 
@@ -33,18 +33,34 @@ const jsAssetFileFromHref = (href) => {
 export const loadContent = async ({ nextPage, context }) => {
   try {
     const jsFile = jsAssetFileFromHref(nextPage);
-    const { contentHtml, toc } = await import(/* @vite-ignore */ jsFile);
-    return { contentHtml, toc };
+    const { contentHtml, toc, frontmatter } = await import(
+      /* @vite-ignore */ jsFile
+    );
+    return { contentHtml, toc, frontmatter };
   } catch (error) {
     const PageNotFound = pageNotFound(context);
     return { contentHtml: PageNotFound().outerHTML, toc: "{}" };
   }
 };
 
-const onLocationChange = async ({ mainEl, tocEl, Toc, nextPage, context }) => {
-  const { contentHtml, toc } = loadContent({ nextPage, context });
+const onLocationChange = async ({
+  window,
+  mainEl,
+  tocEl,
+  Toc,
+  nextPage,
+  context,
+}) => {
+  const { contentHtml, toc, frontmatter } = await loadContent({
+    nextPage,
+    context,
+  });
+  frontmatter.title && (window.document.title = frontmatter.title);
+  frontmatter.description &&
+    (window.document.description = frontmatter.description);
+
   mainEl.innerHTML = contentHtml;
-  tocEl.innerHTML = Toc({ toc: JSON.parse(toc) }).innerHTML;
+  tocEl.innerHTML = Toc({ toc }).innerHTML;
 };
 
 export const registerHistoryBack = ({ window, mainEl, tocEl, Toc }) => {
@@ -54,7 +70,7 @@ export const registerHistoryBack = ({ window, mainEl, tocEl, Toc }) => {
 };
 
 export const onClickAnchor =
-  ({ mainEl, tocEl, Toc }) =>
+  ({ window, mainEl, tocEl, Toc }) =>
   async (event) => {
     const { target } = event;
     const href = target.getAttribute("href");
@@ -69,6 +85,6 @@ export const onClickAnchor =
 
       history.pushState({}, null, nextPage);
       event.preventDefault();
-      onLocationChange({ mainEl, tocEl, Toc, nextPage });
+      onLocationChange({ window, mainEl, tocEl, Toc, nextPage });
     }
   };
