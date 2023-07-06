@@ -22,6 +22,9 @@ export default function (context) {
         grid-area: navbar;
         padding: 1rem;
         border: 1px gray dotted;
+        position: sticky;
+        top: calc(var(--header-height) + 1rem);
+        align-self: start;
       `,
       // TODO limit to 2 when render on server
       maxDepth: inBrowser() ? Infinity : 2,

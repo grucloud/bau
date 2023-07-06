@@ -1,5 +1,3 @@
-import globalStyle from "@grucloud/bau-ui/globalStyle/globalStyle.js";
-
 import header from "./Header.js";
 import navBar from "./NavBar.js";
 import mainContent from "./MainContent.js";
@@ -8,32 +6,13 @@ import footer from "./Footer.js";
 
 import { registerHistoryBack, onClickAnchor } from "./router.js";
 
+import { createStyles } from "./style.js";
+
 export default async function (context) {
-  const { bau, css, createGlobalStyles, window } = context;
+  const { bau, css, window } = context;
   const { div } = bau.tags;
 
-  globalStyle(context);
-
-  createGlobalStyles`
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top:5rem
-    }
-    blockquote {
-      margin: 1rem 0;
-      border-left: 0.2rem solid var(--color-primary-lighter);
-      padding: 0.25rem 0 0.25rem 1rem;
-      font-size: 1rem;
-      color: var(--color-emphasis-900);
-    }
-
-    blockquote > p {
-      margin: 0;
-    }
-    img {
-      max-width: 100%;
-    }
-  `;
+  createStyles(context);
 
   const Header = header(context);
   const NavBar = navBar(context);
