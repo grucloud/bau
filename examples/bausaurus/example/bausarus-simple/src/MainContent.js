@@ -1,6 +1,7 @@
 import hljs from "highlight.js/lib/core";
 import js from "highlight.js/lib/languages/javascript";
 import sh from "highlight.js/lib/languages/shell";
+import buttonCopyText from "./ButtonCopyText.js";
 
 const defaultLanguagesMap = { js: js, sh: sh };
 const defaultLanguages = Object.keys(defaultLanguagesMap);
@@ -34,8 +35,11 @@ const findLanguage = (el) => {
   return defaultLanguages.includes(language) ? language : "sh";
 };
 
-export default async function ({ bau, css, createGlobalStyles, window }) {
+export default async function (context) {
+  const { bau, css, createGlobalStyles, window } = context;
   const { main } = bau.tags;
+
+  const ButtonCopyText = buttonCopyText(context);
 
   await registerLanguage({ languages: defaultLanguages });
 
@@ -46,11 +50,16 @@ export default async function ({ bau, css, createGlobalStyles, window }) {
     el.querySelectorAll("code").forEach((codeEl) => {
       // Already processed
       if (codeEl.classList.contains("hljs")) return;
+      const codeEscaped = htmlDecode(window, codeEl.innerHTML);
+      codeEl.setAttribute("data-code", codeEscaped);
       const language = findLanguage(codeEl);
-      codeEl.innerHTML = hljs.highlight(htmlDecode(window, codeEl.innerHTML), {
+      codeEl.innerHTML = hljs.highlight(codeEscaped, {
         language,
       }).value;
+      codeEl.append(ButtonCopyText());
       codeEl.classList.add("hljs");
+      // Needed for the button
+      codeEl.style = "position: relative;";
     });
   };
 
@@ -64,7 +73,6 @@ export default async function ({ bau, css, createGlobalStyles, window }) {
     });
 
     updateContent(el, { contentHtml });
-
     return el;
   };
 }

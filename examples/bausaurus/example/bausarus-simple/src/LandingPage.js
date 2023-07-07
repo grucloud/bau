@@ -5,7 +5,7 @@ import globalStyle from "@grucloud/bau-ui/globalStyle/globalStyle.js";
 
 export default function (context) {
   const { bau, css, createGlobalStyles } = context;
-  const { div, main } = bau.tags;
+  const { div } = bau.tags;
   globalStyle(context);
 
   createGlobalStyles`

@@ -25,5 +25,9 @@ export const createStyles = (context) => {
     img {
       max-width: 100%;
     }
+    code:hover > button {
+      background: var(--background-color);
+      visibility: visible;
+    }
   `;
 };
