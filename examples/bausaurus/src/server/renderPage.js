@@ -103,7 +103,6 @@ const renderDocApp = async ({ docApp, navBarTree, contentHtml, toc }) => {
     cssFilename,
   };
 };
-
 const toHtml = ({
   siteData,
   title,
@@ -120,6 +119,7 @@ const toHtml = ({
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>${title}</title>
     <meta name="description" content="${description}">
+    ${siteData.favicon ? `<link rel="icon" href="${siteData.favicon}">` : ""}
     <link rel="stylesheet" href="/assets/${content.cssFilename}">
     ${
       cssChunk
