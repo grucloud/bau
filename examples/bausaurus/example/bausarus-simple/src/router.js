@@ -1,4 +1,4 @@
-import { hashMapFile } from "./constants.js";
+import { hashMapFile, docPath } from "./constants.js";
 import { inBrowser, pathFromLocation } from "./utils.js";
 import pageNotFound from "./NotFound.js";
 
@@ -56,10 +56,11 @@ const onLocationChange = async ({
     nextPage,
     context,
   });
-  frontmatter.title && (window.document.title = frontmatter.title);
-  frontmatter.description &&
-    (window.document.description = frontmatter.description);
-
+  if (frontmatter) {
+    frontmatter.title && (window.document.title = frontmatter.title);
+    frontmatter.description &&
+      (window.document.description = frontmatter.description);
+  }
   mainEl.innerHTML = MainContent({ contentHtml }).innerHTML;
   tocEl.innerHTML = Toc({ toc }).innerHTML;
 };
@@ -93,6 +94,7 @@ export const onClickAnchor =
     if (
       target.tagName === "A" &&
       href &&
+      href.startsWith(docPath) &&
       !href.startsWith("http") &&
       !href.startsWith("#")
     ) {

@@ -1,6 +1,6 @@
 export default function (context) {
   const { tr, bau, css } = context;
-  const { header, div, a } = bau.tags;
+  const { header, div, a, img } = bau.tags;
 
   const NavBarLeft = () =>
     div(
@@ -13,36 +13,42 @@ export default function (context) {
             font-weight: var(--font-weight-bold);
           }
           & a {
-            font-size: 1.3rem;
-            color: var(--font-color-inverse);
+            color: var(--font-color);
             text-decoration: none;
             padding: 1rem 0.5rem;
           }
+          > img {
+            padding: 0.5rem;
+          }
         `,
       },
-      // TODO use baseUrl
+      img({
+        alt: "GruCloud",
+        src: "/grucloud.svg",
+        width: 30,
+        height: 30,
+      }),
       a({ class: "title", href: "/" }, tr("Bausaurus")),
-      a({ href: "/docs/" }, tr("Doc"))
+      a({ href: "/docs/" }, tr("Docs"))
     );
 
   const NavBarRight = () =>
     a(
       {
         class: css`
-          padding: 1rem;
+          padding-right: 1rem;
           color: var(--font-color-inverse);
         `,
         target: "_blank",
         href: "https://github.com/grucloud/bau",
+        title: "GitHub",
       },
-      "GitHub"
-      //TODO image
-      // img({
-      //   alt: "GitHub",
-      //   src: "./github-mark-white.svg",
-      //   width: 30,
-      //   height: 30,
-      // })
+      img({
+        alt: "GitHub",
+        src: "/github.svg",
+        width: 30,
+        height: 30,
+      })
     );
 
   return function Header() {
@@ -56,8 +62,8 @@ export default function (context) {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          background-color: var(--color-primary);
-          color: var(--font-color-inverse);
+          box-shadow: var(--global-shadow-lw);
+          background-color: var(--background-color);
         `,
       },
       NavBarLeft(),
