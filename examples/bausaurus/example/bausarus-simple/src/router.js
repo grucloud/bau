@@ -51,7 +51,10 @@ export const createRouter = (context, { onLocationChange }) => {
 
   window.addEventListener("click", (event) => {
     const { target } = event;
-    const href = target.getAttribute("href");
+    let href = target.getAttribute("href");
+    if (href?.startsWith("./")) {
+      href = `${location.pathname}${href.slice(2)}`;
+    }
     if (
       target.tagName === "A" &&
       href &&
@@ -59,7 +62,7 @@ export const createRouter = (context, { onLocationChange }) => {
       !href.startsWith("http") &&
       !href.startsWith("#")
     ) {
-      const nextPage = href.replace(".md", "");
+      let nextPage = href.replace(".md", "");
       context.window.history.pushState({}, null, nextPage);
       event.preventDefault();
       onLocationChange({
