@@ -16,6 +16,10 @@ export const componentlist = () => [
     id: "avatar",
   },
   {
+    name: "Breadcrumbs",
+    id: "breadcrumbs",
+  },
+  {
     name: "Button",
     id: "button",
   },

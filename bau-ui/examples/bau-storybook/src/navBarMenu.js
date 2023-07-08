@@ -9,7 +9,9 @@ export default function (context) {
       {
         class: css`
           grid-area: sidebar;
-          top: 20px;
+          position: sticky;
+          top: calc(var(--header-height) + 1rem);
+          align-self: start;
           bottom: 0px;
           left: 0;
           min-width: 150px;
