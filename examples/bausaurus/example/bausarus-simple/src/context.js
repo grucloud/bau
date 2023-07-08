@@ -1,7 +1,7 @@
 import Bau from "@grucloud/bau";
 import BauCss from "@grucloud/bau-css";
 
-export default function createContex({ window }) {
+export default function createContext({ window }) {
   const { document } = window;
   const bau = Bau({ document });
   const bauCss = BauCss({ document });

@@ -2,14 +2,16 @@ import assert from "assert";
 import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
 
+import createJSDOM from "./jsdom.js";
+import createContext from "./context.js";
 import { isPageChunk } from "./utils.js";
 import { DIST_CLIENT_PATH, hashRE } from "./constants.js";
 import { processMarkdownContent } from "./markdown.js";
 import { pagesHashMapToString } from "./pagesHashMap.js";
 import { navBarTreeToBreadcrumbs } from "./breadcrumbs.js";
 
-const { pipe, tap, eq, switchCase, get, map } = rubico;
-const { when, identity, callProp, pluck } = rubicox;
+const { pipe, tap, eq, switchCase } = rubico;
+const { when, identity } = rubicox;
 
 const escape = (content) => content.replace(/\\|`|\$/g, "\\$&");
 
@@ -19,9 +21,14 @@ const contentToEsModule =
     `
 export const frontmatter = ${JSON.stringify(frontmatter)}
 export const toc = ${JSON.stringify(toc)}
-export const contentHtml = \`${escape(contentHtml.value)}\`
+export const contentHtml = \`${escape(contentHtml)}\`
 export const breadcrumbs =  ${JSON.stringify(toBreadcrumbs())}
 `;
+
+const dom = createJSDOM();
+const context = createContext({
+  window: dom.window,
+});
 
 const transform =
   ({ navBarTree, site }) =>
@@ -36,7 +43,10 @@ const transform =
         () => id.endsWith(".md"),
         pipe([
           () => ({ code, filename: id }),
-          processMarkdownContent,
+          processMarkdownContent({
+            dom,
+            context,
+          }),
           contentToEsModule({
             toBreadcrumbs: () =>
               navBarTreeToBreadcrumbs({ site, filename: id, navBarTree }),

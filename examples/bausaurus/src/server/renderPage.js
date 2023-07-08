@@ -2,7 +2,6 @@ import assert from "assert";
 import fs from "fs-extra";
 import Path from "path";
 import os from "os";
-//import { normalizePath } from "vite";
 import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
 import { createHash } from "crypto";
@@ -14,7 +13,6 @@ import { processMarkdownContent } from "./markdown.js";
 import createContext from "./context.js";
 import createJSDOM from "./jsdom.js";
 import { navBarTreeToBreadcrumbs } from "./breadcrumbs.js";
-//import { sanitizeFileName } from "./sanitizeFileName.js";
 import { isPageChunk } from "./utils.js";
 
 export const isOutputJs = and([
@@ -83,22 +81,21 @@ const writeExtractedCss = ({ site, cssContent, cssFilename }) =>
   ])();
 
 const renderDocApp = async ({
+  dom,
+  context,
   docApp,
   navBarTree,
   breadcrumbs,
   contentHtml,
   toc,
 }) => {
+  assert(dom);
   assert(docApp);
   assert(navBarTree);
   assert(contentHtml);
   assert(toc);
   assert(breadcrumbs);
 
-  const dom = createJSDOM();
-  const context = createContext({
-    window: dom.window,
-  });
   const DocApp = await docApp(context);
   // This will fill the dom.window.document.head with the style
   const content = await DocApp({ navBarTree, contentHtml, toc, breadcrumbs })
@@ -168,6 +165,10 @@ export const renderPage =
     assert(site.outDir);
     assert(site.base);
 
+    const dom = createJSDOM();
+    const context = createContext({
+      window: dom.window,
+    });
     const pageMd = chunk.name.replace(site.base.slice(1), "");
     const page = pageMd.replace(".md", "");
     assert(page);
@@ -183,10 +184,12 @@ export const renderPage =
         filename: chunk.facadeModuleId,
         code,
       }),
-      processMarkdownContent,
+      processMarkdownContent({ dom, context }),
       ({ contentHtml, toc, frontmatter }) =>
         pipe([
           () => ({
+            dom,
+            context,
             docApp: config.docApp,
             navBarTree: config.navBarTree,
             contentHtml,

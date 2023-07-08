@@ -19,7 +19,6 @@ export default function (context) {
     right: 0.5rem;
     visibility: hidden;
   `;
-
   return function ButtonCopyText() {
     return Button(
       {
