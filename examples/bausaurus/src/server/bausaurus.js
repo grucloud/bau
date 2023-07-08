@@ -1,12 +1,10 @@
-import assert from "assert";
-import rubico from "rubico";
-import path from "path";
-import fs from "fs/promises";
 import { buildDev } from "./buildDev.js";
 import { buildProd } from "./buildProd.js";
 
 import { Command } from "commander";
 const program = new Command();
+
+import pkg from "../../package.json" assert { type: "json" };
 
 const optionRootDir = [
   "--root-dir",
@@ -16,8 +14,8 @@ const optionRootDir = [
 
 program
   .name("Bausaurus")
-  .description("Static Site Generation built with Bau")
-  .version("0.8.0")
+  .description(pkg.description)
+  .version(pkg.version)
   .option(...optionRootDir);
 
 program

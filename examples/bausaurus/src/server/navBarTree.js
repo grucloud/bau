@@ -6,7 +6,8 @@ import Path from "path";
 import matter from "gray-matter";
 import { ExcludeFiles } from "./utils.js";
 
-const { pipe, tap, map, get, switchCase, all, assign, tryCatch, eq } = rubico;
+const { pipe, tap, map, get, switchCase, all, assign, tryCatch, eq, or } =
+  rubico;
 const { callProp, find, isEmpty, unless, filterOut, isIn, pluck } = rubicox;
 
 const isMarkdownFile = callProp("endsWith", ".md");
@@ -55,7 +56,10 @@ const getDirEntries = (directory) =>
     }),
   ])();
 
-const isIndexFile = pipe([get("data.href", ""), callProp("endsWith", "index")]);
+const isIndexFile = pipe([
+  get("data.href", ""),
+  or([callProp("endsWith", "index") /* callProp("endsWith", "README")*/]),
+]);
 
 const processDir =
   ({ directory, tree, base, pathsNested }) =>
@@ -74,7 +78,17 @@ const processDir =
           switchCase([
             isEmpty,
             () => subTree,
-            ({ data }) => ({ ...subTree, ...treeItem, data }),
+            pipe([
+              tap((params) => {
+                assert(true);
+              }),
+              ({ data }) => ({
+                ...subTree,
+                ...treeItem,
+                // data: { href: data.href, name: subTree.data?.name },
+                data,
+              }),
+            ]),
           ]),
           assign({ children: pipe([get("children"), filterOut(isIndexFile)]) }),
         ])()
