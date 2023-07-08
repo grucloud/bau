@@ -11,7 +11,7 @@ import { writePagesHashMap } from "./pagesHashMap.js";
 import { writeNavBarTree } from "./navBarTree.js";
 import { createOutputDir } from "./utils.js";
 
-const buildProd = ({ rootDir }) =>
+export const buildProd = ({ rootDir }) =>
   pipe([
     () => ({ rootDir }),
     createBausaurusConfig,
@@ -29,6 +29,3 @@ const buildProd = ({ rootDir }) =>
         }),
       ])(),
   ])();
-
-//TODO remove
-buildProd({ rootDir: process.cwd() });

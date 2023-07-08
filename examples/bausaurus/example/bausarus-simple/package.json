@@ -4,8 +4,8 @@
   "version": "0.28.0",
   "type": "module",
   "scripts": {
-    "dev": "node ../../src/server/buildDev.js",
-    "build": "node ../../src/server/buildProd.js",
+    "dev": "bausaurus dev",
+    "build": "bausaurus build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -13,5 +13,8 @@
     "@grucloud/bau-css": "^0.28.0",
     "@grucloud/bau-ui": "^0.28.0",
     "rubico": "2.0.1"
+  },
+  "devDependencies": {
+    "@grucloud/bausaurus": "^0.28.0"
   }
 }

@@ -9,7 +9,7 @@ const { callProp } = rubicox;
 import { createBausaurusConfig } from "./bausaurusConfig.js";
 import createViteConfig from "./vite.config.js";
 
-const buildDev = ({ rootDir }) =>
+export const buildDev = ({ rootDir }) =>
   pipe([
     tap((params) => {
       assert(true);
@@ -20,6 +20,3 @@ const buildDev = ({ rootDir }) =>
     createServer,
     callProp("listen"),
   ])();
-
-//TODO remove
-buildDev({ rootDir: process.cwd() });
