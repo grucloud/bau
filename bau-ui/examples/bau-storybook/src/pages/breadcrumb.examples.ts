@@ -12,10 +12,10 @@ export default (context: Context) => {
     items: [
       {
         href: "/",
-        title: "\u2302",
+        name: "\u2302",
       },
-      { title: "Dir" },
-      { href: "/dir/subdir", title: "SubDir" },
+      { name: "Dir" },
+      { href: "/dir/subdir", name: "SubDir" },
     ],
   };
 

@@ -8,6 +8,8 @@ export default function (context) {
     list-style: none;
     display: flex;
     align-items: center;
+    padding-left: 0;
+    margin-bottom: 0;
     & li {
       display: flex;
       align-items: center;
@@ -36,10 +38,11 @@ export default function (context) {
   return function Breadcrumbs({ items, ...otherProps }) {
     return ul(
       {
-        class: classNames(className, otherProps.class),
         "aria-label": "Breadcrumbs",
+        ...otherProps,
+        class: classNames(className, otherProps.class),
       },
-      items.map(({ href, title }) => li((href ? a : span)({ href }, title)))
+      items.map(({ href, name }) => li((href ? a : span)({ href }, name)))
     );
   };
 }

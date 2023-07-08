@@ -35,15 +35,15 @@ export default function (context) {
   const NavBarRight = () =>
     a(
       {
-        class: css`
-          padding-right: 1rem;
-          color: var(--font-color-inverse);
-        `,
         target: "_blank",
         href: "https://github.com/grucloud/bau",
         title: "GitHub",
       },
       img({
+        class: css`
+          vertical-align: middle;
+          padding-right: 1rem;
+        `,
         alt: "GitHub",
         src: "/github.svg",
         width: 30,

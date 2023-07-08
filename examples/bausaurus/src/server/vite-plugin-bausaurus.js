@@ -6,33 +6,41 @@ import { isPageChunk } from "./utils.js";
 import { DIST_CLIENT_PATH, hashRE } from "./constants.js";
 import { processMarkdownContent } from "./markdown.js";
 import { pagesHashMapToString } from "./pagesHashMap.js";
+import { navBarTreeToBreadcrumbs } from "./breadcrumbs.js";
 
-const { pipe, tap, eq, switchCase } = rubico;
-const { when, identity } = rubicox;
+const { pipe, tap, eq, switchCase, get, map } = rubico;
+const { when, identity, callProp, pluck } = rubicox;
 
 const escape = (content) => content.replace(/\\|`|\$/g, "\\$&");
 
-const contentToEsModule = ({ contentHtml, toc, frontmatter }) => `
+const contentToEsModule =
+  ({ toBreadcrumbs }) =>
+  ({ contentHtml, toc, frontmatter }) =>
+    `
 export const frontmatter = ${JSON.stringify(frontmatter)}
 export const toc = ${JSON.stringify(toc)}
 export const contentHtml = \`${escape(contentHtml.value)}\`
+export const breadcrumbs =  ${JSON.stringify(toBreadcrumbs())}
 `;
 
 const transform =
-  ({}) =>
+  ({ navBarTree, site }) =>
   (code, id) =>
     pipe([
       tap((params) => {
         assert(code);
         assert(id);
-        //console.log("transform", id);
+        console.log("transform", id);
       }),
       when(
         () => id.endsWith(".md"),
         pipe([
           () => ({ code, filename: id }),
           processMarkdownContent,
-          contentToEsModule,
+          contentToEsModule({
+            toBreadcrumbs: () =>
+              navBarTreeToBreadcrumbs({ site, filename: id, navBarTree }),
+          }),
           tap((params) => {
             assert(true);
           }),

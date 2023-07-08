@@ -33,10 +33,7 @@ const jsAssetFileFromHref = (href) => {
 export const loadContent = async ({ nextPage, context }) => {
   try {
     const jsFile = jsAssetFileFromHref(nextPage);
-    const { contentHtml, toc, frontmatter } = await import(
-      /* @vite-ignore */ jsFile
-    );
-    return { contentHtml, toc, frontmatter };
+    return import(/* @vite-ignore */ jsFile);
   } catch (error) {
     const PageNotFound = pageNotFound(context);
     return { contentHtml: PageNotFound().outerHTML, toc: "{}" };
@@ -47,12 +44,14 @@ const onLocationChange = async ({
   context,
   mainEl,
   tocEl,
+  breadcrumbsEl,
   MainContent,
   Toc,
+  BreadcrumbsDoc,
   nextPage,
 }) => {
   const { window } = context;
-  const { contentHtml, toc, frontmatter } = await loadContent({
+  const { contentHtml, toc, frontmatter, breadcrumbs } = await loadContent({
     nextPage,
     context,
   });
@@ -63,14 +62,17 @@ const onLocationChange = async ({
   }
   mainEl.innerHTML = MainContent({ contentHtml }).innerHTML;
   tocEl.innerHTML = Toc({ toc }).innerHTML;
+  breadcrumbsEl.innerHTML = BreadcrumbsDoc({ breadcrumbs }).innerHTML;
 };
 
 export const registerHistoryBack = ({
   context,
   mainEl,
   tocEl,
+  breadcrumbsEl,
   Toc,
   MainContent,
+  BreadcrumbsDoc,
 }) => {
   const { window } = context;
 
@@ -79,15 +81,25 @@ export const registerHistoryBack = ({
       context,
       mainEl,
       tocEl,
+      breadcrumbsEl,
       MainContent,
       Toc,
+      BreadcrumbsDoc,
       nextPage: window.location.pathname,
     })
   );
 };
 
 export const onClickAnchor =
-  ({ context, mainEl, tocEl, MainContent, Toc }) =>
+  ({
+    context,
+    mainEl,
+    tocEl,
+    breadcrumbsEl,
+    MainContent,
+    Toc,
+    BreadcrumbsDoc,
+  }) =>
   async (event) => {
     const { target } = event;
     const href = target.getAttribute("href");
@@ -101,6 +113,15 @@ export const onClickAnchor =
       const nextPage = href.replace(".md", "");
       context.window.history.pushState({}, null, nextPage);
       event.preventDefault();
-      onLocationChange({ context, mainEl, tocEl, Toc, MainContent, nextPage });
+      onLocationChange({
+        context,
+        mainEl,
+        tocEl,
+        breadcrumbsEl,
+        Toc,
+        MainContent,
+        BreadcrumbsDoc,
+        nextPage,
+      });
     }
   };

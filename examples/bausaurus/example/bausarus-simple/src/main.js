@@ -24,33 +24,39 @@ const createDocAppProp = async ({ context }) => {
     // Prod
     const navBarTree = await fetchNavBarTree();
     const tocEl = document.querySelector("nav[data-toc]");
+    const breadcrumbsEl = document.querySelector("ul[data-breadcrumbs]");
+
     return {
       contentHtml: mainEls[0].innerHTML,
-      toc: tocEl.dataset.toc,
+      toc: JSON.parse(tocEl.dataset.toc),
       navBarTree,
+      breadcrumbs: JSON.parse(breadcrumbsEl.dataset.breadcrumbs),
     };
   } else {
     // Dev
     const navBarTree = await importNavBarTree();
-    const { contentHtml, toc } = await loadContent({
+    const { contentHtml, toc, breadcrumbs } = await loadContent({
       nextPage: location.pathname,
       context,
     });
-    return { contentHtml, toc, navBarTree };
+
+    return { contentHtml, toc, navBarTree, breadcrumbs };
   }
 };
 
 const loadDocs = async () => {
   try {
     const DocApp = await docApp(context);
-    const { contentHtml, toc, navBarTree } = await createDocAppProp({
-      context,
-    });
+    const { contentHtml, toc, navBarTree, breadcrumbs } =
+      await createDocAppProp({
+        context,
+      });
     mountApp(
       DocApp({
         contentHtml,
         toc,
         navBarTree,
+        breadcrumbs,
       })
     );
   } catch (error) {

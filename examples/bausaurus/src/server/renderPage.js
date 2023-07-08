@@ -13,7 +13,7 @@ const { callProp, find, when } = rubicox;
 import { processMarkdownContent } from "./markdown.js";
 import createContext from "./context.js";
 import createJSDOM from "./jsdom.js";
-
+import { navBarTreeToBreadcrumbs } from "./breadcrumbs.js";
 //import { sanitizeFileName } from "./sanitizeFileName.js";
 import { isPageChunk } from "./utils.js";
 
@@ -82,11 +82,18 @@ const writeExtractedCss = ({ site, cssContent, cssFilename }) =>
     (path) => fs.writeFile(path, cssContent),
   ])();
 
-const renderDocApp = async ({ docApp, navBarTree, contentHtml, toc }) => {
+const renderDocApp = async ({
+  docApp,
+  navBarTree,
+  breadcrumbs,
+  contentHtml,
+  toc,
+}) => {
   assert(docApp);
   assert(navBarTree);
   assert(contentHtml);
   assert(toc);
+  assert(breadcrumbs);
 
   const dom = createJSDOM();
   const context = createContext({
@@ -94,7 +101,8 @@ const renderDocApp = async ({ docApp, navBarTree, contentHtml, toc }) => {
   });
   const DocApp = await docApp(context);
   // This will fill the dom.window.document.head with the style
-  const content = await DocApp({ navBarTree, contentHtml, toc }).outerHTML;
+  const content = await DocApp({ navBarTree, contentHtml, toc, breadcrumbs })
+    .outerHTML;
   const cssContent = extractCSS({ document: dom.window.document });
   const cssFilename = inferCssFileName({ cssContent });
   return {
@@ -183,6 +191,11 @@ export const renderPage =
             navBarTree: config.navBarTree,
             contentHtml,
             toc,
+            breadcrumbs: navBarTreeToBreadcrumbs({
+              navBarTree: config.navBarTree,
+              site: config.site,
+              filename: chunk.facadeModuleId,
+            }),
           }),
           renderDocApp,
           (content) =>
