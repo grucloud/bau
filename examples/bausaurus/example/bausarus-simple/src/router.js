@@ -40,67 +40,16 @@ export const loadContent = async ({ nextPage, context }) => {
   }
 };
 
-const onLocationChange = async ({
-  context,
-  mainEl,
-  tocEl,
-  breadcrumbsEl,
-  MainContent,
-  Toc,
-  BreadcrumbsDoc,
-  nextPage,
-}) => {
-  const { window } = context;
-  const { contentHtml, toc, frontmatter, breadcrumbs } = await loadContent({
-    nextPage,
-    context,
-  });
-  if (frontmatter) {
-    frontmatter.title && (window.document.title = frontmatter.title);
-    frontmatter.description &&
-      (window.document.description = frontmatter.description);
-  }
-  mainEl.innerHTML = MainContent({ contentHtml }).innerHTML;
-  tocEl.innerHTML = Toc({ toc }).innerHTML;
-  breadcrumbsEl.innerHTML = BreadcrumbsDoc({ breadcrumbs }).innerHTML;
-};
-
-export const registerHistoryBack = ({
-  context,
-  mainEl,
-  tocEl,
-  breadcrumbsEl,
-  Toc,
-  MainContent,
-  BreadcrumbsDoc,
-}) => {
+export const createRouter = (context, { onLocationChange }) => {
   const { window } = context;
 
   window.addEventListener("popstate", () =>
     onLocationChange({
-      context,
-      mainEl,
-      tocEl,
-      breadcrumbsEl,
-      MainContent,
-      Toc,
-      BreadcrumbsDoc,
       nextPage: window.location.pathname,
     })
   );
-};
 
-export const onClickAnchor =
-  ({
-    context,
-    mainEl,
-    tocEl,
-    breadcrumbsEl,
-    MainContent,
-    Toc,
-    BreadcrumbsDoc,
-  }) =>
-  async (event) => {
+  window.addEventListener("click", (event) => {
     const { target } = event;
     const href = target.getAttribute("href");
     if (
@@ -114,14 +63,8 @@ export const onClickAnchor =
       context.window.history.pushState({}, null, nextPage);
       event.preventDefault();
       onLocationChange({
-        context,
-        mainEl,
-        tocEl,
-        breadcrumbsEl,
-        Toc,
-        MainContent,
-        BreadcrumbsDoc,
         nextPage,
       });
     }
-  };
+  });
+};

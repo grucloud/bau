@@ -4,11 +4,11 @@ import mainContent from "./MainContent.js";
 import toc from "./Toc.js";
 import footer from "./Footer.js";
 import breadcrumbsDoc from "./BreadcrumbsDoc.js";
-import { registerHistoryBack, onClickAnchor } from "./router.js";
+import { createRouter, loadContent } from "./router.js";
 import { createStyles } from "./style.js";
 
 export default async function (context) {
-  const { bau, css } = context;
+  const { bau, css, window } = context;
   const { div } = bau.tags;
 
   createStyles(context);
@@ -37,28 +37,26 @@ export default async function (context) {
     const tocEl = Toc({ toc });
     const breadcrumbsEl = BreadcrumbsDoc({ breadcrumbs });
 
-    registerHistoryBack({
-      context,
-      mainEl,
-      tocEl,
-      breadcrumbsEl,
-      MainContent,
-      Toc,
-      BreadcrumbsDoc,
-    });
+    const onLocationChange = async ({ nextPage }) => {
+      const { contentHtml, toc, frontmatter, breadcrumbs } = await loadContent({
+        nextPage,
+        context,
+      });
+      if (frontmatter) {
+        frontmatter.title && (window.document.title = frontmatter.title);
+        frontmatter.description &&
+          (window.document.description = frontmatter.description);
+      }
+      mainEl.innerHTML = MainContent({ contentHtml }).innerHTML;
+      tocEl.innerHTML = Toc({ toc }).innerHTML;
+      breadcrumbsEl.innerHTML = BreadcrumbsDoc({ breadcrumbs }).innerHTML;
+    };
+
+    createRouter(context, { onLocationChange });
 
     return div(
       {
         class: className,
-        onclick: onClickAnchor({
-          context,
-          mainEl,
-          tocEl,
-          breadcrumbsEl,
-          MainContent,
-          Toc,
-          BreadcrumbsDoc,
-        }),
       },
       Header(),
       navBarTree && NavBar({ tree: navBarTree }),
