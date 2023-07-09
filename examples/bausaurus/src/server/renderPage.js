@@ -1,10 +1,8 @@
 import assert from "assert";
 import fs from "fs-extra";
 import Path from "path";
-import os from "os";
 import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
-import { createHash } from "crypto";
 
 const { pipe, eq, get, tap, filter, and, all, map, assign } = rubico;
 const { callProp, find, when } = rubicox;
@@ -14,7 +12,11 @@ import createContext from "./context.js";
 import createJSDOM from "./jsdom.js";
 import { navBarTreeToBreadcrumbs } from "./breadcrumbs.js";
 import { navBarTreeToPaginationNav } from "./paginationNav.js";
-
+import {
+  extractCSS,
+  inferCssFileName,
+  writeExtractedCss,
+} from "./cssExtract.js";
 import { isPageChunk } from "./utils.js";
 
 export const isOutputJs = and([
@@ -49,39 +51,6 @@ export const renderPages = (config) => (output) =>
     }),
   ])();
 
-const extractCSS = pipe([
-  tap(({ document }) => {
-    assert(document);
-  }),
-  ({ document }) => [...document.getElementsByTagName("style")],
-  map(pipe([get("innerHTML")])),
-  callProp("join", os.EOL),
-]);
-
-const inferCssFileName = pipe([
-  tap(({ cssContent }) => {
-    assert(cssContent);
-  }),
-  ({ cssContent }) =>
-    createHash("sha256").update(cssContent).digest("hex").substring(0, 10),
-  (hash) => `bau-css.${hash}.css`,
-]);
-
-const writeExtractedCss = ({ site, cssContent, cssFilename }) =>
-  pipe([
-    tap(() => {
-      assert(cssContent);
-      assert(site.rootDir);
-      assert(site.outDir);
-    }),
-    //TODO
-    () => Path.resolve(site.rootDir, "dist", "assets", cssFilename),
-    tap((path) => {
-      assert(path);
-    }),
-    (path) => fs.writeFile(path, cssContent),
-  ])();
-
 const renderDocApp = async ({
   dom,
   context,
@@ -90,7 +59,7 @@ const renderDocApp = async ({
   breadcrumbs,
   contentHtml,
   toc,
-  paginationNav,
+  paginationNav = {},
 }) => {
   assert(dom);
   assert(docApp);
