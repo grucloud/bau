@@ -100,6 +100,7 @@ const toHtml = ({
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="Bausaurus">
     <title>${title}</title>
     <meta name="description" content="${description}">
     ${siteData.favicon ? `<link rel="icon" href="${siteData.favicon}">` : ""}
