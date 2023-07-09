@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "bausaurus dev",
     "build": "bausaurus build",
-    "preview": "vite preview"
+    "preview": "bausaurus preview"
   },
   "dependencies": {
     "@grucloud/bau": "^0.28.0",

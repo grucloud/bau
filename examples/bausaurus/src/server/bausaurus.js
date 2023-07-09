@@ -1,5 +1,6 @@
 import { buildDev } from "./buildDev.js";
 import { buildProd } from "./buildProd.js";
+import { startPreview } from "./startPreview.js";
 
 import { Command } from "commander";
 const program = new Command();
@@ -21,14 +22,20 @@ program
 program
   .command("dev")
   .description("Start a development environment")
-  .action(({}, options) => {
+  .action(({}) => {
     buildDev({ ...program.opts() });
   });
 
 program
   .command("build")
   .description("Build the static website from the markdown files")
-  .action(({}, options) => {
+  .action(({}) => {
     buildProd({ ...program.opts() });
+  });
+program
+  .command("preview")
+  .description("Preview the production build")
+  .action(({}) => {
+    startPreview({ ...program.opts() });
   });
 program.parse();

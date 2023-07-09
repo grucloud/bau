@@ -16,6 +16,10 @@ export default defineConfig((config) =>
       server: {
         open: true,
       },
+      preview: {
+        port: 8080,
+        open: true,
+      },
       optimizeDeps: {
         include: ["@grucloud/bau"],
       },
