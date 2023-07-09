@@ -106,3 +106,14 @@ export const createOutputDir = tap(
     (path) => fs.mkdir(path, { recursive: true }),
   ])
 );
+export const filenameToHref = (site) =>
+  pipe([
+    tap((filename) => {
+      assert(filename);
+      assert(site.rootDir);
+      assert(site.srcDir);
+    }),
+    callProp("replace", Path.resolve(site.rootDir, site.srcDir), ""),
+    callProp("replace", ".md", ""),
+    (name) => Path.join(site.base, name),
+  ]);

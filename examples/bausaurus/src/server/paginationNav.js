@@ -1,9 +1,9 @@
 import assert from "assert";
 import rubico from "rubico";
-import rubicox from "rubico/x/index.js";
+
+import { filenameToHref } from "./utils.js";
 
 const { pipe, tap, get } = rubico;
-const { callProp } = rubicox;
 
 const walkTree =
   ({ nodes = [], hrefToMatch }) =>
@@ -42,12 +42,10 @@ export const navBarTreeToPaginationNav = ({ navBarTree, site, filename }) =>
     tap((params) => {
       assert(navBarTree);
       assert(site);
-      assert(site.rootDir);
       assert(filename);
     }),
     () => filename,
-    callProp("replace", site.rootDir, ""),
-    callProp("replace", ".md", ""),
+    filenameToHref(site),
     (hrefToMatch) => walkTree({ hrefToMatch })(navBarTree),
     tap((params) => {
       assert(true);

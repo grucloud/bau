@@ -1,9 +1,10 @@
 import assert from "assert";
 import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
+import { filenameToHref } from "./utils.js";
 
 const { pipe, tap, eq, switchCase, get, map } = rubico;
-const { callProp, pluck } = rubicox;
+const { pluck } = rubicox;
 
 const walkTree = ({ result, nodes = [], hrefToMatch }) =>
   pipe([
@@ -41,8 +42,7 @@ export const navBarTreeToBreadcrumbs = ({ navBarTree, site, filename }) =>
       assert(filename);
     }),
     () => filename,
-    callProp("replace", site.rootDir, ""),
-    callProp("replace", ".md", ""),
+    filenameToHref(site),
     (hrefToMatch) => {
       const result = [];
       walkTree({ result, hrefToMatch })(navBarTree);
