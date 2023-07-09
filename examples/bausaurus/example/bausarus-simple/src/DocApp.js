@@ -42,7 +42,7 @@ export default async function (context) {
     contentHtml,
     breadcrumbs,
     toc,
-    paginationNav,
+    paginationNav = {},
   }) {
     const mainEl = MainContent({ contentHtml });
     const tocEl = Toc({ toc });

@@ -2,11 +2,11 @@ import assert from "assert";
 import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
 
-const { pipe, tap, eq, switchCase, get, map, some } = rubico;
-const { callProp, pluck } = rubicox;
+const { pipe, tap, get } = rubico;
+const { callProp } = rubicox;
 
 const walkTree =
-  ({ result, nodes = [], hrefToMatch }) =>
+  ({ nodes = [], hrefToMatch }) =>
   (node) =>
     pipe([
       tap((params) => {
@@ -18,16 +18,17 @@ const walkTree =
       (children) => {
         for (let index = 0; index < children.length; index++) {
           if (children[index].data?.href === hrefToMatch) {
+            const result = {};
             index > 0 && (result.previous = children[index - 1].data);
             index < children.length - 1 &&
               (result.next = children[index + 1].data);
             return result;
           } else if (children[index].children) {
-            walkTree({
-              result,
+            const result = walkTree({
               nodes: [...nodes, children[index]],
               hrefToMatch,
             })(children[index]);
+            if (result) return result;
           }
         }
       },
@@ -47,9 +48,8 @@ export const navBarTreeToPaginationNav = ({ navBarTree, site, filename }) =>
     () => filename,
     callProp("replace", site.rootDir, ""),
     callProp("replace", ".md", ""),
-    (hrefToMatch) => {
-      const result = {};
-      walkTree({ result, hrefToMatch })(navBarTree);
-      return result;
-    },
+    (hrefToMatch) => walkTree({ hrefToMatch })(navBarTree),
+    tap((params) => {
+      assert(true);
+    }),
   ])();
