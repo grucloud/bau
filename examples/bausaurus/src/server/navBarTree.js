@@ -8,7 +8,7 @@ import { ExcludeFiles } from "./utils.js";
 
 const { pipe, tap, map, get, switchCase, all, assign, tryCatch, eq, or } =
   rubico;
-const { callProp, find, isEmpty, unless, filterOut, isIn, pluck } = rubicox;
+const { callProp, find, isEmpty, unless, filterOut, isIn } = rubicox;
 
 const isMarkdownFile = callProp("endsWith", ".md");
 
@@ -167,18 +167,10 @@ export const buildNavBarTree = ({ base, rootDir, srcDir }) =>
     }),
   ])();
 
-export const writeNavBarTree = ({ site: { rootDir, outDir }, navBarTree }) =>
+export const writeNavBarTree = ({ navBarTree }) =>
   pipe([
     tap(() => {
-      assert(rootDir);
-      assert(outDir);
       assert(navBarTree);
     }),
-    () => navBarTree,
-    JSON.stringify,
-    (navBarTreeString) =>
-      fs.writeFile(
-        Path.resolve(rootDir, outDir, "navBarTree.json"),
-        navBarTreeString
-      ),
+    () => `export const navBarTree = ${JSON.stringify(navBarTree)}`,
   ])();

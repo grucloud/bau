@@ -36,7 +36,7 @@ export const renderPages = (config) => (output) =>
       //
       config: () => config,
       output: () => output,
-      appChunk: find(isOutputJs),
+      appChunks: filter(isOutputJs),
       //TODO
       //cssChunk: find(isOutputCss),
     }),
@@ -92,7 +92,7 @@ const toHtml = ({
   title,
   description,
   content,
-  appChunk,
+  appChunks,
   cssChunk,
   metadataScript,
 }) => `
@@ -118,11 +118,12 @@ const toHtml = ({
         ? `<link rel="preload stylesheet" href="/${cssChunk.fileName}" as="style">`
         : ""
     }
-    ${
-      appChunk
-        ? `<script type="module" src="/${appChunk.fileName}"></script>`
-        : ``
-    }
+    ${appChunks
+      .map(
+        (appChunk) =>
+          `<script type="module" src="/${appChunk.fileName}"></script>`
+      )
+      .join("\n")}
   </head>
   <body>
     <div id="app">${content.body}</div>
@@ -140,7 +141,7 @@ const assignFrontMatterData = ({ frontmatter }) =>
   ]);
 
 export const renderPage =
-  ({ config, output, appChunk, cssChunk, assets }) =>
+  ({ config, output, appChunks, cssChunk, assets }) =>
   async (chunk) => {
     assert(config);
     assert(output);
@@ -163,7 +164,7 @@ export const renderPage =
     // Use use data from frontmatter
     const title = siteData.title;
     const description = siteData.description;
-    let metadataScript = "";
+    let metadataScript = `__BAUSAURUS_SITE_DATA__ = {prod:true}`;
 
     return pipe([
       () => fs.readFile(chunk.facadeModuleId, "utf-8"),
@@ -201,7 +202,7 @@ export const renderPage =
                 description,
                 content,
                 cssChunk,
-                appChunk,
+                appChunks,
                 metadataScript,
               }),
               assignFrontMatterData({ frontmatter }),

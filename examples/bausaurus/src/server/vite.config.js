@@ -1,11 +1,11 @@
 import { defineConfig } from "vite";
 import rubico from "rubico";
-import rubicox from "rubico/x/index.js";
+import virtual from "@rollup/plugin-virtual";
 import bausaurusPlugin from "./vite-plugin-bausaurus.js";
 import { findMarkdownInputs } from "./utils.js";
+import { writeNavBarTree } from "./navBarTree.js";
 
-const { pipe, tap, get, eq, flatMap, switchCase, filter, or, and } = rubico;
-const { callProp } = rubicox;
+const { pipe, tap } = rubico;
 
 export default defineConfig((config) =>
   pipe([
@@ -37,12 +37,18 @@ export default defineConfig((config) =>
           },
           input: {
             ...inputs,
-            index: "/index.html",
-            main: "/src/main.js",
+            index: "./index.html",
+            main: "./src/main.js",
+            navBarTree: "./src/navBarTree.js",
           },
         },
       },
-      plugins: [bausaurusPlugin(config)],
+      plugins: [
+        virtual({
+          "./src/navBarTree.js": writeNavBarTree(config),
+        }),
+        bausaurusPlugin(config),
+      ],
     }),
   ])()
 );

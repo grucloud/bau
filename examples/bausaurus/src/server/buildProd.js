@@ -8,7 +8,6 @@ import { createBausaurusConfig } from "./bausaurusConfig.js";
 import createViteConfig from "./vite.config.js";
 import { renderPages } from "./renderPage.js";
 import { writePagesHashMap } from "./pagesHashMap.js";
-import { writeNavBarTree } from "./navBarTree.js";
 import { createOutputDir } from "./utils.js";
 
 export const buildProd = ({ rootDir }) =>
@@ -25,7 +24,6 @@ export const buildProd = ({ rootDir }) =>
         renderPages(bausaurusConfig),
         tap(() => {
           writePagesHashMap(bausaurusConfig);
-          writeNavBarTree(bausaurusConfig);
         }),
       ])(),
   ])();

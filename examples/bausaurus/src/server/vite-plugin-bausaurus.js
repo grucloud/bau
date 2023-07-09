@@ -10,6 +10,7 @@ import { processMarkdownContent } from "./markdown.js";
 import { pagesHashMapToString } from "./pagesHashMap.js";
 import { navBarTreeToBreadcrumbs } from "./breadcrumbs.js";
 import { navBarTreeToPaginationNav } from "./paginationNav.js";
+import { writeNavBarTree } from "./navBarTree.js";
 
 const { pipe, tap, eq, switchCase } = rubico;
 const { when, identity } = rubicox;
@@ -85,10 +86,9 @@ const load = ({ navBarTree, pageToHashMap }) =>
       assert(pageToHashMap);
       console.log("load", id);
     }),
-    //TODO
     switchCase([
-      eq(identity, "/docs/navBarTree.json"),
-      pipe([() => navBarTree, JSON.stringify]),
+      eq(identity, "/src/navBarTree.js"),
+      pipe([() => ({ navBarTree }), writeNavBarTree]),
       eq(identity, "/docs/hashmap.json"),
       pipe([() => pageToHashMap, pagesHashMapToString]),
       () => undefined,
