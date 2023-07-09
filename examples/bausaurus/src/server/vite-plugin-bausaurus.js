@@ -9,6 +9,7 @@ import { DIST_CLIENT_PATH, hashRE } from "./constants.js";
 import { processMarkdownContent } from "./markdown.js";
 import { pagesHashMapToString } from "./pagesHashMap.js";
 import { navBarTreeToBreadcrumbs } from "./breadcrumbs.js";
+import { navBarTreeToPaginationNav } from "./paginationNav.js";
 
 const { pipe, tap, eq, switchCase } = rubico;
 const { when, identity } = rubicox;
@@ -16,13 +17,14 @@ const { when, identity } = rubicox;
 const escape = (content) => content.replace(/\\|`|\$/g, "\\$&");
 
 const contentToEsModule =
-  ({ toBreadcrumbs }) =>
+  ({ toBreadcrumbs, toPaginationNav }) =>
   ({ contentHtml, toc, frontmatter }) =>
     `
 export const frontmatter = ${JSON.stringify(frontmatter)}
 export const toc = ${JSON.stringify(toc)}
-export const contentHtml = \`${escape(contentHtml)}\`
 export const breadcrumbs =  ${JSON.stringify(toBreadcrumbs())}
+export const paginationNav =  ${JSON.stringify(toPaginationNav())}
+export const contentHtml = \`${escape(contentHtml)}\`
 `;
 
 const dom = createJSDOM();
@@ -50,6 +52,8 @@ const transform =
           contentToEsModule({
             toBreadcrumbs: () =>
               navBarTreeToBreadcrumbs({ site, filename: id, navBarTree }),
+            toPaginationNav: () =>
+              navBarTreeToPaginationNav({ site, filename: id, navBarTree }),
           }),
           tap((params) => {
             assert(true);

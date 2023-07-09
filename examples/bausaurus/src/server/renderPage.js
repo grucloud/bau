@@ -13,6 +13,8 @@ import { processMarkdownContent } from "./markdown.js";
 import createContext from "./context.js";
 import createJSDOM from "./jsdom.js";
 import { navBarTreeToBreadcrumbs } from "./breadcrumbs.js";
+import { navBarTreeToPaginationNav } from "./paginationNav.js";
+
 import { isPageChunk } from "./utils.js";
 
 export const isOutputJs = and([
@@ -88,6 +90,7 @@ const renderDocApp = async ({
   breadcrumbs,
   contentHtml,
   toc,
+  paginationNav,
 }) => {
   assert(dom);
   assert(docApp);
@@ -95,11 +98,17 @@ const renderDocApp = async ({
   assert(contentHtml);
   assert(toc);
   assert(breadcrumbs);
+  assert(paginationNav);
 
   const DocApp = await docApp(context);
   // This will fill the dom.window.document.head with the style
-  const content = await DocApp({ navBarTree, contentHtml, toc, breadcrumbs })
-    .outerHTML;
+  const content = await DocApp({
+    navBarTree,
+    contentHtml,
+    toc,
+    breadcrumbs,
+    paginationNav,
+  }).outerHTML;
   const cssContent = extractCSS({ document: dom.window.document });
   const cssFilename = inferCssFileName({ cssContent });
   return {
@@ -195,6 +204,11 @@ export const renderPage =
             contentHtml,
             toc,
             breadcrumbs: navBarTreeToBreadcrumbs({
+              navBarTree: config.navBarTree,
+              site: config.site,
+              filename: chunk.facadeModuleId,
+            }),
+            paginationNav: navBarTreeToPaginationNav({
               navBarTree: config.navBarTree,
               site: config.site,
               filename: chunk.facadeModuleId,

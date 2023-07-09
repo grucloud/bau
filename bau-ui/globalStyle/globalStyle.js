@@ -99,6 +99,7 @@ export default function globalStyle(
     0 2px 4px 0 rgba(0, 0, 0, 0.1);
   --font-size-base: 100%;
   --line-height-base: 1.65;
+  --link-color: var(--color-primary)
 }
 :root {
   font-family: var(--font-family);

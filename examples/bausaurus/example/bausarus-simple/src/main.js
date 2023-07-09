@@ -25,40 +25,34 @@ const createDocAppProp = async ({ context }) => {
     const navBarTree = await fetchNavBarTree();
     const tocEl = document.querySelector("nav[data-toc]");
     const breadcrumbsEl = document.querySelector("ul[data-breadcrumbs]");
+    const paginationNavEl = document.querySelector("nav[data-paginationnav]");
 
     return {
       contentHtml: mainEls[0].innerHTML,
       toc: JSON.parse(tocEl.dataset.toc),
       navBarTree,
       breadcrumbs: JSON.parse(breadcrumbsEl.dataset.breadcrumbs),
+      paginationNav: JSON.parse(paginationNavEl.dataset.paginationnav),
     };
   } else {
     // Dev
     const navBarTree = await importNavBarTree();
-    const { contentHtml, toc, breadcrumbs } = await loadContent({
+    const content = await loadContent({
       nextPage: location.pathname,
       context,
     });
 
-    return { contentHtml, toc, navBarTree, breadcrumbs };
+    return { ...content, navBarTree };
   }
 };
 
 const loadDocs = async () => {
   try {
     const DocApp = await docApp(context);
-    const { contentHtml, toc, navBarTree, breadcrumbs } =
-      await createDocAppProp({
-        context,
-      });
-    mountApp(
-      DocApp({
-        contentHtml,
-        toc,
-        navBarTree,
-        breadcrumbs,
-      })
-    );
+    const props = await createDocAppProp({
+      context,
+    });
+    mountApp(DocApp(props));
   } catch (error) {
     console.error("Error: ", error);
     console.error("pathname", location.pathname);
