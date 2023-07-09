@@ -40,7 +40,7 @@ const transform =
       tap((params) => {
         assert(code);
         assert(id);
-        console.log("transform", id);
+        //console.log("transform", id);
       }),
       when(
         () => id.endsWith(".md"),
@@ -84,7 +84,7 @@ const load = ({ navBarTree, pageToHashMap }) =>
       assert(id);
       assert(navBarTree);
       assert(pageToHashMap);
-      console.log("load", id);
+      //console.log("load", id);
     }),
     switchCase([
       eq(identity, "/src/navBarTree.js"),

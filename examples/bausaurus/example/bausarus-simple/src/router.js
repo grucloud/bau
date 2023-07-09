@@ -40,6 +40,12 @@ export const loadContent = async ({ nextPage, context }) => {
   }
 };
 
+// "/docs/Introduction"  "./aws/AwsGettingStarted.md" => "/docs/aws/AwsGettingStarted.md"
+const buildFromRelativePath = ({ location, href }) => {
+  const relativeBaseUrl = location.pathname.split("/").slice(0, -1).join("/");
+  return `${relativeBaseUrl}/${href.slice(2)}`;
+};
+
 export const createRouter = (context, { onLocationChange }) => {
   const { window } = context;
 
@@ -53,7 +59,7 @@ export const createRouter = (context, { onLocationChange }) => {
     const { target } = event;
     let href = target.getAttribute("href");
     if (href?.startsWith("./")) {
-      href = `${location.pathname}${href.slice(2)}`;
+      href = buildFromRelativePath({ location, href });
     }
     if (
       target.tagName === "A" &&
