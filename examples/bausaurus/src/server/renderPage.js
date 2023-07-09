@@ -86,6 +86,7 @@ const renderDocApp = async ({
     cssFilename,
   };
 };
+
 const toHtml = ({
   siteData,
   title,
@@ -102,7 +103,14 @@ const toHtml = ({
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="generator" content="Bausaurus">
     <title>${title}</title>
+    <meta name="og:title" content="${title}" />
     <meta name="description" content="${description}">
+    <meta name="og:description" content="${description}">
+  ${
+    siteData.keywords &&
+    `  <meta name="keywords" content="${siteData.keywords.join(",")}" />`
+  }
+    <meta name="twitter:card" content="summary_large_image" />
     ${siteData.favicon ? `<link rel="icon" href="${siteData.favicon}">` : ""}
     <link rel="stylesheet" href="/assets/${content.cssFilename}">
     ${

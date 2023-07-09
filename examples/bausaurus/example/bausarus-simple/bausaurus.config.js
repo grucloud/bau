@@ -13,6 +13,7 @@ export default ({ rootDir }) => {
       srcDir: "docs",
       title: "My Site",
       description: "Documentation for My Site",
+      keywords: ["My Tags", "My Other Tags"],
       lang: "en",
     },
   };
