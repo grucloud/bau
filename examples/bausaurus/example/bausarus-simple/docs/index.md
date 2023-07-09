@@ -43,6 +43,20 @@ exports.createResources = () => [
 ];
 ```
 
+## Table
+
+|                                            | GruCloud | Terraform | AWS CDK |
+| ------------------------------------------ | -------- | --------- | ------- |
+| Generate code from existing infrastructure | Yes      | No        | No      |
+| General-purpose language                   | Yes      | No        | Yes     |
+| Statelessness                              | Yes      | No        | No      |
+| Multi-cloud                                | Yes      | Yes       | No      |
+| Diagram of existing infrastructure         | Yes      | No        | No      |
+| Diagram of target infrastructure           | Yes      | Yes       | No      |
+| Debugging                                  | Yes      | No        | Yes     |
+| Easy Testing                               | Yes      | No        | Yes     |
+| Direct calls to the underlying cloud API   | Yes      | Yes       | No      |
+
 ## Links
 
 - [Article 1](./Article1.md)

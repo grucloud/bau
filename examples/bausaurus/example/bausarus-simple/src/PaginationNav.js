@@ -52,7 +52,7 @@ export default function (context) {
     }
   `;
 
-  return function PaginationNav({ paginationNav }) {
+  return function PaginationNav({ paginationNav = {} }) {
     const { next, previous } = paginationNav;
     return nav(
       {
