@@ -1,9 +1,11 @@
+import assert from "assert";
 import { defineConfig } from "vite";
 import rubico from "rubico";
 import virtual from "@rollup/plugin-virtual";
 import bausaurusPlugin from "./vite-plugin-bausaurus.js";
 import { findMarkdownInputs } from "./utils.js";
 import { writeNavBarTree } from "./navBarTree.js";
+import Path from "path";
 
 const { pipe, tap } = rubico;
 
@@ -12,10 +14,7 @@ export default defineConfig((config) =>
     () => config,
     findMarkdownInputs(),
     (inputs) => ({
-      root: config.rootDir,
-      server: {
-        open: true,
-      },
+      root: config.site.rootDir,
       preview: {
         port: 8080,
         open: true,
@@ -23,12 +22,9 @@ export default defineConfig((config) =>
       optimizeDeps: {
         include: ["@grucloud/bau"],
       },
-      // server: {
-      //   fs: {
-      //     allow: [config.site.srcDir],
-      //     strict: false,
-      //   },
-      // },
+      server: {
+        open: true,
+      },
       build: {
         // TODO false for now
         minify: false,

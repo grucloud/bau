@@ -1,19 +1,20 @@
 import assert from "assert";
 import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
-
+import Path from "path";
 import createJSDOM from "./jsdom.js";
 import createContext from "./context.js";
 import { isPageChunk } from "./utils.js";
-import { DIST_CLIENT_PATH, hashRE } from "./constants.js";
+import { hashRE } from "./constants.js";
 import { processMarkdownContent } from "./markdown.js";
 import { pagesHashMapToString } from "./pagesHashMap.js";
 import { navBarTreeToBreadcrumbs } from "./breadcrumbs.js";
 import { navBarTreeToPaginationNav } from "./paginationNav.js";
 import { writeNavBarTree } from "./navBarTree.js";
+import fs from "fs/promises";
 
 const { pipe, tap, eq, switchCase } = rubico;
-const { when, identity } = rubicox;
+const { when, identity, callProp } = rubicox;
 
 const escape = (content) => content.replace(/\\|`|\$/g, "\\$&");
 
@@ -33,36 +34,6 @@ const context = createContext({
   window: dom.window,
 });
 
-const transform =
-  ({ navBarTree, site }) =>
-  (code, id) =>
-    pipe([
-      tap((params) => {
-        assert(code);
-        assert(id);
-        //console.log("transform", id);
-      }),
-      when(
-        () => id.endsWith(".md"),
-        pipe([
-          () => ({ code, filename: id }),
-          processMarkdownContent({
-            dom,
-            context,
-          }),
-          contentToEsModule({
-            toBreadcrumbs: () =>
-              navBarTreeToBreadcrumbs({ site, filename: id, navBarTree }),
-            toPaginationNav: () =>
-              navBarTreeToPaginationNav({ site, filename: id, navBarTree }),
-          }),
-          tap((params) => {
-            assert(true);
-          }),
-        ])
-      ),
-    ])();
-
 const generateBundle =
   ({ pageToHashMap }) =>
   (_options, bundle) => {
@@ -78,50 +49,58 @@ const generateBundle =
     }
   };
 
-const load = ({ navBarTree, pageToHashMap }) =>
-  pipe([
-    tap((id) => {
-      assert(id);
-      assert(navBarTree);
-      assert(pageToHashMap);
-      //console.log("load", id);
-    }),
-    switchCase([
-      eq(identity, "/src/navBarTree.js"),
-      pipe([() => ({ navBarTree }), writeNavBarTree]),
-      eq(identity, "/docs/hashmap.json"),
-      pipe([() => pageToHashMap, pagesHashMapToString]),
-      () => undefined,
-    ]),
-  ]);
-
-const makeConfig =
-  ({ site }) =>
-  () => {
-    assert(site);
-    const baseConfig = {
-      server: {
-        fs: {
-          allow: [DIST_CLIENT_PATH, process.cwd(), site.srcDir],
-        },
-      },
-    };
-    return baseConfig;
-  };
-
-const renderChunk = (config) => (code, chunk) => {
-  //console.log("renderChunk", code, chunk);
-};
+const load =
+  ({ site, navBarTree, pageToHashMap }) =>
+  (id) =>
+    pipe([
+      () => id,
+      tap((id) => {
+        assert(id);
+        assert(site);
+        assert(navBarTree);
+        assert(pageToHashMap);
+        console.log("load", id);
+      }),
+      switchCase([
+        eq(identity, "/src/navBarTree.js"),
+        pipe([() => ({ navBarTree }), writeNavBarTree]),
+        eq(identity, "/docs/hashmap.json"),
+        pipe([() => pageToHashMap, pagesHashMapToString]),
+        pipe([callProp("endsWith", ".md")]),
+        pipe([
+          // Only in dev
+          when(
+            callProp("startsWith", site.base),
+            pipe([
+              callProp("replace", site.base, ""),
+              (filename) => Path.resolve(site.rootDir, site.srcDir, filename),
+            ])
+          ),
+          (filename) => fs.readFile(filename, "utf-8"),
+          (code) => ({ code, filename: id }),
+          processMarkdownContent({
+            dom,
+            context,
+          }),
+          contentToEsModule({
+            toBreadcrumbs: () =>
+              navBarTreeToBreadcrumbs({ site, filename: id, navBarTree }),
+            toPaginationNav: () =>
+              navBarTreeToPaginationNav({ site, filename: id, navBarTree }),
+          }),
+          tap((params) => {
+            assert(true);
+          }),
+        ]),
+        () => undefined,
+      ]),
+    ])();
 
 export default async function pluginBausaurus(config) {
-  assert(config);
   return [
     {
       name: "vite-plugin-bausaurus",
-      config: makeConfig(config),
       load: load(config),
-      transform: transform(config),
-      renderChunk: renderChunk(config),
       generateBundle: generateBundle(config),
     },
   ];
