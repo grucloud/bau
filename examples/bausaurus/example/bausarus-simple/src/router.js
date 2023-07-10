@@ -40,12 +40,6 @@ export const loadContent = async ({ nextPage, context }) => {
   }
 };
 
-// "/docs/Introduction"  "./aws/AwsGettingStarted.md" => "/docs/aws/AwsGettingStarted.md"
-const buildFromRelativePath = ({ location, href }) => {
-  const relativeBaseUrl = location.pathname.split("/").slice(0, -1).join("/");
-  return `${relativeBaseUrl}/${href.slice(2)}`;
-};
-
 export const createRouter = (context, { onLocationChange }) => {
   const { window } = context;
 
@@ -58,17 +52,15 @@ export const createRouter = (context, { onLocationChange }) => {
   window.addEventListener("click", (event) => {
     const { target } = event;
     let href = target.getAttribute("href");
-    if (href?.startsWith("./")) {
-      href = buildFromRelativePath({ location, href });
-    }
     if (
       target.tagName === "A" &&
       href &&
-      href.startsWith(docPath) &&
+      //href.startsWith(docPath) &&
       !href.startsWith("http") &&
       !href.startsWith("#")
     ) {
-      let nextPage = href.replace(".md", "");
+      // target.href contains the resolved path
+      let nextPage = target.href.replace(".md", "");
       context.window.history.pushState({}, null, nextPage);
       event.preventDefault();
       onLocationChange({

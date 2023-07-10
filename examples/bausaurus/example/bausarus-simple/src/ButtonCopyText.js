@@ -2,7 +2,9 @@ import button from "@grucloud/bau-ui/button/button.js";
 
 const copyTextToClipboard = async (text) => {
   try {
+    //console.log("copy: ", text);
     await navigator.clipboard.writeText(text);
+    //console.log("copy done");
   } catch (err) {
     console.error("Failed to copy: ", err);
   }
