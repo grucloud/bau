@@ -35,7 +35,7 @@ export const md2Html =
         assert(frontmatter);
       }),
       () => contentMd,
-      when(() => frontmatter.title, prepend(`# ${frontmatter.title}`)),
+      when(() => frontmatter.title, prepend(`# ${frontmatter.title}\n`)),
       (content) =>
         unified()
           .use(remarkParse)
