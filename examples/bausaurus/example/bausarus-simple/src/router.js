@@ -23,7 +23,7 @@ const jsAssetFileFromHref = (href) => {
   try {
     const hash = __BAUSAURUS_HASH_MAP__[pathname];
     return hash
-      ? `/assets${pathname}.md.${hash}.js`
+      ? `/assets${pathname}.md-${hash}.js`
       : `/assets${pathname}.md.js`;
   } catch (error) {
     return `${pathname}.md`;

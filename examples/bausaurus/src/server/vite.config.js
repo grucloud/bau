@@ -5,7 +5,6 @@ import virtual from "@rollup/plugin-virtual";
 import bausaurusPlugin from "./vite-plugin-bausaurus.js";
 import { findMarkdownInputs } from "./utils.js";
 import { writeNavBarTree } from "./navBarTree.js";
-import Path from "path";
 
 const { pipe, tap } = rubico;
 
@@ -30,11 +29,6 @@ export default defineConfig((config) =>
         minify: false,
         rollupOptions: {
           preserveEntrySignatures: "allow-extension",
-          output: {
-            format: "es",
-            assetFileNames: "assets/[name].[hash].[ext]",
-            entryFileNames: "assets/[name].[hash].js",
-          },
           input: {
             ...inputs,
             index: "./index.html",
