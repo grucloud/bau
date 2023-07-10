@@ -8,7 +8,7 @@ import { loadContent } from "./router";
 const context = createContext({ window });
 
 const importNavBarTree = async () => {
-  const { navBarTree } = await import(`./navBarTree.js`);
+  const { navBarTree } = await import(/* @vite-ignore */ `./navBarTree.js`);
   return navBarTree;
 };
 

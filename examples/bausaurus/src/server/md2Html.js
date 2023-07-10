@@ -5,14 +5,27 @@ import rubicox from "rubico/x/index.js";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
-import remarkRehype from "remark-rehype";
+import { fromHtml } from "hast-util-from-html";
+
 import rehypeStringify from "rehype-stringify";
+import { toHast } from "mdast-util-to-hast";
 
 import remarkHeading from "./remarkHeading.js";
 import { highlighter } from "./highlighter.js";
 
 const { pipe, tap, get } = rubico;
 const { when, prepend } = rubicox;
+
+const pluginInspec = () => {
+  return async (root) => {
+    const handlers = {
+      html(h, node) {
+        return fromHtml(node.value, { fragment: true });
+      },
+    };
+    return toHast(root, { handlers, allowDangerousHTML: true });
+  };
+};
 
 export const md2Html =
   ({ dom, context }) =>
@@ -28,8 +41,8 @@ export const md2Html =
           .use(remarkParse)
           .use(remarkGfm)
           .use(remarkHeading)
-          .use(remarkRehype)
-          .use(rehypeStringify)
+          .use(pluginInspec)
+          .use(rehypeStringify, { allowDangerousHTML: true })
           .process(content),
       tap((params) => {
         assert(true);

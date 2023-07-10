@@ -90,7 +90,7 @@ Below is the screencast of **gc new**:
     id="asciicast-iframe-13761"
     name="asciicast-iframe-13761"
     scrolling="no"
-    style={{ width: "100%", height: "400px" }}
+    style="width: 100%; height: 400px"
     ></iframe>
 </div>
             
@@ -162,8 +162,9 @@ For instance, let's change the EC2 _InstanceType_ from _t2.micro_ to _t2.small_.
     id="asciicast-iframe-13761"
     name="asciicast-iframe-13761"
     scrolling="no"
-    style={{ width: "100%", height: "700px" }}
+    style="width: 100%; height: 700px"
     ></iframe>
+
 </div>
 
 ### `gc destroy` Destroy
@@ -181,8 +182,9 @@ gc destroy
     id="asciicast-iframe-13761"
     name="asciicast-iframe-13761"
     scrolling="no"
-    style={{ width: "100%", height: "700px" }}
+    style="width: 100%; height: 700px"
     ></iframe>
+
 </div>
 
 ## Next Steps

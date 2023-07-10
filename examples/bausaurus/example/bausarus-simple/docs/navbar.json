@@ -1,6 +1,9 @@
 {
   "children": [
-    { "data": { "name": "aws" }, "expanded": true },
+    {
+      "data": { "name": "aws" },
+      "expanded": true
+    },
     { "data": { "name": "Article1.md" } }
   ]
 }

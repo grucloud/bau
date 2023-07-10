@@ -59,7 +59,7 @@ const load =
         assert(site);
         assert(navBarTree);
         assert(pageToHashMap);
-        console.log("load", id);
+        //console.log("load", id);
       }),
       switchCase([
         eq(identity, "/src/navBarTree.js"),

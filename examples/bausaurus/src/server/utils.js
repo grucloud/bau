@@ -18,7 +18,7 @@ export const ExcludeFiles = [
 
 const { pipe, tap, get, eq, flatMap, switchCase, filter, or, and, reduce } =
   rubico;
-const { callProp, filterOut, isIn } = rubicox;
+const { callProp, filterOut, isIn, unless } = rubicox;
 
 export const isPageChunk = and([
   eq(get("type"), "chunk"),
@@ -113,7 +113,15 @@ export const filenameToHref = (site) =>
       assert(site.rootDir);
       assert(site.srcDir);
     }),
-    callProp("replace", Path.resolve(site.rootDir, site.srcDir), ""),
+    unless(
+      callProp("startsWith", site.base), // Dev mode
+      pipe([
+        callProp("replace", Path.resolve(site.rootDir, site.srcDir), ""),
+        (name) => Path.join(site.base, name),
+      ])
+    ),
     callProp("replace", ".md", ""),
-    (name) => Path.join(site.base, name),
+    tap((filename) => {
+      assert(true);
+    }),
   ]);

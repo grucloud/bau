@@ -22,6 +22,7 @@ const walkTree = ({ result, nodes = [], hrefToMatch }) =>
       get("children"),
       pipe([
         get("children"),
+        // TODO use a for loop and quit when found
         map((node) =>
           walkTree({ result, nodes: [...nodes, node], hrefToMatch })(node)
         ),

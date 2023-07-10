@@ -61,3 +61,17 @@ exports.createResources = () => [
 
 - [Article 1](./Article1.md)
 - [AwsGettingStarted](./aws/AwsGettingStarted.md)
+
+## Embed HTML
+
+<div>
+    <iframe
+    data-autoplay
+    src="https://asciinema.org/a/daLrxnF4qNuuUksSugIBjmi2F/iframe?autoplay=true&amp;speed=2&amp;loop=true"
+    id="asciicast-iframe-13761"
+    name="asciicast-iframe-13761"
+    scrolling="no"
+    style="width: 100%;height: 500px"
+    ></iframe>
+
+</div>
