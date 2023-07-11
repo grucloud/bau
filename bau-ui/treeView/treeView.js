@@ -5,10 +5,22 @@ const collapseOrExpandSection = ({ element, closeState }) => {
 };
 
 function collapseSection(element) {
-  element.style.height = "0px";
+  element.style.height = element.scrollHeight + "px";
+  const animationEndHandler = () => {
+    element.removeEventListener("transitionend", animationEndHandler);
+  };
+  element.addEventListener("transitionend", animationEndHandler);
+  window.requestAnimationFrame(() => {
+    element.style.height = "0px";
+  });
 }
 
 function expandSection(element) {
+  const animationEndHandler = () => {
+    element.removeEventListener("transitionend", animationEndHandler);
+    element.style.height = null;
+  };
+  element.addEventListener("transitionend", animationEndHandler);
   element.style.height = element.scrollHeight + "px";
 }
 
@@ -44,7 +56,6 @@ const createStyles = ({ css, createGlobalStyles }) => {
           display: flex;
           justify-content: space-between;
           transition: background-color var(--transition-fast) ease-in-out;
-
           &:hover {
             background: var(--color-emphasis-100);
           }
@@ -54,8 +65,10 @@ const createStyles = ({ css, createGlobalStyles }) => {
             width: 1.25rem;
             padding: 0.5rem;
           }
-          > a {
+          > a,
+          span {
             display: flex;
+            flex-grow: 1;
             text-decoration: none;
             color: var(--menu-color);
             padding: var(--menu-link-padding-vertical)
@@ -117,7 +130,6 @@ export default function (context, { renderMenuItem }) {
             onclick: (event) => {
               if (children) {
                 closeState.val = !closeState.val;
-                event.preventDefault();
               }
             },
           },
@@ -128,7 +140,9 @@ export default function (context, { renderMenuItem }) {
           ul(
             {
               bauMounted: ({ element }) => {
-                collapseOrExpandSection({ element, closeState });
+                closeState.val
+                  ? (element.style.height = "0px")
+                  : (element.style.height = element.scrollHeight + "px");
               },
               "aria-expanded": ({ element }) => {
                 collapseOrExpandSection({ element, closeState });

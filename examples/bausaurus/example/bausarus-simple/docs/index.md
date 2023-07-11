@@ -60,7 +60,6 @@ exports.createResources = () => [
 ## Links
 
 - [Article 1](./Article1.md)
-- [AwsGettingStarted](./aws/AwsGettingStarted.md)
 
 ## Embed HTML
 

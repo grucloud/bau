@@ -3,14 +3,14 @@ import { inBrowser } from "./utils.js";
 
 export default function (context) {
   const { bau, css } = context;
-  const { a } = bau.tags;
+  const { a, span } = bau.tags;
 
-  const renderMenuItem = ({ name, href }) =>
-    a(
+  const renderMenuItem = ({ name, label, href }) =>
+    (href ? a : span)(
       {
         href,
       },
-      name
+      label ?? name
     );
 
   const TreeView = treeView(context, { renderMenuItem });

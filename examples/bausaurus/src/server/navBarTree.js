@@ -56,10 +56,7 @@ const getDirEntries = (directory) =>
     }),
   ])();
 
-const isIndexFile = pipe([
-  get("data.href", ""),
-  or([callProp("endsWith", "index") /* callProp("endsWith", "README")*/]),
-]);
+const isIndexFile = pipe([get("index")]);
 
 const processDir =
   ({ directory, tree, base, pathsNested }) =>
@@ -82,18 +79,27 @@ const processDir =
               tap((params) => {
                 assert(true);
               }),
-              ({ data }) => ({
-                ...subTree,
-                ...treeItem,
-                // data: { href: data.href, name: subTree.data?.name },
-                data,
+              ({ data }) => ((subTree.data.href = data.href), subTree),
+              tap((params) => {
+                assert(true);
               }),
+              () => subTree,
             ]),
           ]),
+          tap((params) => {
+            assert(true);
+          }),
           assign({ children: pipe([get("children"), filterOut(isIndexFile)]) }),
+          tap((params) => {
+            assert(true);
+          }),
         ])()
       ),
+      tap((params) => {
+        assert(true);
+      }),
       tap((subTree) => tree.children.push(subTree)),
+      () => tree,
     ])();
 
 const processFile =

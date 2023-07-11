@@ -54,14 +54,19 @@ export const createRouter = (context, { onLocationChange }) => {
     let href = target.getAttribute("href");
     if (
       target.tagName === "A" &&
+      target.href.includes(docPath) &&
       href &&
-      //href.startsWith(docPath) &&
       !href.startsWith("http") &&
       !href.startsWith("#")
     ) {
       // target.href contains the resolved path
       let nextPage = target.href.replace(".md", "");
       context.window.history.pushState({}, null, nextPage);
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        //behavior: "smooth",
+      });
       event.preventDefault();
       onLocationChange({
         nextPage,

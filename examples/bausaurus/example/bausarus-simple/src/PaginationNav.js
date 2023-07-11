@@ -4,11 +4,11 @@ export default function (context) {
 
   const Link =
     ({ text }) =>
-    ({ name, href }) =>
+    ({ name, label, href }) =>
       a(
         { href },
         span({ class: "sublabel" }, text),
-        div({ class: `label ${text}` }, name)
+        div({ class: `label ${text}` }, label ?? name)
       );
 
   const className = css`
@@ -60,8 +60,8 @@ export default function (context) {
         "aria-label": "pages navigation",
         class: className,
       },
-      previous && Link({ text: "Previous" })(previous),
-      next && Link({ text: "Next" })(next)
+      previous?.href && Link({ text: "Previous" })(previous),
+      next?.href && Link({ text: "Next" })(next)
     );
   };
 }

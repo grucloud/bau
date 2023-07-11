@@ -1,5 +1,4 @@
 import breadcrumbs from "@grucloud/bau-ui/breadcrumbs/breadcrumbs.js";
-import { docPath } from "./constants.js";
 
 export default function (context) {
   const { bau, css } = context;
@@ -14,7 +13,7 @@ export default function (context) {
       `,
       items: [
         {
-          href: docPath,
+          href: "/",
           name: "\u2302",
         },
         ,
