@@ -68,6 +68,10 @@ export const componentlist = () => [
     id: "tabs",
   },
   {
+    name: "Theme Switch",
+    id: "theme-switch",
+  },
+  {
     name: "TreeView",
     id: "treeview",
   },

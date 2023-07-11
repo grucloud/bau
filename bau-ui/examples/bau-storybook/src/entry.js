@@ -8,6 +8,7 @@ import { createRoutes } from "./routes";
 import { notFoundRouteDefault } from "./notFoundRoute";
 import { onLocationChange } from "./onLocationChange";
 import { createStyles } from "./style.js";
+import { createStylesDark } from "./styleDark.js";
 
 initialScreenFadeOut();
 
@@ -15,6 +16,7 @@ const config = { title: "Bau", base: "/bau" };
 const context = createContext({ config });
 
 createStyles(context);
+createStylesDark(context);
 
 BauRouter({
   routes: createRoutes({ context }),

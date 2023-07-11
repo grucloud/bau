@@ -27,12 +27,14 @@ const buildGrays = () =>
     )
     .join("\n");
 
-const buildEmphasis = () =>
+export const buildEmphasis = ({ dark }) =>
   new Array(10)
     .fill("")
     .map(
       (v, index) =>
-        `--color-emphasis-${index * 100}: var(--color-gray-${index * 100});`
+        `--color-emphasis-${index * 100}: var(--color-gray-${
+          dark ? 1000 - index * 100 : index * 100
+        });`
     )
     .join("\n");
 
@@ -70,7 +72,7 @@ export default function globalStyle(
   --color-black: #000;
   ${colorPalette.map(([color, hsl]) => buildColor([color, hsl])).join("\n")}
   ${buildGrays()}
-  ${buildEmphasis()}
+  ${buildEmphasis({})}
   --color-content: hsl(0, 0%, 10%);
   --color-content-inverse: hsl(0, 0%, 90%);
   --color-content-secondary: hsl(0, 0%, 30%);

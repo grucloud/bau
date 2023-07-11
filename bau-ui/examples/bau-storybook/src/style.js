@@ -22,6 +22,6 @@ export const createStyles = (context) => {
       scroll-behavior: smooth;
       scroll-padding-top: calc(var(--header-height) + 1rem);
     }
-    
+
   `;
 };

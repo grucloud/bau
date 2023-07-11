@@ -8,7 +8,7 @@ export default ({ rootDir }) => {
       favicon: "/grucloud.svg",
       base: "/docs/",
       outDir: "dist/docs",
-      //srcDir: "../../../../../grucloud/docusaurus/docs",
+      srcDir: "../../../../../grucloud/bausaurus/docs",
       //srcDir: "../../../../",
       srcDir: "docs",
       title: "My Site",

@@ -60,7 +60,6 @@ export default function (context, { tabDefs }) {
           cursor: not-allowed;
           font-style: italic;
           color: var(--font-color-disabled);
-          background-color: white;
           transform: none;
           &:hover {
             color: var(--font-color-disabled);

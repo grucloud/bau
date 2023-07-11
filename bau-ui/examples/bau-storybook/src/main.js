@@ -12,6 +12,7 @@ import modalExamples from "./pages/modal.examples";
 import spinnerExamples from "./pages/spinner.examples";
 import switchExamples from "./pages/switch.examples";
 import tabsExamples from "./pages/tabs.examples";
+import themeSwitchExamples from "./pages/themeSwitch.examples";
 import treeViewExamples from "./pages/treeView.examples";
 
 export const main = (context) => {
@@ -48,6 +49,7 @@ export const main = (context) => {
       spinnerExamples(context)(),
       switchExamples(context)(),
       tabsExamples(context)(),
+      themeSwitchExamples(context)(),
       treeViewExamples(context)()
     );
   };
