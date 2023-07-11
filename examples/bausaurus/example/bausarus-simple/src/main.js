@@ -4,17 +4,11 @@ import { docPath } from "./constants.js";
 import createContext from "./context";
 import { mountApp, isProd } from "./utils.js";
 import { loadContent } from "./router";
+import { navBarTree } from "./navBarTree.js";
 
 const context = createContext({ window });
 
-const importNavBarTree = async () => {
-  const { navBarTree } = await import(/* @vite-ignore */ `./navBarTree.js`);
-  return navBarTree;
-};
-
 const createDocAppProp = async ({ context }) => {
-  const navBarTree = await importNavBarTree();
-
   if (isProd()) {
     // Prod
     const mainEls = document.getElementsByTagName("main");
@@ -24,17 +18,15 @@ const createDocAppProp = async ({ context }) => {
     return {
       contentHtml: mainEls[0].innerHTML,
       toc: JSON.parse(tocEl.dataset.toc),
-      navBarTree,
       breadcrumbs: JSON.parse(breadcrumbsEl.dataset.breadcrumbs),
       paginationNav: JSON.parse(paginationNavEl.dataset.paginationnav),
     };
   } else {
     // Dev
-    const content = await loadContent({
+    return loadContent({
       nextPage: location.pathname,
       context,
     });
-    return { ...content, navBarTree };
   }
 };
 
@@ -44,7 +36,7 @@ const loadDocs = async () => {
     const props = await createDocAppProp({
       context,
     });
-    mountApp(DocApp(props));
+    mountApp(DocApp({ ...props, navBarTree }));
   } catch (error) {
     console.error("Error: ", error);
     console.error("pathname", location.pathname);
