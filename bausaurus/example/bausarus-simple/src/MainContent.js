@@ -24,7 +24,6 @@ export default async function (context) {
   const updateContent = (el, { contentHtml }) => {
     el.innerHTML = contentHtml;
     el.querySelectorAll("code").forEach((codeEl) => {
-      // Already processed
       codeEl.append(ButtonCopyText());
     });
   };
