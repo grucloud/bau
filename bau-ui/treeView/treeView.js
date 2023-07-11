@@ -1,29 +1,5 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 
-const collapseOrExpandSection = ({ element, closeState }) => {
-  closeState.val ? collapseSection(element) : expandSection(element);
-};
-
-function collapseSection(element) {
-  element.style.height = element.scrollHeight + "px";
-  const animationEndHandler = () => {
-    element.removeEventListener("transitionend", animationEndHandler);
-  };
-  element.addEventListener("transitionend", animationEndHandler);
-  window.requestAnimationFrame(() => {
-    element.style.height = "0px";
-  });
-}
-
-function expandSection(element) {
-  const animationEndHandler = () => {
-    element.removeEventListener("transitionend", animationEndHandler);
-    element.style.height = null;
-  };
-  element.addEventListener("transitionend", animationEndHandler);
-  element.style.height = element.scrollHeight + "px";
-}
-
 const createStyles = ({ css, createGlobalStyles }) => {
   createGlobalStyles`
 :root {
@@ -101,10 +77,34 @@ const createStyles = ({ css, createGlobalStyles }) => {
 };
 
 export default function (context, { renderMenuItem }) {
-  const { bau, css, createGlobalStyles } = context;
+  const { bau, css, createGlobalStyles, window } = context;
   const { ul, li, nav, div } = bau.tags;
 
   const styles = createStyles({ css, createGlobalStyles });
+
+  const collapseOrExpandSection = ({ element, closeState }) => {
+    closeState.val ? collapseSection(element) : expandSection(element);
+  };
+
+  function collapseSection(element) {
+    element.style.height = element.scrollHeight + "px";
+    const animationEndHandler = () => {
+      element.removeEventListener("transitionend", animationEndHandler);
+    };
+    element.addEventListener("transitionend", animationEndHandler);
+    window.requestAnimationFrame(() => {
+      element.style.height = "0px";
+    });
+  }
+
+  function expandSection(element) {
+    const animationEndHandler = () => {
+      element.removeEventListener("transitionend", animationEndHandler);
+      element.style.height = null;
+    };
+    element.addEventListener("transitionend", animationEndHandler);
+    element.style.height = element.scrollHeight + "px";
+  }
 
   const Tree =
     ({ depth = 1, maxDepth }) =>

@@ -133,7 +133,10 @@ const toHtml = ({
 
 const assignFrontMatterData = ({ frontmatter }) =>
   pipe([
-    when(() => frontmatter.title, assign({ title: () => frontmatter.title })),
+    when(
+      () => frontmatter.title,
+      assign({ title: ({ title }) => `${frontmatter.title} | ${title}` })
+    ),
     when(
       () => frontmatter.description,
       assign({ description: () => frontmatter.description })
