@@ -19,10 +19,16 @@ import {
 } from "./cssExtract.js";
 import { isPageChunk } from "./utils.js";
 
-export const isOutputJs = and([
-  eq(get("type"), "chunk"),
-  get("isEntry"),
-  pipe([get("facadeModuleId", ""), callProp("endsWith", ".js")]),
+export const isOutput = (extension) =>
+  and([
+    eq(get("type"), "chunk"),
+    get("isEntry"),
+    pipe([get("facadeModuleId", ""), callProp("endsWith", extension)]),
+  ]);
+
+export const isOutputCss = and([
+  eq(get("type"), "asset"),
+  pipe([get("name", ""), callProp("endsWith", ".css")]),
 ]);
 
 export const renderPages = (config) => (output) =>
@@ -33,12 +39,10 @@ export const renderPages = (config) => (output) =>
     }),
     () => output,
     all({
-      //
       config: () => config,
       output: () => output,
-      appChunks: filter(isOutputJs),
-      //TODO
-      //cssChunk: find(isOutputCss),
+      appChunks: filter(isOutput(".js")),
+      cssChunks: filter(isOutputCss),
     }),
     (renderParam) =>
       pipe([
@@ -93,7 +97,7 @@ const toHtml = ({
   description,
   content,
   appChunks,
-  cssChunk,
+  cssChunks,
   metadataScript,
 }) => `
 <!DOCTYPE html>
@@ -112,12 +116,10 @@ const toHtml = ({
   }
     <meta name="twitter:card" content="summary_large_image" />
     ${siteData.favicon ? `<link rel="icon" href="${siteData.favicon}">` : ""}
+    ${cssChunks
+      .map((cssChunk) => `<link rel="stylesheet" href="/${cssChunk.fileName}">`)
+      .join("\n")}
     <link rel="stylesheet" href="/assets/${content.cssFilename}">
-    ${
-      cssChunk
-        ? `<link rel="preload stylesheet" href="/${cssChunk.fileName}" as="style">`
-        : ""
-    }
     ${appChunks
       .map(
         (appChunk) =>
@@ -144,7 +146,7 @@ const assignFrontMatterData = ({ frontmatter }) =>
   ]);
 
 export const renderPage =
-  ({ config, output, appChunks, cssChunk, assets }) =>
+  ({ config, output, appChunks, cssChunks, assets }) =>
   async (chunk) => {
     assert(config);
     assert(output);
@@ -204,7 +206,7 @@ export const renderPage =
                 title,
                 description,
                 content,
-                cssChunk,
+                cssChunks,
                 appChunks,
                 metadataScript,
               }),
