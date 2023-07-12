@@ -1,4 +1,4 @@
-import docApp from "./src/DocApp.js";
+import docApp from "./src/appDoc/DocApp.js";
 
 export default ({ rootDir }) => {
   return {

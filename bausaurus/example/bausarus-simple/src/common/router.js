@@ -1,6 +1,6 @@
 import { hashMapFile, docPath } from "./constants.js";
 import { inBrowser, pathFromLocation } from "./utils.js";
-import pageNotFound from "./NotFound.js";
+import pageNotFound from "../views/NotFound.js";
 
 let __BAUSAURUS_HASH_MAP__;
 

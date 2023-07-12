@@ -1,9 +1,7 @@
 import docApp from "./DocApp";
-import landingPage from "./LandingPage";
-import { docPath } from "./constants.js";
-import createContext from "./context";
-import { mountApp, isProd } from "./utils.js";
-import { loadContent } from "./router";
+import createContext from "../common/context";
+import { mountApp, isProd } from "../common/utils.js";
+import { loadContent } from "../common/router";
 import { navBarTree } from "./navBarTree.js";
 
 const context = createContext({ window });
@@ -44,13 +42,4 @@ const loadDocs = async () => {
   }
 };
 
-const loadLandingPage = async () => {
-  const LandingPage = landingPage(context);
-  mountApp(LandingPage({}));
-};
-
-if (location.pathname.startsWith(docPath)) {
-  loadDocs();
-} else {
-  loadLandingPage();
-}
+loadDocs();

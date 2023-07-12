@@ -19,12 +19,8 @@ import {
 } from "./cssExtract.js";
 import { isPageChunk } from "./utils.js";
 
-export const isOutput = (extension) =>
-  and([
-    eq(get("type"), "chunk"),
-    get("isEntry"),
-    pipe([get("facadeModuleId", ""), callProp("endsWith", extension)]),
-  ]);
+export const isOutput = (name) =>
+  and([eq(get("type"), "chunk"), eq(get("name"), name)]);
 
 export const isOutputCss = and([
   eq(get("type"), "asset"),
@@ -41,7 +37,7 @@ export const renderPages = (config) => (output) =>
     all({
       config: () => config,
       output: () => output,
-      appChunks: filter(isOutput(".js")),
+      appChunks: filter(isOutput("docAppEntry")),
       cssChunks: filter(isOutputCss),
     }),
     (renderParam) =>

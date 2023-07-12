@@ -32,14 +32,14 @@ export default defineConfig((config) =>
           input: {
             ...inputs,
             index: "./index.html",
-            main: "./src/main.js",
-            navBarTree: "./src/navBarTree.js",
+            docAppEntry: "./src/appDoc/docAppEntry.js",
+            navBarTree: "./src/appDoc/navBarTree.js",
           },
         },
       },
       plugins: [
         virtual({
-          "./src/navBarTree.js": writeNavBarTree(config),
+          "./src/appDoc/navBarTree.js": writeNavBarTree(config),
         }),
         bausaurusPlugin(config),
       ],

@@ -65,6 +65,7 @@ exports.createResources = () => [
 
 <div>
     <iframe
+    title="gc new"
     data-autoplay
     src="https://asciinema.org/a/daLrxnF4qNuuUksSugIBjmi2F/iframe?autoplay=true&amp;speed=2&amp;loop=true"
     id="asciicast-iframe-13761"

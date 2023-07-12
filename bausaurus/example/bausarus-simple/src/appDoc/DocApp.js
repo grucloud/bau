@@ -1,13 +1,13 @@
-import header from "./Header.js";
+import header from "../views/Header.js";
+import footer from "../views/Footer.js";
 import navBar from "./NavBar.js";
 import mainContent from "./MainContent.js";
 import toc from "./Toc.js";
-import footer from "./Footer.js";
 import breadcrumbsDoc from "./BreadcrumbsDoc.js";
 import createPaginationNav from "./PaginationNav.js";
 
-import { createRouter, loadContent } from "./router.js";
-import { createStyles } from "./style.js";
+import { createRouter, loadContent } from "../common/router.js";
+import { createStyles } from "../common/style.js";
 
 export default async function (context) {
   const { bau, css, window } = context;

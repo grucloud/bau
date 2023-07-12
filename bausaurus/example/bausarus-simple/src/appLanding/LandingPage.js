@@ -1,5 +1,5 @@
-import header from "./Header.js";
-import footer from "./Footer.js";
+import header from "../views/Header.js";
+import footer from "../views/Footer.js";
 
 import globalStyle from "@grucloud/bau-ui/globalStyle/globalStyle.js";
 
@@ -16,7 +16,7 @@ img  {
   const Header = header(context);
   const Footer = footer(context);
 
-  const Main = ({}) => div("Main");
+  const Main = ({}) => div("TOTO");
 
   return function LandingPage({}) {
     return div(
