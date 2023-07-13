@@ -4,7 +4,7 @@ import rubicox from "rubico/x/index.js";
 import Path from "path";
 import createJSDOM from "./jsdom.js";
 import createContext from "./context.js";
-import { isPageChunk } from "./utils.js";
+import { isMarkdownPageChunk } from "./utils.js";
 import { hashRE } from "./constants.js";
 import { processMarkdownContent } from "./markdown.js";
 import { pagesHashMapToString } from "./pagesHashMap.js";
@@ -40,7 +40,7 @@ const generateBundle =
     assert(pageToHashMap);
     for (const name in bundle) {
       const chunk = bundle[name];
-      if (isPageChunk(chunk)) {
+      if (isMarkdownPageChunk(chunk)) {
         const match = chunk.fileName.match(hashRE);
         const hash = match[1];
         assert(hash);

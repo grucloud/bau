@@ -1,44 +1,49 @@
-import header from "../views/Header.js";
-import footer from "../views/Footer.js";
-
-import globalStyle from "@grucloud/bau-ui/globalStyle/globalStyle.js";
+import hero from "./Hero";
+import features from "./Features";
 
 export default function (context) {
-  const { bau, css, createGlobalStyles } = context;
-  const { div } = bau.tags;
-  globalStyle(context);
+  const { bau, css } = context;
+  const { div, span, a } = bau.tags;
+  const Hero = hero(context);
+  const Features = features(context);
 
-  createGlobalStyles`
-img  {
-  max-width: 100%;
-}`;
+  const className = css`
+    grid-area: main;
+  `;
 
-  const Header = header(context);
-  const Footer = footer(context);
+  const featuresContent = [
+    {
+      title: "SSG",
+      Content: () =>
+        "Static Site Generation: build a static website from markdown content.",
+    },
+    {
+      title: "Flexible",
+      Content: () =>
+        "Customize everything: header, footer, navigation tree etc...",
+    },
+    {
+      title: "Bau",
+      Content: () =>
+        span(
+          "Built with ",
+          a({ href: "https://github.com/grucloud/bau" }, "Bau"),
+          ", a lean library to build web interface."
+        ),
+    },
+  ];
 
-  const Main = ({}) => div("TOTO");
-
-  return function LandingPage({}) {
+  return function Main({}) {
     return div(
       {
-        class: css`
-          display: grid;
-          justify-content: space-between;
-          grid-template-columns: minmax(15%, 300px) minmax(50%, 70%) minmax(
-              20%,
-              350px
-            );
-          grid-template-rows: auto 1fr auto;
-          grid-template-areas:
-            "header header header"
-            "navbar main toc"
-            "footer footer footer";
-          min-height: 100vh;
-        `,
+        class: className,
       },
-      Header(),
-      Main({}),
-      Footer()
+      Hero({
+        name: "Bausaurus",
+        text: "Static Site Generation",
+        tagLine: "Build a static web site from your markdown documentation",
+      }),
+      Features({ featuresContent })
     );
   };
 }

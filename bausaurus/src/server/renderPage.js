@@ -17,7 +17,7 @@ import {
   inferCssFileName,
   writeExtractedCss,
 } from "./cssExtract.js";
-import { isPageChunk } from "./utils.js";
+import { isMarkdownPageChunk } from "./utils.js";
 
 export const isOutput = (name) =>
   and([eq(get("type"), "chunk"), eq(get("name"), name)]);
@@ -43,7 +43,7 @@ export const renderPages = (config) => (output) =>
     (renderParam) =>
       pipe([
         () => output,
-        filter(isPageChunk),
+        filter(isMarkdownPageChunk),
         map(pipe([renderPage(renderParam)])),
       ])(),
     tap((params) => {

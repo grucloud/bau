@@ -1,13 +1,14 @@
 export default function ({ bau, css }) {
-  const { footer } = bau.tags;
+  const { footer, span } = bau.tags;
 
   const className = css`
     grid-area: footer;
-    border: 1px dotted lightgray;
     min-height: 4rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: var(--font-color-secondary);
   `;
 
   return function Footer() {
@@ -15,7 +16,8 @@ export default function ({ bau, css }) {
       {
         class: className,
       },
-      `Copyright © ${new Date().getFullYear()} World Company`
+      span("Released under the MIT License."),
+      span(`Copyright © ${new Date().getFullYear()}`)
     );
   };
 }

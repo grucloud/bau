@@ -20,7 +20,7 @@ const { pipe, tap, get, eq, flatMap, switchCase, filter, or, and, reduce } =
   rubico;
 const { callProp, filterOut, isIn, unless } = rubicox;
 
-export const isPageChunk = and([
+export const isMarkdownPageChunk = and([
   eq(get("type"), "chunk"),
   get("isEntry"),
   pipe([get("facadeModuleId", ""), callProp("endsWith", ".md")]),

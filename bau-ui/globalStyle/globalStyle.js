@@ -19,21 +19,21 @@ const SHADES_DARK = [
 ];
 
 const buildGrays = () =>
-  new Array(10)
+  new Array(20)
     .fill("")
     .map(
       (v, index) =>
-        `--color-gray-${index * 100}: hsl(0, 0%, ${100 - 8 * index}%);`
+        `--color-gray-${index * 50}: hsl(0, 0%, ${100 - 5 * index}%);`
     )
     .join("\n");
 
 export const buildEmphasis = ({ dark }) =>
-  new Array(10)
+  new Array(20)
     .fill("")
     .map(
       (v, index) =>
-        `--color-emphasis-${index * 100}: var(--color-gray-${
-          dark ? 1000 - index * 100 : index * 100
+        `--color-emphasis-${index * 50}: var(--color-gray-${
+          dark ? 1000 - index * 50 : index * 50
         });`
     )
     .join("\n");
