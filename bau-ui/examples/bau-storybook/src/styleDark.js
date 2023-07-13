@@ -13,7 +13,7 @@ export const createStylesDark = (context) => {
   --hover-overlay: rgba(255, 255, 255, 0.05);
   --color-content: #e3e3e3;
   --color-content-secondary: rgba(255, 255, 255, 1);
-  ${buildEmphasis(true)}
+  ${buildEmphasis({ dark: true })}
 }
   `;
 };
