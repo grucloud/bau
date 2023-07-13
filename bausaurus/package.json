@@ -3,6 +3,7 @@
   "version": "0.28.0",
   "description": "Static Site Generation (SSG) built with Bau",
   "type": "module",
+  "private": true,
   "bin": {
     "bausaurus": "./src/server/bausaurus.js"
   },
