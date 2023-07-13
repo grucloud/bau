@@ -64,7 +64,8 @@ export const md2Toc = ({ contentMd }) =>
           nodeCurrent.children.push(newNode);
           nodeCurrent = newNode;
         } else if (levelCurrent > heading.level) {
-          parentNode = parents.pop();
+          parentNode = parents[heading.level - 1];
+          parents = parents.slice(0, heading.level - 1);
           parentNode.children.push(newNode);
           nodeCurrent = newNode;
         }

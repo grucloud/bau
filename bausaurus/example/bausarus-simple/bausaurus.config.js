@@ -11,9 +11,9 @@ export default ({ rootDir }) => {
       //srcDir: "../../../../grucloud/bausaurus/docs",
       //srcDir: "../../../",
       srcDir: "docs",
-      title: "My Site",
-      description: "Documentation for My Site",
-      keywords: ["My Tags", "My Other Tags"],
+      title: "Bausarus",
+      description: "SSG built with Bau",
+      keywords: ["SSH", "My Other Tags"],
       lang: "en",
     },
   };

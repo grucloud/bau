@@ -1,77 +1,15 @@
-# Bausaurus
+---
+title: "Introduction"
+---
 
-A Static Site Generator built with Bau.
+**Bausaurus** is Static Site Generator (SSG) built with Bau.
 
-## Note
+From a directory of files in **markdown** format, it generates html pages where the markdown content is wrapped into a layout:
 
-Example of note:
-
-> A note starts with the _>_ symbol
-
-## Syntax highlighter
-
-### Shell command
-
-Example of shell command:
-
-```sh
-$ rm -rf /
-```
-
-### Source Code
-
-Example of code:
-
-```js
-exports.createResources = () => [
-  {
-    type: "Topic",
-    group: "SNS",
-    name: "my-topic",
-    properties: ({}) => ({
-      Attributes: {
-        DisplayName: "My Topic",
-      },
-      Tags: [
-        {
-          Key: "mykey",
-          Value: "myvalue",
-        },
-      ],
-    }),
-  },
-];
-```
-
-## Table
-
-|                                            | GruCloud | Terraform | AWS CDK |
-| ------------------------------------------ | -------- | --------- | ------- |
-| Generate code from existing infrastructure | Yes      | No        | No      |
-| General-purpose language                   | Yes      | No        | Yes     |
-| Statelessness                              | Yes      | No        | No      |
-| Multi-cloud                                | Yes      | Yes       | No      |
-| Diagram of existing infrastructure         | Yes      | No        | No      |
-| Diagram of target infrastructure           | Yes      | Yes       | No      |
-| Debugging                                  | Yes      | No        | Yes     |
-| Easy Testing                               | Yes      | No        | Yes     |
-| Direct calls to the underlying cloud API   | Yes      | Yes       | No      |
-
-## Links
-
-- [Article 1](./Article1.md)
-
-## Embed HTML
-
-<div>
-    <iframe
-    title="gc new"
-    data-autoplay
-    src="https://asciinema.org/a/daLrxnF4qNuuUksSugIBjmi2F/iframe?autoplay=true&amp;speed=2&amp;loop=true"
-    id="asciicast-iframe-13761"
-    name="asciicast-iframe-13761"
-    scrolling="no"
-    style="width: 100%;height: 500px"
-    ></iframe>
-
-</div>
+- Header
+- Navigation Tree of the left.
+- Breadcrumbs navigation above the content.
+- The content of the markdown converted into HTML
+- Table of Content for the current file.
+- Pagination to navigate to the previous and next page.
+- Footer
