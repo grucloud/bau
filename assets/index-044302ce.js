@@ -181,7 +181,7 @@ body {
           margin: 1rem;
           span {
           }
-        `},o("version: 0.28.0"))}}const ye=()=>[{name:"Alert",id:"alert"},{name:"Alert Stack",id:"alert-stack"},{name:"Animate",id:"animate"},{name:"Avatar",id:"avatar"},{name:"Breadcrumbs",id:"breadcrumbs"},{name:"Button",id:"button"},{name:"Checkbox",id:"checkbox"},{name:"Drawer",id:"drawer"},{name:"File Input",id:"fileInput"},{name:"Input",id:"input"},{name:"Modal",id:"modal"},{name:"Spinner",id:"spinner"},{name:"Switch",id:"switch"},{name:"Tabs",id:"tabs"},{name:"Theme Switch",id:"theme-switch"},{name:"TreeView",id:"treeview"}];function U(e){const{tr:a,bau:r,css:t}=e,{ul:o,li:n,nav:s,a:i}=r.tags;return function(){return s({class:t`
+        `},o("version: 0.29.0"))}}const ye=()=>[{name:"Alert",id:"alert"},{name:"Alert Stack",id:"alert-stack"},{name:"Animate",id:"animate"},{name:"Avatar",id:"avatar"},{name:"Breadcrumbs",id:"breadcrumbs"},{name:"Button",id:"button"},{name:"Checkbox",id:"checkbox"},{name:"Drawer",id:"drawer"},{name:"File Input",id:"fileInput"},{name:"Input",id:"input"},{name:"Modal",id:"modal"},{name:"Spinner",id:"spinner"},{name:"Switch",id:"switch"},{name:"Tabs",id:"tabs"},{name:"Theme Switch",id:"theme-switch"},{name:"TreeView",id:"treeview"}];function U(e){const{tr:a,bau:r,css:t}=e,{ul:o,li:n,nav:s,a:i}=r.tags;return function(){return s({class:t`
           grid-area: sidebar;
           position: sticky;
           top: calc(var(--header-height) + 1rem);
