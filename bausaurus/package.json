@@ -1,0 +1,40 @@
+{
+  "name": "@grucloud/bausaurus",
+  "version": "0.28.0",
+  "description": "Static Site Generation (SSG) built with Bau",
+  "type": "module",
+  "bin": {
+    "bausaurus": "./src/server/bausaurus.js"
+  },
+  "keywords": [
+    "SSG",
+    "Static Site Generation"
+  ],
+  "scripts": {},
+  "dependencies": {
+    "@grucloud/bau": "^0.28.0",
+    "@grucloud/bau-css": "^0.28.0",
+    "@grucloud/bau-ui": "^0.28.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-virtual": "3.0.1",
+    "@sindresorhus/slugify": "2.2.1",
+    "commander": "^11.0.0",
+    "fs-extra": "11.1.1",
+    "gray-matter": "4.0.3",
+    "hast-util-from-html": "^1.0.2",
+    "highlight.js": "11.8.0",
+    "jsdom": "22.1.0",
+    "mdast-util-to-hast": "12.3.0",
+    "mdast-util-to-string": "3.2.0",
+    "rehype-stringify": "9.0.3",
+    "remark": "14.0.3",
+    "remark-gfm": "3.0.1",
+    "remark-parse": "10.0.2",
+    "remark-stringify": "10.0.3",
+    "rubico": "2.0.1",
+    "unified": "10.1.2",
+    "unist-util-visit": "4.1.2",
+    "vite": "4.3.9"
+  }
+}

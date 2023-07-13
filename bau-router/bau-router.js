@@ -63,6 +63,7 @@ export default function Router({ routes, notFoundRoute, onLocationChange }) {
     const href = target.getAttribute("href");
     if (
       target.tagName === "A" &&
+      href &&
       !href.startsWith("http") &&
       !href.startsWith("#")
     ) {

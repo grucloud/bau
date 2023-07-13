@@ -2,6 +2,7 @@ import alertExamples from "./pages/alert.examples";
 import animateExamples from "./pages/animate.examples";
 import avatarExamples from "./pages/avatar.examples";
 import alertStackExamples from "./pages/alertStack.examples";
+import breadcrumbExamples from "./pages/breadcrumb.examples";
 import buttonExamples from "./pages/button.examples";
 import checkboxExamples from "./pages/checkbox.examples";
 import drawerExamples from "./pages/drawer.examples";
@@ -11,6 +12,7 @@ import modalExamples from "./pages/modal.examples";
 import spinnerExamples from "./pages/spinner.examples";
 import switchExamples from "./pages/switch.examples";
 import tabsExamples from "./pages/tabs.examples";
+import themeSwitchExamples from "./pages/themeSwitch.examples";
 import treeViewExamples from "./pages/treeView.examples";
 
 export const main = (context) => {
@@ -32,10 +34,12 @@ export const main = (context) => {
         `,
       },
       h1(tr("Examples")),
+
       alertExamples(context)(),
       alertStackExamples(context)(),
       animateExamples(context)(),
       avatarExamples(context)(),
+      breadcrumbExamples(context)(),
       buttonExamples(context)(),
       checkboxExamples(context)(),
       drawerExamples(context)(),
@@ -45,6 +49,7 @@ export const main = (context) => {
       spinnerExamples(context)(),
       switchExamples(context)(),
       tabsExamples(context)(),
+      themeSwitchExamples(context)(),
       treeViewExamples(context)()
     );
   };

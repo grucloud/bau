@@ -1,0 +1,9 @@
+{
+  "children": [
+    { "data": { "name": "index.md" }, "index": true },
+    { "data": { "name": "Installation.md" } },
+    { "data": { "name": "Commands.md" } },
+    { "data": { "name": "Configuration.md" } },
+    { "data": { "name": "Markdown.md" } }
+  ]
+}

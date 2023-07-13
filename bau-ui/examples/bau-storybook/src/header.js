@@ -3,7 +3,7 @@ import button from "@grucloud/bau-ui/button";
 
 export default function (context) {
   const { tr, bau, css } = context;
-  const { i, header, h1, div, a, img } = bau.tags;
+  const { i, header, h1, div, a, img, b } = bau.tags;
   const { svg, path } = bau.tagsNS("http://www.w3.org/2000/svg");
 
   const drawerOpenState = bau.state(true);
@@ -49,7 +49,17 @@ export default function (context) {
         },
         BurgerIcon()
       ),
-      h1(tr("Bau Story Book"))
+      a(
+        {
+          href: "/",
+          class: css`
+            text-decoration: none;
+            color: var(--color-inverse);
+            font-size: x-large;
+          `,
+        },
+        b(tr("Bau Story Book"))
+      )
     );
 
   const NavBarRight = () =>
@@ -64,8 +74,8 @@ export default function (context) {
       img({
         alt: "GitHub",
         src: "./github-mark-white.svg",
-        width: 40,
-        height: 40,
+        width: 30,
+        height: 30,
       })
     );
 
@@ -82,6 +92,7 @@ export default function (context) {
           align-items: center;
           background-color: var(--color-primary);
           color: var(--font-color-inverse);
+          height: var(--header-height);
         `,
       },
       NavBarLeft(),

@@ -19,20 +19,22 @@ const SHADES_DARK = [
 ];
 
 const buildGrays = () =>
-  new Array(10)
+  new Array(20)
     .fill("")
     .map(
       (v, index) =>
-        `--color-gray-${index * 100}: hsl(0, 0%, ${100 - 8 * index}%);`
+        `--color-gray-${index * 50}: hsl(0, 0%, ${100 - 5 * index}%);`
     )
     .join("\n");
 
-const buildEmphasis = () =>
-  new Array(10)
+export const buildEmphasis = ({ dark }) =>
+  new Array(20)
     .fill("")
     .map(
       (v, index) =>
-        `--color-emphasis-${index * 100}: var(--color-gray-${index * 100});`
+        `--color-emphasis-${index * 50}: var(--color-gray-${
+          dark ? 1000 - index * 50 : index * 50
+        });`
     )
     .join("\n");
 
@@ -70,7 +72,7 @@ export default function globalStyle(
   --color-black: #000;
   ${colorPalette.map(([color, hsl]) => buildColor([color, hsl])).join("\n")}
   ${buildGrays()}
-  ${buildEmphasis()}
+  ${buildEmphasis({})}
   --color-content: hsl(0, 0%, 10%);
   --color-content-inverse: hsl(0, 0%, 90%);
   --color-content-secondary: hsl(0, 0%, 30%);
@@ -99,6 +101,7 @@ export default function globalStyle(
     0 2px 4px 0 rgba(0, 0, 0, 0.1);
   --font-size-base: 100%;
   --line-height-base: 1.65;
+  --link-color: var(--color-primary)
 }
 :root {
   font-family: var(--font-family);

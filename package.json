@@ -4,18 +4,15 @@
   "description": "A collection of lean ui libraries",
   "private": true,
   "homepage": "https://github.com/grucloud/bau",
-  "scripts": {
-  },
-  "keywords": [
-  ],
+  "scripts": {},
+  "keywords": [],
   "author": "Frederic Heem",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "lerna": "6.6.1",
     "prettier": "2.8.8"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/grucloud/bau"

@@ -16,6 +16,10 @@ export const componentlist = () => [
     id: "avatar",
   },
   {
+    name: "Breadcrumbs",
+    id: "breadcrumbs",
+  },
+  {
     name: "Button",
     id: "button",
   },
@@ -62,6 +66,10 @@ export const componentlist = () => [
   {
     name: "Tabs",
     id: "tabs",
+  },
+  {
+    name: "Theme Switch",
+    id: "theme-switch",
   },
   {
     name: "TreeView",

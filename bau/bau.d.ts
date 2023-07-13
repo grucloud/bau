@@ -194,7 +194,7 @@ interface Tags extends TagsBase {
   readonly template: TagFunc<HTMLTemplateElement>;
 }
 
-export default function Bau(input?: { document?: Document }): {
+export default function Bau(input?: { window?: Window }): {
   tags: Tags;
   tagsNS: (namespaceURI: string) => TagsBase;
   state: <T>(initVal: T) => State<T>;

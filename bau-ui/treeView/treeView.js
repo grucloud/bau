@@ -1,13 +1,5 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 
-function collapseSection(element) {
-  element.style.height = "0px";
-}
-
-function expandSection(element) {
-  element.style.height = element.scrollHeight + "px";
-}
-
 const createStyles = ({ css, createGlobalStyles }) => {
   createGlobalStyles`
 :root {
@@ -36,21 +28,27 @@ const createStyles = ({ css, createGlobalStyles }) => {
         padding-left: var(--menu-link-padding-horizontal);
         border-radius: 0.25rem;
         > div {
+          width: 100%;
           display: flex;
+          justify-content: space-between;
+          transition: background-color var(--transition-fast) ease-in-out;
           &:hover {
-            background: var(--menu-color-background-hover);
+            background: var(--color-emphasis-100);
           }
-          > a {
+          &::after {
+            transition: transform var(--transition-fast) linear;
+            background: var(--menu-link-sublist-icon) 50% / 2rem 2rem;
+            width: 1.25rem;
+            padding: 0.5rem;
+          }
+          > a,
+          span {
             display: flex;
+            flex-grow: 1;
             text-decoration: none;
             color: var(--menu-color);
             padding: var(--menu-link-padding-vertical)
               var(--menu-link-padding-horizontal);
-            &::before {
-              transition: transform var(--transition-fast) linear;
-              background: var(--menu-link-sublist-icon) 50% / 2rem 2rem;
-              width: 1.25rem;
-            }
           }
         }
       }
@@ -59,19 +57,19 @@ const createStyles = ({ css, createGlobalStyles }) => {
 
   return {
     nav,
-    collapsable: css`
-      > div > a {
-        &::before {
+    expanded: css`
+      > div {
+        &::after {
           content: "";
-          transform: rotate(90deg);
+          transform: rotate(180deg);
         }
       }
     `,
     collapsed: css`
-      > div > a {
-        &::before {
+      > div {
+        &::after {
           content: "";
-          transform: rotate(180deg);
+          transform: rotate(90deg);
         }
       }
     `,
@@ -79,51 +77,89 @@ const createStyles = ({ css, createGlobalStyles }) => {
 };
 
 export default function (context, { renderMenuItem }) {
-  const { bau, css, createGlobalStyles } = context;
-  const { ul, li, nav } = bau.tags;
+  const { bau, css, createGlobalStyles, window } = context;
+  const { ul, li, nav, div } = bau.tags;
 
   const styles = createStyles({ css, createGlobalStyles });
 
+  const collapseOrExpandSection = ({ element, closeState }) => {
+    closeState.val ? collapseSection(element) : expandSection(element);
+  };
+
+  function collapseSection(element) {
+    element.style.height = element.scrollHeight + "px";
+    const animationEndHandler = () => {
+      element.removeEventListener("transitionend", animationEndHandler);
+    };
+    element.addEventListener("transitionend", animationEndHandler);
+    window.requestAnimationFrame(() => {
+      element.style.height = "0px";
+    });
+  }
+
+  function expandSection(element) {
+    const animationEndHandler = () => {
+      element.removeEventListener("transitionend", animationEndHandler);
+      element.style.height = null;
+    };
+    element.addEventListener("transitionend", animationEndHandler);
+    element.style.height = element.scrollHeight + "px";
+  }
+
   const Tree =
-    ({ depth = 0 }) =>
+    ({ depth = 1, maxDepth }) =>
     (item) => {
-      const { children } = item;
-      const closeState = bau.state(true);
+      const { children, expanded } = item;
+      const closeState = bau.state(!expanded);
       return li(
         {
           class: () =>
             classNames(
               children
                 ? closeState.val
-                  ? styles.collapsable
-                  : styles.collapsed
+                  ? styles.collapsed
+                  : styles.expanded
                 : ""
             ),
-          onclick: (event) => {
-            closeState.val = !closeState.val;
-            event.preventDefault();
-          },
         },
-        renderMenuItem(item),
+        div(
+          {
+            class: css`
+              cursor: pointer;
+            `,
+            onclick: (event) => {
+              if (children) {
+                closeState.val = !closeState.val;
+              }
+            },
+          },
+          renderMenuItem(item.data)
+        ),
         children &&
+          depth < maxDepth &&
           ul(
             {
-              "aria-expanded": ({ element }) => {
+              bauMounted: ({ element }) => {
                 closeState.val
-                  ? collapseSection(element)
-                  : expandSection(element);
+                  ? (element.style.height = "0px")
+                  : (element.style.height = element.scrollHeight + "px");
+              },
+              "aria-expanded": ({ element }) => {
+                collapseOrExpandSection({ element, closeState });
                 return !closeState.val;
               },
             },
-            children.map(Tree({ depth: depth + 1 }))
+            children.map(Tree({ depth: depth + 1, maxDepth }))
           )
       );
     };
 
-  return function TreeView({ tree, ...otherProps }) {
+  return function TreeView({ tree, maxDepth = Infinity, ...otherProps }) {
     return nav(
-      { class: classNames(styles.nav, otherProps.class) },
-      ul(tree.children.map(Tree({})))
+      {
+        class: classNames(styles.nav, otherProps.class),
+      },
+      tree.children && ul(tree.children.map(Tree({ maxDepth })))
     );
   };
 }
