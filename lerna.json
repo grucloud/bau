@@ -1,19 +1,12 @@
 {
-  "packages": [
-    "bau/**/*",
-    "bau-css/**/*",
-    "bau-router/**/*",
-    "examples/**/*"
-  ],
+  "packages": ["bau/**/*", "bau-css/**/*", "bau-router/**/*", "examples/**/*"],
   "npmClient": "pnpm",
   "useWorkspaces": true,
-  "version": "0.28.0",
+  "version": "0.29.0",
   "command": {
     "command": {
       "bootstrap": {
-        "npmClientArgs": [
-          "--no-audit"
-        ]
+        "npmClientArgs": ["--no-audit"]
       }
     },
     "publish": {
