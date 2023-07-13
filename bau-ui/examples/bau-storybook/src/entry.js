@@ -12,7 +12,7 @@ import { createStylesDark } from "./styleDark.js";
 
 initialScreenFadeOut();
 
-const config = { title: "Bau", base: "/bau" };
+const config = { title: "Bau", base: "/bau/bau-ui" };
 const context = createContext({ config });
 
 createStyles(context);
