@@ -2,8 +2,9 @@ import assert from "assert";
 import hljs from "highlight.js/lib/core";
 import js from "highlight.js/lib/languages/javascript";
 import sh from "highlight.js/lib/languages/shell";
+import html from "highlight.js/lib/languages/xml";
 
-const defaultLanguagesMap = { js: js, sh: sh };
+const defaultLanguagesMap = { js, sh, html };
 const defaultLanguages = Object.keys(defaultLanguagesMap);
 
 const htmlDecode = (window, input) => {
