@@ -80,6 +80,18 @@ exports.createResources = () => [
 ];
 ```
 
+### Inline Source Code
+
+#### Input
+
+```txt
+One can use `inline code` with backtick
+```
+
+#### Output
+
+One can use `inline code` with backtick
+
 ## Table
 
 ### Input
@@ -105,12 +117,12 @@ exports.createResources = () => [
 ### Input
 
 ```sh
-- [Styling](./Styling.md)
+- [Commands](./Commands.md)
 ```
 
 ### Output
 
-- [Styling](./Styling.md)
+- [Commands](./Commands.md)
 
 ## Embed HTML
 

@@ -32,7 +32,7 @@ export const highlighter =
     await registerLanguage({ languages: defaultLanguages });
 
     el.innerHTML = contentHtml;
-    el.querySelectorAll("code").forEach((codeEl) => {
+    el.querySelectorAll("pre > code").forEach((codeEl) => {
       const codeEscaped = htmlDecode(window, codeEl.innerHTML);
       // Use by the copy to clipboard button
       codeEl.setAttribute("data-code", codeEscaped);
