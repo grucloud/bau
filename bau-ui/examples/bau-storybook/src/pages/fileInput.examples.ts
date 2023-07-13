@@ -26,25 +26,16 @@ export default (context: Context) => {
             display: flex;
             align-items: center;
             flex-direction: column;
-            color: var(--font-color-base);
+            stroke: var(--font-color-base);
+            fill: var(--font-color-base);
             > * {
               margin: 1rem;
-            }
-            svg {
-              height: 3rem;
-              path {
-                fill: var(--font-color-base);
-              }
             }
           `,
           disabled &&
             css`
-              color: var(--color-gray-500);
-              svg {
-                path {
-                  fill: var(--color-gray-500);
-                }
-              }
+              color: var(--color-emphasis-100);
+              fill: var(--font-color-disabled);
             `
         ),
       },
