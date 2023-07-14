@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { buildDev } from "./buildDev.js";
 import { buildProd } from "./buildProd.js";
 import { startPreview } from "./startPreview.js";
