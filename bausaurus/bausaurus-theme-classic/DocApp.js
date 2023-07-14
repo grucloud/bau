@@ -2,14 +2,19 @@ import { isProd } from "@grucloud/bausaurus-core/utils.js";
 import { createRouter, loadContent } from "@grucloud/bausaurus-core/router.js";
 import { createStyles } from "@grucloud/bausaurus-core/style.js";
 
-import navBar from "./NavBar.js";
-import mainContent from ".//MainContent.js";
-import toc from "./Toc.js";
-import breadcrumbsDoc from "./BreadcrumbsDoc.js";
-import createPaginationNav from "./PaginationNav.js";
-import pageNotFound from "./NotFound.js";
-
-export default async function (context, { header, footer }) {
+export default function (
+  context,
+  {
+    header,
+    navBar,
+    breadcrumbsDoc,
+    mainContent,
+    toc,
+    createPaginationNav,
+    footer,
+    pageNotFound,
+  }
+) {
   const { bau, css, window } = context;
   const { div } = bau.tags;
 
@@ -18,7 +23,7 @@ export default async function (context, { header, footer }) {
   const Header = header(context);
   const NavBar = navBar(context);
   const BreadcrumbsDoc = breadcrumbsDoc(context);
-  const MainContent = await mainContent(context);
+  const MainContent = mainContent(context);
   const PaginationNav = createPaginationNav(context);
   const Toc = toc(context);
 
