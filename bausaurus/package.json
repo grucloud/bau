@@ -1,6 +1,6 @@
 {
   "name": "@grucloud/bausaurus",
-  "version": "0.29.0",
+  "version": "0.30.0",
   "description": "Static Site Generation (SSG) built with Bau",
   "homepage": "https://grucloud.github.io/bau/bausaurus",
   "type": "module",
@@ -13,10 +13,10 @@
   ],
   "scripts": {},
   "dependencies": {
-    "@grucloud/bau": "^0.29.0",
-    "@grucloud/bau-css": "^0.29.0",
-    "@grucloud/bau-ui": "^0.29.0",
-    "@grucloud/bausaurus-core": "^0.29.0"
+    "@grucloud/bau": "^0.30.0",
+    "@grucloud/bau-css": "^0.30.0",
+    "@grucloud/bau-ui": "^0.30.0",
+    "@grucloud/bausaurus-core": "^0.30.0"
   },
   "devDependencies": {
     "@rollup/plugin-virtual": "3.0.1",
