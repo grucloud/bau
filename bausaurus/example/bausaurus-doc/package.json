@@ -2,7 +2,7 @@
   "name": "bausaurus-doc",
   "private": true,
   "homepage": "https://grucloud.github.io/bau/bausaurus",
-  "version": "0.30.0",
+  "version": "0.30.1",
   "type": "module",
   "scripts": {
     "dev": "bausaurus dev",
@@ -20,6 +20,6 @@
     "rubico": "2.0.1"
   },
   "devDependencies": {
-    "@grucloud/bausaurus": "^0.30.0"
+    "@grucloud/bausaurus": "^0.30.1"
   }
 }
