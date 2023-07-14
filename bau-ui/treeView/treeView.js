@@ -9,7 +9,6 @@ const createStyles = ({ css, createGlobalStyles }) => {
   --menu-color-background-hover: var(--hover-overlay);
   --menu-link-padding-horizontal: 0.75rem;
   --menu-link-padding-vertical: 0.375rem;
-  --menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
 }
 `;
 
@@ -37,9 +36,8 @@ const createStyles = ({ css, createGlobalStyles }) => {
           }
           &::after {
             transition: transform var(--transition-fast) linear;
-            background: var(--menu-link-sublist-icon) 50% / 2rem 2rem;
-            width: 1.25rem;
-            padding: 0.5rem;
+            font-size: x-large;
+            margin-right: 0.5rem;
           }
           > a,
           span {
@@ -60,16 +58,16 @@ const createStyles = ({ css, createGlobalStyles }) => {
     expanded: css`
       > div {
         &::after {
-          content: "";
-          transform: rotate(180deg);
+          content: "\u203A";
+          transform: rotate(90deg);
         }
       }
     `,
     collapsed: css`
       > div {
         &::after {
-          content: "";
-          transform: rotate(90deg);
+          content: "\u203A";
+          transform: rotate(0deg);
         }
       }
     `,
