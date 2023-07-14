@@ -2,7 +2,7 @@
   "packages": ["bau/**/*", "bau-css/**/*", "bau-router/**/*", "examples/**/*"],
   "npmClient": "pnpm",
   "useWorkspaces": true,
-  "version": "0.30.4",
+  "version": "0.30.5",
   "command": {
     "command": {
       "bootstrap": {

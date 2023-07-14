@@ -1,7 +1,7 @@
 {
   "name": "bausaurus-template",
   "private": true,
-  "version": "0.30.4",
+  "version": "0.30.5",
   "type": "module",
   "scripts": {
     "dev": "bausaurus dev",
@@ -13,10 +13,10 @@
     "@grucloud/bau-css": "^0.30.0",
     "@grucloud/bau-ui": "^0.30.0",
     "@grucloud/bausaurus-core": "^0.30.0",
-    "@grucloud/bausaurus-theme-classic": "^0.30.4",
+    "@grucloud/bausaurus-theme-classic": "^0.30.5",
     "rubico": "2.0.1"
   },
   "devDependencies": {
-    "@grucloud/bausaurus": "^0.30.4"
+    "@grucloud/bausaurus": "^0.30.5"
   }
 }
