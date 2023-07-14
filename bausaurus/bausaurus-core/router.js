@@ -1,6 +1,5 @@
 import { hashMapFile, docPath } from "./constants.js";
 import { inBrowser, pathFromLocation } from "./utils.js";
-import pageNotFound from "../views/NotFound.js";
 
 let __BAUSAURUS_HASH_MAP__;
 
@@ -30,7 +29,7 @@ const jsAssetFileFromHref = (href) => {
   }
 };
 
-export const loadContent = async ({ nextPage, context }) => {
+export const loadContent = async ({ nextPage, context, pageNotFound }) => {
   try {
     const jsFile = jsAssetFileFromHref(nextPage);
     return import(/* @vite-ignore */ jsFile);

@@ -1,6 +1,6 @@
 import layout from "./Layout";
-import createContext from "../common/context";
-import { mountApp } from "../common/utils.js";
+import createContext from "@grucloud/bausaurus-core/context";
+import { mountApp } from "@grucloud/bausaurus-core/utils.js";
 
 const context = createContext({ window });
 

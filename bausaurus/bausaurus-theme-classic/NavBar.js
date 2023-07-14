@@ -1,5 +1,5 @@
 import treeView from "@grucloud/bau-ui/treeView/treeView.js";
-import { inBrowser } from "../common/utils.js";
+import { inBrowser } from "@grucloud/bausaurus-core/utils.js";
 
 export default function (context) {
   const { bau, css } = context;

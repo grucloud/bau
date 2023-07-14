@@ -1,15 +1,15 @@
-import header from "../views/Header.js";
-import footer from "../views/Footer.js";
+import { isProd } from "@grucloud/bausaurus-core/utils.js";
+import { createRouter, loadContent } from "@grucloud/bausaurus-core/router.js";
+import { createStyles } from "@grucloud/bausaurus-core/style.js";
+
 import navBar from "./NavBar.js";
-import mainContent from "./MainContent.js";
+import mainContent from ".//MainContent.js";
 import toc from "./Toc.js";
 import breadcrumbsDoc from "./BreadcrumbsDoc.js";
 import createPaginationNav from "./PaginationNav.js";
+import pageNotFound from "./NotFound.js";
 
-import { createRouter, loadContent } from "../common/router.js";
-import { createStyles } from "../common/style.js";
-
-export default async function (context) {
+export default async function (context, { header, footer }) {
   const { bau, css, window } = context;
   const { div } = bau.tags;
 
@@ -54,6 +54,7 @@ export default async function (context) {
         await loadContent({
           nextPage,
           context,
+          pageNotFound,
         });
       if (frontmatter) {
         frontmatter.title && (window.document.title = frontmatter.title);
@@ -82,3 +83,25 @@ export default async function (context) {
     );
   };
 }
+
+export const createDocAppProp = async ({ context }) => {
+  if (isProd()) {
+    // Prod
+    const mainEls = document.getElementsByTagName("main");
+    const tocEl = document.querySelector("nav[data-toc]");
+    const breadcrumbsEl = document.querySelector("ul[data-breadcrumbs]");
+    const paginationNavEl = document.querySelector("nav[data-paginationnav]");
+    return {
+      contentHtml: mainEls[0].innerHTML,
+      toc: JSON.parse(tocEl.dataset.toc),
+      breadcrumbs: JSON.parse(breadcrumbsEl.dataset.breadcrumbs),
+      paginationNav: JSON.parse(paginationNavEl.dataset.paginationnav),
+    };
+  } else {
+    // Dev
+    return loadContent({
+      nextPage: location.pathname,
+      context,
+    });
+  }
+};

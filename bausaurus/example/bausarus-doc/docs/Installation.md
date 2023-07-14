@@ -7,7 +7,7 @@ title: "Installation"
 Fetch the boilerplate code and store it for instance at **my-site-doc**:
 
 ```sh
-npx degit github:grucloud/bau/bausaurus/examples/bausaurus-simple my-site-doc
+npx degit github:grucloud/bau/bausaurus/examples/bausaurus-template my-site-doc
 ```
 
 ## Install the dependencies
@@ -27,6 +27,5 @@ npm install
 └── src
     ├── appDoc           - support code for the SSG: navigation tree, table of content, breadcrumbs etc ...
     ├── appLanding       - Landing app: a Client Side Rendered web app for your landing page.
-    ├── common           - router, styles etc ...
     └── views            - Common components: Header, Footer, NotFound
 ```

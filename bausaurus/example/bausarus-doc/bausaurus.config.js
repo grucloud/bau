@@ -1,4 +1,4 @@
-import docApp from "./src/appDoc/DocApp.js";
+import docApp from "@grucloud/bausaurus-theme-classic/DocApp.js";
 
 export default ({ rootDir }) => {
   return {
