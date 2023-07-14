@@ -12,6 +12,7 @@ In addition to this core library, a set of others has been released to provide a
 - [bau-ui](./bau-ui): a set of themable components such as Button, Input, Tabs, Tree View, Model, etc... See a [live preview](https://grucloud.github.io/bau/bau-ui) of these components.
 - [bau-router](./bau-router): a router with nested route, asynchronous loading, layout. Under 0.6kB
 - [bau-kit](./examples/bau-kit): a Multi Page App starter kit, all of these features packed under 5KB, a **20X** decreased compared to the combo React/Redux/React Router/Style Component.
+- [bausaurus](https://grucloud.github.io/bau/bausaurus/): A Static Site Generator from Markdown content.
 
 ## Bundle size
 

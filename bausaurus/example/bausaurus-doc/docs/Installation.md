@@ -7,7 +7,7 @@ title: "Installation"
 Fetch the boilerplate code and store it for instance at **my-site-doc**:
 
 ```sh
-npx degit github:grucloud/bau/bausaurus/examples/bausaurus-template my-site-doc
+npx degit github:grucloud/bau/bausaurus/example/bausaurus-template my-site-doc
 ```
 
 ## Install the dependencies
