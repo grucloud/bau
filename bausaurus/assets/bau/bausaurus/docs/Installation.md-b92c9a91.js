@@ -5,8 +5,8 @@ const paginationNav = { "previous": { "name": "Introduction", "href": "/bau/baus
 const contentHtml = `<h1 id="installation">Installation</h1>
 <h2 id="grab-the-boilerplate-code">Grab the boilerplate code</h2>
 <p>Fetch the boilerplate code and store it for instance at <strong>my-site-doc</strong>:</p>
-<pre><code class="language-sh hljs" data-code="npx degit github:grucloud/bau/bausaurus/examples/bausaurus-template my-site-doc
-" style="position: relative;">npx degit github:grucloud/bau/bausaurus/examples/bausaurus-template my-site-doc
+<pre><code class="language-sh hljs" data-code="npx degit github:grucloud/bau/bausaurus/example/bausaurus-template my-site-doc
+" style="position: relative;">npx degit github:grucloud/bau/bausaurus/example/bausaurus-template my-site-doc
 </code></pre>
 <h2 id="install-the-dependencies">Install the dependencies</h2>
 <pre><code class="language-sh hljs" data-code="cd my-site-doc

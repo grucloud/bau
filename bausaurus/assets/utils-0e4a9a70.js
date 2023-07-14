@@ -588,9 +588,8 @@ function BauCss(input) {
   };
 }
 function createContext({ window: window2, config }) {
-  const { document: document2 } = window2;
-  const bau = Bau({ document: document2 });
-  const bauCss = BauCss({ document: document2 });
+  const bau = Bau({ window: window2 });
+  const bauCss = BauCss({ window: window2 });
   return { bau, ...bauCss, window: window2, config, tr: (x) => x };
 }
 const inBrowser = () => typeof document !== "undefined";

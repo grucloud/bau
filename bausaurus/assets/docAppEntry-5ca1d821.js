@@ -1,4 +1,4 @@
-import { i as inBrowser, p as pathFromLocation, g as globalStyle, a as classNames, b as button, d as isProd, h as header, f as footer, c as createContext, m as mountApp } from "./utils-0d972896.js";
+import { i as inBrowser, p as pathFromLocation, g as globalStyle, a as classNames, b as button, d as isProd, h as header, f as footer, c as createContext, m as mountApp } from "./utils-0e4a9a70.js";
 const scriptRel = "modulepreload";
 const assetsURL = function(dep) {
   return "/bau/bausaurus/" + dep;
