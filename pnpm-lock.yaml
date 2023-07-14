@@ -321,7 +321,7 @@ importers:
         specifier: ^0.30.0
         version: link:../../bausaurus-core
       "@grucloud/bausaurus-theme-classic":
-        specifier: ^0.30.0
+        specifier: ^0.30.4
         version: link:../../bausaurus-theme-classic
       gh-pages:
         specifier: 5.0.0
@@ -331,7 +331,7 @@ importers:
         version: 2.0.1
     devDependencies:
       "@grucloud/bausaurus":
-        specifier: ^0.30.3
+        specifier: ^0.30.4
         version: link:../..
 
   bausaurus/example/bausaurus-template:
@@ -349,14 +349,14 @@ importers:
         specifier: ^0.30.0
         version: link:../../bausaurus-core
       "@grucloud/bausaurus-theme-classic":
-        specifier: ^0.30.0
+        specifier: ^0.30.4
         version: link:../../bausaurus-theme-classic
       rubico:
         specifier: 2.0.1
         version: 2.0.1
     devDependencies:
       "@grucloud/bausaurus":
-        specifier: ^0.30.3
+        specifier: ^0.30.4
         version: link:../..
 
   examples/bau-ace-editor:
