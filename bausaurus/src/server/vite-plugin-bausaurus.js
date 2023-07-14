@@ -115,8 +115,7 @@ const configureServer = (config) => (server) => {
     <title>${site.title}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="">
-    <base href="${config.viteConfig.base}">
+    <base href="${site.base}">
   </head>
   <body>
     <div id="app"></div>

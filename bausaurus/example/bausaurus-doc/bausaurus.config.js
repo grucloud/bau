@@ -12,7 +12,6 @@ export default ({ rootDir }) => {
       favicon: "/grucloud.svg",
       base: "/bau/bausaurus/docs/",
       outDir: "dist/bausaurus/docs",
-      //srcDir: "../../../../grucloud/bausaurus/docs",
       srcDir: "docs",
       title: "Bausarus",
       description: "SSG built with Bau",
