@@ -8,6 +8,7 @@
     "BreadcrumbsDoc.js",
     "ButtonCopyText.js",
     "DocApp.js",
+    "NotFound.js",
     "MainContent.js",
     "NavBar.js",
     "PaginationNav.js",
