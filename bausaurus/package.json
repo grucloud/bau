@@ -7,6 +7,9 @@
   "bin": {
     "bausaurus": "./src/server/bausaurus.js"
   },
+  "files": [
+    "./src/*"
+  ],
   "keywords": [
     "SSG",
     "Static Site Generation"
