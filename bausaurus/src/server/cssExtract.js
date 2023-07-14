@@ -34,8 +34,7 @@ export const writeExtractedCss = ({ site, cssContent, cssFilename }) =>
       assert(site.rootDir);
       assert(site.outDir);
     }),
-    //TODO
-    () => Path.resolve(site.rootDir, "dist", "assets", cssFilename),
+    () => Path.resolve(site.rootDir, site.outDir, cssFilename),
     tap((path) => {
       assert(path);
     }),

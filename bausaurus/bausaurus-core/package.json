@@ -1,0 +1,26 @@
+{
+  "name": "@grucloud/bausaurus-core",
+  "description": "core utilities for Bausarus",
+  "version": "0.29.0",
+  "type": "module",
+  "license": "BSD",
+  "files": [
+    "router.js",
+    "utils.js",
+    "style.js",
+    "context.js",
+    "constants.js"
+  ],
+  "keywords": [
+    "Bau",
+    "Bausaurus"
+  ],
+  "author": "Frederic Heem",
+  "scripts": {},
+  "dependencies": {
+    "@grucloud/bau": "^0.29.0",
+    "@grucloud/bau-css": "^0.29.0",
+    "@grucloud/bau-ui": "^0.29.0"
+  },
+  "devDependencies": {}
+}

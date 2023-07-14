@@ -15,7 +15,11 @@ export const createBausaurusConfig = ({ rootDir }) =>
     }),
     () => import(path.resolve(rootDir, "bausaurus.config.js")),
     callProp("default", { rootDir }),
-    defaultsDeep({ rootDir, pageToHashMap: new Map() }),
+    defaultsDeep({
+      rootDir,
+      pageToHashMap: new Map(),
+      viteConfig: { base: "/" },
+    }),
     assign({ navBarTree: pipe([get("site"), buildNavBarTree]) }),
     tap((params) => {
       assert(true);

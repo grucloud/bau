@@ -5,8 +5,8 @@ import createSvgSpritePlugin from "vite-plugin-svg-sprite";
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
   return {
-    base: "/bau/",
-    build: {},
+    base: "/bau/bau-ui/",
+    build: { outDir: "dist/bau-ui" },
     server: {
       open: true,
     },
