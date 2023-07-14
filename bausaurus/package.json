@@ -16,12 +16,12 @@
     "@grucloud/bau": "^0.30.0",
     "@grucloud/bau-css": "^0.30.0",
     "@grucloud/bau-ui": "^0.30.0",
-    "@grucloud/bausaurus-core": "^0.30.0"
+    "@grucloud/bausaurus-core": "^0.30.0",
+    "commander": "^11.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-virtual": "3.0.1",
     "@sindresorhus/slugify": "2.2.1",
-    "commander": "^11.0.0",
     "fs-extra": "11.1.1",
     "gray-matter": "4.0.3",
     "hast-util-from-html": "^1.0.2",
