@@ -332,7 +332,7 @@ importers:
         version: 2.0.1
     devDependencies:
       "@grucloud/bausaurus":
-        specifier: ^0.30.1
+        specifier: ^0.30.2
         version: link:../..
 
   bausaurus/example/bausaurus-template:
@@ -357,7 +357,7 @@ importers:
         version: 2.0.1
     devDependencies:
       "@grucloud/bausaurus":
-        specifier: ^0.30.1
+        specifier: ^0.30.2
         version: link:../..
 
   examples/bau-ace-editor:

@@ -1,6 +1,6 @@
 {
   "name": "@grucloud/bausaurus",
-  "version": "0.30.1",
+  "version": "0.30.2",
   "description": "Static Site Generation (SSG) built with Bau",
   "homepage": "https://grucloud.github.io/bau/bausaurus",
   "type": "module",
