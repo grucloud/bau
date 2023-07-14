@@ -1,19 +1,22 @@
-import docApp from "@grucloud/bausaurus-theme-classic/DocApp.js";
+import { App } from "./src/appDoc/App.js";
 
 export default ({ rootDir }) => {
   return {
-    docApp,
+    docApp: App,
+    viteConfig: {
+      base: "/bau/bausaurus/",
+      build: { outDir: "dist/bausaurus" },
+    },
     site: {
       rootDir,
       favicon: "/grucloud.svg",
-      base: "/docs/",
-      outDir: "dist/docs",
+      base: "/bau/bausaurus/docs/",
+      outDir: "dist/bausaurus/docs",
       //srcDir: "../../../../grucloud/bausaurus/docs",
-      //srcDir: "../../../",
       srcDir: "docs",
       title: "Bausarus",
       description: "SSG built with Bau",
-      keywords: ["SSH", "My Other Tags"],
+      keywords: ["SSG", "Static Site Generation"],
       lang: "en",
     },
   };

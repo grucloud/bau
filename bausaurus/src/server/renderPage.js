@@ -3,12 +3,12 @@ import fs from "fs-extra";
 import Path from "path";
 import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
+import createContext from "@grucloud/bausaurus-core/context.js";
 
 const { pipe, eq, get, tap, filter, and, all, map, assign } = rubico;
-const { callProp, find, when } = rubicox;
+const { callProp, when } = rubicox;
 
 import { processMarkdownContent } from "./markdown.js";
-import createContext from "./context.js";
 import createJSDOM from "./jsdom.js";
 import { navBarTreeToBreadcrumbs } from "./breadcrumbs.js";
 import { navBarTreeToPaginationNav } from "./paginationNav.js";
@@ -88,6 +88,7 @@ const renderDocApp = async ({
 };
 
 const toHtml = ({
+  viteConfig,
   siteData,
   title,
   description,
@@ -113,13 +114,16 @@ const toHtml = ({
     <meta name="twitter:card" content="summary_large_image" />
     ${siteData.favicon ? `<link rel="icon" href="${siteData.favicon}">` : ""}
     ${cssChunks
-      .map((cssChunk) => `<link rel="stylesheet" href="/${cssChunk.fileName}">`)
+      .map(
+        (cssChunk) =>
+          `<link rel="stylesheet" href="${siteData.base}${cssChunk.fileName}">`
+      )
       .join("\n")}
-    <link rel="stylesheet" href="/assets/${content.cssFilename}">
+    <link rel="stylesheet" href="${siteData.base}${content.cssFilename}">
     ${appChunks
       .map(
         (appChunk) =>
-          `<script type="module" src="/${appChunk.fileName}"></script>`
+          `<script type="module" src="${viteConfig.base}${appChunk.fileName}"></script>`
       )
       .join("\n")}
   </head>
@@ -148,15 +152,17 @@ export const renderPage =
     assert(output);
     assert(chunk);
     assert(chunk.facadeModuleId);
-    const { site } = config;
+    const { site, viteConfig } = config;
     assert(site);
     assert(site.srcDir);
     assert(site.outDir);
     assert(site.base);
 
     const dom = createJSDOM();
+    // TODO
     const context = createContext({
       window: dom.window,
+      config: { base: viteConfig.base },
     });
     const pageMd = chunk.name.replace(site.base.slice(1), "");
     const page = pageMd.replace(".md", "");
@@ -198,6 +204,7 @@ export const renderPage =
           (content) =>
             pipe([
               () => ({
+                viteConfig,
                 siteData,
                 title,
                 description,
@@ -224,6 +231,7 @@ export const renderPage =
                 ])(),
               tap(() =>
                 writeExtractedCss({
+                  viteConfig: config.viteConfig,
                   site: config.site,
                   cssContent: content.cssContent,
                   cssFilename: content.cssFilename,

@@ -1,17 +1,14 @@
-import docApp, {
-  createDocAppProp,
-} from "@grucloud/bausaurus-theme-classic/DocApp.js";
 import createContext from "@grucloud/bausaurus-core/context";
 import { mountApp } from "@grucloud/bausaurus-core/utils.js";
+import { createDocAppProp } from "@grucloud/bausaurus-theme-classic/DocApp.js";
+import { App } from "./App.js";
 import { navBarTree } from "./navBarTree.js";
-import header from "../views/Header.js";
-import footer from "../views/Footer.js";
 
-const context = createContext({ window });
+const context = createContext({ window, config: { base: "/bau/bausaurus/" } });
 
 const loadDocs = async () => {
   try {
-    const DocApp = await docApp(context, { header, footer });
+    const DocApp = await App(context);
     const props = await createDocAppProp({
       context,
     });

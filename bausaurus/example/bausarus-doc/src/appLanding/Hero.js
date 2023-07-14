@@ -1,7 +1,7 @@
 import button from "@grucloud/bau-ui/button/button";
 
 export default function (context) {
-  const { bau, css } = context;
+  const { bau, css, config } = context;
   const { div, h1, h2, p } = bau.tags;
   const Button = button(context);
 
@@ -31,7 +31,7 @@ export default function (context) {
       h2(text),
       p(tagLine),
       Button(
-        { href: "/docs/", primary: true, raised: true },
+        { href: `${config.base}docs/`, primary: true, raised: true },
         "Visit Documentation"
       )
     );

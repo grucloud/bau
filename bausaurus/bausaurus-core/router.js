@@ -3,26 +3,13 @@ import { inBrowser, pathFromLocation } from "./utils.js";
 
 let __BAUSAURUS_HASH_MAP__;
 
-const fetchHashMap = async () => {
-  try {
-    const res = await fetch(hashMapFile);
-    const hashMap = await res.json();
-    __BAUSAURUS_HASH_MAP__ = hashMap;
-    return hashMap;
-  } catch (error) {
-    //console.log("fetchHashMap", error);
-  }
-};
-
-inBrowser() && fetchHashMap();
-
-const jsAssetFileFromHref = (href) => {
-  const pathname = pathFromLocation(href);
+const jsAssetFileFromHref = ({ context, nextPage }) => {
+  const pathname = pathFromLocation(nextPage);
 
   try {
     const hash = __BAUSAURUS_HASH_MAP__[pathname];
     return hash
-      ? `/assets${pathname}.md-${hash}.js`
+      ? `${context.config.base}assets${pathname}.md-${hash}.js`
       : `/assets${pathname}.md.js`;
   } catch (error) {
     return `${pathname}.md`;
@@ -31,7 +18,7 @@ const jsAssetFileFromHref = (href) => {
 
 export const loadContent = async ({ nextPage, context, pageNotFound }) => {
   try {
-    const jsFile = jsAssetFileFromHref(nextPage);
+    const jsFile = jsAssetFileFromHref({ context, nextPage });
     return import(/* @vite-ignore */ jsFile);
   } catch (error) {
     const PageNotFound = pageNotFound(context);
@@ -40,7 +27,20 @@ export const loadContent = async ({ nextPage, context, pageNotFound }) => {
 };
 
 export const createRouter = (context, { onLocationChange }) => {
-  const { window } = context;
+  const { window, config } = context;
+
+  const fetchHashMap = async () => {
+    try {
+      const res = await fetch(`${config.base}docs/hashmap.json`);
+      const hashMap = await res.json();
+      __BAUSAURUS_HASH_MAP__ = hashMap;
+      return hashMap;
+    } catch (error) {
+      //console.log("fetchHashMap", error);
+    }
+  };
+  // TODO isProd
+  inBrowser() && fetchHashMap();
 
   window.addEventListener("popstate", () =>
     onLocationChange({

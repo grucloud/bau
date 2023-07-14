@@ -1,8 +1,8 @@
-import docApp from "@grucloud/bausaurus-theme-classic/DocApp.js";
+import { App } from "./src/appDoc/App.js";
 
 export default ({ rootDir }) => {
   return {
-    docApp,
+    docApp: App,
     site: {
       rootDir,
       favicon: "/grucloud.svg",

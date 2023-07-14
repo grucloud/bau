@@ -1,5 +1,5 @@
 export default function (context) {
-  const { tr, bau, css } = context;
+  const { tr, bau, css, config } = context;
   const { header, div, a, img } = bau.tags;
 
   const NavBarLeft = () =>
@@ -24,12 +24,12 @@ export default function (context) {
       },
       img({
         alt: "GruCloud",
-        src: "/grucloud.svg",
+        src: `${config.base}grucloud.svg`,
         width: 30,
         height: 30,
       }),
-      a({ class: "title", href: "/" }, tr("Bausaurus")),
-      a({ href: "/docs/" }, tr("Docs"))
+      a({ class: "title", href: config.base }, tr("Bausaurus")),
+      a({ href: `${config.base}docs/` }, tr("Docs"))
     );
 
   const NavBarRight = () =>
@@ -45,7 +45,7 @@ export default function (context) {
           padding-right: 1rem;
         `,
         alt: "GitHub",
-        src: "/github.svg",
+        src: `${config.base}/github.svg`,
         width: 30,
         height: 30,
       })

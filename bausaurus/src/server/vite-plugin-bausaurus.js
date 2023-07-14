@@ -3,7 +3,7 @@ import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
 import Path from "path";
 import createJSDOM from "./jsdom.js";
-import createContext from "./context.js";
+import createContext from "@grucloud/bausaurus-core/context.js";
 import { isMarkdownPageChunk } from "./utils.js";
 import { hashRE } from "./constants.js";
 import { processMarkdownContent } from "./markdown.js";
@@ -30,9 +30,6 @@ export const contentHtml = \`${escape(contentHtml)}\`
 `;
 
 const dom = createJSDOM();
-const context = createContext({
-  window: dom.window,
-});
 
 const generateBundle =
   ({ pageToHashMap }) =>
@@ -50,11 +47,12 @@ const generateBundle =
   };
 
 const load =
-  ({ site, navBarTree, pageToHashMap }) =>
+  ({ viteConfig, site, navBarTree, pageToHashMap }) =>
   (id) =>
     pipe([
       () => id,
       tap((id) => {
+        assert(viteConfig);
         assert(id);
         assert(site);
         assert(navBarTree);
@@ -80,7 +78,10 @@ const load =
           (code) => ({ code, filename: id }),
           processMarkdownContent({
             dom,
-            context,
+            context: createContext({
+              window: dom.window,
+              config: { base: viteConfig.base },
+            }),
           }),
           contentToEsModule({
             toBreadcrumbs: () =>
@@ -115,6 +116,7 @@ const configureServer = (config) => (server) => {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="">
+    <base href="${config.viteConfig.base}">
   </head>
   <body>
     <div id="app"></div>
