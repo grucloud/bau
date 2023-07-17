@@ -115,7 +115,6 @@ const configureServer = (config) => (server) => {
     <title>${site.title}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <base href="${site.base}">
   </head>
   <body>
     <div id="app"></div>
