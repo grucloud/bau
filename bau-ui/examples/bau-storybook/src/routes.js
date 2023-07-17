@@ -1,11 +1,26 @@
-import { main } from "./main";
+import componentList from "./componentList";
+import pagesList from "./pagesList";
 
 export const createRoutes = ({ context }) => [
   {
     path: "",
     action: (routerContext) => ({
-      title: "BauUI Storybook",
-      component: main(context),
+      title: "Storybook",
+      component: componentList(context),
+    }),
+  },
+  {
+    path: "components",
+    action: (routerContext) => ({
+      title: "Component",
+      component: componentList(context),
+    }),
+  },
+  {
+    path: "pages",
+    action: (routerContext) => ({
+      title: "Pages",
+      component: pagesList(context),
     }),
   },
   // {

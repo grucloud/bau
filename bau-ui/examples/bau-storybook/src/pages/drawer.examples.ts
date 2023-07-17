@@ -1,5 +1,6 @@
 import drawer from "@grucloud/bau-ui/drawer";
 import { Context } from "../context";
+import { componentList } from "../componentListData";
 
 import button from "@grucloud/bau-ui/button";
 import navBarMenu from "../navBarMenu";
@@ -26,6 +27,6 @@ export default (context: Context) => {
         },
         "OPEN DRAWER"
       ),
-      Drawer({ openState }, NavBarMenu())
+      Drawer({ openState }, NavBarMenu({ componentList: componentList() }))
     );
 };

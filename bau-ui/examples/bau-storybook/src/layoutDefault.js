@@ -1,6 +1,7 @@
 import header from "./header";
 import footer from "./footer";
 import navBarMenu from "./navBarMenu";
+import { componentList } from "./componentListData";
 
 export const layoutDefault = (context) => {
   const { bau, css } = context;
@@ -10,8 +11,6 @@ export const layoutDefault = (context) => {
   const NavBarMenu = navBarMenu(context);
 
   const Footer = footer(context);
-  // TODO use CSS var
-
   return function LayoutDefault({ component }) {
     return div(
       {
@@ -31,7 +30,7 @@ export const layoutDefault = (context) => {
         `,
       },
       Header(),
-      NavBarMenu(),
+      NavBarMenu({ componentList: componentList() }),
       component(),
       Footer()
     );

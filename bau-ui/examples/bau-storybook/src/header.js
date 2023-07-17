@@ -2,8 +2,8 @@
 import button from "@grucloud/bau-ui/button";
 
 export default function (context) {
-  const { tr, bau, css } = context;
-  const { i, header, h1, div, a, img, b } = bau.tags;
+  const { tr, bau, css, config } = context;
+  const { i, header, h1, div, a, img, b, ul, li } = bau.tags;
   const { svg, path } = bau.tagsNS("http://www.w3.org/2000/svg");
 
   const drawerOpenState = bau.state(true);
@@ -40,6 +40,9 @@ export default function (context) {
         class: css`
           display: flex;
           align-items: center;
+          & a {
+            color: var(--color-inverse);
+          }
         `,
       },
       Button(
@@ -51,14 +54,39 @@ export default function (context) {
       ),
       a(
         {
-          href: "/",
+          href: `${config.base}/`,
           class: css`
             text-decoration: none;
-            color: var(--color-inverse);
             font-size: x-large;
           `,
         },
         b(tr("Bau Story Book"))
+      ),
+      ul(
+        [
+          { label: "Components", href: `${config.base}/components` },
+          { label: "Pages", href: `${config.base}/pages` },
+        ].map(({ href, label }) =>
+          li(
+            {
+              class: css`
+                display: inline;
+                list-style: none;
+                text-decoration: none;
+                padding: 0.5rem;
+              `,
+            },
+            a(
+              {
+                href,
+                class: css`
+                  text-decoration: none;
+                `,
+              },
+              label
+            )
+          )
+        )
       )
     );
 

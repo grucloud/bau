@@ -1,10 +1,8 @@
-import { componentlist } from "./componentList";
-
 export default function (context) {
   const { tr, bau, css } = context;
   const { ul, li, nav, a } = bau.tags;
 
-  return function DrawerMenu() {
+  return function NavBarMenu({ componentList }) {
     return nav(
       {
         class: css`
@@ -54,7 +52,7 @@ export default function (context) {
           }
         `,
       },
-      ul(componentlist().map(({ name, id }) => li(a({ href: `#${id}` }, name))))
+      ul(componentList.map(({ name, id }) => li(a({ href: `#${id}` }, name))))
     );
   };
 }
