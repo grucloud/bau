@@ -81,6 +81,7 @@ export default function (context, { renderMenuItem }) {
   const styles = createStyles({ css, createGlobalStyles });
 
   const collapseOrExpandSection = ({ element, closeState }) => {
+    if (element.scrollHeight == 0) return;
     closeState.val ? collapseSection(element) : expandSection(element);
   };
 
