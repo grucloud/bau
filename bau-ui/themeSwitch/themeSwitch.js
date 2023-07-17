@@ -32,8 +32,11 @@ export default function (context) {
 
   const style = css`
     position: relative;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px var(--color-gray-200) dotted;
     border-radius: var(--global-radius);
     appearance: none;
@@ -48,9 +51,6 @@ export default function (context) {
     &::after {
       content: "\u2600";
       font-size: x-large;
-      display: block;
-      width: 100%;
-      text-align: center;
       transition: all var(--transition-fast);
       color: var(--color-emphasis-400);
     }
@@ -58,7 +58,7 @@ export default function (context) {
     }
     &:checked::after {
       content: "\u263D";
-      font-size: xx-large;
+      font-size: x-large;
     }
   `;
 
