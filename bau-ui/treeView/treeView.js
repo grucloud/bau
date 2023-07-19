@@ -30,14 +30,16 @@ const createStyles = ({ css, createGlobalStyles }) => {
           width: 100%;
           display: flex;
           justify-content: space-between;
+          align-items: center;
           transition: background-color var(--transition-fast) ease-in-out;
           &:hover {
             background: var(--color-emphasis-100);
+            cursor: pointer;
           }
           &::after {
             transition: transform var(--transition-fast) linear;
             font-size: x-large;
-            margin-right: 0.5rem;
+            margin-right: 1rem;
           }
           > a,
           span {
@@ -50,6 +52,10 @@ const createStyles = ({ css, createGlobalStyles }) => {
           }
         }
       }
+    }
+
+    & > ul > li {
+      padding-left: 0rem;
     }
   `;
 
@@ -67,7 +73,6 @@ const createStyles = ({ css, createGlobalStyles }) => {
       > div {
         &::after {
           content: "\u203A";
-          transform: rotate(0deg);
         }
       }
     `,

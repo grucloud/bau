@@ -1,7 +1,6 @@
 import header from "./header";
 import footer from "./footer";
 import navBarMenu from "./navBarMenu";
-import { componentList } from "./componentListData";
 
 export const layoutDefault = (context) => {
   const { bau, css } = context;
@@ -16,12 +15,13 @@ export const layoutDefault = (context) => {
       {
         class: css`
           display: grid;
-          grid-template-columns: minmax(20%, 300px) auto;
+          grid-template-columns: 1fr;
           grid-template-areas:
-            "header header"
-            "sidebar main"
-            "footer footer";
+            "header"
+            "main"
+            "footer";
           min-height: 100vh;
+          min-width: 100vw;
           @media (max-width: 640px) {
             & nav {
               display: none;
@@ -30,7 +30,6 @@ export const layoutDefault = (context) => {
         `,
       },
       Header(),
-      NavBarMenu({ componentList: componentList() }),
       component(),
       Footer()
     );

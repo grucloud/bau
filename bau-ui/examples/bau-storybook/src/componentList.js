@@ -1,3 +1,6 @@
+import navBarMenu from "./navBarMenu";
+import { componentList } from "./componentListData";
+
 import alertExamples from "./pages/alert.examples";
 import animateExamples from "./pages/animate.examples";
 import avatarExamples from "./pages/avatar.examples";
@@ -19,38 +22,47 @@ export default function (context) {
   const { tr, bau, css } = context;
   const { div, main, h1, article } = bau.tags;
 
+  const NavBarMenu = navBarMenu(context);
+
   return function ComponentList() {
-    return article(
+    return div(
       {
         class: css`
           grid-area: main;
-          padding: 10px;
-          margin-top: 20px;
-          > section {
-            padding: 10px;
-            margin: 10px;
-            box-shadow: var(--global-shadow-lw);
-          }
+          display: flex;
         `,
       },
-      h1(tr("Component Examples")),
-
-      alertExamples(context)(),
-      alertStackExamples(context)(),
-      animateExamples(context)(),
-      avatarExamples(context)(),
-      breadcrumbExamples(context)(),
-      buttonExamples(context)(),
-      checkboxExamples(context)(),
-      drawerExamples(context)(),
-      fileInputExamples(context)(),
-      inputExamples(context)(),
-      modalExamples(context)(),
-      spinnerExamples(context)(),
-      switchExamples(context)(),
-      tabsExamples(context)(),
-      themeSwitchExamples(context)(),
-      treeViewExamples(context)()
+      NavBarMenu({ componentList: componentList(), name: "Components" }),
+      article(
+        {
+          class: css`
+            padding: 10px;
+            margin-top: 20px;
+            > section {
+              padding: 10px;
+              margin: 10px;
+              box-shadow: var(--global-shadow-lw);
+            }
+          `,
+        },
+        h1(tr("Component Examples")),
+        alertExamples(context)(),
+        alertStackExamples(context)(),
+        animateExamples(context)(),
+        avatarExamples(context)(),
+        breadcrumbExamples(context)(),
+        buttonExamples(context)(),
+        checkboxExamples(context)(),
+        drawerExamples(context)(),
+        fileInputExamples(context)(),
+        inputExamples(context)(),
+        modalExamples(context)(),
+        spinnerExamples(context)(),
+        switchExamples(context)(),
+        tabsExamples(context)(),
+        themeSwitchExamples(context)(),
+        treeViewExamples(context)()
+      )
     );
   };
 }
