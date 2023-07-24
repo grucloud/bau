@@ -144,9 +144,7 @@ export default function (context, { renderMenuItem }) {
           ul(
             {
               bauMounted: ({ element }) => {
-                closeState.val
-                  ? (element.style.height = "0px")
-                  : (element.style.height = element.scrollHeight + "px");
+                closeState.val && (element.style.height = "0px");
               },
               "aria-expanded": ({ element }) => {
                 collapseOrExpandSection({ element, closeState });
