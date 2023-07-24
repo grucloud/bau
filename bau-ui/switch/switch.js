@@ -13,7 +13,7 @@ export default function (context) {
     appearance: none;
     outline: none;
     transition: all var(--transition-fast);
-    box-shadow: var(--global-shadow-md);
+    box-shadow: var(--shadow-m);
     &::after {
       content: "";
       background: var(--background-color);
@@ -22,7 +22,7 @@ export default function (context) {
       height: 1rem;
       border-radius: 50%;
       position: absolute;
-      box-shadow: var(--global-shadow-md);
+      box-shadow: var(--shadow-m);
       background-color: var(--color-gray-700);
       transition: all var(--transition-fast);
     }

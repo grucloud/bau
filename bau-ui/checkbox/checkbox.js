@@ -12,7 +12,7 @@ export default function (context, options = {}) {
       outline: none;
       box-sizing: border-box;
       transition: all var(--transition-fast) ease-in-out;
-      box-shadow: var(--global-shadow-lw);
+      box-shadow: var(--shadow-s);
       border: 2px solid var(--color-gray-600);
       position: relative;
       &:hover {

@@ -16,7 +16,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
       & input {
         font-size: 1.2rem;
         background: var(--color-emphasis-100);
-        box-shadow: var(--global-shadow-lw);
+        box-shadow: var(--shadow-s);
         border-radius: var(--global-radius);
         border: var(--input-border-bottom-size) solid transparent;
         border-bottom: var(--input-border-bottom-size) solid

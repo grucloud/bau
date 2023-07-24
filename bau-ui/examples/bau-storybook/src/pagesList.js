@@ -26,7 +26,7 @@ export default function (context) {
             > section {
               padding: 10px;
               margin: 10px;
-              box-shadow: var(--global-shadow-lw);
+              box-shadow: var(--shadow-s);
             }
           `,
         },

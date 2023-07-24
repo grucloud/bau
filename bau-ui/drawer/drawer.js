@@ -29,7 +29,7 @@ export default function (context) {
       transform: translate(-100%, 0px);
       z-index: 2;
       position: absolute;
-      box-shadow: var(--global-shadow-md);
+      box-shadow: var(--shadow-m);
       background-color: var(--background-color);
       top: 0;
       left: 0;
@@ -39,7 +39,7 @@ export default function (context) {
       transform: translate(0%, 0px);
       z-index: 2;
       position: absolute;
-      box-shadow: var(--global-shadow-md);
+      box-shadow: var(--shadow-m);
       background-color: var(--background-color);
       top: 0;
       left: 0;

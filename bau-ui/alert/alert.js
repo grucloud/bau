@@ -42,7 +42,7 @@ ${severitiesToCss()}
       align-items: center;
       margin: 0.5rem;
       font-weight: var(--font-weight-semibold);
-      box-shadow: var(--global-shadow-md);
+      box-shadow: var(--shadow-m);
       border-radius: var(--global-radius);
       & .icon {
         padding: 0 1rem;

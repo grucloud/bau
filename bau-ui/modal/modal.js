@@ -5,7 +5,7 @@ export default function (context) {
   const { dialog } = bau.tags;
 
   const style = css`
-    box-shadow: var(--global-shadow-lw);
+    box-shadow: var(--shadow-s);
     background-color: var(--background-color);
     top: 0;
     left: 0;
@@ -28,7 +28,7 @@ export default function (context) {
       display: flex;
       justify-content: flex-end;
       margin: 0px;
-      box-shadow: var(--global-shadow-lw);
+      box-shadow: var(--shadow-s);
       > * {
         margin: 12px;
       }

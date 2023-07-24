@@ -64,9 +64,9 @@ export default function (context) {
       color: var(--color-secondary-darkest);
     `,
     raised: css`
-      box-shadow: var(--global-shadow-lw);
+      box-shadow: var(--shadow-s);
       &:active {
-        box-shadow: var(--global-shadow-md);
+        box-shadow: var(--shadow-m);
       }
     `,
     raisedPrimary: css`

@@ -32,9 +32,9 @@ export default function (context, options = {}) {
         align-items: center;
         cursor: pointer;
         border: var(--global-border-width) dotted;
-        box-shadow: var(--global-shadow-lw);
+        box-shadow: var(--shadow-s);
         &:hover {
-          box-shadow: var(--global-shadow-md);
+          box-shadow: var(--shadow-m);
         }
       }
     `,
@@ -44,7 +44,7 @@ export default function (context, options = {}) {
         background-color: var(--color-gray-100);
         border: var(--global-border-width) var(--color-gray-500) dotted;
         &:hover {
-          box-shadow: var(--global-shadow-lw);
+          box-shadow: var(--shadow-s);
         }
         cursor: not-allowed;
       }

@@ -95,10 +95,8 @@ export default function globalStyle(
   --spacing-horizontal: var(--global-spacing);
   --transition-fast: 200ms;
   --transition-slow: 400ms;
-  --global-shadow-lw: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-  --global-shadow-md: 0 5px 40px rgba(0, 0, 0, 0.2);
-  --global-shadow-tl: 0 12px 28px 0 rgba(0, 0, 0, 0.2),
-    0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-s: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-m: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
   --font-size-base: 100%;
   --line-height-base: 1.65;
   --link-color: var(--color-primary)

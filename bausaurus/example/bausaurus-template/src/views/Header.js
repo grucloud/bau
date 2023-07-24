@@ -62,7 +62,7 @@ export default function (context) {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          box-shadow: var(--global-shadow-lw);
+          box-shadow: var(--shadow-s);
           background-color: var(--background-color);
         `,
       },
