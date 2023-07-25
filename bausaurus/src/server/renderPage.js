@@ -114,10 +114,7 @@ const toHtml = ({
     <meta name="twitter:card" content="summary_large_image" />
     ${siteData.favicon ? `<link rel="icon" href="${siteData.favicon}">` : ""}
     ${cssChunks
-      .map(
-        (cssChunk) =>
-          `<link rel="stylesheet" href="${siteData.base}${cssChunk.fileName}">`
-      )
+      .map((cssChunk) => `<link rel="stylesheet" href="/${cssChunk.fileName}">`)
       .join("\n")}
     <link rel="stylesheet" href="${siteData.base}${content.cssFilename}">
     ${appChunks
