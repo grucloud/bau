@@ -24,6 +24,7 @@ export default function (context) {
         position: sticky;
         top: calc(var(--header-height) + 1rem);
         align-self: start;
+        background-color: var(--background-color);
       `,
       // TODO limit to 2 when render on server
       maxDepth: inBrowser() ? Infinity : 2,
