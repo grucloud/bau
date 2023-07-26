@@ -9,6 +9,7 @@ import breadcrumbExamples from "./pages/breadcrumb.examples";
 import buttonExamples from "./pages/button.examples";
 import checkboxExamples from "./pages/checkbox.examples";
 import drawerExamples from "./pages/drawer.examples";
+import drillDownMenuExamples from "./pages/drillDownMenu.examples";
 import fileInputExamples from "./pages/fileInput.examples";
 import inputExamples from "./pages/input.examples";
 import modalExamples from "./pages/modal.examples";
@@ -46,6 +47,7 @@ export default function (context) {
           `,
         },
         h1(tr("Component Examples")),
+
         alertExamples(context)(),
         alertStackExamples(context)(),
         animateExamples(context)(),
@@ -54,6 +56,7 @@ export default function (context) {
         buttonExamples(context)(),
         checkboxExamples(context)(),
         drawerExamples(context)(),
+        drillDownMenuExamples(context)(),
         fileInputExamples(context)(),
         inputExamples(context)(),
         modalExamples(context)(),

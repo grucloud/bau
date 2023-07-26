@@ -37,32 +37,38 @@ export default (context: Context) => {
 
   return function () {
     const showState = bau.state(true);
-    const dom = section({ id: "animate" });
-    dom.appendChild(
+    const parent = div();
+
+    const replaceChildren = (showState: any) => {
+      parent.replaceChildren(
+        Animate(
+          {
+            parent,
+            animationHide: `${styles.hideRight} 0.5s`,
+            animationShow: `${styles.showRight} 0.5s`,
+          },
+          div(showState.val ? "Ciao" : "")
+        )
+      );
+    };
+    replaceChildren(showState);
+    return section(
+      { id: "animate" },
       div(
         h1("Test Animate"),
         div(
           Button(
             {
-              onclick: () => (showState.val = !showState.val),
+              onclick: () => {
+                showState.val = !showState.val;
+                replaceChildren(showState);
+              },
             },
             () => (showState.val ? "Hide" : "Show")
           )
         ),
-        div(() =>
-          showState.val
-            ? Animate(
-                {
-                  parent: dom,
-                  animationHide: `${styles.hideRight} 0.5s`,
-                  animationShow: `${styles.showRight} 0.5s`,
-                },
-                div("Ciao")
-              )
-            : ""
-        )
+        parent
       )
     );
-    return dom;
   };
 };

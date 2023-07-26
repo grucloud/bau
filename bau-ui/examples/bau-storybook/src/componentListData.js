@@ -32,6 +32,10 @@ export const componentList = () => [
     id: "drawer",
   },
   {
+    name: "DrillDown",
+    id: "drillDownMenu",
+  },
+  {
     name: "File Input",
     id: "fileInput",
   },
@@ -72,7 +76,7 @@ export const componentList = () => [
     id: "theme-switch",
   },
   {
-    name: "TreeView",
+    name: "Tree View",
     id: "treeview",
   },
   // {
