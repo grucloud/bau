@@ -218,7 +218,7 @@ export default function (context, { renderMenuItem }) {
 
     navEl.append(
       Menu({
-        currentTree,
+        currentTree: subTree,
         onclickItem,
         onclickBack,
       })
