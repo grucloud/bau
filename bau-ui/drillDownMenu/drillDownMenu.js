@@ -177,7 +177,10 @@ export default function (context, { renderMenuItem }) {
 
   return function DrillDownMenu({ tree, initialPathname, ...otherProps }) {
     let currentTree = treeAddParent({})(tree);
-    currentTree = findSubTree(initialPathname)(currentTree);
+    let subTree = findSubTree(initialPathname)(currentTree);
+    if (!subTree) {
+      subTree = currentTree;
+    }
     const replaceChildren = (navEl, currentTree, right) =>
       navEl.replaceChildren(
         Animate(
