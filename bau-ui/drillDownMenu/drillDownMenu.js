@@ -1,7 +1,40 @@
 import classNames from "@grucloud/bau-css/classNames.js";
-import animate from "../animate";
+import animate from "../animate/animate.js";
 
-const animationDuration = "1s";
+const animationDuration = "0.3s";
+
+const treeAddParent =
+  ({ parent, grandParent }) =>
+  (tree) => {
+    const { children, ...othersTreeProps } = tree;
+    const result = structuredClone(othersTreeProps);
+    result.children = children?.map(
+      treeAddParent({ parent: tree, grandParent: parent })
+    );
+    if (parent) {
+      parent.parentTree = grandParent;
+    }
+    result.parentTree = parent;
+    return result;
+  };
+
+const findSubTree = (initialPathname) => (tree) => {
+  if (!initialPathname) {
+    return tree;
+  }
+  if (tree?.data?.href == initialPathname) {
+    return tree.children ? tree : tree.parentTree;
+  }
+  if (!tree.children) {
+    return;
+  }
+  for (let index = 0; index < tree.children.length; index++) {
+    const result = findSubTree(initialPathname)(tree.children[index]);
+    if (result) {
+      return result;
+    }
+  }
+};
 
 const createStyles = ({ createGlobalStyles, keyframes }) => {
   createGlobalStyles`
@@ -14,33 +47,42 @@ const createStyles = ({ createGlobalStyles, keyframes }) => {
     hideToLeft: keyframes`
   from {
     transform: translateX(0%);
+    opacity: 1;
   }
   to {
     transform: translateX(-100%);
+    opacity: 0;
   }
   `,
     showFromLeft: keyframes`
    from {
      transform: translateX(-100%);
+     opacity: 0;
    }
    to {
      transform: translateX(0%);
+     opacity: 1;
    }
   `,
     hideToRight: keyframes`
    from {
      transform: translateX(0%);
+     opacity: 1;
    }
    to {
      transform: translateX(100%);
+     opacity: 0;
    }
    `,
     showFromRight: keyframes`
   from {
     transform: translateX(100%);
+    opacity: 0;
+
   }
   to {
     transform: translateX(0%);
+    opacity: 1;
   }
  `,
   };
@@ -58,7 +100,6 @@ export default function (context, { renderMenuItem }) {
     font-weight: var(--font-weight-semibold);
     overflow: hidden;
     position: relative;
-    width: fit-content;
     & a,
     span {
       flex-grow: 1;
@@ -134,7 +175,9 @@ export default function (context, { renderMenuItem }) {
     );
   };
 
-  return function DrillDownMenu({ tree, ...otherProps }) {
+  return function DrillDownMenu({ tree, initialPathname, ...otherProps }) {
+    let currentTree = treeAddParent({})(tree);
+    currentTree = findSubTree(initialPathname)(currentTree);
     const replaceChildren = (navEl, currentTree, right) =>
       navEl.replaceChildren(
         Animate(
@@ -161,23 +204,22 @@ export default function (context, { renderMenuItem }) {
 
     const onclickItem =
       ({ currentTree }) =>
-      (_event) => {
+      (_event) =>
         replaceChildren(navEl, currentTree, true);
-      };
 
     const onclickBack =
       ({ currentTree }) =>
-      (_event) => {
+      (_event) =>
         replaceChildren(navEl, currentTree.parentTree, false);
-      };
 
     navEl.append(
       Menu({
-        currentTree: tree,
+        currentTree,
         onclickItem,
         onclickBack,
       })
     );
+
     return navEl;
   };
 }
