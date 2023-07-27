@@ -110,6 +110,7 @@ export default function (context, { renderMenuItem }) {
       display: flex;
       align-items: center;
       cursor: pointer;
+      font-weight: var(--font-weight-bold);
       border-bottom: 1px solid var(--color-emphasis-100);
       padding: var(--drill-down-menu-padding);
       transition: background-color var(--transition-slow) ease-in-out;
