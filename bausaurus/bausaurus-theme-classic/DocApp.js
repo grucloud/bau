@@ -18,6 +18,8 @@ export default function (
   const { bau, css, window } = context;
   const { div } = bau.tags;
 
+  const pathnameState = bau.state(window.location.pathname);
+
   createStyles(context);
 
   const Header = header(context);
@@ -43,18 +45,24 @@ export default function (
   `;
 
   return function DocApp({
-    navBarTree,
+    navBarTree = {},
     contentHtml,
     breadcrumbs,
     toc,
     paginationNav = {},
   }) {
     const mainEl = MainContent({ contentHtml });
+    const navBarEl = NavBar({
+      tree: navBarTree,
+      pathnameState,
+    });
+
     const tocEl = Toc({ toc });
     const breadcrumbsEl = BreadcrumbsDoc({ breadcrumbs });
     const paginationNavEl = PaginationNav({ paginationNav });
 
     const onLocationChange = async ({ nextPage }) => {
+      pathnameState.val = window.location.pathname;
       const { contentHtml, toc, frontmatter, breadcrumbs, paginationNav } =
         await loadContent({
           nextPage,
@@ -79,7 +87,7 @@ export default function (
         class: className,
       },
       Header(),
-      navBarTree && NavBar({ tree: navBarTree }),
+      navBarTree && navBarEl,
       breadcrumbs && breadcrumbsEl,
       mainEl,
       toc && tocEl,

@@ -14,7 +14,7 @@ export default function (context) {
 
   const DrillDownMenu = drillDownMenu(context, { renderMenuItem });
 
-  return function NavBar({ tree }) {
+  return function NavBar({ tree, pathnameState }) {
     return div(
       {
         class: css`
@@ -30,7 +30,7 @@ export default function (context) {
       },
       DrillDownMenu({
         tree,
-        initialPathname: window.location.pathname,
+        pathnameState,
       })
     );
   };

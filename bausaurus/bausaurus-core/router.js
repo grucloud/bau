@@ -1,5 +1,5 @@
 import { hashMapFile, docPath } from "./constants.js";
-import { inBrowser, pathFromLocation } from "./utils.js";
+import { inBrowser, pathFromLocation, isProd } from "./utils.js";
 
 let __BAUSAURUS_HASH_MAP__;
 
@@ -39,8 +39,8 @@ export const createRouter = (context, { onLocationChange }) => {
       //console.log("fetchHashMap", error);
     }
   };
-  // TODO isProd
-  inBrowser() && fetchHashMap();
+
+  inBrowser() && isProd() && fetchHashMap();
 
   window.addEventListener("popstate", () =>
     onLocationChange({

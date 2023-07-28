@@ -1,7 +1,7 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import animate from "../animate/animate.js";
 
-const animationDuration = "0.3s";
+const animationDuration = "2s";
 
 const treeAddParent =
   ({ parent, grandParent }) =>
@@ -89,8 +89,8 @@ const createStyles = ({ createGlobalStyles, keyframes }) => {
 };
 
 export default function (context, { renderMenuItem }) {
-  const { bau, css } = context;
-  const { ul, li, nav, div, header } = bau.tags;
+  const { bau, css, window } = context;
+  const { ul, li, nav, div, header, a } = bau.tags;
   const Animate = animate(context);
 
   const { hideToLeft, hideToRight, showFromRight, showFromLeft } =
@@ -157,7 +157,7 @@ export default function (context, { renderMenuItem }) {
           {
             onclick: onclickBack({ currentTree }),
           },
-          renderMenuItem(data)
+          a({ href: currentTree.parentTree.children[0].data.href }, data.name)
         ),
       children &&
         ul(
@@ -165,9 +165,7 @@ export default function (context, { renderMenuItem }) {
             li(
               subTree.children && {
                 class: "has-children",
-                onclick: onclickItem({
-                  currentTree: { ...subTree, parentTree: currentTree },
-                }),
+                onclick: onclickItem({ currentTree: subTree }),
               },
               renderMenuItem(subTree.data)
             )
@@ -176,13 +174,22 @@ export default function (context, { renderMenuItem }) {
     );
   };
 
-  return function DrillDownMenu({ tree, initialPathname, ...otherProps }) {
-    let currentTree = treeAddParent({})(tree);
-    let subTree = findSubTree(initialPathname)(currentTree);
-    if (!subTree) {
-      subTree = currentTree;
-    }
-    const replaceChildren = (navEl, currentTree, right) =>
+  return function DrillDownMenu({
+    tree,
+    pathnameState = bau.state(window.location.pathname),
+    ...otherProps
+  }) {
+    const onclickItem =
+      ({ currentTree }) =>
+      (event) =>
+        replaceChildren(event, navEl, currentTree, true);
+
+    const onclickBack =
+      ({ currentTree }) =>
+      (event) =>
+        replaceChildren(event, navEl, currentTree.parentTree, false);
+
+    const replaceChildren = (event, navEl, currentTree, right) => {
       navEl.replaceChildren(
         Animate(
           {
@@ -201,27 +208,24 @@ export default function (context, { renderMenuItem }) {
           })
         )
       );
+    };
 
-    const navEl = nav({
-      class: classNames(className, otherProps.class),
-    });
-
-    const onclickItem =
-      ({ currentTree }) =>
-      (_event) =>
-        replaceChildren(navEl, currentTree, true);
-
-    const onclickBack =
-      ({ currentTree }) =>
-      (_event) =>
-        replaceChildren(navEl, currentTree.parentTree, false);
-
-    navEl.append(
-      Menu({
-        currentTree: subTree,
-        onclickItem,
-        onclickBack,
-      })
+    const navEl = nav(
+      {
+        class: classNames(className, otherProps.class),
+      },
+      () => {
+        let currentTree = treeAddParent({})(tree);
+        let subTree = findSubTree(pathnameState.val)(currentTree);
+        if (!subTree) {
+          subTree = currentTree;
+        }
+        return Menu({
+          currentTree: subTree,
+          onclickItem,
+          onclickBack,
+        });
+      }
     );
 
     return navEl;
