@@ -35,7 +35,7 @@ export default (context: Context) => {
     a(
       {
         href,
-        onclick: (event: any) => {
+        onclick: (_event: any) => {
           //event.preventDefault();
         },
       },

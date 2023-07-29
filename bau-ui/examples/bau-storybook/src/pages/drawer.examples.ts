@@ -27,6 +27,9 @@ export default (context: Context) => {
         },
         "OPEN DRAWER"
       ),
-      Drawer({ openState }, NavBarMenu({ componentList: componentList() }))
+      Drawer(
+        { openState },
+        NavBarMenu({ componentList: componentList(), name: "Components" })
+      )
     );
 };
