@@ -1,7 +1,7 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import animate from "../animate/animate.js";
 
-const animationDuration = "2s";
+const animationDuration = "0.3s";
 
 const treeAddParent =
   ({ parent, grandParent }) =>
