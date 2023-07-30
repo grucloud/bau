@@ -13,6 +13,7 @@ In addition to this core library, a set of others has been released to provide a
 - [bau-router](./bau-router): a router with nested route, asynchronous loading, layout. Under 0.6kB
 - [bau-kit](./examples/bau-kit): a Multi Page App starter kit, all of these features packed under 5KB, a **20X** decreased compared to the combo React/Redux/React Router/Style Component.
 - [bausaurus](https://grucloud.github.io/bau/bausaurus/): A Static Site Generator from Markdown content.
+- [bau-astro](./bau-astro): Bau integration for [Astro](https://astro.build/).
 
 ## Bundle size
 
