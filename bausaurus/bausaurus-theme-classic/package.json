@@ -28,5 +28,10 @@
     "@grucloud/bau-css": "^0.32.0",
     "@grucloud/bau-ui": "^0.32.0",
     "@grucloud/bausaurus-core": "^0.32.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:grucloud/bau.git",
+    "directory": "bausaurus/bausaurus-theme-classic"
   }
 }

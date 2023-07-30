@@ -14,7 +14,8 @@
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git@github.com:grucloud/bau.git"
+    "url": "git@github.com:grucloud/bau.git",
+    "directory": "bau-ui"
   },
   "dependencies": {
     "@grucloud/bau": "^0.32.0",

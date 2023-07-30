@@ -5,6 +5,7 @@ packages:
   - "bau-router/**"
   - "bau-ui/**"
   - "bausaurus/**"
+  - "bau-astro/**"
 
   # all packages in subdirs of components/
   - "examples/**/*"

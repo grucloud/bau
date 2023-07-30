@@ -1,0 +1,39 @@
+{
+  "name": "@grucloud/bau-astro",
+  "description": "Use Bau within Astro",
+  "version": "0.32.0",
+  "type": "module",
+  "author": "Frederic Heem",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grucloud/bau.git",
+    "directory": "bau-astro"
+  },
+  "keywords": [
+    "astro-integration",
+    "astro-component",
+    "renderer",
+    "bau"
+  ],
+  "bugs": "https://github.com/grucloud/bau/issues",
+  "homepage": "https://github.com/grucloud/bau/bau-astro",
+  "exports": {
+    "./client.js": "./client.js",
+    "./server.js": "./server.js",
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "server.js",
+    "client.js"
+  ],
+  "scripts": {},
+  "dependencies": {
+    "@grucloud/bau": "^0.32.0"
+  },
+  "devDependencies": {
+    "astro": "^2.9.6"
+  }
+}
