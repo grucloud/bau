@@ -26,7 +26,6 @@ function renderToStaticMarkup(Component, props, slotted, metadata) {
     }
   }
   return {
-    attrs: {},
     html: el.outerHTML,
   };
 }

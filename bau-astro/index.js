@@ -12,11 +12,6 @@ async function getViteConfiguration(_options) {
       include: ["@grucloud/bau-astro/client.js", "@grucloud/bau"],
       exclude: ["@grucloud/bau-astro/server.js", "jsdom"],
     },
-    plugins: [],
-    ssr: {
-      external: [],
-      noExternal: [],
-    },
   };
   return config;
 }
