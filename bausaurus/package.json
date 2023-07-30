@@ -39,5 +39,10 @@
     "unified": "10.1.2",
     "unist-util-visit": "4.1.2",
     "vite": "4.3.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:grucloud/bau.git",
+    "directory": "bausaurus"
   }
 }
