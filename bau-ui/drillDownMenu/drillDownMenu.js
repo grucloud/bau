@@ -1,4 +1,4 @@
-import classNames from "@grucloud/bau-css/classNames.js";
+import cn from "@grucloud/bau-css/classNames.js";
 import animate from "../animate/animate.js";
 
 const animationDuration = "0.3s";
@@ -36,11 +36,16 @@ const findSubTree = (initialPathname) => (tree) => {
   }
 };
 
+const isActive = ({ window, subTree }) =>
+  window.location.pathname === subTree?.data?.href;
+
 const createStyles = ({ createGlobalStyles, keyframes }) => {
   createGlobalStyles`
 :root {
   --drill-down-menu-color: var(--font-color-base);
   --drill-down-menu-padding: 0.4rem;
+  --drill-down-menu-bg-active: var(--color-emphasis-50);
+  --drill-down-menu-bg-hover: var(--color-emphasis-50);
 }
 `;
   return {
@@ -115,7 +120,7 @@ export default function (context, { renderMenuItem }) {
       padding: var(--drill-down-menu-padding);
       transition: background-color var(--transition-slow) ease-in-out;
       &:hover {
-        background: var(--color-emphasis-50);
+        background: var(--drill-down-menu-bg-hover);
       }
       &::before {
         content: "\u2190";
@@ -134,6 +139,9 @@ export default function (context, { renderMenuItem }) {
           padding: 0 0.5rem 0 0.5rem;
         }
       }
+      & .is-active {
+        background-color: var(--drill-down-menu-bg-active);
+      }
       & li {
         padding: var(--drill-down-menu-padding);
         cursor: pointer;
@@ -143,7 +151,8 @@ export default function (context, { renderMenuItem }) {
         background-color: transparent;
         transition: background-color var(--transition-slow) ease-in-out;
         &:hover {
-          background-color: var(--color-emphasis-50);
+          background-color: var(--drill-down-menu-bg-hover);
+          cursor: pointer;
         }
       }
     }
@@ -152,6 +161,7 @@ export default function (context, { renderMenuItem }) {
   const Menu = ({ onclickItem, onclickBack, currentTree }) => {
     const { children, parentTree, data } = currentTree;
     return div(
+      { class: "drillDownMenu" },
       parentTree &&
         header(
           {
@@ -163,9 +173,13 @@ export default function (context, { renderMenuItem }) {
         ul(
           children.map((subTree) =>
             li(
-              subTree.children && {
-                class: "has-children",
-                onclick: onclickItem({ currentTree: subTree }),
+              {
+                class: cn(
+                  subTree.children && "has-children",
+                  isActive({ window, subTree }) && "is-active"
+                ),
+                onclick:
+                  subTree.children && onclickItem({ currentTree: subTree }),
               },
               renderMenuItem(subTree.data)
             )
@@ -190,7 +204,8 @@ export default function (context, { renderMenuItem }) {
         replaceChildren(event, navEl, currentTree.parentTree, false);
 
     const replaceChildren = (event, navEl, currentTree, right) => {
-      navEl.replaceChildren(
+      // If the navEl is replaced, the bau binding is lost.
+      navEl.firstChild.replaceChildren(
         Animate(
           {
             parent: navEl,
@@ -212,7 +227,7 @@ export default function (context, { renderMenuItem }) {
 
     const navEl = nav(
       {
-        class: classNames(className, otherProps.class),
+        class: cn(className, otherProps.class),
       },
       () => {
         let currentTree = treeAddParent({})(tree);
@@ -220,11 +235,13 @@ export default function (context, { renderMenuItem }) {
         if (!subTree) {
           subTree = currentTree;
         }
-        return Menu({
-          currentTree: subTree,
-          onclickItem,
-          onclickBack,
-        });
+        return div(
+          Menu({
+            currentTree: subTree,
+            onclickItem,
+            onclickBack,
+          })
+        );
       }
     );
 

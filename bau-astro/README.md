@@ -1,6 +1,6 @@
 # @grucloud/bau-astro
 
-This **[Astro integration][astro-integration]** adds [Bau.js](https://github.com/grucloud/bau) to your project so that you can use Bau.js anywhere on your page.
+This **[Astro integration]** adds [Bau.js](https://github.com/grucloud/bau) to your project so that you can use Bau.js anywhere on your page.
 
 - <strong>[Installation](#installation)</strong>
 - <strong>[Usage](#usage)</strong>
