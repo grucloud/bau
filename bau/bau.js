@@ -9,6 +9,7 @@ let isState = (state) => state.__isState;
 export default function Bau(input) {
   let _window = input?.window ?? window;
   let { document } = _window;
+  let _debounce;
   let stateSet = new Set();
   let _curDeps;
 
@@ -22,6 +23,25 @@ export default function Bau(input) {
     _curDeps = prevDeps;
     return result;
   };
+
+  function debounceSchedule(callback) {
+    if (!_debounce) {
+      _debounce = window.requestAnimationFrame(() => {
+        callback();
+        _debounce = undefined;
+      });
+    }
+  }
+
+  const bindingCleanUp = () =>
+    debounceSchedule(() =>
+      stateSet.forEach(
+        (state) =>
+          (state.bindings = state.bindings.filter(
+            (b) => b.element?.isConnected
+          ))
+      )
+    );
 
   let updateDom = (state, method, args, parentProp, data) => {
     for (let binding of state.bindings) {
@@ -48,6 +68,7 @@ export default function Bau(input) {
         }
       }
     }
+    bindingCleanUp();
   };
 
   let proxyHandler = (state, data, parentProp = []) => ({
