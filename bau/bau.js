@@ -75,7 +75,11 @@ export default function Bau(input) {
     get(target, prop, receiver) {
       _curDeps?.add(state);
       if (prop === "_isProxy") return true;
-      if (!target[prop]?._isProxy && isArrayOrObject(target[prop])) {
+      if (
+        !target[prop]?._isProxy &&
+        !isState(target[prop]) &&
+        isArrayOrObject(target[prop])
+      ) {
         target[prop] = new Proxy(
           target[prop],
           proxyHandler(state, data, [...parentProp, prop])
