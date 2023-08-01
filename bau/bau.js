@@ -24,24 +24,17 @@ export default function Bau(input) {
     return result;
   };
 
-  function debounceSchedule(callback) {
+  function bindingCleanUp() {
     if (!_debounce) {
       _debounce = window.requestAnimationFrame(() => {
-        callback();
+        stateSet.forEach((state) => {
+          state.bindings = state.bindings.filter((b) => b.element?.isConnected);
+          !state.bindings.length && stateSet.delete(state);
+        });
         _debounce = undefined;
       });
     }
   }
-
-  const bindingCleanUp = () =>
-    debounceSchedule(() =>
-      stateSet.forEach(
-        (state) =>
-          (state.bindings = state.bindings.filter(
-            (b) => b.element?.isConnected
-          ))
-      )
-    );
 
   let updateDom = (state, method, args, parentProp, data) => {
     for (let binding of state.bindings) {
