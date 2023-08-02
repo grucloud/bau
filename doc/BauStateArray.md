@@ -40,7 +40,7 @@ todosState.val.unshift({ label: "my-label" });
 4. Remove the first element: `shift`
 
 ```js
-todosState.val.shift({ label: "my-label" });
+todosState.val.shift();
 ```
 
 5. Splice the array: Remove one or more item from an index, and eventually add some items at the index

@@ -70,6 +70,7 @@ Check out the minimalistic [hello world example](https://codesandbox.io/s/bau-he
 
 ## Guide
 
+- [Reactivity with bau.state](./doc/BauReactivity.md)
 - [Conditional Rendering](./doc/BauConditionalRendering.md)
 - [Lifecycle Methods: bauCreated, bauMounted, bauUnmounted](./doc/BauLifecycle.md)
 - [Create a state array and display views](./doc/BauStateArray.md)

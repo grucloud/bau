@@ -1,5 +1,5 @@
 import Bau from "../../../bau";
-
+import "./style.css";
 const bau = Bau();
 
 const {
@@ -14,10 +14,13 @@ const {
   td,
   span,
   input,
-  form,
   h1,
   p,
+  article,
 } = bau.tags;
+
+const classNames = (...cn: string[]) =>
+  cn.filter((className) => className).join(" ");
 
 const myBoolState = bau.state(false);
 myBoolState.val = true;
@@ -30,74 +33,17 @@ const myArrayState = bau.state(["1"]);
 myArrayState.val.push(...["2", "3"]);
 myArrayState.val.push("4", "5");
 
-const myArrayCountState = bau.derive(() => myArrayState.val.length);
-
 const myObjetState = bau.state({ name: "Freddy", rank: 2 });
 
 myObjetState.val.name = "toto";
 myObjetState.val.rank = 2;
 
-const TestArrayLength = () =>
-  section(
-    "testArrayLength",
-    span("length ", () => myArrayState.val.length),
-    div(
-      button(
-        { onclick: () => myArrayState.val.push("yo") },
-        "Click to push an element to an array"
-      )
-    )
-  );
-
-const TestArrayReadIndex = () =>
-  section(
-    "testArrayLength",
-    span("value at index 0:", () => myArrayState.val[0]),
-    div(
-      button(
-        {
-          onclick: () =>
-            myArrayState.val.unshift(String(myArrayState.val.length)),
-        },
-        "Click to prepend an element to an array"
-      )
-    )
-  );
-
-const TestPropsStyle = () =>
-  section(
-    {
-      style: () => (myBoolState.val ? "color:red;" : ""),
-    },
-    "renderProp conditional class",
-    div(
-      button(
-        { onclick: () => (myBoolState.val = !myBoolState.val) },
-        "Click to change the style"
-      )
-    )
-  );
-
-const TestAttributeReturnString = () =>
-  section(
-    {
-      class: () => "",
-    },
-    "attributes returns a string"
-  );
-
-const TestAttributeReturnNull = () =>
-  section(
-    {
-      class: () => null,
-    },
-    "attributes returns null"
-  );
+// Conditional
 
 const TestConditionalTernary = () => {
   const showState = bau.state(true);
-  return section(
-    h1("Conditional with &&"),
+  return article(
+    h1("Conditional with the ternary operator"),
     button({ onclick: () => (showState.val = !showState.val) }, "Toogle"),
     () => (showState.val ? p("ON") : p("OFF"))
   );
@@ -105,7 +51,7 @@ const TestConditionalTernary = () => {
 
 const TestConditionalIfElse = () => {
   const showState = bau.state(true);
-  return section(
+  return article(
     h1("Conditional with if else"),
     button({ onclick: () => (showState.val = !showState.val) }, "Toogle"),
     () => {
@@ -120,8 +66,8 @@ const TestConditionalIfElse = () => {
 
 const TestConditionalAndAnd = () => {
   const showState = bau.state(true);
-  return section(
-    h1("Conditional with &&"),
+  return article(
+    h1("Logical &&"),
     button({ onclick: () => (showState.val = !showState.val) }, "Toogle"),
     p(() => showState.val && "ON")
   );
@@ -138,7 +84,7 @@ const viewMap: any = {
 const TestConditionalMap = () => {
   const showViewState = bau.state("user");
 
-  return section(
+  return article(
     h1("Conditional with map"),
     button({ onclick: () => (showViewState.val = "admin") }, "Admin"),
     button({ onclick: () => (showViewState.val = "user") }, "User"),
@@ -148,54 +94,180 @@ const TestConditionalMap = () => {
 
 const TestConditionalDisplayNone = () => {
   const hideState = bau.state(false);
-  return section(
+  return article(
     h1('Conditional with style: "display: none"'),
     button({ onclick: () => (hideState.val = !hideState.val) }, "Toogle"),
     p({ style: () => hideState.val && "display:none" }, "ON")
   );
 };
 
+const TestConditionalVisitbilityHidden = () => {
+  const hideState = bau.state(false);
+  return article(
+    h1('Conditional with style: "visibility:hidden"'),
+    button({ onclick: () => (hideState.val = !hideState.val) }, "Toogle"),
+    p({ style: () => hideState.val && "visibility:hidden" }, "ON")
+  );
+};
+
+// Reactive
+const TestReactiveStyle = () => {
+  const colorState = bau.state(false);
+
+  return article(
+    h1("Reactive style"),
+    div(
+      {
+        style: () => (colorState.val ? "color:red;" : ""),
+      },
+      button(
+        { onclick: () => (colorState.val = !colorState.val) },
+        "Click to change the style"
+      ),
+      p("My Text")
+    )
+  );
+};
+
+const TestReactiveClass = () => {
+  const colorState = bau.state(false);
+
+  return article(
+    h1("Reactive class"),
+    div(
+      {
+        class: () => (colorState.val ? "active" : ""),
+      },
+      button(
+        { onclick: () => (colorState.val = !colorState.val) },
+        "Click to change the class"
+      ),
+      p("My Text")
+    )
+  );
+};
+
+const TestReactiveStateNumber = () => {
+  const counterState = bau.state(0);
+  return article(
+    h1("State Number"),
+    button({ onclick: () => counterState.val++ }, "Increment"),
+    div(counterState)
+  );
+};
+
+const TestReactiveStateString = () => {
+  const messageState = bau.state("Ciao");
+  return article(
+    h1("State String"),
+    button(
+      { onclick: () => (messageState.val = `${messageState.val} Bello`) },
+      "Add Bello"
+    ),
+    span(messageState)
+  );
+};
+
+const TestReactiveFunction = () => {
+  const showState = bau.state(true);
+  return article(
+    h1("Reactive Function"),
+    button(
+      //
+      { onclick: () => (showState.val = !showState.val) },
+      () => (showState.val ? "HIDE" : "SHOW")
+    ),
+    () => showState.val && "stuff to show"
+  );
+};
+
+// Arrays
+const TestArrayLength = () => {
+  const arrayState = bau.state<string[]>([]);
+
+  return article(
+    h1("Array Length"),
+    span("length ", () => arrayState.val.length),
+    div(
+      button(
+        { onclick: () => arrayState.val.push("yo") },
+        "Click to push an element to an array"
+      )
+    )
+  );
+};
+
+const TestArrayReadIndex = () => {
+  const arrayState = bau.state<string[]>([]);
+
+  return article(
+    h1("Array Index"),
+    span("value at index 0: ", () => arrayState.val[0]),
+    div(
+      button(
+        {
+          onclick: () => arrayState.val.unshift(String(arrayState.val.length)),
+        },
+        "Click to prepend an the length of the array"
+      )
+    )
+  );
+};
+
 const TestElementObject = () =>
-  section(() => JSON.stringify(myObjetState.val), "state as object: ");
+  article(
+    h1("state object"),
+    p(() => JSON.stringify(myObjetState.val))
+  );
 
-const TestBindArrayUL = () =>
-  section(
+const TestBindArrayUL = () => {
+  const arrayState = bau.state<string[]>([]);
+
+  return article(
+    h1("Array with ul li"),
+    button(
+      { onclick: () => arrayState.val.push("yo") },
+      "Click to push an element to an array"
+    ),
     bau.bind({
-      deps: [myArrayState],
+      deps: [arrayState],
       render:
         ({ renderItem }) =>
         (arr) =>
-          div("render Array with UL LI ", ul(arr.map(renderItem))),
+          div(ul(arr.map(renderItem))),
       renderItem: () => (value: any) => li("renderItem li ", value),
-    }),
-    "TestBindArrayUL"
+    })
   );
+};
 
-const TestBindArrayTBODY = () =>
-  section(
+const TestBindArrayTBODY = () => {
+  const arrayState = bau.state<string[]>([]);
+  return article(
+    h1("Array with table, tbody, tr, and td"),
+    button(
+      { onclick: () => arrayState.val.push("yo") },
+      "Click to push an element to an array"
+    ),
+    div("Count ", () => arrayState.val.length),
     bau.bind({
-      deps: [myArrayState],
+      deps: [arrayState],
       render:
         ({ renderItem }) =>
         (arr) =>
-          table(
-            "render Array with table tbody tr and td ",
-            tbody(arr.map(renderItem))
-          ),
+          table(tbody(arr.map(renderItem))),
       renderItem: () => (value: any) => tr(td("renderItem tr td "), td(value)),
-    }),
-    div("Count ", () => myArrayCountState.val),
-    "TestBindArrayTBODY"
+    })
   );
+};
 
 const TestDerived = () => {
   const inputState = bau.state("");
-  const buttonDisabledState = bau.derive(() => {
+  const buttonDisabledState = () => {
     return inputState.val.length < 2;
-  });
+  };
 
-  return section(
-    "Test Derived",
+  return article(
+    h1("Test Derived"),
     input({
       placeholder: "Enter username",
       value: inputState,
@@ -220,8 +292,8 @@ const TestDerivedSideEffect = () => {
     console.log("inputState: ", inputState.val);
   });
 
-  return section(
-    "Test Derived Side Effect",
+  return article(
+    h1("Side Effect"),
     input({
       placeholder: "Enter username",
       value: inputState,
@@ -230,24 +302,75 @@ const TestDerivedSideEffect = () => {
     })
   );
 };
+
+const TestDeriveText = () => {
+  const showState = bau.state(true);
+  const buttonText = () => (showState.val ? "HIDE" : "SHOW");
+
+  return article(
+    h1("Derive Text"),
+    button(
+      //
+      { onclick: () => (showState.val = !showState.val) },
+      buttonText
+    )
+  );
+};
+
+const TestAttributeReturnString = () =>
+  div(
+    {
+      class: () => "",
+    }
+    //"attributes returns a string"
+  );
+
+const TestAttributeReturnNull = () =>
+  div(
+    {
+      class: () => null,
+    }
+    //"attributes returns null"
+  );
+
 const App = ({}) => {
   return div(
-    "Bau testing with Typescript",
-    TestArrayLength(),
-    TestArrayReadIndex(),
-    TestPropsStyle(),
-    TestAttributeReturnString(),
-    TestAttributeReturnNull(),
-    TestConditionalAndAnd(),
-    TestConditionalTernary(),
-    TestConditionalIfElse(),
-    TestConditionalMap(),
-    TestConditionalDisplayNone(),
+    h1("Bau testing with Typescript"),
+    section(
+      h1("Conditional"),
+      TestConditionalAndAnd(),
+      TestConditionalTernary(),
+      TestConditionalIfElse(),
+      TestConditionalMap(),
+      TestConditionalDisplayNone(),
+      TestConditionalVisitbilityHidden()
+    ),
+    section(
+      h1("Reactive"), //
+      TestReactiveStyle(),
+      TestReactiveClass(),
+      TestReactiveStateNumber(),
+      TestReactiveStateString(),
+      TestReactiveFunction()
+    ),
+    section(
+      h1("Derive"),
+      //
+      TestDerived(),
+      TestDerivedSideEffect(),
+      TestDeriveText()
+    ),
+    section(
+      h1("Array"),
+      //
+      TestBindArrayUL(),
+      TestBindArrayTBODY(),
+      TestArrayLength(),
+      TestArrayReadIndex()
+    ),
     TestElementObject(),
-    TestBindArrayUL(),
-    TestBindArrayTBODY(),
-    TestDerived(),
-    TestDerivedSideEffect()
+    TestAttributeReturnString(),
+    TestAttributeReturnNull()
   );
 };
 
