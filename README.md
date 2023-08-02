@@ -12,8 +12,8 @@ In addition to this core library, a set of others has been released to provide a
 - [bau-ui](./bau-ui): a set of themable components such as Button, Input, Tabs, Tree View, Model, etc... See a [live preview](https://grucloud.github.io/bau/bau-ui) of these components.
 - [bau-router](./bau-router): a router with nested route, asynchronous loading, layout. Under 0.6kB
 - [bau-kit](./examples/bau-kit): a Multi Page App starter kit, all of these features packed under 5KB, a **20X** decreased compared to the combo React/Redux/React Router/Style Component.
-- [bausaurus](https://grucloud.github.io/bau/bausaurus/): A Static Site Generator from Markdown content.
-- [bau-astro](./bau-astro): Bau integration for [Astro](https://astro.build/).
+- [bausaurus](https://grucloud.github.io/bau/bausaurus/): A Static Site Generator (SSG) from Markdown content.
+- [bau-astro](./bau-astro): Bau integration for [Astro](https://astro.build/), allowing to leverage the SSR implementation provided by Astro.
 
 ## Bundle size
 
@@ -68,6 +68,13 @@ Have a look at the [examples](./examples) directory to find out how to use this 
 
 Check out the minimalistic [hello world example](https://codesandbox.io/s/bau-helloworld-twdxl5?file=/src/index.js) on CodeSanbox
 
+## Guide
+
+- [Conditional Rendering](./doc/BauConditionalRendering.md)
+- [Lifecycle Methods: bauCreated, bauMounted, bauUnmounted](./doc/BauLifecycle.md)
+- [Create a state array and display views](./doc/BauStateArray.md)
+- [State Derivation and Side Effects](./doc/BauDerive.md)
+
 ## Benchmark
 
 Bau has been benchmarked against other thanks to the project [js-framework-benchmark](https://github.com/krausest/js-framework-benchmark),
@@ -80,12 +87,6 @@ The Chrome Lighthouse perfomance tool reports an overall 100% score even for an 
 ## Typescript
 
 The Bau ecosystem exports Typescript definition files allowing to improve the Developer's eXperience. Enjoy the code completion with VS Code or your favorite IDE, which is obviously VS Code.
-
-## Guide
-
-- [Lifecycle Methods: bauCreated, bauMounted, bauUnmounted](./doc/BauLifecycle.md)
-- [Create a state array and display views](./doc/BauStateArray.md)
-- [State Derivation and Side Effects](./doc/BauDerive.md)
 
 ## Contribution
 
