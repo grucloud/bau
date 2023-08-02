@@ -4,6 +4,9 @@ import { classNames } from "./utils";
 export function footer({ bau, todosState, nowShowingState }) {
   const { a, footer, li, span, strong, ul, button } = bau.tags;
 
+  const completedCountState = bau.derive(
+    () => todosState.val.filter(({ completed }) => completed).length
+  );
   const ClearButton = ({ onClearCompleted }) =>
     button(
       { class: "clear-completed", onclick: onClearCompleted },
@@ -43,12 +46,8 @@ export function footer({ bau, todosState, nowShowingState }) {
         li(a(linkProp("active"), "Active")),
         li(a(linkProp("completed"), "Completed"))
       ),
-      () => {
-        const completedCount = todosState.val.filter(
-          ({ completed }) => completed
-        ).length;
-        return completedCount > 0 ? ClearButton({ onClearCompleted }) : "";
-      }
+      () =>
+        completedCountState.val > 0 ? ClearButton({ onClearCompleted }) : ""
     );
   };
 }

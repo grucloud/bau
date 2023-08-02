@@ -84,7 +84,8 @@ The Bau ecosystem exports Typescript definition files allowing to improve the De
 ## Guide
 
 - [Lifecycle Methods: bauCreated, bauMounted, bauUnmounted](./doc/BauLifecycle.md)
-- [create a state array and display views](./doc/BauStateArray.md)
+- [Create a state array and display views](./doc/BauStateArray.md)
+- [State Derivation and Side Effects](./doc/BauDerive.md)
 
 ## Contribution
 

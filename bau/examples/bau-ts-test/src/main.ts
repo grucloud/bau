@@ -2,7 +2,20 @@ import Bau from "../../../bau";
 
 const bau = Bau();
 
-const { div, section, button, ul, li, table, tbody, tr, td, span } = bau.tags;
+const {
+  div,
+  section,
+  button,
+  ul,
+  li,
+  table,
+  tbody,
+  tr,
+  td,
+  span,
+  input,
+  form,
+} = bau.tags;
 
 const myBoolState = bau.state(false);
 myBoolState.val = true;
@@ -11,8 +24,11 @@ const myNumberState = bau.state(1);
 myNumberState.val = 1;
 
 const myArrayState = bau.state(["1"]);
+
 myArrayState.val.push(...["2", "3"]);
 myArrayState.val.push("4", "5");
+
+const myArrayCountState = bau.derive(() => myArrayState.val.length);
 
 const myObjetState = bau.state({ name: "Freddy", rank: 2 });
 
@@ -117,9 +133,52 @@ const TestBindArrayTBODY = () =>
           ),
       renderItem: () => (value: any) => tr(td("renderItem tr td "), td(value)),
     }),
+    div("Count ", () => myArrayCountState.val),
     "TestBindArrayTBODY"
   );
 
+const TestDerived = () => {
+  const inputState = bau.state("");
+  const buttonDisabledState = bau.derive(() => {
+    return inputState.val.length < 2;
+  });
+
+  return section(
+    "Test Derived",
+    input({
+      placeholder: "Enter username",
+      value: inputState,
+      oninput: ({ target }: { target: HTMLInputElement }) =>
+        (inputState.val = target.value),
+    }),
+    button(
+      {
+        disabled: buttonDisabledState,
+        onclick: () => {
+          /* do stuff*/
+        },
+      },
+      "Login"
+    )
+  );
+};
+
+const TestDerivedSideEffect = () => {
+  const inputState = bau.state("");
+  bau.derive(() => {
+    console.log("inputState: ", inputState.val);
+  });
+
+  return section(
+    "Test Derived Side Effect",
+    input({
+      placeholder: "Enter username",
+      value: inputState,
+      oninput: ({ target }: { target: HTMLInputElement }) =>
+        (inputState.val = target.value),
+    })
+  );
+};
 const App = ({}) => {
   return div(
     "Bau testing with Typescript",
@@ -132,7 +191,9 @@ const App = ({}) => {
     TestElementAnd(),
     TestElementObject(),
     TestBindArrayUL(),
-    TestBindArrayTBODY()
+    TestBindArrayTBODY(),
+    TestDerived(),
+    TestDerivedSideEffect()
   );
 };
 

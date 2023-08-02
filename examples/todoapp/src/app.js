@@ -22,6 +22,9 @@ export default function app({ bau }) {
   const inputState = bau.state("");
   const editingIdState = bau.state("");
   const todosState = bau.state([]);
+  const todosShowingState = bau.derive(() =>
+    todosState.val.filter(showTodos(nowShowingState.val))
+  );
 
   const handleNewTodoKeyDown = (event) => {
     if (event.keyCode !== ENTER_KEY) {
@@ -36,7 +39,7 @@ export default function app({ bau }) {
   };
 
   const toggleAll = (event) =>
-    todosState.val.map((todo) => (todo.completed = true));
+    todosState.val.map((todo) => (todo.completed = !todo.completed));
 
   const TodoItem = todoItem({
     bau,
@@ -77,14 +80,11 @@ export default function app({ bau }) {
         }),
         label({ for: "toggle-all" }),
         bau.bind({
-          deps: [todosState, nowShowingState],
+          deps: [todosShowingState],
           render:
             ({ renderItem }) =>
-            (arr, nowShowing) =>
-              ul(
-                { class: "todo-list" },
-                arr.filter(showTodos(nowShowing)).map(renderItem)
-              ),
+            (arr) =>
+              ul({ class: "todo-list" }, arr.map(renderItem)),
           renderItem: () => TodoItem,
         })
       ),

@@ -41,9 +41,57 @@ export type BindAttributeFunc<TElement extends HTMLElement> = (input: {
   element: TElement;
 }) => Primitive | Function;
 
+type EventListener = (
+  event:
+    | InputEvent
+    | SubmitEvent
+    | Event
+    | AnimationEvent
+    | BeforeUnloadEvent
+    | BlobEvent
+    | ClipboardEvent
+    | CloseEvent
+    | CompositionEvent
+    | CustomEvent
+    | DeviceMotionEvent
+    | DeviceOrientationEvent
+    | DragEvent
+    | ErrorEvent
+    | FetchEvent
+    | FocusEvent
+    | FontFaceSetLoadEvent
+    | FormDataEvent
+    | GamepadEvent
+    | HashChangeEvent
+    | HIDInputReportEvent
+    | IDBVersionChangeEvent
+    | InputEvent
+    | KeyboardEvent
+    | MessageEvent
+    | MouseEvent
+    | OfflineAudioCompletionEvent
+    | PageTransitionEvent
+    | PaymentRequestUpdateEvent
+    | PointerEvent
+    | PopStateEvent
+    | ProgressEvent
+    | RTCDataChannelEvent
+    | RTCPeerConnectionIceEvent
+    | StorageEvent
+    | SubmitEvent
+    | TimeEvent
+    | TouchEvent
+    | TrackEvent
+    | TransitionEvent
+    | UIEvent
+    | WebGLContextEvent
+    | WheelEvent
+) => any;
+
 export type Props<TElement extends HTMLElement> = {
   readonly [key: string]:
     | PropValue
+    | EventListener
     | StateView<PropValue>
     | BindAttributeFunc<TElement>
     | DerivedProp;
@@ -199,4 +247,5 @@ export default function Bau(input?: { window?: Window }): {
   tagsNS: (namespaceURI: string) => TagsBase;
   state: <T>(initVal: T) => State<T>;
   bind: (input: BindInput) => (...args: any) => HTMLElement;
+  derive: <T>(computed: () => T) => State<T>;
 };

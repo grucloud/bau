@@ -1,10 +1,10 @@
 let getType = (obj) => Object.prototype.toString.call(obj ?? 0).slice(8, -1);
 let isObject = (val) => getType(val) == "Object";
-let protoOf = Object.getPrototypeOf;
-let isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
 let isFunction = (obj) => getType(obj) == "Function";
+let isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
+let protoOf = Object.getPrototypeOf;
 let toVal = (state) => (isState(state) ? state._val : state);
-let isState = (state) => state.__isState;
+let isState = (state) => state?.__isState;
 
 export default function Bau(input) {
   let _window = input?.window ?? window;
@@ -29,7 +29,7 @@ export default function Bau(input) {
       _debounce = window.requestAnimationFrame(() => {
         stateSet.forEach((state) => {
           state.bindings = state.bindings.filter((b) => b.element?.isConnected);
-          !state.bindings.length && stateSet.delete(state);
+          !state.bindings.length && !state.computed && stateSet.delete(state);
         });
         _debounce = undefined;
       });
@@ -61,6 +61,7 @@ export default function Bau(input) {
         }
       }
     }
+    updateDerive(state);
     bindingCleanUp();
   };
 
@@ -85,7 +86,6 @@ export default function Bau(input) {
           return result;
         };
       }
-
       return Reflect.get(target, prop, receiver);
     },
     set(target, prop, value, receiver) {
@@ -139,9 +139,10 @@ export default function Bau(input) {
     },
   });
 
-  let state = (initVal) => ({
+  let createState = (initVal) => ({
     oldVal: initVal,
     bindings: [],
+    listeners: [],
     __isState: true,
     get _val() {
       let _state = this;
@@ -177,6 +178,26 @@ export default function Bau(input) {
   });
 
   let toDom = (v) => (v.nodeType ? v : document.createTextNode(v));
+
+  let deriveInternal = (computed, state) => {
+    let deps = new Set();
+    state.val = runAndCaptureDeps(computed, deps);
+    return deps;
+  };
+
+  let derive = (computed) => {
+    let state = createState();
+    let deps = deriveInternal(computed, state);
+    state.computed = true;
+    for (let dep of deps) dep.listeners.push({ computed, deps, state });
+    return state;
+  };
+
+  let updateDerive = (state) => {
+    for (let listener of [...state.listeners]) {
+      deriveInternal(listener.computed, listener.state);
+    }
+  };
 
   let add = (element, ...children) => {
     if (children.length) {
@@ -280,28 +301,17 @@ export default function Bau(input) {
 
   let bindInferred = ({ renderInferred, element }) => {
     let deps = new Set();
-    let newElement = runAndCaptureDeps(renderInferred, deps, {
-      element,
-    });
-    let binding = {
-      renderInferred,
-    };
+    let newElement = runAndCaptureDeps(renderInferred, deps, { element });
+    let binding = { renderInferred };
     return bindFinalize(binding, deps, newElement);
   };
 
   let bind = ({ deps, element, render, renderItem: renderItemHL }) => {
     let renderItem = renderItemHL?.({ deps, element });
-    let newElement = render({
-      element,
-      renderItem,
-    })(...deps.map(toVal));
-    let binding = {
-      deps,
-      render,
-      renderItem,
-    };
+    let newElement = render({ element, renderItem })(...deps.map(toVal));
+    let binding = { deps, render, renderItem };
     return bindFinalize(binding, deps, newElement);
   };
 
-  return { tags: tagsNS(), tagsNS, state, bind, stateSet };
+  return { tags: tagsNS(), tagsNS, state: createState, bind, derive, stateSet };
 }

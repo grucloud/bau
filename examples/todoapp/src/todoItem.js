@@ -30,7 +30,7 @@ export function todoItem({ bau, todosState, editingIdState, onSave }) {
       editingIdState.val = id;
       inputState.val = title;
       inputDom.focus();
-      const length = inputDom.value.length;
+      const { length } = inputDom.value;
       inputDom.setSelectionRange(length, length);
     };
 
