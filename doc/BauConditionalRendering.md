@@ -2,15 +2,15 @@
 
 This guide explains how to conditionally render a component based on some condition.
 
-## && Operator
+## Logical &&
 
-The `&&` operator displays the right hand side component when the left condition is true, otherwise do not render anything.
+The `logical &&` displays the right hand side component when the left condition is true, otherwise do not render anything.
 
 ```js
 const TestConditionalAndAnd = () => {
   const showState = bau.state(true);
   return section(
-    h1("Conditonal with &&"),
+    h1("Logical &&"),
     button({ onclick: () => (showState.val = !showState.val) }, "Toogle"),
     p(() => showState.val && "ON")
   );
@@ -79,7 +79,7 @@ const TestConditionalMap = () => {
 
 ## style: "display: none"
 
-This conditional hides the element by setting the CSS style property _display_ to _none_
+This conditional removes the element from the layout by setting the CSS style property _display_ to _none_.
 
 ```js
 const TestConditionalDisplayNone = () => {
@@ -88,6 +88,21 @@ const TestConditionalDisplayNone = () => {
     h1('Conditional with style: "display: none"'),
     button({ onclick: () => (hideState.val = !hideState.val) }, "Toogle"),
     p({ style: () => hideState.val && "display:none" }, "ON")
+  );
+};
+```
+
+## style: "visibility:hidden"
+
+This conditional hides the element by setting the CSS style property visibility to _hidden_. In this case the element stays in the layout but is hidden.
+
+```js
+const TestConditionalVisitbilityHidden = () => {
+  const hideState = bau.state(false);
+  return article(
+    h1('Conditional with style: "visibility:hidden"'),
+    button({ onclick: () => (hideState.val = !hideState.val) }, "Toogle"),
+    p({ style: () => hideState.val && "visibility:hidden" }, "ON")
   );
 };
 ```

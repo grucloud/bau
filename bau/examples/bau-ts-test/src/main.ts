@@ -19,6 +19,9 @@ const {
   article,
 } = bau.tags;
 
+const classNames = (...cn: string[]) =>
+  cn.filter((className) => className).join(" ");
+
 const myBoolState = bau.state(false);
 myBoolState.val = true;
 
@@ -35,59 +38,12 @@ const myObjetState = bau.state({ name: "Freddy", rank: 2 });
 myObjetState.val.name = "toto";
 myObjetState.val.rank = 2;
 
-const TestArrayLength = () => {
-  const arrayState = bau.state<string[]>([]);
-
-  return article(
-    h1("Array Length"),
-    span("length ", () => arrayState.val.length),
-    div(
-      button(
-        { onclick: () => arrayState.val.push("yo") },
-        "Click to push an element to an array"
-      )
-    )
-  );
-};
-
-const TestArrayReadIndex = () => {
-  const arrayState = bau.state<string[]>([]);
-
-  return article(
-    h1("Array Index"),
-    span("value at index 0: ", () => arrayState.val[0]),
-    div(
-      button(
-        {
-          onclick: () => arrayState.val.unshift(String(arrayState.val.length)),
-        },
-        "Click to prepend an the length of the array"
-      )
-    )
-  );
-};
-const TestCondionalStyle = () => {
-  const colorState = bau.state(false);
-
-  return article(
-    h1("Conditional style"),
-    div(
-      {
-        style: () => (colorState.val ? "color:red;" : ""),
-      },
-      button(
-        { onclick: () => (colorState.val = !colorState.val) },
-        "Click to change the style"
-      ),
-      p("My Text")
-    )
-  );
-};
+// Conditional
 
 const TestConditionalTernary = () => {
   const showState = bau.state(true);
   return article(
-    h1("Conditional with &&"),
+    h1("Conditional with the ternary operator"),
     button({ onclick: () => (showState.val = !showState.val) }, "Toogle"),
     () => (showState.val ? p("ON") : p("OFF"))
   );
@@ -111,7 +67,7 @@ const TestConditionalIfElse = () => {
 const TestConditionalAndAnd = () => {
   const showState = bau.state(true);
   return article(
-    h1("Conditional with &&"),
+    h1("Logical &&"),
     button({ onclick: () => (showState.val = !showState.val) }, "Toogle"),
     p(() => showState.val && "ON")
   );
@@ -142,6 +98,119 @@ const TestConditionalDisplayNone = () => {
     h1('Conditional with style: "display: none"'),
     button({ onclick: () => (hideState.val = !hideState.val) }, "Toogle"),
     p({ style: () => hideState.val && "display:none" }, "ON")
+  );
+};
+
+const TestConditionalVisitbilityHidden = () => {
+  const hideState = bau.state(false);
+  return article(
+    h1('Conditional with style: "visibility:hidden"'),
+    button({ onclick: () => (hideState.val = !hideState.val) }, "Toogle"),
+    p({ style: () => hideState.val && "visibility:hidden" }, "ON")
+  );
+};
+
+// Reactive
+const TestReactiveStyle = () => {
+  const colorState = bau.state(false);
+
+  return article(
+    h1("Reactive style"),
+    div(
+      {
+        style: () => (colorState.val ? "color:red;" : ""),
+      },
+      button(
+        { onclick: () => (colorState.val = !colorState.val) },
+        "Click to change the style"
+      ),
+      p("My Text")
+    )
+  );
+};
+
+const TestReactiveClass = () => {
+  const colorState = bau.state(false);
+
+  return article(
+    h1("Reactive class"),
+    div(
+      {
+        class: () => (colorState.val ? "active" : ""),
+      },
+      button(
+        { onclick: () => (colorState.val = !colorState.val) },
+        "Click to change the class"
+      ),
+      p("My Text")
+    )
+  );
+};
+
+const TestReactiveStateNumber = () => {
+  const counterState = bau.state(0);
+  return article(
+    h1("State Number"),
+    button({ onclick: () => counterState.val++ }, "Increment"),
+    div(counterState)
+  );
+};
+
+const TestReactiveStateString = () => {
+  const messageState = bau.state("Ciao");
+  return article(
+    h1("State String"),
+    button(
+      { onclick: () => (messageState.val = `${messageState.val} Bello`) },
+      "Add Bello"
+    ),
+    span(messageState)
+  );
+};
+
+const TestReactiveFunction = () => {
+  const showState = bau.state(true);
+  return article(
+    h1("Reactive Function"),
+    button(
+      //
+      { onclick: () => (showState.val = !showState.val) },
+      () => (showState.val ? "HIDE" : "SHOW")
+    ),
+    () => showState.val && "stuff to show"
+  );
+};
+
+// Arrays
+const TestArrayLength = () => {
+  const arrayState = bau.state<string[]>([]);
+
+  return article(
+    h1("Array Length"),
+    span("length ", () => arrayState.val.length),
+    div(
+      button(
+        { onclick: () => arrayState.val.push("yo") },
+        "Click to push an element to an array"
+      )
+    )
+  );
+};
+
+const TestArrayReadIndex = () => {
+  const arrayState = bau.state<string[]>([]);
+
+  return article(
+    h1("Array Index"),
+    span("value at index 0: ", () => arrayState.val[0]),
+    div(
+      button(
+        {
+          onclick: () => arrayState.val.unshift(String(arrayState.val.length)),
+        },
+        "Click to prepend an the length of the array"
+      )
+    )
   );
 };
 
@@ -193,9 +262,9 @@ const TestBindArrayTBODY = () => {
 
 const TestDerived = () => {
   const inputState = bau.state("");
-  const buttonDisabledState = bau.derive(() => {
+  const buttonDisabledState = () => {
     return inputState.val.length < 2;
-  });
+  };
 
   return article(
     h1("Test Derived"),
@@ -234,6 +303,20 @@ const TestDerivedSideEffect = () => {
   );
 };
 
+const TestDeriveText = () => {
+  const showState = bau.state(true);
+  const buttonText = () => (showState.val ? "HIDE" : "SHOW");
+
+  return article(
+    h1("Derive Text"),
+    button(
+      //
+      { onclick: () => (showState.val = !showState.val) },
+      buttonText
+    )
+  );
+};
+
 const TestAttributeReturnString = () =>
   div(
     {
@@ -260,13 +343,22 @@ const App = ({}) => {
       TestConditionalIfElse(),
       TestConditionalMap(),
       TestConditionalDisplayNone(),
-      TestCondionalStyle()
+      TestConditionalVisitbilityHidden()
+    ),
+    section(
+      h1("Reactive"), //
+      TestReactiveStyle(),
+      TestReactiveClass(),
+      TestReactiveStateNumber(),
+      TestReactiveStateString(),
+      TestReactiveFunction()
     ),
     section(
       h1("Derive"),
       //
       TestDerived(),
-      TestDerivedSideEffect()
+      TestDerivedSideEffect(),
+      TestDeriveText()
     ),
     section(
       h1("Array"),

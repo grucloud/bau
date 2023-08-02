@@ -247,7 +247,8 @@ export default function Bau(input) {
   let tagsNS = (namespace) =>
     new Proxy(
       function createTag(name, ...args) {
-        let [props, ...children] = isObject(args[0]) ? args : [{}, ...args];
+        let [props, ...children] =
+          !isState(args[0]) && isObject(args[0]) ? args : [{}, ...args];
         let element = namespace
           ? document.createElementNS(namespace, name)
           : h(name);
