@@ -15,6 +15,8 @@ const {
   span,
   input,
   form,
+  h1,
+  p,
 } = bau.tags;
 
 const myBoolState = bau.state(false);
@@ -92,16 +94,66 @@ const TestAttributeReturnNull = () =>
     "attributes returns null"
   );
 
-const TestElementTernary = () =>
-  section(
-    () => (myBoolState.val ? "result" : ""),
-    "Conditonal with ternary: cond ? a : '' "
+const TestConditionalTernary = () => {
+  const showState = bau.state(true);
+  return section(
+    h1("Conditional with &&"),
+    button({ onclick: () => (showState.val = !showState.val) }, "Toogle"),
+    () => (showState.val ? p("ON") : p("OFF"))
   );
+};
 
-const TestElementAnd = () =>
-  section(() =>
-    myBoolState.val ? "Conditonal with ternary: cond ? a : '' " : ""
+const TestConditionalIfElse = () => {
+  const showState = bau.state(true);
+  return section(
+    h1("Conditional with if else"),
+    button({ onclick: () => (showState.val = !showState.val) }, "Toogle"),
+    () => {
+      if (showState.val) {
+        return p("ON");
+      } else {
+        return p("OFF");
+      }
+    }
   );
+};
+
+const TestConditionalAndAnd = () => {
+  const showState = bau.state(true);
+  return section(
+    h1("Conditional with &&"),
+    button({ onclick: () => (showState.val = !showState.val) }, "Toogle"),
+    p(() => showState.val && "ON")
+  );
+};
+
+const UserView = () => div("User View");
+const AdminView = () => div("Admin View");
+
+const viewMap: any = {
+  user: UserView,
+  admin: AdminView,
+};
+
+const TestConditionalMap = () => {
+  const showViewState = bau.state("user");
+
+  return section(
+    h1("Conditional with map"),
+    button({ onclick: () => (showViewState.val = "admin") }, "Admin"),
+    button({ onclick: () => (showViewState.val = "user") }, "User"),
+    () => viewMap[showViewState.val]()
+  );
+};
+
+const TestConditionalDisplayNone = () => {
+  const hideState = bau.state(false);
+  return section(
+    h1('Conditional with style: "display: none"'),
+    button({ onclick: () => (hideState.val = !hideState.val) }, "Toogle"),
+    p({ style: () => hideState.val && "display:none" }, "ON")
+  );
+};
 
 const TestElementObject = () =>
   section(() => JSON.stringify(myObjetState.val), "state as object: ");
@@ -123,7 +175,6 @@ const TestBindArrayTBODY = () =>
   section(
     bau.bind({
       deps: [myArrayState],
-
       render:
         ({ renderItem }) =>
         (arr) =>
@@ -187,8 +238,11 @@ const App = ({}) => {
     TestPropsStyle(),
     TestAttributeReturnString(),
     TestAttributeReturnNull(),
-    TestElementTernary(),
-    TestElementAnd(),
+    TestConditionalAndAnd(),
+    TestConditionalTernary(),
+    TestConditionalIfElse(),
+    TestConditionalMap(),
+    TestConditionalDisplayNone(),
     TestElementObject(),
     TestBindArrayUL(),
     TestBindArrayTBODY(),

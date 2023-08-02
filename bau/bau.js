@@ -55,8 +55,7 @@ export default function Bau(input) {
           : render({ element, renderItem })(...deps.map(toVal));
         if (newElement !== element) {
           element.replaceWith(
-            (binding.element =
-              newElement != undefined ? toDom(newElement) : ghost())
+            (binding.element = newElement ? toDom(newElement) : ghost())
           );
         }
       }
