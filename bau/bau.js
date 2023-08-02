@@ -14,8 +14,6 @@ export default function Bau(input) {
   let _curDeps;
 
   let h = (tag) => document.createElement(tag);
-  let ghost = () => h("span");
-
   let runAndCaptureDeps = (render, deps, arg) => {
     let prevDeps = _curDeps;
     _curDeps = deps;
@@ -54,9 +52,7 @@ export default function Bau(input) {
             })
           : render({ element, renderItem })(...deps.map(toVal));
         if (newElement !== element) {
-          element.replaceWith(
-            (binding.element = newElement ? toDom(newElement) : ghost())
-          );
+          element.replaceWith((binding.element = toDom(newElement)));
         }
       }
     }
@@ -176,7 +172,15 @@ export default function Bau(input) {
     },
   });
 
-  let toDom = (v) => (v.nodeType ? v : document.createTextNode(v));
+  let toDom = (v) => {
+    if (v == null || v === false) {
+      return h("span");
+    } else if (v.nodeType) {
+      return v;
+    } else {
+      return document.createTextNode(v);
+    }
+  };
 
   let deriveInternal = (computed, state) => {
     let deps = new Set();
@@ -288,7 +292,7 @@ export default function Bau(input) {
     );
 
   let bindFinalize = (binding, deps, newElement) => {
-    binding.element = toDom(newElement ? newElement : ghost());
+    binding.element = toDom(newElement);
     for (let dep of deps) {
       if (isState(dep)) {
         stateSet.add(dep);
