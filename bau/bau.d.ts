@@ -2,6 +2,8 @@ export type State<T> = {
   val: T;
 };
 
+export type ReadonlyState<T> = ReadonlyState<State<T>>;
+
 export interface StateView<T> {
   readonly val: T;
 }
@@ -12,7 +14,7 @@ export type StatePrimitive = Primitive | object;
 
 export type StateValue = StatePrimitive | StatePrimitive[];
 
-export type Deps = State<StateValue>[];
+export type Deps = ReadonlyState<StateValue>[];
 
 export type PropValue = StatePrimitive | Function | null | undefined;
 
@@ -247,5 +249,5 @@ export default function Bau(input?: { window?: Window }): {
   tagsNS: (namespaceURI: string) => TagsBase;
   state: <T>(initVal: T) => State<T>;
   bind: (input: BindInput) => (...args: any) => HTMLElement;
-  derive: <T>(computed: () => T) => State<T>;
+  derive: <T>(computed: () => T) => ReadonlyState<T>;
 };
