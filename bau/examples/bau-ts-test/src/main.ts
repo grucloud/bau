@@ -8,6 +8,7 @@ const {
   button,
   ul,
   li,
+  a,
   table,
   tbody,
   tr,
@@ -17,10 +18,14 @@ const {
   h1,
   p,
   article,
+  label,
+  select,
+  option,
+  nav,
 } = bau.tags;
 
-const classNames = (...cn: string[]) =>
-  cn.filter((className) => className).join(" ");
+// const classNames = (...cn: string[]) =>
+//   cn.filter((className) => className).join(" ");
 
 const myBoolState = bau.state(false);
 myBoolState.val = true;
@@ -317,6 +322,235 @@ const TestDeriveText = () => {
   );
 };
 
+const TestButtonClickInline = () => {
+  return section(
+    h1("Button onclick inline"),
+    button(
+      {
+        onclick: (_event: Event) => {
+          alert("Clicked");
+        },
+      },
+      "Click me"
+    )
+  );
+};
+
+const TestButtonClickMethod = () => {
+  const buttonOnclick = (_event: Event) => {
+    alert("Clicked");
+  };
+  return section(
+    h1("Button onclick method"),
+    button(
+      {
+        onclick: buttonOnclick,
+      },
+      "Click me"
+    )
+  );
+};
+
+const TestButtonClickMethodCurried = () => {
+  const say = (message: string) => (_event: Event) => {
+    alert(`Clicked ${message}`);
+  };
+
+  return section(
+    h1("Button onclick method curried"),
+    button(
+      {
+        onclick: say("Hello"),
+      },
+      "Say hello"
+    ),
+    button(
+      {
+        onclick: say("Bye"),
+      },
+      "Say bye"
+    )
+  );
+};
+
+const TestInputOninput = () => {
+  const inputState = bau.state("");
+
+  return article(
+    h1("Input oninput with bau.state"),
+    input({
+      placeholder: "Enter username",
+      value: inputState,
+      oninput: ({ target }: { target: HTMLInputElement }) =>
+        (inputState.val = target.value),
+    }),
+    button(
+      {
+        onclick: () => {
+          alert(inputState.val);
+        },
+      },
+      "Login"
+    )
+  );
+};
+
+const TestInputSearch = () => {
+  const inputState = bau.state("");
+
+  return article(
+    h1("Input type search"),
+    input({
+      type: "search",
+      placeholder: "Search...",
+      value: inputState,
+      oninput: ({ target }: { target: HTMLInputElement }) =>
+        (inputState.val = target.value),
+    }),
+    button(
+      {
+        onclick: () => {
+          alert(inputState.val);
+        },
+      },
+      "Search"
+    )
+  );
+};
+
+const TestInputOninputElement = () => {
+  const inputEl = input({
+    placeholder: "Enter username",
+    onkeyup: ({ key }: { key: string }) => {
+      if (key == "Enter") {
+        alert(inputEl.value);
+      }
+    },
+  });
+
+  return article(
+    h1("Input onkeyup without bau.state"),
+    inputEl,
+    button(
+      {
+        onclick: () => {
+          alert(inputEl.value);
+        },
+      },
+      "Login"
+    )
+  );
+};
+
+const TestEventHandlingKeyUp = () => {
+  return section(
+    h1("Input onkeyup"),
+    input({
+      type: "search",
+      size: 25,
+      onkeyup: ({ target, key }: { key: string; target: HTMLInputElement }) => {
+        if (key == "Enter") {
+          alert(target.value);
+        }
+      },
+      placeholder: "Enter text, press Enter",
+    })
+  );
+};
+
+const TestInputCheckboxOninput = () => {
+  const checkedState = bau.state(false);
+
+  return article(
+    h1("Input checkbox oninput"),
+    input({
+      type: "checkbox",
+      checked: checkedState,
+      oninput: ({ target }: { target: HTMLInputElement }) =>
+        (checkedState.val = target.checked),
+    }),
+    div("Is checked: ", () => (checkedState.val ? "Checked" : "Not Checked"))
+  );
+};
+
+const TestInputRadio = () => {
+  const checkedState = bau.state("one");
+  const oninput = ({ target }: { target: HTMLInputElement }) =>
+    (checkedState.val = target.id);
+
+  return article(
+    h1("Input radio"),
+    input({
+      type: "radio",
+      id: "one",
+      name: "radio",
+      checked: true,
+      value: checkedState,
+      oninput,
+    }),
+    label({ for: "one" }, "One"),
+    input({
+      type: "radio",
+      id: "two",
+      name: "radio",
+      value: checkedState,
+      oninput,
+    }),
+    label({ for: "two" }, "Two"),
+    div("Choice: ", checkedState)
+  );
+};
+
+const TestSelect = () => {
+  const selectState = bau.state("volvo");
+
+  const onchange = ({ target }: { target: HTMLSelectElement }) =>
+    (selectState.val = target.value);
+
+  return article(
+    h1("Select"),
+    label({ for: "cars" }, "Choose a car: "),
+    select(
+      { name: "cars", id: "cars", onchange, value: selectState },
+      option({ value: "audi" }, "Audi"),
+      option({ value: "volvo", selected: true }, "Volvo"),
+      option({ value: "saab" }, "Saab")
+    ),
+    div("Selected ", selectState)
+  );
+};
+
+const HomeView = () => div("Home View");
+const ContectView = () => div("Contect View");
+const NotFound = () => div("Not Found ", 404);
+
+const router: any = {
+  "/": HomeView,
+  "/contact": ContectView,
+};
+
+const TestRouter = () => {
+  const pathnameState = bau.state("/");
+  window.addEventListener("hashchange", () => {
+    pathnameState.val = window.location.hash.slice(1);
+  });
+
+  return article(
+    h1("Router Simple with hashchange"),
+    nav(
+      a({ href: "#/" }, "Home"),
+      " | ",
+      a({ href: "#/contact" }, "Contact"),
+      " | ",
+      a({ href: "#/page-not-exist" }, "Other")
+    ),
+    () => {
+      const View = router[pathnameState.val] || NotFound;
+      return View();
+    }
+  );
+};
+
 const TestAttributeReturnString = () =>
   div(
     {
@@ -336,6 +570,24 @@ const TestAttributeReturnNull = () =>
 const App = ({}) => {
   return div(
     h1("Bau testing with Typescript"),
+    section(
+      section(
+        h1("Router"),
+        //
+        TestRouter()
+      ),
+      h1("Event Handling"), //
+      TestButtonClickInline(),
+      TestButtonClickMethod(),
+      TestButtonClickMethodCurried(),
+      TestInputOninput(),
+      TestInputOninputElement(),
+      TestInputSearch(),
+      TestInputCheckboxOninput(),
+      TestInputRadio(),
+      TestSelect(),
+      TestEventHandlingKeyUp()
+    ),
     section(
       h1("Conditional"),
       TestConditionalAndAnd(),
@@ -360,6 +612,7 @@ const App = ({}) => {
       TestDerivedSideEffect(),
       TestDeriveText()
     ),
+
     section(
       h1("Array"),
       //
