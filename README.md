@@ -76,6 +76,7 @@ Check out the minimalistic [hello world example](https://codesandbox.io/s/bau-he
 - [Lifecycle Methods: bauCreated, bauMounted, bauUnmounted](./doc/BauLifecycle.md)
 - [Create a state array and display views](./doc/BauStateArray.md)
 - [State Derivation and Side Effects](./doc/BauDerive.md)
+- [Hash based router](./doc/BauRouting.md)
 
 ## Benchmark
 
