@@ -20,7 +20,7 @@ console.log(myDerivedState.val); // true
 
 The _derivation_ function and the derived state _myDerivedState_ have some restrictions:
 
-1. Do not mutate _myDerivedState_:
+1. Do not mutate _myDerivedState_: (This is directly restricted in TypeScript)
 
 ```js
 myDerivedState.val = false; // DON'T DO
