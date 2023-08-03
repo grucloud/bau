@@ -1,7 +1,7 @@
 {
   "name": "@grucloud/bau-router",
   "description": "A lean router",
-  "version": "0.36.0",
+  "version": "0.37.0",
   "type": "module",
   "module": "./bau-router.js",
   "exports": {
@@ -26,7 +26,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.36.0"
+    "@grucloud/bau": "^0.37.0"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "0.32.0",
