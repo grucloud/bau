@@ -315,5 +315,21 @@ export default function Bau(input) {
     return bindFinalize(binding, deps, newElement);
   };
 
-  return { tags: tagsNS(), tagsNS, state: createState, bind, derive, stateSet };
+  let If = (...args) => {
+    let endPoint = args.length;
+    for (let [index, branch] of args)
+      if (branch.when === undefined) {
+        branch.when = () => true;
+        endPoint = index + 1;
+        break;
+      }
+    let branches = args
+      .slice(0, endPoint)
+      .map((item) => ({ when: derive(item.when), node: item.node }));
+    return () => {
+      for (let branch of args) if (branch.when.val) return branch.node();
+    };
+  };
+
+  return { tags: tagsNS(), tagsNS, state: createState, bind, derive, stateSet, If };
 }
