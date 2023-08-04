@@ -2,7 +2,7 @@ export type State<T> = {
   val: T;
 };
 
-export type ReadonlyState<T> = ReadonlyState<State<T>>;
+export type ReadonlyState<T> = Readonly<State<T>>;
 
 export interface StateView<T> {
   readonly val: T;
@@ -123,7 +123,7 @@ export type ChildDom =
   | undefined
   | BindElementFunc;
 
-export type TagFunc<Result> = (
+export type TagFunc<Result extends HTMLElement> = (
   props?:
     | PropsHTMLElement<Result>
     | Props<Result>
