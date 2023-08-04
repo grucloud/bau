@@ -291,6 +291,8 @@ export default function Bau(input) {
       }
     );
 
+  let tags = tagsNS();
+
   let bindFinalize = (binding, deps, newElement) => {
     binding.element = toDom(newElement);
     for (let dep of deps) {
@@ -315,21 +317,55 @@ export default function Bau(input) {
     return bindFinalize(binding, deps, newElement);
   };
 
-  let If = (...args) => {
-    let endPoint = args.length;
-    for (let [index, branch] of args)
+  let getReactiveBranches = (origin) => {
+    let endPoint = origin.length;
+    for (let [index, branch] of origin)
       if (branch.when === undefined) {
         branch.when = () => true;
         endPoint = index + 1;
         break;
       }
-    let branches = args
+    return origin
       .slice(0, endPoint)
       .map((item) => ({ when: derive(item.when), node: item.node }));
+  };
+
+  let If = (...args) => {
+    let branches = getReactiveBranches(args);
     return () => {
-      for (let branch of args) if (branch.when.val) return branch.node();
+      for (let branch of branches) if (branch.when.val) return branch.node();
+      return null;
     };
   };
 
-  return { tags: tagsNS(), tagsNS, state: createState, bind, derive, stateSet, If };
+  let Show = (...args) => {
+    let branches = getReactiveBranches(args);
+    let { div } = tags;
+    return branches.map((branch) =>
+      div({ style: branch.when.val && "display: none" }, branch.node)
+    );
+  };
+
+  let For = (li, renderItem) => {
+    return bind({
+      deps: [li],
+      render:
+        ({ renderItem }) =>
+        (arr) =>
+          arr.map(renderItem),
+      renderItem,
+    });
+  };
+
+  return {
+    tags,
+    tagsNS,
+    state: createState,
+    bind,
+    derive,
+    stateSet,
+    If,
+    Show,
+    For,
+  };
 }

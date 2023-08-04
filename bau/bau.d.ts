@@ -248,5 +248,14 @@ export default function Bau(input?: { window?: Window }): {
   state: <T>(initVal: T) => State<T>;
   bind: (input: BindInput) => (...args: any) => HTMLElement;
   derive: <T>(computed: () => T) => ReadonlyState<T>;
-  If: (...args: Array<{when: () => boolean, node: () => ChildDom}>) => () => ChildDom
+  If: (
+    ...args: Array<{ when: () => boolean; node: () => HTMLElement | Primitive }>
+  ) => () => HTMLElement | Primitive;
+  Show: (
+    ...args: Array<{ when: () => boolean; node: readonly ChildDom }>
+  ) => readonly ChildDom;
+  For: (
+    li: Array<any>,
+    renderItem: typeof RenderItem
+  ) => (...args: any) => HTMLElement;
 };
