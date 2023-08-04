@@ -71,10 +71,12 @@ Check out the minimalistic [hello world example](https://codesandbox.io/s/bau-he
 ## Guide
 
 - [Reactivity with bau.state](./doc/BauReactivity.md)
+- [Event Handling](./doc/BauEventHandling.md)
 - [Conditional Rendering](./doc/BauConditionalRendering.md)
 - [Lifecycle Methods: bauCreated, bauMounted, bauUnmounted](./doc/BauLifecycle.md)
 - [Create a state array and display views](./doc/BauStateArray.md)
 - [State Derivation and Side Effects](./doc/BauDerive.md)
+- [Hash based router](./doc/BauRouting.md)
 
 ## Benchmark
 

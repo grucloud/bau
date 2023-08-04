@@ -1,6 +1,6 @@
 # Observing Array
 
-This guide describes how to observe an array with the `state` function, and create binding views reacting to the array mutation with the `bind` function.
+This guide describes how to display reative array.
 
 ## Creation
 
@@ -23,6 +23,7 @@ They can use several operations to mutate the array, simply use the standard jav
 
 ```js
 todosState.val.push({ label: "my-label" });
+todosState.val.push({ label: "my-label" }, { label: "other-label" });
 ```
 
 2. Remove the last item: `pop`
@@ -35,6 +36,7 @@ todosState.val.pop();
 
 ```js
 todosState.val.unshift({ label: "my-label" });
+todosState.val.unshift({ label: "my-label" }, { label: "other-label" });
 ```
 
 4. Remove the first element: `shift`
@@ -50,24 +52,68 @@ todosState.val.shift();
 todosState.val.splice(2, 1);
 ```
 
-## Bind View
+## Render List
 
-To display a list of items, the `bind` function accepts the `renderItem` function.
+### Render with ul and li
+
+To display a list of items, use the javascript map on _myArray.val_
 
 ```js
-const todosState = bau.state([]);
+const TestBindArrayUL = () => {
+  const arrayState = bau.state<string[]>([]);
+  const inputEl = input({ focus: true, placeholder: "Enter text" });
+  const onclick = () => {
+    arrayState.val.push(inputEl.value);
+    inputEl.value = "";
+  };
 
-const TodoItem = ({ label }) => tr(td(label));
+  return article(
+    h1("Array with ul li"),
+    inputEl,
+    button({ onclick }, "Add"),
+    bau.bind({
+      deps: [arrayState],
+      render:
+        ({ renderItem }) =>
+        (arr) =>
+          ul(arr.map(renderItem)),
+      renderItem: () => (value: any) => li("renderItem li ", value),
+    })
+  );
+};
+```
 
-const TBody = () =>
-  bau.bind({
-    deps: [todosState],
-    render:
-      ({ renderItem }) =>
-      (arr) =>
-        tbody(arr.map(renderItem)),
-    renderItem: () => TodoItem,
-  });
+### Render with tbody, tr, and td
+
+Here is an example of displaying an array with table, tbody, tr and td:
+
+```js
+const TestBindArrayTable = () => {
+  const arrayState = bau.state<string[]>([]);
+
+  const inputEl = input({ focus: true, placeholder: "Enter text" });
+  const onclick = () => {
+    arrayState.val.push(inputEl.value);
+    inputEl.value = "";
+  };
+
+  return article(
+    h1("Array with table, tbody, tr, and td"),
+    inputEl,
+    button({ onclick }, "Add"),
+    table(
+      bau.bind({
+        deps: [arrayState],
+        render:
+          ({ renderItem }) =>
+          (arr) =>
+            tbody(arr.map(renderItem)),
+        renderItem: () => (value: any, index?: number) =>
+          tr(td(index), td(value)),
+      })
+    )
+  );
+};
 ```
 
 ## Examples

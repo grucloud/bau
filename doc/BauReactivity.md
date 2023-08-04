@@ -2,7 +2,7 @@
 
 The `bau.state` function create a reactive state thanks the Javascript Proxy feature.
 
-The idea is to intercept data mutations and update the DOM accordignly.
+The idea is to intercept data mutations and update the DOM accordingly.
 
 > For Vue developers, `bau.state` is equivalent to [ref](https://vuejs.org/guide/essentials/reactivity-fundamentals.html)
 

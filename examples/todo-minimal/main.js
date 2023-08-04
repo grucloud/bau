@@ -8,13 +8,24 @@ const inputState = bau.state("");
 
 // State operations
 const inputOnInput = (event) => (inputState.val = event.target.value);
+
+const onkeyup = (event) => event.key == "Enter" && addItem();
+
+const inputEl = input({
+  placeholder: "Enter todo",
+  value: inputState,
+  oninput: inputOnInput,
+  onkeyup,
+});
+
 const addItem = () => {
   todosState.val.push({ label: inputState.val });
   inputState.val = "";
+  inputEl.focus();
 };
 
 // Views
-const TodoItem = ({ label }) => tr(td(label));
+const TodoItem = ({ label }, index) => tr(td(index), td(label));
 
 const TBody = () =>
   bau.bind({
@@ -29,19 +40,10 @@ const TBody = () =>
 const App = () =>
   div(
     h1("Todo list minimal example"),
-    input({
-      value: inputState,
-      oninput: inputOnInput,
-    }),
-    button(
-      {
-        onclick: addItem,
-      },
-      "Add"
-    ),
+    inputEl,
+    button({ onclick: addItem }, "Add"),
     div("item(s): ", () => String(todosState.val.length)),
-    table(thead(th("Todo List"))),
-    TBody()
+    table(thead(th("index"), th("Todo List")), TBody())
   );
 
 document.getElementById("app").replaceChildren(App({}));

@@ -25,15 +25,13 @@ export interface DerivedProp {
 
 declare function RenderItem(input: {
   readonly element?: HTMLElement;
-}): (...args: readonly StatePrimitive[]) => HTMLElement | StatePrimitive;
+}): (item: any, index?: number) => HTMLElement | StatePrimitive;
 
 export interface BindInput {
   readonly deps: Deps;
   readonly render: (input: {
     element: HTMLElement;
-    readonly renderItem: (
-      ...args: readonly StatePrimitive[]
-    ) => HTMLElement | StatePrimitive;
+    readonly renderItem: RenderItem;
     readonly oldValues: any[];
   }) => (...args: readonly any[]) => HTMLElement | StatePrimitive;
   readonly renderItem?: typeof RenderItem;
