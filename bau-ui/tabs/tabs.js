@@ -98,14 +98,7 @@ export default function (context, { tabDefs }) {
     const rootEl = div(
       { class: classNames(style.base, props.class) },
       // Header
-      bau.bind({
-        deps: [tabsState],
-        render:
-          ({ renderItem }) =>
-          (arr) =>
-            ul(arr.map(renderItem)),
-        renderItem: () => TabHeader,
-      }),
+      bau.loop(tabsState, ul(), TabHeader),
       // Content
       () => (tabCurrentState.val.Content ? tabCurrentState.val.Content({}) : "")
     );

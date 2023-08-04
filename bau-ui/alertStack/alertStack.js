@@ -87,14 +87,7 @@ export default (context, { limit = 10, deleteAfterDuration = 15e3 } = {}) => {
       {
         class: classNames(styles.stack, props.class),
       },
-      bau.bind({
-        deps: [messagesState],
-        render:
-          ({ renderItem }) =>
-          (arr) =>
-            div(arr.map(renderItem)),
-        renderItem: () => AlertItem,
-      })
+      bau.loop(messagesState, div(), AlertItem)
     );
   };
 };

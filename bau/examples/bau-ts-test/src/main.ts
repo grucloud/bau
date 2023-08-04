@@ -233,7 +233,7 @@ const TestElementObjectNested = () => {
 const TestBindArrayUL = () => {
   const arrayState = bau.state<string[]>([]);
   const inputEl = input({ focus: true, placeholder: "Enter text" });
-  const renderItem = () => (value: string, index?: number) =>
+  const renderItem = (value: string, index?: number) =>
     li(`${index} ${value} `);
 
   const onclick = () => {
@@ -242,17 +242,10 @@ const TestBindArrayUL = () => {
   };
 
   return article(
-    h1("Bind Array with ul li"),
+    h1("Loop Array with ul li"),
     inputEl,
     button({ onclick }, "Add"),
-    bau.bind({
-      deps: [arrayState],
-      render:
-        ({ renderItem }) =>
-        (arr) =>
-          ul(arr.map(renderItem)),
-      renderItem,
-    })
+    bau.loop(arrayState, ul(), renderItem)
   );
 };
 
@@ -283,21 +276,13 @@ const TestBindArrayTable = () => {
     inputEl.value = "";
   };
 
+  const renderItem = (value: any, index?: number) => tr(td(index), td(value));
+
   return article(
     h1("Array with table, tbody, tr, and td"),
     inputEl,
     button({ onclick }, "Add"),
-    table(
-      bau.bind({
-        deps: [arrayState],
-        render:
-          ({ renderItem }) =>
-          (arr) =>
-            tbody(arr.map(renderItem)),
-        renderItem: () => (value: any, index?: number) =>
-          tr(td(index), td(value)),
-      })
-    )
+    table(bau.loop(arrayState, tbody(), renderItem))
   );
 };
 
@@ -350,6 +335,8 @@ const TestArrayOperation = () => {
     clearInput();
   };
 
+  const renderItem = (value: any, index?: number) => tr(td(index), td(value));
+
   return article(
     h1("Array Operation"),
     inputEl,
@@ -363,18 +350,7 @@ const TestArrayOperation = () => {
     button({ onclick: splice12 }, "splice 1 2"),
     button({ onclick: splice_2_2 }, "splice -2 2"),
     button({ onclick: reverse }, "reverse"),
-
-    table(
-      bau.bind({
-        deps: [arrayState],
-        render:
-          ({ renderItem }) =>
-          (arr) =>
-            tbody(arr.map(renderItem)),
-        renderItem: () => (value: any, index?: number) =>
-          tr(td(index), td(value)),
-      })
-    )
+    table(bau.loop(arrayState, tbody(), renderItem))
   );
 };
 
@@ -747,7 +723,6 @@ const App = ({}) => {
 
     section(
       h1("Array"),
-      //
       TestArrayUL(),
       TestBindArrayUL(),
       TestArrayTable(),
