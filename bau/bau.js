@@ -228,7 +228,7 @@ export default function Bau(input) {
               ? bind({ deps: [child], render: () => (v) => v })
               : isFunction(child)
               ? bindInferred({ renderInferred: child })
-              : toDom(child, element)
+              : toDom(child)
           );
       element.append(...childrenDom);
     }
