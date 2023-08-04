@@ -123,7 +123,7 @@ export type ChildDom =
   | undefined
   | BindElementFunc;
 
-export type TagFunc<Result> = (
+export type TagFunc<Result extends HTMLElement> = (
   props?:
     | PropsHTMLElement<Result>
     | Props<Result>
