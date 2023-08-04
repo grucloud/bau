@@ -7,13 +7,18 @@ let toVal = (state) => (isState(state) ? state.val : state);
 let isState = (state) => state?.__isState;
 let METHODS = ["splice", "push", "pop", "shift", "unshift", "sort", "reverse"];
 
+let renderChildren = (arr, renderItem) => {
+  const children = new Array(arr.length);
+  for (let i = 0; i < arr.length; i++) children[i] = renderItem(arr[i], i);
+  return children;
+};
+
 export default function Bau(input) {
   let _window = input?.window ?? window;
   let { document } = _window;
   let _debounce;
   let stateSet = new Set();
   let _curDeps;
-
   let h = (tag) => document.createElement(tag);
   let runAndCaptureDeps = (render, deps, arg) => {
     let prevDeps = _curDeps;
@@ -35,7 +40,7 @@ export default function Bau(input) {
     }
   };
 
-  let updateDom = (state, method, result, args, data) => {
+  let updateDom = (state, method, result, args, data, parentProp) => {
     for (let binding of state.bindings) {
       let { deps, element, renderInferred, render, renderItem } = binding;
       if (renderItem && method) {
@@ -44,7 +49,8 @@ export default function Bau(input) {
           args,
           (...args) => toDom(renderItem(...args)),
           result,
-          data
+          data,
+          parentProp
         )[method]?.call();
       } else {
         let newElement = renderInferred
@@ -78,7 +84,7 @@ export default function Bau(input) {
         let origMethod = target[prop];
         return (...args) => {
           let result = origMethod.apply(target, args);
-          updateDom(state, prop, result, args);
+          updateDom(state, prop, result, args, data, parentProp);
           return result;
         };
       }
@@ -86,16 +92,26 @@ export default function Bau(input) {
     },
     set(target, prop, value, receiver) {
       let result = Reflect.set(target, prop, value, receiver);
-      updateDom(state, "setItem", result, { prop, value }, data);
+      updateDom(state, "setItem", result, { prop, value }, data, [
+        ...parentProp,
+        prop,
+      ]);
       return result;
     },
   });
 
   let createProxy = (state, data) => new Proxy(data, proxyHandler(state, data));
 
-  let methodToActionMapping = (element, args, renderDomItem, result, data) => {
+  let methodToActionMapping = (
+    element,
+    args,
+    renderDomItem,
+    result,
+    data,
+    parentProp
+  ) => {
     let replaceChildren = () =>
-      element.replaceChildren(...result.map(renderDomItem));
+      element.replaceChildren(...renderChildren(result, renderDomItem));
     let removeChild = (key) =>
       element[key] && element.removeChild(element[key]);
     return {
@@ -103,16 +119,16 @@ export default function Bau(input) {
       sort: replaceChildren,
       reverse: replaceChildren,
       setItem: () => {
-        let index = args.prop;
+        let index = parentProp[0];
         element.children[index]?.replaceWith(renderDomItem(data[index], index));
       },
       push: () =>
         element.append(
-          ...args.map((item, index) =>
-            renderDomItem(item, element.children.length + index)
+          ...renderChildren(args, (item, index) =>
+            renderDomItem(item, data.length + index)
           )
         ),
-      unshift: () => element.prepend(...args.map(renderDomItem)),
+      unshift: () => element.prepend(...renderChildren(args, renderDomItem)),
       pop: () => removeChild("lastChild"),
       shift: () => removeChild("firstChild"),
       splice: () => {
@@ -212,7 +228,7 @@ export default function Bau(input) {
               ? bind({ deps: [child], render: () => (v) => v })
               : isFunction(child)
               ? bindInferred({ renderInferred: child })
-              : toDom(child)
+              : toDom(child, element)
           );
       element.append(...childrenDom);
     }
@@ -246,14 +262,14 @@ export default function Bau(input) {
   let tagsNS = (namespace) =>
     new Proxy(
       function createTag(name, ...args) {
+        let arg0 = args[0];
         let [props, ...children] =
-          !isState(args[0]) && isObject(args[0]) ? args : [{}, ...args];
+          !isState(arg0) && isObject(arg0) ? args : [{}, ...args];
         let element = namespace
           ? document.createElementNS(namespace, name)
           : h(name);
         for (let [k, v] of Object.entries(props)) {
-          if (["bauCreated", "bauMounted", "bauUnmounted"].includes(k))
-            continue;
+          if (k.startsWith("bau")) continue;
           let setter = isSettableProp(name, k, protoOf(element))
             ? (v) => (element[k] = v)
             : (v) => element.setAttribute(k, v);
@@ -308,12 +324,31 @@ export default function Bau(input) {
     return bindFinalize({ renderInferred }, deps, newElement);
   };
 
-  let bind = ({ deps, element, render, renderItem: renderItemHL }) => {
-    let renderItem = renderItemHL?.({ deps, element });
-    let newElement = render({ element, renderItem })(...deps.map(toVal));
-    let binding = { deps, render, renderItem };
-    return bindFinalize(binding, deps, newElement);
-  };
+  let bind = ({ deps, element, render, renderItem }) =>
+    bindFinalize(
+      { deps, render, renderItem },
+      deps,
+      render({ element, renderItem })(...deps.map(toVal))
+    );
 
-  return { tags: tagsNS(), tagsNS, state: createState, bind, derive, stateSet };
+  let loop = (stateArray, container, renderItem) =>
+    bind({
+      deps: [stateArray],
+      render:
+        ({ renderItem }) =>
+        (arr) => (
+          container.append(...renderChildren(arr, renderItem)), container
+        ),
+      renderItem,
+    });
+
+  return {
+    tags: tagsNS(),
+    tagsNS,
+    state: createState,
+    bind,
+    loop,
+    derive,
+    stateSet,
+  };
 }

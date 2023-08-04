@@ -62,25 +62,22 @@ To display a list of items, use the javascript map on _myArray.val_
 const TestBindArrayUL = () => {
   const arrayState = bau.state<string[]>([]);
   const inputEl = input({ focus: true, placeholder: "Enter text" });
+  const renderItem = (value: string, index?: number) =>
+    li(`${index} ${value} `);
+
   const onclick = () => {
     arrayState.val.push(inputEl.value);
     inputEl.value = "";
   };
 
   return article(
-    h1("Array with ul li"),
+    h1("Loop Array with ul li"),
     inputEl,
     button({ onclick }, "Add"),
-    bau.bind({
-      deps: [arrayState],
-      render:
-        ({ renderItem }) =>
-        (arr) =>
-          ul(arr.map(renderItem)),
-      renderItem: () => (value: any) => li("renderItem li ", value),
-    })
+    bau.loop(arrayState, ul(), renderItem)
   );
 };
+
 ```
 
 ### Render with tbody, tr, and td
@@ -97,21 +94,13 @@ const TestBindArrayTable = () => {
     inputEl.value = "";
   };
 
+  const renderItem = (value: any, index?: number) => tr(td(index), td(value));
+
   return article(
     h1("Array with table, tbody, tr, and td"),
     inputEl,
     button({ onclick }, "Add"),
-    table(
-      bau.bind({
-        deps: [arrayState],
-        render:
-          ({ renderItem }) =>
-          (arr) =>
-            tbody(arr.map(renderItem)),
-        renderItem: () => (value: any, index?: number) =>
-          tr(td(index), td(value)),
-      })
-    )
+    table(bau.loop(arrayState, tbody(), renderItem))
   );
 };
 ```

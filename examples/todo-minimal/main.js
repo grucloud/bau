@@ -27,15 +27,7 @@ const addItem = () => {
 // Views
 const TodoItem = ({ label }, index) => tr(td(index), td(label));
 
-const TBody = () =>
-  bau.bind({
-    deps: [todosState],
-    render:
-      ({ renderItem }) =>
-      (arr) =>
-        tbody(arr.map(renderItem)),
-    renderItem: () => TodoItem,
-  });
+const TBody = () => bau.loop(todosState, tbody(), TodoItem);
 
 const App = () =>
   div(

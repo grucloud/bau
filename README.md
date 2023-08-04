@@ -101,21 +101,6 @@ Bau is mostly inspired by [van.js](https://vanjs.org/), with the following diffe
 
 - Van.js only support primitive value as state, Bau state management also supports array and object.
 - Bau supports lifecycle methods such as **bauCreated**, **bauMounted** and **bauUnmounted**
-- The `bind` function input parameters are differents, in van.js, they spreads the state dependencies and the render function at the end, bau `bind` uses an object with keys: deps, render, renderItem and eventually more in the future.
-
-```js
-const scrollState = bau.state(0);
-
-const ScrollNumber = () =>
-  bau.bind({
-    deps: [scrollState],
-    render:
-      ({ element }) =>
-      (scroll) =>
-        div({ class: "scroll-number" }, "scroll: ", scroll),
-  });
-```
-
 - Bau does not use a global variable, multiple instances of Bau could eventually be created.
 
 ```js

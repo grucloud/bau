@@ -23,9 +23,10 @@ export interface DerivedProp {
   readonly renderProp: (input: { element: HTMLElement }) => PropValue;
 }
 
-declare function RenderItem(input: {
-  readonly element?: HTMLElement;
-}): (item: any, index?: number) => HTMLElement | StatePrimitive;
+declare function RenderItem(
+  item: any,
+  index?: number
+): HTMLElement | StatePrimitive;
 
 export interface BindInput {
   readonly deps: Deps;
@@ -248,4 +249,9 @@ export default function Bau(input?: { window?: Window }): {
   state: <T>(initVal: T) => State<T>;
   bind: (input: BindInput) => (...args: any) => HTMLElement;
   derive: <T>(computed: () => T) => ReadonlyState<T>;
+  loop: <T, TElement extends HTMLElement>(
+    stateArray: ReadonlyState<T[]>,
+    container: TElement,
+    renderItem: RenderItem
+  ) => TElement;
 };

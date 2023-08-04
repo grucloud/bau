@@ -207,19 +207,13 @@ const Main = () =>
     Jumbotron({}),
     table(
       { class: "table table-hover table-striped test-data" },
-      bau.bind({
-        deps: [dataState],
-        render:
-          ({ renderItem }) =>
-          (arr) =>
-            tbody(arr.map(renderItem)),
-        renderItem: () => (value) =>
-          Row({
-            id: value.id,
-            item: value,
-            label: value.label,
-          }),
-      }),
+      bau.loop(dataState, tbody(), (value) =>
+        Row({
+          id: value.id,
+          item: value,
+          label: value.label,
+        })
+      ),
       span({
         class: "preloadicon glyphicon glyphicon-remove",
         "aria-hidden": true,

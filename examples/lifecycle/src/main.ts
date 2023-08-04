@@ -7,8 +7,8 @@ const scrollState = bau.state(0);
 
 const handleScroll = (/*event*/) => (scrollState.val = window.scrollY);
 
-const ScrollNumber = () => () =>
-  div({ class: "scroll-number" }, "scroll: ", scrollState.val);
+const ScrollNumber = () =>
+  div({ class: "scroll-number" }, "scroll: ", () => scrollState.val);
 
 const App = () =>
   div(
