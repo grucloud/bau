@@ -1,5 +1,9 @@
 export const componentList = () => [
   {
+    name: "Accordion",
+    id: "accordion",
+  },
+  {
     name: "Alert",
     id: "alert",
   },
