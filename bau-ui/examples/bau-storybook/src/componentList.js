@@ -1,6 +1,7 @@
 import navBarMenu from "./navBarMenu";
 import { componentList } from "./componentListData";
 
+import accordionExamples from "./pages/accordion.examples";
 import alertExamples from "./pages/alert.examples";
 import animateExamples from "./pages/animate.examples";
 import avatarExamples from "./pages/avatar.examples";
@@ -47,7 +48,7 @@ export default function (context) {
           `,
         },
         h1(tr("Component Examples")),
-
+        accordionExamples(context)(),
         alertExamples(context)(),
         alertStackExamples(context)(),
         animateExamples(context)(),
