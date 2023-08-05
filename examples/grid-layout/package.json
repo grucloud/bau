@@ -1,5 +1,5 @@
 {
-  "name": "layout",
+  "name": "grid-layout",
   "private": true,
   "version": "0.40.0",
   "type": "module",
@@ -9,7 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.40.0"
+    "@grucloud/bau": "^0.40.0",
+    "@grucloud/bau-css": "^0.40.0"
   },
   "devDependencies": {
     "vite": "4.3.9"

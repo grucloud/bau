@@ -1,6 +1,6 @@
 # Bau.js
 
-A Javascript library to write reactive user interface for the web under 300 lines of code.
+A Javascript library to write reactive user interface for the web under 350 lines of code.
 
 No JSX, no templating, no virtual DOM, just a simple way to write UI components using Javascript.
 
@@ -70,6 +70,7 @@ Check out the minimalistic [hello world example](https://codesandbox.io/s/bau-he
 
 ## Guide
 
+- [Component pattern](./doc/BauComponent.md)
 - [Reactivity with bau.state](./doc/BauReactivity.md)
 - [Event Handling](./doc/BauEventHandling.md)
 - [Conditional Rendering](./doc/BauConditionalRendering.md)

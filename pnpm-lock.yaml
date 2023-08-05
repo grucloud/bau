@@ -552,6 +552,9 @@ importers:
       '@grucloud/bau':
         specifier: ^0.40.0
         version: link:../../bau
+      '@grucloud/bau-css':
+        specifier: ^0.40.0
+        version: link:../../bau-css
     devDependencies:
       vite:
         specifier: 4.3.9
