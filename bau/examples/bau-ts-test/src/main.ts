@@ -1,7 +1,6 @@
 import Bau from "../../../bau";
 import "./style.css";
 const bau = Bau();
-
 const {
   div,
   section,
@@ -24,11 +23,11 @@ const {
   nav,
   thead,
   th,
+  pre,
 } = bau.tags;
 
 // const classNames = (...cn: string[]) =>
 //   cn.filter((className) => className).join(" ");
-
 // Conditional
 
 const TestConditionalTernary = () => {
@@ -206,27 +205,55 @@ const TestArrayReadIndex = () => {
 };
 
 const TestElementObject = () => {
-  const myObjetState = bau.state({ name: "Freddy", rank: 2 });
+  const cardState = bau.state({ name: "Freddy", rank: 2 });
+  const cardLengthState = bau.derive(
+    () => JSON.stringify(cardState.val).length
+  );
 
-  myObjetState.val.name = "toto";
-  myObjetState.val.rank = 2;
+  const Card = ({ name, rank }: any) =>
+    div(
+      div(label("Name:"), " ", span(name)),
+      div(label("Rank:"), " ", span(rank))
+    );
+
+  const CardLength = () => div(span("Json Length: "), cardLengthState);
+
+  const onclick = () => {
+    bau.batch(() => {
+      cardState.val.rank = 3;
+      cardState.val.name = "frederic";
+    });
+  };
+
   return article(
-    h1("state object"),
-    p(() => JSON.stringify(myObjetState.val))
+    h1("State object"),
+    CardLength(),
+    () => Card(cardState.val),
+    button({ onclick }, "Update")
   );
 };
 
 const TestElementObjectNested = () => {
-  const myObjetState = bau.state({
+  const cardState = bau.state({
     name: "Freddy",
     rank: 2,
     nestedArray: ["a"],
-    nestedObject: { a: 1 },
+    nestedObject: { a: 1, b: 1 },
   });
+
+  const onclick = () => {
+    bau.batch(() => {
+      cardState.val.rank = 3;
+      cardState.val.name = "frederic";
+      cardState.val.nestedArray.push("new ");
+      cardState.val.nestedObject.b = 2;
+    });
+  };
 
   return article(
     h1("state object nested"),
-    p(() => JSON.stringify(myObjetState.val))
+    pre(() => JSON.stringify(cardState.val, null, 4)),
+    button({ onclick }, "Update")
   );
 };
 

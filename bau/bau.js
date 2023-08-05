@@ -18,6 +18,8 @@ export default function Bau(input) {
   let { document } = _window;
   let _debounce;
   let stateSet = new Set();
+  let _stateSetInBatch = new Set();
+  let _inBatch = false;
   let _curDeps;
   let h = (tag) => document.createElement(tag);
   let runAndCaptureDeps = (render, deps, arg) => {
@@ -41,6 +43,10 @@ export default function Bau(input) {
   };
 
   let updateDom = (state, method, result, args, data, parentProp) => {
+    if (_inBatch) {
+      _stateSetInBatch.add(state);
+      return;
+    }
     for (let binding of state.bindings) {
       let { deps, element, renderInferred, render, renderItem } = binding;
       if (renderItem && method) {
@@ -342,6 +348,14 @@ export default function Bau(input) {
       renderItem,
     });
 
+  let batch = (batchFn) => {
+    _inBatch = true;
+    batchFn();
+    _inBatch = false;
+    _stateSetInBatch.forEach(updateDom);
+    _stateSetInBatch.clear();
+  };
+
   return {
     tags: tagsNS(),
     tagsNS,
@@ -350,5 +364,6 @@ export default function Bau(input) {
     loop,
     derive,
     stateSet,
+    batch,
   };
 }

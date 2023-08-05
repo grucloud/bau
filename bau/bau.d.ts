@@ -243,15 +243,25 @@ interface Tags extends TagsBase {
   readonly template: TagFunc<HTMLTemplateElement>;
 }
 
-export default function Bau(input?: { window?: Window }): {
+declare function state<T>(initVal: T): State<T>;
+declare function tagsNS(namespaceURI: string): TagsBase;
+declare function bind(input: BindInput): HTMLElement;
+declare function derive<T>(computed: () => T): ReadonlyState<T>;
+declare function loop<T, TElement extends HTMLElement>(
+  stateArray: ReadonlyState<T[]>,
+  container: TElement,
+  renderItem: typeof RenderItem
+): TElement;
+declare function batch(batchFn: () => void): void;
+
+export type BauInstance = {
   tags: Tags;
-  tagsNS: (namespaceURI: string) => TagsBase;
-  state: <T>(initVal: T) => State<T>;
-  bind: (input: BindInput) => (...args: any) => HTMLElement;
-  derive: <T>(computed: () => T) => ReadonlyState<T>;
-  loop: <T, TElement extends HTMLElement>(
-    stateArray: ReadonlyState<T[]>,
-    container: TElement,
-    renderItem: RenderItem
-  ) => TElement;
+  tagsNS: typeof tagsNS;
+  state: typeof state;
+  bind: typeof bind;
+  derive: typeof derive;
+  loop: typeof loop;
+  batch: typeof batch;
 };
+
+export default function Bau(input?: { window?: Window }): BauInstance;
