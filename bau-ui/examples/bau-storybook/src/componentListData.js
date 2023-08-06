@@ -20,6 +20,10 @@ export const componentList = () => [
     id: "avatar",
   },
   {
+    name: "Badge",
+    id: "badge",
+  },
+  {
     name: "Breadcrumbs",
     id: "breadcrumbs",
   },
@@ -30,6 +34,10 @@ export const componentList = () => [
   {
     name: "Checkbox",
     id: "checkbox",
+  },
+  {
+    name: "Chip",
+    id: "chip",
   },
   {
     name: "Drawer",

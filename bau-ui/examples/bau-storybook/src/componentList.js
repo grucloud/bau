@@ -6,8 +6,10 @@ import alertExamples from "./pages/alert.examples";
 import animateExamples from "./pages/animate.examples";
 import avatarExamples from "./pages/avatar.examples";
 import alertStackExamples from "./pages/alertStack.examples";
+import badgeExamples from "./pages/badge.examples";
 import breadcrumbExamples from "./pages/breadcrumb.examples";
 import buttonExamples from "./pages/button.examples";
+import chipExamples from "./pages/chip.examples";
 import checkboxExamples from "./pages/checkbox.examples";
 import drawerExamples from "./pages/drawer.examples";
 import drillDownMenuExamples from "./pages/drillDownMenu.examples";
@@ -50,19 +52,22 @@ export default function (context) {
           `,
         },
         h1(tr("Component Examples")),
-        // accordionExamples(context)(),
-        // alertExamples(context)(),
-        // alertStackExamples(context)(),
-        // animateExamples(context)(),
-        // avatarExamples(context)(),
-        // breadcrumbExamples(context)(),
-        // buttonExamples(context)(),
-        // checkboxExamples(context)(),
-        // drawerExamples(context)(),
-        // drillDownMenuExamples(context)(),
-        // fileInputExamples(context)(),
-        // inputExamples(context)(),
-        // modalExamples(context)(),
+
+        accordionExamples(context)(),
+        alertExamples(context)(),
+        alertStackExamples(context)(),
+        animateExamples(context)(),
+        avatarExamples(context)(),
+        badgeExamples(context)(),
+        breadcrumbExamples(context)(),
+        buttonExamples(context)(),
+        checkboxExamples(context)(),
+        chipExamples(context)(),
+        drawerExamples(context)(),
+        drillDownMenuExamples(context)(),
+        fileInputExamples(context)(),
+        inputExamples(context)(),
+        modalExamples(context)(),
         sliderExamples(context)(),
         spinnerExamples(context)(),
         switchExamples(context)(),

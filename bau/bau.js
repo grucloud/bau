@@ -13,6 +13,9 @@ let renderChildren = (arr, renderItem) => {
   return children;
 };
 
+export const toPropsAndChildren = (args) =>
+  !isState(args[0]) && isObject(args[0]) ? args : [{}, ...args];
+
 export default function Bau(input) {
   let _window = input?.window ?? window;
   let { document } = _window;
@@ -268,9 +271,7 @@ export default function Bau(input) {
   let tagsNS = (namespace) =>
     new Proxy(
       function createTag(name, ...args) {
-        let arg0 = args[0];
-        let [props, ...children] =
-          !isState(arg0) && isObject(arg0) ? args : [{}, ...args];
+        let [props, ...children] = toPropsAndChildren(args);
         let element = namespace
           ? document.createElementNS(namespace, name)
           : h(name);
