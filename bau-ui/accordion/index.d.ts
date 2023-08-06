@@ -16,6 +16,7 @@ declare module "@grucloud/bau-ui/accordion" {
   } & AccordionItemPropBase;
 
   type Option = {
+    class?: string;
     accordionDefs: Accordion[];
   };
 

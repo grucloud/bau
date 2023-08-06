@@ -14,6 +14,8 @@ import drillDownMenuExamples from "./pages/drillDownMenu.examples";
 import fileInputExamples from "./pages/fileInput.examples";
 import inputExamples from "./pages/input.examples";
 import modalExamples from "./pages/modal.examples";
+import sliderExamples from "./pages/slider.examples";
+
 import spinnerExamples from "./pages/spinner.examples";
 import switchExamples from "./pages/switch.examples";
 import tabsExamples from "./pages/tabs.examples";
@@ -48,19 +50,20 @@ export default function (context) {
           `,
         },
         h1(tr("Component Examples")),
-        accordionExamples(context)(),
-        alertExamples(context)(),
-        alertStackExamples(context)(),
-        animateExamples(context)(),
-        avatarExamples(context)(),
-        breadcrumbExamples(context)(),
-        buttonExamples(context)(),
-        checkboxExamples(context)(),
-        drawerExamples(context)(),
-        drillDownMenuExamples(context)(),
-        fileInputExamples(context)(),
-        inputExamples(context)(),
-        modalExamples(context)(),
+        // accordionExamples(context)(),
+        // alertExamples(context)(),
+        // alertStackExamples(context)(),
+        // animateExamples(context)(),
+        // avatarExamples(context)(),
+        // breadcrumbExamples(context)(),
+        // buttonExamples(context)(),
+        // checkboxExamples(context)(),
+        // drawerExamples(context)(),
+        // drillDownMenuExamples(context)(),
+        // fileInputExamples(context)(),
+        // inputExamples(context)(),
+        // modalExamples(context)(),
+        sliderExamples(context)(),
         spinnerExamples(context)(),
         switchExamples(context)(),
         tabsExamples(context)(),

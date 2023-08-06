@@ -64,6 +64,10 @@ export const componentList = () => [
   //   id: "select",
   // },
   {
+    name: "Slider",
+    id: "slider",
+  },
+  {
     name: "Spinner",
     id: "spinner",
   },
