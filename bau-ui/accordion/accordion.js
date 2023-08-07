@@ -2,7 +2,7 @@ import classNames from "@grucloud/bau-css/classNames";
 
 export default function (context, { accordionDefs }) {
   const { bau, css } = context;
-  const { div, ul, li, header } = bau.tags;
+  const { div, ul, li, header, h3, button } = bau.tags;
   const itemNameState = bau.state("");
 
   const itemByName = (name) => accordionDefs.find((item) => item.name == name);
@@ -54,17 +54,26 @@ export default function (context, { accordionDefs }) {
         &:hover {
           border-color: var(--color-emphasis-500);
         }
-        & header {
+        & h3 {
           display: flex;
           cursor: pointer;
           align-items: center;
           justify-content: space-between;
+          margin: 0;
           &::after {
             content: "\u203A";
             transition: all var(--transition-slow) ease-out;
           }
+          & button {
+            width: 100%;
+            border: none;
+            background-color: transparent;
+            text-align: left;
+            font-size: large;
+            cursor: pointer;
+          }
         }
-        & header.active {
+        & h3.active {
           font-weight: var(--font-weight-semibold);
           &::after {
             content: "\u203A";
@@ -87,16 +96,26 @@ export default function (context, { accordionDefs }) {
         {
           onclick: onclick(name),
         },
-        header(
+        h3(
           {
             class: () => classNames(itemNameState.val == name && "active"),
           },
-          Header(item)
+
+          button(
+            {
+              type: "button",
+              "aria-controls": `bau-${name}`,
+              "aria-expanded": ({ element }) => itemNameState.val == name,
+            },
+            Header(item)
+          )
         ),
         div(
           {
             class: "content",
-            "aria-expanded": ({ element }) => {
+            role: "region",
+            id: `bau-${name}`,
+            "data-state": ({ element }) => {
               const open = itemNameState.val == name;
               collapseOrExpandSection({ element, open });
               return open;

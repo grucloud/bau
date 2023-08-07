@@ -19,17 +19,17 @@ export default (context: Context) => {
   const accordionDefs: Accordion[] = [
     {
       name: "Item1",
-      Header: () => div("Item 1"),
+      Header: () => "Item 1",
       Content: () => div(p("Item 1 Content")),
     },
     {
       name: "Item2",
-      Header: () => div("Item 2"),
+      Header: () => "Item 2",
       Content: () => div(p("Item 2 Content")),
     },
     {
       name: "Item3",
-      Header: () => div("Item 3"),
+      Header: () => "Item 3",
       Content: () => div(p("Item 3 content")),
     },
   ];
