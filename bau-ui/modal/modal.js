@@ -41,7 +41,7 @@ export default function (context, options) {
     }
   `;
 
-  return function Modal(args) {
+  return function Modal(...args) {
     let [props, ...children] = toPropsAndChildren(args);
 
     return dialog(

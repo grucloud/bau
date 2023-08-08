@@ -16,6 +16,10 @@ export const componentList = () => [
     id: "animate",
   },
   {
+    name: "Autocomplete",
+    id: "autocomplete",
+  },
+  {
     name: "Avatar",
     id: "avatar",
   },
