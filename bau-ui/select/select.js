@@ -3,40 +3,47 @@ import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, componentOptions) {
   const { bau, css } = context;
-  const { div, input, dialog, ul, li, i, span } = bau.tags;
+  const { div, dialog, ul, li, i, button } = bau.tags;
 
   const className = css`
-    & label {
-      display: block;
-    }
-    & .input-box {
-      display: flex;
+    & button {
+      cursor: pointer;
+      color: var(--font-color-base);
+      display: inline-flex;
       align-items: center;
-      &:hover > input {
-        border: 1px solid var(--color-emphasis-700);
+      justify-content: center;
+      position: relative;
+      padding: 0 0.5rem;
+      min-width: 2rem;
+      min-height: 2rem;
+      outline: none;
+      border: none;
+      border-radius: var(--global-radius);
+      border: 1px solid var(--color-emphasis-700);
+      background: transparent;
+      font-size: 1rem;
+      font-weight: var(--font-weight-semibold);
+      text-align: center;
+      text-decoration: none;
+      overflow: hidden;
+      box-sizing: border-box;
+      user-select: none;
+      transition: background-color var(--transition-fast);
+      &:hover {
+        box-shadow: var(--shadow-s);
+        background: var(--color-emphasis-50);
       }
-      &:hover > i {
+      & label {
         color: var(--color-emphasis-700);
-      }
-      & input {
-        &:active {
-          border: 1px solid var(--color-emphasis-700);
-        }
-        padding: 0.7rem;
-        outline: none;
-        font-size: 1rem;
-        border: 1px solid var(--color-emphasis-400);
-        border-radius: var(--global-radius);
-      }
-      & i {
-        margin-left: -1.5rem;
         cursor: pointer;
-        color: var(--color-emphasis-400);
+      }
+      &::after {
+        content: "\u25BC";
+        padding: 0.3rem;
       }
     }
     & .dialog-box {
       position: relative;
-
       & dialog {
         top: 0.1rem;
         margin: 0;
@@ -47,7 +54,7 @@ export default function (context, componentOptions) {
         & ul {
           list-style: none;
           padding: 0;
-          margin: 0rem 0;
+          margin: 0;
           & li {
             border-radius: var(--global-radius);
             padding: 0.5rem;
@@ -68,13 +75,11 @@ export default function (context, componentOptions) {
   const openState = bau.state(false);
   const itemIndexActive = bau.state(0);
 
-  return function AutoComplete(...args) {
+  return function Select(...args) {
     let [
       {
         id,
         label,
-        size,
-        placeholder,
         Option,
         options,
         getOptionLabel = ({ label }) => label,
@@ -83,38 +88,21 @@ export default function (context, componentOptions) {
       ...children
     ] = toPropsAndChildren(args);
 
-    const optionsFilteredState = bau.state(options);
-
     const dialogOpen = () => {
       dialogEl.show();
-      dialogEl.style.width = inputEl.getBoundingClientRect().width + "px";
-      inputEl.focus();
       openState.val = true;
     };
 
     const dialogClose = () => {
-      dialogEl.close();
       openState.val = false;
+      dialogEl.close();
     };
 
-    const oninput = (event) => {
-      const { value } = event.target;
-      inputState.val = value;
-      if (value) {
+    const onclickButton = (event) => {
+      if (!openState.val) {
         dialogOpen();
-        optionsFilteredState.val = options.filter((option) =>
-          getOptionLabel(option).match(new RegExp(`${value}`, "i"))
-        );
       } else {
-        optionsFilteredState.val = options;
-      }
-    };
-
-    const onclickIcon = (event) => {
-      if (dialogEl.open) {
         dialogClose();
-      } else {
-        dialogOpen();
       }
     };
 
@@ -124,6 +112,7 @@ export default function (context, componentOptions) {
     };
 
     const onkeydown = (event) => {
+      event.preventDefault();
       switch (event.key) {
         case "Escape":
           dialogClose();
@@ -135,32 +124,15 @@ export default function (context, componentOptions) {
           itemIndexActive.val--;
           break;
         case "Enter":
-          inputState.val = getOptionLabel(
-            optionsFilteredState.val[itemIndexActive.val]
-          );
+          inputState.val = getOptionLabel(options[itemIndexActive.val]);
           dialogClose();
           break;
       }
     };
 
-    const inputEl = input({
-      id,
-      value: inputState,
-      placeholder,
-      type: "search",
-      size,
-      autocomplete: "new-password",
-      autocapitalize: "none",
-      spellcheck: false,
-      role: "combobox",
-      "aria-autocomplete": "list",
-      "aria-expanded": openState,
-      oninput,
-    });
-
     const dialogEl = dialog(() =>
       ul(
-        optionsFilteredState.val.map((option, index) =>
+        options.map((option, index) =>
           li(
             {
               class: () => classNames(itemIndexActive.val == index && "active"),
@@ -176,27 +148,23 @@ export default function (context, componentOptions) {
       {
         ...props,
         class: classNames(
-          "autocomplete",
+          "select",
           className,
           componentOptions?.class,
           props?.class
         ),
         onkeydown,
       },
-      bau.tags.label({ for: id }, label),
-      span(
-        { class: "input-box", onclick: onclickIcon },
-        inputEl,
-        () =>
-          !inputState.val &&
-          i(
-            {
-              role: "button",
-              "aria-label": "Open",
-              title: "Open",
-            },
-            "\u25BC"
-          )
+      button(
+        {
+          type: "button",
+          role: "combobox",
+          "aria-autocomplete": "list",
+          "aria-expanded": openState,
+          onclick: onclickButton,
+        },
+        () => !inputState.val && bau.tags.label(label),
+        inputState
       ),
       div({ class: "dialog-box" }, dialogEl)
     );

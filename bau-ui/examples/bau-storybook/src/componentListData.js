@@ -79,10 +79,10 @@ export const componentList = () => [
     name: "Popover",
     id: "popover",
   },
-  // {
-  //   name: "Select",
-  //   id: "select",
-  // },
+  {
+    name: "Select",
+    id: "select",
+  },
   {
     name: "Slider",
     id: "slider",

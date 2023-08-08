@@ -19,6 +19,7 @@ import fileInputExamples from "./pages/fileInput.examples";
 import inputExamples from "./pages/input.examples";
 import modalExamples from "./pages/modal.examples";
 import popoverExamples from "./pages/popover.examples";
+import selectExamples from "./pages/select.examples";
 import sliderExamples from "./pages/slider.examples";
 import spinnerExamples from "./pages/spinner.examples";
 import switchExamples from "./pages/switch.examples";
@@ -55,7 +56,7 @@ export default function (context) {
           `,
         },
         h1(tr("Component Examples")),
-
+        selectExamples(context)(),
         accordionExamples(context)(),
         alertExamples(context)(),
         alertStackExamples(context)(),
