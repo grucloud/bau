@@ -3,7 +3,10 @@ declare module "@grucloud/bau-ui/fileInput" {
     disabled?: boolean;
   };
 
-  type Component = import("../bau-ui").Component<FileInputProps>;
+  type Component = import("../bau-ui").Component<
+    FileInputProps,
+    HTMLInputElement
+  >;
 
   export default function (context: any): Component;
 }

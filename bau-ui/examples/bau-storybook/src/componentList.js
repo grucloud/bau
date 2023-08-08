@@ -9,6 +9,7 @@ import alertStackExamples from "./pages/alertStack.examples";
 import badgeExamples from "./pages/badge.examples";
 import breadcrumbExamples from "./pages/breadcrumb.examples";
 import buttonExamples from "./pages/button.examples";
+import calendarExamples from "./pages/calendar.examples";
 import chipExamples from "./pages/chip.examples";
 import checkboxExamples from "./pages/checkbox.examples";
 import drawerExamples from "./pages/drawer.examples";
@@ -16,8 +17,8 @@ import drillDownMenuExamples from "./pages/drillDownMenu.examples";
 import fileInputExamples from "./pages/fileInput.examples";
 import inputExamples from "./pages/input.examples";
 import modalExamples from "./pages/modal.examples";
+import popoverExamples from "./pages/popover.examples";
 import sliderExamples from "./pages/slider.examples";
-
 import spinnerExamples from "./pages/spinner.examples";
 import switchExamples from "./pages/switch.examples";
 import tabsExamples from "./pages/tabs.examples";
@@ -42,6 +43,7 @@ export default function (context) {
       article(
         {
           class: css`
+            flex-grow: 1;
             padding: 10px;
             margin-top: 20px;
             > section {
@@ -53,21 +55,23 @@ export default function (context) {
         },
         h1(tr("Component Examples")),
 
-        accordionExamples(context)(),
-        alertExamples(context)(),
-        alertStackExamples(context)(),
-        animateExamples(context)(),
-        avatarExamples(context)(),
-        badgeExamples(context)(),
-        breadcrumbExamples(context)(),
-        buttonExamples(context)(),
-        checkboxExamples(context)(),
-        chipExamples(context)(),
-        drawerExamples(context)(),
-        drillDownMenuExamples(context)(),
-        fileInputExamples(context)(),
-        inputExamples(context)(),
-        modalExamples(context)(),
+        // accordionExamples(context)(),
+        // alertExamples(context)(),
+        // alertStackExamples(context)(),
+        // animateExamples(context)(),
+        // avatarExamples(context)(),
+        // badgeExamples(context)(),
+        // breadcrumbExamples(context)(),
+        // buttonExamples(context)(),
+        // calendarExamples(context)(),
+        // checkboxExamples(context)(),
+        // chipExamples(context)(),
+        // drawerExamples(context)(),
+        // drillDownMenuExamples(context)(),
+        // fileInputExamples(context)(),
+        // inputExamples(context)(),
+        // modalExamples(context)(),
+        popoverExamples(context)(),
         sliderExamples(context)(),
         spinnerExamples(context)(),
         switchExamples(context)(),

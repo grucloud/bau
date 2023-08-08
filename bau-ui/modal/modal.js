@@ -1,10 +1,11 @@
 import classNames from "@grucloud/bau-css/classNames";
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
-export default function (context) {
+export default function (context, options) {
   const { bau, css } = context;
   const { dialog } = bau.tags;
 
-  const style = css`
+  const className = css`
     box-shadow: var(--shadow-s);
     background-color: var(--background-color);
     top: 0;
@@ -40,7 +41,12 @@ export default function (context) {
     }
   `;
 
-  return function Modal(props, ...children) {
-    return dialog({ class: classNames(style, props.class) }, ...children);
+  return function Modal(args) {
+    let [props, ...children] = toPropsAndChildren(args);
+
+    return dialog(
+      { class: classNames(className, options?.class, props?.class) },
+      ...children
+    );
   };
 }

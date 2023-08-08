@@ -32,6 +32,10 @@ export const componentList = () => [
     id: "button",
   },
   {
+    name: "Calendar",
+    id: "calendar",
+  },
+  {
     name: "Checkbox",
     id: "checkbox",
   },
@@ -66,6 +70,10 @@ export const componentList = () => [
   {
     name: "Modal",
     id: "modal",
+  },
+  {
+    name: "Popover",
+    id: "popover",
   },
   // {
   //   name: "Select",

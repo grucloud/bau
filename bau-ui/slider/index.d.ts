@@ -1,7 +1,7 @@
 declare module "@grucloud/bau-ui/slider" {
   export type SliderProps = {};
 
-  type Component = import("../bau-ui").Component<SliderProps>;
+  type Component = import("../bau-ui").Component<SliderProps, HTMLInputElement>;
 
   type Option = {
     class?: string;
