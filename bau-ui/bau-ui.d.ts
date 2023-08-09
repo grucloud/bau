@@ -1,9 +1,13 @@
 type ChildDom = import("@grucloud/bau").ChildDom;
 
-export type Component<TProps extends Object, TElement = HTMLElement> = (
+export type Component<
+  TProps extends Object,
+  TElement = HTMLElement,
+  TAction
+> = (
   props?: (TProps & import("@grucloud/bau").Props<TElement>) | ChildDom,
   ...rest: readonly ChildDom[]
-) => TElement;
+) => TElement & TAction;
 
 export type ComponentWithProp<TProps, TElement = HTMLElement> = (
   props: (TProps & import("@grucloud/bau").Props<TElement>) | ChildDom,

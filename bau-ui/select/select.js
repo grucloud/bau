@@ -1,9 +1,12 @@
 import classNames from "@grucloud/bau-css/classNames";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
+import popover from "../popover/popover.js";
 
 export default function (context, componentOptions) {
   const { bau, css } = context;
-  const { div, dialog, ul, li, i, button } = bau.tags;
+  const { div, ul, li, button } = bau.tags;
+
+  const Popover = popover(context);
 
   const className = css`
     & button {
@@ -16,7 +19,6 @@ export default function (context, componentOptions) {
       padding: 0 0.5rem;
       min-width: 2rem;
       min-height: 2rem;
-      outline: none;
       border: none;
       border-radius: var(--global-radius);
       border: 1px solid var(--color-emphasis-700);
@@ -31,6 +33,10 @@ export default function (context, componentOptions) {
       transition: background-color var(--transition-fast);
       &:hover {
         box-shadow: var(--shadow-s);
+        background: var(--color-emphasis-100);
+      }
+      &:focus {
+        box-shadow: var(--shadow-s);
         background: var(--color-emphasis-50);
       }
       & label {
@@ -42,31 +48,20 @@ export default function (context, componentOptions) {
         padding: 0.3rem;
       }
     }
-    & .dialog-box {
-      position: relative;
-      & dialog {
-        top: 0.1rem;
-        margin: 0;
-        padding: 0;
-        border: 1px var(--color-emphasis-400) solid;
+    & ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      & li {
         border-radius: var(--global-radius);
-        box-shadow: var(--shadow-s);
-        & ul {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          & li {
-            border-radius: var(--global-radius);
-            padding: 0.5rem;
-            cursor: pointer;
-            &:hover {
-              background-color: var(--color-emphasis-50);
-            }
-          }
-          & li.active {
-            background-color: var(--color-emphasis-50);
-          }
+        padding: 0.5rem;
+        cursor: pointer;
+        &:hover {
+          background-color: var(--color-emphasis-50);
         }
+      }
+      & li.active {
+        background-color: var(--color-emphasis-50);
       }
     }
   `;
@@ -89,13 +84,17 @@ export default function (context, componentOptions) {
     ] = toPropsAndChildren(args);
 
     const dialogOpen = () => {
-      dialogEl.show();
+      popoverEl.openDialog();
       openState.val = true;
     };
 
     const dialogClose = () => {
+      popoverEl.closeDialog();
       openState.val = false;
-      dialogEl.close();
+    };
+
+    const onClose = () => {
+      openState.val = false;
     };
 
     const onclickButton = (event) => {
@@ -118,19 +117,31 @@ export default function (context, componentOptions) {
           dialogClose();
           break;
         case "ArrowDown":
-          itemIndexActive.val++;
+          if (itemIndexActive.val < options.length - 1) {
+            itemIndexActive.val++;
+          } else {
+            itemIndexActive.val = 0;
+          }
           break;
         case "ArrowUp":
-          itemIndexActive.val--;
+          if (itemIndexActive.val <= 0) {
+            itemIndexActive.val = options.length - 1;
+          } else {
+            itemIndexActive.val--;
+          }
           break;
         case "Enter":
-          inputState.val = getOptionLabel(options[itemIndexActive.val]);
-          dialogClose();
+          if (openState.val) {
+            inputState.val = getOptionLabel(options[itemIndexActive.val]);
+            dialogClose();
+          } else {
+            dialogOpen();
+          }
           break;
       }
     };
 
-    const dialogEl = dialog(() =>
+    const Content = () =>
       ul(
         options.map((option, index) =>
           li(
@@ -141,8 +152,26 @@ export default function (context, componentOptions) {
             Option(option)
           )
         )
-      )
+      );
+
+    const buttonEl = button(
+      {
+        type: "button",
+        role: "combobox",
+        "aria-autocomplete": "list",
+        "aria-expanded": openState,
+        onclick: onclickButton,
+      },
+      () => !inputState.val && bau.tags.label(label),
+      inputState
     );
+
+    const popoverEl = Popover({
+      id,
+      triggerEl: buttonEl,
+      contentEl: Content(),
+      onClose,
+    });
 
     return div(
       {
@@ -155,18 +184,8 @@ export default function (context, componentOptions) {
         ),
         onkeydown,
       },
-      button(
-        {
-          type: "button",
-          role: "combobox",
-          "aria-autocomplete": "list",
-          "aria-expanded": openState,
-          onclick: onclickButton,
-        },
-        () => !inputState.val && bau.tags.label(label),
-        inputState
-      ),
-      div({ class: "dialog-box" }, dialogEl)
+      buttonEl,
+      popoverEl
     );
   };
 }

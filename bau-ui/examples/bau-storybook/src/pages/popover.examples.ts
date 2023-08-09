@@ -22,9 +22,44 @@ export default (context: Context) => {
 
   const Popover = popover(context);
 
-  const MyTrigger = () => Button({ primary: true, raised: true }, "Click");
+  const TriggerButton = () =>
+    Button(
+      {
+        primary: true,
+        raised: true,
+        onclick: () =>
+          popoverEl.open ? popoverEl.closeDialog() : popoverEl.openDialog(),
+      },
+      "Click"
+    );
 
-  const MyContent = () => div({}, h1("My content"), p("My Content"));
+  const triggerEl = TriggerButton();
+  const Content = () => div({}, h1("My content"), p("My Content"));
+  const contentEl = Content();
+  const popoverEl = Popover({
+    id: "my-popover-left",
+    triggerEl,
+    contentEl,
+  });
+
+  const triggerElRight = Button(
+    {
+      primary: true,
+      raised: true,
+      onclick: () =>
+        popoverElRight.open
+          ? popoverElRight.closeDialog()
+          : popoverElRight.openDialog(),
+    },
+    "Click"
+  );
+  const contentRight = Content();
+
+  const popoverElRight = Popover({
+    id: "my-popover-left",
+    triggerEl: triggerElRight,
+    contentEl: contentRight,
+  });
 
   return () =>
     section(
@@ -35,16 +70,17 @@ export default (context: Context) => {
       h2(tr("Popover")),
       h3("Basic Popover"),
       Container(
-        Popover({
-          id: "my-popover-left",
-          Trigger: MyTrigger,
-          Content: MyContent,
-        }),
-        Popover({
-          id: "my-popover-right",
-          Trigger: MyTrigger,
-          Content: MyContent,
-        })
+        div(triggerEl, popoverEl),
+        div(triggerElRight, popoverElRight)
+
+        // div(
+        //   triggerEl,
+        //   Popover({
+        //     id: "my-popover-right",
+        //     triggerEl,
+        //     contentEl,
+        //   })
+        // )
       )
     );
 };
