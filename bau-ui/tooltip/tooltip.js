@@ -20,9 +20,6 @@ export default function (context, options) {
       white-space: nowrap;
       position: absolute;
       z-index: 2;
-      right: auto;
-      top: auto;
-      pointer-events: all;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease-in-out;
@@ -99,7 +96,7 @@ export default function (context, options) {
 
     const tooltipContentEl = div(
       { class: classNames("container", ...side.split("-")) },
-      div({ class: classNames("content") }, titleEl)
+      div({ class: classNames("content"), role: "tooltip" }, titleEl)
     );
 
     const toMovedClass = (add) => `move-to-${add}`;
@@ -124,7 +121,7 @@ export default function (context, options) {
 
     const mouseover = (event) => {
       const tooltipRect = tooltipContentEl.getBoundingClientRect();
-
+      // TODO event.target["aria-describedby"]
       addClassMoved(() => tooltipRect.x < 0, "right", "left");
       addClassMoved(
         () => tooltipRect.x + tooltipRect.width > window.innerWidth,
