@@ -24,6 +24,8 @@ import sliderExamples from "./pages/slider.examples";
 import spinnerExamples from "./pages/spinner.examples";
 import switchExamples from "./pages/switch.examples";
 import tabsExamples from "./pages/tabs.examples";
+import tooltipExamples from "./pages/tooltip.examples";
+
 import themeSwitchExamples from "./pages/themeSwitch.examples";
 import treeViewExamples from "./pages/treeView.examples";
 
@@ -56,7 +58,7 @@ export default function (context) {
           `,
         },
         h1(tr("Component Examples")),
-        selectExamples(context)(),
+
         accordionExamples(context)(),
         alertExamples(context)(),
         alertStackExamples(context)(),
@@ -75,10 +77,12 @@ export default function (context) {
         inputExamples(context)(),
         modalExamples(context)(),
         popoverExamples(context)(),
+        selectExamples(context)(),
         sliderExamples(context)(),
         spinnerExamples(context)(),
         switchExamples(context)(),
         tabsExamples(context)(),
+        tooltipExamples(context)(),
         themeSwitchExamples(context)(),
         treeViewExamples(context)()
       )
