@@ -3,7 +3,7 @@ type ChildDom = import("@grucloud/bau").ChildDom;
 export type Component<
   TProps extends Object,
   TElement = HTMLElement,
-  TAction
+  TAction = {}
 > = (
   props?: (TProps & import("@grucloud/bau").Props<TElement>) | ChildDom,
   ...rest: readonly ChildDom[]

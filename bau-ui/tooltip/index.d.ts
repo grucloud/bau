@@ -1,5 +1,19 @@
 declare module "@grucloud/bau-ui/tooltip" {
-  export type TooltipProps = {};
+  export type TooltipProps = {
+    side?:
+      | "top-start"
+      | "top-centered"
+      | "top-end"
+      | "bottom-start"
+      | "bottom-centered"
+      | "bottom-end"
+      | "right-start"
+      | "right-centered"
+      | "right-end"
+      | "left-start"
+      | "left-centered"
+      | "left-end";
+  };
 
   type Component = import("../bau-ui").Component<TooltipProps>;
 

@@ -12,10 +12,36 @@ export default (context: Context) => {
   const Tooltip = tooltip(context);
   const TooltipCustom = tooltip(context, {
     class: css`
-      .content {
+      .container > .content {
         background-color: lightgreen;
         border: 2px dotted darkgreen;
         font-size: 1.5rem;
+      }
+      .container.top {
+        &::after {
+          position: absolute;
+          content: " ";
+          bottom: 0%;
+          left: 20%;
+          margin-top: 5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: transparent transparent var(--color-emphasis-400)
+            transparent;
+        }
+      }
+      .container.bottom {
+        &::after {
+          position: absolute;
+          content: " ";
+          top: 0%;
+          left: 20%;
+          margin-left: 5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: var(--color-emphasis-400) transparent transparent
+            transparent;
+        }
       }
     `,
   });
@@ -152,6 +178,22 @@ export default (context: Context) => {
           `,
         },
         TooltipGrid()
+      ),
+      h2(tr("Tooltip custom")),
+      div(
+        {
+          class: css`
+            border: 1px dotted var(--color-gray-500);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+          `,
+        },
+        TooltipCustom(
+          { titleEl: TooltipContent() },
+          Button({ raised: true }, "custom tooltip")
+        )
       )
     );
 };
