@@ -24,8 +24,9 @@ import sliderExamples from "./pages/slider.examples";
 import spinnerExamples from "./pages/spinner.examples";
 import switchExamples from "./pages/switch.examples";
 import tabsExamples from "./pages/tabs.examples";
+import tableExamples from "./pages/table.examples";
+import tablePaginationExamples from "./pages/tablePagination.examples";
 import tooltipExamples from "./pages/tooltip.examples";
-
 import themeSwitchExamples from "./pages/themeSwitch.examples";
 import treeViewExamples from "./pages/treeView.examples";
 
@@ -81,6 +82,8 @@ export default function (context) {
         sliderExamples(context)(),
         spinnerExamples(context)(),
         switchExamples(context)(),
+        tableExamples(context)(),
+        tablePaginationExamples(context)(),
         tabsExamples(context)(),
         tooltipExamples(context)(),
         themeSwitchExamples(context)(),

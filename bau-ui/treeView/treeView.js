@@ -19,7 +19,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
       display: block;
       list-style: none;
       margin: 0;
-      padding-left: 0;
+      padding-left: 0.3rem;
       overflow: hidden;
       will-change: height;
       transition: height var(--transition-fast) ease-out;

@@ -9,7 +9,7 @@ export default function (context, options = {}) {
 
   return function Spinner({
     size = 36,
-    color = "primary",
+    color = "color-base",
     visibility = true,
     ...otherProps
   } = {}) {

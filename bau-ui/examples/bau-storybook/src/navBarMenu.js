@@ -30,6 +30,7 @@ export default function (context) {
       {
         class: css`
           grid-area: sidebar;
+          flex-shrink: 0;
           position: sticky;
           top: calc(var(--header-height));
           align-self: start;

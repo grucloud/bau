@@ -79,7 +79,7 @@ export default function (context) {
     `,
     disabled: css`
       color: rgba(0, 0, 0, 0.26);
-      cursor: default;
+      cursor: not-allowed;
       pointer-events: none;
       box-shadow: none;
     `,
@@ -141,10 +141,12 @@ export default function (context) {
           !raised && accent && styles.flatAccent,
           raised && primary && styles.raisedPrimary,
           raised && accent && styles.raisedAccent,
-          ripple && styles.rippledisabled && styles.disabled,
-          disabled && raised && styles.raisedDisabled,
+          ripple && styles.ripple,
+          disabled && styles.disabled,
+          raised && disabled && styles.raisedDisabled,
           props.class
         ),
+        disabled,
         href,
         ...(!href && { type: "button" }),
       },

@@ -75,6 +75,7 @@ export const componentList = () => [
     name: "Modal",
     id: "modal",
   },
+
   {
     name: "Popover",
     id: "popover",
@@ -98,6 +99,14 @@ export const componentList = () => [
   {
     name: "Tabs",
     id: "tabs",
+  },
+  {
+    name: "Table",
+    id: "table",
+  },
+  {
+    name: "Table Pagination",
+    id: "pagination",
   },
   {
     name: "Theme Switch",
