@@ -4,6 +4,7 @@ export const createStyles = (context) => {
   const { createGlobalStyles } = context;
 
   const colorPalette = [
+    ["neutral", { h: "0", s: "0%", l: "40%" }],
     ["primary", { h: "230", s: "48%", l: "47%" }],
     ["secondary", { h: "338", s: "100%", l: "48%" }],
     ["success", { h: "120", s: "100%", l: "32%" }],

@@ -1,5 +1,7 @@
 declare module "@grucloud/bau-ui/slider" {
-  export type SliderProps = {};
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
+
+  export type SliderProps = {} & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<SliderProps, HTMLInputElement>;
 

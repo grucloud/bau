@@ -1,6 +1,7 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 
-export default function (context) {
+export default function (context, options) {
   const { bau, css } = context;
   const { ul, li, a, span } = bau.tags;
 
@@ -35,14 +36,33 @@ export default function (context) {
       }
     }
   `;
-  return function Breadcrumbs({ items, ...otherProps }) {
+
+  return function Breadcrumbs(...args) {
+    let [{ color, variant = "outline", size, items, ...props }, ...children] =
+      toPropsAndChildren(args);
     return ul(
       {
-        "aria-label": "Breadcrumbs",
-        ...otherProps,
-        class: classNames(className, otherProps.class),
+        ...props,
+        class: classNames(
+          className,
+          // color,
+          // variant,
+          // size,
+          options?.class,
+          props?.class
+        ),
       },
-      items.map(({ href, name }) => li((href ? a : span)({ href }, name)))
+      items.map(({ href, name }) =>
+        li(
+          (href ? a : span)(
+            {
+              href,
+              class: classNames(color, variant, size),
+            },
+            name
+          )
+        )
+      )
     );
   };
 }

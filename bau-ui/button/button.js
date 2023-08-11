@@ -1,6 +1,7 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 
-export default function (context) {
+export default function (context, options) {
   const { bau, css } = context;
 
   const styles = {
@@ -54,96 +55,31 @@ export default function (context) {
       cursor: pointer;
     `,
     a: css``,
-    flat: css`
-      border-width: 0;
-    `,
-    flatPrimary: css`
-      color: var(--color-primary);
-    `,
-    flatAccent: css`
-      color: var(--color-secondary-darkest);
-    `,
-    raised: css`
-      box-shadow: var(--shadow-s);
-      &:active {
-        box-shadow: var(--shadow-m);
-      }
-    `,
-    raisedPrimary: css`
-      background-color: var(--color-primary-darkest);
-      color: var(--color-content-inverse);
-    `,
-    raisedAccent: css`
-      background-color: var(--color-secondary-darkest);
-      color: var(--color-content-inverse);
-    `,
     disabled: css`
       color: rgba(0, 0, 0, 0.26);
       cursor: not-allowed;
       pointer-events: none;
       box-shadow: none;
     `,
-    raisedDisabled: css`
-      background-color: rgba(0, 0, 0, 0.12);
-    `,
-    fullWidth: css`
-      text-align: center;
-      width: 100%;
-    `,
-    ripple: css`
-      position: relative;
-      overflow: hidden;
-      transform: translate3d(0, 0, 0);
-      &::after {
-        content: "";
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        background-image: radial-gradient(circle, #000 10%, transparent 10%);
-        background-repeat: no-repeat;
-        background-position: 50%;
-        transform: scale(10, 10);
-        opacity: 0;
-        transition: transform var(--transition-slow), opacity 1s;
-      }
-      &:active::after {
-        transform: scale(0, 0);
-        opacity: 0.2;
-        transition: 0s;
-      }
-    `,
   };
 
-  return function Button(props, ...children) {
-    const {
-      primary,
-      accent,
-      raised,
-      disabled,
-      ripple,
-      href,
-      icon,
-      ...otherProps
-    } = props;
+  return function Button(...args) {
+    let [
+      { color, variant = "outline", size, disabled, href, ...props },
+      ...children
+    ] = toPropsAndChildren(args);
     const tagButton = href ? bau.tags.a : bau.tags.button;
     return tagButton(
       {
-        ...otherProps,
+        ...props,
         class: classNames(
           styles.root,
+          variant,
+          size,
+          color,
           href ? styles.a : styles.button,
-          raised ? styles.raised : styles.flat,
-          !raised && primary && styles.flatPrimary,
-          !raised && accent && styles.flatAccent,
-          raised && primary && styles.raisedPrimary,
-          raised && accent && styles.raisedAccent,
-          ripple && styles.ripple,
           disabled && styles.disabled,
-          raised && disabled && styles.raisedDisabled,
+          options?.class,
           props.class
         ),
         disabled,

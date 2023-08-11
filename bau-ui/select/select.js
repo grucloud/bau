@@ -11,7 +11,6 @@ export default function (context, componentOptions) {
   const className = css`
     & button {
       cursor: pointer;
-      color: var(--font-color-base);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -21,7 +20,6 @@ export default function (context, componentOptions) {
       min-height: 2rem;
       border: none;
       border-radius: var(--global-radius);
-      border: 1px solid var(--color-emphasis-700);
       background: transparent;
       font-size: 1rem;
       font-weight: var(--font-weight-semibold);
@@ -30,6 +28,7 @@ export default function (context, componentOptions) {
       overflow: hidden;
       box-sizing: border-box;
       user-select: none;
+      color: inherit;
       transition: background-color var(--transition-fast);
       &:hover {
         box-shadow: var(--shadow-s);
@@ -40,7 +39,6 @@ export default function (context, componentOptions) {
         background: var(--color-emphasis-50);
       }
       & label {
-        color: var(--color-emphasis-700);
         cursor: pointer;
       }
       &::after {
@@ -73,6 +71,9 @@ export default function (context, componentOptions) {
   return function Select(...args) {
     let [
       {
+        color = "neutral",
+        variant = "outline",
+        size,
         id,
         label,
         Option,
@@ -161,6 +162,7 @@ export default function (context, componentOptions) {
         "aria-autocomplete": "list",
         "aria-expanded": openState,
         onclick: onclickButton,
+        class: classNames(color, variant, size),
       },
       () => !inputState.val && bau.tags.label(label),
       inputState

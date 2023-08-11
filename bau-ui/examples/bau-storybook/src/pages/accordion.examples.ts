@@ -1,9 +1,12 @@
 import accordion, { Accordion } from "@grucloud/bau-ui/accordion";
 import { Context } from "../context";
+import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;
   const { section, div, h3, h2, p } = bau.tags;
+
+  const ComponentGrid = componentGrid(context);
 
   const AccordionContainer = (...children: any[]) =>
     div(
@@ -42,9 +45,14 @@ export default (context: Context) => {
       h2(tr("Accordion")),
       h3("Basic Accordion"),
       AccordionContainer(Accordion({})),
+      h3("Accordion Table"),
+      ComponentGrid({
+        Item: (props: any) => Accordion({ ...props }),
+      }),
       h3("Accordion width: fit-content"),
       AccordionContainer(
         Accordion({
+          color: "warning",
           class: css`
             &.accordion {
               & ul {
@@ -59,6 +67,8 @@ export default (context: Context) => {
       h3("Accordion icon cross"),
       AccordionContainer(
         Accordion({
+          color: "success",
+          variant: "outline",
           class: css`
             &.accordion {
               & ul {

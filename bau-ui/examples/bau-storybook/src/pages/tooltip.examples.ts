@@ -1,12 +1,14 @@
 import tooltip from "@grucloud/bau-ui/tooltip";
 import button from "@grucloud/bau-ui/button";
+import componentGrid from "./componentGrid";
 
 import { Context } from "../context";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;
-  const { section, div, h2, em, a, p } = bau.tags;
+  const { section, div, h2, em, p } = bau.tags;
 
+  const ComponentGrid = componentGrid(context);
   const Button = button(context);
 
   const Tooltip = tooltip(context);
@@ -53,8 +55,7 @@ export default (context: Context) => {
           font-size: larger;
         `,
       },
-      p("A ", em("tooltip"), " can be any component"),
-      a({ href: "https://github.com/grucloud/bau" }, "visit bau's website")
+      p("A ", em("tooltip"), " can be any component")
     );
 
   const TooltipGrid = () => [
@@ -67,15 +68,15 @@ export default (context: Context) => {
       },
       Tooltip(
         { side: "top-start", titleEl: TooltipContent() },
-        Button({ raised: true }, "top-start")
+        Button({}, "top-start")
       ),
       Tooltip(
         { side: "top-centered", titleEl: TooltipContent() },
-        Button({ raised: true }, "top-centered")
+        Button({}, "top-centered")
       ),
       Tooltip(
         { side: "top-end", titleEl: TooltipContent() },
-        Button({ raised: true }, "top-end")
+        Button({}, "top-end")
       )
     ),
     div(
@@ -87,11 +88,11 @@ export default (context: Context) => {
       },
       Tooltip(
         { side: "left-start", titleEl: TooltipContent() },
-        Button({ raised: true }, "left-start")
+        Button({}, "left-start")
       ),
       Tooltip(
         { side: "right-start", titleEl: TooltipContent() },
-        Button({ raised: true }, "right-start")
+        Button({}, "right-start")
       )
     ),
     div(
@@ -103,11 +104,11 @@ export default (context: Context) => {
       },
       Tooltip(
         { side: "left-centered", titleEl: TooltipContent() },
-        Button({ raised: true }, "left-centered")
+        Button({}, "left-centered")
       ),
       Tooltip(
         { side: "right-centered", titleEl: TooltipContent() },
-        Button({ raised: true }, "right-centered")
+        Button({}, "right-centered")
       )
     ),
     div(
@@ -119,11 +120,11 @@ export default (context: Context) => {
       },
       Tooltip(
         { side: "left-end", titleEl: TooltipContent() },
-        Button({ raised: true }, "left end")
+        Button({}, "left end")
       ),
       Tooltip(
         { side: "right-end", titleEl: TooltipContent() },
-        Button({ raised: true }, "right end")
+        Button({}, "right end")
       )
     ),
     div(
@@ -135,15 +136,15 @@ export default (context: Context) => {
       },
       Tooltip(
         { side: "bottom-start", titleEl: TooltipContent() },
-        Button({ raised: true }, "bottom start")
+        Button({}, "bottom start")
       ),
       Tooltip(
         { side: "bottom-centered", titleEl: TooltipContent() },
-        Button({ raised: true }, "bottom centered")
+        Button({}, "bottom centered")
       ),
       Tooltip(
         { side: "bottom-end", titleEl: TooltipContent() },
-        Button({ raised: true }, "bottom end")
+        Button({}, "bottom end")
       )
     ),
   ];
@@ -192,8 +193,17 @@ export default (context: Context) => {
         },
         TooltipCustom(
           { titleEl: TooltipContent() },
-          Button({ raised: true }, "custom tooltip")
+          Button({}, "custom tooltip")
         )
-      )
+      ),
+
+      h2(tr("Tooltip Table")),
+      ComponentGrid({
+        Item: (props: any) =>
+          Tooltip(
+            { titleEl: TooltipContent(), ...props },
+            Button({}, `${props.color} ${props.variant}`)
+          ),
+      })
     );
 };

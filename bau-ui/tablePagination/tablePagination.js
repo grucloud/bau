@@ -5,7 +5,7 @@ import spinner from "../spinner/spinner.js";
 
 export default function (context, options) {
   const { bau, css } = context;
-  const { div, span } = bau.tags;
+  const { div } = bau.tags;
 
   const Button = button(context);
   const Spinner = spinner(context);
@@ -16,17 +16,20 @@ export default function (context, options) {
     justify-content: flex-end;
     border-top: var(--table-border-width) solid var(--table-border-color);
     gap: 0.5rem;
+    padding: 0.4rem 0.2rem;
     & .pages-numbers {
       font-size: smaller;
     }
-    padding: 0.4rem 0.2rem;
     &.disabled {
       pointer-events: none;
     }
   `;
 
   const ActionButton = ({ label, icon, ...props }) =>
-    Button({ "aria-label": label, title: label, ...props }, icon);
+    Button(
+      { variant: "plain", "aria-label": label, title: label, ...props },
+      icon
+    );
 
   const PagesNumbers = ({ count, totalCount, page, rowsPerPage }) =>
     div(
@@ -87,7 +90,7 @@ export default function (context, options) {
           props?.class
         ),
       },
-      Spinner({ class: "spinner", visibility: isLoading, size: 30 }),
+      Spinner({ class: "spinner", visibility: isLoading, size: "md" }),
       totalCount > 0
         ? PagesNumbers({ count, totalCount, page, maxPages, rowsPerPage })
         : PagesNumbersNoTotal({ count, page, maxPages, rowsPerPage }),

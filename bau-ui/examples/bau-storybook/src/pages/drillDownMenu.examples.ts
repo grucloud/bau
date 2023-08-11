@@ -1,10 +1,13 @@
 import drillDownMenu, { type Tree } from "@grucloud/bau-ui/drillDownMenu";
+import componentGrid from "./componentGrid";
 
 import { Context } from "../context";
 
 export default (context: Context) => {
   const { tr, bau } = context;
-  const { section, a, h2 } = bau.tags;
+  const { section, a, h2, h3 } = bau.tags;
+
+  const ComponentGrid = componentGrid(context);
 
   const tree: Tree = {
     data: { name: "Root Menu" },
@@ -48,6 +51,14 @@ export default (context: Context) => {
     section(
       { id: "drillDownMenu" },
       h2(tr("Drill Down Menu")),
-      DrillDownMenu({ tree })
+      DrillDownMenu({ tree }),
+      h3("Drill Down Table"),
+      ComponentGrid({
+        Item: (props: any) =>
+          DrillDownMenu({
+            tree,
+            ...props,
+          }),
+      })
     );
 };

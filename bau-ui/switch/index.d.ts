@@ -1,5 +1,7 @@
 declare module "@grucloud/bau-ui/switch" {
-  export type SwitchProps = {};
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
+
+  export type SwitchProps = {} & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<SwitchProps, HTMLInputElement>;
 

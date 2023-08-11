@@ -1,13 +1,19 @@
 declare module "@grucloud/bau-ui/avatar" {
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
+
   export type AvatarProps = {
     class?: string;
     alt: string;
     src: string;
     width?: Number;
     height?: Number;
-  };
+  } & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<AvatarProps>;
 
-  export default function (context: any): Component;
+  type Option = {
+    class?: string;
+  };
+
+  export default function (context: any, option?: Option): Component;
 }

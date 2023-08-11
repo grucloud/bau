@@ -1,7 +1,9 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames";
 
-export default (context, { limit = 10, deleteAfterDuration = 15e3 } = {}) => {
+export default (context, options = {}) => {
   const { bau, css, keyframes } = context;
+  const { limit = 10, deleteAfterDuration = 15e3 } = options;
   const { div } = bau.tags;
   const messagesState = bau.state([]);
 
@@ -85,7 +87,7 @@ export default (context, { limit = 10, deleteAfterDuration = 15e3 } = {}) => {
 
     return div(
       {
-        class: classNames(styles.stack, props.class),
+        class: classNames(styles.stack, options?.class, props.class),
       },
       bau.loop(messagesState, div(), AlertItem)
     );

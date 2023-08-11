@@ -1,5 +1,7 @@
 declare module "@grucloud/bau-ui/calendar" {
-  export type CalendarProps = {};
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
+
+  export type CalendarProps = {} & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<
     CalendarProps,

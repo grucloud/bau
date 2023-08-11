@@ -1,17 +1,45 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames";
+import { Colors } from "../constants";
 
-export default function (context, options = {}) {
+export default function (context, options) {
   const { bau, css } = context;
   const { input } = bau.tags;
 
-  const className = css``;
+  const colorsToCss = () =>
+    Colors.map(
+      (color) =>
+        `
+&.slider.${color} {
+  accent-color: var(--color-${color});
+}
+`
+    ).join("\n");
 
-  return function Slider(props, ...children) {
+  const className = css`
+    ${colorsToCss()};
+  `;
+
+  return function Slider(...args) {
+    let [
+      { color = "neutral", variant = "outline", size, ...props },
+      ...children
+    ] = toPropsAndChildren(args);
+
     return input(
       {
         ...props,
         type: "range",
-        class: classNames("slider", className, options.class, props.class),
+        class: classNames(
+          "slider",
+          color,
+          variant,
+          size,
+          className,
+
+          options?.class,
+          props.class
+        ),
       },
       ...children
     );

@@ -1,9 +1,29 @@
 import classNames from "@grucloud/bau-css/classNames";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
+import { Colors } from "../constants";
 
 export default function (context, options) {
   const { bau, css } = context;
   const { dialog } = bau.tags;
+
+  const colorsToCss = () =>
+    Colors.map(
+      (color) =>
+        `
+&.modal.plain.${color} {
+  color: inherit;
+}
+&.modal.outline.${color} {
+  color: inherit;
+}
+&.modal.soft.${color} {
+  color: inherit;
+}
+&.modal.solid.${color} {
+
+}
+`
+    ).join("\n");
 
   const className = css`
     box-shadow: var(--shadow-s);
@@ -22,30 +42,41 @@ export default function (context, options) {
       font-size: 1.8rem;
       font-weight: 800;
       text-align: center;
-      background-color: var(--color-primary);
-      color: var(--font-color-inverse);
     }
     & footer {
       display: flex;
       justify-content: flex-end;
       margin: 0px;
       box-shadow: var(--shadow-s);
-      > * {
-        margin: 12px;
-      }
+      padding: 1rem;
+      gap: 1rem;
     }
     & > main {
       margin: 12px;
       flex-grow: 1;
       overflow: scroll;
     }
+    ${colorsToCss()}
   `;
 
   return function Modal(...args) {
-    let [props, ...children] = toPropsAndChildren(args);
+    let [
+      { color = "neutral", variant = "outline", size, ...props },
+      ...children
+    ] = toPropsAndChildren(args);
 
     return dialog(
-      { class: classNames(className, options?.class, props?.class) },
+      {
+        class: classNames(
+          "modal",
+          className,
+          color,
+          variant,
+          size,
+          options?.class,
+          props?.class
+        ),
+      },
       ...children
     );
   };

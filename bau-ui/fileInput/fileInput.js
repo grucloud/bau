@@ -1,13 +1,13 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames";
 
-export default function (context, options = {}) {
+export default function (context, options) {
   const { bau, css } = context;
   const { div, span, label, input } = bau.tags;
 
   const style = {
     base: css`
       display: inline-block;
-      width: 20rem;
       > * {
         margin: 1rem 0;
       }
@@ -31,18 +31,13 @@ export default function (context, options = {}) {
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        border: var(--global-border-width) dotted;
-        box-shadow: var(--shadow-s);
         &:hover {
           box-shadow: var(--shadow-m);
         }
       }
     `,
     disabled: css`
-      color: var(--color-gray-500);
       & label {
-        background-color: var(--color-gray-100);
-        border: var(--global-border-width) var(--color-gray-500) dotted;
         &:hover {
           box-shadow: var(--shadow-s);
         }
@@ -52,13 +47,28 @@ export default function (context, options = {}) {
   };
 
   return function FileInput(props, ...children) {
-    const { Component, disabled, ...otherProps } = props;
+    const {
+      variant = "outline",
+      color = "neutral",
+      size,
+      Component,
+      disabled,
+      ...otherProps
+    } = props;
 
     return div(
       {
-        class: classNames(style.base, disabled && style.disabled, props.class),
+        class: classNames(
+          style.base,
+          disabled && style.disabled,
+          options?.class,
+          props.class
+        ),
       },
       label(
+        {
+          class: classNames(variant, color, size),
+        },
         Component({ disabled }),
         input({ type: "file", disabled, ...otherProps })
       ),

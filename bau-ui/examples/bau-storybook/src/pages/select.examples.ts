@@ -1,4 +1,5 @@
 import select from "@grucloud/bau-ui/select";
+import componentGrid from "./componentGrid";
 
 import { Context } from "../context";
 
@@ -17,6 +18,7 @@ export default (context: Context) => {
       ...children
     );
 
+  const ComponentGrid = componentGrid(context);
   const Select = select(context);
 
   const options = [
@@ -57,6 +59,19 @@ export default (context: Context) => {
           getOptionLabel: ({ label }: any) => label,
           label: "Select a country...",
         })
-      )
+      ),
+      h2(tr("Select Table")),
+      ComponentGrid({
+        Item: (props: any) =>
+          div(
+            Select({
+              ...props,
+              options,
+              Option,
+              getOptionLabel: ({ label }: any) => label,
+              label: "Select a country...",
+            })
+          ),
+      })
     );
 };

@@ -1,9 +1,13 @@
 import button from "@grucloud/bau-ui/button";
+import componentGrid from "./componentGrid";
+
 import { Context } from "../context";
 
 export default (context: Context) => {
-  const { tr, bau, css } = context;
-  const { section, p, h2, h3 } = bau.tags;
+  const { bau, css } = context;
+  const { section, p, h3 } = bau.tags;
+  const ComponentGrid = componentGrid(context);
+
   const Button = button(context);
   return () =>
     section(
@@ -15,129 +19,36 @@ export default (context: Context) => {
           }
         `,
       },
-      h2(tr("Button Examples")),
-      h3("Flat"),
-      p(
-        Button({}, "Do stuff"),
-        Button(
-          {
-            primary: true,
-          },
-          tr("FLAT PRIMARY")
-        ),
-        Button(
-          {
-            accent: true,
-          },
-          tr("FLAT ACCENT")
-        ),
-        Button(
-          {
-            ripple: true,
-          },
-          tr("FLAT ACCENT")
-        ),
-        Button(
-          {
-            disabled: true,
-          },
-          tr("DISABLED")
-        )
-      ),
-      h3("Primary"),
-      p(
-        Button(
-          {
-            primary: true,
-          },
-          tr("primary")
-        ),
-        Button(
-          {
-            primary: true,
-            raised: true,
-          },
-          tr("primary Raised")
-        ),
-        Button(
-          {
-            ripple: true,
-            raised: true,
-          },
-          tr("primary ripple")
-        ),
-        Button(
-          {
-            disabled: true,
-            raised: true,
-          },
-          tr("primary DISABLED")
-        )
-      ),
-      h3("Raised"),
-      p(
-        Button(
-          {
-            raised: true,
-          },
-          tr("Raised FLAT")
-        ),
-        Button(
-          {
-            primary: true,
-            raised: true,
-          },
-          tr("Raised PRIMARY")
-        ),
-        Button(
-          {
-            accent: true,
-            raised: true,
-          },
-          tr("Raised ACCENT")
-        ),
-        Button(
-          {
-            ripple: true,
-            raised: true,
-          },
-          tr("Raised RIPPLE")
-        ),
-        Button(
-          {
-            disabled: true,
-            raised: true,
-          },
-          tr("Raised DISABLED")
-        )
-      ),
+      h3("Button Examples"),
+      ComponentGrid({
+        Item: (props: any) =>
+          Button(
+            {
+              ...props,
+            },
+            `${props.variant} ${props.color}`
+          ),
+      }),
       h3("Full With"),
       p(
         Button(
           {
+            color: "primary",
+
             class: css`
               width: 100%;
             `,
-            raised: true,
           },
-          tr("raised FLAT")
-        ),
-        Button(
-          {
-            class: css`
-              width: 100%;
-            `,
-            primary: true,
-          },
-          tr("Raised PRIMARY")
+          "witdh: 100%"
         )
       ),
       h3("Icon"),
       p(
         Button({ "aria-label": "Close" }, "\u2716"),
-        Button({ primary: true }, "\u2716"),
-        Button({ raised: true }, "\u2716"),
-        Button({}, "TODO")
+        Button({}, "\u27EA"),
+        Button({}, "\u27E8"),
+        Button({}, "\u27E9"),
+        Button({}, "\u27EB")
       )
     );
 };

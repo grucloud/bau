@@ -1,9 +1,12 @@
 declare module "@grucloud/bau-ui/treeView" {
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
+
   type Tree = {
     data?: object;
     children?: Tree[];
     expanded?: boolean;
-  };
+  } & DefaultDesignProps;
+
   export type TreeViewProps = {
     tree: Tree;
   };

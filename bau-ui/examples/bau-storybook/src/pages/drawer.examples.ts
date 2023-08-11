@@ -20,7 +20,6 @@ export default (context: Context) => {
       h2(tr("Drawer")),
       Button(
         {
-          raised: true,
           onclick: () => {
             openState.val = !openState.val;
           },

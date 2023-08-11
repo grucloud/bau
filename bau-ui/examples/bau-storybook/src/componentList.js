@@ -10,6 +10,7 @@ import autocompleteExamples from "./pages/autocomplete.examples";
 import badgeExamples from "./pages/badge.examples";
 import breadcrumbExamples from "./pages/breadcrumb.examples";
 import buttonExamples from "./pages/button.examples";
+import buttonGroupExamples from "./pages/buttonGroup.examples";
 import calendarExamples from "./pages/calendar.examples";
 import chipExamples from "./pages/chip.examples";
 import checkboxExamples from "./pages/checkbox.examples";
@@ -69,6 +70,7 @@ export default function (context) {
         badgeExamples(context)(),
         breadcrumbExamples(context)(),
         buttonExamples(context)(),
+        buttonGroupExamples(context)(),
         calendarExamples(context)(),
         checkboxExamples(context)(),
         chipExamples(context)(),

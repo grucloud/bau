@@ -1,4 +1,5 @@
 import createSwitch from "@grucloud/bau-ui/switch";
+import componentGrid from "./componentGrid";
 
 import { Context } from "../context";
 
@@ -6,6 +7,7 @@ export default (context: Context) => {
   const { tr, bau, css } = context;
   const { section, form, label, div, h2 } = bau.tags;
 
+  const ComponentGrid = componentGrid(context);
   const Switch = createSwitch(context);
 
   return () =>
@@ -26,6 +28,14 @@ export default (context: Context) => {
           label({ for: "my-switch" }, "My shinny switch"),
           Switch({ id: "my-switch" })
         )
-      )
+      ),
+      h2(tr("Switch Table")),
+      ComponentGrid({
+        Item: (props: any) =>
+          div(
+            Switch({ ...props, id: "my-switch" }),
+            Switch({ ...props, id: "my-switch-checked", checked: true })
+          ),
+      })
     );
 };

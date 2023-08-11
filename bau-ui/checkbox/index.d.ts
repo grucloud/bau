@@ -1,5 +1,7 @@
 declare module "@grucloud/bau-ui/checkbox" {
-  export type CheckboxProps = {};
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
+
+  export type CheckboxProps = {} & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<
     CheckboxProps,

@@ -10,11 +10,9 @@ export default function (context, options) {
     display: inline-block;
     & .container {
       & .content {
-        background-color: var(--background-color);
         box-shadow: var(--shadow-m);
         font-size: smaller;
         border-radius: var(--global-radius);
-        border: 1px solid var(--color-emphasis-400);
         padding: 0.3rem;
       }
       white-space: nowrap;
@@ -91,12 +89,30 @@ export default function (context, options) {
   `;
 
   return function Tooltip(...args) {
-    let [{ titleEl, side = "bottom-start", ...props }, ...children] =
-      toPropsAndChildren(args);
+    let [
+      {
+        titleEl,
+        side = "bottom-start",
+        color = "neutral",
+        variant = "outline",
+        size,
+        ...props
+      },
+      ...children
+    ] = toPropsAndChildren(args);
 
     const tooltipContentEl = div(
-      { class: classNames("container", ...side.split("-")) },
-      div({ class: classNames("content"), role: "tooltip" }, titleEl)
+      {
+        class: classNames(
+          "container",
+
+          ...side.split("-")
+        ),
+      },
+      div(
+        { class: classNames("content", color, variant, size), role: "tooltip" },
+        titleEl
+      )
     );
 
     const toMovedClass = (add) => `move-to-${add}`;

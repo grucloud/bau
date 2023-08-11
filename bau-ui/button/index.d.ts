@@ -1,14 +1,10 @@
 declare module "@grucloud/bau-ui/button" {
-  type Props = import("@grucloud/bau").Props;
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
 
   type ButtonProps = {
-    raised?: boolean;
-    primary?: boolean;
-    accent?: boolean;
-    ripple?: boolean;
     disabled?: boolean;
     href?: string;
-  };
+  } & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<
     ButtonProps,

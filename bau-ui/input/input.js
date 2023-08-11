@@ -1,3 +1,4 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames";
 
 const createStyles = ({ css, createGlobalStyles }) => {
@@ -83,7 +84,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
   };
 };
 
-export default function (context, options = {}) {
+export default function (context, options) {
   const { bau, css, createGlobalStyles } = context;
   const { div, input, label } = bau.tags;
 
@@ -104,7 +105,8 @@ export default function (context, options = {}) {
           styles.base,
           disabled && styles.disabled,
           error && styles.error,
-          props.class
+          options?.class,
+          otherProps.class
         ),
       },
       input({

@@ -1,9 +1,12 @@
 import input from "@grucloud/bau-ui/input";
 import { Context } from "../context";
+import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau } = context;
   const { section, div, h3, h2 } = bau.tags;
+
+  const ComponentGrid = componentGrid(context);
   const Input = input(context);
   return () =>
     section(
@@ -36,6 +39,17 @@ export default (context: Context) => {
           label: "my-input",
           error: "should be greater than 2",
         })
-      )
+      ),
+      h3("Input Table"),
+      ComponentGrid({
+        Item: (props: any) => {
+          return Input({
+            name: "my-input-error",
+            id: "my-input-with-error",
+            label: "my-input",
+            ...props,
+          });
+        },
+      })
     );
 };

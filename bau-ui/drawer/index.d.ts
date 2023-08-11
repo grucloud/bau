@@ -1,5 +1,7 @@
 declare module "@grucloud/bau-ui/drawer" {
-  export type DrawerProps = {};
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
+
+  export type DrawerProps = {} & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<DrawerProps>;
 

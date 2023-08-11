@@ -1,3 +1,4 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames";
 
 import button from "../button";
@@ -6,7 +7,8 @@ const severityMap = {
   danger: "\u26A0",
   warning: "\u26A0",
   success: "\u2714",
-  info: "\u2139",
+  primary: "\u2139",
+  neutral: "\u2139",
 };
 
 const darkVar = (severity) => `var(--color-${severity}-darkest)`;
@@ -63,8 +65,8 @@ ${severitiesToCss()}
   };
 };
 
-export default function (context) {
-  const { bau, css, createGlobalStyles, tr } = context;
+export default function (context, options) {
+  const { bau, css, createGlobalStyles } = context;
   const { div } = bau.tags;
 
   const styles = createStyles({ css, createGlobalStyles });
@@ -82,14 +84,28 @@ export default function (context) {
     );
 
   return function Alert(props, ...children) {
-    const { severity = "info", onRemove, ...otherProps } = props;
+    const {
+      variant = "outline",
+      color = "neutral",
+      size,
+      onRemove,
+      ...otherProps
+    } = props;
     return div(
       {
         ...otherProps,
-        class: classNames(styles.base, `alert-${severity}`, props.class),
+        class: classNames(
+          styles.base,
+          `alert-${variant}`,
+          variant,
+          color,
+          size,
+          options?.class,
+          props.class
+        ),
         role: "alert",
       },
-      div({ class: "icon" }, severityMap[severity]),
+      div({ class: "icon" }, severityMap[color]),
       div({ class: "content" }, ...children),
       onRemove && CloseIcon({ onclick: onRemove })
     );

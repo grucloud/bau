@@ -1,6 +1,7 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames";
 
-export default function (context, options = {}) {
+export default function (context, options) {
   const { bau } = context;
   const { span, img } = bau.tags;
 
@@ -14,12 +15,23 @@ export default function (context, options = {}) {
     errorState.val = true;
   };
 
-  return function Avatar({ width = 60, height = 60, ...props }, ...children) {
+  return function Avatar(...args) {
+    let [
+      { color, variant = "outline", size, width = 60, height = 60, ...props },
+      ...children
+    ] = toPropsAndChildren(args);
     return span(
-      { class: classNames(options.cssOverride, props.class) },
+      { class: classNames(options?.class, props.class) },
       () => (loadingState.val ? "Loading..." : ""),
       () => errorState.val && "Error",
-      img({ width, height, onload, onerror, ...props })
+      img({
+        width,
+        height,
+        onload,
+        onerror,
+        class: classNames(options?.class, color, variant, size, props.class),
+        ...props,
+      })
     );
   };
 }

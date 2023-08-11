@@ -1,3 +1,4 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 
 const createStyles = ({ css, createGlobalStyles }) => {
@@ -15,11 +16,12 @@ const createStyles = ({ css, createGlobalStyles }) => {
   const nav = css`
     font-weight: var(--font-weight-semibold);
     overflow-x: hidden;
+    display: inline-flex;
     & ul {
       display: block;
       list-style: none;
       margin: 0;
-      padding-left: 0.3rem;
+      padding-left: 0;
       overflow: hidden;
       will-change: height;
       transition: height var(--transition-fast) ease-out;
@@ -33,7 +35,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
           align-items: center;
           transition: background-color var(--transition-fast) ease-in-out;
           &:hover {
-            background: var(--color-emphasis-100);
+            background: var(--color-emphasis-300);
             cursor: pointer;
           }
           &::after {
@@ -46,7 +48,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
             display: flex;
             flex-grow: 1;
             text-decoration: none;
-            color: var(--menu-color);
+            color: inherit;
             padding: var(--menu-link-padding-vertical)
               var(--menu-link-padding-horizontal);
           }
@@ -79,8 +81,9 @@ const createStyles = ({ css, createGlobalStyles }) => {
   };
 };
 
-export default function (context, { renderMenuItem }) {
+export default function (context, options) {
   const { bau, css, createGlobalStyles, window } = context;
+  const { renderMenuItem } = options;
   const { ul, li, nav, div } = bau.tags;
 
   const styles = createStyles({ css, createGlobalStyles });
@@ -156,10 +159,24 @@ export default function (context, { renderMenuItem }) {
       );
     };
 
-  return function TreeView({ tree, maxDepth = Infinity, ...otherProps }) {
+  return function TreeView({
+    tree,
+    maxDepth = Infinity,
+    size,
+    variant = "plain",
+    color = "neutral",
+    ...otherProps
+  }) {
     return nav(
       {
-        class: classNames(styles.nav, otherProps.class),
+        class: classNames(
+          styles.nav,
+          size,
+          variant,
+          color,
+          options?.class,
+          otherProps.class
+        ),
       },
       tree.children && ul(tree.children.map(Tree({ maxDepth })))
     );

@@ -1,9 +1,9 @@
-declare module "@grucloud/bau-ui/chip" {
+declare module "@grucloud/bau-ui/buttonGroup" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
 
-  export type ChipProps = {} & DefaultDesignProps;
+  export type ButtonGroupProps = {} & DefaultDesignProps;
 
-  type Component = import("../bau-ui").Component<ChipProps, HTMLSpanElement>;
+  type Component = import("../bau-ui").Component<ButtonGroupProps>;
 
   type Option = {
     class?: string;

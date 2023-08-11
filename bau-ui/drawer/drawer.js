@@ -1,9 +1,10 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import cn from "@grucloud/bau-css/classNames";
 
-export default function (context) {
+export default function (context, options) {
   const { bau, css } = context;
   const { div } = bau.tags;
-  const style = css`
+  const className = css`
     position: fixed;
     top: 80px;
     left: 0px;
@@ -47,9 +48,13 @@ export default function (context) {
     }
   `;
 
-  return function Drawer({ openState, ...otherProps }, ...children) {
+  return function Drawer(...args) {
+    let [
+      { color, variant = "outline", size, openState, ...props },
+      ...children
+    ] = toPropsAndChildren(args);
     return div(
-      { class: cn(style, otherProps.class) },
+      { class: cn(className, options?.class, props.class) },
       // Overlay
       div({
         class: () => cn("overlay", openState.val && "overlay-open"),
@@ -62,7 +67,7 @@ export default function (context) {
         {
           class: () => cn("content", openState.val && "content-open"),
         },
-        ...children
+        children
       )
     );
   };

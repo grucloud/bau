@@ -1,9 +1,10 @@
 import avatar from "@grucloud/bau-ui/avatar";
 import { Context } from "../context";
+import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;
-  const { section, h2 } = bau.tags;
+  const { section, h2, h3 } = bau.tags;
   const avatarClass = css`
     > img {
       background: var(--color-gray-100);
@@ -11,7 +12,18 @@ export default (context: Context) => {
       margin: 0.3rem;
     }
   `;
-  const Avatar = avatar(context);
+
+  const ComponentGrid = componentGrid(context);
+
+  const Avatar = avatar(context, {
+    class: css`
+      > img {
+        background: var(--color-gray-100);
+        border-radius: 50%;
+        margin: 0.3rem;
+      }
+    `,
+  });
 
   return () =>
     section(
@@ -34,6 +46,17 @@ export default (context: Context) => {
       Avatar({
         src: "./grucloud.svg",
         alt: "GruCloud",
+      }),
+
+      h3("Avatar Table"),
+      ComponentGrid({
+        Item: (props: any) =>
+          Avatar({
+            ...props,
+            //class: avatarClass,
+            src: "./grucloud.svg",
+            alt: "GruCloud",
+          }),
       })
     );
 };

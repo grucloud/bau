@@ -48,6 +48,8 @@ export default function (context) {
       Button(
         {
           "aria-label": "drawer",
+          variant: "plain",
+          color: "none",
           onclick: () => (drawerOpenState.val = !drawerOpenState.val),
         },
         BurgerIcon()

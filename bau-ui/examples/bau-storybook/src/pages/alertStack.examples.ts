@@ -1,6 +1,7 @@
 import button from "@grucloud/bau-ui/button";
 import alert from "@grucloud/bau-ui/alert";
 import alertStack from "@grucloud/bau-ui/alertStack";
+//import componentGrid from "./componentGrid";
 
 import { Context } from "../context";
 
@@ -20,7 +21,7 @@ export default (context: Context) => {
       h1("Alert stack"),
       Button(
         {
-          raised: true,
+          color: "success",
           onclick: () => {
             document.dispatchEvent(
               new CustomEvent("alert.add", {
@@ -41,7 +42,7 @@ export default (context: Context) => {
       ),
       Button(
         {
-          raised: true,
+          color: "danger",
           onclick: () => {
             document.dispatchEvent(
               new CustomEvent("alert.add", {

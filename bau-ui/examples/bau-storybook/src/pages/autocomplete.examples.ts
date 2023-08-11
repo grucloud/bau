@@ -1,4 +1,5 @@
 import autocomplete from "@grucloud/bau-ui/autocomplete";
+import componentGrid from "./componentGrid";
 
 import { Context } from "../context";
 
@@ -16,6 +17,8 @@ export default (context: Context) => {
       },
       ...children
     );
+
+  const ComponentGrid = componentGrid(context);
 
   const Autocomplete = autocomplete(context);
 
@@ -57,9 +60,21 @@ export default (context: Context) => {
           getOptionLabel: ({ label }: any) => label,
           label: "Country",
           placeholder: "Search countries",
-          size: "40",
           id: "country",
         })
-      )
+      ),
+      h3("Autocomplete Table"),
+      ComponentGrid({
+        Item: (props: any) =>
+          Autocomplete({
+            ...props,
+            options,
+            Option,
+            getOptionLabel: ({ label }: any) => label,
+            label: "Country",
+            placeholder: "Search countries",
+            id: "country",
+          }),
+      })
     );
 };

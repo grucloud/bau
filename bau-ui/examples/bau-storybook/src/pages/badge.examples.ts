@@ -1,10 +1,11 @@
 import badge from "@grucloud/bau-ui/badge";
+import componentGrid from "./componentGrid";
 import { Context } from "../context";
 
 export default (context: Context) => {
-  const { tr, bau, css } = context;
+  const { bau, css } = context;
   const { section, div, h3, h2 } = bau.tags;
-
+  componentGrid;
   const Container = (...children: any[]) =>
     div(
       {
@@ -15,6 +16,8 @@ export default (context: Context) => {
       },
       ...children
     );
+
+  const ComponentGrid = componentGrid(context);
 
   const Badge = badge(context);
   const BadgeCutom = badge(context, {
@@ -28,19 +31,14 @@ export default (context: Context) => {
   return () =>
     section(
       { id: "badge" },
-      h2(tr("Badge")),
+      h2("Badge"),
       h3("Basic Badge"),
       Container(Badge({ content: "10" }, "\u260F")),
-      h3("Badge Primary"),
-      Container(Badge({ content: "2", primary: true }, "\u260F")),
-      h3("Badge Secondary"),
-      Container(Badge({ content: "10", secondary: true }, "\u260F")),
-      h3("Badge Success"),
-      Container(Badge({ content: "100", success: true }, "\u260F")),
-      h3("Badge Danger"),
-      Container(Badge({ content: "1000", danger: true }, "\u260F")),
-      h3("Badge empty"),
-      Container(Badge({ content: "", primary: true }, "\u260F")),
+      h3("Badges Table"),
+      ComponentGrid({
+        Item: (props: any, { index }: any) =>
+          Badge({ ...props, content: `${index * 100}` }, "\u260F"),
+      }),
       h3("Badge custom"),
       Container(BadgeCutom({ content: "1" }, "\u260F"))
     );

@@ -1,5 +1,7 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import cn from "@grucloud/bau-css/classNames.js";
 import animate from "../animate/animate.js";
+import classNames from "@grucloud/bau-css/classNames";
 
 const animationDuration = "0.3s";
 
@@ -44,8 +46,8 @@ const createStyles = ({ createGlobalStyles, keyframes }) => {
 :root {
   --drill-down-menu-color: var(--font-color-base);
   --drill-down-menu-padding: 0.4rem;
-  --drill-down-menu-bg-active: var(--color-emphasis-50);
-  --drill-down-menu-bg-hover: var(--color-emphasis-50);
+  --drill-down-menu-bg-active: var(--color-emphasis-200);
+  --drill-down-menu-bg-hover: var(--color-emphasis-200);
 }
 `;
   return {
@@ -93,8 +95,9 @@ const createStyles = ({ createGlobalStyles, keyframes }) => {
   };
 };
 
-export default function (context, { renderMenuItem }) {
+export default function (context, options) {
   const { bau, css, window } = context;
+  const { renderMenuItem } = options;
   const { ul, li, nav, div, header, a } = bau.tags;
   const Animate = animate(context);
 
@@ -109,7 +112,8 @@ export default function (context, { renderMenuItem }) {
     span {
       flex-grow: 1;
       text-decoration: none;
-      color: var(--drill-down-menu-color);
+      //color: var(--drill-down-menu-color);
+      color: inherit;
     }
     & header {
       display: flex;
@@ -158,10 +162,17 @@ export default function (context, { renderMenuItem }) {
     }
   `;
 
-  const Menu = ({ onclickItem, onclickBack, currentTree }) => {
+  const Menu = ({
+    variant,
+    color,
+    size,
+    onclickItem,
+    onclickBack,
+    currentTree,
+  }) => {
     const { children, parentTree, data } = currentTree;
     return div(
-      { class: "drillDownMenu" },
+      { class: classNames("drillDownMenu", variant, color, size) },
       parentTree &&
         header(
           {
@@ -188,11 +199,16 @@ export default function (context, { renderMenuItem }) {
     );
   };
 
-  return function DrillDownMenu({
-    tree,
-    pathnameState = bau.state(window.location.pathname),
-    ...otherProps
-  }) {
+  return function DrillDownMenu(props) {
+    const {
+      variant = "outline",
+      color = "neutral",
+      size,
+      tree,
+      pathnameState = bau.state(window.location.pathname),
+      ...otherProps
+    } = props;
+
     const onclickItem =
       ({ currentTree }) =>
       (event) =>
@@ -217,6 +233,9 @@ export default function (context, { renderMenuItem }) {
             } ${animationDuration}`,
           },
           Menu({
+            variant,
+            color,
+            size,
             currentTree,
             onclickItem,
             onclickBack,
@@ -227,7 +246,7 @@ export default function (context, { renderMenuItem }) {
 
     const navEl = nav(
       {
-        class: cn(className, otherProps.class),
+        class: cn(className, options?.class, otherProps.class),
       },
       () => {
         let currentTree = treeAddParent({})(tree);
@@ -237,6 +256,9 @@ export default function (context, { renderMenuItem }) {
         }
         return div(
           Menu({
+            variant,
+            color,
+            size,
             currentTree: subTree,
             onclickItem,
             onclickBack,

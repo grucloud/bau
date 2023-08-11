@@ -1,5 +1,7 @@
 declare module "@grucloud/bau-ui/alertStack" {
-  export type AlertStackProps = {};
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
+
+  export type AlertStackProps = {} & DefaultDesignProps;
 
   type AlertStack = import("../bau-ui").Component<AlertStackProps>;
 

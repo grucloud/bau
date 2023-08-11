@@ -1,46 +1,100 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames";
+import { Colors } from "../constants";
 
-export default function (context) {
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+&.switch.plain.${color} {
+  &::after {
+    background-color: var(--color-emphasis-100);
+  }
+  &:checked::after {
+    background-color: var(--color-${color});
+  }
+}
+&.switch.outline.${color} {
+  &::after {
+    background-color: var(--color-emphasis-100);
+  }
+  &:checked::after {
+    background-color: var(--color-${color});
+  }
+}
+&.switch.soft.${color} {
+  &::after {
+    background-color: var(--color-emphasis-100);
+  }
+  &:checked::after {
+    background-color: var(--color-${color});
+  }
+}
+&.switch.solid.${color} {
+  background-color: var(--color-emphasis-800);
+  &::after {
+    background-color: var(--color-emphasis-100);
+  } 
+  &:checked {
+    background-color: var(--color-${color}) ;
+  }
+  &:checked::after {
+    background-color: var(--color-emphasis-100);
+  }
+}
+`
+  ).join("\n");
+
+export default function (context, options) {
   const { bau, css } = context;
   const { input } = bau.tags;
 
   const style = css`
     position: relative;
-    width: 2rem;
-    height: 1rem;
-    background-color: var(--color-gray-300);
-    border-radius: var(--global-radius);
+    width: 2.4rem;
+    height: 1.4rem;
+    border-radius: 0.7rem;
     appearance: none;
     outline: none;
     transition: all var(--transition-fast);
     box-shadow: var(--shadow-m);
     &::after {
       content: "";
-      background: var(--background-color);
-      transform: translateX(0%) scale(1.3);
+      transform: translate(-100%, -50%);
+      left: 50%;
+      top: 50%;
       width: 1rem;
       height: 1rem;
       border-radius: 50%;
       position: absolute;
       box-shadow: var(--shadow-m);
-      background-color: var(--color-gray-700);
       transition: all var(--transition-fast);
-    }
-    &:checked {
-      background-color: var(--color-primary-lighter);
+      background-color: var(--color-emphasis-800);
     }
     &:checked::after {
       content: "";
-      transform: translateX(100%) scale(1.3);
-      background-color: var(--color-primary);
+      transform: translate(0%, -50%);
     }
+    ${colorsToCss()}
   `;
 
-  return function Switch(props, ...children) {
+  return function Switch(...args) {
+    let [
+      { color = "neutral", variant = "plain", size, ...props },
+      ...children
+    ] = toPropsAndChildren(args);
     return input(
       {
         ...props,
-        class: classNames(style, props.class),
+        class: classNames(
+          "switch",
+          style,
+          color,
+          variant,
+          size,
+          options?.class,
+          props.class
+        ),
         type: "checkbox",
         required: "required",
       },

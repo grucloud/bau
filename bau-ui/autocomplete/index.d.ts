@@ -1,4 +1,6 @@
 declare module "@grucloud/bau-ui/autocomplete" {
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
+
   export type Autocomplete = {
     options: object[];
     id: string;
@@ -7,7 +9,7 @@ declare module "@grucloud/bau-ui/autocomplete" {
     size?: string;
     getOptionLabel?: (item: object | string) => string;
     Option: (props) => HTMLElement;
-  };
+  } & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<
     Autocomplete,

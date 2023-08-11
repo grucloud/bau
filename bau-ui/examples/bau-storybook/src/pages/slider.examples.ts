@@ -1,5 +1,6 @@
 import slider from "@grucloud/bau-ui/slider";
 import { Context } from "../context";
+import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;
@@ -21,6 +22,7 @@ export default (context: Context) => {
       ...children
     );
 
+  const ComponentGrid = componentGrid(context);
   const Slider = slider(context);
   const SliderMinMax = slider(context);
   const SliderMark = slider(context);
@@ -32,6 +34,10 @@ export default (context: Context) => {
       p("Slider value: ", sliderState),
       h3("Basic Slider"),
       Container(Slider({ oninput, name: "slider-simple" })),
+      h3(tr("Slider Table")),
+      ComponentGrid({
+        Item: (props: any) => Slider(props),
+      }),
       h3("Slider Min Max: -1000 1000"),
       Container(SliderMinMax({ oninput, min: -1000, max: 1000 })),
       h3("Slider Step 20"),

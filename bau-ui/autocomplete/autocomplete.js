@@ -21,7 +21,6 @@ export default function (context, componentOptions) {
       outline: none;
       border: none;
       border-radius: var(--global-radius);
-      border: 1px solid var(--color-emphasis-700);
       background: transparent;
       font-size: 1rem;
       font-weight: var(--font-weight-semibold);
@@ -30,13 +29,13 @@ export default function (context, componentOptions) {
       overflow: hidden;
       box-sizing: border-box;
       user-select: none;
+      color: inherit;
       transition: background-color var(--transition-fast);
       &:hover {
         box-shadow: var(--shadow-s);
         background: var(--color-emphasis-50);
       }
       & label {
-        color: var(--color-emphasis-700);
         cursor: pointer;
       }
       &::after {
@@ -55,22 +54,21 @@ export default function (context, componentOptions) {
         margin: 0.3rem;
         outline: none;
         font-size: 1rem;
-        border: 2px solid var(--color-emphasis-700);
         border-radius: var(--global-radius);
       }
       & ul {
         list-style: none;
         padding: 0;
-        margin: 0rem 0;
+        margin: 0 0;
         & li {
           padding: 0.5rem;
           cursor: pointer;
           &:hover {
-            background-color: var(--color-emphasis-50);
+            background-color: var(--color-emphasis-200);
           }
         }
         & li.active {
-          background-color: var(--color-emphasis-50);
+          background-color: var(--color-emphasis-200);
         }
       }
     }
@@ -88,9 +86,11 @@ export default function (context, componentOptions) {
   return function AutoComplete(...args) {
     let [
       {
+        variant = "outline",
+        color,
+        size,
         id,
         label,
-        size,
         placeholder,
         Option,
         options,
@@ -170,6 +170,7 @@ export default function (context, componentOptions) {
         "aria-autocomplete": "list",
         "aria-expanded": openState,
         onclick: onclickButton,
+        class: classNames(variant, color, size),
       },
       () => !selectedState.val && bau.tags.label(label),
       selectedState
@@ -191,7 +192,7 @@ export default function (context, componentOptions) {
     });
 
     const Content = () =>
-      div({ class: "content" }, inputEl, () =>
+      div({ class: classNames(variant, color, size, "content") }, inputEl, () =>
         ul(
           optionsFilteredState.val.map((option, index) =>
             li(
@@ -223,22 +224,8 @@ export default function (context, componentOptions) {
           props?.class
         ),
       },
-      bau.tags.label({ for: id }, label),
+      //bau.tags.label({ for: id }, label),
       buttonEl,
-      // span(
-      //   { class: "input-box", onclick: onclickIcon },
-      //   inputEl,
-      //   () =>
-      //     !inputState.val &&
-      //     i(
-      //       {
-      //         role: "button",
-      //         "aria-label": "Open",
-      //         title: "Open",
-      //       },
-      //       "\u25BC"
-      //     )
-      // ),
       popoverEl
     );
   };

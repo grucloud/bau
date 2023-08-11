@@ -1,14 +1,9 @@
 declare module "@grucloud/bau-ui/alert" {
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
+
   export type AnimateProps = {
-    severity:
-      | "primary"
-      | "secondary"
-      | "danger"
-      | "warning"
-      | "info"
-      | "success";
     onRemove?: Function;
-  };
+  } & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<AnimateProps>;
 

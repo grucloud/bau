@@ -1,11 +1,13 @@
 import modal from "@grucloud/bau-ui/modal";
 import button from "@grucloud/bau-ui/button";
-//import { faker } from "@faker-js/faker";
 import { Context } from "../context";
+import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau } = context;
-  const { section, main, h2, header, footer, p } = bau.tags;
+  const { section, main, h2, header, footer, p, div } = bau.tags;
+
+  const ComponentGrid = componentGrid(context);
 
   const Button = button(context);
   const Modal = modal(context);
@@ -14,34 +16,39 @@ export default (context: Context) => {
     main(
       Array(10)
         .fill("")
-        .map((_, k) => p(k + 1, ". " /*faker.lorem.paragraph()*/))
+        .map((_, k) => p(k + 1, ". Some text here" /*faker.lorem.paragraph()*/))
     );
 
-  const modalEl = Modal(
-    { id: "my-dialog" },
-    header("Header"),
-    Content(),
-    footer(
-      Button(
-        {
-          onclick: () => {
-            modalEl.close();
+  const MyModal = (props: any) => {
+    const modalEl = Modal(
+      { id: "my-dialog", ...props },
+      header("Header"),
+      Content(),
+      footer(
+        Button(
+          {
+            variant: "outline",
+            onclick: () => {
+              modalEl.close();
+            },
           },
-        },
-        "Cancel"
-      ),
-      Button(
-        {
-          primary: true,
-          raised: true,
-          onclick: () => {
-            modalEl.close();
+          "Cancel"
+        ),
+        Button(
+          {
+            variant: "solid",
+            onclick: () => {
+              modalEl.close();
+            },
           },
-        },
-        "OK"
+          "OK"
+        )
       )
-    )
-  );
+    );
+    return modalEl;
+  };
+
+  const modalEl = MyModal({});
 
   return () =>
     section(
@@ -49,13 +56,31 @@ export default (context: Context) => {
       h2(tr("Modal Examples")),
       Button(
         {
-          raised: true,
+          variant: "solid",
           onclick: () => {
             modalEl.showModal();
           },
         },
         "OPEN MODAL"
       ),
-      modalEl
+      modalEl,
+      h2(tr("Modal Table")),
+      ComponentGrid({
+        Item: (props: any) => {
+          const modalEl = MyModal(props);
+          return div(
+            Button(
+              {
+                ...props,
+                onclick: () => {
+                  modalEl.showModal();
+                },
+              },
+              "OPEN MODAL"
+            ),
+            modalEl
+          );
+        },
+      })
     );
 };

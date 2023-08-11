@@ -1,4 +1,5 @@
 const ColorPaletteDefault = [
+  ["neutral", { h: "0%", s: "0%", l: "62%" }],
   ["primary", { h: "230", s: "48%", l: "47%" }],
   ["secondary", { h: "338", s: "100%", l: "48%" }],
   ["success", { h: "120", s: "100%", l: "32%" }],
@@ -17,6 +18,36 @@ const SHADES_DARK = [
   ["darker", "0.7"],
   ["darkest", "0.5"],
 ];
+
+const darkVar = (color) => `var(--color-${color}-darkest)`;
+const lightestVar = (color) => `var(--color-${color}-lightest)`;
+
+const variantToCss = () =>
+  ColorPaletteDefault.map(
+    ([color]) =>
+      `
+.plain.${color} {
+  border: none;
+  color: ${darkVar(color)};
+  background-color: var(--background-color);
+}
+.outline.${color} {
+  border: 1px solid ${darkVar(color)};
+  color: ${darkVar(color)};
+  background-color: var(--background-color);
+}
+.soft.${color} {
+  border: none;
+  color: ${darkVar(color)};
+  background-color: ${lightestVar(color)};
+}
+.solid.${color} {
+  border: none;
+  color: var(--font-color-inverse);
+  background-color: ${darkVar(color)};
+}
+`
+  ).join("\n");
 
 const buildGrays = () =>
   new Array(20)
@@ -73,6 +104,7 @@ export default function globalStyle(
   ${colorPalette.map(([color, hsl]) => buildColor([color, hsl])).join("\n")}
   ${buildGrays()}
   ${buildEmphasis({})}
+  ${variantToCss()}
   --color-content: hsl(0, 0%, 10%);
   --color-content-inverse: hsl(0, 0%, 90%);
   --color-content-secondary: hsl(0, 0%, 30%);

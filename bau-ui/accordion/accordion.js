@@ -1,7 +1,9 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames";
 
-export default function (context, { accordionDefs }) {
+export default function (context, options) {
   const { bau, css } = context;
+  const { accordionDefs } = options;
   const { div, ul, li, header, h3, button } = bau.tags;
   const itemNameState = bau.state("");
 
@@ -71,6 +73,7 @@ export default function (context, { accordionDefs }) {
             text-align: left;
             font-size: large;
             cursor: pointer;
+            color: inherit;
           }
         }
         & h3.active {
@@ -89,18 +92,20 @@ export default function (context, { accordionDefs }) {
     }
   `;
 
-  return function Accordion(props) {
+  return function Accordion(...args) {
+    let [{ color, variant = "outline", size, content, ...props }, ...children] =
+      toPropsAndChildren(args);
     const AccordionItem = (item) => {
       const { Header, Content, name } = item;
       return li(
         {
+          class: classNames(color, variant, size),
           onclick: onclick(name),
         },
         h3(
           {
             class: () => classNames(itemNameState.val == name && "active"),
           },
-
           button(
             {
               type: "button",
@@ -125,9 +130,10 @@ export default function (context, { accordionDefs }) {
         )
       );
     };
-
     return div(
-      { class: classNames("accordion", className, props.class) },
+      {
+        class: classNames("accordion", className, options?.class, props.class),
+      },
       ul(accordionDefs.map(AccordionItem))
     );
   };

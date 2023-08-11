@@ -1,5 +1,7 @@
 declare module "@grucloud/bau-ui/accordion" {
-  export type AccordionProps = {};
+  type DefaultDesignProps = import("../constants").DefaultDesignProps;
+
+  export type AccordionProps = {} & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<AccordionProps>;
 

@@ -24,44 +24,17 @@ export default function (context, options) {
       min-width: 1rem;
       height: 1rem;
     }
-    &.primary span {
-      background-color: var(--color-primary);
-      color: var(--color-content-inverse);
-    }
-    &.secondary span {
-      background-color: var(--color-secondary);
-      color: var(--color-content-inverse);
-    }
-    &.success span {
-      background-color: var(--color-success);
-      color: var(--color-content-inverse);
-    }
-    &.danger span {
-      background-color: var(--color-danger);
-      color: var(--color-content-inverse);
-    }
   `;
 
   return function Badge(...args) {
-    let [
-      { content, danger, primary, secondary, success, ...props },
-      ...children
-    ] = toPropsAndChildren(args);
+    let [{ color, variant = "outline", size, content, ...props }, ...children] =
+      toPropsAndChildren(args);
     return span(
       {
         ...props,
-        class: classNames(
-          "badge",
-          className,
-          primary && "primary",
-          secondary && "secondary",
-          success && "success",
-          danger && "danger",
-          options?.class,
-          props?.class
-        ),
+        class: classNames("badge", className, options?.class, props?.class),
       },
-      span(content),
+      span({ class: classNames(color, variant, size) }, content),
       ...children
     );
   };

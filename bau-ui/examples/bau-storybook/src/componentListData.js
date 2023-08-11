@@ -36,6 +36,10 @@ export const componentList = () => [
     id: "button",
   },
   {
+    name: "Button Group",
+    id: "button-group",
+  },
+  {
     name: "Calendar",
     id: "calendar",
   },

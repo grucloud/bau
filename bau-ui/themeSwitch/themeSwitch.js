@@ -1,8 +1,9 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames";
 
 const defaultMode = "light";
 
-export default function (context) {
+export default function (context, options) {
   const { bau, css, window } = context;
   const { input } = bau.tags;
 
@@ -37,22 +38,22 @@ export default function (context) {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px var(--color-gray-200) dotted;
+    //border: 1px var(--color-gray-200) dotted;
     border-radius: var(--global-radius);
     appearance: none;
     transition: all var(--transition-fast);
     &:hover {
       cursor: pointer;
-      border: 1px var(--color-primary) dotted;
+      //border: 1px var(--color-primary) dotted;
       &::after {
-        color: var(--color-primary);
+        // color: var(--color-primary);
       }
     }
     &::after {
       content: "\u2600";
       font-size: x-large;
       transition: all var(--transition-fast);
-      color: var(--color-emphasis-400);
+      //color: var(--color-emphasis-400);
     }
     &:checked {
     }
@@ -62,14 +63,24 @@ export default function (context) {
     }
   `;
 
-  return function ThemeSwitch(props, ...children) {
+  return function ThemeSwitch(...args) {
+    let [{ color, variant = "outline", size, ...props }, ...children] =
+      toPropsAndChildren(args);
+
     return input(
       {
-        ...props,
-        class: classNames(style, props.class),
-        type: "checkbox",
         required: "required",
         title: "Switch Theme",
+        ...props,
+        class: classNames(
+          style,
+          color,
+          variant,
+          size,
+          options?.class,
+          props.class
+        ),
+        type: "checkbox",
         checked: getStoredTheme() == "dark",
         onclick: (event) => {
           setDataThemeAttribute(event.target.checked ? "dark" : "light");

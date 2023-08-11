@@ -25,8 +25,6 @@ export default (context: Context) => {
   const TriggerButton = () =>
     Button(
       {
-        primary: true,
-        raised: true,
         onclick: () =>
           popoverEl.open ? popoverEl.closeDialog() : popoverEl.openDialog(),
       },
@@ -44,8 +42,6 @@ export default (context: Context) => {
 
   const triggerElRight = Button(
     {
-      primary: true,
-      raised: true,
       onclick: () =>
         popoverElRight.open
           ? popoverElRight.closeDialog()

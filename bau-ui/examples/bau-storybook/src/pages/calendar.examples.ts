@@ -1,9 +1,12 @@
 import calendar from "@grucloud/bau-ui/calendar";
 import { Context } from "../context";
+import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;
   const { section, div, h3, h2, label } = bau.tags;
+
+  const ComponentGrid = componentGrid(context);
 
   const Container = (...children: any[]) =>
     div(
@@ -21,7 +24,7 @@ export default (context: Context) => {
   const Calendar = calendar(context);
   const CalendarCutom = calendar(context, {
     class: css`
-      background-color: lightseagreen;
+      background-color: lightseagreen !important;
     `,
   });
 
@@ -59,6 +62,13 @@ export default (context: Context) => {
         )
       ),
       h3("Calendar custom"),
-      Container(CalendarCutom({}))
+      Container(CalendarCutom({})),
+      h3("Calendar Table"),
+      ComponentGrid({
+        Item: (props: any) =>
+          Calendar({
+            ...props,
+          }),
+      })
     );
 };
