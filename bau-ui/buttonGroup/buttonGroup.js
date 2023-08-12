@@ -1,5 +1,23 @@
 import classNames from "@grucloud/bau-css/classNames";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
+import { Colors } from "../constants";
+
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+&.button-group.${color} {
+  & button { 
+    border-right-color: var(--color-${color});
+  }
+}
+&.button-group.solid.${color} {
+  & button { 
+    border-right-color: var(--color-emphasis-100);
+  }
+}
+`
+  ).join("\n");
 
 export default function (context, options) {
   const { bau, css } = context;
@@ -8,17 +26,13 @@ export default function (context, options) {
   const className = css`
     display: inline-flex;
     border-radius: var(--global-radius);
-    border-style: solid;
-    border-color: var(--color-emphasis-500);
     & button {
       border-radius: 0;
-      border: none;
       border-right: 1px solid var(--color-emphasis-400);
       color: inherit;
       font-size: inherit;
     }
     & button:last-child {
-      border-radius: 0;
       border: none;
     }
     &.sm {
@@ -35,6 +49,7 @@ export default function (context, options) {
         padding: 1rem;
       }
     }
+    ${colorsToCss()}
   `;
 
   return function ButtonGroup(...args) {
