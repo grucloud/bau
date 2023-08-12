@@ -2,15 +2,13 @@ import tableContainer from "@grucloud/bau-ui/tableContainer";
 import tablePagination, {
   type onPageChange,
 } from "@grucloud/bau-ui/tablePagination";
-import { randEmail, randFullName, randAvatar } from "@ngneat/falso";
 
 import { Context } from "../context";
 
 const createRows = (maxItem = 1000) =>
   new Array(maxItem).fill("").map(() => ({
-    name: randFullName(),
-    email: randEmail(),
-    avatar: randAvatar(),
+    name: "my name",
+    email: "myemail@mail.col",
   }));
 
 export default (context: Context) => {

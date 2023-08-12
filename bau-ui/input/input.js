@@ -1,23 +1,16 @@
-import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames";
 import { Colors } from "../constants";
-
-const createStyles = ({ css, createGlobalStyles }) => {
-  createGlobalStyles`
-:root {
-  --input-border-bottom-size: 2px;
-}
-`;
-};
 
 const colorsToCss = () =>
   Colors.map(
     (color) =>
       `
-&.input.plain.${color} {
+&.input.${color} {
   border: 2px solid transparent;
+}
+&.input.plain.${color} {
   &:focus {
-    border: 2px solid var(--color-${color});
+    border-color: var(--color-${color});
   };
 }
 &.input.outline.${color} {
@@ -27,28 +20,27 @@ const colorsToCss = () =>
   };
 }
 &.input.soft.${color} {
-  border: 2px solid transparent;
   &:focus {
-    border: 2px solid var(--color-${color});
+    border-color: var(--color-${color});
   };
-}
+} 
 &.input.solid.${color} {
-  border: 2px solid transparent;
   &:focus {
-    border: 2px solid var(--color-${color});
+    border-color: var(--color-${color});
   };
   &::placeholder {
     color: var(--color-emphasis-200);
+  }
+  &:hover {
+    background-color: var(--color-${color}-light);
   }
 }
 `
   ).join("\n");
 
 export default function (context, options) {
-  const { bau, css, createGlobalStyles } = context;
+  const { bau, css } = context;
   const { input } = bau.tags;
-
-  createStyles({ css, createGlobalStyles });
 
   const className = css`
     display: inline-block;
@@ -61,11 +53,12 @@ export default function (context, options) {
     outline: none;
     color: inherit;
     transition: background-color var(--transition-fast) ease-in-out;
-    &:hover {
-      background: var(--color-emphasis-200);
+    &.input:hover {
+      background-color: var(--color-emphasis-100);
     }
     ${colorsToCss()}
   `;
+
   return function Input(props) {
     const {
       size,

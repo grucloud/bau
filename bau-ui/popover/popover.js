@@ -6,7 +6,6 @@ export default function (context, options) {
   const { dialog } = bau.tags;
 
   const className = css`
-    display: grid;
     width: fit-content;
     margin: 0;
     background: var(--background-color);
@@ -27,11 +26,9 @@ export default function (context, options) {
 
     const openDialog = (event) => {
       dialogEl.style.opacity = 1;
-
       dialogEl.showModal();
       const rectAnchor = triggerEl.getBoundingClientRect();
       const rectDialog = dialogEl.getBoundingClientRect();
-
       if (rectAnchor.x < window.innerWidth / 2) {
         dialogEl.style.left = rectAnchor.left + "px";
       } else {

@@ -48,6 +48,7 @@ export default function (context, componentOptions) {
       display: block;
     }
     & .content {
+      height: fit-content;
       & input {
         min-height: 2rem;
         padding: 0.8rem;
@@ -190,6 +191,7 @@ export default function (context, componentOptions) {
       "aria-expanded": openState,
       oninput,
       onkeydown,
+      class: classNames(variant, color, size),
     });
 
     const Content = () =>

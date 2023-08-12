@@ -22,6 +22,7 @@ export const createStyles = (context) => {
     html {
       scroll-behavior: smooth;
       scroll-padding-top: calc(var(--header-height) + 1rem);
+      overflow-x: hidden;
     }
 
   `;
