@@ -21,6 +21,7 @@ export default (context: Context) => {
           name: "my-input-disabled",
           label: "my Input disabled",
           disabled: true,
+
           // onclick: (event)=> {}
         }),
         Input({
@@ -44,9 +45,9 @@ export default (context: Context) => {
       ComponentGrid({
         Item: (props: any) => {
           return Input({
-            name: "my-input-error",
-            id: "my-input-with-error",
-            label: "my-input",
+            name: "my-input",
+            id: "my-input-with",
+            placeholder: "Enter text",
             ...props,
           });
         },

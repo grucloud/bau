@@ -180,6 +180,7 @@ export default function (context, componentOptions) {
       id,
       value: inputState,
       placeholder,
+      autofocus: true,
       type: "search",
       autocomplete: "new-password",
       autocapitalize: "none",

@@ -29,7 +29,7 @@ export default (context: Context) => {
                   Component: () =>
                     Alert(
                       {
-                        severity: "success",
+                        color: "success",
                       },
                       tr("Infrastructure Created")
                     ),
@@ -50,7 +50,7 @@ export default (context: Context) => {
                   Component: () =>
                     Alert(
                       {
-                        severity: "danger",
+                        color: "danger",
                       },
                       tr("Error creating infrastructure")
                     ),

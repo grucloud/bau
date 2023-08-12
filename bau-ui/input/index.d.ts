@@ -1,14 +1,9 @@
 declare module "@grucloud/bau-ui/input" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
 
-  export type InputProps = {
-    name: string;
-    id: string;
-    label: string;
-    error?: string;
-  } & DefaultDesignProps;
+  export type InputProps = {} & DefaultDesignProps;
 
-  type Component = import("../bau-ui").Component<InputProps>;
+  type Component = import("../bau-ui").Component<InputProps, HTMLInputElement>;
 
   export default function (context: any): Component;
 }

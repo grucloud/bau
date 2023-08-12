@@ -111,6 +111,12 @@ export type PropsLifecycle<TElement extends HTMLElement> = {
   bauUnmounted: (input: { element: TElement }) => TElement;
 };
 
+export type PropsAll<TElement extends HTMLElement> =
+  | PropsHTMLElement<TElement>
+  | PropsLifecycle<TElement>
+  | Props<TElement>
+  | ChildDom;
+
 export type BindElementFunc = (input?: {
   element: HTMLElement;
 }) => HTMLElement | Primitive;
@@ -125,11 +131,7 @@ export type ChildDom =
   | BindElementFunc;
 
 export type TagFunc<Result extends HTMLElement> = (
-  props?:
-    | PropsHTMLElement<Result>
-    | Props<Result>
-    | PropsLifecycle<Result>
-    | ChildDom,
+  props?: PropsAll<Result>,
   ...rest: readonly ChildDom[]
 ) => Result;
 

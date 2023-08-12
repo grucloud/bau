@@ -27,7 +27,7 @@ const variantToCss = () =>
     ([color]) =>
       `
 .plain.${color} {
-  border: none;
+  border: 1px solid transparent;
   color: ${darkVar(color)};
   background-color: var(--background-color);
 }
@@ -37,12 +37,12 @@ const variantToCss = () =>
   background-color: var(--background-color);
 }
 .soft.${color} {
-  border: none;
+  border: 1px solid transparent;
   color: ${darkVar(color)};
   background-color: ${lightestVar(color)};
 }
 .solid.${color} {
-  border: none;
+  border: 1px solid transparent;
   color: var(--font-color-inverse);
   background-color: ${darkVar(color)};
 }
@@ -106,7 +106,7 @@ export default function globalStyle(
   ${buildEmphasis({})}
   ${variantToCss()}
   --color-content: hsl(0, 0%, 10%);
-  --color-content-inverse: hsl(0, 0%, 90%);
+  --color-content-inverse: hsl(0, 0%, 95%);
   --color-content-secondary: hsl(0, 0%, 30%);
   --background-color: var(--color-white);
   --background-surface-color: var(--color-content-inverse);

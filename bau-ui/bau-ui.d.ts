@@ -5,17 +5,17 @@ export type Component<
   TElement = HTMLElement,
   TAction = {}
 > = (
-  props?: (TProps & import("@grucloud/bau").Props<TElement>) | ChildDom,
+  props?: TProps & import("@grucloud/bau").PropsAll<TElement>,
   ...rest: readonly ChildDom[]
 ) => TElement & TAction;
 
 export type ComponentWithProp<TProps, TElement = HTMLElement> = (
-  props: (TProps & import("@grucloud/bau").Props<TElement>) | ChildDom,
+  props: TProps & import("@grucloud/bau").PropsAll<TElement>,
   ...rest: readonly ChildDom[]
 ) => TElement | string | number | boolean | bigint | null | undefined;
 
 export type ComponentOneChild<TProps, TElement = HTMLElement> = (
-  props: TProps & import("@grucloud/bau").Props<TElement>,
+  props: TProps & import("@grucloud/bau").PropsAll<TElement>,
   child: ChildDom
 ) => TElement;
 
