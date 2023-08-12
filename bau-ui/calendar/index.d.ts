@@ -1,5 +1,6 @@
 declare module "@grucloud/bau-ui/calendar" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
+  type ComponentOption = import("../bau-ui").ComponentOption;
 
   export type CalendarProps = {} & DefaultDesignProps;
 
@@ -8,9 +9,5 @@ declare module "@grucloud/bau-ui/calendar" {
     HTMLInputElement
   >;
 
-  type Option = {
-    class?: string;
-  };
-
-  export default function (context: any, option?: Option): Component;
+  export default function (context: any, option?: ComponentOption): Component;
 }

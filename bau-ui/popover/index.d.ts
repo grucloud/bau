@@ -1,4 +1,6 @@
 declare module "@grucloud/bau-ui/popover" {
+  type ComponentOption = import("../bau-ui").ComponentOption;
+
   export type PopoverProps = {};
 
   type Action = {
@@ -12,9 +14,5 @@ declare module "@grucloud/bau-ui/popover" {
     Action
   >;
 
-  type Option = {
-    class?: string;
-  };
-
-  export default function (context: any, option?: Option): Component;
+  export default function (context: any, option?: ComponentOption): Component;
 }

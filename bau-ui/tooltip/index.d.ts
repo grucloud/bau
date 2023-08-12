@@ -1,5 +1,6 @@
 declare module "@grucloud/bau-ui/tooltip" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
+  type ComponentOption = import("../bau-ui").ComponentOption;
 
   export type TooltipProps = {
     side?:
@@ -19,9 +20,5 @@ declare module "@grucloud/bau-ui/tooltip" {
 
   type Component = import("../bau-ui").Component<TooltipProps>;
 
-  type Option = {
-    class?: string;
-  };
-
-  export default function (context: any, option?: Option): Component;
+  export default function (context: any, option?: ComponentOption): Component;
 }

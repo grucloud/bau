@@ -1,4 +1,6 @@
 declare module "@grucloud/bau-ui/tablePagination" {
+  type ComponentOption = import("../bau-ui").ComponentOption;
+
   export type onPageChange = ({ page: Number }) => (event: Event) => void;
 
   export type TablePaginationProps = {
@@ -11,9 +13,5 @@ declare module "@grucloud/bau-ui/tablePagination" {
 
   type Component = import("../bau-ui").Component<TablePaginationProps>;
 
-  type Option = {
-    class?: string;
-  };
-
-  export default function (context: any, option?: Option): Component;
+  export default function (context: any, option?: ComponentOption): Component;
 }

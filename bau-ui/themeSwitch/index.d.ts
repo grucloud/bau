@@ -1,4 +1,6 @@
 declare module "@grucloud/bau-ui/themeSwitch" {
+  type ComponentOption = import("../bau-ui").ComponentOption;
+
   export type ThemeSwitchProps = {};
 
   type Component = import("../bau-ui").Component<
@@ -6,5 +8,5 @@ declare module "@grucloud/bau-ui/themeSwitch" {
     HTMLInputElement
   >;
 
-  export default function (context: any): Component;
+  export default function (context: any, option?: ComponentOption): Component;
 }

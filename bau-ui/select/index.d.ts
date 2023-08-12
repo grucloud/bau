@@ -1,5 +1,6 @@
 declare module "@grucloud/bau-ui/select" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
+  type ComponentOption = import("../bau-ui").ComponentOption;
 
   export type SelectProps = {
     options: object[];
@@ -11,9 +12,5 @@ declare module "@grucloud/bau-ui/select" {
 
   type Component = import("../bau-ui").Component<SelectProps, HTMLInputElement>;
 
-  type Option = {
-    class?: string;
-  };
-
-  export default function (context: any, option?: Option): Component;
+  export default function (context: any, option?: ComponentOption): Component;
 }

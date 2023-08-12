@@ -23,3 +23,7 @@ export type ComponentGeneric = (
   props?: import("@grucloud/bau").Props<HTMLElementHTMLElement>,
   ...rest: readonly ChildDom[]
 ) => HTMLElement | string | number | boolean | bigint | null | undefined;
+
+export type ComponentOption = {
+  class?: string;
+};

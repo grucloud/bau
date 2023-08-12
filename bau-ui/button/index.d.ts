@@ -1,5 +1,6 @@
 declare module "@grucloud/bau-ui/button" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
+  type ComponentOption = import("../bau-ui").ComponentOption;
 
   type ButtonProps = {
     disabled?: boolean;
@@ -11,5 +12,5 @@ declare module "@grucloud/bau-ui/button" {
     HTMLButtonElement | HTMLAnchorElement
   >;
 
-  export default function (context: any): Component;
+  export default function (context: any, options?: ComponentOption): Component;
 }

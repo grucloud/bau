@@ -11,66 +11,45 @@ const severityMap = {
   neutral: "\u2139",
 };
 
-const darkVar = (severity) => `var(--color-${severity}-darkest)`;
-
-const severitiesToCss = () =>
-  Object.keys(severityMap)
-    .map(
-      (severity) =>
-        `.alert-${severity} {
-    border-left: var(--alert-border-left-width) solid ${darkVar(severity)};
-    color: ${darkVar(severity)};
-    background-color: var(--background-color);
-    & .button-close {
-      color: ${darkVar(severity)};
-    }
-  }`
-    )
-    .join("\n");
-
 const createStyles = ({ css, createGlobalStyles }) => {
   createGlobalStyles`
 :root {
   --alert-border-left-width: 8px;
 }
-${severitiesToCss()}
 `;
-
-  return {
-    base: css`
-      display: flex;
-      max-width: 600px;
-      justify-content: flex-start;
-      align-items: center;
-      margin: 0.5rem;
-      font-weight: var(--font-weight-semibold);
-      box-shadow: var(--shadow-m);
-      border-radius: var(--global-radius);
-      & .icon {
-        padding: 0 1rem;
-        font-size: 2.5rem;
-      }
-      & .content {
-        padding: 0 0.5rem;
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: space-around;
-      }
-      & .button-close {
-        margin: 1rem;
-      }
-    `,
-  };
 };
 
 export default function (context, options) {
   const { bau, css, createGlobalStyles } = context;
   const { div } = bau.tags;
 
-  const styles = createStyles({ css, createGlobalStyles });
+  createStyles({ css, createGlobalStyles });
 
+  const className = css`
+    display: flex;
+    max-width: 600px;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0.5rem;
+    font-weight: var(--font-weight-semibold);
+    box-shadow: var(--shadow-m);
+    border-radius: var(--global-radius);
+    & .icon {
+      padding: 0 1rem;
+      font-size: 2.5rem;
+    }
+    & .content {
+      padding: 0 0.5rem;
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-around;
+    }
+    & .button-close {
+      margin: 1rem;
+    }
+  `;
   const Button = button(context);
 
   const CloseIcon = ({ onclick }) =>
@@ -95,13 +74,14 @@ export default function (context, options) {
       {
         ...otherProps,
         class: classNames(
-          styles.base,
           `alert-${variant}`,
           variant,
           color,
           size,
+          className,
           options?.class,
-          props.class
+          props.class,
+          "alert"
         ),
         role: "alert",
       },

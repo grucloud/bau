@@ -1,5 +1,6 @@
 declare module "@grucloud/bau-ui/spinner" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
+  type ComponentOption = import("../bau-ui").ComponentOption;
 
   export type SpinnerProps = {
     //size?: Number;
@@ -9,5 +10,5 @@ declare module "@grucloud/bau-ui/spinner" {
 
   type Component = import("../bau-ui").Component<SpinnerProps>;
 
-  export default function (context: any): Component;
+  export default function (context: any, option?: ComponentOption): Component;
 }

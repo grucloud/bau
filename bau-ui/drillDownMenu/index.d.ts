@@ -1,5 +1,6 @@
 declare module "@grucloud/bau-ui/drillDownMenu" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
+  type ComponentOption = import("../bau-ui").ComponentOption;
 
   type Tree = {
     data?: object;
@@ -16,6 +17,7 @@ declare module "@grucloud/bau-ui/drillDownMenu" {
 
   type Option = {
     renderMenuItem: ComponentGeneric;
-  };
+  } & ComponentOption;
+
   export default function (context: Object, option: Option): Component;
 }

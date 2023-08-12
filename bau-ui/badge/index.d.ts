@@ -1,5 +1,6 @@
 declare module "@grucloud/bau-ui/badge" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
+  type ComponentOption = import("../bau-ui").ComponentOption;
 
   export type BadgeProps = {
     content: string;
@@ -11,9 +12,5 @@ declare module "@grucloud/bau-ui/badge" {
 
   type Component = import("../bau-ui").Component<BadgeProps>;
 
-  type Option = {
-    class?: string;
-  };
-
-  export default function (context: any, option?: Option): Component;
+  export default function (context: any, option?: ComponentOption): Component;
 }

@@ -1,5 +1,6 @@
 declare module "@grucloud/bau-ui/treeView" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
+  type ComponentOption = import("../bau-ui").ComponentOption;
 
   type Tree = {
     data?: object;
@@ -17,6 +18,7 @@ declare module "@grucloud/bau-ui/treeView" {
 
   type Option = {
     renderMenuItem: ComponentGeneric;
-  };
+  } & ComponentOption;
+
   export default function (context: Object, option: Option): Component;
 }
