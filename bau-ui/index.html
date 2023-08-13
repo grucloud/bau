@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BauUI: a component library built with Bau</title>
+    <title>Bau UI: a component library built with Bau</title>
     <meta
       name="description"
       content="BauUI: a component library built with Bau, an alternative to React, Vue, Angular, Svelte."
@@ -12,6 +12,15 @@
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      (() => {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
     
   </body>
 </html>
