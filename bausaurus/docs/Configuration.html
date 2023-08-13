@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="Bausaurus">
+    <title>Configuration | Bausarus</title>
+    <meta name="og:title" content="Configuration | Bausarus" />
+    <meta name="description" content="SSG built with Bau">
+    <meta name="og:description" content="SSG built with Bau">
+    <meta name="keywords" content="SSG,Static Site Generation" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/grucloud.svg">
+    
+    <link rel="stylesheet" href="/bau/bausaurus/docs/bau-css.c82b44b649.css">
+    <script type="module" src="/bau/bausaurus/assets/docAppEntry-8c32d134.js"></script>
+  </head>
+  <body>
+    <div id="app"><div class="bau2757872321"><header class="bau1327815804"><div class="bau1923883973"><img alt="GruCloud" src="/bau/bausaurus/grucloud.svg" width="30" height="30"><a class="title" href="/bau/bausaurus/">Bausaurus</a><a href="/bau/bausaurus/docs/">Docs</a></div><a target="_blank" href="https://github.com/grucloud/bau" title="GitHub"><img class="bau111154483" alt="GitHub" src="/bau/bausaurus//github.svg" width="30" height="30"></a></header><div class="bau3846627030"><nav class="bau3707945669"><div><div class="drillDownMenu plain neutral"><ul><li class=""><a href="/bau/bausaurus/docs/index">Introduction</a></li><li class=""><a href="/bau/bausaurus/docs/Installation">Installation</a></li><li class=""><a href="/bau/bausaurus/docs/Commands">Commands</a></li><li class=""><a href="/bau/bausaurus/docs/Configuration">Configuration</a></li><li class=""><a href="/bau/bausaurus/docs/Markdown">Markdown</a></li></ul></div></div></nav></div><ul data-breadcrumbs="[{&quot;name&quot;:&quot;Configuration&quot;,&quot;href&quot;:&quot;/bau/bausaurus/docs/Configuration&quot;}]" class="bau1710196878 bau1028851918"><li><a href="/" class="outline">⌂</a></li><li><a href="/bau/bausaurus/docs/Configuration" class="outline">Configuration</a></li></ul><main class="bau2819106337"><h1 id="configuration">Configuration</h1>
+<p>The configuration file is called <strong>bausaurus.config.js</strong>, its content allows to specify how the web site will be generated.</p>
+<pre><code class="language-js hljs" data-code="import { App } from &quot;./src/appDoc/App.js&quot;;
+
+export default ({ rootDir }) => {
+  return {
+    docApp: App,
+    viteConfig: {
+      base: &quot;/&quot;,
+      build: { outDir: &quot;dist/&quot; },
+    },
+    site: {
+      rootDir,
+      srcDir: &quot;docs&quot;,
+      title: &quot;My super duper website&quot;,
+      description: &quot;A description of your website&quot;,
+      keywords: [&quot;Some tags&quot;, &quot;My Other Tags&quot;],
+      lang: &quot;en&quot;,
+      favicon: &quot;/my-logo.svg&quot;,
+      base: &quot;/docs/&quot;,
+      outDir: &quot;dist/docs&quot;,
+    },
+  };
+};
+" style="position: relative;"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">App</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"./src/appDoc/App.js"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> ({ rootDir }) =&gt; {
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">docApp</span>: <span class="hljs-title class_">App</span>,
+    <span class="hljs-attr">viteConfig</span>: {
+      <span class="hljs-attr">base</span>: <span class="hljs-string">"/"</span>,
+      <span class="hljs-attr">build</span>: { <span class="hljs-attr">outDir</span>: <span class="hljs-string">"dist/"</span> },
+    },
+    <span class="hljs-attr">site</span>: {
+      rootDir,
+      <span class="hljs-attr">srcDir</span>: <span class="hljs-string">"docs"</span>,
+      <span class="hljs-attr">title</span>: <span class="hljs-string">"My super duper website"</span>,
+      <span class="hljs-attr">description</span>: <span class="hljs-string">"A description of your website"</span>,
+      <span class="hljs-attr">keywords</span>: [<span class="hljs-string">"Some tags"</span>, <span class="hljs-string">"My Other Tags"</span>],
+      <span class="hljs-attr">lang</span>: <span class="hljs-string">"en"</span>,
+      <span class="hljs-attr">favicon</span>: <span class="hljs-string">"/my-logo.svg"</span>,
+      <span class="hljs-attr">base</span>: <span class="hljs-string">"/docs/"</span>,
+      <span class="hljs-attr">outDir</span>: <span class="hljs-string">"dist/docs"</span>,
+    },
+  };
+};
+<button class="bau4051917858 outline bau1072998647 bau2255147888" type="button">COPY</button></code></pre></main><nav data-toc="{&quot;children&quot;:[]}" class="bau1966338357"><ul></ul></nav><nav data-paginationnav="{&quot;previous&quot;:{&quot;name&quot;:&quot;Commands&quot;,&quot;href&quot;:&quot;/bau/bausaurus/docs/Commands&quot;},&quot;next&quot;:{&quot;name&quot;:&quot;Markdown&quot;,&quot;href&quot;:&quot;/bau/bausaurus/docs/Markdown&quot;}}" aria-label="pages navigation" class="bau2188252740"><a href="/bau/bausaurus/docs/Commands"><span class="sublabel">Previous</span><div class="label Previous">Commands</div></a><a href="/bau/bausaurus/docs/Markdown"><span class="sublabel">Next</span><div class="label Next">Markdown</div></a></nav><footer class="bau3448418036"><span>Released under the MIT License.</span><span>Copyright © 2023</span></footer></div></div>
+    <script>__BAUSAURUS_SITE_DATA__ = {prod:true}</script>
+  </body>
+</html>
