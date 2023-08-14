@@ -62,34 +62,34 @@ export default function (context) {
             font-size: x-large;
           `,
         },
-        b(tr("Bau Story Book"))
-      ),
-      ul(
-        [
-          { label: "Components", href: `${config.base}/components` },
-          { label: "Pages", href: `${config.base}/pages` },
-        ].map(({ href, label }) =>
-          li(
-            {
-              class: css`
-                display: inline;
-                list-style: none;
-                text-decoration: none;
-                padding: 0.5rem;
-              `,
-            },
-            a(
-              {
-                href,
-                class: css`
-                  text-decoration: none;
-                `,
-              },
-              label
-            )
-          )
-        )
+        b(tr("Bau UI Components"))
       )
+      // ul(
+      //   [
+      //     { label: "Components", href: `${config.base}/components` },
+      //     { label: "Pages", href: `${config.base}/pages` },
+      //   ].map(({ href, label }) =>
+      //     li(
+      //       {
+      //         class: css`
+      //           display: inline;
+      //           list-style: none;
+      //           text-decoration: none;
+      //           padding: 0.5rem;
+      //         `,
+      //       },
+      //       a(
+      //         {
+      //           href,
+      //           class: css`
+      //             text-decoration: none;
+      //           `,
+      //         },
+      //         label
+      //       )
+      //     )
+      //   )
+      // )
     );
 
   const NavBarRight = () =>

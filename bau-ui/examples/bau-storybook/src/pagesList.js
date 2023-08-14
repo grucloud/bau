@@ -1,4 +1,3 @@
-import navBarMenu from "./navBarMenu";
 import { pagesList } from "./pagesListData";
 
 import loginExamples from "./pages/login.examples";
@@ -6,7 +5,6 @@ import loginExamples from "./pages/login.examples";
 export default function (context) {
   const { tr, bau, css } = context;
   const { div, article, h1 } = bau.tags;
-  const NavBarMenu = navBarMenu(context);
 
   return function PagesList() {
     return div(
@@ -16,7 +14,6 @@ export default function (context) {
           display: flex;
         `,
       },
-      NavBarMenu({ componentList: pagesList(), name: "Pages" }),
       article(
         {
           class: css`

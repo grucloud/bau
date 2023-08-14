@@ -1,4 +1,4 @@
-import classNames from "@grucloud/bau-css/classNames";
+import classNames from "@grucloud/bau-css/classNames.js";
 
 const sizeToPixel = {
   sm: 16,

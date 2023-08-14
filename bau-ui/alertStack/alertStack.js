@@ -1,5 +1,5 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames";
+import classNames from "@grucloud/bau-css/classNames.js";
 
 export default (context, options = {}) => {
   const { bau, css, keyframes } = context;

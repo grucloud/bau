@@ -1,4 +1,4 @@
-import classNames from "@grucloud/bau-css/classNames";
+import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import button from "../button/button.js";
 import spinner from "../spinner/spinner.js";

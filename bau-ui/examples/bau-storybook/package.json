@@ -19,7 +19,7 @@
     "bundle-visualizer": "vite-bundle-visualizer",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d ../../../dist"
   },
   "dependencies": {
     "@grucloud/bau": "^0.40.0",

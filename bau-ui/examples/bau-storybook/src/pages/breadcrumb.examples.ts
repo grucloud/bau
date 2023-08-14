@@ -28,7 +28,6 @@ export default (context: Context) => {
       { id: "breadcrumbs" },
       h2(tr("Breadcrumbs")),
       h3("Bacis Breadcrumb"),
-
       Breadcrumbs(breadcrumbs1),
       h3("Breadcrumbs Table"),
       ComponentGrid({

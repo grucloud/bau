@@ -3,9 +3,9 @@ import { componentList } from "./componentListData";
 
 import accordionExamples from "./pages/accordion.examples";
 import alertExamples from "./pages/alert.examples";
+import alertStackExamples from "./pages/alertStack.examples";
 import animateExamples from "./pages/animate.examples";
 import avatarExamples from "./pages/avatar.examples";
-import alertStackExamples from "./pages/alertStack.examples";
 import autocompleteExamples from "./pages/autocomplete.examples";
 import badgeExamples from "./pages/badge.examples";
 import breadcrumbExamples from "./pages/breadcrumb.examples";
@@ -35,8 +35,6 @@ export default function (context) {
   const { tr, bau, css } = context;
   const { div, main, h1, article } = bau.tags;
 
-  const NavBarMenu = navBarMenu(context);
-
   return function ComponentList() {
     return div(
       {
@@ -45,7 +43,6 @@ export default function (context) {
           display: flex;
         `,
       },
-      NavBarMenu({ componentList: componentList(), name: "Components" }),
       article(
         {
           class: css`

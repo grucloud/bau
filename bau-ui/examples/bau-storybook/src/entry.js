@@ -21,6 +21,7 @@ createStylesDark(context);
 BauRouter({
   routes: createRoutes({ context }),
   onLocationChange: onLocationChange({
+    context,
     LayoutDefault: layoutDefault(context),
     config,
   }),

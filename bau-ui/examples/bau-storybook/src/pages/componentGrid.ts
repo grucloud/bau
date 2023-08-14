@@ -5,7 +5,7 @@ export default (context: Context) => {
   const { bau, css } = context;
   const { div, table, tbody, tr, td, thead, th } = bau.tags;
 
-  return function ComponentGrid({ Item }: any) {
+  return function ComponentGrid({ Item, name }: any) {
     return div(
       {
         class: css`
@@ -22,7 +22,7 @@ export default (context: Context) => {
       table(
         thead(
           tr(
-            th("Variant/Color"),
+            th(name ?? "Variant/Color"),
             Colors.map((variant) => th(variant))
           )
         ),

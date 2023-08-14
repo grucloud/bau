@@ -33,10 +33,6 @@ export default (context: Context) => {
     section(
       { id: "chip" },
       h2(tr("Chip")),
-      h3("Chip Table"),
-      ComponentGrid({
-        Item: (props: any) => Chip({ ...props }, `${props.color}`),
-      }),
       h3("Chip Default"),
       Container(Chip("My Chip")),
       h3("Chip Clickable"),
@@ -58,7 +54,7 @@ export default (context: Context) => {
             {
               ...props,
             },
-            "Chip"
+            `Chip ${props.color}`
           ),
       })
     );

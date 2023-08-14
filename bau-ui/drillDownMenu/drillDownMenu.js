@@ -1,7 +1,7 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import cn from "@grucloud/bau-css/classNames.js";
 import animate from "../animate/animate.js";
-import classNames from "@grucloud/bau-css/classNames";
+import button from "../button/button.js";
 
 const animationDuration = "0.3s";
 
@@ -38,16 +38,13 @@ const findSubTree = (initialPathname) => (tree) => {
   }
 };
 
-const isActive = ({ window, subTree }) =>
-  window.location.pathname === subTree?.data?.href;
-
 const createStyles = ({ createGlobalStyles, keyframes }) => {
   createGlobalStyles`
 :root {
   --drill-down-menu-color: var(--font-color-base);
   --drill-down-menu-padding: 0.4rem;
-  --drill-down-menu-bg-active: var(--color-emphasis-200);
-  --drill-down-menu-bg-hover: var(--color-emphasis-200);
+  --drill-down-menu-bg-active: var(--color-emphasis-100);
+  --drill-down-menu-bg-hover: var(--color-emphasis-50);
 }
 `;
   return {
@@ -85,7 +82,6 @@ const createStyles = ({ createGlobalStyles, keyframes }) => {
   from {
     transform: translateX(100%);
     opacity: 0;
-
   }
   to {
     transform: translateX(0%);
@@ -97,10 +93,51 @@ const createStyles = ({ createGlobalStyles, keyframes }) => {
 
 export default function (context, options) {
   const { bau, css, window } = context;
-  const { renderMenuItem } = options;
+  const { base = "" } = options;
+  const renderHeaderDefault = ({ currentTree, data, onclickBack }) =>
+    header(
+      Button(
+        {
+          href: `${base}${currentTree.parentTree.children[0].data.href}`,
+          onclick: onclickBack({ currentTree }),
+          class: css`
+            min-width: 3rem;
+          `,
+        },
+        "\u2190"
+      ),
+      Button(
+        {
+          href: `${base}${data.href}`,
+          class: css`
+            flex-grow: 1;
+            justify-content: flex-start;
+          `,
+        },
+        data.name
+      )
+    );
+
+  const renderMenuItemDefault = ({ name, href }) =>
+    a(
+      {
+        href: `${base}${href}`,
+      },
+      name
+    );
+
+  const isActiveDefault = ({ subTree }) =>
+    window.location.pathname.replace(base, "") === subTree?.data?.href;
+
+  const {
+    renderHeader = renderHeaderDefault,
+    renderMenuItem = renderMenuItemDefault,
+    isActive = isActiveDefault,
+  } = options;
+
   const { ul, li, nav, div, header, a } = bau.tags;
   const Animate = animate(context);
-
+  const Button = button(context);
   const { hideToLeft, hideToRight, showFromRight, showFromLeft } =
     createStyles(context);
 
@@ -110,25 +147,22 @@ export default function (context, options) {
     position: relative;
     & a,
     span {
-      flex-grow: 1;
       text-decoration: none;
-      //color: var(--drill-down-menu-color);
       color: inherit;
     }
     & header {
       display: flex;
       align-items: center;
-      cursor: pointer;
       font-weight: var(--font-weight-bold);
       border-bottom: 1px solid var(--color-emphasis-100);
-      padding: var(--drill-down-menu-padding);
       transition: background-color var(--transition-slow) ease-in-out;
+
+      & a {
+        padding: 0.5rem;
+        border-radius: 0;
+      }
       &:hover {
         background: var(--drill-down-menu-bg-hover);
-      }
-      &::before {
-        content: "\u2190";
-        margin-right: 0.5rem;
       }
     }
     & ul {
@@ -169,26 +203,24 @@ export default function (context, options) {
     onclickItem,
     onclickBack,
     currentTree,
+    pathnameState,
   }) => {
     const { children, parentTree, data } = currentTree;
+    console.log("Menu", currentTree, pathnameState.val);
     return div(
-      { class: classNames("drillDownMenu", variant, color, size) },
-      parentTree &&
-        header(
-          {
-            onclick: onclickBack({ currentTree }),
-          },
-          a({ href: currentTree.parentTree.children[0].data.href }, data.name)
-        ),
+      { class: cn("drillDownMenu", variant, color, size) },
+      parentTree && renderHeader({ data, currentTree, onclickBack }),
       children &&
         ul(
           children.map((subTree) =>
             li(
               {
-                class: cn(
-                  subTree.children && "has-children",
-                  isActive({ window, subTree }) && "is-active"
-                ),
+                class: () =>
+                  cn(
+                    subTree.children && "has-children",
+                    isActive({ pathname: pathnameState.val, subTree }) &&
+                      "is-active"
+                  ),
                 onclick:
                   subTree.children && onclickItem({ currentTree: subTree }),
               },
@@ -199,15 +231,27 @@ export default function (context, options) {
     );
   };
 
+  const findInitialTree = ({ tree, pathnameStateInitial }) => {
+    let currentTree = treeAddParent({})(tree);
+    let subTree = findSubTree(pathnameStateInitial)(currentTree);
+    if (!subTree) {
+      // console.log("drilldown no sub tree", pathnameState.val);
+      subTree = currentTree;
+    }
+    return subTree;
+  };
+
   return function DrillDownMenu(props) {
     const {
-      variant = "outline",
+      variant = "plain",
       color = "neutral",
       size,
       tree,
       pathnameState = bau.state(window.location.pathname),
       ...otherProps
     } = props;
+
+    const pathnameStateInitial = pathnameState.val;
 
     const onclickItem =
       ({ currentTree }) =>
@@ -239,6 +283,7 @@ export default function (context, options) {
             currentTree,
             onclickItem,
             onclickBack,
+            pathnameState,
           })
         )
       );
@@ -248,23 +293,17 @@ export default function (context, options) {
       {
         class: cn(className, options?.class, otherProps.class),
       },
-      () => {
-        let currentTree = treeAddParent({})(tree);
-        let subTree = findSubTree(pathnameState.val)(currentTree);
-        if (!subTree) {
-          subTree = currentTree;
-        }
-        return div(
-          Menu({
-            variant,
-            color,
-            size,
-            currentTree: subTree,
-            onclickItem,
-            onclickBack,
-          })
-        );
-      }
+      div(
+        Menu({
+          variant,
+          color,
+          size,
+          currentTree: findInitialTree({ tree, pathnameStateInitial }),
+          onclickItem,
+          onclickBack,
+          pathnameState,
+        })
+      )
     );
 
     return navEl;

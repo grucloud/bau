@@ -5,14 +5,20 @@ export type Context = {
   bau: ReturnType<typeof Bau>;
   tr: (text: string) => string;
   window: Window;
+  config?: any;
+  states?: any;
 } & ReturnType<typeof BauCss>;
 
-export function createContext(extra = {}): Context {
+export function createContext({ config }: any): Context {
+  const bau = Bau();
   return {
-    bau: Bau(),
+    bau,
     ...BauCss(),
     tr: (text: string) => text,
     window,
-    ...extra,
+    states: {
+      pathname: bau.state(window.location.pathname.replace(config.base, "")),
+    },
+    config,
   };
 }

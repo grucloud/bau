@@ -22,7 +22,6 @@ export default function (context, options) {
       font-weight: var(--font-weight-semibold);
       text-align: center;
       text-decoration: none;
-      text-transform: uppercase;
       overflow: hidden;
       box-sizing: border-box;
       user-select: none;

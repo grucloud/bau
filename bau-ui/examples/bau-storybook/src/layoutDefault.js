@@ -8,18 +8,19 @@ export const layoutDefault = (context) => {
 
   const Header = header(context);
   const NavBarMenu = navBarMenu(context);
-
   const Footer = footer(context);
-  return function LayoutDefault({ component }) {
+
+  return function LayoutDefault({ componentState }) {
     return div(
       {
         class: css`
           display: grid;
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr auto;
+          grid-template-columns: minmax(15%, 200px) minmax(50%, 85%);
           grid-template-areas:
-            "header"
-            "main"
-            "footer";
+            "header header"
+            "sidebar main"
+            "footer footer";
           min-height: 100vh;
           min-width: 100vw;
           @media (max-width: 640px) {
@@ -30,7 +31,10 @@ export const layoutDefault = (context) => {
         `,
       },
       Header(),
-      component(),
+      NavBarMenu(),
+      () => {
+        return componentState.val && componentState.val({});
+      },
       Footer()
     );
   };
