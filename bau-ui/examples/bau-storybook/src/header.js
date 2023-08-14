@@ -103,7 +103,7 @@ export default function (context) {
       },
       img({
         alt: "GitHub",
-        src: "./github-mark-white.svg",
+        src: `${config.base}/github-mark-white.svg`,
         width: 30,
         height: 30,
       })
