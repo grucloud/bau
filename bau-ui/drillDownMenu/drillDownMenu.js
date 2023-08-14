@@ -145,18 +145,12 @@ export default function (context, options) {
     font-weight: var(--font-weight-semibold);
     overflow: hidden;
     position: relative;
-    & a,
-    span {
-      text-decoration: none;
-      color: inherit;
-    }
     & header {
       display: flex;
       align-items: center;
       font-weight: var(--font-weight-bold);
       border-bottom: 1px solid var(--color-emphasis-100);
       transition: background-color var(--transition-slow) ease-in-out;
-
       & a {
         padding: 0.5rem;
         border-radius: 0;
@@ -191,6 +185,12 @@ export default function (context, options) {
         &:hover {
           background-color: var(--drill-down-menu-bg-hover);
           cursor: pointer;
+        }
+        & a,
+        span {
+          text-decoration: none;
+          width: 100%;
+          color: inherit;
         }
       }
     }

@@ -27,7 +27,6 @@ const variantToCss = () =>
     ([color]) =>
       `
 .plain.${color} {
-  border: 1px solid transparent;
   color: ${darkVar(color)};
   background-color: var(--background-color);
 }
@@ -37,12 +36,10 @@ const variantToCss = () =>
   background-color: var(--background-color);
 }
 .soft.${color} {
-  border: 1px solid transparent;
   color: ${darkVar(color)};
   background-color: ${lightestVar(color)};
 }
 .solid.${color} {
-  border: 1px solid transparent;
   color: var(--font-color-inverse);
   background-color: ${darkVar(color)};
 }

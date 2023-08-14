@@ -19,6 +19,7 @@ export default function (context, options) {
   const className = css`
     padding: 0.3rem;
     border-radius: var(--global-radius);
+    border: none;
     ${colorsToCss()}
   `;
 
