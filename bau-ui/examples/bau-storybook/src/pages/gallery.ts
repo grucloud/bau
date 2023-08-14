@@ -28,7 +28,7 @@ import treeView, { type Tree } from "@grucloud/bau-ui/treeView";
 
 import classNames from "@grucloud/bau-css/classNames";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {

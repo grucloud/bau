@@ -1,5 +1,5 @@
 import { Colors, Variants } from "@grucloud/bau-ui/constants";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { bau, css } = context;

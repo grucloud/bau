@@ -1,6 +1,6 @@
 import modal from "@grucloud/bau-ui/modal";
 import button from "@grucloud/bau-ui/button";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {

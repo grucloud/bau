@@ -1,5 +1,5 @@
 import drawer from "@grucloud/bau-ui/drawer";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 import button from "@grucloud/bau-ui/button";
 import navBarMenu from "../navBarMenu";

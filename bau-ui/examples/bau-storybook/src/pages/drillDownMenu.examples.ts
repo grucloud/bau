@@ -1,7 +1,7 @@
 import drillDownMenu, { type Tree } from "@grucloud/bau-ui/drillDownMenu";
 import componentGrid from "./componentGrid";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { tr, bau, window, config } = context;

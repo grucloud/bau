@@ -32,9 +32,18 @@ export const layoutDefault = (context) => {
       },
       Header(),
       NavBarMenu(),
-      () => {
-        return componentState.val && componentState.val({});
-      },
+      div(
+        {
+          class: css`
+            grid-area: main;
+            display: flex;
+            margin: 0 1rem;
+          `,
+        },
+        () => {
+          return componentState.val && componentState.val({});
+        }
+      ),
       Footer()
     );
   };

@@ -2,7 +2,7 @@ import fileInput from "@grucloud/bau-ui/fileInput";
 import classNames from "@grucloud/bau-css/classNames";
 import componentGrid from "./componentGrid";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;

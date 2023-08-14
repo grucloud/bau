@@ -1,6 +1,6 @@
 import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
 import button from "@grucloud/bau-ui/button";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 import componentGrid from "./componentGrid";
 

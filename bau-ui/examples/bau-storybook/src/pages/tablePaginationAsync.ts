@@ -3,7 +3,7 @@ import tablePagination, {
   type onPageChange,
 } from "@grucloud/bau-ui/tablePagination";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { bau, css } = context;

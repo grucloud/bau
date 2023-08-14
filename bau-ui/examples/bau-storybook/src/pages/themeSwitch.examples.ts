@@ -1,7 +1,7 @@
 import createThemeSwitch from "@grucloud/bau-ui/themeSwitch";
 import componentGrid from "./componentGrid";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;

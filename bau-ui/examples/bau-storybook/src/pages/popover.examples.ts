@@ -1,7 +1,7 @@
 import popover from "@grucloud/bau-ui/popover";
 import button from "@grucloud/bau-ui/button";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;

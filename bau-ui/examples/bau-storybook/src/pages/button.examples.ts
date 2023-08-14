@@ -1,7 +1,7 @@
 import button from "@grucloud/bau-ui/button";
 import componentGrid from "./componentGrid";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { bau, css } = context;

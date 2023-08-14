@@ -3,7 +3,7 @@ import alert from "@grucloud/bau-ui/alert";
 import alertStack from "@grucloud/bau-ui/alertStack";
 //import componentGrid from "./componentGrid";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { tr, bau } = context;

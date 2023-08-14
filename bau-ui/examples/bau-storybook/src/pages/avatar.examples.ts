@@ -1,5 +1,5 @@
 import avatar from "@grucloud/bau-ui/avatar";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {

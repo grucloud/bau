@@ -1,5 +1,5 @@
 import input from "@grucloud/bau-ui/input";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {

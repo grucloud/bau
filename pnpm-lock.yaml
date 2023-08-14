@@ -31,7 +31,7 @@ importers:
         version: 9.20.3
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
       vite-bundle-visualizer:
         specifier: 0.8.0
         version: 0.8.0(rollup@2.79.1)
@@ -77,7 +77,7 @@ importers:
         version: 9.20.3
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
       vite-bundle-visualizer:
         specifier: 0.7.0
         version: 0.7.0
@@ -102,7 +102,7 @@ importers:
         version: 9.20.3
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
       vite-bundle-visualizer:
         specifier: 0.7.0
         version: 0.7.0
@@ -145,7 +145,7 @@ importers:
         version: 0.3.4(eslint@8.38.0)
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   bau-css/examples/vanillajs-bau-css:
     dependencies:
@@ -155,7 +155,7 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   bau-router:
     dependencies:
@@ -171,7 +171,7 @@ importers:
         version: 9.20.3
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
       vite-bundle-visualizer:
         specifier: 0.7.0
         version: 0.7.0
@@ -202,6 +202,9 @@ importers:
       '@grucloud/bau-ui':
         specifier: ^0.40.0
         version: link:../..
+      '@ngneat/falso':
+        specifier: 7.0.1
+        version: 7.0.1
     devDependencies:
       '@vitest/coverage-c8':
         specifier: 0.32.0
@@ -217,7 +220,7 @@ importers:
         version: 5.0.2
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
       vite-bundle-visualizer:
         specifier: 0.7.0
         version: 0.7.0
@@ -228,6 +231,29 @@ importers:
         specifier: 0.31.4
         version: 0.31.4(happy-dom@9.20.3)
 
+  bau-ui/examples/bau-ui-template-js:
+    dependencies:
+      '@grucloud/bau-ui':
+        specifier: ^0.40.0
+        version: link:../..
+    devDependencies:
+      vite:
+        specifier: ^4.4.5
+        version: 4.4.7(@types/node@20.2.5)
+
+  bau-ui/examples/bau-ui-template-ts:
+    dependencies:
+      '@grucloud/bau-ui':
+        specifier: ^0.40.0
+        version: link:../..
+    devDependencies:
+      typescript:
+        specifier: ^5.0.2
+        version: 5.0.2
+      vite:
+        specifier: ^4.4.5
+        version: 4.4.7(@types/node@20.2.5)
+
   bau/examples/bau-ts-test:
     devDependencies:
       typescript:
@@ -235,7 +261,7 @@ importers:
         version: 5.0.2
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   bausaurus:
     dependencies:
@@ -298,7 +324,7 @@ importers:
         version: 4.1.2
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   bausaurus/bausaurus-core:
     dependencies:
@@ -394,7 +420,7 @@ importers:
         version: 5.0.2
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/bau-d3:
     dependencies:
@@ -416,7 +442,7 @@ importers:
         version: 5.0.2
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/bau-kit:
     dependencies:
@@ -438,7 +464,7 @@ importers:
     devDependencies:
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
       vite-bundle-visualizer:
         specifier: 0.7.0
         version: 0.7.0
@@ -466,7 +492,7 @@ importers:
         version: 5.0.2
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/benchmark:
     dependencies:
@@ -479,7 +505,7 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/button:
     dependencies:
@@ -489,7 +515,7 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/counter:
     dependencies:
@@ -499,7 +525,7 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/fetch-data:
     dependencies:
@@ -509,7 +535,7 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/form-login:
     dependencies:
@@ -519,7 +545,7 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/form-stateless-login:
     dependencies:
@@ -529,7 +555,20 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
+
+  examples/grid-layout:
+    dependencies:
+      '@grucloud/bau':
+        specifier: ^0.40.0
+        version: link:../../bau
+      '@grucloud/bau-css':
+        specifier: ^0.40.0
+        version: link:../../bau-css
+    devDependencies:
+      vite:
+        specifier: 4.3.9
+        version: 4.3.9
 
   examples/highlight:
     dependencies:
@@ -545,20 +584,7 @@ importers:
         version: 5.0.2
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
-
-  examples/layout:
-    dependencies:
-      '@grucloud/bau':
-        specifier: ^0.40.0
-        version: link:../../bau
-      '@grucloud/bau-css':
-        specifier: ^0.40.0
-        version: link:../../bau-css
-    devDependencies:
-      vite:
-        specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/lifecycle:
     dependencies:
@@ -574,7 +600,7 @@ importers:
         version: 5.0.2
       vite:
         specifier: 4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/mathml:
     dependencies:
@@ -584,7 +610,7 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/playground:
     dependencies:
@@ -594,7 +620,7 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/todo-minimal:
     dependencies:
@@ -604,7 +630,7 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/todoapp:
     dependencies:
@@ -620,7 +646,7 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
   examples/tree-view:
     dependencies:
@@ -630,7 +656,7 @@ importers:
     devDependencies:
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.2.5)
+        version: 4.3.9
 
 packages:
 
@@ -1558,6 +1584,13 @@ packages:
       - nx
       - supports-color
     dev: true
+
+  /@ngneat/falso@7.0.1:
+    resolution: {integrity: sha512-ngiUBnDQfohetsGz7fkgokQJKdbJBezi6fWMiBMyB7AUEgKGo4TfPzn1EGswyVtMW69NNMuxKdEXbLbF8af3oA==}
+    dependencies:
+      seedrandom: 3.0.5
+      uuid: 8.3.2
+    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2571,7 +2604,7 @@ packages:
       '@babel/plugin-transform-react-jsx-self': 7.22.5(@babel/core@7.22.5)
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.5)
       react-refresh: 0.14.0
-      vite: 4.3.9(@types/node@20.2.5)
+      vite: 4.3.9
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3171,7 +3204,7 @@ packages:
       typescript: 5.0.2
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.4.7
+      vite: 4.4.7(@types/node@20.2.5)
       vitefu: 0.2.4(vite@4.4.7)
       which-pm: 2.0.0
       yargs-parser: 21.1.1
@@ -10207,6 +10240,10 @@ packages:
       extend-shallow: 2.0.1
       kind-of: 6.0.3
 
+  /seedrandom@3.0.5:
+    resolution: {integrity: sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==}
+    dev: false
+
   /semver@5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
     hasBin: true
@@ -11390,7 +11427,6 @@ packages:
   /uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
-    dev: true
 
   /uuid@9.0.0:
     resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
@@ -11497,10 +11533,11 @@ packages:
       mlly: 1.3.0
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.3.9(@types/node@20.2.5)
+      vite: 4.4.7(@types/node@20.2.5)
     transitivePeerDependencies:
       - '@types/node'
       - less
+      - lightningcss
       - sass
       - stylus
       - sugarss
@@ -11518,10 +11555,11 @@ packages:
       mlly: 1.3.0
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.3.9(@types/node@20.2.5)
+      vite: 4.4.7(@types/node@20.2.5)
     transitivePeerDependencies:
       - '@types/node'
       - less
+      - lightningcss
       - sass
       - stylus
       - sugarss
@@ -11537,7 +11575,7 @@ packages:
       micromatch: 4.0.5
       svg-baker: 1.7.0
       svgo: 2.8.0
-      vite: 4.3.9(@types/node@20.2.5)
+      vite: 4.3.9
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -11553,10 +11591,10 @@ packages:
       ejs: 3.1.9
       html-minifier-terser: 7.2.0
       picocolors: 1.0.0
-      vite: 4.3.9(@types/node@20.2.5)
+      vite: 4.3.9
     dev: true
 
-  /vite@4.3.9(@types/node@20.2.5):
+  /vite@4.3.9:
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -11581,14 +11619,13 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.2.5
       esbuild: 0.17.19
       postcss: 8.4.27
       rollup: 3.27.0
     optionalDependencies:
       fsevents: 2.3.2
 
-  /vite@4.4.7:
+  /vite@4.4.7(@types/node@20.2.5):
     resolution: {integrity: sha512-6pYf9QJ1mHylfVh39HpuSfMPojPSKVxZvnclX1K1FyZ1PXDOcLBibdq5t1qxJSnL63ca8Wf4zts6mD8u8oc9Fw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -11616,6 +11653,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 20.2.5
       esbuild: 0.18.17
       postcss: 8.4.27
       rollup: 3.27.0
@@ -11630,7 +11668,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.4.7
+      vite: 4.4.7(@types/node@20.2.5)
 
   /vitest@0.31.4(happy-dom@9.20.3):
     resolution: {integrity: sha512-GoV0VQPmWrUFOZSg3RpQAPN+LPmHg2/gxlMNJlyxJihkz6qReHDV6b0pPDcqFLNEPya4tWJ1pgwUNP9MLmUfvQ==}
@@ -11686,11 +11724,12 @@ packages:
       strip-literal: 1.0.1
       tinybench: 2.5.0
       tinypool: 0.5.0
-      vite: 4.3.9(@types/node@20.2.5)
+      vite: 4.4.7(@types/node@20.2.5)
       vite-node: 0.31.4(@types/node@20.2.5)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
+      - lightningcss
       - sass
       - stylus
       - sugarss
@@ -11753,12 +11792,13 @@ packages:
       strip-literal: 1.0.1
       tinybench: 2.5.0
       tinypool: 0.5.0
-      vite: 4.3.9(@types/node@20.2.5)
+      vite: 4.4.7(@types/node@20.2.5)
       vite-node: 0.32.2(@types/node@20.2.5)
       webdriverio: 8.11.2
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
+      - lightningcss
       - sass
       - stylus
       - sugarss

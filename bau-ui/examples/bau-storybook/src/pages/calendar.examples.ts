@@ -1,5 +1,5 @@
 import calendar from "@grucloud/bau-ui/calendar";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {

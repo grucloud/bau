@@ -2,7 +2,7 @@ import breadcrumbs, {
   type BreadcrumbsProps,
 } from "@grucloud/bau-ui/breadcrumbs";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {

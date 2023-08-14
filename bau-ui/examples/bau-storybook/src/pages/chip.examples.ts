@@ -1,5 +1,5 @@
 import chip from "@grucloud/bau-ui/chip";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {

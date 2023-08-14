@@ -1,10 +1,10 @@
 import accordion, { Accordion } from "@grucloud/bau-ui/accordion";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;
-  const { section, div, h3, h2, p } = bau.tags;
+  const { article, div, h3, h2, h1, p } = bau.tags;
 
   const ComponentGrid = componentGrid(context);
 
@@ -40,15 +40,18 @@ export default (context: Context) => {
   const Accordion = accordion(context, { accordionDefs });
 
   return () =>
-    section(
+    article(
       { id: "accordion" },
-      h2(tr("Accordion")),
-      h3("Basic Accordion"),
-      AccordionContainer(Accordion({})),
-      h3("Accordion Table"),
+      h1(tr("Accordion")),
+
+      // pre(`import accordion from "@grucloud/bau-ui/accordion"`),
+      h2("Accordion Table"),
       ComponentGrid({
         Item: (props: any) => Accordion({ ...props }),
       }),
+      h2("Customization"),
+      h3("Default Accordion"),
+      AccordionContainer(Accordion({})),
       h3("Accordion width: fit-content"),
       AccordionContainer(
         Accordion({
@@ -73,12 +76,12 @@ export default (context: Context) => {
             &.accordion {
               & ul {
                 & li {
-                  & header {
+                  & h3 {
                     &::after {
                       content: "\u002B";
                     }
                   }
-                  & header.active {
+                  & h3.active {
                     &::after {
                       transform: rotate(45deg);
                     }
