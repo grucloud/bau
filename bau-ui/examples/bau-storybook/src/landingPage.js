@@ -43,7 +43,7 @@ export default function (context) {
       Content: () => [
         p(
           "Built with ",
-          a({ href: "" }, "Bau"),
+          a({ href: "https://github.com/grucloud/bau" }, "Bau"),
           ", a 2kB alternative to React, Vue, Angular, and Svelte."
         ),
         p("Typescript support for a better developer experience."),
