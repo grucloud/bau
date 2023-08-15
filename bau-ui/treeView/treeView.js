@@ -17,6 +17,11 @@ const createStyles = ({ css, createGlobalStyles }) => {
     font-weight: var(--font-weight-semibold);
     overflow-x: hidden;
     display: inline-flex;
+
+    &.solid div:hover {
+      filter: brightness(var(--brightness));
+    }
+
     & ul {
       display: block;
       list-style: none;
@@ -26,10 +31,6 @@ const createStyles = ({ css, createGlobalStyles }) => {
       will-change: height;
       transition: height var(--transition-fast) ease-out;
       background: inherit;
-
-      & li.solid:hover div {
-        filter: brightness(var(--brightness-hover-reverse)) !important;
-      }
 
       & li {
         padding-left: var(--menu-link-padding-horizontal);
@@ -44,7 +45,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
           transition: background-color var(--transition-fast) ease-in-out;
           background: inherit;
           &:hover {
-            filter: brightness(var(--brightness-hover)) !important;
+            filter: brightness(var(--brightness-hover));
           }
           &::after {
             transition: transform var(--transition-fast) linear;
