@@ -135,10 +135,9 @@ export default function globalStyle(
       --line-height-base: 1.65;
       --link-color: var(--color-primary);
       --brightness: 150%;
-      --brightness-hover: 85%;
+      --brightness-hover: 80%;
       --brightness-hover-reverse: 140%;
-      --brightness-active: 75%;
-
+      --brightness-active: 90%;
     }
     :root {
       font-family: var(--font-family);

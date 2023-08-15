@@ -3,6 +3,8 @@ import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import popover from "../popover/popover.js";
 import button from "../button/button.js";
 import input from "../input/input.js";
+import list from "../list/list.js";
+
 import { Colors } from "../constants";
 
 const colorsToCss = () =>
@@ -15,21 +17,17 @@ const colorsToCss = () =>
 & button.outline.${color}::after {
   color: var(--color-${color});
 }
-& button.solid.${color} {
-  &:hover {
-    filter: brightness(var(--brightness));
-  }
-}
-`
+  `
   ).join("\n");
 
 export default function (context, componentOptions) {
   const { bau, css } = context;
-  const { div, ul, li } = bau.tags;
+  const { div, li, ul } = bau.tags;
 
   const Popover = popover(context);
   const Button = button(context);
   const Input = input(context);
+  const List = list(context);
 
   const className = css`
     & button {
@@ -43,25 +41,6 @@ export default function (context, componentOptions) {
       & input {
         padding: 0.8rem;
         margin: 0.3rem;
-      }
-      & ul {
-        &.solid {
-          & li:hover {
-            filter: brightness(var(--brightness));
-          }
-        }
-        list-style: none;
-        padding: 0;
-        margin: 0 0;
-        & li {
-          padding: 0.5rem;
-          cursor: pointer;
-          background-color: inherit;
-
-          &:hover {
-            filter: brightness(var(--brightness-hover));
-          }
-        }
       }
     }
     ${colorsToCss()}
@@ -128,21 +107,33 @@ export default function (context, componentOptions) {
       }
     };
 
-    const onclickItem = (option) => (event) => {
-      selectedState.val = getOptionLabel(option);
-      dialogClose();
-    };
+    const onclickItem =
+      ({ option, index }) =>
+      (event) => {
+        selectedState.val = getOptionLabel(option);
+        itemIndexActive.val = index;
+        dialogClose();
+      };
 
     const onkeydown = (event) => {
+      console.log("onkeydown", event.key, itemIndexActive.val);
       switch (event.key) {
         case "Escape":
           dialogClose();
           break;
         case "ArrowDown":
-          itemIndexActive.val++;
+          if (itemIndexActive.val < optionsFilteredState.val.length - 1) {
+            itemIndexActive.val++;
+          } else {
+            itemIndexActive.val = 0;
+          }
           break;
         case "ArrowUp":
-          itemIndexActive.val--;
+          if (itemIndexActive.val <= 0) {
+            itemIndexActive.val = optionsFilteredState.val.length - 1;
+          } else {
+            itemIndexActive.val--;
+          }
           break;
         case "Enter":
           selectedState.val = getOptionLabel(
@@ -187,14 +178,14 @@ export default function (context, componentOptions) {
 
     const Content = () =>
       div({ class: classNames(variant, color, size, "content") }, inputEl, () =>
-        ul(
+        List(
           { class: classNames(variant, color, size) },
           optionsFilteredState.val.map((option, index) =>
             li(
               {
                 class: () =>
                   classNames(itemIndexActive.val == index && "active"),
-                onclick: onclickItem(option),
+                onclick: onclickItem({ option, index }),
               },
               Option(option)
             )

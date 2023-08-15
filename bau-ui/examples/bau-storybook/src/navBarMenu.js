@@ -28,6 +28,7 @@ const tree = {
         },
         { data: { name: "File Input", href: "/components/fileInput" } },
         { data: { name: "Input", href: "/components/input" } },
+        { data: { name: "List", href: "/components/list" } },
         { data: { name: "Modal", href: "/components/modal" } },
         { data: { name: "Popover", href: "/components/popover" } },
         { data: { name: "Select", href: "/components/select" } },

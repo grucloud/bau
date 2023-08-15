@@ -1,5 +1,6 @@
 //import drawer from "../../components/drawer";
 import button from "@grucloud/bau-ui/button";
+import createThemeSwitch from "@grucloud/bau-ui/themeSwitch";
 
 export default function (context) {
   const { tr, bau, css, config } = context;
@@ -14,6 +15,8 @@ export default function (context) {
       background: transparent;
     `,
   });
+
+  const ThemeSwitch = createThemeSwitch(context);
 
   const BurgerIcon = () => {
     return i(
@@ -92,20 +95,30 @@ export default function (context) {
     );
 
   const NavBarRight = () =>
-    a(
+    div(
       {
         class: css`
+          display: flex;
           padding: 1rem;
+          align-items: center;
         `,
-        target: "_blank",
-        href: "https://github.com/grucloud/bau",
       },
-      img({
-        alt: "GitHub",
-        src: `${config.base}/github-mark-white.svg`,
-        width: 30,
-        height: 30,
-      })
+      ThemeSwitch(),
+      a(
+        {
+          class: css`
+            padding: 1rem;
+          `,
+          target: "_blank",
+          href: "https://github.com/grucloud/bau",
+        },
+        img({
+          alt: "GitHub",
+          src: `${config.base}/github-mark-white.svg`,
+          width: 30,
+          height: 30,
+        })
+      )
     );
 
   return function headerNav() {

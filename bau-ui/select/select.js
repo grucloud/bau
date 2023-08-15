@@ -2,6 +2,7 @@ import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import popover from "../popover/popover.js";
 import button from "../button/button.js";
+import list from "../list/list.js";
 
 import { Colors } from "../constants";
 
@@ -15,39 +16,21 @@ const colorsToCss = () =>
 & button.outline.${color}::after {
   color: var(--color-${color});
 }
-& button.solid.${color}:hover {
-  filter: brightness(var(--brightness));
-}
 `
   ).join("\n");
 
 export default function (context, componentOptions) {
   const { bau, css } = context;
-  const { div, ul, li } = bau.tags;
+  const { div, li } = bau.tags;
   const Button = button(context);
   const Popover = popover(context);
+  const List = list(context);
 
   const className = css`
     & button {
       &::after {
         content: "\u25BC";
         padding: 0.3rem;
-      }
-    }
-    & ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      & li {
-        padding: 0.5rem;
-        cursor: pointer;
-        background-color: inherit;
-        &:hover {
-          filter: brightness(var(--brightness-hover));
-        }
-      }
-      & li.active {
-        filter: brightness(var(--brightness-active));
       }
     }
     ${colorsToCss()}
@@ -95,10 +78,14 @@ export default function (context, componentOptions) {
       }
     };
 
-    const onclickItem = (option) => (event) => {
-      inputState.val = getOptionLabel(option);
-      dialogClose();
-    };
+    const onclickItem =
+      ({ option, index }) =>
+      (event) => {
+        inputState.val = getOptionLabel(option);
+        itemIndexActive.val = index;
+
+        dialogClose();
+      };
 
     const onkeydown = (event) => {
       event.preventDefault();
@@ -132,13 +119,13 @@ export default function (context, componentOptions) {
     };
 
     const Content = () =>
-      ul(
+      List(
         { class: classNames(color, variant) },
         options.map((option, index) =>
           li(
             {
               class: () => classNames(itemIndexActive.val == index && "active"),
-              onclick: onclickItem(option),
+              onclick: onclickItem({ option, index }),
             },
             Option(option)
           )

@@ -20,6 +20,7 @@ import drawerExamples from "./pages/drawer.examples";
 import drillDownMenuExamples from "./pages/drillDownMenu.examples";
 import fileInputExamples from "./pages/fileInput.examples";
 import inputExamples from "./pages/input.examples";
+import listExamples from "./pages/list.examples";
 import modalExamples from "./pages/modal.examples";
 import popoverExamples from "./pages/popover.examples";
 import selectExamples from "./pages/select.examples";
@@ -166,6 +167,13 @@ export const createRoutes = ({ context }) => [
         action: () => ({
           title: "Input",
           component: inputExamples(context),
+        }),
+      },
+      {
+        path: "list",
+        action: () => ({
+          title: "List",
+          component: listExamples(context),
         }),
       },
       {
