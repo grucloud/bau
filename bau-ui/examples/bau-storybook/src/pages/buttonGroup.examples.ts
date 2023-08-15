@@ -11,6 +11,8 @@ export default (context: Context) => {
   const Button = button(context);
   const ButtonGroup = buttonGroup(context);
 
+  const groups = ["ONE", "TWO", "THREE"];
+
   return () =>
     section(
       {
@@ -19,19 +21,17 @@ export default (context: Context) => {
       h2(tr("Button Group Examples")),
       h3("Outline"),
       ButtonGroup(
-        {},
-        Button({}, "ONE"),
-        Button({}, "TWO"),
-        Button({}, "THREE")
+        { color: "primary", variant: "solid" },
+        groups.map((group) =>
+          Button({ color: "primary", variant: "solid" }, group)
+        )
       ),
       h3("Button Group Table"),
       ComponentGrid({
         Item: (props: any) =>
           ButtonGroup(
             { ...props },
-            Button({}, "ONE"),
-            Button({}, "TWO"),
-            Button({}, "THREE")
+            groups.map((group) => Button(props, group))
           ),
       })
     );

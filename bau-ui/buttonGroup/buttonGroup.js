@@ -7,13 +7,21 @@ const colorsToCss = () =>
     (color) =>
       `
 &.button-group.${color} {
-  & button { 
-    border-right-color: var(--color-${color});
+  & button:not(:last-child) { 
+    border-right: 2px solid var(--color-${color}) !important;
+  }
+  & button:not(:first-child) { 
+    border-left: none !important;
   }
 }
+
+&.button-group.outline.${color} {
+  border: none;
+}
+
 &.button-group.solid.${color} {
-  & button { 
-    border-right-color: var(--color-emphasis-100);
+  & button:not(:last-child) { 
+    border-right: 2px solid var(--color-${color}-lightest) !important;
   }
 }
 `
@@ -26,14 +34,13 @@ export default function (context, options) {
   const className = css`
     display: inline-flex;
     border-radius: var(--global-radius);
-    & button {
-      border-radius: 0;
-      border-right: 1px solid var(--color-emphasis-400);
-      color: inherit;
-      font-size: inherit;
+    & button:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
-    & button:last-child {
-      border: none;
+    & button:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
     &.sm {
       & button {
@@ -61,10 +68,10 @@ export default function (context, options) {
         ...props,
         class: classNames(
           "button-group",
-          className,
           variant,
           color,
           size,
+          className,
           options?.class,
           props?.class
         ),

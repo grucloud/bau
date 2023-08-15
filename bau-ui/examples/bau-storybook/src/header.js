@@ -64,7 +64,7 @@ export default function (context) {
             font-size: x-large;
           `,
         },
-        b(tr("Bau UI Components"))
+        b(tr("Bau UI"))
       )
       // ul(
       //   [

@@ -1,9 +1,12 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
+import button from "../button/button.js";
 
 export default function (context, options) {
   const { bau, css } = context;
   const { ul, li, a, span } = bau.tags;
+
+  const Button = button(context);
 
   const className = css`
     list-style: none;
@@ -43,20 +46,19 @@ export default function (context, options) {
     return ul(
       {
         ...props,
-        class: classNames(
-          className,
-          // color,
-          // variant,
-          // size,
-          options?.class,
-          props?.class
-        ),
+        // color,
+        // variant,
+        // size,
+        class: classNames(className, options?.class, props?.class),
       },
       items.map(({ href, name }) =>
         li(
-          (href ? a : span)(
+          (href ? Button : span)(
             {
               href,
+              color,
+              variant,
+              size,
               class: classNames(color, variant, size),
             },
             name

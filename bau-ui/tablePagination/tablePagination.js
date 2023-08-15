@@ -1,12 +1,14 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import button from "../button/button.js";
+import buttonGroup from "../buttonGroup/buttonGroup.js";
+
 import spinner from "../spinner/spinner.js";
 
 export default function (context, options) {
   const { bau, css } = context;
   const { div } = bau.tags;
-
+  const ButtonGroup = buttonGroup(context);
   const Button = button(context);
   const Spinner = spinner(context);
 
@@ -75,6 +77,32 @@ export default function (context, options) {
     const onclickLast = onPageChange({
       page: maxPages,
     });
+    const actions = [
+      {
+        label: "First",
+        icon: "\u27EA",
+        onclick: onclickFirst,
+        disabled: disableFirst(),
+      },
+      {
+        label: "Previous",
+        icon: "\u27E8",
+        onclick: onclickPrevious,
+        disabled: disablePrevious(),
+      },
+      {
+        label: "Next",
+        icon: "\u27E9",
+        onclick: onclickNext,
+        disabled: disableNext(),
+      },
+      {
+        label: "Last",
+        icon: "\u27EB",
+        onclick: onclickLast,
+        disabled: disableLast(),
+      },
+    ];
 
     return div(
       {
@@ -92,31 +120,11 @@ export default function (context, options) {
         ? PagesNumbers({ count, totalCount, page, maxPages, rowsPerPage })
         : PagesNumbersNoTotal({ count, page, maxPages, rowsPerPage }),
 
-      div(
-        ActionButton({
-          label: "First",
-          icon: "\u27EA",
-          onclick: onclickFirst,
-          disabled: disableFirst(),
-        }),
-        ActionButton({
-          label: "Previous",
-          icon: "\u27E8",
-          onclick: onclickPrevious,
-          disabled: disablePrevious(),
-        }),
-        ActionButton({
-          label: "Next",
-          icon: "\u27E9",
-          onclick: onclickNext,
-          disabled: disableNext(),
-        }),
-        ActionButton({
-          label: "Last",
-          icon: "\u27EB",
-          onclick: onclickLast,
-          disabled: disableLast(),
-        })
+      ButtonGroup(
+        { variant: "outline", color: "neutral" },
+        actions.map((action) =>
+          ActionButton({ ...action, variant: "outline", color: "neutral" })
+        )
       )
     );
   };
