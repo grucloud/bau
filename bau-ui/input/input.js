@@ -29,7 +29,8 @@ const colorsToCss = () =>
     border-color: var(--color-${color});
   };
   &::placeholder {
-    color: var(--color-emphasis-200);
+    color: var(--font-color-inverse);
+    filter: brightness(var(--brightness-hover));
   }
   &:hover {
     background-color: var(--color-${color}-light);

@@ -26,10 +26,7 @@ export default function (context, options) {
   `;
 
   const ActionButton = ({ label, icon, ...props }) =>
-    Button(
-      { variant: "plain", "aria-label": label, title: label, ...props },
-      icon
-    );
+    Button({ "aria-label": label, title: label, ...props }, icon);
 
   const PagesNumbers = ({ count, totalCount, page, rowsPerPage }) =>
     div(

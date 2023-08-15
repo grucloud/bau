@@ -15,7 +15,6 @@ export const layoutDefault = (context) => {
       {
         class: css`
           display: grid;
-          grid-template-columns: 1fr auto;
           grid-template-columns: minmax(15%, 200px) minmax(50%, 85%);
           grid-template-areas:
             "header header"
@@ -24,6 +23,11 @@ export const layoutDefault = (context) => {
           min-height: 100vh;
           min-width: 100vw;
           @media (max-width: 640px) {
+            grid-template-columns: 1fr;
+            grid-template-areas:
+              "header"
+              "main"
+              "footer";
             & nav {
               display: none;
             }
@@ -36,8 +40,8 @@ export const layoutDefault = (context) => {
         {
           class: css`
             grid-area: main;
-            display: flex;
             margin: 0 1rem;
+            overflow-y: scroll;
           `,
         },
         () => {

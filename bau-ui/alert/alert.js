@@ -1,5 +1,6 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
+import { Colors } from "../constants";
 
 import button from "../button";
 
@@ -19,9 +20,21 @@ const createStyles = ({ css, createGlobalStyles }) => {
 `;
 };
 
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+&.alert.outline.${color} {
+  & .icon {
+    color: var(--color-${color})
+  }
+}
+`
+  ).join("\n");
+
 export default function (context, options) {
   const { bau, css, createGlobalStyles } = context;
-  const { div } = bau.tags;
+  const { div, i } = bau.tags;
 
   createStyles({ css, createGlobalStyles });
 
@@ -49,6 +62,7 @@ export default function (context, options) {
     & .button-close {
       margin: 1rem;
     }
+    ${colorsToCss()}
   `;
   const Button = button(context);
 
@@ -85,7 +99,7 @@ export default function (context, options) {
         ),
         role: "alert",
       },
-      div({ class: "icon" }, severityMap[color]),
+      i({ class: "icon" }, severityMap[color]),
       div({ class: "content" }, ...children),
       onRemove && CloseIcon({ onclick: onRemove })
     );

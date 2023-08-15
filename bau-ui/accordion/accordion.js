@@ -1,13 +1,28 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
+import { Colors } from "../constants";
+
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+& li.plain.${color} h3::after {
+  color: var(--color-${color});
+}
+& li.outline.${color} h3::after {
+  color: var(--color-${color});
+}
+& h3.solid.${color}:hover {
+  filter: brightness(var(--brightness));
+}
+`
+  ).join("\n");
 
 export default function (context, options) {
   const { bau, css } = context;
   const { accordionDefs } = options;
   const { div, ul, li, header, h3, button } = bau.tags;
   const itemNameState = bau.state("");
-
-  const itemByName = (name) => accordionDefs.find((item) => item.name == name);
 
   const onclick = (name) => (event) => {
     if (itemNameState.val == name) {
@@ -44,17 +59,21 @@ export default function (context, options) {
       justify-content: flex-start;
       padding: 0;
       list-style: none;
+
       & li {
         display: flex;
         flex-direction: column;
         padding: 0.5rem;
         margin: 0.2rem;
         overflow: hidden;
-        border: 1px solid var(--color-emphasis-200);
         border-radius: var(--global-radius);
         transition: all var(--transition-slow) ease-out;
+        background-color: inherit;
+        &:hover.solid {
+          filter: brightness(var(--brightness)) !important;
+        }
         &:hover {
-          border-color: var(--color-emphasis-500);
+          filter: brightness(var(--brightness-hover));
         }
         & h3 {
           display: flex;
@@ -69,7 +88,7 @@ export default function (context, options) {
           & button {
             width: 100%;
             border: none;
-            background-color: transparent;
+            background-color: inherit;
             text-align: left;
             font-size: large;
             cursor: pointer;
@@ -90,6 +109,7 @@ export default function (context, options) {
         }
       }
     }
+    ${colorsToCss()}
   `;
 
   return function Accordion(...args) {

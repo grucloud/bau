@@ -16,6 +16,7 @@ export default function (context, options = {}) {
     position: relative;
     &:hover {
       transform: scale(1.05);
+      filter: brightness(var(--brightness-hover));
     }
     &:disabled {
       border: 2px dashed var(--color-gray-500);

@@ -1,46 +1,34 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import popover from "../popover/popover.js";
+import button from "../button/button.js";
+
+import { Colors } from "../constants";
+
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+& button.plain.${color}::after {
+  color: var(--color-${color});
+}
+& button.outline.${color}::after {
+  color: var(--color-${color});
+}
+& button.solid.${color}:hover {
+  filter: brightness(var(--brightness));
+}
+`
+  ).join("\n");
 
 export default function (context, componentOptions) {
   const { bau, css } = context;
-  const { div, ul, li, button } = bau.tags;
-
+  const { div, ul, li } = bau.tags;
+  const Button = button(context);
   const Popover = popover(context);
 
   const className = css`
     & button {
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 0 0.5rem;
-      min-width: 2rem;
-      min-height: 2rem;
-      border: none;
-      border-radius: var(--global-radius);
-      background: transparent;
-      font-size: 1rem;
-      font-weight: var(--font-weight-semibold);
-      text-align: center;
-      text-decoration: none;
-      overflow: hidden;
-      box-sizing: border-box;
-      user-select: none;
-      color: inherit;
-      transition: background-color var(--transition-fast);
-      &:hover {
-        box-shadow: var(--shadow-s);
-        background: var(--color-emphasis-100);
-      }
-      &:focus {
-        box-shadow: var(--shadow-s);
-        background: var(--color-emphasis-50);
-      }
-      & label {
-        cursor: pointer;
-      }
       &::after {
         content: "\u25BC";
         padding: 0.3rem;
@@ -51,17 +39,18 @@ export default function (context, componentOptions) {
       padding: 0;
       margin: 0;
       & li {
-        border-radius: var(--global-radius);
         padding: 0.5rem;
         cursor: pointer;
+        background-color: inherit;
         &:hover {
-          background-color: var(--color-emphasis-50);
+          filter: brightness(var(--brightness-hover));
         }
       }
       & li.active {
-        background-color: var(--color-emphasis-50);
+        filter: brightness(var(--brightness-active));
       }
     }
+    ${colorsToCss()}
   `;
 
   const inputState = bau.state("");
@@ -144,6 +133,7 @@ export default function (context, componentOptions) {
 
     const Content = () =>
       ul(
+        { class: classNames(color, variant) },
         options.map((option, index) =>
           li(
             {
@@ -155,16 +145,17 @@ export default function (context, componentOptions) {
         )
       );
 
-    const buttonEl = button(
+    const buttonEl = Button(
       {
         type: "button",
         role: "combobox",
         "aria-autocomplete": "list",
         "aria-expanded": openState,
+        "aria-label": label,
         onclick: onclickButton,
         class: classNames(color, variant, size),
       },
-      () => !inputState.val && bau.tags.label(label),
+      () => !inputState.val && label,
       inputState
     );
 
@@ -180,6 +171,8 @@ export default function (context, componentOptions) {
         ...props,
         class: classNames(
           "select",
+          color,
+          size,
           className,
           componentOptions?.class,
           props?.class

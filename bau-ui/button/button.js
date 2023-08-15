@@ -6,18 +6,15 @@ export default function (context, options) {
 
   const styles = {
     root: css`
-      color: var(--font-color-base);
+      color: inherit;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      position: relative;
       padding: 0 0.5rem;
       min-width: 2rem;
       min-height: 2rem;
-      outline: none;
       border: none;
       border-radius: var(--global-radius);
-      background: transparent;
       font-size: 1rem;
       font-weight: var(--font-weight-semibold);
       text-align: center;
@@ -25,29 +22,12 @@ export default function (context, options) {
       overflow: hidden;
       box-sizing: border-box;
       user-select: none;
-      transition: background-color var(--transition-fast);
-      &::before {
-        background-color: rgba(0, 0, 0, 0.2);
-        position: absolute;
-        top: calc(50% - 100%);
-        left: calc(50% - 100%);
-        width: 200%;
-        height: 200%;
-        transition: opacity var(--transition-fast) linear;
-        border-radius: 50%;
-        opacity: 0;
-        pointer-events: none;
-        content: "";
-      }
-      &:active {
-        &::before {
-          opacity: 1;
-        }
-      }
+      transition: all var(--transition-slow);
       &:hover {
-        &::before {
-          opacity: 0.5;
-        }
+        filter: brightness(var(--brightness-hover));
+      }
+      &:hover.solid {
+        filter: brightness(var(--brightness));
       }
     `,
     button: css`
@@ -63,10 +43,8 @@ export default function (context, options) {
   };
 
   return function Button(...args) {
-    let [
-      { color, variant = "outline", size, disabled, href, ...props },
-      ...children
-    ] = toPropsAndChildren(args);
+    let [{ color, variant, size, disabled, href, ...props }, ...children] =
+      toPropsAndChildren(args);
     const tagButton = href ? bau.tags.a : bau.tags.button;
     return tagButton(
       {

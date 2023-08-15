@@ -9,15 +9,14 @@ export default function (context) {
   const drawerOpenState = bau.state(true);
 
   //const Drawer = drawer(context);
-  const Button = button(context);
+  const Button = button(context, {
+    class: css`
+      background: transparent;
+    `,
+  });
 
   const BurgerIcon = () => {
     return i(
-      {
-        class: css`
-          color: var(--font-color-inverse);
-        `,
-      },
       svg(
         {
           id: "burger-icon",
@@ -48,7 +47,7 @@ export default function (context) {
       Button(
         {
           "aria-label": "drawer",
-          variant: "plain",
+          variant: "none",
           color: "none",
           onclick: () => (drawerOpenState.val = !drawerOpenState.val),
         },
@@ -120,9 +119,8 @@ export default function (context) {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          background-color: var(--color-primary);
-          color: var(--font-color-inverse);
           height: var(--header-height);
+          background-color: var(--background-color);
         `,
       },
       NavBarLeft(),

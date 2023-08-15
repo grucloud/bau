@@ -25,18 +25,26 @@ const createStyles = ({ css, createGlobalStyles }) => {
       overflow: hidden;
       will-change: height;
       transition: height var(--transition-fast) ease-out;
+      background: inherit;
+
+      & li.solid:hover div {
+        filter: brightness(var(--brightness-hover-reverse)) !important;
+      }
+
       & li {
         padding-left: var(--menu-link-padding-horizontal);
         border-radius: 0.25rem;
+        background: inherit;
+
         > div {
           width: 100%;
           display: flex;
           justify-content: space-between;
           align-items: center;
           transition: background-color var(--transition-fast) ease-in-out;
+          background: inherit;
           &:hover {
-            background: var(--color-emphasis-300);
-            cursor: pointer;
+            filter: brightness(var(--brightness-hover)) !important;
           }
           &::after {
             transition: transform var(--transition-fast) linear;
@@ -114,7 +122,7 @@ export default function (context, options) {
   }
 
   const Tree =
-    ({ depth = 1, maxDepth }) =>
+    ({ depth = 1, maxDepth, color, variant, size }) =>
     (item) => {
       const { children, expanded } = item;
       const closeState = bau.state(!expanded);
@@ -146,6 +154,7 @@ export default function (context, options) {
           depth < maxDepth &&
           ul(
             {
+              class: classNames(color, size),
               bauMounted: ({ element }) => {
                 closeState.val && (element.style.height = "0px");
               },
@@ -178,7 +187,8 @@ export default function (context, options) {
           otherProps.class
         ),
       },
-      tree.children && ul(tree.children.map(Tree({ maxDepth })))
+      tree.children &&
+        ul(tree.children.map(Tree({ maxDepth, color, variant, size })))
     );
   };
 }

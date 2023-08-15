@@ -9,9 +9,7 @@ export default function (context) {
   const Features = features(context);
   const Button = button(context);
 
-  const className = css`
-    grid-area: main;
-  `;
+  const className = css``;
 
   const featuresContent = [
     {

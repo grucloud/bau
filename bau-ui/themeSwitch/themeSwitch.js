@@ -1,7 +1,18 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
+import { Colors } from "../constants";
 
 const defaultMode = "light";
+
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+&.theme-switch.outline.${color} {
+  color: var(--color-${color})
+}
+`
+  ).join("\n");
 
 export default function (context, options) {
   const { bau, css, window } = context;
@@ -38,22 +49,16 @@ export default function (context, options) {
     display: flex;
     justify-content: center;
     align-items: center;
-    //border: 1px var(--color-gray-200) dotted;
     border-radius: var(--global-radius);
     appearance: none;
     transition: all var(--transition-fast);
     &:hover {
       cursor: pointer;
-      //border: 1px var(--color-primary) dotted;
-      &::after {
-        // color: var(--color-primary);
-      }
     }
     &::after {
       content: "\u2600";
       font-size: x-large;
       transition: all var(--transition-fast);
-      //color: var(--color-emphasis-400);
     }
     &:checked {
     }
@@ -61,6 +66,7 @@ export default function (context, options) {
       content: "\u263D";
       font-size: x-large;
     }
+    ${colorsToCss()}
   `;
 
   return function ThemeSwitch(...args) {
@@ -73,6 +79,7 @@ export default function (context, options) {
         title: "Switch Theme",
         ...props,
         class: classNames(
+          "theme-switch",
           style,
           color,
           variant,

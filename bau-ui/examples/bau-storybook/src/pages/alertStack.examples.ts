@@ -22,6 +22,7 @@ export default (context: Context) => {
       Button(
         {
           color: "success",
+          variant: "outline",
           onclick: () => {
             document.dispatchEvent(
               new CustomEvent("alert.add", {
@@ -43,6 +44,8 @@ export default (context: Context) => {
       Button(
         {
           color: "danger",
+          variant: "outline",
+
           onclick: () => {
             document.dispatchEvent(
               new CustomEvent("alert.add", {

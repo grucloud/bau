@@ -1,78 +1,70 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import popover from "../popover/popover.js";
+import button from "../button/button.js";
+import input from "../input/input.js";
+import { Colors } from "../constants";
+
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+& button.plain.${color}::after {
+  color: var(--color-${color});
+}
+& button.outline.${color}::after {
+  color: var(--color-${color});
+}
+& button.solid.${color} {
+  &:hover {
+    filter: brightness(var(--brightness));
+  }
+}
+`
+  ).join("\n");
 
 export default function (context, componentOptions) {
   const { bau, css } = context;
-  const { div, input, ul, li, i, span, button } = bau.tags;
+  const { div, ul, li } = bau.tags;
 
   const Popover = popover(context);
+  const Button = button(context);
+  const Input = input(context);
 
   const className = css`
     & button {
-      cursor: pointer;
-      color: var(--font-color-base);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 0.7rem 0.5rem;
-      min-width: 2rem;
-      outline: none;
-      border: none;
-      border-radius: var(--global-radius);
-      background: transparent;
-      font-size: 1rem;
-      font-weight: var(--font-weight-semibold);
-      text-align: center;
-      text-decoration: none;
-      overflow: hidden;
-      box-sizing: border-box;
-      user-select: none;
-      color: inherit;
-      transition: background-color var(--transition-fast);
-      &:hover {
-        box-shadow: var(--shadow-s);
-        background: var(--color-emphasis-50);
-      }
-      & label {
-        cursor: pointer;
-      }
       &::after {
         content: "\u25BC";
         padding: 0 0.3rem;
       }
     }
-
-    & label {
-      display: block;
-    }
     & .content {
       height: fit-content;
       & input {
-        min-height: 2rem;
         padding: 0.8rem;
         margin: 0.3rem;
-        outline: none;
-        font-size: 1rem;
-        border-radius: var(--global-radius);
       }
       & ul {
+        &.solid {
+          & li:hover {
+            filter: brightness(var(--brightness));
+          }
+        }
         list-style: none;
         padding: 0;
         margin: 0 0;
         & li {
           padding: 0.5rem;
           cursor: pointer;
+          background-color: inherit;
+
           &:hover {
-            background-color: var(--color-emphasis-200);
+            filter: brightness(var(--brightness-hover));
           }
-        }
-        & li.active {
-          background-color: var(--color-emphasis-200);
         }
       }
     }
+    ${colorsToCss()}
   `;
 
   const selectedState = bau.state("");
@@ -123,14 +115,12 @@ export default function (context, componentOptions) {
         optionsFilteredState.val = options.filter((option) =>
           getOptionLabel(option).match(new RegExp(`${value}`, "i"))
         );
-        // dialogOpen();
       } else {
         optionsFilteredState.val = options;
       }
     };
 
     const onclickButton = (event) => {
-      console.log("onclickButton", openState.val);
       if (!openState.val) {
         dialogOpen();
       } else {
@@ -164,20 +154,21 @@ export default function (context, componentOptions) {
       }
     };
 
-    const buttonEl = button(
+    const buttonEl = Button(
       {
         type: "button",
         role: "combobox",
         "aria-autocomplete": "list",
         "aria-expanded": openState,
+        "aria-label": label,
         onclick: onclickButton,
         class: classNames(variant, color, size),
       },
-      () => !selectedState.val && bau.tags.label(label),
+      () => !selectedState.val && label,
       selectedState
     );
 
-    const inputEl = input({
+    const inputEl = Input({
       id,
       value: inputState,
       placeholder,
@@ -197,6 +188,7 @@ export default function (context, componentOptions) {
     const Content = () =>
       div({ class: classNames(variant, color, size, "content") }, inputEl, () =>
         ul(
+          { class: classNames(variant, color, size) },
           optionsFilteredState.val.map((option, index) =>
             li(
               {
@@ -227,7 +219,6 @@ export default function (context, componentOptions) {
           props?.class
         ),
       },
-      //bau.tags.label({ for: id }, label),
       buttonEl,
       popoverEl
     );

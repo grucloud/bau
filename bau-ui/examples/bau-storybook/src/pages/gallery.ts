@@ -33,7 +33,7 @@ import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { bau, css, config } = context;
-  const { section, div, h1, span, p, ul, li, a, main, header, footer } =
+  const { section, div, h1, span, p, ul, li, a, main, header, footer, label } =
     bau.tags;
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
 
@@ -365,18 +365,45 @@ export default (context: Context) => {
     {
       name: "Calendar",
       Item: (props: any) =>
-        Calendar({
-          ...props,
-        }),
+        div(
+          {
+            class: css`
+              border: 1px dotted var(--color-emphasis-200);
+              font-size: smaller;
+              color: var(--color-content-secondary);
+              padding: 0.2rem;
+            `,
+          },
+          label(
+            `${props.color} ${props.variant}`,
+            Calendar({
+              ...props,
+            })
+          )
+        ),
     },
     {
       name: "Checkbox",
-      Item: (props: any, { index }: any) =>
-        Checkbox({
-          id: `myCheckbox-${index}`,
-          name: `myCheckbox-${index}`,
-          ...props,
-        }),
+      Item: (props: any) =>
+        label(
+          {
+            class: css`
+              display: flex;
+              border: 1px dotted var(--color-emphasis-200);
+              font-size: smaller;
+              align-items: center;
+              justify-content: space-between;
+              color: var(--color-content-secondary);
+              padding: 0.2rem;
+            `,
+          },
+          `${props.color} ${props.variant}`,
+          Checkbox({
+            id: `myCheckbox-gallery-${props.color}-${props.variant}`,
+            name: `myCheckbox-gallery-${props.color}-${props.variant}`,
+            ...props,
+          })
+        ),
     },
     {
       name: "Chip",
@@ -452,7 +479,24 @@ export default (context: Context) => {
     },
     {
       name: "Slider",
-      Item: (props: any) => Slider(props),
+      Item: (props: any) =>
+        div(
+          {
+            class: css`
+              border: 1px dotted var(--color-emphasis-200);
+              font-size: smaller;
+              color: var(--color-content-secondary);
+              padding: 0.2rem;
+            `,
+          },
+          label(
+            `${props.color} ${props.variant}`,
+            Slider({
+              ...props,
+              id: `my-slider-${props.color}-${props.variant}`,
+            })
+          )
+        ),
     },
     {
       name: "Spinner",
@@ -462,8 +506,33 @@ export default (context: Context) => {
       name: "Switch",
       Item: (props: any) =>
         div(
-          Switch({ ...props, id: "my-switch" }),
-          Switch({ ...props, id: "my-switch-checked", checked: true })
+          {
+            class: css`
+              & label {
+                display: inline-flex;
+                border: 1px dotted var(--color-emphasis-200);
+                font-size: smaller;
+                align-items: center;
+                color: var(--color-content-secondary);
+                padding: 0.2rem;
+              }
+            `,
+          },
+          label(
+            "off",
+            Switch({
+              ...props,
+              id: `mySwitch-off-${props.color}-${props.variant}`,
+            })
+          ),
+          label(
+            "on",
+            Switch({
+              ...props,
+              id: `mySwitch-on-${props.color}-${props.variant}`,
+              checked: true,
+            })
+          )
         ),
     },
     {

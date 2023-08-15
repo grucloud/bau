@@ -1,6 +1,17 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 
+import { Colors } from "../constants";
+
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+&.tabs.solid.${color} {
+}
+`
+  ).join("\n");
+
 export default function (context, options) {
   const { bau, css } = context;
   const { tabDefs } = options;
@@ -34,7 +45,7 @@ export default function (context, options) {
           overflow: hidden;
           &:hover {
             color: var(--color-primary-light);
-            background-color: var(--color-emphasis-100);
+            background-color: var(--color-emphasis-300);
             &::after {
               transform: translateY(0%);
             }
@@ -59,17 +70,13 @@ export default function (context, options) {
         & .disabled {
           cursor: not-allowed;
           font-style: italic;
-          color: var(--font-color-disabled);
           transform: none;
           &:hover {
-            color: var(--font-color-disabled);
             border: none;
-            &::after {
-              transform: none;
-            }
           }
         }
       }
+      ${colorsToCss()}
     `,
   };
 
@@ -100,6 +107,7 @@ export default function (context, options) {
     const rootEl = div(
       {
         class: classNames(
+          "tabs",
           style.base,
           variant,
           size,

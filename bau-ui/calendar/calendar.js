@@ -21,6 +21,9 @@ export default function (context, options) {
     border-radius: var(--global-radius);
     border: none;
     ${colorsToCss()}
+    &:hover {
+      filter: brightness(var(--brightness-hover));
+    }
   `;
 
   return function Calendar(...args) {

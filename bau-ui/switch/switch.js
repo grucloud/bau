@@ -8,7 +8,7 @@ const colorsToCss = () =>
       `
 &.switch.plain.${color} {
   &::after {
-    background-color: var(--color-emphasis-100);
+    background-color: var(--color-emphasis-200);
   }
   &:checked::after {
     background-color: var(--color-${color});
@@ -16,7 +16,7 @@ const colorsToCss = () =>
 }
 &.switch.outline.${color} {
   &::after {
-    background-color: var(--color-emphasis-100);
+    background-color: var(--color-emphasis-200);
   }
   &:checked::after {
     background-color: var(--color-${color});
@@ -24,7 +24,7 @@ const colorsToCss = () =>
 }
 &.switch.soft.${color} {
   &::after {
-    background-color: var(--color-emphasis-100);
+    background-color: var(--color-emphasis-200);
   }
   &:checked::after {
     background-color: var(--color-${color});
@@ -33,13 +33,16 @@ const colorsToCss = () =>
 &.switch.solid.${color} {
   background-color: var(--color-emphasis-800);
   &::after {
-    background-color: var(--color-emphasis-100);
+    background-color: var(--color-emphasis-200);
   } 
   &:checked {
     background-color: var(--color-${color}) ;
   }
   &:checked::after {
-    background-color: var(--color-emphasis-100);
+    background-color: var(--color-emphasis-200);
+  }
+  &:hover {
+    filter: brightness(var(--brightness-hover-reverse));
   }
 }
 `
@@ -74,6 +77,9 @@ export default function (context, options) {
     &:checked::after {
       content: "";
       transform: translate(0%, -50%);
+    }
+    &:hover {
+      filter: brightness(var(--brightness-hover));
     }
     ${colorsToCss()}
   `;

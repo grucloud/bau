@@ -8,11 +8,13 @@ export const createStylesDark = (context) => {
   createGlobalStyles`
     html[data-theme='dark'] {
   --color-scheme: dark;
-  --background-color: #1b1b1d;
-  --background-surface-color: #242526;
+  --background-color: #121212;
   --hover-overlay: rgba(255, 255, 255, 0.05);
   --color-content: #e3e3e3;
   --color-content-secondary: rgba(255, 255, 255, 1);
+  --brightness-hover: 180%;
+  --brightness-hover-reverse: 60%
+  --brightness-active: 75%;
   ${buildEmphasis({ dark: true })}
 }
   `;

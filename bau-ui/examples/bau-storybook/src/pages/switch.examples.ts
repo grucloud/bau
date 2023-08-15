@@ -25,16 +25,41 @@ export default (context: Context) => {
               }
             `,
           },
-          label({ for: "my-switch" }, "My shinny switch"),
-          Switch({ id: "my-switch" })
+          label({ for: "my-shinny-switch" }, "My shinny switch"),
+          Switch({ id: "my-shinny-switch" })
         )
       ),
       h2(tr("Switch Table")),
       ComponentGrid({
         Item: (props: any) =>
           div(
-            Switch({ ...props, id: "my-switch" }),
-            Switch({ ...props, id: "my-switch-checked", checked: true })
+            {
+              class: css`
+                & label {
+                  display: inline-flex;
+                  border: 1px dotted var(--color-emphasis-200);
+                  font-size: smaller;
+                  align-items: center;
+                  color: var(--color-content-secondary);
+                  padding: 0.2rem;
+                }
+              `,
+            },
+            label(
+              "off ",
+              Switch({
+                ...props,
+                id: `my-switch-example-off-${props.color}-${props.variant}`,
+              })
+            ),
+            label(
+              "on ",
+              Switch({
+                ...props,
+                id: `my-switch-example-on-${props.color}-${props.variant}`,
+                checked: true,
+              })
+            )
           ),
       })
     );

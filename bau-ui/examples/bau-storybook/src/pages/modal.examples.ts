@@ -28,6 +28,7 @@ export default (context: Context) => {
         Button(
           {
             variant: "outline",
+            color: props.color,
             onclick: () => {
               modalEl.close();
             },
@@ -37,6 +38,7 @@ export default (context: Context) => {
         Button(
           {
             variant: "solid",
+            color: props.color,
             onclick: () => {
               modalEl.close();
             },
@@ -48,7 +50,7 @@ export default (context: Context) => {
     return modalEl;
   };
 
-  const modalEl = MyModal({});
+  const modalEl = MyModal({ color: "neutral" });
 
   return () =>
     section(
@@ -57,6 +59,7 @@ export default (context: Context) => {
       Button(
         {
           variant: "solid",
+          color: "neutral",
           onclick: () => {
             modalEl.showModal();
           },
