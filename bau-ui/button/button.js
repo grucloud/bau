@@ -27,7 +27,7 @@ export default function (context, options) {
         filter: brightness(var(--brightness-hover));
       }
       &:hover.solid {
-        filter: brightness(var(--brightness));
+        filter: brightness(var(--brightness-hover-always));
       }
     `,
     button: css`
@@ -38,7 +38,6 @@ export default function (context, options) {
       color: rgba(0, 0, 0, 0.26);
       cursor: not-allowed;
       pointer-events: none;
-      box-shadow: none;
     `,
   };
 

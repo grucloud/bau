@@ -193,6 +193,7 @@ export default (context: Context) => {
       footer(
         Button(
           {
+            ...props,
             variant: "outline",
             onclick: () => {
               modalEl.close();
@@ -202,6 +203,7 @@ export default (context: Context) => {
         ),
         Button(
           {
+            ...props,
             variant: "solid",
             onclick: () => {
               modalEl.close();

@@ -198,7 +198,7 @@ export default function (context, options) {
       }
       &.solid {
         & li:hover {
-          filter: brightness(var(--brightness));
+          filter: brightness(var(--brightness-hover-always));
         }
       }
     }

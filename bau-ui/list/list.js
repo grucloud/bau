@@ -19,13 +19,18 @@ export default function (context, options) {
     margin: 0 0;
     &.solid {
       & li:hover {
-        filter: brightness(var(--brightness));
+        filter: brightness(var(--brightness-hover-always));
+      }
+      & li.active {
+        filter: brightness(var(--brightness-active-always));
       }
     }
+
     & li {
       padding: 0.5rem;
       cursor: pointer;
       background-color: inherit;
+      transition: all var(--transition-slow) ease-out;
       &:hover {
         filter: brightness(var(--brightness-hover));
       }

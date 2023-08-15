@@ -1,5 +1,5 @@
 const ColorPaletteDefault = [
-  ["neutral", { h: "0", s: "0%", l: "50%" }],
+  ["neutral", { h: "0", s: "0%", l: "20%" }],
   ["primary", { h: "230", s: "48%", l: "20%" }],
   ["secondary", { h: "338", s: "100%", l: "20%" }],
   ["success", { h: "120", s: "100%", l: "20%" }],
@@ -134,7 +134,8 @@ export default function globalStyle(
       --font-size-base: 100%;
       --line-height-base: 1.65;
       --link-color: var(--color-primary);
-      --brightness: 150%;
+      --brightness-hover-always: 170%;
+      --brightness-active-always: 150%;
       --brightness-hover: 80%;
       --brightness-hover-reverse: 140%;
       --brightness-active: 90%;

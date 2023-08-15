@@ -18,6 +18,9 @@ export default function (context, options = {}) {
       transform: scale(1.05);
       filter: brightness(var(--brightness-hover));
     }
+    &:hover.solid {
+      filter: brightness(var(--brightness-hover-always));
+    }
     &:disabled {
       border: 2px dashed var(--color-gray-500);
     }

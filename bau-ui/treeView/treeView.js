@@ -19,7 +19,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
     display: inline-flex;
 
     &.solid div:hover {
-      filter: brightness(var(--brightness));
+      filter: brightness(var(--brightness-hover-always));
     }
 
     & ul {
@@ -42,7 +42,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          transition: background-color var(--transition-fast) ease-in-out;
+          transition: all var(--transition-fast) ease-in-out;
           background: inherit;
           &:hover {
             filter: brightness(var(--brightness-hover));

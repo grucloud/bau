@@ -13,7 +13,7 @@ const colorsToCss = () =>
   color: var(--color-${color});
 }
 & h3.solid.${color}:hover {
-  filter: brightness(var(--brightness));
+  filter: brightness(var(--brightness-hover-always));
 }
 `
   ).join("\n");
@@ -70,7 +70,7 @@ export default function (context, options) {
         transition: all var(--transition-slow) ease-out;
         background-color: inherit;
         &:hover.solid {
-          filter: brightness(var(--brightness)) !important;
+          filter: brightness(var(--brightness-hover-always)) !important;
         }
         &:hover {
           filter: brightness(var(--brightness-hover));

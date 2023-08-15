@@ -8,7 +8,7 @@ const colorsToCss = () =>
       `
 &.switch.plain.${color} {
   &::after {
-    background-color: var(--color-emphasis-200);
+    background-color: var(--color-emphasis-400);
   }
   &:checked::after {
     background-color: var(--color-${color});
@@ -16,7 +16,7 @@ const colorsToCss = () =>
 }
 &.switch.outline.${color} {
   &::after {
-    background-color: var(--color-emphasis-200);
+    background-color: var(--color-emphasis-400);
   }
   &:checked::after {
     background-color: var(--color-${color});
@@ -24,7 +24,7 @@ const colorsToCss = () =>
 }
 &.switch.soft.${color} {
   &::after {
-    background-color: var(--color-emphasis-200);
+    background-color: var(--color-emphasis-400);
   }
   &:checked::after {
     background-color: var(--color-${color});
@@ -33,16 +33,13 @@ const colorsToCss = () =>
 &.switch.solid.${color} {
   background-color: var(--color-emphasis-800);
   &::after {
-    background-color: var(--color-emphasis-200);
+    background-color: var(--color-emphasis-400);
   } 
   &:checked {
     background-color: var(--color-${color}) ;
   }
   &:checked::after {
-    background-color: var(--color-emphasis-200);
-  }
-  &:hover {
-    filter: brightness(var(--brightness-hover-reverse));
+    background-color: var(--color-emphasis-400);
   }
 }
 `
@@ -80,6 +77,9 @@ export default function (context, options) {
     }
     &:hover {
       filter: brightness(var(--brightness-hover));
+    }
+    &:hover.solid {
+      filter: brightness(var(--brightness-hover-always));
     }
     ${colorsToCss()}
   `;
