@@ -49,6 +49,7 @@ export default function (context, options) {
       {
         ...props,
         class: classNames(
+          "button",
           styles.root,
           variant,
           size,

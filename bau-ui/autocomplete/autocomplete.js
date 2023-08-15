@@ -153,7 +153,9 @@ export default function (context, componentOptions) {
         "aria-expanded": openState,
         "aria-label": label,
         onclick: onclickButton,
-        class: classNames(variant, color, size),
+        variant,
+        color,
+        size,
       },
       () => !selectedState.val && label,
       selectedState
@@ -173,7 +175,9 @@ export default function (context, componentOptions) {
       "aria-expanded": openState,
       oninput,
       onkeydown,
-      class: classNames(variant, color, size),
+      variant,
+      color,
+      size,
     });
 
     const Content = () =>

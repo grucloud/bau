@@ -140,7 +140,9 @@ export default function (context, componentOptions) {
         "aria-expanded": openState,
         "aria-label": label,
         onclick: onclickButton,
-        class: classNames(color, variant, size),
+        color,
+        variant,
+        size,
       },
       () => !inputState.val && label,
       inputState

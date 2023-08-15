@@ -109,10 +109,6 @@ export default function (context, options) {
       Button(
         {
           href: `${base}${data.href}`,
-          class: css`
-            flex-grow: 1;
-            justify-content: flex-start;
-          `,
         },
         data.name
       )
@@ -139,8 +135,10 @@ export default function (context, options) {
   const Animate = animate(context);
   const Button = button(context, {
     class: css`
-      flex-grow: 1;
-      justify-content: flex-start;
+      &.button {
+        flex-grow: 1;
+        justify-content: flex-start;
+      }
     `,
   });
   const { hideToLeft, hideToRight, showFromRight, showFromLeft } =
