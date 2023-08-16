@@ -31,7 +31,7 @@ export default function (context) {
       h2(text),
       p(tagLine),
       Button(
-        { href: "/docs/", primary: true, raised: true },
+        { href: "/docs/", color: "primary", variant: "solid" },
         "Visit Documentation"
       )
     );

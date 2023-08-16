@@ -1,8 +1,20 @@
-import classNames from "@grucloud/bau-css/classNames";
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
+import classNames from "@grucloud/bau-css/classNames.js";
+import { Colors } from "../constants";
 
 const defaultMode = "light";
 
-export default function (context) {
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+&.theme-switch.outline.${color} {
+  color: var(--color-${color})
+}
+`
+  ).join("\n");
+
+export default function (context, options) {
   const { bau, css, window } = context;
   const { input } = bau.tags;
 
@@ -30,29 +42,21 @@ export default function (context) {
     }
   }
 
-  const style = css`
+  const className = css`
     position: relative;
-    width: 2rem;
-    height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px var(--color-gray-200) dotted;
     border-radius: var(--global-radius);
     appearance: none;
     transition: all var(--transition-fast);
     &:hover {
       cursor: pointer;
-      border: 1px var(--color-primary) dotted;
-      &::after {
-        color: var(--color-primary);
-      }
     }
     &::after {
       content: "\u2600";
       font-size: x-large;
       transition: all var(--transition-fast);
-      color: var(--color-emphasis-400);
     }
     &:checked {
     }
@@ -60,16 +64,55 @@ export default function (context) {
       content: "\u263D";
       font-size: x-large;
     }
+    &:hover {
+      filter: brightness(var(--brightness-hover));
+    }
+    &:hover.solid {
+      filter: brightness(var(--brightness-hover-always));
+    }
+    &.sm {
+      width: 1.7rem;
+      height: 1.7rem;
+    }
+    &.sm::after {
+      font-size: 1rem;
+    }
+    &.md {
+      width: 2rem;
+      height: 2rem;
+    }
+    &.md::after {
+      font-size: 1.5rem;
+    }
+    &.lg {
+      width: 3rem;
+      height: 3rem;
+    }
+    &.lg::after {
+      font-size: 2.3rem;
+    }
+    ${colorsToCss()}
   `;
 
-  return function ThemeSwitch(props, ...children) {
+  return function ThemeSwitch(...args) {
+    let [{ color, variant = "outline", size = "md", ...props }, ...children] =
+      toPropsAndChildren(args);
+
     return input(
       {
-        ...props,
-        class: classNames(style, props.class),
-        type: "checkbox",
         required: "required",
         title: "Switch Theme",
+        ...props,
+        class: classNames(
+          "theme-switch",
+          color,
+          variant,
+          size,
+          className,
+          options?.class,
+          props.class
+        ),
+        type: "checkbox",
         checked: getStoredTheme() == "dark",
         onclick: (event) => {
           setDataThemeAttribute(event.target.checked ? "dark" : "light");

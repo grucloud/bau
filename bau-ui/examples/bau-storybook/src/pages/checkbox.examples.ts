@@ -1,12 +1,14 @@
+import { State } from "@grucloud/bau";
 import checkbox from "@grucloud/bau-ui/checkbox";
 
-import { Context } from "../context";
-import { State } from "@grucloud/bau";
+import { Context } from "@grucloud/bau-ui/context";
+import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;
   const { section, div, label, h2, form } = bau.tags;
 
+  const ComponentGrid = componentGrid(context);
   const Checkbox = checkbox(context);
 
   const checkboxState = bau.state(false);
@@ -53,7 +55,19 @@ export default (context: Context) => {
             onchange: onChange(checkboxDisabledState),
           }),
           label({ for: "myCheckbox-disabled" }, "My Disabled Checkbox")
-        )
+        ),
+
+        h2(tr("Checkbox Table")),
+        ComponentGrid({
+          Item: (props: any, { index }: any) =>
+            Checkbox({
+              id: `myCheckbox-${index}`,
+              name: `myCheckbox-${index}`,
+              // checked: checkboxState,
+              // onchange: onChange(checkboxState),
+              ...props,
+            }),
+        })
       )
     );
 };

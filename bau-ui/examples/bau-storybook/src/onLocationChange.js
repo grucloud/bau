@@ -1,14 +1,26 @@
-export const onLocationChange =
-  ({ LayoutDefault, config: { base = "" } }) =>
-  ({ router }) => {
+export const onLocationChange = ({
+  context,
+  LayoutDefault,
+  config: { base = "" },
+}) => {
+  const { window, bau, states } = context;
+  const componentState = bau.state();
+  const layoutEl = LayoutDefault({ componentState });
+  const app = document.getElementById("app");
+  app.replaceChildren(layoutEl);
+
+  return ({ router }) => {
+    //console.log("onLocationChange");
+    const pathname = window.location.pathname.replace(base, "");
     const {
       title,
       component,
       Layout = LayoutDefault,
     } = router.resolve({
-      pathname: location.pathname.replace(base, ""),
+      pathname,
     });
-    const app = document.getElementById("app");
-    app.replaceChildren(Layout({ component }));
+    states.pathname.val = pathname;
+    componentState.val = component;
     document.title = `${title}`;
   };
+};

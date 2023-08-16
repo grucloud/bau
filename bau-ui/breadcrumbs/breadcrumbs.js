@@ -1,8 +1,12 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
+import button from "../button/button.js";
 
-export default function (context) {
+export default function (context, options) {
   const { bau, css } = context;
   const { ul, li, a, span } = bau.tags;
+
+  const Button = button(context);
 
   const className = css`
     list-style: none;
@@ -35,14 +39,34 @@ export default function (context) {
       }
     }
   `;
-  return function Breadcrumbs({ items, ...otherProps }) {
+
+  return function Breadcrumbs(...args) {
+    let [
+      { color, variant = "outline", size = "md", items, ...props },
+      ...children
+    ] = toPropsAndChildren(args);
     return ul(
       {
-        "aria-label": "Breadcrumbs",
-        ...otherProps,
-        class: classNames(className, otherProps.class),
+        ...props,
+        // color,
+        // variant,
+        // size,
+        class: classNames(className, options?.class, props?.class),
       },
-      items.map(({ href, name }) => li((href ? a : span)({ href }, name)))
+      items.map(({ href, name }) =>
+        li(
+          (href ? Button : span)(
+            {
+              href,
+              color,
+              variant,
+              size,
+              class: classNames(color, variant, size),
+            },
+            name
+          )
+        )
+      )
     );
   };
 }

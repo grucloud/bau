@@ -1,3 +1,4 @@
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 
 const createStyles = ({ css, createGlobalStyles }) => {
@@ -15,6 +16,12 @@ const createStyles = ({ css, createGlobalStyles }) => {
   const nav = css`
     font-weight: var(--font-weight-semibold);
     overflow-x: hidden;
+    display: inline-flex;
+
+    &.solid div:hover {
+      filter: brightness(var(--brightness-hover-always));
+    }
+
     & ul {
       display: block;
       list-style: none;
@@ -23,18 +30,22 @@ const createStyles = ({ css, createGlobalStyles }) => {
       overflow: hidden;
       will-change: height;
       transition: height var(--transition-fast) ease-out;
+      background: inherit;
+
       & li {
         padding-left: var(--menu-link-padding-horizontal);
         border-radius: 0.25rem;
+        background: inherit;
+
         > div {
           width: 100%;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          transition: background-color var(--transition-fast) ease-in-out;
+          transition: all var(--transition-fast) ease-in-out;
+          background: inherit;
           &:hover {
-            background: var(--color-emphasis-100);
-            cursor: pointer;
+            filter: brightness(var(--brightness-hover));
           }
           &::after {
             transition: transform var(--transition-fast) linear;
@@ -46,7 +57,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
             display: flex;
             flex-grow: 1;
             text-decoration: none;
-            color: var(--menu-color);
+            color: inherit;
             padding: var(--menu-link-padding-vertical)
               var(--menu-link-padding-horizontal);
           }
@@ -79,8 +90,9 @@ const createStyles = ({ css, createGlobalStyles }) => {
   };
 };
 
-export default function (context, { renderMenuItem }) {
+export default function (context, options) {
   const { bau, css, createGlobalStyles, window } = context;
+  const { renderMenuItem } = options;
   const { ul, li, nav, div } = bau.tags;
 
   const styles = createStyles({ css, createGlobalStyles });
@@ -111,7 +123,7 @@ export default function (context, { renderMenuItem }) {
   }
 
   const Tree =
-    ({ depth = 1, maxDepth }) =>
+    ({ depth = 1, maxDepth, color, variant, size }) =>
     (item) => {
       const { children, expanded } = item;
       const closeState = bau.state(!expanded);
@@ -143,6 +155,7 @@ export default function (context, { renderMenuItem }) {
           depth < maxDepth &&
           ul(
             {
+              class: classNames(color, size),
               bauMounted: ({ element }) => {
                 closeState.val && (element.style.height = "0px");
               },
@@ -156,12 +169,27 @@ export default function (context, { renderMenuItem }) {
       );
     };
 
-  return function TreeView({ tree, maxDepth = Infinity, ...otherProps }) {
+  return function TreeView({
+    tree,
+    maxDepth = Infinity,
+    size = "md",
+    variant = "plain",
+    color = "neutral",
+    ...otherProps
+  }) {
     return nav(
       {
-        class: classNames(styles.nav, otherProps.class),
+        class: classNames(
+          styles.nav,
+          size,
+          variant,
+          color,
+          options?.class,
+          otherProps.class
+        ),
       },
-      tree.children && ul(tree.children.map(Tree({ maxDepth })))
+      tree.children &&
+        ul(tree.children.map(Tree({ maxDepth, color, variant, size })))
     );
   };
 }

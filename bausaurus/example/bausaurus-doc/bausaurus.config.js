@@ -5,13 +5,13 @@ export default ({ rootDir }) => {
     docApp: App,
     viteConfig: {
       base: "/bau/bausaurus/",
-      build: { outDir: "dist/bausaurus" },
+      build: { outDir: "../../../dist/bausaurus" },
     },
     site: {
       rootDir,
       favicon: "/grucloud.svg",
       base: "/bau/bausaurus/docs/",
-      outDir: "dist/bausaurus/docs",
+      outDir: "../../../dist/bausaurus/docs",
       srcDir: "docs",
       title: "Bausarus",
       description: "SSG built with Bau",

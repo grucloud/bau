@@ -1,8 +1,9 @@
 import button from "@grucloud/bau-ui/button";
 import alert from "@grucloud/bau-ui/alert";
 import alertStack from "@grucloud/bau-ui/alertStack";
+//import componentGrid from "./componentGrid";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { tr, bau } = context;
@@ -20,7 +21,8 @@ export default (context: Context) => {
       h1("Alert stack"),
       Button(
         {
-          raised: true,
+          color: "success",
+          variant: "outline",
           onclick: () => {
             document.dispatchEvent(
               new CustomEvent("alert.add", {
@@ -28,7 +30,7 @@ export default (context: Context) => {
                   Component: () =>
                     Alert(
                       {
-                        severity: "success",
+                        color: "success",
                       },
                       tr("Infrastructure Created")
                     ),
@@ -41,7 +43,9 @@ export default (context: Context) => {
       ),
       Button(
         {
-          raised: true,
+          color: "danger",
+          variant: "outline",
+
           onclick: () => {
             document.dispatchEvent(
               new CustomEvent("alert.add", {
@@ -49,7 +53,7 @@ export default (context: Context) => {
                   Component: () =>
                     Alert(
                       {
-                        severity: "danger",
+                        color: "danger",
                       },
                       tr("Error creating infrastructure")
                     ),

@@ -1,9 +1,12 @@
 import input from "@grucloud/bau-ui/input";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
+import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau } = context;
   const { section, div, h3, h2 } = bau.tags;
+
+  const ComponentGrid = componentGrid(context);
   const Input = input(context);
   return () =>
     section(
@@ -18,6 +21,7 @@ export default (context: Context) => {
           name: "my-input-disabled",
           label: "my Input disabled",
           disabled: true,
+
           // onclick: (event)=> {}
         }),
         Input({
@@ -36,6 +40,17 @@ export default (context: Context) => {
           label: "my-input",
           error: "should be greater than 2",
         })
-      )
+      ),
+      h3("Input Table"),
+      ComponentGrid({
+        Item: (props: any) => {
+          return Input({
+            name: "my-input",
+            id: "my-input-with",
+            placeholder: "Enter text",
+            ...props,
+          });
+        },
+      })
     );
 };

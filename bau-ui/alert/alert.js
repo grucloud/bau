@@ -1,4 +1,6 @@
-import classNames from "@grucloud/bau-css/classNames";
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
+import classNames from "@grucloud/bau-css/classNames.js";
+import { Colors } from "../constants";
 
 import button from "../button";
 
@@ -6,69 +8,62 @@ const severityMap = {
   danger: "\u26A0",
   warning: "\u26A0",
   success: "\u2714",
-  info: "\u2139",
+  primary: "\u2139",
+  neutral: "\u2139",
 };
-
-const darkVar = (severity) => `var(--color-${severity}-darkest)`;
-
-const severitiesToCss = () =>
-  Object.keys(severityMap)
-    .map(
-      (severity) =>
-        `.alert-${severity} {
-    border-left: var(--alert-border-left-width) solid ${darkVar(severity)};
-    color: ${darkVar(severity)};
-    background-color: var(--background-color);
-    & .button-close {
-      color: ${darkVar(severity)};
-    }
-  }`
-    )
-    .join("\n");
 
 const createStyles = ({ css, createGlobalStyles }) => {
   createGlobalStyles`
 :root {
   --alert-border-left-width: 8px;
 }
-${severitiesToCss()}
 `;
-
-  return {
-    base: css`
-      display: flex;
-      max-width: 600px;
-      justify-content: flex-start;
-      align-items: center;
-      margin: 0.5rem;
-      font-weight: var(--font-weight-semibold);
-      box-shadow: var(--shadow-m);
-      border-radius: var(--global-radius);
-      & .icon {
-        padding: 0 1rem;
-        font-size: 2.5rem;
-      }
-      & .content {
-        padding: 0 0.5rem;
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: space-around;
-      }
-      & .button-close {
-        margin: 1rem;
-      }
-    `,
-  };
 };
 
-export default function (context) {
-  const { bau, css, createGlobalStyles, tr } = context;
-  const { div } = bau.tags;
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+&.alert.outline.${color} {
+  & .icon {
+    color: var(--color-${color})
+  }
+}
+`
+  ).join("\n");
 
-  const styles = createStyles({ css, createGlobalStyles });
+export default function (context, options) {
+  const { bau, css, createGlobalStyles } = context;
+  const { div, i } = bau.tags;
 
+  createStyles({ css, createGlobalStyles });
+
+  const className = css`
+    display: flex;
+    max-width: 600px;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0.5rem;
+    font-weight: var(--font-weight-semibold);
+    box-shadow: var(--shadow-m);
+    border-radius: var(--global-radius);
+    & .icon {
+      padding: 0 1rem;
+      font-size: 2.5rem;
+    }
+    & .content {
+      padding: 0 0.5rem;
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-around;
+    }
+    & .button-close {
+      margin: 1rem;
+    }
+    ${colorsToCss()}
+  `;
   const Button = button(context);
 
   const CloseIcon = ({ onclick }) =>
@@ -82,14 +77,29 @@ export default function (context) {
     );
 
   return function Alert(props, ...children) {
-    const { severity = "info", onRemove, ...otherProps } = props;
+    const {
+      variant = "outline",
+      color = "neutral",
+      size = "md",
+      onRemove,
+      ...otherProps
+    } = props;
     return div(
       {
         ...otherProps,
-        class: classNames(styles.base, `alert-${severity}`, props.class),
+        class: classNames(
+          `alert-${variant}`,
+          variant,
+          color,
+          size,
+          className,
+          options?.class,
+          props.class,
+          "alert"
+        ),
         role: "alert",
       },
-      div({ class: "icon" }, severityMap[severity]),
+      i({ class: "icon" }, severityMap[color]),
       div({ class: "content" }, ...children),
       onRemove && CloseIcon({ onclick: onRemove })
     );

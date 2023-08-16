@@ -1,23 +1,23 @@
 //import drawer from "../../components/drawer";
 import button from "@grucloud/bau-ui/button";
+import createThemeSwitch from "@grucloud/bau-ui/themeSwitch";
 
 export default function (context) {
-  const { tr, bau, css, config } = context;
+  const { tr, bau, css, config, states } = context;
   const { i, header, h1, div, a, img, b, ul, li } = bau.tags;
   const { svg, path } = bau.tagsNS("http://www.w3.org/2000/svg");
+  const drawerOpenState = states.drawerOpen;
 
-  const drawerOpenState = bau.state(true);
+  const Button = button(context, {
+    class: css`
+      background: transparent;
+    `,
+  });
 
-  //const Drawer = drawer(context);
-  const Button = button(context);
+  const ThemeSwitch = createThemeSwitch(context);
 
   const BurgerIcon = () => {
     return i(
-      {
-        class: css`
-          color: var(--font-color-inverse);
-        `,
-      },
       svg(
         {
           id: "burger-icon",
@@ -48,6 +48,8 @@ export default function (context) {
       Button(
         {
           "aria-label": "drawer",
+          variant: "none",
+          color: "none",
           onclick: () => (drawerOpenState.val = !drawerOpenState.val),
         },
         BurgerIcon()
@@ -60,51 +62,64 @@ export default function (context) {
             font-size: x-large;
           `,
         },
-        b(tr("Bau Story Book"))
-      ),
-      ul(
-        [
-          { label: "Components", href: `${config.base}/components` },
-          { label: "Pages", href: `${config.base}/pages` },
-        ].map(({ href, label }) =>
-          li(
-            {
-              class: css`
-                display: inline;
-                list-style: none;
-                text-decoration: none;
-                padding: 0.5rem;
-              `,
-            },
-            a(
-              {
-                href,
-                class: css`
-                  text-decoration: none;
-                `,
-              },
-              label
-            )
-          )
-        )
+        b(tr("Bau UI"))
       )
+      // ul(
+      //   [
+      //     { label: "Components", href: `${config.base}/components` },
+      //     { label: "Pages", href: `${config.base}/pages` },
+      //   ].map(({ href, label }) =>
+      //     li(
+      //       {
+      //         class: css`
+      //           display: inline;
+      //           list-style: none;
+      //           text-decoration: none;
+      //           padding: 0.5rem;
+      //         `,
+      //       },
+      //       a(
+      //         {
+      //           href,
+      //           class: css`
+      //             text-decoration: none;
+      //           `,
+      //         },
+      //         label
+      //       )
+      //     )
+      //   )
+      // )
     );
 
   const NavBarRight = () =>
-    a(
+    div(
       {
         class: css`
+          display: flex;
           padding: 1rem;
+          align-items: center;
         `,
-        target: "_blank",
-        href: "https://github.com/grucloud/bau",
       },
-      img({
-        alt: "GitHub",
-        src: "./github-mark-white.svg",
-        width: 30,
-        height: 30,
-      })
+      ThemeSwitch(),
+      Button(
+        {
+          class: css``,
+          target: "_blank",
+          href: "https://github.com/grucloud/bau",
+          title: "Bau's Github",
+        },
+        img({
+          class: css`
+            border-radius: 50%;
+            background: black;
+          `,
+          alt: "GitHub",
+          src: `${config.base}/github-mark-white.svg`,
+          width: 30,
+          height: 30,
+        })
+      )
     );
 
   return function headerNav() {
@@ -118,9 +133,8 @@ export default function (context) {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          background-color: var(--color-primary);
-          color: var(--font-color-inverse);
           height: var(--header-height);
+          background-color: var(--background-color);
         `,
       },
       NavBarLeft(),

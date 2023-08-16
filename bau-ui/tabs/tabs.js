@@ -1,7 +1,20 @@
-import classNames from "@grucloud/bau-css/classNames";
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
+import classNames from "@grucloud/bau-css/classNames.js";
 
-export default function (context, { tabDefs }) {
+import { Colors } from "../constants";
+
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+&.tabs.solid.${color} {
+}
+`
+  ).join("\n");
+
+export default function (context, options) {
   const { bau, css } = context;
+  const { tabDefs } = options;
   const { div, ul, li } = bau.tags;
   const tabsState = bau.state(tabDefs);
 
@@ -17,21 +30,22 @@ export default function (context, { tabDefs }) {
         display: flex;
         align-items: flex-end;
         justify-content: flex-start;
+        align-items: flex-start;
         padding: 0;
         list-style: none;
-        border-bottom: 2px solid var(--color-emphasis-100);
+        border-bottom: 2px solid var(--color-emphasis-200);
         & li {
           text-align: center;
           padding: 0.5rem;
           padding-bottom: 0rem;
+          color: inherit;
           cursor: pointer;
           font-weight: var(--font-weight-semibold);
           transition: var(--transition-fast) ease-in-out;
           overflow: hidden;
-
           &:hover {
             color: var(--color-primary-light);
-            background-color: var(--color-emphasis-100);
+            background-color: var(--color-emphasis-300);
             &::after {
               transform: translateY(0%);
             }
@@ -39,7 +53,6 @@ export default function (context, { tabDefs }) {
           &::after {
             transition: var(--transition-fast) ease-in-out;
             transform: translateY(400%);
-            background-color: var(--color-primary);
             opacity: 1;
             content: "";
             margin-top: 0.3rem;
@@ -49,31 +62,27 @@ export default function (context, { tabDefs }) {
           }
         }
         & .active {
-          color: var(--color-primary);
           font-weight: bolder;
           &::after {
-            background-color: var(--color-primary);
             transform: translateY(0%);
           }
         }
         & .disabled {
           cursor: not-allowed;
           font-style: italic;
-          color: var(--font-color-disabled);
           transform: none;
           &:hover {
-            color: var(--font-color-disabled);
             border: none;
-            &::after {
-              transform: none;
-            }
           }
         }
       }
+      ${colorsToCss()}
     `,
   };
 
-  return function Tabs(props, ...children) {
+  return function Tabs(...args) {
+    let [{ color, variant = "plain", size, ...props }, ...children] =
+      toPropsAndChildren(args);
     const TabHeader = (tab) => {
       const { Header, disabled, name } = tab;
       return li(
@@ -96,7 +105,17 @@ export default function (context, { tabDefs }) {
     };
 
     const rootEl = div(
-      { class: classNames(style.base, props.class) },
+      {
+        class: classNames(
+          "tabs",
+          style.base,
+          variant,
+          size,
+          color,
+          options?.class,
+          props.class
+        ),
+      },
       // Header
       bau.loop(tabsState, ul(), TabHeader),
       // Content

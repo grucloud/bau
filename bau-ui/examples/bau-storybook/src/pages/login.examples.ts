@@ -1,6 +1,6 @@
 import login from "@grucloud/bau-ui/pages/login";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { tr, bau } = context;

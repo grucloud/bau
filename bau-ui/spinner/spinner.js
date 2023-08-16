@@ -1,4 +1,10 @@
-import classNames from "@grucloud/bau-css/classNames";
+import classNames from "@grucloud/bau-css/classNames.js";
+
+const sizeToPixel = {
+  sm: 16,
+  md: 32,
+  lg: 64,
+};
 
 export default function (context, options = {}) {
   const { bau, css } = context;
@@ -8,8 +14,9 @@ export default function (context, options = {}) {
   );
 
   return function Spinner({
-    size = 36,
-    color = "primary",
+    size = "md",
+    color = "color-base",
+    variant = "outline",
     visibility = true,
     ...otherProps
   } = {}) {
@@ -20,14 +27,15 @@ export default function (context, options = {}) {
             visibility: ${visibility ? "visible" : "hidden"};
             color: var(--color-${color});
           `,
+          options.class,
           otherProps.class
         ),
         version: "1.1",
         id: "L6",
         x: "0px",
         y: "0px",
-        width: size,
-        height: size,
+        width: sizeToPixel[size],
+        height: sizeToPixel[size],
         viewBox: `0 0 100 100`,
         enableBackground: `new 0 0 100 100`,
       },

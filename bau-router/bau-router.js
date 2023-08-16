@@ -70,7 +70,7 @@ export default function Router({ routes, notFoundRoute, onLocationChange }) {
       target.tagName === "A" &&
       href &&
       !href.startsWith("http") &&
-      !href.startsWith("#")
+      !href.replace(window.location.pathname, "").startsWith("#")
     ) {
       history.pushState({}, null, href);
       event.preventDefault();

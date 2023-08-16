@@ -1,53 +1,80 @@
-import classNames from "@grucloud/bau-css/classNames";
+import { toPropsAndChildren } from "@grucloud/bau/bau.js";
+import classNames from "@grucloud/bau-css/classNames.js";
 
 export default function (context, options = {}) {
   const { bau, css } = context;
   const { input } = bau.tags;
-  const style = {
-    base: css`
+  const className = css`
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--global-radius);
+    appearance: none;
+    outline: none;
+    box-sizing: border-box;
+    transition: all var(--transition-fast) ease-in-out;
+    box-shadow: var(--shadow-s);
+    position: relative;
+    &:hover {
+      transform: scale(1.05);
+      filter: brightness(var(--brightness-hover));
+    }
+    &:hover.solid {
+      filter: brightness(var(--brightness-hover-always));
+    }
+    &:disabled {
+      border: 2px dashed var(--color-gray-500);
+    }
+    &:checked::after {
+      opacity: 1;
+    }
+    &::after {
+      content: "\u2716";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: all var(--transition-fast) ease-in-out;
+      opacity: 0;
+    }
+    &.sm {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+    &.sm::after {
+      font-size: 0.9rem;
+    }
+    &.md {
       width: 1.5rem;
       height: 1.5rem;
-      border-radius: var(--global-radius);
-      appearance: none;
-      outline: none;
-      box-sizing: border-box;
-      transition: all var(--transition-fast) ease-in-out;
-      box-shadow: var(--shadow-s);
-      border: 2px solid var(--color-gray-600);
-      position: relative;
-      &:hover {
-        transform: scale(1.05);
-      }
-      &:disabled {
-        border: 2px dashed var(--color-gray-500);
-      }
-      &:checked {
-        border: 2px solid var(--color-primary);
-        background-color: var(--color-primary);
-      }
-      &::after {
-        content: "\u2716";
-        position: absolute;
-        font-size: 1.2rem;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: var(--color-primary);
-        opacity: 0;
-      }
-      &:checked::after {
-        color: var(--color-gray-100);
-        opacity: 1;
-      }
-    `,
-  };
+    }
+    &.md::after {
+      font-size: 1.2rem;
+    }
+    &.lg {
+      width: 2rem;
+      height: 2rem;
+    }
+    &.lg::after {
+      font-size: 1.6rem;
+    }
+  `;
 
-  return function Checkbox(props, ...children) {
+  return function Checkbox(...args) {
+    let [{ color, variant = "outline", size = "md", ...props }, ...children] =
+      toPropsAndChildren(args);
+
     return input({
-      class: classNames(style.base, props.class),
       type: "checkbox",
       required: "required",
       ...props,
+      class: classNames(
+        className,
+        color,
+        variant,
+        size,
+        options?.class,
+        props?.class
+      ),
     });
   };
 }

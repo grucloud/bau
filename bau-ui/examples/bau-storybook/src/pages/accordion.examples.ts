@@ -1,9 +1,12 @@
 import accordion, { Accordion } from "@grucloud/bau-ui/accordion";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
+import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;
-  const { section, div, h3, h2, p } = bau.tags;
+  const { article, div, h3, h2, h1, p } = bau.tags;
+
+  const ComponentGrid = componentGrid(context);
 
   const AccordionContainer = (...children: any[]) =>
     div(
@@ -19,17 +22,17 @@ export default (context: Context) => {
   const accordionDefs: Accordion[] = [
     {
       name: "Item1",
-      Header: () => div("Item 1"),
+      Header: () => "Item 1",
       Content: () => div(p("Item 1 Content")),
     },
     {
       name: "Item2",
-      Header: () => div("Item 2"),
+      Header: () => "Item 2",
       Content: () => div(p("Item 2 Content")),
     },
     {
       name: "Item3",
-      Header: () => div("Item 3"),
+      Header: () => "Item 3",
       Content: () => div(p("Item 3 content")),
     },
   ];
@@ -37,14 +40,22 @@ export default (context: Context) => {
   const Accordion = accordion(context, { accordionDefs });
 
   return () =>
-    section(
+    article(
       { id: "accordion" },
-      h2(tr("Accordion")),
-      h3("Basic Accordion"),
+      h1(tr("Accordion")),
+
+      // pre(`import accordion from "@grucloud/bau-ui/accordion"`),
+      h2("Accordion Table"),
+      ComponentGrid({
+        Item: (props: any) => Accordion({ ...props }),
+      }),
+      h2("Customization"),
+      h3("Default Accordion"),
       AccordionContainer(Accordion({})),
       h3("Accordion width: fit-content"),
       AccordionContainer(
         Accordion({
+          color: "warning",
           class: css`
             &.accordion {
               & ul {
@@ -59,16 +70,18 @@ export default (context: Context) => {
       h3("Accordion icon cross"),
       AccordionContainer(
         Accordion({
+          color: "success",
+          variant: "outline",
           class: css`
             &.accordion {
               & ul {
                 & li {
-                  & header {
+                  & h3 {
                     &::after {
                       content: "\u002B";
                     }
                   }
-                  & header.active {
+                  & h3.active {
                     &::after {
                       transform: rotate(45deg);
                     }

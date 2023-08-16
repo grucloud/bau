@@ -1,6 +1,6 @@
 import animate from "@grucloud/bau-ui/animate";
 import button from "@grucloud/bau-ui/button";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 const createStyles = ({ keyframes }: Context) => {
   return {

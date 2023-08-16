@@ -1,10 +1,15 @@
 import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
 import button from "@grucloud/bau-ui/button";
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
+
+import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau, css } = context;
   const { section, div, h3, h2, p, i } = bau.tags;
+
+  const ComponentGrid = componentGrid(context);
+  const Button = button(context);
 
   const TabsContainer = (...children: any[]) =>
     div(
@@ -22,8 +27,6 @@ export default (context: Context) => {
     Header: ({ name }: any) => div(name),
     Content: () => div("My Paragraph"),
   });
-
-  const Button = button(context);
 
   const tabDefs: Tabs = [
     {
@@ -73,7 +76,6 @@ export default (context: Context) => {
           },
           Button(
             {
-              raised: true,
               onclick: (event: any) =>
                 event.srcElement.dispatchEvent(
                   new CustomEvent("tab.add", {
@@ -185,6 +187,10 @@ export default (context: Context) => {
         })
       ),
       h3("Add and remove tabs"),
-      TabsContainer(TabsExtended({}))
+      TabsContainer(TabsExtended({})),
+      h2(tr("Tabs Table")),
+      ComponentGrid({
+        Item: (props: any) => Tabs(props),
+      })
     );
 };

@@ -2,11 +2,12 @@ import breadcrumbs, {
   type BreadcrumbsProps,
 } from "@grucloud/bau-ui/breadcrumbs";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
+import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { tr, bau } = context;
-  const { section, h2 } = bau.tags;
+  const { section, h2, h3 } = bau.tags;
 
   const breadcrumbs1: BreadcrumbsProps = {
     items: [
@@ -19,12 +20,18 @@ export default (context: Context) => {
     ],
   };
 
+  const ComponentGrid = componentGrid(context);
   const Breadcrumbs = breadcrumbs(context);
 
   return () =>
     section(
       { id: "breadcrumbs" },
       h2(tr("Breadcrumbs")),
-      Breadcrumbs(breadcrumbs1)
+      h3("Bacis Breadcrumb"),
+      Breadcrumbs(breadcrumbs1),
+      h3("Breadcrumbs Table"),
+      ComponentGrid({
+        Item: (props: any) => Breadcrumbs({ ...props, ...breadcrumbs1 }),
+      })
     );
 };

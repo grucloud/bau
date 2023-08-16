@@ -19,13 +19,14 @@
     "bundle-visualizer": "vite-bundle-visualizer",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d ../../../dist"
   },
   "dependencies": {
     "@grucloud/bau": "^0.40.0",
     "@grucloud/bau-css": "^0.40.0",
     "@grucloud/bau-router": "^0.40.0",
-    "@grucloud/bau-ui": "^0.40.0"
+    "@grucloud/bau-ui": "^0.40.0",
+    "@ngneat/falso": "7.0.1"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "0.32.0",

@@ -1,10 +1,13 @@
 import treeView, { type Tree } from "@grucloud/bau-ui/treeView";
+import componentGrid from "./componentGrid";
 
-import { Context } from "../context";
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { tr, bau } = context;
-  const { section, a, h2 } = bau.tags;
+  const { section, a, h2, h3 } = bau.tags;
+
+  const ComponentGrid = componentGrid(context);
 
   const menu: Tree = {
     data: { name: "Root Menu" },
@@ -38,5 +41,14 @@ export default (context: Context) => {
   const TreeView = treeView(context, { renderMenuItem });
 
   return () =>
-    section({ id: "treeview" }, h2(tr("Tree View")), TreeView({ tree: menu }));
+    section(
+      { id: "treeview" },
+      h2(tr("Tree View")),
+      h3(tr("Tree View Default")),
+      TreeView({ tree: menu }),
+      h3(tr("Tree View Table")),
+      ComponentGrid({
+        Item: (props: any) => TreeView({ ...props, tree: menu }),
+      })
+    );
 };
