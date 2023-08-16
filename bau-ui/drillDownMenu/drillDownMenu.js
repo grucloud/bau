@@ -105,6 +105,9 @@ export default function (context, options) {
         {
           variant: "plain",
           href: `${base}${data.href}`,
+          class: css`
+            flex-grow: 1;
+          `,
         },
         data.name
       )
@@ -135,7 +138,6 @@ export default function (context, options) {
   const Button = button(context, {
     class: css`
       &.button {
-        flex-grow: 1;
         justify-content: flex-start;
       }
     `,

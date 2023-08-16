@@ -1,69 +1,30 @@
-import button from "@grucloud/bau-ui/button";
-import alert from "@grucloud/bau-ui/alert";
-import alertStack from "@grucloud/bau-ui/alertStack";
-//import componentGrid from "./componentGrid";
-
 import { Context } from "@grucloud/bau-ui/context";
 
+import pageExample from "./pageExample";
+
+import alertStackDefault from "./alertStack/alertStack-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./alertStack/alertStack-example-default.ts?raw";
+
+export const alertStackSpec = {
+  title: "Alert Stack",
+  package: "alertStack",
+  description:
+    "An alertStack displays alerts in a stack. To send an alert from any component, send a CustomEvent with the alert to display.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/alertStack/alertStack.js",
+  importStatement: `import alertStack from "@grucloud/bau-ui/alertStack";`,
+  examples: [
+    {
+      title: "Default",
+      description: "A simple alertStack.",
+      code: codeExampleDefault,
+      createComponent: alertStackDefault,
+    },
+  ],
+};
+
 export default (context: Context) => {
-  const { tr, bau } = context;
-  const { section, h1 } = bau.tags;
-
-  const AlertStack = alertStack(context, { deleteAfterDuration: 20e3 });
-  const Button = button(context);
-
-  const Alert = alert(context);
-
-  return function AlertStackExamples() {
-    return section(
-      { id: "alert-stack" },
-      AlertStack(),
-      h1("Alert stack"),
-      Button(
-        {
-          color: "success",
-          variant: "outline",
-          onclick: () => {
-            document.dispatchEvent(
-              new CustomEvent("alert.add", {
-                detail: {
-                  Component: () =>
-                    Alert(
-                      {
-                        color: "success",
-                      },
-                      tr("Infrastructure Created")
-                    ),
-                },
-              })
-            );
-          },
-        },
-        "success alert"
-      ),
-      Button(
-        {
-          color: "danger",
-          variant: "outline",
-
-          onclick: () => {
-            document.dispatchEvent(
-              new CustomEvent("alert.add", {
-                detail: {
-                  Component: () =>
-                    Alert(
-                      {
-                        color: "danger",
-                      },
-                      tr("Error creating infrastructure")
-                    ),
-                },
-              })
-            );
-          },
-        },
-        "danger alert"
-      )
-    );
-  };
+  const PageExample = pageExample(context);
+  return () => PageExample(alertStackSpec);
 };

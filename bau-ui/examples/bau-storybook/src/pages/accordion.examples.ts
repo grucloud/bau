@@ -1,23 +1,24 @@
 import accordion, { Accordion } from "@grucloud/bau-ui/accordion";
 import { Context } from "@grucloud/bau-ui/context";
-import componentGrid from "./componentGrid";
+import pageExample from "./pageExample";
 
-export default (context: Context) => {
-  const { tr, bau, css } = context;
-  const { article, div, h3, h2, h1, p } = bau.tags;
+import accordionGridItem from "./accordion/accordion-grid-item.ts";
 
-  const ComponentGrid = componentGrid(context);
+import accordionDefault from "./accordion/accordion-example-default.ts";
+// @ts-ignore
+import codeEx from "./accordion/accordion-example-default.ts?raw";
 
-  const AccordionContainer = (...children: any[]) =>
-    div(
-      {
-        class: css`
-          border: 1px dotted var(--color-gray-500);
-          padding: 1rem;
-        `,
-      },
-      ...children
-    );
+import accordionFitContent from "./accordion/accordion-example-fit-content.ts";
+// @ts-ignore
+import codeFitContent from "./accordion/accordion-example-fit-content.ts?raw";
+import accordionCrossIcon from "./accordion/accordion-example-cross-icon.ts";
+
+// @ts-ignore
+import codeCrossIcon from "./accordion/accordion-example-cross-icon.ts?raw";
+
+const createAccordionDefs = (context: Context): Accordion[] => {
+  const { bau } = context;
+  const { div, p } = bau.tags;
 
   const accordionDefs: Accordion[] = [
     {
@@ -36,61 +37,41 @@ export default (context: Context) => {
       Content: () => div(p("Item 3 content")),
     },
   ];
+  return accordionDefs;
+};
 
-  const Accordion = accordion(context, { accordionDefs });
+export const accordionSpec = {
+  title: "Accordion",
+  package: "accordion",
+  description:
+    "An accordion is a stacked list of headers that reveal or hide associated sections of content.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/accordion/accordion.js",
+  importStatement: `import accordion from "@grucloud/bau-ui/accordion";`,
+  examples: [
+    {
+      title: "Default ",
+      description: "A simple accordion.",
+      code: codeEx,
+      createComponent: accordionDefault,
+    },
+    {
+      title: "Customize with with fit-content",
+      description: "Customize the width of the accordion.",
+      code: codeFitContent,
+      createComponent: accordionFitContent,
+    },
+    {
+      title: "Customize the icon",
+      description: "Customize the icon with a cross.",
+      code: codeCrossIcon,
+      createComponent: accordionCrossIcon,
+    },
+  ],
+  gridItem: accordionGridItem,
+};
 
-  return () =>
-    article(
-      { id: "accordion" },
-      h1(tr("Accordion")),
-
-      // pre(`import accordion from "@grucloud/bau-ui/accordion"`),
-      h2("Accordion Table"),
-      ComponentGrid({
-        Item: (props: any) => Accordion({ ...props }),
-      }),
-      h2("Customization"),
-      h3("Default Accordion"),
-      AccordionContainer(Accordion({})),
-      h3("Accordion width: fit-content"),
-      AccordionContainer(
-        Accordion({
-          color: "warning",
-          class: css`
-            &.accordion {
-              & ul {
-                & li {
-                  width: fit-content;
-                }
-              }
-            }
-          `,
-        })
-      ),
-      h3("Accordion icon cross"),
-      AccordionContainer(
-        Accordion({
-          color: "success",
-          variant: "outline",
-          class: css`
-            &.accordion {
-              & ul {
-                & li {
-                  & h3 {
-                    &::after {
-                      content: "\u002B";
-                    }
-                  }
-                  & h3.active {
-                    &::after {
-                      transform: rotate(45deg);
-                    }
-                  }
-                }
-              }
-            }
-          `,
-        })
-      )
-    );
+export default (context: Context) => {
+  const PageExample = pageExample(context);
+  return () => PageExample(accordionSpec);
 };

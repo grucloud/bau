@@ -26,7 +26,7 @@
     "@grucloud/bau-css": "^0.41.0",
     "@grucloud/bau-router": "^0.41.0",
     "@grucloud/bau-ui": "^0.41.0",
-    "@ngneat/falso": "7.0.1"
+    "highlight.js": "11.8.0"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "0.32.0",

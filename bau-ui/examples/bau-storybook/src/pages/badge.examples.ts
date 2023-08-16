@@ -1,45 +1,33 @@
-import badge from "@grucloud/bau-ui/badge";
-import componentGrid from "./componentGrid";
 import { Context } from "@grucloud/bau-ui/context";
 
+import pageExample from "./pageExample";
+
+import badgeGridItem from "./badge/badge-grid-item.ts";
+
+import badgeDefault from "./badge/badge-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./badge/badge-example-default.ts?raw";
+
+export const badgeSpec = {
+  title: "Badge",
+  package: "badge",
+  description:
+    "The badge component displays a number on the top right corner of an icon",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/badge/badge.js",
+  importStatement: `import badge from "@grucloud/bau-ui/badge";`,
+  examples: [
+    {
+      title: "Default",
+      description: "A simple badge.",
+      code: codeExampleDefault,
+      createComponent: badgeDefault,
+    },
+  ],
+  gridItem: badgeGridItem,
+};
+
 export default (context: Context) => {
-  const { bau, css } = context;
-  const { section, div, h3, h2 } = bau.tags;
-  componentGrid;
-  const Container = (...children: any[]) =>
-    div(
-      {
-        class: css`
-          border: 1px dotted var(--color-gray-500);
-          padding: 1rem;
-        `,
-      },
-      ...children
-    );
-
-  const ComponentGrid = componentGrid(context);
-
-  const Badge = badge(context);
-  const BadgeCutom = badge(context, {
-    class: css`
-      & span {
-        background-color: lightseagreen;
-      }
-    `,
-  });
-
-  return () =>
-    section(
-      { id: "badge" },
-      h2("Badge"),
-      h3("Basic Badge"),
-      Container(Badge({ content: "10" }, "\u260F")),
-      h3("Badges Table"),
-      ComponentGrid({
-        Item: (props: any, { index }: any) =>
-          Badge({ ...props, content: `${index * 100}` }, "\u260F"),
-      }),
-      h3("Badge custom"),
-      Container(BadgeCutom({ content: "1" }, "\u260F"))
-    );
+  const PageExample = pageExample(context);
+  return () => PageExample(badgeSpec);
 };

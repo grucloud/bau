@@ -1,51 +1,44 @@
 import alert from "@grucloud/bau-ui/alert";
-
 import { Context } from "@grucloud/bau-ui/context";
-import componentGrid from "./componentGrid";
+
+import pageExample from "./pageExample";
+
+import alertGridItem from "./alert/alert-grid-item.ts";
+
+import alertDefault from "./alert/alert-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./alert/alert-example-default.ts?raw";
+
+import alertCustom from "./alert/alert-example-custom.ts";
+// @ts-ignore
+import codeExampleCustom from "./alert/alert-example-custom.ts?raw";
+
+export const alertSpec = {
+  title: "Alert",
+  package: "alert",
+  description:
+    "An alert displays a short, important message in a way that attracts the user's attention without interrupting the user's task.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/alert/alert.js",
+  importStatement: `import alert from "@grucloud/bau-ui/alert";`,
+  examples: [
+    {
+      title: "Default",
+      description: "A simple danger alert.",
+      code: codeExampleDefault,
+      createComponent: alertDefault,
+    },
+    {
+      title: "Custom Alert ",
+      description: "A custom alert.",
+      code: codeExampleCustom,
+      createComponent: alertCustom,
+    },
+  ],
+  gridItem: alertGridItem,
+};
 
 export default (context: Context) => {
-  const { tr, bau, css } = context;
-  const { section, div, h3, h2, h4, p } = bau.tags;
-
-  const ComponentGrid = componentGrid(context);
-
-  const Alert = alert(context);
-  const AlertCustom = alert(context, {
-    class: css`
-      &.alert {
-        border: 3px dotted !important;
-        height: 80px;
-      }
-    `,
-  });
-
-  return () =>
-    section(
-      { id: "alert" },
-      h2(tr("Alert Examples")),
-      h3("Basic Alert"),
-      div(
-        Alert(
-          {
-            color: "danger",
-          },
-          h4("Something went wrong"),
-          p("Error code ", 404),
-          p("Status ", "Not Found")
-        )
-      ),
-      h3("Custom Alert"),
-      div(
-        AlertCustom(
-          {
-            color: "warning",
-          },
-          h4("My message")
-        )
-      ),
-      h3("Alert Table"),
-      ComponentGrid({
-        Item: (props: any) => Alert({ ...props }, `Alert ${props.color}`),
-      })
-    );
+  const PageExample = pageExample(context);
+  return () => PageExample(alertSpec);
 };

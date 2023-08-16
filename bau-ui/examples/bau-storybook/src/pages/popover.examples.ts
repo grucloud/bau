@@ -1,82 +1,32 @@
-import popover from "@grucloud/bau-ui/popover";
-import button from "@grucloud/bau-ui/button";
-
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
-  const { tr, bau, css } = context;
-  const { section, div, h3, h2, h1, p } = bau.tags;
-  const Button = button(context);
-  const Container = (...children: any[]) =>
-    div(
-      {
-        class: css`
-          display: flex;
-          justify-content: space-between;
-          border: 1px dotted var(--color-gray-500);
-          padding: 1rem;
-        `,
-      },
-      ...children
-    );
+import pageExample from "./pageExample";
 
-  const Popover = popover(context);
+//import popoverGridItem from "./popover/popover-grid-item.ts";
 
-  const TriggerButton = () =>
-    Button(
-      {
-        onclick: () =>
-          popoverEl.open ? popoverEl.closeDialog() : popoverEl.openDialog(),
-      },
-      "Click"
-    );
+import popoverDefault from "./popover/popover-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./popover/popover-example-default.ts?raw";
 
-  const triggerEl = TriggerButton();
-  const Content = () => div({}, h1("My content"), p("My Content"));
-  const contentEl = Content();
-  const popoverEl = Popover({
-    id: "my-popover-left",
-    triggerEl,
-    contentEl,
-  });
-
-  const triggerElRight = Button(
+export const popoverSpec = {
+  title: "Popover",
+  package: "popover",
+  description: "The popover component display a dialog next to a composant.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/popover/popover.js",
+  importStatement: `import popover from "@grucloud/bau-ui/popover";`,
+  examples: [
     {
-      onclick: () =>
-        popoverElRight.open
-          ? popoverElRight.closeDialog()
-          : popoverElRight.openDialog(),
+      title: "Default",
+      description: "A simple popover.",
+      code: codeExampleDefault,
+      createComponent: popoverDefault,
     },
-    "Click"
-  );
-  const contentRight = Content();
+  ],
+  //gridItem: popoverGridItem,
+};
 
-  const popoverElRight = Popover({
-    id: "my-popover-left",
-    triggerEl: triggerElRight,
-    contentEl: contentRight,
-  });
-
-  return () =>
-    section(
-      {
-        id: "popover",
-        class: css``,
-      },
-      h2(tr("Popover")),
-      h3("Basic Popover"),
-      Container(
-        div(triggerEl, popoverEl),
-        div(triggerElRight, popoverElRight)
-
-        // div(
-        //   triggerEl,
-        //   Popover({
-        //     id: "my-popover-right",
-        //     triggerEl,
-        //     contentEl,
-        //   })
-        // )
-      )
-    );
+export default (context: Context) => {
+  const PageExample = pageExample(context);
+  return () => PageExample(popoverSpec);
 };

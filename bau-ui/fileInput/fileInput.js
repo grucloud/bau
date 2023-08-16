@@ -31,8 +31,12 @@ export default function (context, options) {
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        transition: all var(--transition-slow) ease-out;
+        &:hover.solid {
+          filter: brightness(var(--brightness-hover-always)) !important;
+        }
         &:hover {
-          box-shadow: var(--shadow-m);
+          filter: brightness(var(--brightness-hover));
         }
       }
     `,

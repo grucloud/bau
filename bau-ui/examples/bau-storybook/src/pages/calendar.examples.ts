@@ -1,74 +1,32 @@
-import calendar from "@grucloud/bau-ui/calendar";
 import { Context } from "@grucloud/bau-ui/context";
-import componentGrid from "./componentGrid";
+
+import pageExample from "./pageExample";
+
+import calendarGridItem from "./calendar/calendar-grid-item.ts";
+
+import calendarDefault from "./calendar/calendar-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./calendar/calendar-example-default.ts?raw";
+
+export const calendarSpec = {
+  title: "Calendar",
+  package: "calendar",
+  description: "The calendar component uses the native input date type.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/calendar/calendar.js",
+  importStatement: `import calendar from "@grucloud/bau-ui/calendar";`,
+  examples: [
+    {
+      title: "Default",
+      description: "A simple calendar.",
+      code: codeExampleDefault,
+      createComponent: calendarDefault,
+    },
+  ],
+  gridItem: calendarGridItem,
+};
 
 export default (context: Context) => {
-  const { tr, bau, css } = context;
-  const { section, div, h3, h2, label } = bau.tags;
-
-  const ComponentGrid = componentGrid(context);
-
-  const Container = (...children: any[]) =>
-    div(
-      {
-        class: css`
-          border: 1px dotted var(--color-gray-500);
-          padding: 1rem;
-        `,
-      },
-      ...children
-    );
-
-  const calendarState = bau.state("2023-08-08");
-
-  const Calendar = calendar(context);
-  const CalendarCutom = calendar(context, {
-    class: css`
-      background-color: lightseagreen !important;
-    `,
-  });
-
-  return () =>
-    section(
-      { id: "calendar" },
-      h2(tr("Calendar")),
-      div("Date: ", calendarState),
-      h3("Basic Calendar"),
-      Container(
-        label(
-          { for: "start" },
-          "Start date:",
-          Calendar({
-            id: "start",
-            value: calendarState.val,
-            oninput: (event: any) => {
-              calendarState.val = event.target.value;
-            },
-          })
-        )
-      ),
-      h3("Calendar min and max"),
-      Container(
-        label(
-          "End date:",
-          Calendar({
-            min: "2023-01-01",
-            max: "2023-12-31",
-            value: calendarState.val,
-            oninput: (event: any) => {
-              calendarState.val = event.target.value;
-            },
-          })
-        )
-      ),
-      h3("Calendar custom"),
-      Container(CalendarCutom({})),
-      h3("Calendar Table"),
-      ComponentGrid({
-        Item: (props: any) =>
-          Calendar({
-            ...props,
-          }),
-      })
-    );
+  const PageExample = pageExample(context);
+  return () => PageExample(calendarSpec);
 };

@@ -1,54 +1,32 @@
-import button from "@grucloud/bau-ui/button";
-import componentGrid from "./componentGrid";
-
 import { Context } from "@grucloud/bau-ui/context";
 
+import pageExample from "./pageExample";
+
+import buttonGridItem from "./button/button-grid-item.ts";
+
+import buttonDefault from "./button/button-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./button/button-example-default.ts?raw";
+
+export const buttonSpec = {
+  title: "Button",
+  package: "button",
+  description: "The button component.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/button/button.js",
+  importStatement: `import button from "@grucloud/bau-ui/button";`,
+  examples: [
+    {
+      title: "Default",
+      description: "A simple button.",
+      code: codeExampleDefault,
+      createComponent: buttonDefault,
+    },
+  ],
+  gridItem: buttonGridItem,
+};
+
 export default (context: Context) => {
-  const { bau, css } = context;
-  const { section, p, h3 } = bau.tags;
-  const ComponentGrid = componentGrid(context);
-
-  const Button = button(context);
-  return () =>
-    section(
-      {
-        id: "button",
-        class: css`
-          & button {
-            margin: 0.5rem;
-          }
-        `,
-      },
-      h3("Button Examples"),
-      ComponentGrid({
-        Item: (props: any) =>
-          Button(
-            {
-              ...props,
-            },
-            `${props.variant} ${props.color} ${props.size}`
-          ),
-      }),
-      h3("Full With"),
-      p(
-        Button(
-          {
-            color: "primary",
-
-            class: css`
-              width: 100%;
-            `,
-          },
-          "witdh: 100%"
-        )
-      ),
-      h3("Icon"),
-      p(
-        Button({ "aria-label": "Close" }, "\u2716"),
-        Button({}, "\u27EA"),
-        Button({}, "\u27E8"),
-        Button({}, "\u27E9"),
-        Button({}, "\u27EB")
-      )
-    );
+  const PageExample = pageExample(context);
+  return () => PageExample(buttonSpec);
 };
