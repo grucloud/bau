@@ -1,7 +1,7 @@
 {
   "name": "bau-playground",
   "private": true,
-  "version": "0.40.0",
+  "version": "0.41.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.40.0"
+    "@grucloud/bau": "^0.41.0"
   },
   "devDependencies": {
     "vite": "^4.3.9"
