@@ -23,6 +23,7 @@ export default function (context) {
             href: `${config.base}/components`,
             color: "primary",
             variant: "solid",
+            size: "lg",
           },
           "Visit Gallery"
         ),

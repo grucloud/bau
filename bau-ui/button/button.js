@@ -34,7 +34,7 @@ export default function (context, options) {
         padding: 0.5rem;
       }
       &.lg {
-        padding: 0.7rem;
+        padding: 0.7rem 2rem;
       }
     `,
     button: css`

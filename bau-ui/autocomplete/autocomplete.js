@@ -5,7 +5,7 @@ import button from "../button/button.js";
 import input from "../input/input.js";
 import list from "../list/list.js";
 
-import { Colors } from "../constants";
+import { Colors } from "../constants.js";
 
 const colorsToCss = () =>
   Colors.map(

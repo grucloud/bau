@@ -4,7 +4,7 @@ import popover from "../popover/popover.js";
 import button from "../button/button.js";
 import list from "../list/list.js";
 
-import { Colors } from "../constants";
+import { Colors } from "../constants.js";
 
 const colorsToCss = () =>
   Colors.map(
