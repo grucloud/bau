@@ -3,7 +3,7 @@ import footer from "./footer";
 import navBarMenu from "./navBarMenu";
 
 export const layoutDefault = (context) => {
-  const { bau, css } = context;
+  const { bau, css, states } = context;
   const { div } = bau.tags;
 
   const Header = header(context);
@@ -15,7 +15,8 @@ export const layoutDefault = (context) => {
       {
         class: css`
           display: grid;
-          grid-template-columns: minmax(15%, 200px) minmax(50%, 85%);
+          grid-template-columns: auto 1fr;
+          grid-template-rows: auto 1fr auto;
           grid-template-areas:
             "header header"
             "sidebar main"
@@ -28,9 +29,6 @@ export const layoutDefault = (context) => {
               "header"
               "main"
               "footer";
-            & nav {
-              display: none;
-            }
           }
         `,
       },

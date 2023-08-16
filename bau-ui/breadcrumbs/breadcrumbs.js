@@ -41,8 +41,10 @@ export default function (context, options) {
   `;
 
   return function Breadcrumbs(...args) {
-    let [{ color, variant = "outline", size, items, ...props }, ...children] =
-      toPropsAndChildren(args);
+    let [
+      { color, variant = "outline", size = "md", items, ...props },
+      ...children
+    ] = toPropsAndChildren(args);
     return ul(
       {
         ...props,

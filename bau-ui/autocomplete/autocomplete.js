@@ -43,6 +43,7 @@ export default function (context, componentOptions) {
         margin: 0.3rem;
       }
     }
+
     ${colorsToCss()}
   `;
 
@@ -60,7 +61,7 @@ export default function (context, componentOptions) {
       {
         variant = "outline",
         color,
-        size,
+        size = "md",
         id,
         label,
         placeholder,

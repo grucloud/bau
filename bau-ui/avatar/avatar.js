@@ -2,7 +2,7 @@ import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 
 export default function (context, options) {
-  const { bau } = context;
+  const { bau, css } = context;
   const { span, img } = bau.tags;
 
   const loadingState = bau.state(true);
@@ -15,13 +15,34 @@ export default function (context, options) {
     errorState.val = true;
   };
 
+  const className = css`
+    &.sm {
+      width: 20px;
+      height: 20px;
+    }
+    &.md {
+      width: 40px;
+      height: 40px;
+    }
+    &.lg {
+      width: 60px;
+      height: 60px;
+    }
+  `;
   return function Avatar(...args) {
     let [
-      { color, variant = "outline", size, width = 60, height = 60, ...props },
+      {
+        color,
+        variant = "outline",
+        size = "md",
+        width = 30,
+        height = 30,
+        ...props
+      },
       ...children
     ] = toPropsAndChildren(args);
     return span(
-      { class: classNames(options?.class, props.class) },
+      { class: classNames(className, options?.class, props.class) },
       () => (loadingState.val ? "Loading..." : ""),
       () => errorState.val && "Error",
       img({
@@ -29,7 +50,14 @@ export default function (context, options) {
         height,
         onload,
         onerror,
-        class: classNames(options?.class, color, variant, size, props.class),
+        class: classNames(
+          color,
+          variant,
+          size,
+          className,
+          options?.class,
+          props.class
+        ),
         ...props,
       })
     );

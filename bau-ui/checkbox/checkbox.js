@@ -30,17 +30,37 @@ export default function (context, options = {}) {
     &::after {
       content: "\u2716";
       position: absolute;
-      font-size: 1.2rem;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       transition: all var(--transition-fast) ease-in-out;
       opacity: 0;
     }
+    &.sm {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+    &.sm::after {
+      font-size: 0.9rem;
+    }
+    &.md {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    &.md::after {
+      font-size: 1.2rem;
+    }
+    &.lg {
+      width: 2rem;
+      height: 2rem;
+    }
+    &.lg::after {
+      font-size: 1.6rem;
+    }
   `;
 
   return function Checkbox(...args) {
-    let [{ color, variant = "outline", size, ...props }, ...children] =
+    let [{ color, variant = "outline", size = "md", ...props }, ...children] =
       toPropsAndChildren(args);
 
     return input({

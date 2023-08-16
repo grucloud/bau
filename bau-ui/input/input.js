@@ -45,9 +45,6 @@ export default function (context, options) {
 
   const className = css`
     display: inline-block;
-    font-size: large;
-    padding: 1rem;
-    height: 2.5rem;
     box-shadow: var(--shadow-s);
     border-radius: var(--global-radius);
     box-sizing: border-box;
@@ -57,12 +54,21 @@ export default function (context, options) {
     &.input:hover {
       background-color: var(--color-emphasis-100);
     }
+    &.sm {
+      padding: 0.4rem;
+    }
+    &.md {
+      padding: 0.5rem;
+    }
+    &.lg {
+      padding: 0.8rem;
+    }
     ${colorsToCss()}
   `;
 
   return function Input(props) {
     const {
-      size,
+      size = "md",
       variant = "outline",
       color = "neutral",
       name,

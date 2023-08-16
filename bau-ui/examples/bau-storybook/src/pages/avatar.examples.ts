@@ -3,7 +3,7 @@ import { Context } from "@grucloud/bau-ui/context";
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
-  const { tr, bau, css } = context;
+  const { tr, bau, css, config } = context;
   const { section, h2, h3 } = bau.tags;
   const avatarClass = css`
     > img {
@@ -33,18 +33,9 @@ export default (context: Context) => {
         class: avatarClass,
         src: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=robohash&f=y",
         alt: "my avatar",
-        width: 40,
-        height: 40,
       }),
       Avatar({
-        class: avatarClass,
-        src: "./grucloud.svg",
-        alt: "GruCloud",
-        width: 40,
-        height: 40,
-      }),
-      Avatar({
-        src: "./grucloud.svg",
+        src: `${config.base}/grucloud.svg`,
         alt: "GruCloud",
       }),
 
@@ -54,7 +45,7 @@ export default (context: Context) => {
           Avatar({
             ...props,
             //class: avatarClass,
-            src: "./grucloud.svg",
+            src: `${config.base}/grucloud.svg`,
             alt: "GruCloud",
           }),
       })

@@ -3,13 +3,11 @@ import button from "@grucloud/bau-ui/button";
 import createThemeSwitch from "@grucloud/bau-ui/themeSwitch";
 
 export default function (context) {
-  const { tr, bau, css, config } = context;
+  const { tr, bau, css, config, states } = context;
   const { i, header, h1, div, a, img, b, ul, li } = bau.tags;
   const { svg, path } = bau.tagsNS("http://www.w3.org/2000/svg");
+  const drawerOpenState = states.drawerOpen;
 
-  const drawerOpenState = bau.state(true);
-
-  //const Drawer = drawer(context);
   const Button = button(context, {
     class: css`
       background: transparent;
@@ -104,15 +102,18 @@ export default function (context) {
         `,
       },
       ThemeSwitch(),
-      a(
+      Button(
         {
-          class: css`
-            padding: 1rem;
-          `,
+          class: css``,
           target: "_blank",
           href: "https://github.com/grucloud/bau",
+          title: "Bau's Github",
         },
         img({
+          class: css`
+            border-radius: 50%;
+            background: black;
+          `,
           alt: "GitHub",
           src: `${config.base}/github-mark-white.svg`,
           width: 30,

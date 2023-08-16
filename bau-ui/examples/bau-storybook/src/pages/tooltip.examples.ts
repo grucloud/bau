@@ -202,7 +202,7 @@ export default (context: Context) => {
         Item: (props: any) =>
           Tooltip(
             { titleEl: TooltipContent(), ...props },
-            Button({}, `${props.color} ${props.variant}`)
+            Button(props, `${props.color} ${props.variant}`)
           ),
       })
     );

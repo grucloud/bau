@@ -26,7 +26,7 @@ export default (context: Context) => {
             {
               ...props,
             },
-            `${props.variant} ${props.color}`
+            `${props.variant} ${props.color} ${props.size}`
           ),
       }),
       h3("Full With"),

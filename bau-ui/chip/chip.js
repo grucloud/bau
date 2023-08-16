@@ -6,6 +6,7 @@ export default function (context, options) {
   const { span } = bau.tags;
 
   const className = css`
+    display: inline-block;
     border-radius: var(--global-radius);
     padding: 0.2rem 0.5rem;
     overflow: hidden;
@@ -15,11 +16,26 @@ export default function (context, options) {
     &.clickable {
       cursor: pointer;
     }
+    &.sm {
+      padding: 0.2rem;
+    }
+    &.md {
+      padding: 0.5rem;
+    }
+    &.lg {
+      padding: 0.5rem;
+    }
   `;
 
   return function Chip(...args) {
     let [
-      { size, variant = "outline", color = "neutral", onclick, ...props },
+      {
+        size = "md",
+        variant = "outline",
+        color = "neutral",
+        onclick,
+        ...props
+      },
       ...children
     ] = toPropsAndChildren(args);
 

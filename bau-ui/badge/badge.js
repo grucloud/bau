@@ -27,8 +27,10 @@ export default function (context, options) {
   `;
 
   return function Badge(...args) {
-    let [{ color, variant = "outline", size, content, ...props }, ...children] =
-      toPropsAndChildren(args);
+    let [
+      { color, variant = "outline", size = "md", content, ...props },
+      ...children
+    ] = toPropsAndChildren(args);
     return span(
       {
         ...props,

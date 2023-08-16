@@ -45,7 +45,7 @@ export default function (context, componentOptions) {
       {
         color = "neutral",
         variant = "outline",
-        size,
+        size = "md",
         id,
         label,
         Option,
@@ -58,6 +58,7 @@ export default function (context, componentOptions) {
 
     const dialogOpen = () => {
       popoverEl.openDialog();
+      popoverEl.focus();
       openState.val = true;
     };
 
@@ -120,7 +121,7 @@ export default function (context, componentOptions) {
 
     const Content = () =>
       List(
-        { class: classNames(color, variant) },
+        { tabindex: "0", class: classNames(color, variant) },
         options.map((option, index) =>
           li(
             {

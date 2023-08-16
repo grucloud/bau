@@ -42,10 +42,8 @@ export default function (context, options) {
     }
   }
 
-  const style = css`
+  const className = css`
     position: relative;
-    width: 2rem;
-    height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,11 +64,38 @@ export default function (context, options) {
       content: "\u263D";
       font-size: x-large;
     }
+    &:hover {
+      filter: brightness(var(--brightness-hover));
+    }
+    &:hover.solid {
+      filter: brightness(var(--brightness-hover-always));
+    }
+    &.sm {
+      width: 1.7rem;
+      height: 1.7rem;
+    }
+    &.sm::after {
+      font-size: 1rem;
+    }
+    &.md {
+      width: 2rem;
+      height: 2rem;
+    }
+    &.md::after {
+      font-size: 1.5rem;
+    }
+    &.lg {
+      width: 3rem;
+      height: 3rem;
+    }
+    &.lg::after {
+      font-size: 2.3rem;
+    }
     ${colorsToCss()}
   `;
 
   return function ThemeSwitch(...args) {
-    let [{ color, variant = "outline", size, ...props }, ...children] =
+    let [{ color, variant = "outline", size = "md", ...props }, ...children] =
       toPropsAndChildren(args);
 
     return input(
@@ -80,10 +105,10 @@ export default function (context, options) {
         ...props,
         class: classNames(
           "theme-switch",
-          style,
           color,
           variant,
           size,
+          className,
           options?.class,
           props.class
         ),

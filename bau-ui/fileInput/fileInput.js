@@ -50,7 +50,7 @@ export default function (context, options) {
     const {
       variant = "outline",
       color = "neutral",
-      size,
+      size = "md",
       Component,
       disabled,
       ...otherProps

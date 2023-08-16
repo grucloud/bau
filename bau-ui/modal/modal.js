@@ -61,7 +61,7 @@ export default function (context, options) {
 
   return function Modal(...args) {
     let [
-      { color = "neutral", variant = "outline", size, ...props },
+      { color = "neutral", variant = "outline", size = "md", ...props },
       ...children
     ] = toPropsAndChildren(args);
 

@@ -172,7 +172,7 @@ export default function (context, options) {
   return function TreeView({
     tree,
     maxDepth = Infinity,
-    size,
+    size = "md",
     variant = "plain",
     color = "neutral",
     ...otherProps

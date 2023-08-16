@@ -25,12 +25,13 @@ export default function (context, options) {
         filter: brightness(var(--brightness-active-always));
       }
     }
-
     & li {
-      padding: 0.5rem;
+      padding: 0.4rem;
       cursor: pointer;
       background-color: inherit;
       transition: all var(--transition-slow) ease-out;
+      display: flex;
+      align-items: center;
       &:hover {
         filter: brightness(var(--brightness-hover));
       }

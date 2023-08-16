@@ -51,8 +51,6 @@ export default function (context, options) {
 
   const style = css`
     position: relative;
-    width: 2.4rem;
-    height: 1.4rem;
     border-radius: 0.7rem;
     appearance: none;
     outline: none;
@@ -63,8 +61,6 @@ export default function (context, options) {
       transform: translate(-100%, -50%);
       left: 50%;
       top: 50%;
-      width: 1rem;
-      height: 1rem;
       border-radius: 50%;
       position: absolute;
       box-shadow: var(--shadow-m);
@@ -81,12 +77,39 @@ export default function (context, options) {
     &:hover.solid {
       filter: brightness(var(--brightness-hover-always));
     }
+    &.sm {
+      width: 2rem;
+      height: 1.2rem;
+      border-radius: 0.6rem;
+    }
+    &.sm::after {
+      width: 0.8rem;
+      height: 0.8rem;
+    }
+    &.md {
+      width: 2.4rem;
+      height: 1.4rem;
+      border-radius: 0.7rem;
+    }
+    &.md::after {
+      width: 1rem;
+      height: 1rem;
+    }
+    &.lg {
+      width: 3.3rem;
+      height: 1.7rem;
+      border-radius: 2rem;
+    }
+    &.lg::after {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
     ${colorsToCss()}
   `;
 
   return function Switch(...args) {
     let [
-      { color = "neutral", variant = "plain", size, ...props },
+      { color = "neutral", variant = "plain", size = "md", ...props },
       ...children
     ] = toPropsAndChildren(args);
     return input(

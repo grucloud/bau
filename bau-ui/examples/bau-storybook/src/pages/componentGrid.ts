@@ -4,7 +4,7 @@ import { Context } from "@grucloud/bau-ui/context";
 export default (context: Context) => {
   const { bau, css } = context;
   const { div, table, tbody, tr, td, thead, th } = bau.tags;
-
+  const sizeMap = ["sm", "md", "lg"];
   return function ComponentGrid({ Item, name }: any) {
     return div(
       {
@@ -36,6 +36,7 @@ export default (context: Context) => {
                     {
                       color,
                       variant,
+                      size: sizeMap[index % 3],
                     },
                     { index }
                   )

@@ -99,15 +99,7 @@ export default function globalStyle(
       ${buildGrays()}
       ${buildEmphasis({})}
       ${variantToCss()}
-      .plain {
-        background-color: var(--background-color);
-      }
-      .outline {
-        background-color: var(--background-color);
-      }
-      .solid {
-        color: var(--font-color-inverse);
-      }
+      
       --color-content: hsl(0, 0%, 10%);
       --color-content-inverse: hsl(0, 0%, 95%);
       --color-content-secondary: hsl(0, 0%, 30%);
@@ -134,11 +126,29 @@ export default function globalStyle(
       --font-size-base: 100%;
       --line-height-base: 1.65;
       --link-color: var(--color-primary);
-      --brightness-hover-always: 170%;
+      --brightness-hover-always: 180%;
       --brightness-active-always: 150%;
       --brightness-hover: 80%;
       --brightness-hover-reverse: 140%;
       --brightness-active: 90%;
+      .plain {
+        background-color: var(--background-color);
+      }
+      .outline {
+        background-color: var(--background-color);
+      }
+      .solid {
+        color: var(--font-color-inverse);
+      }
+      .sm {
+        font-size: 0.8rem;
+      }
+      .md {
+        font-size: 1.1rem;
+      }
+      .lg {
+        font-size: 1.2rem;
+      }
     }
     :root {
       font-family: var(--font-family);

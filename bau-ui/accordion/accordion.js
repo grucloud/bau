@@ -113,8 +113,10 @@ export default function (context, options) {
   `;
 
   return function Accordion(...args) {
-    let [{ color, variant = "outline", size, content, ...props }, ...children] =
-      toPropsAndChildren(args);
+    let [
+      { color, variant = "outline", size = "md", content, ...props },
+      ...children
+    ] = toPropsAndChildren(args);
     const AccordionItem = (item) => {
       const { Header, Content, name } = item;
       return li(

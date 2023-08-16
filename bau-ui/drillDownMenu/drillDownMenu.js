@@ -2,6 +2,7 @@ import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import cn from "@grucloud/bau-css/classNames.js";
 import animate from "../animate/animate.js";
 import button from "../button/button.js";
+import list from "../list/list.js";
 
 const animationDuration = "0.3s";
 
@@ -39,14 +40,6 @@ const findSubTree = (initialPathname) => (tree) => {
 };
 
 const createStyles = ({ createGlobalStyles, keyframes }) => {
-  createGlobalStyles`
-:root {
-  --drill-down-menu-color: var(--font-color-base);
-  --drill-down-menu-padding: 0.4rem;
-  --drill-down-menu-bg-active: var(--color-emphasis-200);
-  --drill-down-menu-bg-hover: var(--color-emphasis-200);
-}
-`;
   return {
     hideToLeft: keyframes`
   from {
@@ -98,26 +91,30 @@ export default function (context, options) {
     header(
       Button(
         {
+          variant: "plain",
           href: `${base}${currentTree.parentTree.children[0].data.href}`,
           onclick: onclickBack({ currentTree }),
           class: css`
             flex-grow: 0;
           `,
+          "data-buttonback": true,
         },
         "\u2190"
       ),
       Button(
         {
+          variant: "plain",
           href: `${base}${data.href}`,
         },
         data.name
       )
     );
 
-  const renderMenuItemDefault = ({ name, href }) =>
+  const renderMenuItemDefault = ({ data: { name, href }, children = [] }) =>
     Button(
       {
         href: `${base}${href}`,
+        "data-ischild": children.length == 0 ? true : false,
       },
       name
     );
@@ -133,6 +130,8 @@ export default function (context, options) {
 
   const { ul, li, nav, div, header, a } = bau.tags;
   const Animate = animate(context);
+  const List = list(context);
+
   const Button = button(context, {
     class: css`
       &.button {
@@ -148,22 +147,17 @@ export default function (context, options) {
     font-weight: var(--font-weight-semibold);
     overflow: hidden;
     position: relative;
-    & a {
-      padding: 0.5rem;
-      border-radius: 0;
-    }
     & header {
       display: flex;
       align-items: center;
       font-weight: var(--font-weight-bold);
       border-bottom: 1px solid var(--color-emphasis-100);
-      transition: background-color var(--transition-slow) ease-in-out;
+      & a {
+        padding: 0.6rem;
+        border-radius: 0;
+      }
     }
     & ul {
-      display: block;
-      list-style: none;
-      margin: 0;
-      padding-left: 0;
       overflow: hidden;
       & .has-children {
         &::after {
@@ -171,33 +165,8 @@ export default function (context, options) {
           padding: 0 0.5rem 0 0.5rem;
         }
       }
-      & .is-active {
-        background-color: var(--drill-down-menu-bg-active);
-        filter: brightness(var(--brightness-active));
-      }
-
       & li {
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: inherit;
-        transition: all var(--transition-fast) ease-in-out;
-        &:hover {
-          filter: brightness(var(--brightness-hover));
-        }
-        & a,
-        span {
-          text-decoration: none;
-          width: 100%;
-          color: inherit;
-          padding: var(--drill-down-menu-padding);
-        }
-      }
-      &.solid {
-        & li:hover {
-          filter: brightness(var(--brightness-hover-always));
-        }
+        padding: 0;
       }
     }
   `;
@@ -217,7 +186,7 @@ export default function (context, options) {
       { class: cn("drillDownMenu", variant, color, size) },
       parentTree && renderHeader({ data, currentTree, onclickBack }),
       children &&
-        ul(
+        List(
           { class: cn(variant, color, size) },
           children.map((subTree) =>
             li(
@@ -226,12 +195,12 @@ export default function (context, options) {
                   cn(
                     subTree.children && "has-children",
                     isActive({ pathname: pathnameState.val, subTree }) &&
-                      "is-active"
+                      "active"
                   ),
                 onclick:
                   subTree.children && onclickItem({ currentTree: subTree }),
               },
-              renderMenuItem(subTree.data)
+              renderMenuItem(subTree)
             )
           )
         )
@@ -252,7 +221,7 @@ export default function (context, options) {
     const {
       variant = "plain",
       color = "neutral",
-      size,
+      size = "md",
       tree,
       pathnameState = bau.state(window.location.pathname),
       ...otherProps

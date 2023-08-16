@@ -42,20 +42,6 @@ export default function (context, options) {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
-    &.sm {
-      & button {
-        font-size: 0.7rem;
-      }
-    }
-    &.md {
-      font-size: 1rem;
-    }
-    &.lg {
-      & button {
-        font-size: 1.5rem;
-        padding: 1rem;
-      }
-    }
     ${colorsToCss()}
   `;
 

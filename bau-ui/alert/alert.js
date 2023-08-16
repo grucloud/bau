@@ -80,7 +80,7 @@ export default function (context, options) {
     const {
       variant = "outline",
       color = "neutral",
-      size,
+      size = "md",
       onRemove,
       ...otherProps
     } = props;

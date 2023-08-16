@@ -95,7 +95,7 @@ export default function (context, options) {
         side = "bottom-start",
         color = "neutral",
         variant = "outline",
-        size,
+        size = "md",
         ...props
       },
       ...children

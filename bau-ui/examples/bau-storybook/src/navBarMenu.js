@@ -1,3 +1,4 @@
+import classNames from "@grucloud/bau-css/classNames.js";
 import drillDownMenu from "@grucloud/bau-ui/drillDownMenu";
 
 const tree = {
@@ -56,8 +57,10 @@ const tree = {
 };
 
 export default function (context) {
-  const { tr, bau, css, config, states } = context;
+  const { tr, bau, css, config, states, window } = context;
   const { div, ul, li, nav, a, span } = bau.tags;
+
+  let isMobile = false;
 
   const DrillDownMenu = drillDownMenu(context, {
     base: config.base,
@@ -66,14 +69,39 @@ export default function (context) {
   return function NavBarMenu() {
     return div(
       {
-        class: css`
-          grid-area: sidebar;
-          position: sticky;
-          top: calc(var(--header-height));
-          align-self: start;
-          overflow-y: scroll;
-          height: calc(100vh - var(--header-height) - 1rem);
-        `,
+        bauMounted: ({ element }) => {
+          if (window.innerWidth <= 640) {
+            isMobile = true;
+            states.drawerOpen.val = false;
+          }
+        },
+        onclick: (event) => {
+          if (
+            isMobile &&
+            !event.target.dataset.buttonback &&
+            !event.target.parentElement.classList.contains("has-children")
+          ) {
+            states.drawerOpen.val = false;
+          }
+        },
+        style: () =>
+          states.drawerOpen.val ? "display:block;" : "display:none;",
+        class: classNames(
+          css`
+            grid-area: sidebar;
+            position: sticky;
+            top: calc(var(--header-height));
+            align-self: start;
+            overflow-y: scroll;
+            height: calc(100vh - var(--header-height) - 1rem);
+            @media (max-width: 640px) {
+              position: fixed;
+              width: 100vw;
+              z-index: 1;
+              display: none;
+            }
+          `
+        ),
       },
       DrillDownMenu({
         tree,

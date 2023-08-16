@@ -10,12 +10,10 @@ export default function (context, options) {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0 0.5rem;
       min-width: 2rem;
       min-height: 2rem;
       border: none;
       border-radius: var(--global-radius);
-      font-size: 1rem;
       font-weight: var(--font-weight-semibold);
       text-align: center;
       text-decoration: none;
@@ -28,6 +26,15 @@ export default function (context, options) {
       }
       &:hover.solid {
         filter: brightness(var(--brightness-hover-always));
+      }
+      &.sm {
+        padding: 0.3rem;
+      }
+      &.md {
+        padding: 0.5rem;
+      }
+      &.lg {
+        padding: 0.7rem;
       }
     `,
     button: css`
@@ -42,8 +49,10 @@ export default function (context, options) {
   };
 
   return function Button(...args) {
-    let [{ color, variant, size, disabled, href, ...props }, ...children] =
-      toPropsAndChildren(args);
+    let [
+      { color, variant, size = "md", disabled, href, ...props },
+      ...children
+    ] = toPropsAndChildren(args);
     const tagButton = href ? bau.tags.a : bau.tags.button;
     return tagButton(
       {

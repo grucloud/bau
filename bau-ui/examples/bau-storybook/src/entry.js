@@ -16,11 +16,10 @@ const config = { title: "Bau", base: "/bau/bau-ui" };
 const context = createContext({
   config,
 });
-
+const { bau } = context;
 context.states = {
-  pathname: context.bau.state(
-    window.location.pathname.replace(config.base, "")
-  ),
+  pathname: bau.state(window.location.pathname.replace(config.base, "")),
+  drawerOpen: bau.state(true),
 };
 
 createStyles(context);

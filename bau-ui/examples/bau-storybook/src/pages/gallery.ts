@@ -359,9 +359,7 @@ export default (context: Context) => {
       Item: (props: any) =>
         ButtonGroup(
           { ...props },
-          Button({}, "ONE"),
-          Button({}, "TWO"),
-          Button({}, "THREE")
+          ["ONE", "TWO", "THREE"].map((group) => Button(props, group))
         ),
     },
     {
@@ -550,7 +548,7 @@ export default (context: Context) => {
       Item: (props: any) =>
         Tooltip(
           { titleEl: TooltipContent(), ...props },
-          Button({}, `${props.color} ${props.variant}`)
+          Button(props, `${props.color} ${props.variant}`)
         ),
     },
     {
@@ -574,7 +572,12 @@ export default (context: Context) => {
           `,
         },
         components.map(({ name }) =>
-          li(Chip({ color: "primary" }, a({ href: `#${name}` }, name)))
+          li(
+            Button(
+              { color: "primary", variant: "solid", href: `#${name}` },
+              name
+            )
+          )
         )
       ),
       components.map((comp) =>
