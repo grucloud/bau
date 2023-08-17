@@ -17,11 +17,6 @@ export default (context: Context) => {
       Header: () => "Item 2",
       Content: () => div(p("Item 2 Content")),
     },
-    {
-      name: "Item3",
-      Header: () => "Item 3",
-      Content: () => div(p("Item 3 content")),
-    },
   ];
 
   const Accordion = accordion(context, { accordionDefs });

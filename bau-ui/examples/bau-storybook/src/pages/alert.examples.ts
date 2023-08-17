@@ -1,4 +1,3 @@
-import alert from "@grucloud/bau-ui/alert";
 import { Context } from "@grucloud/bau-ui/context";
 
 import pageExample from "./pageExample";

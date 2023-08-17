@@ -13,19 +13,20 @@ export default (context: Context) => {
 
   const Slider = slider(context);
 
-  return section(
-    form(
-      label(
-        "Slider with step, min and max",
-        br,
-        Slider({
-          oninput,
-          name: "slider-simple",
-          step: 20,
-          min: -100,
-          max: 100,
-        })
+  return () =>
+    section(
+      form(
+        label(
+          "Slider with step, min and max",
+          br,
+          Slider({
+            oninput,
+            name: "slider-simple",
+            step: 20,
+            min: -100,
+            max: 100,
+          })
+        )
       )
-    )
-  );
+    );
 };

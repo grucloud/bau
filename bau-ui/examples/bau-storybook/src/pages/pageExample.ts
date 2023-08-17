@@ -5,20 +5,28 @@ import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
   const { bau, css } = context;
-  const { article, section, h1, p, h2, h3, pre, div } = bau.tags;
+  const { article, section, h1, p, h2, h3, pre, div, code } = bau.tags;
 
   hljs.registerLanguage("javascript", javascript);
 
   const ComponentGrid = componentGrid(context);
 
   const HighlighContainer = ({ text }: any) =>
-    pre({
-      bauCreated: ({ element }: any) => {
-        element.innerHTML = hljs.highlight(text, {
-          language: "js",
-        }).value;
+    pre(
+      {
+        class: css`
+          display: inline-block;
+        `,
       },
-    });
+      code({
+        class: "hljs language-js",
+        bauCreated: ({ element }: any) => {
+          element.innerHTML = hljs.highlight(text, {
+            language: "js",
+          }).value;
+        },
+      })
+    );
 
   return function PageExample(spec: any) {
     return article(
@@ -46,7 +54,7 @@ export default (context: Context) => {
         section(
           h1(example.title),
           p(example.description),
-          div(example.createComponent(context)),
+          div(example.createComponent(context)()),
           HighlighContainer({ text: example.code })
         )
       )

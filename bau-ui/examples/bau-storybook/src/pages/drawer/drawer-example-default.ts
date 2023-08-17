@@ -13,18 +13,19 @@ export default (context: Context) => {
   const Button = button(context);
   const NavBarMenu = navBarMenu(context);
 
-  return section(
-    p("Click on the button to open and close the drawer."),
-    Button(
-      {
-        color: "neutral",
-        variant: "outline",
-        onclick: () => {
-          openState.val = !openState.val;
+  return () =>
+    section(
+      p("Click on the button to open and close the drawer."),
+      Button(
+        {
+          color: "neutral",
+          variant: "outline",
+          onclick: () => {
+            openState.val = !openState.val;
+          },
         },
-      },
-      "OPEN DRAWER"
-    ),
-    Drawer({ openState }, NavBarMenu())
-  );
+        "OPEN DRAWER"
+      ),
+      Drawer({ openState }, NavBarMenu())
+    );
 };

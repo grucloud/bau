@@ -24,7 +24,8 @@ export default (context: Context) => {
       span(label)
     );
 
-  return section(
-    List({ variant: "outline", color: "primary" }, phoneCodes.map(listItem))
-  );
+  return () =>
+    section(
+      List({ variant: "outline", color: "primary" }, phoneCodes.map(listItem))
+    );
 };

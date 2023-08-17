@@ -13,27 +13,28 @@ export default (context: Context) => {
     checkboxState.val = event.target.checked ? true : false;
   };
 
-  return section(
-    label(
-      {
-        class: css`
-          display: inline-flex;
-          font-size: smaller;
-          align-items: center;
-          justify-content: space-between;
-          color: var(--color-content-secondary);
-          gap: 1rem;
-        `,
-      },
-      "My Checkbox",
-      Checkbox({
-        color: "neutral",
-        variant: "outline",
-        id: "my-checkbox",
-        name: "myCheckbox",
-        checked: checkboxState,
-        onchange: onChange,
-      })
-    )
-  );
+  return () =>
+    section(
+      label(
+        {
+          class: css`
+            display: inline-flex;
+            font-size: smaller;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--color-content-secondary);
+            gap: 1rem;
+          `,
+        },
+        "My Checkbox",
+        Checkbox({
+          color: "neutral",
+          variant: "outline",
+          id: "my-checkbox",
+          name: "myCheckbox",
+          checked: checkboxState,
+          onchange: onChange,
+        })
+      )
+    );
 };

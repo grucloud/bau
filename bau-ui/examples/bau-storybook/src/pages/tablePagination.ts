@@ -8,7 +8,7 @@ import { Context } from "@grucloud/bau-ui/context";
 const createRows = (maxItem = 1000) =>
   new Array(maxItem).fill("").map(() => ({
     name: "my name",
-    email: "myemail@mail.col",
+    email: "myemail@mail.com",
   }));
 
 export default (context: Context) => {

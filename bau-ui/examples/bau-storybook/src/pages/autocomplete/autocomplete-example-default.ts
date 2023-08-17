@@ -25,14 +25,15 @@ export default (context: Context) => {
       span(option.code)
     );
 
-  return section(
-    Autocomplete({
-      options,
-      Option,
-      getOptionLabel: ({ label }: any) => label,
-      label: "Country",
-      placeholder: "Search countries",
-      id: "country",
-    })
-  );
+  return () =>
+    section(
+      Autocomplete({
+        options,
+        Option,
+        getOptionLabel: ({ label }: any) => label,
+        label: "Country",
+        placeholder: "Search countries",
+        id: "country",
+      })
+    );
 };

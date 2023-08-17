@@ -9,18 +9,19 @@ export default (context: Context) => {
 
   const Calendar = calendar(context);
 
-  return section(
-    label(
-      "Start date:",
-      Calendar({
-        id: "start",
-        min: "2023-01-01",
-        max: "2024-12-31",
-        value: calendarState.val,
-        oninput: (event: any) => {
-          calendarState.val = event.target.value;
-        },
-      })
-    )
-  );
+  return () =>
+    section(
+      label(
+        "Start date:",
+        Calendar({
+          id: "start",
+          min: "2023-01-01",
+          max: "2024-12-31",
+          value: calendarState.val,
+          oninput: (event: any) => {
+            calendarState.val = event.target.value;
+          },
+        })
+      )
+    );
 };

@@ -38,5 +38,5 @@ export default (context: Context) => {
     base: config.base + "/components/drillDownMenu",
   });
 
-  return section(DrillDownMenu({ tree, pathnameState }));
+  return () => section(DrillDownMenu({ tree, pathnameState }));
 };

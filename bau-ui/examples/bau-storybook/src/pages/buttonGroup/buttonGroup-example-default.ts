@@ -14,10 +14,11 @@ export default (context: Context) => {
 
   const color = "primary";
   const variant = "solid";
-  return section(
-    ButtonGroup(
-      { color, variant },
-      groups.map((group) => Button({ color, variant }, group))
-    )
-  );
+  return () =>
+    section(
+      ButtonGroup(
+        { color, variant },
+        groups.map((group) => Button({ color, variant }, group))
+      )
+    );
 };

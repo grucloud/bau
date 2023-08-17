@@ -10,18 +10,31 @@ export default (context: Context) => {
 
   return (props: any) =>
     form(
-      label(
-        {
-          class: css`
-            display: flex;
+      {
+        class: css`
+          & label {
+            display: inline-flex;
+            border: 1px dotted var(--color-emphasis-200);
+            font-size: smaller;
             align-items: center;
-            gap: 0.5rem;
-          `,
-        },
-        `${props.color} ${props.variant} ${props.size}`,
+            color: var(--color-content-secondary);
+            padding: 0.2rem;
+          }
+        `,
+      },
+      label(
+        "off ",
         Switch({
           ...props,
-          id: `my-switch-${props.color}-${props.variant}-${props.size}`,
+          id: `my-switch-example-off-${props.color}-${props.variant}`,
+        })
+      ),
+      label(
+        "on ",
+        Switch({
+          ...props,
+          id: `my-switch-example-on-${props.color}-${props.variant}`,
+          checked: true,
         })
       )
     );

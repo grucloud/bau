@@ -13,39 +13,40 @@ export default (context: Context) => {
 
   const Slider = slider(context);
 
-  return section(
-    form(
-      {
-        class: css`
-          display: flex;
-        `,
-      },
-      label({ for: "temp" }, "Choose a comfortable temperature"),
-      br,
-      Slider({
-        oninput,
-        id: "temp-vertical",
-        name: "temp",
-        list: "markers-vertical",
-        orient: "vertical",
-        class: css`
-          width: 30px;
-          appearance: slider-vertical;
-        `,
-      }),
-      datalist(
+  return () =>
+    section(
+      form(
         {
-          id: "markers-vertical",
           class: css`
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
           `,
         },
-        ["0", "25", "50", "75", "100"]
-          .reverse()
-          .map((label) => option({ value: Number(label), label }))
+        label({ for: "temp" }, "Choose a comfortable temperature"),
+        br,
+        Slider({
+          oninput,
+          id: "temp-vertical",
+          name: "temp",
+          list: "markers-vertical",
+          orient: "vertical",
+          class: css`
+            width: 30px;
+            appearance: slider-vertical;
+          `,
+        }),
+        datalist(
+          {
+            id: "markers-vertical",
+            class: css`
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+            `,
+          },
+          ["0", "25", "50", "75", "100"]
+            .reverse()
+            .map((label) => option({ value: Number(label), label }))
+        )
       )
-    )
-  );
+    );
 };

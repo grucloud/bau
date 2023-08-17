@@ -22,8 +22,9 @@ export default (context: Context) => {
 
   const Breadcrumbs = breadcrumbs(context);
 
-  return section(
-    //
-    Breadcrumbs(breadcrumbsProps)
-  );
+  return () =>
+    section(
+      //
+      Breadcrumbs(breadcrumbsProps)
+    );
 };

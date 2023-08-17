@@ -13,5 +13,6 @@ export default (context: Context) => {
     `,
   });
 
-  return Alert({ color: "warning" }, "Your coffee supply is getting low.");
+  return () =>
+    Alert({ color: "warning" }, "Your coffee supply is getting low.");
 };

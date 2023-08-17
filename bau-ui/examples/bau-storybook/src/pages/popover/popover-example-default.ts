@@ -30,5 +30,5 @@ export default (context: Context) => {
     contentEl: Content(),
   });
 
-  return section(div(triggerEl, popoverEl));
+  return () => section(div(triggerEl, popoverEl));
 };

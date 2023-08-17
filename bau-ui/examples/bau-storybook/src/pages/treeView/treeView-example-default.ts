@@ -33,5 +33,5 @@ export default (context: Context) => {
 
   const TreeView = treeView(context, { renderMenuItem });
 
-  return TreeView({ tree: menu });
+  return () => TreeView({ tree: menu });
 };

@@ -16,12 +16,6 @@ export default (context: Context) => {
       Header: () => div("TAB 2"),
       Content: () => div(p("My tab 2 Content")),
     },
-    {
-      name: "Tab Disabled",
-      disabled: true,
-      Header: () => div("Tab Disabled"),
-      Content: () => div(p("My tab Disabled")),
-    },
   ];
 
   const Tabs = tabs(context, { tabDefs });

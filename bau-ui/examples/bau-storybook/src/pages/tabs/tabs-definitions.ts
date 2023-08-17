@@ -1,11 +1,11 @@
-import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
+import { Tabs } from "@grucloud/bau-ui/tabs";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context): Tabs => {
   const { bau } = context;
   const { div, p } = bau.tags;
 
-  const tabDefs: Tabs = [
+  return [
     {
       name: "Tab1",
       Header: () => div("TAB"),
@@ -17,8 +17,4 @@ export default (context: Context) => {
       Content: () => div(p("My tab 2 Content")),
     },
   ];
-
-  const Tabs = tabs(context, { tabDefs });
-
-  return () => Tabs({ variant: "outline", color: "neutral" });
 };

@@ -20,7 +20,7 @@ export const sliderSpec = {
   title: "Slide",
   package: "slider",
   description:
-    "The slider component allows user to to choose a number between a range",
+    "The slider component allows a user to to choose a number between a range.",
   sourceCodeUrl:
     "https://github.com/grucloud/bau/blob/main/bau-ui/slider/slider.js",
   importStatement: `import slider from "@grucloud/bau-ui/slider";`,

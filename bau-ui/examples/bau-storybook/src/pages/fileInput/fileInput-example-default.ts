@@ -49,13 +49,14 @@ export default (context: Context) => {
       span(tr("Choose a file to upload"))
     );
 
-  return section(
-    FileInput({
-      Component: FileInputLabel,
-      name: "file",
-      accept: "text/*",
-      onchange,
-    }),
-    div("File selected: ", fileState)
-  );
+  return () =>
+    section(
+      FileInput({
+        Component: FileInputLabel,
+        name: "file",
+        accept: "text/*",
+        onchange,
+      }),
+      div("File selected: ", fileState)
+    );
 };

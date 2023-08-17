@@ -9,8 +9,9 @@ export default (context: Context) => {
   const onclick = () => {
     alert("Click");
   };
-  return section(
-    //
-    Button({ color: "primary", variant: "outline", onclick }, "Click me")
-  );
+  return () =>
+    section(
+      //
+      Button({ color: "primary", variant: "outline", onclick }, "Click me")
+    );
 };

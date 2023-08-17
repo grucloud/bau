@@ -46,17 +46,18 @@ export default (context: Context) => {
     )
   );
 
-  return section(
-    Button(
-      {
-        variant: "solid",
-        color: "neutral",
-        onclick: () => {
-          modalEl.showModal();
+  return () =>
+    section(
+      Button(
+        {
+          variant: "solid",
+          color: "neutral",
+          onclick: () => {
+            modalEl.showModal();
+          },
         },
-      },
-      "OPEN MODAL"
-    ),
-    modalEl
-  );
+        "OPEN MODAL"
+      ),
+      modalEl
+    );
 };

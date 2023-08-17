@@ -30,12 +30,13 @@ export default (context: Context) => {
       span(option.code)
     );
 
-  return section(
-    Select({
-      options,
-      Option,
-      getOptionLabel: ({ label }: any) => label,
-      label: "Select a country...",
-    })
-  );
+  return () =>
+    section(
+      Select({
+        options,
+        Option,
+        getOptionLabel: ({ label }: any) => label,
+        label: "Select a country...",
+      })
+    );
 };

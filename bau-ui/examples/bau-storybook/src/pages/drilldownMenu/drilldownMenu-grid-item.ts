@@ -2,7 +2,7 @@ import drillDownMenu, { type Tree } from "@grucloud/bau-ui/drillDownMenu";
 import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
-  const { bau, config } = context;
+  const { config } = context;
 
   const tree: Tree = {
     data: { name: "Root Menu" },

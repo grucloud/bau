@@ -11,29 +11,30 @@ export default (context: Context) => {
   const Button = button(context);
   const Alert = alert(context);
 
-  return section(
-    AlertStack(),
-    Button(
-      {
-        color: "success",
-        variant: "outline",
-        onclick: () => {
-          document.dispatchEvent(
-            new CustomEvent("alert.add", {
-              detail: {
-                Component: () =>
-                  Alert(
-                    {
-                      color: "success",
-                    },
-                    tr("Infrastructure Created")
-                  ),
-              },
-            })
-          );
+  return () =>
+    section(
+      AlertStack(),
+      Button(
+        {
+          color: "success",
+          variant: "outline",
+          onclick: () => {
+            document.dispatchEvent(
+              new CustomEvent("alert.add", {
+                detail: {
+                  Component: () =>
+                    Alert(
+                      {
+                        color: "success",
+                      },
+                      tr("Infrastructure Created")
+                    ),
+                },
+              })
+            );
+          },
         },
-      },
-      "Success Alert"
-    )
-  );
+        "Success Alert"
+      )
+    );
 };

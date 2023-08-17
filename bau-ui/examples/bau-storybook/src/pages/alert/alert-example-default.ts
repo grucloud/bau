@@ -6,12 +6,13 @@ export default (context: Context) => {
   const { h4, p } = bau.tags;
 
   const Alert = alert(context);
-  return Alert(
-    {
-      color: "danger",
-    },
-    h4("Something went wrong"),
-    p("Error code ", 404),
-    p("Status ", "Not Found")
-  );
+  return () =>
+    Alert(
+      {
+        color: "danger",
+      },
+      h4("Something went wrong"),
+      p("Error code ", 404),
+      p("Status ", "Not Found")
+    );
 };
