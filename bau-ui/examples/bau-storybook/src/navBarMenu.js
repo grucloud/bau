@@ -94,6 +94,8 @@ export default function (context) {
             align-self: start;
             overflow-y: scroll;
             height: calc(100vh - var(--header-height) - 1rem);
+            border-right: 1px solid var(--color-emphasis-200);
+
             @media (max-width: 640px) {
               position: fixed;
               width: 100vw;

@@ -1,559 +1,131 @@
-import accordion, { Accordion } from "@grucloud/bau-ui/accordion";
-import alert from "@grucloud/bau-ui/alert";
-import autocomplete from "@grucloud/bau-ui/autocomplete";
-import avatar from "@grucloud/bau-ui/avatar";
-import badge from "@grucloud/bau-ui/badge";
-import breadcrumbs, {
-  type BreadcrumbsProps,
-} from "@grucloud/bau-ui/breadcrumbs";
 import button from "@grucloud/bau-ui/button";
-import buttonGroup from "@grucloud/bau-ui/buttonGroup";
-import calendar from "@grucloud/bau-ui/calendar";
-import checkbox from "@grucloud/bau-ui/checkbox";
-import chip from "@grucloud/bau-ui/chip";
-import drillDownMenu, {
-  type Tree as DrilldownTree,
-} from "@grucloud/bau-ui/drillDownMenu";
-import fileInput from "@grucloud/bau-ui/fileInput";
-import input from "@grucloud/bau-ui/input";
-import modal from "@grucloud/bau-ui/modal";
-import select from "@grucloud/bau-ui/select";
-import slider from "@grucloud/bau-ui/slider";
-import spinner from "@grucloud/bau-ui/spinner";
-import createSwitch from "@grucloud/bau-ui/switch";
-import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
-import createThemeSwitch from "@grucloud/bau-ui/themeSwitch";
-import tooltip from "@grucloud/bau-ui/tooltip";
-import treeView, { type Tree } from "@grucloud/bau-ui/treeView";
 
-import classNames from "@grucloud/bau-css/classNames";
+import accordionItem from "./accordion/accordion-grid-item";
+import alertItem from "./alert/alert-grid-item";
+import autocompleteItem from "./autocomplete/autocomplete-grid-item";
+import avatarItem from "./avatar/avatar-grid-item";
+import badgeItem from "./badge/badge-grid-item";
+import breadcrumbsItem from "./breadcrumbs/breadcrumbs-grid-item";
+import buttonItem from "./button/button-grid-item";
+import buttonGroupItem from "./buttonGroup/buttonGroup-grid-item";
+import calendarItem from "./calendar/calendar-grid-item";
+import checkboxItem from "./checkbox/checkbox-grid-item";
+import chipItem from "./chip/chip-grid-item";
+import drilldownMenuItem from "./drilldownMenu/drilldownMenu-grid-item";
+import fileInputItem from "./fileInput/fileInput-grid-item";
+import inputItem from "./input/input-grid-item";
+import modalItem from "./modal/modal-grid-item";
+import selectItem from "./select/select-grid-item";
+import sliderItem from "./slider/slider-grid-item";
+import spinnerItem from "./spinner/spinner-grid-item";
+import createSwitchItem from "./switch/switch-grid-item";
+import tabsItem from "./tabs/tabs-grid-item";
+import createThemeSSwitchItem from "./themeSwitch/themeSwitch-grid-item";
+import tooltipItem from "./tooltip/tooltip-grid-item";
+import treeViewItem from "./treeView/treeView-grid-item";
 
 import { Context } from "@grucloud/bau-ui/context";
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
-  const { bau, css, config } = context;
-  const { section, div, h1, span, p, ul, li, a, main, header, footer, label } =
-    bau.tags;
-  const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
+  const { bau, css } = context;
+  const { section, div, h1, p, ul, li } = bau.tags;
 
   const ComponentGrid = componentGrid(context);
-
-  const accordionDefs: Accordion[] = [
-    {
-      name: "Item1",
-      Header: () => "Item 1",
-      Content: () => div(p("Item 1 Content")),
-    },
-    {
-      name: "Item2",
-      Header: () => "Item 2",
-      Content: () => div(p("Item 2 Content")),
-    },
-    {
-      name: "Item3",
-      Header: () => "Item 3",
-      Content: () => div(p("Item 3 content")),
-    },
-  ];
-
-  const Accordion = accordion(context, { accordionDefs });
-  const Alert = alert(context);
-
-  const Autocomplete = autocomplete(context);
-
-  const options = [
-    { code: "AD", label: "Andorra", phone: "376" },
-    {
-      code: "AE",
-      label: "United Arab Emirates",
-      phone: "971",
-    },
-    { code: "AF", label: "Afghanistan", phone: "93" },
-  ];
-
-  const Option = (option: any) =>
-    div(
-      {
-        class: css`
-          display: flex;
-          justify-content: space-between;
-          gap: 0.5rem;
-        `,
-      },
-      span(option.label),
-      span(option.code)
-    );
-
-  const Avatar = avatar(context, {
-    class: css`
-      > img {
-        background: var(--color-gray-100);
-        border-radius: 50%;
-        margin: 0.3rem;
-      }
-    `,
-  });
-
-  const Badge = badge(context);
-
-  const breadcrumbs1: BreadcrumbsProps = {
-    items: [
-      {
-        href: "/",
-        name: "\u2302",
-      },
-      { name: "Dir" },
-      { href: "/dir/subdir", name: "SubDir" },
-    ],
-  };
-
-  const Breadcrumbs = breadcrumbs(context);
   const Button = button(context);
-  const ButtonGroup = buttonGroup(context);
-  const Calendar = calendar(context);
-  const Checkbox = checkbox(context);
-  const Chip = chip(context);
-
-  const tree: DrilldownTree = {
-    data: { name: "Root Menu" },
-    children: [
-      {
-        data: { name: "Menu 1", href: "#m1" },
-        children: [
-          {
-            data: { name: "Sub Menu 1", href: "#menusub2" },
-            children: [
-              { data: { name: "Sub Sub Menu 1", href: "#menusubsub1" } },
-            ],
-          },
-          { data: { name: "Sub Menu 2", href: "#menusub1" } },
-        ],
-      },
-      {
-        data: { name: "Menu 2", href: "#menu2" },
-        children: [{ data: { name: "Sub Menu 21", href: "#menusub21" } }],
-      },
-      {
-        data: { name: "Menu 3", href: "#menu2" },
-      },
-    ],
-  };
-
-  const DrillDownMenu = drillDownMenu(context, {
-    base: config.base + "/components",
-  });
-
-  const FileInputLabel = ({ disabled }: any) =>
-    div(
-      {
-        class: classNames(
-          css`
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            stroke: var(--font-color-base);
-            fill: var(--font-color-base);
-            > * {
-              margin: 1rem;
-            }
-          `,
-          disabled &&
-            css`
-              color: var(--color-emphasis-500);
-              fill: var(--font-color-disabled);
-            `
-        ),
-      },
-      svg(
-        { width: 100, height: 100, fill: "currentColor" },
-        use({ href: `uploadIcon.svg#Capa_1` })
-      ),
-      span("Choose a file to upload")
-    );
-
-  const FileInput = fileInput(context);
-
-  const Input = input(context);
-
-  const Modal = modal(context);
-
-  const Content = () =>
-    main(
-      Array(10)
-        .fill("")
-        .map((_, k) => p(k + 1, ". Some text here" /*faker.lorem.paragraph()*/))
-    );
-
-  const MyModal = (props: any) => {
-    const modalEl = Modal(
-      { id: "my-dialog", ...props },
-      header("Header"),
-      Content(),
-      footer(
-        Button(
-          {
-            ...props,
-            variant: "outline",
-            onclick: () => {
-              modalEl.close();
-            },
-          },
-          "Cancel"
-        ),
-        Button(
-          {
-            ...props,
-            variant: "solid",
-            onclick: () => {
-              modalEl.close();
-            },
-          },
-          "OK"
-        )
-      )
-    );
-    return modalEl;
-  };
-
-  const Select = select(context);
-
-  const selectOptions = [
-    { code: "AD", label: "Andorra", phone: "376" },
-    {
-      code: "AE",
-      label: "United Arab Emirates",
-      phone: "971",
-    },
-    { code: "AF", label: "Afghanistan", phone: "93" },
-  ];
-
-  const SelectOption = (option: any) =>
-    div(
-      {
-        class: css`
-          display: flex;
-          justify-content: space-between;
-          gap: 0.5rem;
-        `,
-      },
-      span(option.label),
-      span(option.code)
-    );
-
-  const Slider = slider(context);
-  const Spinner = spinner(context);
-
-  const Switch = createSwitch(context);
-
-  const tabDefs: Tabs = [
-    {
-      name: "Tab1",
-      Header: () => div("TAB"),
-      Content: () => div(p("My Tab 1 Content")),
-    },
-    {
-      name: "Tab2",
-      Header: () => div("TAB 2"),
-      Content: () => div(p("My tab 2 Content")),
-    },
-    {
-      name: "Tab Disabled",
-      disabled: true,
-      Header: () => div("Tab Disabled"),
-      Content: () => div(p("My tab Disabled")),
-    },
-  ];
-
-  const Tabs = tabs(context, { tabDefs });
-
-  const ThemeSwitch = createThemeSwitch(context);
-
-  const TooltipContent = () => span("My tooltip");
-
-  const Tooltip = tooltip(context);
-
-  const menu: Tree = {
-    data: { name: "Root Menu" },
-    children: [
-      {
-        data: { name: "Menu 1", href: "#menu" },
-        expanded: true,
-        children: [
-          { data: { name: "Sub Menu 1", href: "#menusub2" } },
-          { data: { name: "Sub Menu 2", href: "#menusub1" } },
-        ],
-      },
-      {
-        data: { name: "Menu 2", href: "#menu2" },
-        children: [{ data: { name: "Sub Menu 21", href: "#menusub21" } }],
-      },
-    ],
-  };
-
-  const TreeView = treeView(context, {
-    renderMenuItem: ({ name, href }: any) =>
-      a(
-        {
-          href,
-          onclick: (event: any) => {
-            event.preventDefault();
-          },
-        },
-        name
-      ),
-  });
 
   const components = [
     {
       name: "Accordion",
-      Item: (props: any) => Accordion({ ...props }),
+      Item: accordionItem(context),
     },
     {
       name: "Alert",
-      Item: (props: any) => Alert({ ...props }, `Alert ${props.color}`),
+      Item: alertItem(context),
     },
     {
       name: "Autocomplete",
-      Item: (props: any) =>
-        Autocomplete({
-          ...props,
-          options,
-          Option,
-          getOptionLabel: ({ label }: any) => label,
-          label: "Country",
-          placeholder: "Search countries",
-          id: "country",
-        }),
+      Item: autocompleteItem(context),
     },
     {
       name: "Avatar",
-      Item: (props: any) =>
-        Avatar({
-          ...props,
-          src: "./grucloud.svg",
-          alt: "GruCloud",
-        }),
+      Item: avatarItem(context),
     },
     {
       name: "Badge",
-      Item: (props: any, { index }: any) =>
-        Badge({ ...props, content: `${index * 100}` }, "\u260F"),
+      Item: badgeItem(context),
     },
     {
       name: "Breadcrumbs",
-      Item: (props: any) => Breadcrumbs({ ...props, ...breadcrumbs1 }),
+      Item: breadcrumbsItem(context),
     },
     {
       name: "Button",
-      Item: (props: any) =>
-        Button(
-          {
-            ...props,
-          },
-          `${props.variant} ${props.color}`
-        ),
+      Item: buttonItem(context),
     },
     {
       name: "Button Group",
-      Item: (props: any) =>
-        ButtonGroup(
-          { ...props },
-          ["ONE", "TWO", "THREE"].map((group) => Button(props, group))
-        ),
+      Item: buttonGroupItem(context),
     },
     {
       name: "Calendar",
-      Item: (props: any) =>
-        div(
-          {
-            class: css`
-              border: 1px dotted var(--color-emphasis-200);
-              font-size: smaller;
-              color: var(--color-content-secondary);
-              padding: 0.2rem;
-            `,
-          },
-          label(
-            `${props.color} ${props.variant}`,
-            Calendar({
-              ...props,
-            })
-          )
-        ),
+      Item: calendarItem(context),
     },
     {
       name: "Checkbox",
-      Item: (props: any) =>
-        label(
-          {
-            class: css`
-              display: flex;
-              border: 1px dotted var(--color-emphasis-200);
-              font-size: smaller;
-              align-items: center;
-              justify-content: space-between;
-              color: var(--color-content-secondary);
-              padding: 0.2rem;
-            `,
-          },
-          `${props.color} ${props.variant}`,
-          Checkbox({
-            id: `myCheckbox-gallery-${props.color}-${props.variant}`,
-            name: `myCheckbox-gallery-${props.color}-${props.variant}`,
-            ...props,
-          })
-        ),
+      Item: checkboxItem(context),
     },
     {
       name: "Chip",
-      Item: (props: any) =>
-        Chip(
-          {
-            ...props,
-          },
-          `Chip ${props.color}`
-        ),
+      Item: chipItem(context),
     },
     {
       name: "DrillDown Menu",
-      Item: (props: any) =>
-        DrillDownMenu({
-          tree,
-          ...props,
-        }),
+      Item: drilldownMenuItem(context),
     },
     {
       name: "File Input",
-      Item: (props: any) => {
-        return FileInput({
-          Component: FileInputLabel,
-          name: "file",
-          accept: "text/*",
-          onchange,
-          ...props,
-        });
-      },
+      Item: fileInputItem(context),
     },
     {
       name: "Input",
-      Item: (props: any) => {
-        return Input({
-          name: "my-input",
-          id: "my-input-with",
-          placeholder: "Enter text",
-          ...props,
-        });
-      },
+      Item: inputItem(context),
     },
     {
       name: "Modal",
-      Item: (props: any) => {
-        const modalEl = MyModal(props);
-        return div(
-          Button(
-            {
-              ...props,
-              onclick: () => {
-                modalEl.showModal();
-              },
-            },
-            "OPEN MODAL"
-          ),
-          modalEl
-        );
-      },
+      Item: modalItem(context),
     },
     {
       name: "Select",
-      Item: (props: any) =>
-        div(
-          Select({
-            ...props,
-            options: selectOptions,
-            Option: SelectOption,
-            getOptionLabel: ({ label }: any) => label,
-            label: "Select a country...",
-          })
-        ),
+      Item: selectItem(context),
     },
     {
       name: "Slider",
-      Item: (props: any) =>
-        div(
-          {
-            class: css`
-              border: 1px dotted var(--color-emphasis-200);
-              font-size: smaller;
-              color: var(--color-content-secondary);
-              padding: 0.2rem;
-            `,
-          },
-          label(
-            `${props.color} ${props.variant}`,
-            Slider({
-              ...props,
-              id: `my-slider-${props.color}-${props.variant}`,
-            })
-          )
-        ),
+      Item: sliderItem(context),
     },
     {
       name: "Spinner",
-      Item: (props: any) => Spinner(props),
+      Item: spinnerItem(context),
     },
     {
       name: "Switch",
-      Item: (props: any) =>
-        div(
-          {
-            class: css`
-              & label {
-                display: inline-flex;
-                border: 1px dotted var(--color-emphasis-200);
-                font-size: smaller;
-                align-items: center;
-                color: var(--color-content-secondary);
-                padding: 0.2rem;
-              }
-            `,
-          },
-          label(
-            "off",
-            Switch({
-              ...props,
-              id: `mySwitch-off-${props.color}-${props.variant}`,
-            })
-          ),
-          label(
-            "on",
-            Switch({
-              ...props,
-              id: `mySwitch-on-${props.color}-${props.variant}`,
-              checked: true,
-            })
-          )
-        ),
+      Item: createSwitchItem(context),
     },
     {
       name: "Tabs",
-      Item: (props: any) => Tabs(props),
+      Item: tabsItem(context),
     },
     {
       name: "Theme Switch",
-      Item: (props: any) => ThemeSwitch(props),
+      Item: createThemeSSwitchItem(context),
     },
     {
       name: "Tooltip",
-      Item: (props: any) =>
-        Tooltip(
-          { titleEl: TooltipContent(), ...props },
-          Button(props, `${props.color} ${props.variant}`)
-        ),
+      Item: tooltipItem(context),
     },
     {
       name: "Tree View",
-      Item: (props: any) => TreeView({ ...props, tree: menu }),
+      Item: treeViewItem(context),
     },
   ];
 

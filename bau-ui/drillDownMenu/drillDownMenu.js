@@ -149,11 +149,12 @@ export default function (context, options) {
     font-weight: var(--font-weight-semibold);
     overflow: hidden;
     position: relative;
+
     & header {
       display: flex;
       align-items: center;
       font-weight: var(--font-weight-bold);
-      border-bottom: 1px solid var(--color-emphasis-100);
+      border-bottom: 1px solid var(--color-emphasis-200);
       & a {
         padding: 0.6rem;
         border-radius: 0;
