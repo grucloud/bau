@@ -1,4 +1,5 @@
 import { type Context } from "@grucloud/bau-ui/context";
+import button from "@grucloud/bau-ui/button";
 
 export default function (context: Context) {
   const { bau, css } = context;
@@ -9,12 +10,15 @@ export default function (context: Context) {
     border: 2px dotted grey;
   `;
 
+  const Button = button(context);
+
   return function myComponent() {
     return article(
       { class: className },
       h1("My Title"),
       h2("My Subtitle"),
-      p("My paragraph")
+      p("My paragraph"),
+      Button({ color: "primary", variant: "outline", onclick }, "Click me")
     );
   };
 }

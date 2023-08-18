@@ -4,10 +4,6 @@ declare module "@grucloud/bau-ui/badge" {
 
   export type BadgeProps = {
     content: string;
-    primary?: boolean;
-    secondary?: boolean;
-    success?: boolean;
-    danger?: boolean;
   } & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<BadgeProps>;
