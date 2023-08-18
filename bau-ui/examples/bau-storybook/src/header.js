@@ -135,6 +135,7 @@ export default function (context) {
           align-items: center;
           height: var(--header-height);
           background-color: var(--background-color);
+          border-bottom: 1px solid var(--color-emphasis-200);
         `,
       },
       NavBarLeft(),

@@ -122,7 +122,8 @@ export default function globalStyle(
       --transition-fast: 200ms;
       --transition-slow: 400ms;
       --shadow-s: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-      --shadow-m: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+      --shadow-m: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+      --shadow-lg: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
       --font-size-base: 100%;
       --line-height-base: 1.65;
       --link-color: var(--color-primary);
