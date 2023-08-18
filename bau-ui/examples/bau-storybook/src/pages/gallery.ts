@@ -146,7 +146,12 @@ export default (context: Context) => {
         components.map(({ name }) =>
           li(
             Button(
-              { color: "primary", variant: "solid", href: `#${name}` },
+              {
+                color: "primary",
+                variant: "solid",
+                href: `#${name}`,
+                size: "sm",
+              },
               name
             )
           )

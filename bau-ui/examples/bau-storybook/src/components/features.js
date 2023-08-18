@@ -10,11 +10,12 @@ export default function (context) {
     flex-wrap: wrap;
     justify-content: space-between;
     & .feature {
-      background-color: var(--color-emphasis-50);
+      border: 1px solid var(--color-emphasis-200);
+      box-shadow: var(--shadow-m);
       border-radius: 0.5rem;
       margin: 0.5rem;
-      padding: 0.5rem;
-      width: 30%;
+      padding: 1rem;
+      width: 28%;
       & h1 {
         font-size: 1.1rem;
       }

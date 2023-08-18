@@ -21,7 +21,8 @@ export default function (context) {
         class: css`
           background-color: var(--color-emphasis-100);
           border-radius: var(--global-radius);
-          padding: 1rem 0.5rem;
+          padding: 0.5rem 0.5rem;
+          margin: 0.5rem 0;
         `,
       },
       div(
@@ -76,30 +77,24 @@ export default function (context) {
       title: "Component style",
       Content: () => [
         p("Each component has a combination of variant, color and size:"),
-        p(
-          ChipStack(
-            Chip({ variant: "solid", color: "primary" }, "solid"),
-            Chip({ variant: "outline", color: "primary" }, "outline"),
-            Chip({ variant: "plain", color: "primary" }, "plain")
-          )
+        ChipStack(
+          Button({ variant: "solid", color: "primary" }, "solid"),
+          Button({ variant: "outline", color: "primary" }, "outline"),
+          Button({ variant: "plain", color: "primary" }, "plain")
         ),
-        p(
-          ChipStack(
-            Chip({ variant: "solid", color: "neutral", size: "sm" }, "neutral"),
-            Chip({ variant: "solid", color: "primary", size: "sm" }, "primary"),
-            Chip({ variant: "solid", color: "danger", size: "sm" }, "danger"),
-            Chip({ variant: "solid", color: "warning", size: "sm" }, "warning")
-          )
+        ChipStack(
+          Button({ variant: "solid", color: "neutral", size: "sm" }, "neutral"),
+          Button({ variant: "solid", color: "primary", size: "sm" }, "primary"),
+          Button({ variant: "solid", color: "danger", size: "sm" }, "danger"),
+          Button({ variant: "solid", color: "warning", size: "sm" }, "warning")
         ),
-        p(
-          ChipStack(
-            Chip({ variant: "outline", color: "primary", size: "sm" }, "small"),
-            Chip(
-              { variant: "outline", color: "primary", size: "md" },
-              "medium"
-            ),
-            Chip({ variant: "outline", color: "primary", size: "lg" }, "large")
-          )
+        ChipStack(
+          Button({ variant: "outline", color: "primary", size: "sm" }, "small"),
+          Button(
+            { variant: "outline", color: "primary", size: "md" },
+            "medium"
+          ),
+          Button({ variant: "outline", color: "primary", size: "lg" }, "large")
         ),
       ],
     },
