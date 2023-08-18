@@ -1,5 +1,5 @@
-import hero from "./Hero";
-import features from "./features";
+import hero from "./components/Hero";
+import features from "./components/features";
 import button from "@grucloud/bau-ui/button/button";
 
 export default function (context) {

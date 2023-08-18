@@ -1,6 +1,6 @@
-import header from "./header";
-import footer from "./footer";
-import navBarMenu from "./navBarMenu";
+import header from "./components/header";
+import footer from "./components/footer";
+import navBarMenu from "./components/navBarMenu";
 
 export const layoutDefault = (context) => {
   const { bau, css, states } = context;

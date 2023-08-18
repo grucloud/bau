@@ -1,7 +1,7 @@
 import drawer from "@grucloud/bau-ui/drawer";
 import { Context } from "@grucloud/bau-ui/context";
 import button from "@grucloud/bau-ui/button";
-import navBarMenu from "../../navBarMenu";
+import navBarMenu from "../../components/navBarMenu";
 
 export default (context: Context) => {
   const { bau } = context;

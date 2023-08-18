@@ -1,4 +1,4 @@
-import globalStyle from "@grucloud/bau-ui/globalStyle/globalStyle.js";
+import globalStyle from "@grucloud/bau-ui/globalStyle";
 
 export const createStyles = (context) => {
   const { createGlobalStyles } = context;
