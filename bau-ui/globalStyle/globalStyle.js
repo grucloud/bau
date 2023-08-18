@@ -1,11 +1,11 @@
 const ColorPaletteDefault = [
-  ["neutral", { h: "0", s: "0%", l: "20%" }],
-  ["primary", { h: "230", s: "48%", l: "20%" }],
-  ["secondary", { h: "338", s: "100%", l: "20%" }],
-  ["success", { h: "120", s: "100%", l: "20%" }],
-  ["info", { h: "194", s: "80%", l: "20%" }],
-  ["warning", { h: "43", s: "100%", l: "20%" }],
-  ["danger", { h: "358", s: "95%", l: "20%" }],
+  ["neutral", { h: "0", s: "0%", l: "50%" }],
+  ["primary", { h: "230", s: "70%", l: "30%" }],
+  ["secondary", { h: "338", s: "70%", l: "50%" }],
+  ["success", { h: "120", s: "70%", l: "25%" }],
+  ["info", { h: "194", s: "70%", l: "30%" }],
+  ["warning", { h: "43", s: "70%", l: "25%" }],
+  ["danger", { h: "358", s: "70%", l: "30%" }],
 ];
 
 const SHADES_LIGHT = [
@@ -39,6 +39,11 @@ const variantToCss = () =>
 `
   ).join("\n");
 
+const darkColors = () =>
+  ColorPaletteDefault.map(([color]) => [
+    `--color-${color}-s: var(--color-${color}-dark-s);`,
+  ]).join("\n");
+
 const indexToColor = (index) => {
   return 100 - index * 10;
 };
@@ -66,8 +71,10 @@ export const buildEmphasis = ({ dark }) =>
 const buildColor = ([color, { h, s, l }]) =>
   [
     `--color-${color}-h: ${h};`,
-    `--color-${color}-s: ${s};`,
     `--color-${color}-l: ${l};`,
+    `--color-${color}-base-s: ${s};`,
+    `--color-${color}-s: var(--color-${color}-base-s);`,
+    `--color-${color}-dark-s: calc(${s} - 25%);`,
     `--color-${color}-hsl: var(--color-${color}-h), var(--color-${color}-s), var(--color-${color}-l);`,
     `--color-${color}: hsl(var(--color-${color}-hsl));`,
     ...SHADES_LIGHT.map(
@@ -122,13 +129,15 @@ export default function globalStyle(
       --transition-fast: 200ms;
       --transition-slow: 400ms;
       --shadow-s: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-      --shadow-m: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-      --shadow-lg: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+      --shadow-m: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+      --shadow-lg: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+        0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
       --font-size-base: 100%;
       --line-height-base: 1.65;
       --link-color: var(--color-primary);
-      --brightness-hover-always: 180%;
-      --brightness-active-always: 150%;
+      --brightness-hover-always: 120%;
+      --brightness-active-always: 130%;
       --brightness-hover: 80%;
       --brightness-hover-reverse: 140%;
       --brightness-active: 90%;
@@ -157,6 +166,19 @@ export default function globalStyle(
       color: var(--color-content);
       font: var(--font-size-base) / var(--line-height-base) var(--font-family);
       background-color: var(--background-color);
+    }
+    html[data-theme="dark"] {
+      ${darkColors()}
+      --color-scheme: dark;
+      --background-color: #121212;
+      --hover-overlay: rgba(255, 255, 255, 0.05);
+      --color-content: #e3e3e3;
+      --color-content-secondary: rgba(255, 255, 255, 1);
+      --brightness-hover-always: 130%;
+      --brightness-active-always: 120%;
+      --brightness-active: 180%;
+      --brightness-hover: 150%;
+      --brightness-hover-reverse: 70% ${buildEmphasis({ dark: true })};
     }
     body {
       margin: 0;
