@@ -1,6 +1,5 @@
 import landingPage from "./landingPage";
 
-import componentList from "./componentList";
 import pagesList from "./pagesList";
 
 import accordionExamples from "./pages/accordion.examples";
