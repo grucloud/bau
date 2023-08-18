@@ -1,6 +1,7 @@
+import button from "@grucloud/bau-ui/button/button";
 import hero from "./components/Hero";
 import features from "./components/features";
-import button from "@grucloud/bau-ui/button/button";
+import chart from "./components/chartBundleSize";
 
 export default function (context) {
   const { bau, css, config } = context;
@@ -8,8 +9,22 @@ export default function (context) {
   const Hero = hero(context);
   const Features = features(context);
   const Button = button(context);
+  const ChartBundleSize = chart(context);
 
   const className = css``;
+
+  const bundleSizes = [
+    { libName: "Bau UI ", size: 11 },
+    { libName: "Shadcn/React", size: 88 },
+    { libName: "Svelte UI", size: 105 },
+    { libName: "Quasar/Vue ", size: 124 },
+    {
+      libName: "Material UI React",
+      size: 133,
+    },
+
+    { libName: "Material UI Angular", size: 151 },
+  ];
 
   const featuresContent = [
     {
@@ -48,17 +63,17 @@ export default function (context) {
         p("Typescript support for a better developer experience."),
       ],
     },
-    {
-      title: "Bundle Size",
-      Content: () => [
-        p(
-          "The component bundle size is about 8x smaller compared to popular React UI component library."
-        ),
-        p("Faster download time for users."),
-        p("Save in bandwith fees for the operator."),
-        p("Suitable for low bandwith network and low cost device."),
-      ],
-    },
+    // {
+    //   title: "Bundle Size",
+    //   Content: () => [
+    //     p(
+    //       "The component bundle size is about 8x smaller compared to popular React UI component library."
+    //     ),
+    //     p("Faster download time for users."),
+    //     p("Save in bandwith fees for the operator."),
+    //     p("Suitable for low bandwith network and low cost device."),
+    //   ],
+    // },
   ];
 
   return function Main({}) {
@@ -71,7 +86,8 @@ export default function (context) {
         text: "Stylable UI Components",
         tagLine: "Web UI components, easy to use, stylable, lightweight.",
       }),
-      Features({ featuresContent })
+      Features({ featuresContent }),
+      ChartBundleSize({ data: bundleSizes })
     );
   };
 }
