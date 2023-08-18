@@ -127,6 +127,7 @@ export default function (context) {
       {
         class: css`
           display: flex;
+          flex-wrap: wrap;
           margin: 2rem;
           gap: 2rem;
           justify-content: center;

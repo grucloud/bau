@@ -3,8 +3,6 @@ export default function (context) {
   const { div, h1, p } = bau.tags;
 
   const className = css`
-    margin: 0.5rem;
-    padding: 0.5rem;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -26,7 +24,7 @@ export default function (context) {
     @media (max-width: 640px) {
       flex-direction: column;
       & .feature {
-        width: 90%;
+        width: auto;
       }
     }
   `;
