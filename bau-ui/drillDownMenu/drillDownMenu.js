@@ -170,6 +170,9 @@ export default function (context, options) {
       }
       & li {
         padding: 0;
+        & a {
+          width: 100%;
+        }
       }
     }
   `;
