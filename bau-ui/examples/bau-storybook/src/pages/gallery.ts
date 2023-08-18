@@ -1,4 +1,5 @@
 import button from "@grucloud/bau-ui/button";
+import { Context } from "@grucloud/bau-ui/context";
 
 import accordionItem from "./accordion/accordion-grid-item";
 import alertItem from "./alert/alert-grid-item";
@@ -24,7 +25,6 @@ import createThemeSSwitchItem from "./themeSwitch/themeSwitch-grid-item";
 import tooltipItem from "./tooltip/tooltip-grid-item";
 import treeViewItem from "./treeView/treeView-grid-item";
 
-import { Context } from "@grucloud/bau-ui/context";
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {

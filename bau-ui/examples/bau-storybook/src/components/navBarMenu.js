@@ -5,7 +5,10 @@ const tree = {
   data: { name: "Root" },
   children: [
     {
-      data: { name: "Bau UI", href: "/" },
+      data: { name: "Home", href: "/" },
+    },
+    {
+      data: { name: "Getting Started", href: "/GettingStarted" },
     },
     {
       data: { name: "Components", href: "/components" },
