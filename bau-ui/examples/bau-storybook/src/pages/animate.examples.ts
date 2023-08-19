@@ -6,6 +6,10 @@ import animateDefault from "./animate/animate-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./animate/animate-example-default.ts?raw";
 
+import animateComonent from "./animate/animate-component.ts";
+// @ts-ignore
+import codeExampleComonent from "./animate/animate-component.ts?raw";
+
 //import animateDisplayNone from "./animate/animate-visibility-hidden.ts";
 // @ts-ignore
 //import codeExampleDisplayNone from "./animate/animate-visibility-hidden.ts?raw";
@@ -23,6 +27,12 @@ export const animateSpec = {
       description: "A simple animation example.",
       code: codeExampleDefault,
       createComponent: animateDefault,
+    },
+    {
+      title: "Component hide and show",
+      description: "Hide and show a component",
+      code: codeExampleComonent,
+      createComponent: animateComonent,
     },
     // {
     //   title: "visibility: hidden",

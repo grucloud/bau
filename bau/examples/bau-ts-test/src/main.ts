@@ -762,72 +762,69 @@ const TestAttributeReturnNull = () =>
 const App = ({}) => {
   return div(
     h1("Bau testing with Typescript"),
+    section(
+      section(
+        h1("Router"),
+        //
+        TestRouter()
+      ),
 
-    TestConditionalIfElse()
+      h1("Event Handling"), //
+      TestButtonClickInline(),
+      TestButtonClickMethod(),
+      TestButtonClickMethodCurried(),
+      TestInputOninput(),
+      TestInputOninputElement(),
+      TestInputSearch(),
+      TestInputCheckboxOninput(),
+      TestInputRadio(),
+      TestSelect(),
+      TestEventHandlingKeyUp()
+    ),
+    section(
+      h1("Conditional"),
+      TestConditionalAndAnd(),
+      TestConditionalTernary(),
+      TestConditionalIfElse(),
+      TestConditionalMap(),
+      TestConditionalDisplayNone(),
+      TestConditionalVisitbilityHidden()
+    ),
+    section(
+      h1("Reactive"), //
+      TestReactiveStyle(),
+      TestReactiveClass(),
+      TestReactiveStateNumber(),
+      TestReactiveStateString(),
+      TestReactiveFunction()
+    ),
+    section(
+      h1("Derive"),
+      //
+      TestDerived(),
+      TestDerivedSideEffect(),
+      TestDeriveText()
+    ),
 
-    // section(
-    //   section(
-    //     h1("Router"),
-    //     //
-    //     TestRouter()
-    //   ),
+    section(
+      h1("Array"),
+      TestArrayUL(),
+      TestBindArrayUL(),
+      TestArrayTable(),
+      TestBindArrayTable(),
+      TestArrayOperation(),
+      TestArrayLength(),
+      TestArrayReadIndex()
+    ),
+    section(
+      h1("Object"),
+      //
+      TestElementObject(),
+      TestElementObjectNested()
+    ),
 
-    //   h1("Event Handling"), //
-    //   TestButtonClickInline(),
-    //   TestButtonClickMethod(),
-    //   TestButtonClickMethodCurried(),
-    //   TestInputOninput(),
-    //   TestInputOninputElement(),
-    //   TestInputSearch(),
-    //   TestInputCheckboxOninput(),
-    //   TestInputRadio(),
-    //   TestSelect(),
-    //   TestEventHandlingKeyUp()
-    // ),
-    // section(
-    //   h1("Conditional"),
-    //   TestConditionalAndAnd(),
-    //   TestConditionalTernary(),
-    //   TestConditionalIfElse(),
-    //   TestConditionalMap(),
-    //   TestConditionalDisplayNone(),
-    //   TestConditionalVisitbilityHidden()
-    // ),
-    // section(
-    //   h1("Reactive"), //
-    //   TestReactiveStyle(),
-    //   TestReactiveClass(),
-    //   TestReactiveStateNumber(),
-    //   TestReactiveStateString(),
-    //   TestReactiveFunction()
-    // ),
-    // section(
-    //   h1("Derive"),
-    //   //
-    //   TestDerived(),
-    //   TestDerivedSideEffect(),
-    //   TestDeriveText()
-    // ),
-
-    // section(
-    //   h1("Array"),
-    //   TestArrayUL(),
-    //   TestBindArrayUL(),
-    //   TestArrayTable(),
-    //   TestBindArrayTable(),
-    //   TestArrayOperation(),
-    //   TestArrayLength(),
-    //   TestArrayReadIndex()
-    // ),
-    // section(
-    //   h1("Object"),
-    //   //
-    //   TestElementObject(),
-    //   TestElementObjectNested()
-    // ),
-
-    // TestAttributeReturnString(),
-    // TestAttributeReturnNull()
+    TestAttributeReturnString(),
+    TestAttributeReturnNull()
   );
 };
 

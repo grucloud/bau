@@ -9,10 +9,6 @@ export default (context: Context) => {
   const Button = button(context);
 
   const hideRight = keyframes`
-    from {
-      transform: translateX(0%);
-      opacity: 1;
-    }
     to {
       transform: translateX(100%);
       opacity: 0;
