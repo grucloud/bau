@@ -12,7 +12,7 @@ export default function (context, options = {}) {
     return div(
       {
         class: classNames("animate", options?.class, props.class),
-        bauOnChildMutation: ({ record, element }) => {
+        bauChildMutated: ({ record, element }) => {
           // Removed Nodes
           [...record.removedNodes].forEach((childNode) => {
             if (!animationHide() || childNode.getAttribute("cloned")) return;

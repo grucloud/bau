@@ -268,9 +268,9 @@ export default function Bau(input) {
         );
     }).observe(element.parentNode, { childList: true });
 
-  let observerChildNode = (element, bauOnChildMutation) =>
+  let observerChildNode = (element, bauChildMutated) =>
     new MutationObserver((mutationList, observer) =>
-      mutationList.forEach((record) => bauOnChildMutation({ record, element }))
+      mutationList.forEach((record) => bauChildMutated({ record, element }))
     ).observe(element, { childList: true });
 
   let tagsNS = (namespace) =>
@@ -304,8 +304,8 @@ export default function Bau(input) {
             setter(v);
           }
         }
-        props.bauOnChildMutation &&
-          observerChildNode(element, props.bauOnChildMutation);
+        props.bauChildMutated &&
+          observerChildNode(element, props.bauChildMutated);
 
         add(element, ...children);
         props.bauCreated?.({ element });

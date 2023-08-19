@@ -42,7 +42,7 @@ const TestConditionalTernary = () => {
 const Transition = (props: any, child: any) => {
   return div(
     {
-      bauOnChildMutation: ({ record, element }: any) => {
+      bauChildMutated: ({ record, element }: any) => {
         [...record.removedNodes].forEach((childNode) => {
           if (childNode.getAttribute("cloned")) return;
           const nodeCloned = childNode.cloneNode(true);
