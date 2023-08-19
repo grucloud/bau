@@ -268,6 +268,11 @@ export default function Bau(input) {
         );
     }).observe(element.parentNode, { childList: true });
 
+  let observerChildNode = (element, bauOnChildMutation) =>
+    new MutationObserver((mutationList, observer) =>
+      mutationList.forEach((record) => bauOnChildMutation({ record, element }))
+    ).observe(element, { childList: true });
+
   let tagsNS = (namespace) =>
     new Proxy(
       function createTag(name, ...args) {
@@ -299,6 +304,9 @@ export default function Bau(input) {
             setter(v);
           }
         }
+        props.bauOnChildMutation &&
+          observerChildNode(element, props.bauOnChildMutation);
+
         add(element, ...children);
         props.bauCreated?.({ element });
         props.bauMounted &&
@@ -307,6 +315,7 @@ export default function Bau(input) {
           _window.requestAnimationFrame(() =>
             observerRemovedNode(element, props.bauUnmounted)
           );
+
         return element;
       },
       {
