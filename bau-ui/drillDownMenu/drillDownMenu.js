@@ -51,16 +51,6 @@ const createStyles = ({ keyframes }) => {
     opacity: 0;
   }
   `,
-    showFromLeft: keyframes`
-   from {
-     transform: translateX(-100%);
-     opacity: 0;
-   }
-   to {
-     transform: translateX(0%);
-     opacity: 1;
-   }
-  `,
     hideToRight: keyframes`
    from {
      transform: translateX(0%);
@@ -71,16 +61,6 @@ const createStyles = ({ keyframes }) => {
      opacity: 0;
    }
    `,
-    showFromRight: keyframes`
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0%);
-    opacity: 1;
-  }
- `,
   };
 };
 
@@ -143,8 +123,7 @@ export default function (context, options) {
       }
     `,
   });
-  const { hideToLeft, hideToRight, showFromRight, showFromLeft } =
-    createStyles(context);
+  const { hideToLeft, hideToRight } = createStyles(context);
 
   const className = css`
     font-weight: var(--font-weight-semibold);
@@ -258,9 +237,9 @@ export default function (context, options) {
     const animationShow = (direction) => {
       switch (direction) {
         case 1:
-          return `${showFromRight} ${animationDuration}`;
+          return `${hideToRight} ${animationDuration} reverse`;
         case -1:
-          return `${showFromLeft} ${animationDuration}`;
+          return `${hideToLeft} ${animationDuration} reverse`;
         default:
           return "";
       }

@@ -1,14 +1,28 @@
+import animate from "@grucloud/bau-ui/animate";
 import header from "./components/header";
 import footer from "./components/footer";
 import navBarMenu from "./components/navBarMenu";
 
 export const layoutDefault = (context) => {
-  const { bau, css, states } = context;
+  const { bau, css, states, keyframes } = context;
   const { div } = bau.tags;
+
+  const Animate = animate(context);
 
   const Header = header(context);
   const NavBarMenu = navBarMenu(context);
   const Footer = footer(context);
+
+  const fadeIn = keyframes`
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  `;
+
+  const animation = (reverse = "") => `${fadeIn} ease-in-out 0.5s ${reverse}`;
 
   return function LayoutDefault({ componentState }) {
     return div(
@@ -34,13 +48,15 @@ export const layoutDefault = (context) => {
       },
       Header(),
       NavBarMenu(),
-      div(
+      Animate(
         {
           class: css`
             grid-area: main;
             margin: 0 1rem;
             overflow-y: scroll;
           `,
+          animationHide: () => animation(),
+          animationShow: () => animation("reverse"),
         },
         () => {
           return componentState.val && componentState.val({});

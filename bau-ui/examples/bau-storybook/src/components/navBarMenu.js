@@ -98,6 +98,7 @@ export default function (context) {
             overflow-y: scroll;
             height: calc(100vh - var(--header-height) - 1rem);
             border-right: 1px solid var(--color-emphasis-200);
+            min-width: 200px;
 
             @media (max-width: 640px) {
               position: fixed;

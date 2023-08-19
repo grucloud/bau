@@ -6,6 +6,10 @@ import animateDefault from "./animate/animate-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./animate/animate-example-default.ts?raw";
 
+//import animateDisplayNone from "./animate/animate-visibility-hidden.ts";
+// @ts-ignore
+//import codeExampleDisplayNone from "./animate/animate-visibility-hidden.ts?raw";
+
 export const animateSpec = {
   title: "Animate",
   package: "animate",
@@ -15,11 +19,17 @@ export const animateSpec = {
   importStatement: `import animate from "@grucloud/bau-ui/animate";`,
   examples: [
     {
-      title: "Default",
-      description: "A simple animate.",
+      title: "Basic Example",
+      description: "A simple animation example.",
       code: codeExampleDefault,
       createComponent: animateDefault,
     },
+    // {
+    //   title: "visibility: hidden",
+    //   description: "Hide and show with visibility: hidden",
+    //   code: codeExampleDisplayNone,
+    //   createComponent: animateDisplayNone,
+    // },
   ],
 };
 
