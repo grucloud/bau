@@ -16,7 +16,6 @@ export default function (context) {
           href: "/",
           name: "\u2302",
         },
-        ,
         ...breadcrumbs,
       ],
     };

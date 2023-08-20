@@ -25,6 +25,7 @@ export default function (context) {
     return Button(
       {
         class: className,
+        size: "sm",
         onclick: async (event) => {
           const code = event.target.parentElement.dataset.code;
           await copyTextToClipboard(code);
