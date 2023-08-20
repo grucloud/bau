@@ -35,7 +35,7 @@ export default function Bau(input) {
 
   let bindingCleanUp = () => {
     if (!_debounce) {
-      _debounce = window.requestAnimationFrame(() => {
+      _debounce = _window.requestAnimationFrame(() => {
         stateSet.forEach((state) => {
           state.bindings = state.bindings.filter((b) => b.element?.isConnected);
           !state.bindings.length && !state.computed && stateSet.delete(state);
@@ -256,7 +256,7 @@ export default function Bau(input) {
       getPropDescriptor(proto, key)?.set ?? 0);
 
   let observerRemovedNode = (element, bauUnmounted) =>
-    new MutationObserver((mutationList, observer) => {
+    new _window.MutationObserver((mutationList, observer) => {
       mutationList
         .filter((record) => record.removedNodes)
         .forEach((record) =>
@@ -269,7 +269,7 @@ export default function Bau(input) {
     }).observe(element.parentNode, { childList: true });
 
   let observerChildNode = (element, bauChildMutated) =>
-    new MutationObserver((mutationList, observer) =>
+    new _window.MutationObserver((mutationList, observer) =>
       mutationList.forEach((record) => bauChildMutated({ record, element }))
     ).observe(element, { childList: true });
 

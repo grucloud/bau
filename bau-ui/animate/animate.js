@@ -1,4 +1,4 @@
-import classNames from "@grucloud/bau-css/classNames";
+import classNames from "@grucloud/bau-css/classNames.js";
 
 export default function (context, options = {}) {
   const { bau } = context;
