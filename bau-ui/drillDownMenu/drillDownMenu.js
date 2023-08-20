@@ -39,7 +39,7 @@ const findSubTree = (initialPathname) => (tree) => {
   }
 };
 
-const createStyles = ({ createGlobalStyles, keyframes }) => {
+const createStyles = ({ keyframes }) => {
   return {
     hideToLeft: keyframes`
   from {
@@ -51,16 +51,6 @@ const createStyles = ({ createGlobalStyles, keyframes }) => {
     opacity: 0;
   }
   `,
-    showFromLeft: keyframes`
-   from {
-     transform: translateX(-100%);
-     opacity: 0;
-   }
-   to {
-     transform: translateX(0%);
-     opacity: 1;
-   }
-  `,
     hideToRight: keyframes`
    from {
      transform: translateX(0%);
@@ -71,29 +61,19 @@ const createStyles = ({ createGlobalStyles, keyframes }) => {
      opacity: 0;
    }
    `,
-    showFromRight: keyframes`
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0%);
-    opacity: 1;
-  }
- `,
   };
 };
 
 export default function (context, options) {
   const { bau, css, window } = context;
   const { base = "" } = options;
-  const renderHeaderDefault = ({ currentTree, data, onclickBack }) =>
+
+  const renderHeaderDefault = ({ currentTree, data }) =>
     header(
       Button(
         {
           variant: "plain",
           href: `${base}${currentTree.parentTree.children[0].data.href}`,
-          onclick: onclickBack({ currentTree }),
           class: css`
             flex-grow: 0;
           `,
@@ -105,6 +85,10 @@ export default function (context, options) {
         {
           variant: "plain",
           href: `${base}${data.href}`,
+          class: css`
+            flex-grow: 1;
+          `,
+          "data-ischild": true,
         },
         data.name
       )
@@ -114,7 +98,7 @@ export default function (context, options) {
     Button(
       {
         href: `${base}${href}`,
-        "data-ischild": children.length == 0 ? true : false,
+        "data-ischild": !children.length,
       },
       name
     );
@@ -128,30 +112,29 @@ export default function (context, options) {
     isActive = isActiveDefault,
   } = options;
 
-  const { ul, li, nav, div, header, a } = bau.tags;
+  const { li, nav, div, header, a } = bau.tags;
   const Animate = animate(context);
   const List = list(context);
 
   const Button = button(context, {
     class: css`
       &.button {
-        flex-grow: 1;
         justify-content: flex-start;
       }
     `,
   });
-  const { hideToLeft, hideToRight, showFromRight, showFromLeft } =
-    createStyles(context);
+  const { hideToLeft, hideToRight } = createStyles(context);
 
   const className = css`
     font-weight: var(--font-weight-semibold);
     overflow: hidden;
     position: relative;
+
     & header {
       display: flex;
       align-items: center;
       font-weight: var(--font-weight-bold);
-      border-bottom: 1px solid var(--color-emphasis-100);
+      border-bottom: 1px solid var(--color-emphasis-200);
       & a {
         padding: 0.6rem;
         border-radius: 0;
@@ -167,24 +150,19 @@ export default function (context, options) {
       }
       & li {
         padding: 0;
+        & a {
+          width: 100%;
+        }
       }
     }
   `;
 
-  const Menu = ({
-    variant,
-    color,
-    size,
-    onclickItem,
-    onclickBack,
-    currentTree,
-    pathnameState,
-  }) => {
+  const Menu = ({ variant, color, size, currentTree, pathnameState }) => {
     const { children, parentTree, data } = currentTree;
     //console.log("Menu", currentTree, pathnameState.val);
     return div(
       { class: cn("drillDownMenu", variant, color, size) },
-      parentTree && renderHeader({ data, currentTree, onclickBack }),
+      parentTree && renderHeader({ data, currentTree }),
       children &&
         List(
           { class: cn(variant, color, size) },
@@ -197,8 +175,6 @@ export default function (context, options) {
                     isActive({ pathname: pathnameState.val, subTree }) &&
                       "active"
                   ),
-                onclick:
-                  subTree.children && onclickItem({ currentTree: subTree }),
               },
               renderMenuItem(subTree)
             )
@@ -208,7 +184,7 @@ export default function (context, options) {
   };
 
   const findInitialTree = ({ tree, pathname }) => {
-    let currentTree = treeAddParent({})(tree);
+    let currentTree = treeAddParent({})(structuredClone(tree));
     let subTree = findSubTree(pathname)(currentTree);
     if (!subTree) {
       console.log("drilldown no sub tree", pathname);
@@ -226,63 +202,68 @@ export default function (context, options) {
       pathnameState = bau.state(window.location.pathname),
       ...otherProps
     } = props;
-    //console.log("DrillDownMenu");
-    const onclickItem =
-      ({ currentTree }) =>
-      (event) =>
-        replaceChildren(event, navEl, currentTree, true);
 
-    const onclickBack =
-      ({ currentTree }) =>
-      (event) =>
-        replaceChildren(event, navEl, currentTree.parentTree, false);
+    let direction = 1;
 
-    const replaceChildren = (event, navEl, currentTree, right) => {
-      // If the navEl is replaced, the bau binding is lost.
-      navEl.firstChild.replaceChildren(
-        Animate(
-          {
-            parent: navEl,
-            animationHide: `${
-              right ? hideToLeft : hideToRight
-            } ${animationDuration}`,
-            animationShow: `${
-              right ? showFromRight : showFromLeft
-            } ${animationDuration}`,
-          },
+    const onclick = (event) => {
+      const { dataset } = event.target;
+      if (dataset.buttonback == "true") {
+        direction = -1;
+      } else if (dataset.ischild == "false") {
+        direction = 1;
+      } else if (dataset.ischild == "true") {
+        direction = 0;
+      }
+    };
+
+    const treeState = bau.derive(() =>
+      findInitialTree({
+        tree,
+        pathname: pathnameState.val,
+      })
+    );
+
+    const animationHide = (direction) => {
+      switch (direction) {
+        case 1:
+          return `${hideToLeft} ${animationDuration}`;
+        case -1:
+          return `${hideToRight} ${animationDuration}`;
+        default:
+          return "";
+      }
+    };
+
+    const animationShow = (direction) => {
+      switch (direction) {
+        case 1:
+          return `${hideToRight} ${animationDuration} reverse`;
+        case -1:
+          return `${hideToLeft} ${animationDuration} reverse`;
+        default:
+          return "";
+      }
+    };
+
+    return nav(
+      {
+        class: cn(className, options?.class, otherProps.class),
+        onclick,
+      },
+      Animate(
+        {
+          animationHide: () => animationHide(direction),
+          animationShow: () => animationShow(direction),
+        },
+        () =>
           Menu({
             variant,
             color,
             size,
-            currentTree,
-            onclickItem,
-            onclickBack,
+            currentTree: treeState.val,
             pathnameState,
           })
-        )
-      );
-    };
-
-    const navEl = nav(
-      {
-        class: cn(className, options?.class, otherProps.class),
-      },
-      () => {
-        return Menu({
-          variant,
-          color,
-          size,
-          currentTree: findInitialTree({
-            tree,
-            pathname: pathnameState.val,
-          }),
-          onclickItem,
-          onclickBack,
-          pathnameState,
-        });
-      }
+      )
     );
-
-    return navEl;
   };
 }

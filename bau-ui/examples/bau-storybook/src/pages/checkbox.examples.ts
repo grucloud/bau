@@ -1,73 +1,32 @@
-import { State } from "@grucloud/bau";
-import checkbox from "@grucloud/bau-ui/checkbox";
-
 import { Context } from "@grucloud/bau-ui/context";
-import componentGrid from "./componentGrid";
+
+import pageExample from "./pageExample";
+
+import checkboxGridItem from "./checkbox/checkbox-grid-item.ts";
+
+import checkboxDefault from "./checkbox/checkbox-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./checkbox/checkbox-example-default.ts?raw";
+
+export const checkboxSpec = {
+  title: "Checkbox",
+  package: "checkbox",
+  description: "The checkbox component uses the native input date type.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/checkbox/checkbox.js",
+  importStatement: `import checkbox from "@grucloud/bau-ui/checkbox";`,
+  examples: [
+    {
+      title: "Default",
+      description: "A simple checkbox.",
+      code: codeExampleDefault,
+      createComponent: checkboxDefault,
+    },
+  ],
+  gridItem: checkboxGridItem,
+};
 
 export default (context: Context) => {
-  const { tr, bau, css } = context;
-  const { section, div, label, h2, form } = bau.tags;
-
-  const ComponentGrid = componentGrid(context);
-  const Checkbox = checkbox(context);
-
-  const checkboxState = bau.state(false);
-  const checkboxDisabledState = bau.state(false);
-
-  const onChange = (state: State<boolean>) => (event: any) => {
-    state.val = event.target.checked ? true : false;
-  };
-
-  const CheckboxContainer = (...children: any) =>
-    div(
-      {
-        class: css`
-          display: flex;
-          align-items: center;
-          label {
-            margin-left: 1rem;
-          }
-        `,
-      },
-      ...children
-    );
-
-  return () =>
-    section(
-      { id: "checkbox" },
-      form(
-        h2(tr("Checkbox Examples")),
-        CheckboxContainer(
-          Checkbox({
-            id: "myCheckbox",
-            name: "myCheckbox",
-            checked: checkboxState,
-            onchange: onChange(checkboxState),
-          }),
-          label({ for: "myCheckbox" }, "My Checkbox")
-        ),
-        CheckboxContainer(
-          Checkbox({
-            id: "myCheckbox-disabled",
-            disabled: true,
-            name: "myCheckbox-disabled",
-            checked: checkboxDisabledState,
-            onchange: onChange(checkboxDisabledState),
-          }),
-          label({ for: "myCheckbox-disabled" }, "My Disabled Checkbox")
-        ),
-
-        h2(tr("Checkbox Table")),
-        ComponentGrid({
-          Item: (props: any, { index }: any) =>
-            Checkbox({
-              id: `myCheckbox-${index}`,
-              name: `myCheckbox-${index}`,
-              // checked: checkboxState,
-              // onchange: onChange(checkboxState),
-              ...props,
-            }),
-        })
-      )
-    );
+  const PageExample = pageExample(context);
+  return () => PageExample(checkboxSpec);
 };

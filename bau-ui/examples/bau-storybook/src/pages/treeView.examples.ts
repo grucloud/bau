@@ -1,54 +1,32 @@
-import treeView, { type Tree } from "@grucloud/bau-ui/treeView";
-import componentGrid from "./componentGrid";
+import pageExample from "./pageExample";
 
 import { Context } from "@grucloud/bau-ui/context";
 
+import treeViewGridItem from "./treeView/treeView-grid-item.ts";
+
+import treeViewDefault from "./treeView/treeView-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./treeView/treeView-example-default.ts?raw";
+
+export const treeviewSpec = {
+  title: "Tree View",
+  package: "treeview",
+  description: "A tree view displays a hierarchical list",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/treeview/treeview.js",
+  importStatement: `import treeview from "@grucloud/bau-ui/treeview";`,
+  examples: [
+    {
+      title: "Default",
+      description: "A simple treeview.",
+      code: codeExampleDefault,
+      createComponent: treeViewDefault,
+    },
+  ],
+  gridItem: treeViewGridItem,
+};
+
 export default (context: Context) => {
-  const { tr, bau } = context;
-  const { section, a, h2, h3 } = bau.tags;
-
-  const ComponentGrid = componentGrid(context);
-
-  const menu: Tree = {
-    data: { name: "Root Menu" },
-    children: [
-      {
-        data: { name: "Menu 1", href: "#menu" },
-        expanded: true,
-        children: [
-          { data: { name: "Sub Menu 1", href: "#menusub2" } },
-          { data: { name: "Sub Menu 2", href: "#menusub1" } },
-        ],
-      },
-      {
-        data: { name: "Menu 2", href: "#menu2" },
-        children: [{ data: { name: "Sub Menu 21", href: "#menusub21" } }],
-      },
-    ],
-  };
-
-  const renderMenuItem = ({ name, href }: any) =>
-    a(
-      {
-        href,
-        onclick: (event: any) => {
-          event.preventDefault();
-        },
-      },
-      name
-    );
-
-  const TreeView = treeView(context, { renderMenuItem });
-
-  return () =>
-    section(
-      { id: "treeview" },
-      h2(tr("Tree View")),
-      h3(tr("Tree View Default")),
-      TreeView({ tree: menu }),
-      h3(tr("Tree View Table")),
-      ComponentGrid({
-        Item: (props: any) => TreeView({ ...props, tree: menu }),
-      })
-    );
+  const PageExample = pageExample(context);
+  return () => PageExample(treeviewSpec);
 };

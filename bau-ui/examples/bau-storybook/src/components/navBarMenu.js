@@ -5,7 +5,10 @@ const tree = {
   data: { name: "Root" },
   children: [
     {
-      data: { name: "Bau UI", href: "/" },
+      data: { name: "Home", href: "/" },
+    },
+    {
+      data: { name: "Getting Started", href: "/GettingStarted" },
     },
     {
       data: { name: "Components", href: "/components" },
@@ -94,6 +97,9 @@ export default function (context) {
             align-self: start;
             overflow-y: scroll;
             height: calc(100vh - var(--header-height) - 1rem);
+            border-right: 1px solid var(--color-emphasis-200);
+            min-width: 200px;
+
             @media (max-width: 640px) {
               position: fixed;
               width: 100vw;

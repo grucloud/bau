@@ -1,77 +1,32 @@
-import select from "@grucloud/bau-ui/select";
-import componentGrid from "./componentGrid";
-
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
-  const { tr, bau, css } = context;
-  const { section, div, h3, h2, span } = bau.tags;
-  const Container = (...children: any[]) =>
-    div(
-      {
-        class: css`
-          display: flex;
-          border: 1px dotted var(--color-gray-500);
-          padding: 1rem;
-        `,
-      },
-      ...children
-    );
+import pageExample from "./pageExample";
 
-  const ComponentGrid = componentGrid(context);
-  const Select = select(context);
+import selectGridItem from "./select/select-grid-item.ts";
 
-  const options = [
-    { code: "AD", label: "Andorra", phone: "376" },
+import selectDefault from "./select/select-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./select/select-example-default.ts?raw";
+
+export const selectSpec = {
+  title: "Modal",
+  package: "select",
+  description: "The select component allows user to select from a list.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/select/select.js",
+  importStatement: `import select from "@grucloud/bau-ui/select";`,
+  examples: [
     {
-      code: "AE",
-      label: "United Arab Emirates",
-      phone: "971",
+      title: "Default",
+      description: "A simple select.",
+      code: codeExampleDefault,
+      createComponent: selectDefault,
     },
-    { code: "AF", label: "Afghanistan", phone: "93" },
-  ];
+  ],
+  gridItem: selectGridItem,
+};
 
-  const Option = (option: any) =>
-    div(
-      {
-        class: css`
-          display: flex;
-          justify-content: space-between;
-          gap: 0.5rem;
-        `,
-      },
-      span(option.label),
-      span(option.code)
-    );
-
-  return () =>
-    section(
-      {
-        id: "select",
-        class: css``,
-      },
-      h2(tr("Select")),
-      h3("Basic Select"),
-      Container(
-        Select({
-          options,
-          Option,
-          getOptionLabel: ({ label }: any) => label,
-          label: "Select a country...",
-        })
-      ),
-      h2(tr("Select Table")),
-      ComponentGrid({
-        Item: (props: any) =>
-          div(
-            Select({
-              ...props,
-              options,
-              Option,
-              getOptionLabel: ({ label }: any) => label,
-              label: "Select a country...",
-            })
-          ),
-      })
-    );
+export default (context: Context) => {
+  const PageExample = pageExample(context);
+  return () => PageExample(selectSpec);
 };

@@ -73,6 +73,12 @@ export default function Router({ routes, notFoundRoute, onLocationChange }) {
       !href.replace(window.location.pathname, "").startsWith("#")
     ) {
       history.pushState({}, null, href);
+
+      window.scrollTo({
+        top: 0,
+        left: 0,
+      });
+
       event.preventDefault();
     }
   });

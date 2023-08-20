@@ -35,7 +35,7 @@ export default function Bau(input) {
 
   let bindingCleanUp = () => {
     if (!_debounce) {
-      _debounce = window.requestAnimationFrame(() => {
+      _debounce = _window.requestAnimationFrame(() => {
         stateSet.forEach((state) => {
           state.bindings = state.bindings.filter((b) => b.element?.isConnected);
           !state.bindings.length && !state.computed && stateSet.delete(state);
@@ -256,7 +256,7 @@ export default function Bau(input) {
       getPropDescriptor(proto, key)?.set ?? 0);
 
   let observerRemovedNode = (element, bauUnmounted) =>
-    new MutationObserver((mutationList, observer) => {
+    new _window.MutationObserver((mutationList, observer) => {
       mutationList
         .filter((record) => record.removedNodes)
         .forEach((record) =>
@@ -267,6 +267,11 @@ export default function Bau(input) {
           )
         );
     }).observe(element.parentNode, { childList: true });
+
+  let observerChildNode = (element, bauChildMutated) =>
+    new _window.MutationObserver((mutationList, observer) =>
+      mutationList.forEach((record) => bauChildMutated({ record, element }))
+    ).observe(element, { childList: true });
 
   let tagsNS = (namespace) =>
     new Proxy(
@@ -299,6 +304,9 @@ export default function Bau(input) {
             setter(v);
           }
         }
+        props.bauChildMutated &&
+          observerChildNode(element, props.bauChildMutated);
+
         add(element, ...children);
         props.bauCreated?.({ element });
         props.bauMounted &&
@@ -307,6 +315,7 @@ export default function Bau(input) {
           _window.requestAnimationFrame(() =>
             observerRemovedNode(element, props.bauUnmounted)
           );
+
         return element;
       },
       {

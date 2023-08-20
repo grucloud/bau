@@ -1,31 +1,32 @@
-import drawer from "@grucloud/bau-ui/drawer";
 import { Context } from "@grucloud/bau-ui/context";
 
-import button from "@grucloud/bau-ui/button";
-import navBarMenu from "../navBarMenu";
+import pageExample from "./pageExample";
+
+//import drawerGridItem from "./drawer/drawer-grid-item.ts";
+
+import drawerDefault from "./drawer/drawer-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./drawer/drawer-example-default.ts?raw";
+
+export const drawerSpec = {
+  title: "DrilldownMenu",
+  package: "drawer",
+  description: "The drawer show and hide a menu.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/drawer/drawer.js",
+  importStatement: `import drawer from "@grucloud/bau-ui/drawer";`,
+  examples: [
+    {
+      title: "Default",
+      description: "A simple drawer.",
+      code: codeExampleDefault,
+      createComponent: drawerDefault,
+    },
+  ],
+  // gridItem: drawerGridItem,
+};
 
 export default (context: Context) => {
-  const { tr, bau } = context;
-  const { section, h2 } = bau.tags;
-
-  const openState = bau.state(false);
-
-  const Drawer = drawer(context);
-  const Button = button(context);
-  const NavBarMenu = navBarMenu(context);
-
-  return () =>
-    section(
-      { id: "drawer" },
-      h2(tr("Drawer")),
-      Button(
-        {
-          onclick: () => {
-            openState.val = !openState.val;
-          },
-        },
-        "OPEN DRAWER"
-      ),
-      Drawer({ openState }, NavBarMenu())
-    );
+  const PageExample = pageExample(context);
+  return () => PageExample(drawerSpec);
 };

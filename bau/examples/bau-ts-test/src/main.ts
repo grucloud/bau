@@ -39,18 +39,75 @@ const TestConditionalTernary = () => {
   );
 };
 
+const Transition = (props: any, child: any) => {
+  return div(
+    {
+      bauChildMutated: ({ record, element }: any) => {
+        [...record.removedNodes].forEach((childNode) => {
+          if (childNode.getAttribute("cloned")) return;
+          const nodeCloned = childNode.cloneNode(true);
+          nodeCloned.style.top = 0;
+          nodeCloned.style.left = 0;
+          nodeCloned.style.width = childNode.getAttribute("width");
+          nodeCloned.style.height = childNode.getAttribute("height");
+          nodeCloned.style.position = "absolute";
+          nodeCloned.style.animation = props.animationHide;
+
+          nodeCloned.setAttribute("cloned", true);
+          if (record.previousSibling) {
+            record.previousSibling.after(nodeCloned);
+          } else if (record.nextSibling) {
+            record.nextSibling.before(nodeCloned);
+          } else if (record.target) {
+            record.target.appendChild(nodeCloned);
+          } else {
+          }
+
+          nodeCloned.addEventListener("animationend", () =>
+            nodeCloned.parentNode.removeChild(nodeCloned)
+          );
+        });
+        [...record.addedNodes].forEach((childNode) => {
+          if (childNode.getAttribute("cloned")) return;
+          element.style.position = "relative";
+          childNode.style.animation = props.animationShow;
+          const rect = childNode.getBoundingClientRect();
+          childNode.setAttribute("width", rect.width + "px");
+          childNode.setAttribute("height", rect.height + "px");
+
+          const animationEndHandler = () => {
+            childNode.removeEventListener("animationend", animationEndHandler);
+            childNode.style.animation = "";
+          };
+          childNode.addEventListener("animationend", animationEndHandler);
+        });
+      },
+      ...props,
+    },
+    child
+  );
+};
+
 const TestConditionalIfElse = () => {
   const showState = bau.state(true);
   return article(
     h1("Conditional with if else"),
     button({ onclick: () => (showState.val = !showState.val) }, "Toogle"),
-    () => {
-      if (showState.val) {
-        return p("ON");
-      } else {
-        return p("OFF");
+    Transition(
+      {
+        style:
+          "border:1px solid red;width:300px;overflow:hidden;text-align:center;",
+        animationShow: "slide-in 1s",
+        animationHide: "slide-out 1s",
+      },
+      () => {
+        if (showState.val) {
+          return p("ON");
+        } else {
+          return p("OFF");
+        }
       }
-    }
+    )
   );
 };
 
@@ -711,6 +768,7 @@ const App = ({}) => {
         //
         TestRouter()
       ),
+
       h1("Event Handling"), //
       TestButtonClickInline(),
       TestButtonClickMethod(),

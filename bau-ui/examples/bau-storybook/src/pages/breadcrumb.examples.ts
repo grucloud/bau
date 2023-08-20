@@ -1,37 +1,33 @@
-import breadcrumbs, {
-  type BreadcrumbsProps,
-} from "@grucloud/bau-ui/breadcrumbs";
-
 import { Context } from "@grucloud/bau-ui/context";
-import componentGrid from "./componentGrid";
+
+import pageExample from "./pageExample";
+
+import breadcrumbsGridItem from "./breadcrumbs/breadcrumbs-grid-item.ts";
+
+import breadcrumbsDefault from "./breadcrumbs/breadcrumbs-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./breadcrumbs/breadcrumbs-example-default.ts?raw";
+
+export const breadcrumbsSpec = {
+  title: "Breadcrumbs",
+  package: "breadcrumbs",
+  description:
+    "The breadcrumbs component is an horizonal bar for navigation between pages",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/breadcrumbs/breadcrumbs.js",
+  importStatement: `import breadcrumbs from "@grucloud/bau-ui/breadcrumbs";`,
+  examples: [
+    {
+      title: "Default",
+      description: "A simple breadcrumbs.",
+      code: codeExampleDefault,
+      createComponent: breadcrumbsDefault,
+    },
+  ],
+  gridItem: breadcrumbsGridItem,
+};
 
 export default (context: Context) => {
-  const { tr, bau } = context;
-  const { section, h2, h3 } = bau.tags;
-
-  const breadcrumbs1: BreadcrumbsProps = {
-    items: [
-      {
-        href: "/",
-        name: "\u2302",
-      },
-      { name: "Dir" },
-      { href: "/dir/subdir", name: "SubDir" },
-    ],
-  };
-
-  const ComponentGrid = componentGrid(context);
-  const Breadcrumbs = breadcrumbs(context);
-
-  return () =>
-    section(
-      { id: "breadcrumbs" },
-      h2(tr("Breadcrumbs")),
-      h3("Bacis Breadcrumb"),
-      Breadcrumbs(breadcrumbs1),
-      h3("Breadcrumbs Table"),
-      ComponentGrid({
-        Item: (props: any) => Breadcrumbs({ ...props, ...breadcrumbs1 }),
-      })
-    );
+  const PageExample = pageExample(context);
+  return () => PageExample(breadcrumbsSpec);
 };

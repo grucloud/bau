@@ -106,9 +106,13 @@ export type PropsHTMLElement<TElement extends HTMLElement> = {
 };
 
 export type PropsLifecycle<TElement extends HTMLElement> = {
-  bauCreated: (input: { element: TElement }) => TElement;
-  bauMounted: (input: { element: TElement }) => TElement;
-  bauUnmounted: (input: { element: TElement }) => TElement;
+  bauCreated: (input: { element: TElement }) => void;
+  bauMounted: (input: { element: TElement }) => void;
+  bauUnmounted: (input: { element: TElement }) => void;
+  bauChildMutated: (input: {
+    element: TElement;
+    record: MutationRecord;
+  }) => void;
 };
 
 export type PropsAll<TElement extends HTMLElement> =

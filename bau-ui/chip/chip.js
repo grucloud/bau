@@ -7,12 +7,12 @@ export default function (context, options) {
 
   const className = css`
     display: inline-block;
+    box-sizing: border-box;
     border-radius: var(--global-radius);
     padding: 0.2rem 0.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: smaller;
     &.clickable {
       cursor: pointer;
     }
@@ -20,10 +20,10 @@ export default function (context, options) {
       padding: 0.2rem;
     }
     &.md {
-      padding: 0.5rem;
+      padding: 0.2rem 0.5rem;
     }
     &.lg {
-      padding: 0.5rem;
+      padding: 0.3rem 1rem;
     }
   `;
 

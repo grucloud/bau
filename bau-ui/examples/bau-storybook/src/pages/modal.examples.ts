@@ -1,89 +1,33 @@
-import modal from "@grucloud/bau-ui/modal";
-import button from "@grucloud/bau-ui/button";
 import { Context } from "@grucloud/bau-ui/context";
-import componentGrid from "./componentGrid";
+
+import pageExample from "./pageExample";
+
+import modalGridItem from "./modal/modal-grid-item.ts";
+
+import modalDefault from "./modal/modal-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./modal/modal-example-default.ts?raw";
+
+export const modalSpec = {
+  title: "Modal",
+  package: "modal",
+  description:
+    "The modal component is a wrapper around the native dialog element.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/modal/modal.js",
+  importStatement: `import modal from "@grucloud/bau-ui/modal";`,
+  examples: [
+    {
+      title: "Default",
+      description: "A simple modal.",
+      code: codeExampleDefault,
+      createComponent: modalDefault,
+    },
+  ],
+  gridItem: modalGridItem,
+};
 
 export default (context: Context) => {
-  const { tr, bau } = context;
-  const { section, main, h2, header, footer, p, div } = bau.tags;
-
-  const ComponentGrid = componentGrid(context);
-
-  const Button = button(context);
-  const Modal = modal(context);
-
-  const Content = () =>
-    main(
-      Array(10)
-        .fill("")
-        .map((_, k) => p(k + 1, ". Some text here" /*faker.lorem.paragraph()*/))
-    );
-
-  const MyModal = (props: any) => {
-    const modalEl = Modal(
-      { id: "my-dialog", ...props },
-      header("Header"),
-      Content(),
-      footer(
-        Button(
-          {
-            variant: "outline",
-            color: props.color,
-            onclick: () => {
-              modalEl.close();
-            },
-          },
-          "Cancel"
-        ),
-        Button(
-          {
-            variant: "solid",
-            color: props.color,
-            onclick: () => {
-              modalEl.close();
-            },
-          },
-          "OK"
-        )
-      )
-    );
-    return modalEl;
-  };
-
-  const modalEl = MyModal({ color: "neutral" });
-
-  return () =>
-    section(
-      { id: "modal" },
-      h2(tr("Modal Examples")),
-      Button(
-        {
-          variant: "solid",
-          color: "neutral",
-          onclick: () => {
-            modalEl.showModal();
-          },
-        },
-        "OPEN MODAL"
-      ),
-      modalEl,
-      h2(tr("Modal Table")),
-      ComponentGrid({
-        Item: (props: any) => {
-          const modalEl = MyModal(props);
-          return div(
-            Button(
-              {
-                ...props,
-                onclick: () => {
-                  modalEl.showModal();
-                },
-              },
-              "OPEN MODAL"
-            ),
-            modalEl
-          );
-        },
-      })
-    );
+  const PageExample = pageExample(context);
+  return () => PageExample(modalSpec);
 };

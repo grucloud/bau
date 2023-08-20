@@ -1,53 +1,33 @@
-import avatar from "@grucloud/bau-ui/avatar";
 import { Context } from "@grucloud/bau-ui/context";
-import componentGrid from "./componentGrid";
+
+import pageExample from "./pageExample";
+
+import avatarGridItem from "./avatar/avatar-grid-item.ts";
+
+import avatarDefault from "./avatar/avatar-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./avatar/avatar-example-default.ts?raw";
+
+export const avatarSpec = {
+  title: "Avatar",
+  package: "avatar",
+  description:
+    "The avatar component displays a small image or initial of a person.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/avatar/avatar.js",
+  importStatement: `import avatar from "@grucloud/bau-ui/avatar";`,
+  examples: [
+    {
+      title: "Default",
+      description: "A simple avatar.",
+      code: codeExampleDefault,
+      createComponent: avatarDefault,
+    },
+  ],
+  gridItem: avatarGridItem,
+};
 
 export default (context: Context) => {
-  const { tr, bau, css, config } = context;
-  const { section, h2, h3 } = bau.tags;
-  const avatarClass = css`
-    > img {
-      background: var(--color-gray-100);
-      border-radius: 50%;
-      margin: 0.3rem;
-    }
-  `;
-
-  const ComponentGrid = componentGrid(context);
-
-  const Avatar = avatar(context, {
-    class: css`
-      > img {
-        background: var(--color-gray-100);
-        border-radius: 50%;
-        margin: 0.3rem;
-      }
-    `,
-  });
-
-  return () =>
-    section(
-      { id: "avatar" },
-      h2(tr("Avatar")),
-      Avatar({
-        class: avatarClass,
-        src: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=robohash&f=y",
-        alt: "my avatar",
-      }),
-      Avatar({
-        src: `${config.base}/grucloud.svg`,
-        alt: "GruCloud",
-      }),
-
-      h3("Avatar Table"),
-      ComponentGrid({
-        Item: (props: any) =>
-          Avatar({
-            ...props,
-            //class: avatarClass,
-            src: `${config.base}/grucloud.svg`,
-            alt: "GruCloud",
-          }),
-      })
-    );
+  const PageExample = pageExample(context);
+  return () => PageExample(avatarSpec);
 };

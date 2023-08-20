@@ -1,8 +1,7 @@
 declare module "@grucloud/bau-ui/animate" {
   export type AnimateProps = {
-    parent: Element;
-    animationHide: string;
-    animationShow: string;
+    animationHide?: () => string;
+    animationShow?: () => string;
   };
 
   type Component = import("../bau-ui").ComponentOneChild<AnimateProps>;

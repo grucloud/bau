@@ -1,74 +1,49 @@
-import animate from "@grucloud/bau-ui/animate";
-import button from "@grucloud/bau-ui/button";
 import { Context } from "@grucloud/bau-ui/context";
 
-const createStyles = ({ keyframes }: Context) => {
-  return {
-    hideRight: keyframes`
-   from {
-    transform: translateX(0%);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  `,
-    showRight: keyframes`
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0%);
-    opacity: 1;
-  }
- `,
-  };
+import pageExample from "./pageExample";
+
+import animateDefault from "./animate/animate-example-default.ts";
+// @ts-ignore
+import codeExampleDefault from "./animate/animate-example-default.ts?raw";
+
+import animateComonent from "./animate/animate-component.ts";
+// @ts-ignore
+import codeExampleComonent from "./animate/animate-component.ts?raw";
+
+//import animateDisplayNone from "./animate/animate-visibility-hidden.ts";
+// @ts-ignore
+//import codeExampleDisplayNone from "./animate/animate-visibility-hidden.ts?raw";
+
+export const animateSpec = {
+  title: "Animate",
+  package: "animate",
+  description: "The animate component animates a child component.",
+  sourceCodeUrl:
+    "https://github.com/grucloud/bau/blob/main/bau-ui/animate/animate.js",
+  importStatement: `import animate from "@grucloud/bau-ui/animate";`,
+  examples: [
+    {
+      title: "Basic Example",
+      description: "A simple animation example.",
+      code: codeExampleDefault,
+      createComponent: animateDefault,
+    },
+    {
+      title: "Component hide and show",
+      description: "Hide and show a component",
+      code: codeExampleComonent,
+      createComponent: animateComonent,
+    },
+    // {
+    //   title: "visibility: hidden",
+    //   description: "Hide and show with visibility: hidden",
+    //   code: codeExampleDisplayNone,
+    //   createComponent: animateDisplayNone,
+    // },
+  ],
 };
 
 export default (context: Context) => {
-  const { bau } = context;
-  const { section, div, h1 } = bau.tags;
-  const Animate = animate(context);
-  const Button = button(context);
-
-  const styles = createStyles(context);
-
-  return function () {
-    const showState = bau.state(true);
-    const parent = div();
-
-    const replaceChildren = (showState: any) => {
-      parent.replaceChildren(
-        Animate(
-          {
-            parent,
-            animationHide: `${styles.hideRight} 0.5s`,
-            animationShow: `${styles.showRight} 0.5s`,
-          },
-          div(showState.val ? "Ciao" : "")
-        )
-      );
-    };
-    replaceChildren(showState);
-    return section(
-      { id: "animate" },
-      div(
-        h1("Test Animate"),
-        div(
-          Button(
-            {
-              onclick: () => {
-                showState.val = !showState.val;
-                replaceChildren(showState);
-              },
-            },
-            () => (showState.val ? "Hide" : "Show")
-          )
-        ),
-        parent
-      )
-    );
-  };
+  const PageExample = pageExample(context);
+  return () => PageExample(animateSpec);
 };

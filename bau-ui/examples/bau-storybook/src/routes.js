@@ -1,7 +1,7 @@
 import landingPage from "./landingPage";
 
-import componentList from "./componentList";
 import pagesList from "./pagesList";
+import gettingStarted from "./pages/gettingStarted";
 
 import accordionExamples from "./pages/accordion.examples";
 import alertExamples from "./pages/alert.examples";
@@ -41,6 +41,13 @@ export const createRoutes = ({ context }) => [
     action: (routerContext) => ({
       title: "Bau UI",
       component: landingPage(context),
+    }),
+  },
+  {
+    path: "GettingStarted",
+    action: (routerContext) => ({
+      title: "Getting Started",
+      component: gettingStarted(context),
     }),
   },
   {

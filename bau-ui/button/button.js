@@ -21,6 +21,15 @@ export default function (context, options) {
       box-sizing: border-box;
       user-select: none;
       transition: all var(--transition-slow);
+
+      &.outline,
+      &.solid {
+        box-shadow: var(--shadow-m);
+      }
+      &.outline:hover,
+      &.solid:hover {
+        box-shadow: var(--shadow-lg);
+      }
       &:hover {
         filter: brightness(var(--brightness-hover));
       }
