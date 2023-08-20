@@ -9,6 +9,6 @@ export default (context: Context) => {
       {
         ...props,
       },
-      `Chip ${props.color} ${props.variant}`
+      `Chip ${props.color} ${props.variant} ${props.size ?? ""}`
     );
 };

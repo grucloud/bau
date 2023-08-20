@@ -59,6 +59,7 @@ export default function ({ tr, bau, css }) {
           justify-content: center;
           align-items: center;
           gap: 1rem;
+          border-top: 1px solid var(--color-emphasis-200);
           color: var(--color-content-secondary);
         `,
       },

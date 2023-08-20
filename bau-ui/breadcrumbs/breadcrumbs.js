@@ -4,7 +4,7 @@ import button from "../button/button.js";
 
 export default function (context, options) {
   const { bau, css } = context;
-  const { ul, li, a, span } = bau.tags;
+  const { ul, li, span } = bau.tags;
 
   const Button = button(context);
 
@@ -42,15 +42,12 @@ export default function (context, options) {
 
   return function Breadcrumbs(...args) {
     let [
-      { color, variant = "outline", size = "md", items, ...props },
+      { color = "neutral", variant = "plain", size = "md", items, ...props },
       ...children
     ] = toPropsAndChildren(args);
     return ul(
       {
         ...props,
-        // color,
-        // variant,
-        // size,
         class: classNames(className, options?.class, props?.class),
       },
       items.map(({ href, name }) =>

@@ -16,6 +16,10 @@ export default (context: Context) => {
           & table {
             table-layout: fixed;
             overflow-x: auto;
+            & th,
+            & td {
+              padding: 0.5rem;
+            }
           }
         `,
       },

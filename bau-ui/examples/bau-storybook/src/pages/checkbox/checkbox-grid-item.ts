@@ -20,7 +20,7 @@ export default (context: Context) => {
           padding: 0.2rem;
         `,
       },
-      `${props.color} ${props.variant} ${props.size}`,
+      `${props.color} ${props.variant} ${props.size ?? ""}`,
       Checkbox({
         id: `myCheckbox-gallery-${props.color}-${props.variant}-${props.size}`,
         name: `myCheckbox-gallery-${props.color}-${props.variant}`,
