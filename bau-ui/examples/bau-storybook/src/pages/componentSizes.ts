@@ -9,7 +9,8 @@ export default (context: Context) => {
       {
         class: css`
           display: flex;
-          gap: 2rem;
+          gap: 1rem;
+          flex-direction: column;
           align-items: flex-start;
         `,
       },

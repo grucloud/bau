@@ -34,7 +34,7 @@ export const layoutDefault = (context) => {
           grid-template-areas:
             "header header"
             "sidebar main"
-            "footer footer";
+            "sidebar footer";
           min-height: 100vh;
           min-width: 100vw;
           @media (max-width: 640px) {

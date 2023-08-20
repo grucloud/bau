@@ -106,7 +106,6 @@ export default function globalStyle(
       ${buildGrays()}
       ${buildEmphasis({})}
       ${variantToCss()}
-      
       --color-content: hsl(0, 0%, 10%);
       --color-content-inverse: hsl(0, 0%, 95%);
       --color-content-secondary: hsl(0, 0%, 30%);
@@ -173,7 +172,7 @@ export default function globalStyle(
       --background-color: #121212;
       --hover-overlay: rgba(255, 255, 255, 0.05);
       --color-content: #e3e3e3;
-      --color-content-secondary: rgba(255, 255, 255, 1);
+      --color-content-secondary: rgba(255, 255, 255, 0.7);
       --brightness-hover-always: 130%;
       --brightness-active-always: 120%;
       --brightness-active: 180%;
