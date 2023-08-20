@@ -2,6 +2,7 @@ import { Context } from "@grucloud/bau-ui/context";
 import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
 import componentGrid from "./componentGrid";
+import componentSizes from "./componentSizes";
 
 export default (context: Context) => {
   const { bau, css } = context;
@@ -10,6 +11,7 @@ export default (context: Context) => {
   hljs.registerLanguage("javascript", javascript);
 
   const ComponentGrid = componentGrid(context);
+  const ComponentSizes = componentSizes(context);
 
   const HighlighContainer = ({ text }: any) =>
     pre(
@@ -36,9 +38,22 @@ export default (context: Context) => {
       h1(spec.title),
       p(spec.description),
       spec.gridItem && [
-        h2("Gallery"),
+        h2("Variant/Color"),
         spec.gridItem &&
           ComponentGrid({
+            Item: spec.gridItem(context),
+          }),
+        h2("Size"),
+        p(
+          "Component with size: ",
+          code("sm"),
+          ", ",
+          code("md"),
+          ", and ",
+          code("lg")
+        ),
+        spec.gridItem &&
+          ComponentSizes({
             Item: spec.gridItem(context),
           }),
       ],

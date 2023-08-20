@@ -18,7 +18,7 @@ export const tooltipSpec = {
   description: "The tooltip display information next to a component.",
   sourceCodeUrl:
     "https://github.com/grucloud/bau/blob/main/bau-ui/tooltip/tooltip.js",
-  importStatement: `import createSwitch from "@grucloud/bau-ui/tooltip";`,
+  importStatement: `import tooltip from "@grucloud/bau-ui/tooltip";`,
   examples: [
     {
       title: "Default",

@@ -32,6 +32,7 @@ export default (context: Context) => {
   const { section, div, h1, p, ul, li } = bau.tags;
 
   const ComponentGrid = componentGrid(context);
+
   const Button = button(context);
 
   const components = [

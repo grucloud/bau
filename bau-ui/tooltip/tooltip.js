@@ -17,7 +17,7 @@ export default function (context, options) {
       }
       white-space: nowrap;
       position: absolute;
-      z-index: 2;
+      z-index: 10;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease-in-out;
