@@ -19,6 +19,6 @@ export default (context: Context) => {
     },
   ];
 
-  const Accordion = accordion(context, { accordionDefs });
-  return (props: any) => Accordion({ ...props });
+  const Accordion = accordion(context);
+  return (props: any) => Accordion({ ...props, data: accordionDefs });
 };

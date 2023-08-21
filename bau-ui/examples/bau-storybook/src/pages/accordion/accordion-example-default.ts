@@ -17,6 +17,8 @@ export default (context: Context) => {
       Content: () => div(p("Item 2 Content")),
     },
   ];
-  const Accordion = accordion(context, { accordionDefs });
-  return () => Accordion({ color: "neutral", variant: "outline" });
+  const Accordion = accordion(context);
+
+  return () =>
+    Accordion({ data: accordionDefs, color: "neutral", variant: "outline" });
 };
