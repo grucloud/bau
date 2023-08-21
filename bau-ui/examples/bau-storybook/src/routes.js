@@ -23,6 +23,7 @@ import inputExamples from "./pages/input.examples";
 import listExamples from "./pages/list.examples";
 import modalExamples from "./pages/modal.examples";
 import popoverExamples from "./pages/popover.examples";
+import paperExamples from "./pages/paper.examples";
 import selectExamples from "./pages/select.examples";
 import sliderExamples from "./pages/slider.examples";
 import spinnerExamples from "./pages/spinner.examples";
@@ -188,6 +189,13 @@ export const createRoutes = ({ context }) => [
         action: () => ({
           title: "Modal",
           component: modalExamples(context),
+        }),
+      },
+      {
+        path: "paper",
+        action: () => ({
+          title: "Paper",
+          component: paperExamples(context),
         }),
       },
       {
