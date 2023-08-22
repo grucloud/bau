@@ -24,7 +24,11 @@ export const drilldownMenuSpec = {
       createComponent: drilldownMenuDefault,
     },
   ],
-  gridItem: drilldownMenuGridItem,
+  gridItem: (context: Context) =>
+    drilldownMenuGridItem(context, {
+      base: "/components/drillDownMenu",
+      hashBased: true,
+    }),
 };
 
 export default (context: Context) => {

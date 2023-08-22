@@ -1,11 +1,9 @@
 import drillDownMenu, { type Tree } from "@grucloud/bau-ui/drillDownMenu";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
-  const { config } = context;
-
+export default (context: Context, options: object) => {
   const tree: Tree = {
-    data: { name: "Root Menu" },
+    data: { name: "Root Menu", href: "#drilldown-gallery" },
     children: [
       {
         data: { name: "Menu 1", href: "#dd-menu1" },
@@ -29,12 +27,11 @@ export default (context: Context) => {
     ],
   };
 
-  const DrillDownMenu = drillDownMenu(context, {
-    base: config.base + "/components/drillDownMenu",
-  });
+  const DrillDownMenu = drillDownMenu(context, options);
 
   return (props: any) =>
     DrillDownMenu({
+      id: `drilldown-gallery`,
       tree,
       ...props,
     });

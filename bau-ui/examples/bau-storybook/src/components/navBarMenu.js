@@ -65,9 +65,7 @@ export default function (context) {
 
   let isMobile = false;
 
-  const DrillDownMenu = drillDownMenu(context, {
-    base: config.base,
-  });
+  const DrillDownMenu = drillDownMenu(context);
 
   return function NavBarMenu() {
     return div(
@@ -109,10 +107,7 @@ export default function (context) {
           `
         ),
       },
-      DrillDownMenu({
-        tree,
-        pathnameState: states.pathname,
-      })
+      DrillDownMenu({ tree })
     );
   };
 }

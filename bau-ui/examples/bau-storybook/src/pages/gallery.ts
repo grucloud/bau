@@ -82,7 +82,10 @@ export default (context: Context) => {
     },
     {
       name: "DrillDown Menu",
-      Item: drilldownMenuItem(context),
+      Item: drilldownMenuItem(context, {
+        base: "/components",
+        hashBased: true,
+      }),
     },
     {
       name: "File Input",

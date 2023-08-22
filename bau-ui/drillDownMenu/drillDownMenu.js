@@ -64,16 +64,22 @@ const createStyles = ({ keyframes }) => {
   };
 };
 
-export default function (context, options) {
-  const { bau, css, window } = context;
-  const { base = "" } = options;
+export default function (context, options = {}) {
+  const { bau, css, window, config } = context;
+  const { base = "", hashBased = false } = options;
+  const baseUrl = `${config.base}${base}`;
+  const backHref = (currentTree) =>
+    currentTree.parentTree.data?.href ??
+    currentTree.parentTree.children[0].data.href;
 
-  const renderHeaderDefault = ({ currentTree, data }) =>
+  const renderHeaderDefault = ({ variant, color, size, currentTree, data }) =>
     header(
       Button(
         {
-          variant: "plain",
-          href: `${base}${currentTree.parentTree.children[0].data.href}`,
+          variant,
+          color,
+          size,
+          href: `${baseUrl}${backHref(currentTree)}`,
           class: css`
             flex-grow: 0;
           `,
@@ -83,8 +89,10 @@ export default function (context, options) {
       ),
       Button(
         {
-          variant: "plain",
-          href: `${base}${data.href}`,
+          variant,
+          color,
+          size,
+          href: `${baseUrl}${data.href}`,
           class: css`
             flex-grow: 1;
           `,
@@ -94,17 +102,24 @@ export default function (context, options) {
       )
     );
 
-  const renderMenuItemDefault = ({ data: { name, href }, children = [] }) =>
+  const renderMenuItemDefault = ({
+    size,
+    subTree: {
+      data: { name, href },
+      children = [],
+    },
+  }) =>
     Button(
       {
-        href: `${base}${href}`,
+        size,
+        href: `${baseUrl}${href}`,
         "data-ischild": !children.length,
       },
       name
     );
 
-  const isActiveDefault = ({ subTree }) =>
-    window.location.pathname.replace(base, "") === subTree?.data?.href;
+  const isActiveDefault = ({ pathname, subTree }) =>
+    pathname === subTree?.data?.href;
 
   const {
     renderHeader = renderHeaderDefault,
@@ -129,16 +144,20 @@ export default function (context, options) {
     font-weight: var(--font-weight-semibold);
     overflow: hidden;
     position: relative;
-
     & header {
       display: flex;
       align-items: center;
       font-weight: var(--font-weight-bold);
-      border-bottom: 1px solid var(--color-emphasis-200);
       & a {
         padding: 0.6rem;
         border-radius: 0;
+        font-weight: 600;
       }
+    }
+    & a,
+    & ul {
+      border-width: 0 !important;
+      box-shadow: none !important;
     }
     & ul {
       overflow: hidden;
@@ -159,10 +178,9 @@ export default function (context, options) {
 
   const Menu = ({ variant, color, size, currentTree, pathnameState }) => {
     const { children, parentTree, data } = currentTree;
-    //console.log("Menu", currentTree, pathnameState.val);
     return div(
       { class: cn("drillDownMenu", variant, color, size) },
-      parentTree && renderHeader({ data, currentTree }),
+      parentTree && renderHeader({ variant, color, size, data, currentTree }),
       children &&
         List(
           { class: cn(variant, color, size) },
@@ -176,7 +194,7 @@ export default function (context, options) {
                       "active"
                   ),
               },
-              renderMenuItem(subTree)
+              renderMenuItem({ variant, color, size, subTree })
             )
           )
         )
@@ -187,7 +205,7 @@ export default function (context, options) {
     let currentTree = treeAddParent({})(structuredClone(tree));
     let subTree = findSubTree(pathname)(currentTree);
     if (!subTree) {
-      console.log("drilldown no sub tree", pathname);
+      console.error("drilldown no sub tree", pathname);
       subTree = currentTree;
     }
     return subTree;
@@ -199,9 +217,31 @@ export default function (context, options) {
       color = "neutral",
       size = "md",
       tree,
-      pathnameState = bau.state(window.location.pathname),
       ...otherProps
     } = props;
+
+    const pathnameState = bau.state(
+      window.location.pathname.replace(baseUrl, "")
+    );
+
+    const treeState = bau.derive(() =>
+      findInitialTree({
+        tree,
+        pathname: pathnameState.val,
+      })
+    );
+
+    window.document.addEventListener("click", (event) => {
+      const { target } = event;
+      const href = target.getAttribute("href");
+      if (target.tagName === "A" && href && !href.startsWith("http")) {
+        let path = href.replace(baseUrl, "");
+        if (!hashBased) {
+          path = path.replace(target.hash, "");
+        }
+        pathnameState.val = path;
+      }
+    });
 
     let direction = 1;
 
@@ -215,13 +255,6 @@ export default function (context, options) {
         direction = 0;
       }
     };
-
-    const treeState = bau.derive(() =>
-      findInitialTree({
-        tree,
-        pathname: pathnameState.val,
-      })
-    );
 
     const animationHide = (direction) => {
       switch (direction) {

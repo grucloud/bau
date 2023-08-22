@@ -17,7 +17,6 @@ const context = createContext({
 });
 const { bau } = context;
 context.states = {
-  pathname: bau.state(window.location.pathname.replace(config.base, "")),
   drawerOpen: bau.state(true),
 };
 

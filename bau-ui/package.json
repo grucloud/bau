@@ -11,7 +11,9 @@
     "CSS in JS"
   ],
   "author": "Frederic Heem",
-  "scripts": {},
+  "scripts": {
+    "typedoc": "typedoc --exclude myComponent/index.d.ts *.d.ts **/*.d.ts "
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:grucloud/bau.git",
@@ -20,5 +22,8 @@
   "dependencies": {
     "@grucloud/bau": "^0.42.0",
     "@grucloud/bau-css": "^0.42.0"
+  },
+  "devDependencies": {
+    "typedoc": "0.24.8"
   }
 }

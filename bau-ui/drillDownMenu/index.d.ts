@@ -20,6 +20,7 @@ declare module "@grucloud/bau-ui/drillDownMenu" {
     renderMenuItem?: ComponentGeneric;
     isActive?: (input: { subTree: object }) => boolean;
     base?: string;
+    hashBased?: boolean;
   } & ComponentOption;
 
   export default function (context: Object, option: Option): Component;
