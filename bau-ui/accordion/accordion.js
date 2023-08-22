@@ -20,7 +20,6 @@ const colorsToCss = () =>
 
 export default function (context, options) {
   const { bau, css } = context;
-  const { accordionDefs } = options;
   const { div, ul, li, header, h3, button } = bau.tags;
   const itemNameState = bau.state("");
 
@@ -114,9 +113,10 @@ export default function (context, options) {
 
   return function Accordion(...args) {
     let [
-      { color, variant = "outline", size = "md", content, ...props },
+      { color, variant = "outline", size = "md", data = [], ...props },
       ...children
     ] = toPropsAndChildren(args);
+
     const AccordionItem = (item) => {
       const { Header, Content, name } = item;
       return li(
@@ -156,7 +156,7 @@ export default function (context, options) {
       {
         class: classNames("accordion", className, options?.class, props.class),
       },
-      ul(accordionDefs.map(AccordionItem))
+      ul(data.map(AccordionItem))
     );
   };
 }

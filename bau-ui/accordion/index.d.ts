@@ -1,7 +1,9 @@
 declare module "@grucloud/bau-ui/accordion" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
 
-  export type AccordionProps = {} & DefaultDesignProps;
+  export type AccordionProps = {
+    data: Accordion[];
+  } & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<AccordionProps>;
 
@@ -19,8 +21,7 @@ declare module "@grucloud/bau-ui/accordion" {
 
   type Option = {
     class?: string;
-    accordionDefs: Accordion[];
   };
 
-  export default function (context: any, option: Option): Component;
+  export default function (context: any, option?: Option): Component;
 }

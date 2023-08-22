@@ -7,11 +7,12 @@ export default (context: Context) => {
 
   const accordionDefs = createAccordionDefs(context);
 
-  const Accordion = accordion(context, { accordionDefs });
+  const Accordion = accordion(context);
 
   return () =>
     Accordion({
       color: "warning",
+      data: accordionDefs,
       class: css`
         &.accordion {
           & ul {
