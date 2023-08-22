@@ -22,7 +22,7 @@ const colorsToCss = () =>
 
 export default function (context, componentOptions) {
   const { bau, css } = context;
-  const { div, li, ul } = bau.tags;
+  const { div, li } = bau.tags;
 
   const Popover = popover(context);
   const Button = button(context);
@@ -38,6 +38,9 @@ export default function (context, componentOptions) {
     }
     & .content {
       height: fit-content;
+      & ul {
+        border-width: 0px !important;
+      }
       & input {
         padding: 0.8rem;
         margin: 0.3rem;

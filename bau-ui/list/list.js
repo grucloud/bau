@@ -6,13 +6,6 @@ export default function (context, options) {
   const { bau, css } = context;
   const { ul } = bau.tags;
 
-  const colorsToCss = () =>
-    Colors.map(
-      (color) =>
-        `
-`
-    ).join("\n");
-
   const className = css`
     list-style: none;
     padding: 0;
@@ -39,7 +32,6 @@ export default function (context, options) {
         filter: brightness(var(--brightness-active));
       }
     }
-    ${colorsToCss()}
   `;
 
   return function List(...args) {
