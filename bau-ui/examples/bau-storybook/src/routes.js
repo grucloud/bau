@@ -3,7 +3,7 @@ import landingPage from "./landingPage";
 import pagesList from "./pagesList";
 import gettingStarted from "./pages/gettingStarted";
 
-import accordionExamples from "./pages/accordion.examples";
+import accordionExamples from "./pages/accordion/accordion.examples";
 import alertExamples from "./pages/alert.examples";
 import alertStackExamples from "./pages/alertStack.examples";
 import animateExamples from "./pages/animate.examples";
@@ -14,23 +14,31 @@ import breadcrumbExamples from "./pages/breadcrumb.examples";
 import buttonExamples from "./pages/button.examples";
 import buttonGroupExamples from "./pages/buttonGroup.examples";
 import calendarExamples from "./pages/calendar.examples";
+import carouselExamples from "./pages/carousel/carousel.examples";
 import chipExamples from "./pages/chip.examples";
 import checkboxExamples from "./pages/checkbox.examples";
+import collapsibleExamples from "./pages/collapsible/collapsible.examples";
 import drawerExamples from "./pages/drawer.examples";
 import drillDownMenuExamples from "./pages/drillDownMenu.examples";
 import fileInputExamples from "./pages/fileInput.examples";
 import inputExamples from "./pages/input.examples";
+//import linearProgressExamples from "./pages/linearProgress/linearProgress.examples";
+//import loadingButtonExamples from "./pagesloadingButton/loadingButton.examples";
 import listExamples from "./pages/list.examples";
 import modalExamples from "./pages/modal.examples";
 import popoverExamples from "./pages/popover.examples";
 import paperExamples from "./pages/paper.examples";
+//import paginationNavigationExamples from "./pages/paginationNavigation/paginationNavigation.examples";
 import selectExamples from "./pages/select.examples";
 import sliderExamples from "./pages/slider.examples";
 import spinnerExamples from "./pages/spinner.examples";
 import switchExamples from "./pages/switch.examples";
 import tabsExamples from "./pages/tabs.examples";
 import tableExamples from "./pages/table.examples";
+//import tableOfContentExamples from "./pages/tableOfContent/tableOfContent.examples";
 import tablePaginationExamples from "./pages/tablePagination.examples";
+//import toogleExamples from "./pages/toogle.examples";
+//import toogleGroupExamples from "./pages/toogleGroup.examples";
 import tooltipExamples from "./pages/tooltip.examples";
 import themeSwitchExamples from "./pages/themeSwitch.examples";
 import treeViewExamples from "./pages/treeView.examples";
@@ -100,6 +108,7 @@ export const createRoutes = ({ context }) => [
           component: avatarExamples(context),
         }),
       },
+
       {
         path: "badge",
         action: () => ({
@@ -136,6 +145,13 @@ export const createRoutes = ({ context }) => [
         }),
       },
       {
+        path: "carousel",
+        action: () => ({
+          title: "Carousel",
+          component: carouselExamples(context),
+        }),
+      },
+      {
         path: "chip",
         action: () => ({
           title: "Chip",
@@ -147,6 +163,13 @@ export const createRoutes = ({ context }) => [
         action: () => ({
           title: "Checkbox",
           component: checkboxExamples(context),
+        }),
+      },
+      {
+        path: "collapsible",
+        action: () => ({
+          title: "Collapsible",
+          component: collapsibleExamples(context),
         }),
       },
       {
