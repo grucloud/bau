@@ -4,12 +4,8 @@ import classNames from "@grucloud/bau-css/classNames.js";
 const createStyles = ({ css, createGlobalStyles }) => {
   createGlobalStyles`
 :root {
-  --menu-color: var(--font-color-base);
-  --menu-color-active: var(--color-primary);
-  --menu-color-background-active: var(--hover-overlay);
-  --menu-color-background-hover: var(--hover-overlay);
-  --menu-link-padding-horizontal: 0.75rem;
-  --menu-link-padding-vertical: 0.375rem;
+  --treeview-link-padding-horizontal: 0.75rem;
+  --treeview-link-padding-vertical: 0.375rem;
 }
 `;
 
@@ -33,7 +29,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
       background: inherit;
 
       & li {
-        padding-left: var(--menu-link-padding-horizontal);
+        padding-left: var(--treeview-link-padding-horizontal);
         border-radius: 0.25rem;
         background: inherit;
 
@@ -58,8 +54,8 @@ const createStyles = ({ css, createGlobalStyles }) => {
             flex-grow: 1;
             text-decoration: none;
             color: inherit;
-            padding: var(--menu-link-padding-vertical)
-              var(--menu-link-padding-horizontal);
+            padding: var(--treeview-link-padding-vertical)
+              var(--treeview-link-padding-horizontal);
           }
         }
       }
