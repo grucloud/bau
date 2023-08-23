@@ -1,5 +1,6 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
+import collapsible from "../collapsible";
 import { Colors } from "../constants.js";
 
 const colorsToCss = () =>
@@ -20,8 +21,10 @@ const colorsToCss = () =>
 
 export default function (context, options) {
   const { bau, css } = context;
-  const { div, ul, li, header, h3, button } = bau.tags;
+  const { div, ul, li, h3, button } = bau.tags;
   const itemNameState = bau.state("");
+
+  const Collapsible = collapsible(context);
 
   const onclick = (name) => (event) => {
     if (itemNameState.val == name) {
@@ -29,26 +32,6 @@ export default function (context, options) {
     } else {
       itemNameState.val = name;
     }
-  };
-  const collapseOrExpandSection = ({ element, open }) => {
-    const animationEndHandler = () => {
-      element.removeEventListener("transitionend", animationEndHandler);
-    };
-
-    function collapseSection(element) {
-      element.addEventListener("transitionend", animationEndHandler);
-      window.requestAnimationFrame(() => {
-        element.style.height = "0px";
-      });
-    }
-
-    function expandSection(element) {
-      element.addEventListener("transitionend", animationEndHandler);
-      element.style.height = element.scrollHeight + "px";
-    }
-
-    if (element.scrollHeight == 0) return;
-    open ? expandSection(element) : collapseSection(element);
   };
 
   const className = css`
@@ -58,11 +41,10 @@ export default function (context, options) {
       justify-content: flex-start;
       padding: 0;
       list-style: none;
-
       & li {
         display: flex;
         flex-direction: column;
-        padding: 0.5rem;
+        padding: 0 0.5rem;
         margin: 0.2rem;
         overflow: hidden;
         border-radius: var(--global-radius);
@@ -76,14 +58,9 @@ export default function (context, options) {
         }
         & h3 {
           display: flex;
-          cursor: pointer;
           align-items: center;
           justify-content: space-between;
           margin: 0;
-          &::after {
-            content: "\u203A";
-            transition: all var(--transition-slow) ease-out;
-          }
           & button {
             width: 100%;
             border: none;
@@ -96,15 +73,6 @@ export default function (context, options) {
         }
         & h3.active {
           font-weight: var(--font-weight-semibold);
-          &::after {
-            content: "\u203A";
-            transform: rotate(90deg);
-          }
-        }
-        & .content {
-          height: 0px;
-          will-change: height;
-          transition: height var(--transition-fast) ease-out;
         }
       }
     }
@@ -112,18 +80,13 @@ export default function (context, options) {
   `;
 
   return function Accordion(...args) {
-    let [
-      { color, variant = "outline", size = "md", data = [], ...props },
-      ...children
-    ] = toPropsAndChildren(args);
+    let [{ color, variant = "outline", size = "md", data = [], ...props }] =
+      toPropsAndChildren(args);
 
     const AccordionItem = (item) => {
       const { Header, Content, name } = item;
-      return li(
-        {
-          class: classNames(color, variant, size),
-          onclick: onclick(name),
-        },
+
+      const AccordionHeader = () =>
         h3(
           {
             class: () => classNames(itemNameState.val == name && "active"),
@@ -136,20 +99,26 @@ export default function (context, options) {
             },
             Header(item)
           )
-        ),
+        );
+
+      const AccordionContent = () =>
         div(
           {
-            class: "content",
-            role: "region",
             id: `bau-${name}`,
             "data-state": ({ element }) => {
               const open = itemNameState.val == name;
-              collapseOrExpandSection({ element, open });
               return open;
             },
           },
           Content(item)
-        )
+        );
+
+      return li(
+        {
+          class: classNames(color, variant, size),
+          onclick: onclick(name),
+        },
+        Collapsible({ Header: AccordionHeader, Content: AccordionContent })
       );
     };
     return div(

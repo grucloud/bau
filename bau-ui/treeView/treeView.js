@@ -1,5 +1,6 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
+import collapsible from "../collapsible";
 
 const createStyles = ({ css, createGlobalStyles }) => {
   createGlobalStyles`
@@ -24,8 +25,6 @@ const createStyles = ({ css, createGlobalStyles }) => {
       margin: 0;
       padding-left: 0;
       overflow: hidden;
-      will-change: height;
-      transition: height var(--transition-fast) ease-out;
       background: inherit;
 
       & li {
@@ -33,23 +32,17 @@ const createStyles = ({ css, createGlobalStyles }) => {
         border-radius: 0.25rem;
         background: inherit;
 
-        > div {
+        & .header {
           width: 100%;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          transition: all var(--transition-fast) ease-in-out;
           background: inherit;
           &:hover {
             filter: brightness(var(--brightness-hover));
           }
-          &::after {
-            transition: transform var(--transition-fast) linear;
-            font-size: x-large;
-            margin-right: 1rem;
-          }
-          > a,
-          span {
+          & a,
+          & span {
             display: flex;
             flex-grow: 1;
             text-decoration: none;
@@ -68,76 +61,31 @@ const createStyles = ({ css, createGlobalStyles }) => {
 
   return {
     nav,
-    expanded: css`
-      > div {
-        &::after {
-          content: "\u203A";
-          transform: rotate(90deg);
-        }
-      }
-    `,
-    collapsed: css`
-      > div {
-        &::after {
-          content: "\u203A";
-        }
-      }
-    `,
   };
 };
 
 export default function (context, options) {
-  const { bau, css, createGlobalStyles, window } = context;
+  const { bau, css, createGlobalStyles } = context;
   const { renderMenuItem } = options;
   const { ul, li, nav, div } = bau.tags;
 
   const styles = createStyles({ css, createGlobalStyles });
 
-  const collapseOrExpandSection = ({ element, closeState }) => {
-    if (element.scrollHeight == 0) return;
-    closeState.val ? collapseSection(element) : expandSection(element);
-  };
-
-  function collapseSection(element) {
-    element.style.height = element.scrollHeight + "px";
-    const animationEndHandler = () => {
-      element.removeEventListener("transitionend", animationEndHandler);
-    };
-    element.addEventListener("transitionend", animationEndHandler);
-    window.requestAnimationFrame(() => {
-      element.style.height = "0px";
-    });
-  }
-
-  function expandSection(element) {
-    const animationEndHandler = () => {
-      element.removeEventListener("transitionend", animationEndHandler);
-      element.style.height = null;
-    };
-    element.addEventListener("transitionend", animationEndHandler);
-    element.style.height = element.scrollHeight + "px";
-  }
+  const Collapsible = collapsible(context);
 
   const Tree =
     ({ depth = 1, maxDepth, color, variant, size }) =>
     (item) => {
       const { children, expanded } = item;
       const closeState = bau.state(!expanded);
-      return li(
-        {
-          class: () =>
-            classNames(
-              children
-                ? closeState.val
-                  ? styles.collapsed
-                  : styles.expanded
-                : ""
-            ),
-        },
+
+      const Header = () =>
         div(
           {
             class: css`
               cursor: pointer;
+              display: flex;
+              width: 100%;
             `,
             onclick: (event) => {
               if (children) {
@@ -146,22 +94,20 @@ export default function (context, options) {
             },
           },
           renderMenuItem(item.data)
-        ),
-        children &&
-          depth < maxDepth &&
-          ul(
-            {
-              class: classNames(color, size),
-              bauMounted: ({ element }) => {
-                closeState.val && (element.style.height = "0px");
-              },
-              "aria-expanded": ({ element }) => {
-                collapseOrExpandSection({ element, closeState });
-                return !closeState.val;
-              },
-            },
-            children.map(Tree({ depth: depth + 1, maxDepth }))
-          )
+        );
+
+      const Content = () =>
+        ul(
+          {
+            class: classNames(color, size),
+          },
+          children.map(Tree({ depth: depth + 1, maxDepth }))
+        );
+      return li(
+        Collapsible({
+          Header,
+          Content: children && depth < maxDepth && Content,
+        })
       );
     };
 

@@ -2,7 +2,7 @@ import { Context } from "@grucloud/bau-ui/context";
 
 import pageExample from "../pageExample.ts";
 
-import collapsibleGridItem from "./collapsible-grid-item.ts";
+//import collapsibleGridItem from "./collapsible-grid-item.ts";
 
 import collapsibleDefault from "./collapsible-example-default.ts";
 // @ts-ignore
@@ -19,12 +19,13 @@ export const collapsibleSpec = {
   examples: [
     {
       title: "Simple Collapsible",
-      description: "A simple collapsible displaying a few random pictures.",
+      description:
+        "A simple collapsible, click on the header to expand or collapse the content.",
       code: codeExampleDefault,
       createComponent: collapsibleDefault,
     },
   ],
-  gridItem: collapsibleGridItem,
+  //gridItem: collapsibleGridItem,
 };
 
 export default (context: Context) => {
