@@ -10,21 +10,29 @@ import breadcrumbsItem from "./breadcrumbs/breadcrumbs-grid-item";
 import buttonItem from "./button/button-grid-item";
 import buttonGroupItem from "./buttonGroup/buttonGroup-grid-item";
 import calendarItem from "./calendar/calendar-grid-item";
+//import carourselItem from "./calendar/caroursel-grid-item";
 import checkboxItem from "./checkbox/checkbox-grid-item";
 import chipItem from "./chip/chip-grid-item";
+//import collapsibleItem from "./calendar/collapsible-grid-item";
 import drilldownMenuItem from "./drilldownMenu/drilldownMenu-grid-item";
 import fileInputItem from "./fileInput/fileInput-grid-item";
 import inputItem from "./input/input-grid-item";
-import modalItem from "./modal/modal-grid-item";
+import linearProgressItem from "./linearProgress/linearProgress-grid-item";
+//import loadingButtonItem from "./paper/loadingButton-grid-item";
+import modalGridItem from "./modal/modal-grid-item";
+//import paperItem from "./paper/paper-grid-item";
+//import paginationNavigationItem from "./paper/paginationNavigation-grid-item";
 import selectItem from "./select/select-grid-item";
 import sliderItem from "./slider/slider-grid-item";
 import spinnerItem from "./spinner/spinner-grid-item";
 import createSwitchItem from "./switch/switch-grid-item";
 import tabsItem from "./tabs/tabs-grid-item";
-import createThemeSSwitchItem from "./themeSwitch/themeSwitch-grid-item";
+//import tableOfContentItem from "./tableOfContent/table-of-content-grid-item";
+import createThemeSwitchItem from "./themeSwitch/themeSwitch-grid-item";
+//import toogleItem from "./tableOfContent/toogle-grid-item";
+//import toogleGroupItem from "./tableOfContent/toogleGroup-grid-item";
 import tooltipItem from "./tooltip/tooltip-grid-item";
 import treeViewItem from "./treeView/treeView-grid-item";
-
 import componentGrid from "./componentGrid";
 
 export default (context: Context) => {
@@ -72,6 +80,10 @@ export default (context: Context) => {
       name: "Calendar",
       Item: calendarItem(context),
     },
+    // {
+    //   name: "Caroursel",
+    //   Item: carourselItem(context),
+    // },
     {
       name: "Checkbox",
       Item: checkboxItem(context),
@@ -80,6 +92,10 @@ export default (context: Context) => {
       name: "Chip",
       Item: chipItem(context),
     },
+    // {
+    //   name: "Collapsible",
+    //   Item: collapsibleItem(context),
+    // },
     {
       name: "DrillDown Menu",
       Item: drilldownMenuItem(context, {
@@ -95,10 +111,27 @@ export default (context: Context) => {
       name: "Input",
       Item: inputItem(context),
     },
+
+    {
+      name: "Linear Progress",
+      Item: linearProgressItem(context),
+    },
+    // {
+    //   name: "LoadingButton",
+    //   Item: loadingButtonItem(context),
+    // },
     {
       name: "Modal",
-      Item: modalItem(context),
+      Item: modalGridItem(context),
     },
+    // {
+    //   name: "Paper",
+    //   Item: paperItem(context),
+    // },
+    // {
+    //   name: "PaginationNavigation",
+    //   Item: paginationNavigationItem(context),
+    // },
     {
       name: "Select",
       Item: selectItem(context),
@@ -119,10 +152,22 @@ export default (context: Context) => {
       name: "Tabs",
       Item: tabsItem(context),
     },
+    // {
+    //   name: "TableOfContent",
+    //   Item: tableOfContentItem(context),
+    // },
     {
       name: "Theme Switch",
-      Item: createThemeSSwitchItem(context),
+      Item: createThemeSwitchItem(context),
     },
+    // {
+    //   name: "Toogle",
+    //   Item: toogleItem(context),
+    // },
+    // {
+    //   name: "ToogleGroup",
+    //   Item: toogleGroupItem(context),
+    // },
     {
       name: "Tooltip",
       Item: tooltipItem(context),

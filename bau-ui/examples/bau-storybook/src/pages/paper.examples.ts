@@ -12,7 +12,7 @@ export const paperSpec = {
   title: "Paper",
   package: "paper",
   description:
-    "The paper component displays child compoenents on a surface area defined by its elevation.",
+    "The paper component displays child components on a surface area.",
   sourceCodeUrl:
     "https://github.com/grucloud/bau/blob/main/bau-ui/paper/paper.js",
   importStatement: `import paper from "@grucloud/bau-ui/paper";`,

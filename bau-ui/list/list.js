@@ -1,6 +1,5 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import { Colors } from "../constants.js";
 
 export default function (context, options) {
   const { bau, css } = context;
