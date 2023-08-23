@@ -35,9 +35,9 @@ const tree = {
         },
         { data: { name: "File Input", href: "/components/fileInput" } },
         { data: { name: "Input", href: "/components/input" } },
-        // {
-        //   data: { name: "LinearProgress", href: "/components/linearProgress" },
-        // },
+        {
+          data: { name: "Linear Progress", href: "/components/linearProgress" },
+        },
         { data: { name: "List", href: "/components/list" } },
         //{ data: { name: "LoadingButton", href: "/components/loadingButton" } },
         { data: { name: "Modal", href: "/components/modal" } },

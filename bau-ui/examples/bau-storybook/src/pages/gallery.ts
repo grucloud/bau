@@ -17,7 +17,7 @@ import chipItem from "./chip/chip-grid-item";
 import drilldownMenuItem from "./drilldownMenu/drilldownMenu-grid-item";
 import fileInputItem from "./fileInput/fileInput-grid-item";
 import inputItem from "./input/input-grid-item";
-//import linearProgressItem from "./calendar/linearProgress-grid-item";
+import linearProgressItem from "./linearProgress/linearProgress-grid-item";
 //import loadingButtonItem from "./paper/loadingButton-grid-item";
 import modalGridItem from "./modal/modal-grid-item";
 //import paperItem from "./paper/paper-grid-item";
@@ -111,15 +111,14 @@ export default (context: Context) => {
       name: "Input",
       Item: inputItem(context),
     },
+
+    {
+      name: "Linear Progress",
+      Item: linearProgressItem(context),
+    },
     // {
     //   name: "LoadingButton",
     //   Item: loadingButtonItem(context),
-    // },
-
-    //
-    // {
-    //   name: "LinearProgress",
-    //   Item: linearProgressItem(context),
     // },
     {
       name: "Modal",

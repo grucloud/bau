@@ -22,7 +22,7 @@ import drawerExamples from "./pages/drawer.examples";
 import drillDownMenuExamples from "./pages/drillDownMenu.examples";
 import fileInputExamples from "./pages/fileInput.examples";
 import inputExamples from "./pages/input.examples";
-//import linearProgressExamples from "./pages/linearProgress/linearProgress.examples";
+import linearProgressExamples from "./pages/linearProgress/linearProgress.examples";
 //import loadingButtonExamples from "./pagesloadingButton/loadingButton.examples";
 import listExamples from "./pages/list.examples";
 import modalExamples from "./pages/modal.examples";
@@ -198,6 +198,13 @@ export const createRoutes = ({ context }) => [
         action: () => ({
           title: "Input",
           component: inputExamples(context),
+        }),
+      },
+      {
+        path: "linearProgress",
+        action: () => ({
+          title: "Linear Progress",
+          component: linearProgressExamples(context),
         }),
       },
       {
