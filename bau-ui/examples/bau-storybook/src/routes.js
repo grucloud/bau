@@ -29,6 +29,7 @@ import modalExamples from "./pages/modal.examples";
 import popoverExamples from "./pages/popover.examples";
 import paginationNavigationExamples from "./pages/paginationNavigation/paginationNavigation.examples";
 import paperExamples from "./pages/paper.examples";
+import radioButtonExamples from "./pages/radioButton/radioButton.examples";
 import selectExamples from "./pages/select.examples";
 import sliderExamples from "./pages/slider.examples";
 import spinnerExamples from "./pages/spinner.examples";
@@ -247,6 +248,13 @@ export const createRoutes = ({ context }) => [
         action: () => ({
           title: "Popover",
           component: popoverExamples(context),
+        }),
+      },
+      {
+        path: "radioButton",
+        action: () => ({
+          title: "Radio Button",
+          component: radioButtonExamples(context),
         }),
       },
       {

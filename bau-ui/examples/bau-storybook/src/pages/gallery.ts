@@ -22,6 +22,8 @@ import loadingButtonItem from "./loadingButton/loadingButton-grid-item";
 import modalGridItem from "./modal/modal-grid-item";
 //import paperItem from "./paper/paper-grid-item";
 //import paginationNavigationItem from "./pages/paginationNavigation/paginationNavigation-grid-item";
+import radioButtonGridItem from "./radioButton/radioButton-grid-item";
+
 import selectItem from "./select/select-grid-item";
 import sliderItem from "./slider/slider-grid-item";
 import spinnerItem from "./spinner/spinner-grid-item";
@@ -132,6 +134,10 @@ export default (context: Context) => {
     //   name: "PaginationNavigation",
     //   Item: paginationNavigationItem(context),
     // },
+    {
+      name: "Radio Button",
+      Item: radioButtonGridItem(context),
+    },
     {
       name: "Select",
       Item: selectItem(context),
