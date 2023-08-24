@@ -18,19 +18,19 @@ import drilldownMenuItem from "./drilldownMenu/drilldownMenu-grid-item";
 import fileInputItem from "./fileInput/fileInput-grid-item";
 import inputItem from "./input/input-grid-item";
 import linearProgressItem from "./linearProgress/linearProgress-grid-item";
-//import loadingButtonItem from "./paper/loadingButton-grid-item";
+import loadingButtonItem from "./loadingButton/loadingButton-grid-item";
 import modalGridItem from "./modal/modal-grid-item";
 //import paperItem from "./paper/paper-grid-item";
-//import paginationNavigationItem from "./paper/paginationNavigation-grid-item";
+//import paginationNavigationItem from "./pages/paginationNavigation/paginationNavigation-grid-item";
 import selectItem from "./select/select-grid-item";
 import sliderItem from "./slider/slider-grid-item";
 import spinnerItem from "./spinner/spinner-grid-item";
 import createSwitchItem from "./switch/switch-grid-item";
 import tabsItem from "./tabs/tabs-grid-item";
-//import tableOfContentItem from "./tableOfContent/table-of-content-grid-item";
+//import tableOfContentItem from "./pages/tableOfContent/table-of-content-grid-item";
 import createThemeSwitchItem from "./themeSwitch/themeSwitch-grid-item";
-//import toogleItem from "./tableOfContent/toogle-grid-item";
-//import toogleGroupItem from "./tableOfContent/toogleGroup-grid-item";
+//import toogleItem from "./pages/toogle/toogle-grid-item";
+//import toogleGroupItem from "./toogleGroup/toogleGroup-grid-item";
 import tooltipItem from "./tooltip/tooltip-grid-item";
 import treeViewItem from "./treeView/treeView-grid-item";
 import componentGrid from "./componentGrid";
@@ -116,10 +116,10 @@ export default (context: Context) => {
       name: "Linear Progress",
       Item: linearProgressItem(context),
     },
-    // {
-    //   name: "LoadingButton",
-    //   Item: loadingButtonItem(context),
-    // },
+    {
+      name: "Loading Button",
+      Item: loadingButtonItem(context),
+    },
     {
       name: "Modal",
       Item: modalGridItem(context),

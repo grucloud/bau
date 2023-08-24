@@ -40,10 +40,10 @@ export default function (context, options) {
         padding: 0.3rem;
       }
       &.md {
-        padding: 0.5rem;
+        padding: 0.2rem 0.8rem;
       }
       &.lg {
-        padding: 0.7rem 2rem;
+        padding: 0.2rem 2rem;
       }
     `,
     button: css`

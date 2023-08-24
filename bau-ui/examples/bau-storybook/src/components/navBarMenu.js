@@ -39,7 +39,7 @@ const tree = {
           data: { name: "Linear Progress", href: "/components/linearProgress" },
         },
         { data: { name: "List", href: "/components/list" } },
-        //{ data: { name: "LoadingButton", href: "/components/loadingButton" } },
+        { data: { name: "Loading Button", href: "/components/loadingButton" } },
         { data: { name: "Modal", href: "/components/modal" } },
         { data: { name: "Paper", href: "/components/paper" } },
         // { data: { name: "PaginationNavigation", href: "/components/paginationNavigation" } },
