@@ -3,7 +3,7 @@ import rubico from "rubico";
 import rubicox from "rubico/x/index.js";
 import path from "path";
 
-const { pipe, tap, assign, get } = rubico;
+const { pipe, tap, assign, get, set } = rubico;
 const { callProp, defaultsDeep } = rubicox;
 
 import { buildNavBarTree } from "./navBarTree.js";
@@ -20,6 +20,10 @@ export const createBausaurusConfig = ({ rootDir }) =>
       pageToHashMap: new Map(),
       viteConfig: { base: "/" },
     }),
+    set(
+      "site.base",
+      ({ viteConfig, site }) => `${viteConfig.base}${site.baseDoc}`
+    ),
     assign({ navBarTree: pipe([get("site"), buildNavBarTree]) }),
     tap((params) => {
       assert(true);

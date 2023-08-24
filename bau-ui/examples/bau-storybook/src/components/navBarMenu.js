@@ -42,7 +42,12 @@ const tree = {
         { data: { name: "Loading Button", href: "/components/loadingButton" } },
         { data: { name: "Modal", href: "/components/modal" } },
         { data: { name: "Paper", href: "/components/paper" } },
-        // { data: { name: "PaginationNavigation", href: "/components/paginationNavigation" } },
+        {
+          data: {
+            name: "Pagination Navigation",
+            href: "/components/paginationNavigation",
+          },
+        },
         { data: { name: "Popover", href: "/components/popover" } },
         { data: { name: "Select", href: "/components/select" } },
         { data: { name: "Slider", href: "/components/slider" } },

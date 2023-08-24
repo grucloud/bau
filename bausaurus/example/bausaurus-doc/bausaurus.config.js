@@ -10,7 +10,7 @@ export default ({ rootDir }) => {
     site: {
       rootDir,
       favicon: "/grucloud.svg",
-      base: "/bau/bausaurus/docs/",
+      baseDoc: "docs/",
       outDir: "../../../dist/bausaurus/docs",
       srcDir: "docs",
       title: "Bausarus",

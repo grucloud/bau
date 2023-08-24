@@ -117,7 +117,7 @@ export const filenameToHref = (site) =>
       callProp("startsWith", site.base), // Dev mode
       pipe([
         callProp("replace", Path.resolve(site.rootDir, site.srcDir), ""),
-        (name) => Path.join(site.base, name),
+        (name) => Path.join(site.baseDoc, name),
       ])
     ),
     callProp("replace", ".md", ""),

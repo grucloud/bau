@@ -59,7 +59,7 @@ export default function (
 
     const tocEl = Toc({ toc });
     const breadcrumbsEl = BreadcrumbsDoc({ breadcrumbs });
-    const paginationNavEl = PaginationNav({ paginationNav });
+    const paginationNavEl = PaginationNav({ data: paginationNav });
 
     const onLocationChange = async ({ nextPage }) => {
       pathnameState.val = window.location.pathname;
@@ -77,7 +77,9 @@ export default function (
       mainEl.innerHTML = MainContent({ contentHtml }).innerHTML;
       tocEl.innerHTML = Toc({ toc }).innerHTML;
       breadcrumbsEl.innerHTML = BreadcrumbsDoc({ breadcrumbs }).innerHTML;
-      paginationNavEl.innerHTML = PaginationNav({ paginationNav }).innerHTML;
+      paginationNavEl.innerHTML = PaginationNav({
+        data: paginationNav,
+      }).innerHTML;
     };
 
     createRouter(context, { onLocationChange });

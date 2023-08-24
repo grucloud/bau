@@ -27,8 +27,8 @@ import loadingButtonExamples from "./pages/loadingButton/loadingButton.examples"
 import listExamples from "./pages/list.examples";
 import modalExamples from "./pages/modal.examples";
 import popoverExamples from "./pages/popover.examples";
+import paginationNavigationExamples from "./pages/paginationNavigation/paginationNavigation.examples";
 import paperExamples from "./pages/paper.examples";
-//import paginationNavigationExamples from "./pages/paginationNavigation/paginationNavigation.examples";
 import selectExamples from "./pages/select.examples";
 import sliderExamples from "./pages/slider.examples";
 import spinnerExamples from "./pages/spinner.examples";
@@ -229,12 +229,19 @@ export const createRoutes = ({ context }) => [
         }),
       },
       {
+        path: "paginationNavigation",
+        action: () => ({
+          title: "Pagination Navigation",
+          component: paginationNavigationExamples(context),
+        }),
+      },
+      {
         path: "paper",
         action: () => ({
           title: "Paper",
           component: paperExamples(context),
         }),
-      },
+      }, //
       {
         path: "popover",
         action: () => ({
