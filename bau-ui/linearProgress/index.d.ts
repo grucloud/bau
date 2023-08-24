@@ -1,6 +1,4 @@
 declare module "@grucloud/bau-ui/linearProgress" {
-  type State = import("@grucloud/bau").State;
-
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
   type ComponentOption = import("../bau-ui").ComponentOption;
 
