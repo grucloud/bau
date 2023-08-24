@@ -49,6 +49,7 @@ const tree = {
           },
         },
         { data: { name: "Popover", href: "/components/popover" } },
+        { data: { name: "Radio Button", href: "/components/radioButton" } },
         { data: { name: "Select", href: "/components/select" } },
         { data: { name: "Slider", href: "/components/slider" } },
         { data: { name: "Spinner", href: "/components/spinner" } },
