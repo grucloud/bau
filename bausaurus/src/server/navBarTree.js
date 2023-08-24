@@ -59,12 +59,12 @@ const getDirEntries = (directory) =>
 const isIndexFile = pipe([get("index")]);
 
 const processDir =
-  ({ directory, tree, base, pathsNested }) =>
+  ({ directory, tree, baseDoc, pathsNested }) =>
   ({ dirent: { name }, treeItem }) =>
     pipe([
       () => Path.resolve(directory, name),
       walkTree({
-        base,
+        baseDoc,
         tree: { children: [], data: { name }, ...treeItem },
         pathsNested: [...pathsNested, name],
       }),
@@ -103,7 +103,7 @@ const processDir =
     ])();
 
 const processFile =
-  ({ directory, tree, base, pathsNested }) =>
+  ({ directory, tree, baseDoc, pathsNested }) =>
   ({ dirent, treeItem }) =>
     pipe([
       () => dirent,
@@ -122,7 +122,7 @@ const processFile =
           all({
             name: ({ frontmatter, fileName }) => frontmatter.title ?? fileName,
             href: pipe([
-              ({ fileName }) => Path.join(base, ...pathsNested, fileName),
+              ({ fileName }) => Path.join(baseDoc, ...pathsNested, fileName),
             ]),
           }),
           tap((data) => tree.children.push({ ...treeItem, data })),
@@ -133,11 +133,11 @@ const processFile =
     ])();
 
 const walkTree =
-  ({ base, tree = { children: [] }, pathsNested = [] }) =>
+  ({ baseDoc, tree = { children: [] }, pathsNested = [] }) =>
   (directory) =>
     pipe([
       tap(() => {
-        assert(base);
+        assert(baseDoc);
         assert(tree);
         assert(directory);
       }),
@@ -148,8 +148,8 @@ const walkTree =
         pipe([
           switchCase([
             pipe([get("dirent"), callProp("isDirectory")]),
-            processDir({ directory, tree, base, pathsNested }),
-            processFile({ directory, tree, base, pathsNested }),
+            processDir({ directory, tree, baseDoc, pathsNested }),
+            processFile({ directory, tree, baseDoc, pathsNested }),
           ]),
         ])
       ),
@@ -159,15 +159,15 @@ const walkTree =
       () => tree,
     ])();
 
-export const buildNavBarTree = ({ base, rootDir, srcDir }) =>
+export const buildNavBarTree = ({ baseDoc, rootDir, srcDir }) =>
   pipe([
     tap(() => {
       assert(rootDir);
       assert(srcDir);
-      assert(base);
+      assert(baseDoc);
     }),
     () => Path.resolve(rootDir, srcDir),
-    walkTree({ base }),
+    walkTree({ baseDoc }),
     tap((tree) => {
       assert(true);
     }),
