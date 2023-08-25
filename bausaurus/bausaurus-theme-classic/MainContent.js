@@ -6,7 +6,7 @@ const createHighlightStyle = (createGlobalStyles) => {
 };
 export default function (context) {
   const { bau, css, createGlobalStyles } = context;
-  const { main } = bau.tags;
+  const { article } = bau.tags;
 
   const ButtonCopyText = buttonCopyText(context);
 
@@ -20,7 +20,8 @@ export default function (context) {
   };
 
   return function MainContent({ contentHtml }) {
-    const el = main({
+    const el = article({
+      id: "main-content",
       class: css`
         grid-area: main;
         overflow-y: scroll;

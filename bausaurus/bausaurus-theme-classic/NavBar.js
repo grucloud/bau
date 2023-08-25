@@ -1,12 +1,10 @@
 import drillDownMenu from "@grucloud/bau-ui/drillDownMenu/drillDownMenu.js";
 
 export default function (context) {
-  const { bau, css, config } = context;
+  const { bau, css } = context;
   const { div } = bau.tags;
 
-  const DrillDownMenu = drillDownMenu(context, {
-    // base: config.base,
-  });
+  const DrillDownMenu = drillDownMenu(context);
 
   return function NavBar({ tree, pathnameState }) {
     return div(

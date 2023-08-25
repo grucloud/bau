@@ -62,7 +62,12 @@ const tree = {
           },
         },
         { data: { name: "Tabs", href: "/components/tabs" } },
-        // { data: { name: "Table of content", href: "/components/tableOfContent" } },
+        {
+          data: {
+            name: "Table of content",
+            href: "/components/tableOfContent",
+          },
+        },
         // { data: { name: "Toogle", href: "/components/toogle" } },
         // { data: { name: "ToogleGroup", href: "/components/toogleGroup" } },
         { data: { name: "Tooltip", href: "/components/tooltip" } },

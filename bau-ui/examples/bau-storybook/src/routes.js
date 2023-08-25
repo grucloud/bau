@@ -36,7 +36,7 @@ import spinnerExamples from "./pages/spinner.examples";
 import switchExamples from "./pages/switch.examples";
 import tabsExamples from "./pages/tabs.examples";
 import tableExamples from "./pages/table.examples";
-//import tableOfContentExamples from "./pages/tableOfContent/tableOfContent.examples";
+import tableOfContentExamples from "./pages/tableOfContent/tableOfContent.examples";
 import tablePaginationExamples from "./pages/tablePagination.examples";
 //import toogleExamples from "./pages/toogle.examples";
 //import toogleGroupExamples from "./pages/toogleGroup.examples";
@@ -290,6 +290,13 @@ export const createRoutes = ({ context }) => [
         action: () => ({
           title: "Table",
           component: tableExamples(context),
+        }),
+      },
+      {
+        path: "tableOfContent",
+        action: () => ({
+          title: "Table",
+          component: tableOfContentExamples(context),
         }),
       },
       {
