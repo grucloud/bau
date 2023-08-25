@@ -1,16 +1,16 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import alertGridItem from "./alert/alert-grid-item.ts";
+import alertGridItem from "./alert-grid-item.ts";
 
-import alertDefault from "./alert/alert-example-default.ts";
+import alertDefault from "./alert-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./alert/alert-example-default.ts?raw";
+import codeExampleDefault from "./alert-example-default.ts?raw";
 
-import alertCustom from "./alert/alert-example-custom.ts";
+import alertCustom from "./alert-example-custom.ts";
 // @ts-ignore
-import codeExampleCustom from "./alert/alert-example-custom.ts?raw";
+import codeExampleCustom from "./alert-example-custom.ts?raw";
 
 export const alertSpec = {
   title: "Alert",

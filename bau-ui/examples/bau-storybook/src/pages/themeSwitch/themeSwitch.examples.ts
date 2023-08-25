@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import themeSwitchGridItem from "./themeSwitch/themeSwitch-grid-item.ts";
+import themeSwitchGridItem from "./themeSwitch-grid-item.ts";
 
-import themeSwitchDefault from "./themeSwitch/themeSwitch-example-default.ts";
+import themeSwitchDefault from "./themeSwitch-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./themeSwitch/themeSwitch-example-default.ts?raw";
+import codeExampleDefault from "./themeSwitch-example-default.ts?raw";
 
 export const themeSwitchSpec = {
   title: "Theme Switch",

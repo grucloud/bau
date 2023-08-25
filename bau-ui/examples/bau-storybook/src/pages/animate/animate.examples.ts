@@ -1,14 +1,14 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import animateDefault from "./animate/animate-example-default.ts";
+import animateDefault from "./animate-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./animate/animate-example-default.ts?raw";
+import codeExampleDefault from "./animate-example-default.ts?raw";
 
-import animateComonent from "./animate/animate-component.ts";
+import animateComonent from "./animate-component.ts";
 // @ts-ignore
-import codeExampleComonent from "./animate/animate-component.ts?raw";
+import codeExampleComonent from "./animate-component.ts?raw";
 
 //import animateDisplayNone from "./animate/animate-visibility-hidden.ts";
 // @ts-ignore

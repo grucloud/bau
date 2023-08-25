@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import avatarGridItem from "./avatar/avatar-grid-item.ts";
+import avatarGridItem from "./avatar-grid-item.ts";
 
-import avatarDefault from "./avatar/avatar-example-default.ts";
+import avatarDefault from "./avatar-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./avatar/avatar-example-default.ts?raw";
+import codeExampleDefault from "./avatar-example-default.ts?raw";
 
 export const avatarSpec = {
   title: "Avatar",

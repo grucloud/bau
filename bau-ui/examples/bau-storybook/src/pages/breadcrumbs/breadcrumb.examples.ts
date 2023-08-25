@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import breadcrumbsGridItem from "./breadcrumbs/breadcrumbs-grid-item.ts";
+import breadcrumbsGridItem from "./breadcrumbs-grid-item.ts";
 
-import breadcrumbsDefault from "./breadcrumbs/breadcrumbs-example-default.ts";
+import breadcrumbsDefault from "./breadcrumbs-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./breadcrumbs/breadcrumbs-example-default.ts?raw";
+import codeExampleDefault from "./breadcrumbs-example-default.ts?raw";
 
 export const breadcrumbsSpec = {
   title: "Breadcrumbs",

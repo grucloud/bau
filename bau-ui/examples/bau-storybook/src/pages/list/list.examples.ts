@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import listGridItem from "./list/list-grid-item.ts";
+import listGridItem from "./list-grid-item.ts";
 
-import listDefault from "./list/list-example-default.ts";
+import listDefault from "./list-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./list/list-example-default.ts?raw";
+import codeExampleDefault from "./list-example-default.ts?raw";
 
 export const listSpec = {
   title: "Input",

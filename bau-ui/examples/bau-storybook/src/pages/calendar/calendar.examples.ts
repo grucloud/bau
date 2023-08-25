@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import calendarGridItem from "./calendar/calendar-grid-item.ts";
+import calendarGridItem from "./calendar-grid-item.ts";
 
-import calendarDefault from "./calendar/calendar-example-default.ts";
+import calendarDefault from "./calendar-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./calendar/calendar-example-default.ts?raw";
+import codeExampleDefault from "./calendar-example-default.ts?raw";
 
 export const calendarSpec = {
   title: "Calendar",

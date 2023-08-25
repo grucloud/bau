@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import fileInputGridItem from "./fileInput/fileInput-grid-item.ts";
+import fileInputGridItem from "./fileInput-grid-item.ts";
 
-import fileInputDefault from "./fileInput/fileInput-example-default.ts";
+import fileInputDefault from "./fileInput-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./fileInput/fileInput-example-default.ts?raw";
+import codeExampleDefault from "./fileInput-example-default.ts?raw";
 
 export const fileInputSpec = {
   title: "File Input",

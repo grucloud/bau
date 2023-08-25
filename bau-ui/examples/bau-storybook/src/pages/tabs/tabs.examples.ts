@@ -1,24 +1,24 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import tabsGridItem from "./tabs/tabs-grid-item.ts";
+import tabsGridItem from "./tabs-grid-item.ts";
 
-import tabsDefault from "./tabs/tabs-example-default.ts";
+import tabsDefault from "./tabs-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./tabs/tabs-example-default.ts?raw";
+import codeExampleDefault from "./tabs-example-default.ts?raw";
 
-import tabsExtended from "./tabs/tabs-example-extended.ts";
+import tabsExtended from "./tabs-example-extended.ts";
 // @ts-ignore
-import codeExampleExtended from "./tabs/tabs-example-extended.ts?raw";
+import codeExampleExtended from "./tabs-example-extended.ts?raw";
 
-import tabsBottomHeader from "./tabs/tabs-example-bottom-header.ts";
+import tabsBottomHeader from "./tabs-example-bottom-header.ts";
 // @ts-ignore
-import codeExampleBottomHeader from "./tabs/tabs-example-bottom-header.ts?raw";
+import codeExampleBottomHeader from "./tabs-example-bottom-header.ts?raw";
 
-import tabsCentered from "./tabs/tabs-example-centered.ts";
+import tabsCentered from "./tabs-example-centered.ts";
 // @ts-ignore
-import codeExampleCentered from "./tabs/tabs-example-centered.ts?raw";
+import codeExampleCentered from "./tabs-example-centered.ts?raw";
 
 export const tabsSpec = {
   title: "Tabs",

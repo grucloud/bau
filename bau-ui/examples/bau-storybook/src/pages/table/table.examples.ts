@@ -1,20 +1,20 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
 //import tableGridItem from "./table/table-grid-item.ts";
 
-import tableDefault from "./table/table-example-default.ts";
+import tableDefault from "./table-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./table/table-example-default.ts?raw";
+import codeExampleDefault from "./table-example-default.ts?raw";
 
-import tableDense from "./table/table-example-dense.ts";
+import tableDense from "./table-example-dense.ts";
 // @ts-ignore
-import codeExampleDense from "./table/table-example-dense.ts?raw";
+import codeExampleDense from "./table-example-dense.ts?raw";
 
-import tableZebra from "./table/table-example-zebra.ts";
+import tableZebra from "./table-example-zebra.ts";
 // @ts-ignore
-import codeExampleZebra from "./table/table-example-zebra.ts?raw";
+import codeExampleZebra from "./table-example-zebra.ts?raw";
 
 export const tableSpec = {
   title: "Table",

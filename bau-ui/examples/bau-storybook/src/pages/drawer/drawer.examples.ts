@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
 //import drawerGridItem from "./drawer/drawer-grid-item.ts";
 
-import drawerDefault from "./drawer/drawer-example-default.ts";
+import drawerDefault from "./drawer-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./drawer/drawer-example-default.ts?raw";
+import codeExampleDefault from "./drawer-example-default.ts?raw";
 
 export const drawerSpec = {
   title: "DrilldownMenu",

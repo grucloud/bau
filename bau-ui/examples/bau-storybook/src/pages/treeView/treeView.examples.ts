@@ -1,12 +1,12 @@
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
 import { Context } from "@grucloud/bau-ui/context";
 
-import treeViewGridItem from "./treeView/treeView-grid-item.ts";
+import treeViewGridItem from "./treeView-grid-item.ts";
 
-import treeViewDefault from "./treeView/treeView-example-default.ts";
+import treeViewDefault from "./treeView-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./treeView/treeView-example-default.ts?raw";
+import codeExampleDefault from "./treeView-example-default.ts?raw";
 
 export const treeviewSpec = {
   title: "Tree View",

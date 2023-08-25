@@ -1,20 +1,20 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import sliderGridItem from "./slider/slider-grid-item.ts";
+import sliderGridItem from "./slider-grid-item.ts";
 
-import sliderDefault from "./slider/slider-example-default.ts";
+import sliderDefault from "./slider-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./slider/slider-example-default.ts?raw";
+import codeExampleDefault from "./slider-example-default.ts?raw";
 
-import sliderMark from "./slider/slider-example-mark.ts";
+import sliderMark from "./slider-example-mark.ts";
 // @ts-ignore
-import codeExampleMark from "./slider/slider-example-mark.ts?raw";
+import codeExampleMark from "./slider-example-mark.ts?raw";
 
-import sliderVertical from "./slider/slider-example-vertical.ts";
+import sliderVertical from "./slider-example-vertical.ts";
 // @ts-ignore
-import codeExampleVertical from "./slider/slider-example-vertical.ts?raw";
+import codeExampleVertical from "./slider-example-vertical.ts?raw";
 
 export const sliderSpec = {
   title: "Slide",

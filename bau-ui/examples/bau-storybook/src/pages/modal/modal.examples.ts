@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import modalGridItem from "./modal/modal-grid-item.ts";
+import modalGridItem from "./modal-grid-item.ts";
 
-import modalDefault from "./modal/modal-example-default.ts";
+import modalDefault from "./modal-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./modal/modal-example-default.ts?raw";
+import codeExampleDefault from "./modal-example-default.ts?raw";
 
 export const modalSpec = {
   title: "Modal",

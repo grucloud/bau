@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import selectGridItem from "./select/select-grid-item.ts";
+import selectGridItem from "./select-grid-item.ts";
 
-import selectDefault from "./select/select-example-default.ts";
+import selectDefault from "./select-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./select/select-example-default.ts?raw";
+import codeExampleDefault from "./select-example-default.ts?raw";
 
 export const selectSpec = {
   title: "Modal",

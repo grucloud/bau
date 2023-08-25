@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import switchGridItem from "./switch/switch-grid-item.ts";
+import switchGridItem from "./switch-grid-item.ts";
 
-import switchDefault from "./switch/switch-example-default.ts";
+import switchDefault from "./switch-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./switch/switch-example-default.ts?raw";
+import codeExampleDefault from "./switch-example-default.ts?raw";
 
 export const switchSpec = {
   title: "Switch",

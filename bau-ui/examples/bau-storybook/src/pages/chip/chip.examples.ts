@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import chipGridItem from "./chip/chip-grid-item.ts";
+import chipGridItem from "./chip-grid-item.ts";
 
-import chipDefault from "./chip/chip-example-default.ts";
+import chipDefault from "./chip-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./chip/chip-example-default.ts?raw";
+import codeExampleDefault from "./chip-example-default.ts?raw";
 
 export const chipSpec = {
   title: "Chip",

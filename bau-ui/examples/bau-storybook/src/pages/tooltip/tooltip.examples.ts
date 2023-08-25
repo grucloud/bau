@@ -1,16 +1,16 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import tooltipGridItem from "./tooltip/tooltip-grid-item.ts";
+import tooltipGridItem from "./tooltip-grid-item.ts";
 
-import tooltipDefault from "./tooltip/tooltip-example-default.ts";
+import tooltipDefault from "./tooltip-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./tooltip/tooltip-example-default.ts?raw";
+import codeExampleDefault from "./tooltip-example-default.ts?raw";
 
-import tooltipGrid from "./tooltip/tooltip-example-grid.ts";
+import tooltipGrid from "./tooltip-example-grid.ts";
 // @ts-ignore
-import codeExampleGrid from "./tooltip/tooltip-example-grid.ts?raw";
+import codeExampleGrid from "./tooltip-example-grid.ts?raw";
 
 export const tooltipSpec = {
   title: "Tooltip",
