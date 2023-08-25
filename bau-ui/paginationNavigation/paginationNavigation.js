@@ -9,6 +9,7 @@ export default function (context, options) {
     margin-top: 3rem;
     margin-bottom: 1rem;
     display: grid;
+    grid-area: paginationnav;
     gap: var(--spacing-horizontal);
     grid-template-columns: repeat(2, 1fr);
     & > a {

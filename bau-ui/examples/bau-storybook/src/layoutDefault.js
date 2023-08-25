@@ -53,7 +53,6 @@ export const layoutDefault = (context) => {
           class: css`
             grid-area: main;
             margin: 0 1rem;
-            overflow-y: scroll;
           `,
           animationHide: () => animation(),
           animationShow: () => animation("reverse"),

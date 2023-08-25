@@ -33,14 +33,14 @@ export default function (
 
   const className = css`
     display: grid;
-    grid-template-columns: minmax(15%, 300px) minmax(50%, 70%) minmax(15%, 20%);
+    grid-template-columns: minmax(15%, 250px) minmax(50%, 70%) minmax(20%, 30%);
     grid-template-rows: auto auto 1fr auto auto;
     grid-template-areas:
       "header header header"
       "navbar breadcrumbs toc"
       "navbar main toc"
       "navbar paginationnav toc"
-      "footer footer footer";
+      "footer footer toc";
     min-height: 100vh;
   `;
 
@@ -48,22 +48,33 @@ export default function (
     navBarTree = {},
     contentHtml,
     breadcrumbs,
-    toc,
     paginationNav = {},
   }) {
-    const mainEl = MainContent({ contentHtml });
+    const contentHtmlState = bau.state(contentHtml);
+    const mainElState = bau.derive(() =>
+      MainContent({ contentHtml: contentHtmlState.val })
+    );
+
+    const tocElState = bau.derive(() => Toc({ contentEl: mainElState.val }));
+
     const navBarEl = NavBar({
       tree: navBarTree,
       pathnameState,
     });
 
-    const tocEl = Toc({ toc });
-    const breadcrumbsEl = BreadcrumbsDoc({ breadcrumbs });
-    const paginationNavEl = PaginationNav({ data: paginationNav });
+    const breadcrumbsState = bau.state(breadcrumbs);
+    const breadcrumbsElState = bau.derive(() =>
+      BreadcrumbsDoc({ breadcrumbs: breadcrumbsState.val })
+    );
+
+    const paginationNavState = bau.state(paginationNav);
+    const paginationNavElState = bau.derive(() =>
+      PaginationNav({ data: paginationNavState.val })
+    );
 
     const onLocationChange = async ({ nextPage }) => {
       pathnameState.val = window.location.pathname;
-      const { contentHtml, toc, frontmatter, breadcrumbs, paginationNav } =
+      const { contentHtml, frontmatter, breadcrumbs, paginationNav } =
         await loadContent({
           nextPage,
           context,
@@ -74,26 +85,22 @@ export default function (
         frontmatter.description &&
           (window.document.description = frontmatter.description);
       }
-      mainEl.innerHTML = MainContent({ contentHtml }).innerHTML;
-      tocEl.innerHTML = Toc({ toc }).innerHTML;
-      breadcrumbsEl.innerHTML = BreadcrumbsDoc({ breadcrumbs }).innerHTML;
-      paginationNavEl.innerHTML = PaginationNav({
-        data: paginationNav,
-      }).innerHTML;
+      contentHtmlState.val = contentHtml;
+      breadcrumbsState.val = breadcrumbs;
+      paginationNavState.val = paginationNav;
     };
 
     createRouter(context, { onLocationChange });
-
     return div(
       {
         class: className,
       },
       Header(),
       navBarTree && navBarEl,
-      breadcrumbs && breadcrumbsEl,
-      mainEl,
-      toc && tocEl,
-      paginationNav && paginationNavEl,
+      () => breadcrumbsElState.val,
+      () => tocElState.val,
+      () => mainElState.val,
+      () => paginationNavElState.val,
       Footer()
     );
   };
@@ -103,12 +110,10 @@ export const createDocAppProp = async ({ context }) => {
   if (isProd()) {
     // Prod
     const mainEls = document.getElementsByTagName("main");
-    const tocEl = document.querySelector("nav[data-toc]");
     const breadcrumbsEl = document.querySelector("ul[data-breadcrumbs]");
     const paginationNavEl = document.querySelector("nav[data-paginationnav]");
     return {
       contentHtml: mainEls[0].innerHTML,
-      toc: JSON.parse(tocEl.dataset.toc),
       breadcrumbs: JSON.parse(breadcrumbsEl.dataset.breadcrumbs),
       paginationNav: JSON.parse(paginationNavEl.dataset.paginationnav),
     };
