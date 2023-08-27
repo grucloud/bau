@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import badgeGridItem from "./badge/badge-grid-item.ts";
+import badgeGridItem from "./badge-grid-item.ts";
 
-import badgeDefault from "./badge/badge-example-default.ts";
+import badgeDefault from "./badge-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./badge/badge-example-default.ts?raw";
+import codeExampleDefault from "./badge-example-default.ts?raw";
 
 export const badgeSpec = {
   title: "Badge",

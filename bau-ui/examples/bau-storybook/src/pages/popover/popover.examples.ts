@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
 //import popoverGridItem from "./popover/popover-grid-item.ts";
 
-import popoverDefault from "./popover/popover-example-default.ts";
+import popoverDefault from "./popover-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./popover/popover-example-default.ts?raw";
+import codeExampleDefault from "./popover-example-default.ts?raw";
 
 export const popoverSpec = {
   title: "Popover",

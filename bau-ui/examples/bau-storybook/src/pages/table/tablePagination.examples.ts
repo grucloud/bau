@@ -1,5 +1,5 @@
 import tablePagination from "./tablePagination";
-import tablePaginationAsync from "./tablePaginationAsync";
+import tablePaginationAsync from "../tablePaginationAsync";
 import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {

@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample.ts";
+import pageExample from "../pageExample.ts";
 
-import paperGridItem from "./paper/paper-grid-item.ts";
+import paperGridItem from "./paper-grid-item.ts";
 
-import paperDefault from "./paper/paper-example-default.ts";
+import paperDefault from "./paper-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./paper/paper-example-default.ts?raw";
+import codeExampleDefault from "./paper-example-default.ts?raw";
 
 export const paperSpec = {
   title: "Paper",

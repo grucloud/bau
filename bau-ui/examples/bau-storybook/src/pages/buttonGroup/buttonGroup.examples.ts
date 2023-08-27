@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import buttonGroupGridItem from "./buttonGroup/buttonGroup-grid-item.ts";
+import buttonGroupGridItem from "./buttonGroup-grid-item.ts";
 
-import buttonGroupDefault from "./buttonGroup/buttonGroup-example-default.ts";
+import buttonGroupDefault from "./buttonGroup-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./buttonGroup/buttonGroup-example-default.ts?raw";
+import codeExampleDefault from "./buttonGroup-example-default.ts?raw";
 
 export const buttonGroupSpec = {
   title: "Button",

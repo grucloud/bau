@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import inputGridItem from "./input/input-grid-item.ts";
+import inputGridItem from "./input-grid-item.ts";
 
-import inputDefault from "./input/input-example-default.ts";
+import inputDefault from "./input-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./input/input-example-default.ts?raw";
+import codeExampleDefault from "./input-example-default.ts?raw";
 
 export const inputSpec = {
   title: "Input",

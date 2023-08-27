@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import spinnerGridItem from "./spinner/spinner-grid-item.ts";
+import spinnerGridItem from "./spinner-grid-item.ts";
 
-import spinnerDefault from "./spinner/spinner-example-default.ts";
+import spinnerDefault from "./spinner-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./spinner/spinner-example-default.ts?raw";
+import codeExampleDefault from "./spinner-example-default.ts?raw";
 
 export const spinnerSpec = {
   title: "Spinner",

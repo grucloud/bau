@@ -1,10 +1,10 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import alertStackDefault from "./alertStack/alertStack-example-default.ts";
+import alertStackDefault from "./alertStack-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./alertStack/alertStack-example-default.ts?raw";
+import codeExampleDefault from "./alertStack-example-default.ts?raw";
 
 export const alertStackSpec = {
   title: "Alert Stack",

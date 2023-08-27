@@ -1,11 +1,11 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
-import autocompleteGridItem from "./autocomplete/autocomplete-grid-item.ts";
+import pageExample from "../pageExample.ts";
+import autocompleteGridItem from "./autocomplete-grid-item.ts";
 
-import autocompleteDefault from "./autocomplete/autocomplete-example-default.ts";
+import autocompleteDefault from "./autocomplete-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./autocomplete/autocomplete-example-default.ts?raw";
+import codeExampleDefault from "./autocomplete-example-default.ts?raw";
 
 export const autocompleteSpec = {
   title: "Auto Complete",

@@ -1,12 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 
-import pageExample from "./pageExample";
+import pageExample from "../pageExample.ts";
 
-import checkboxGridItem from "./checkbox/checkbox-grid-item.ts";
+import checkboxGridItem from "./checkbox-grid-item.ts";
 
-import checkboxDefault from "./checkbox/checkbox-example-default.ts";
+import checkboxDefault from "./checkbox-example-default.ts";
 // @ts-ignore
-import codeExampleDefault from "./checkbox/checkbox-example-default.ts?raw";
+import codeExampleDefault from "./checkbox-example-default.ts?raw";
 
 export const checkboxSpec = {
   title: "Checkbox",
