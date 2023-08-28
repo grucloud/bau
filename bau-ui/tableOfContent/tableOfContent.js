@@ -5,7 +5,7 @@ export default function (context, options = {}) {
   const { bau, css, window } = context;
   const { nav, ul, li, a } = bau.tags;
   const { headerSelector = "h2,h3" } = options;
-  const activeHeadingId = bau.state("");
+  const activeHeadingId = bau.state("no");
 
   const debounce = (callback, wait) => {
     let timeoutId = null;
@@ -20,14 +20,16 @@ export default function (context, options = {}) {
     position: sticky;
     right: 0;
     z-index: 1;
-    top: calc(var(--header-height) + 1rem);
+    top: calc(var(--header-height));
     height: fit-content;
     max-height: calc(100vh - var(--header-height));
-
-    overflow: scroll;
+    background-color: var(--background-color);
     border-left: 1px solid var(--color-emphasis-200);
     & ul {
-      padding-left: 1rem;
+      padding-left: 0rem;
+      & ul {
+        padding-left: 1rem;
+      }
     }
     & li {
       display: block;
@@ -82,10 +84,14 @@ export default function (context, options = {}) {
     let parents = [parentNode];
     [...headings].forEach((heading) => {
       const level = headerLevel(heading);
-
+      heading.setAttribute("id", heading.textContent);
+      //TODO
+      if (heading.innerHTML.includes("<button")) {
+        return;
+      }
       newNode = {
         value: heading.innerHTML,
-        id: heading.id,
+        id: heading.id ?? heading.textContent,
         children: [],
       };
       if (levelCurrent == level) {

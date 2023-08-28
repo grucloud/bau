@@ -1,4 +1,5 @@
 import animate from "@grucloud/bau-ui/animate";
+
 import header from "./components/header";
 import footer from "./components/footer";
 import navBarMenu from "./components/navBarMenu";
@@ -53,14 +54,12 @@ export const layoutDefault = (context) => {
           class: css`
             grid-area: main;
             margin: 0 1rem;
-            overflow-x: scroll;
+            display: grid;
           `,
           animationHide: () => animation(),
           animationShow: () => animation("reverse"),
         },
-        () => {
-          return componentState.val && componentState.val({});
-        }
+        () => componentState.val
       ),
       Footer()
     );

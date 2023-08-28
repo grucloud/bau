@@ -19,7 +19,7 @@ export const onLocationChange = ({
     } = router.resolve({
       pathname,
     });
-    componentState.val = component;
+    componentState.val = component({});
     document.title = `${title}`;
   };
 };

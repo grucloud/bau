@@ -13,7 +13,7 @@ export default function (context) {
       border-radius: 0.5rem;
       margin: 0.5rem;
       padding: 1rem;
-      width: 28%;
+      width: 25%;
       & h1 {
         font-size: 1.1rem;
       }
