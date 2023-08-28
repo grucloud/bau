@@ -6,7 +6,7 @@ const colorsToCss = () =>
   Colors.map(
     (color) =>
       `
-&.button-group.${color} {
+&.toggle-group.${color} {
   & button:not(:last-child) { 
     border-right: 1px solid var(--color-${color}) !important;
   }
@@ -15,11 +15,11 @@ const colorsToCss = () =>
   }
 }
 
-&.button-group.outline.${color} {
+&.toggle-group.outline.${color} {
   border: none;
 }
 
-&.button-group.solid.${color} {
+&.toggle-group.solid.${color} {
   & button:not(:last-child) { 
     border-right: 1px solid var(--color-${color}-lightest) !important;
   }
@@ -30,10 +30,8 @@ const colorsToCss = () =>
 export default function (context, options) {
   const { bau, css } = context;
   const { div } = bau.tags;
-
   const className = css`
     display: inline-flex;
-    box-sizing: border-box;
     border-radius: var(--global-radius);
     & button:not(:last-child) {
       border-top-right-radius: 0;
@@ -46,22 +44,49 @@ export default function (context, options) {
     ${colorsToCss()}
   `;
 
-  return function ButtonGroup(...args) {
-    let [{ variant = "outline", size = "md", color, ...props }, ...children] =
-      toPropsAndChildren(args);
+  return function ToggleGroup(...args) {
+    let [
+      {
+        color,
+        variant = "plain",
+        size = "md",
+        exclusive = false,
+        onChange = () => {},
+        ...props
+      },
+      ...children
+    ] = toPropsAndChildren(args);
+
+    const selectedSet = new Set();
+
+    const onclick = (event) => {
+      const { value } = event.target;
+      if (exclusive) {
+        selectedSet.clear();
+        selectedSet.add(value);
+      } else {
+        if (selectedSet.has(value)) {
+          selectedSet.delete(value);
+        } else {
+          selectedSet.add(value);
+        }
+      }
+      onChange({ event, values: [...selectedSet] });
+    };
 
     return div(
       {
         ...props,
         class: classNames(
-          "button-group",
-          variant,
-          color,
+          "toggle-group",
           size,
+          color,
+          variant,
           className,
           options?.class,
           props?.class
         ),
+        onclick,
       },
       ...children
     );

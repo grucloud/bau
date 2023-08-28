@@ -31,8 +31,8 @@ import createSwitchItem from "./switch/switch-grid-item";
 import tabsItem from "./tabs/tabs-grid-item";
 //import tableOfContentItem from "./pages/tableOfContent/table-of-content-grid-item";
 import createThemeSwitchItem from "./themeSwitch/themeSwitch-grid-item";
-//import toogleItem from "./pages/toogle/toogle-grid-item";
-//import toogleGroupItem from "./toogleGroup/toogleGroup-grid-item";
+import toggleItem from "./toggle/toggle-grid-item";
+import toggleGroupItem from "./toggleGroup/toggleGroup-grid-item";
 import tooltipItem from "./tooltip/tooltip-grid-item";
 import treeViewItem from "./treeView/treeView-grid-item";
 import componentGrid from "./componentGrid";
@@ -166,14 +166,14 @@ export default (context: Context) => {
       name: "Theme Switch",
       Item: createThemeSwitchItem(context),
     },
-    // {
-    //   name: "Toogle",
-    //   Item: toogleItem(context),
-    // },
-    // {
-    //   name: "ToogleGroup",
-    //   Item: toogleGroupItem(context),
-    // },
+    {
+      name: "Toggle",
+      Item: toggleItem(context),
+    },
+    {
+      name: "Toggle Group",
+      Item: toggleGroupItem(context),
+    },
     {
       name: "Tooltip",
       Item: tooltipItem(context),
