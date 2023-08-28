@@ -26,7 +26,7 @@ export default function (context, options = {}) {
             nodeCloned.style.animation = animationHide();
             record.target.appendChild(nodeCloned);
             nodeCloned.addEventListener("animationend", () =>
-              nodeCloned.parentNode.removeChild(nodeCloned)
+              nodeCloned.parentNode?.removeChild(nodeCloned)
             );
           });
           // Added Nodes

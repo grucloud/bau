@@ -38,8 +38,8 @@ import tabsExamples from "./pages/tabs/tabs.examples";
 import tableExamples from "./pages/table/table.examples";
 import tableOfContentExamples from "./pages/tableOfContent/tableOfContent.examples";
 import tablePaginationExamples from "./pages/table/tablePagination.examples";
-//import toogleExamples from "./pages/toogle.examples";
-//import toogleGroupExamples from "./pages/toogleGroup.examples";
+import toggleExamples from "./pages/toggle/toggle.examples";
+import toggleGroupExamples from "./pages/toggleGroup/toggleGroup.examples";
 import tooltipExamples from "./pages/tooltip/tooltip.examples";
 import themeSwitchExamples from "./pages/themeSwitch/themeSwitch.examples";
 import treeViewExamples from "./pages/treeView/treeView.examples";
@@ -311,6 +311,20 @@ export const createRoutes = ({ context }) => [
         action: () => ({
           title: "Tabs",
           component: tabsExamples(context),
+        }),
+      },
+      {
+        path: "toggle",
+        action: () => ({
+          title: "Toggle",
+          component: toggleExamples(context),
+        }),
+      },
+      {
+        path: "toggleGroup",
+        action: () => ({
+          title: "Toggle Group",
+          component: toggleGroupExamples(context),
         }),
       },
       {
