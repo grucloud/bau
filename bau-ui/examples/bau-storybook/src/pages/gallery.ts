@@ -183,7 +183,6 @@ export default (context: Context) => {
       Item: treeViewItem(context),
     },
   ];
-
   return () =>
     section(
       h1("Bau Component Gallery"),
