@@ -10,6 +10,7 @@ export default function (context, options) {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 0.5rem;
       min-width: 2rem;
       min-height: 2rem;
       border: none;
@@ -45,6 +46,9 @@ export default function (context, options) {
       &.lg {
         padding: 0.2rem 2rem;
       }
+      & i {
+        font-style: normal;
+      }
     `,
     button: css`
       cursor: pointer;
@@ -65,6 +69,7 @@ export default function (context, options) {
     const tagButton = href ? bau.tags.a : bau.tags.button;
     return tagButton(
       {
+        ...(!href && { type: "button" }),
         ...props,
         class: classNames(
           "button",
@@ -79,7 +84,6 @@ export default function (context, options) {
         ),
         disabled,
         href,
-        ...(!href && { type: "button" }),
       },
       children
     );

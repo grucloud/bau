@@ -27,7 +27,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
       overflow: hidden;
       background: inherit;
 
-      & li {
+      & > li {
         padding-left: var(--treeview-link-padding-horizontal);
         border-radius: 0.25rem;
         background: inherit;

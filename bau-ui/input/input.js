@@ -16,14 +16,10 @@ const colorsToCss = () =>
 &.input.outline.${color} {
   border: 1px solid var(--color-${color});
   &:focus {
-    border: 2px solid var(--color-${color});
+    outline: 4px auto var(--color-${color});
+
   };
 }
-&.input.soft.${color} {
-  &:focus {
-    border-color: var(--color-${color});
-  };
-} 
 &.input.solid.${color} {
   &:focus {
     border-color: var(--color-${color});
@@ -71,20 +67,21 @@ export default function (context, options) {
       size = "md",
       variant = "outline",
       color = "neutral",
-      name,
-      id,
       disabled,
       ...otherProps
     } = props;
 
     return input({
+      type: "text",
       ...otherProps,
+      disabled,
       class: classNames(
         "input",
         size,
         color,
         variant,
         className,
+        disabled && "disabled",
         options?.class,
         otherProps.class
       ),

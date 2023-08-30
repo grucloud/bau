@@ -21,12 +21,16 @@ const colorsToCss = () =>
 
 export default function (context, componentOptions) {
   const { bau, css } = context;
-  const { div, li } = bau.tags;
+  const { div, li, select, option } = bau.tags;
   const Button = button(context);
   const Popover = popover(context);
   const List = list(context);
 
   const className = css`
+    & select {
+      width: 0;
+      height: 0;
+    }
     & button {
       &::after {
         content: "\u25BC";
@@ -36,17 +40,12 @@ export default function (context, componentOptions) {
     ${colorsToCss()}
   `;
 
-  const inputState = bau.state("");
-  const openState = bau.state(false);
-  const itemIndexActive = bau.state(0);
-
   return function Select(...args) {
     let [
       {
         color = "neutral",
         variant = "outline",
         size = "md",
-        id,
         label,
         Option,
         options,
@@ -55,6 +54,10 @@ export default function (context, componentOptions) {
       },
       ...children
     ] = toPropsAndChildren(args);
+
+    const inputState = bau.state("");
+    const openState = bau.state(false);
+    const itemIndexActive = bau.state(0);
 
     const dialogOpen = () => {
       popoverEl.openDialog();
@@ -77,15 +80,18 @@ export default function (context, componentOptions) {
       } else {
         dialogClose();
       }
+      event.preventDefault();
     };
 
     const onclickItem =
       ({ option, index }) =>
       (event) => {
         inputState.val = getOptionLabel(option);
+        selectEl.value = inputState.val;
+        selectEl.setCustomValidity("");
         itemIndexActive.val = index;
-
         dialogClose();
+        event.preventDefault();
       };
 
     const onkeydown = (event) => {
@@ -150,11 +156,17 @@ export default function (context, componentOptions) {
     );
 
     const popoverEl = Popover({
-      id,
+      // id,
       triggerEl: buttonEl,
       contentEl: Content(),
       onClose,
     });
+    // Hidden select, required to save the value.
+    const selectEl = select(
+      props,
+      option({ value: "" }, "--Select Category--"),
+      options.map((opt) => option(getOptionLabel(opt)))
+    );
 
     return div(
       {
@@ -169,6 +181,7 @@ export default function (context, componentOptions) {
         ),
         onkeydown,
       },
+      selectEl,
       buttonEl,
       popoverEl
     );

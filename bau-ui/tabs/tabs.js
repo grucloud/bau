@@ -16,73 +16,73 @@ export default function (context, options) {
   const { bau, css } = context;
   const { tabDefs } = options;
   const { div, ul, li } = bau.tags;
-  const tabsState = bau.state(tabDefs);
 
-  const tabCurrentState = bau.state(tabDefs[0]);
-
-  const tabByName = (name) => tabsState.val.find((tab) => tab.name == name);
-
-  const style = {
-    base: css`
+  const className = css`
+    display: flex;
+    flex-direction: column;
+    & > ul {
       display: flex;
-      flex-direction: column;
-      & ul {
-        display: flex;
-        align-items: flex-end;
-        justify-content: flex-start;
-        align-items: flex-start;
-        padding: 0;
-        list-style: none;
-        border-bottom: 2px solid var(--color-emphasis-200);
-        & li {
-          text-align: center;
-          padding: 0.5rem;
-          padding-bottom: 0rem;
-          color: inherit;
-          cursor: pointer;
-          font-weight: var(--font-weight-semibold);
-          transition: var(--transition-fast) ease-in-out;
-          overflow: hidden;
-          &:hover {
-            color: var(--color-primary-light);
-            background-color: var(--color-emphasis-300);
-            &::after {
-              transform: translateY(0%);
-            }
-          }
-          &::after {
-            transition: var(--transition-fast) ease-in-out;
-            transform: translateY(400%);
-            opacity: 1;
-            content: "";
-            margin-top: 0.3rem;
-            height: 2px;
-            width: 100%;
-            display: block;
-          }
-        }
-        & .active {
-          font-weight: bolder;
+      align-items: flex-end;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 0;
+      list-style: none;
+      border-bottom: 2px solid var(--color-emphasis-200);
+      & li {
+        text-align: center;
+        padding: 0.5rem;
+        padding-bottom: 0rem;
+        color: inherit;
+        cursor: pointer;
+        font-weight: var(--font-weight-semibold);
+        transition: var(--transition-fast) ease-in-out;
+        overflow: hidden;
+        &:hover {
+          color: var(--color-primary-light);
+          background-color: var(--color-emphasis-300);
           &::after {
             transform: translateY(0%);
           }
         }
-        & .disabled {
-          cursor: not-allowed;
-          font-style: italic;
-          transform: none;
-          &:hover {
-            border: none;
-          }
+        &::after {
+          transition: var(--transition-fast) ease-in-out;
+          transform: translateY(400%);
+          opacity: 1;
+          content: "";
+          margin-top: 0.3rem;
+          height: 2px;
+          width: 100%;
+          display: block;
         }
       }
-      ${colorsToCss()}
-    `,
-  };
+      & .active {
+        font-weight: bolder;
+        &::after {
+          transform: translateY(0%);
+        }
+      }
+      & .disabled {
+        cursor: not-allowed;
+        font-style: italic;
+        transform: none;
+        &:hover {
+          border: none;
+        }
+      }
+    }
+    ${colorsToCss()}
+  `;
 
   return function Tabs(...args) {
     let [{ color, variant = "plain", size, ...props }, ...children] =
       toPropsAndChildren(args);
+
+    const tabsState = bau.state(tabDefs);
+
+    const tabCurrentState = bau.state(tabDefs[0]);
+
+    const tabByName = (name) => tabsState.val.find((tab) => tab.name == name);
+
     const TabHeader = (tab) => {
       const { Header, disabled, name } = tab;
       return li(
@@ -108,10 +108,10 @@ export default function (context, options) {
       {
         class: classNames(
           "tabs",
-          style.base,
           variant,
           size,
           color,
+          className,
           options?.class,
           props.class
         ),
