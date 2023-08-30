@@ -9,7 +9,6 @@ export default function (context, options) {
     display: inline-block;
     box-sizing: border-box;
     border-radius: var(--global-radius);
-    padding: 0.2rem 0.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -45,11 +44,11 @@ export default function (context, options) {
         onclick,
         class: classNames(
           "chip",
-          className,
           size,
           variant,
           color,
           onclick && "clickable",
+          className,
           options?.class,
           props?.class
         ),

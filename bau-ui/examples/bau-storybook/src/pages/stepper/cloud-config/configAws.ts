@@ -1,14 +1,22 @@
 import button from "@grucloud/bau-ui/button";
 import input from "@grucloud/bau-ui/input";
+import form from "@grucloud/bau-ui/form";
 
 import { Context } from "@grucloud/bau-ui/context";
+import buttonsFooter from "./buttonsFooter";
+import buttonPrevious from "./buttonPrevious";
+
 import selectAwsRegion from "./selectAwsRegion";
+
 export default (context: Context) => {
-  const { bau, css } = context;
-  const { section, form, h1, header, footer, p, label, i } = bau.tags;
+  const { bau } = context;
+  const { section, h1, header, p, label, i } = bau.tags;
 
   const Button = button(context);
   const Input = input(context);
+  const Form = form(context);
+  const ButtonPrevious = buttonPrevious(context);
+  const ButtonsFooter = buttonsFooter(context);
   const SelectAwsRegion = selectAwsRegion(context);
 
   return function ConfigAws({ onclickPrevious, onclickNext }: any) {
@@ -21,27 +29,11 @@ export default (context: Context) => {
       event.preventDefault();
       onclickNext();
     };
-    return form(
+    return Form(
       {
-        name: "config-aws",
+        name: "form-config-aws",
         onsubmit,
         "data-infra-create": true,
-        class: css`
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          & section {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-          }
-          & label {
-            display: inline-flex;
-            flex-direction: column;
-            gap: 0.3rem;
-            font-weight: 500;
-          }
-        `,
       },
       header(
         h1("AWS Configuration"),
@@ -74,6 +66,7 @@ export default (context: Context) => {
         label(
           "Secret Key",
           Input({
+            type: "password",
             placeholder: "Secret Key",
             name: "secretKey",
             pattern: String.raw`\w{16,128}`,
@@ -88,22 +81,8 @@ export default (context: Context) => {
           })
         )
       ),
-      footer(
-        {
-          class: css`
-            display: flex;
-            gap: 1rem;
-          `,
-        },
-        Button(
-          {
-            onclick: onclickPrevious,
-            variant: "outline",
-            color: "primary",
-          },
-          i("\u25c0"),
-          "Previous"
-        ),
+      ButtonsFooter(
+        ButtonPrevious({ onclick: onclickPrevious }),
         Button(
           {
             type: "submit",

@@ -5,7 +5,23 @@ export default function (context, options) {
   const { bau, css } = context;
   const { form } = bau.tags;
 
-  const className = css``;
+  const className = css`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    & section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    & label {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-weight: 500;
+    }
+  `;
 
   return function Form(...args) {
     let [
