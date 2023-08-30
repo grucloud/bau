@@ -171,7 +171,7 @@ export default function (context, componentOptions) {
       placeholder,
       autofocus: true,
       type: "search",
-      autocomplete: "new-password",
+      autocomplete: "off",
       autocapitalize: "none",
       spellcheck: false,
       role: "combobox",
