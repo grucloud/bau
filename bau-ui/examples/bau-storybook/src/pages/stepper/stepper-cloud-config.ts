@@ -4,6 +4,7 @@ import { Context } from "@grucloud/bau-ui/context";
 import stepStepProviderSelection from "./cloud-config/stepProviderSelection";
 import configAws from "./cloud-config/configAws";
 import configAzure from "./cloud-config/configAzure";
+import configGoogle from "./cloud-config/configGoogle";
 
 export default (context: Context) => {
   const { bau, css } = context;
@@ -12,9 +13,14 @@ export default (context: Context) => {
   const StepProviderSelection = stepStepProviderSelection(context);
   const ConfigAws = configAws(context);
   const ConfigAzure = configAzure(context);
+  const ConfigGoogle = configGoogle(context);
 
   const providerNameState = bau.state("");
   const activeStepIndex = bau.state(0);
+
+  // For testing
+  // const providerNameState = bau.state("Google");
+  // const activeStepIndex = bau.state(1);
 
   const Header = ({ name }: any) => name;
 
@@ -29,6 +35,8 @@ export default (context: Context) => {
         return ConfigAws({ onclickPrevious, onclickNext });
       case "Azure":
         return ConfigAzure({ onclickPrevious, onclickNext });
+      case "Google":
+        return ConfigGoogle({ onclickPrevious, onclickNext });
       default:
         break;
     }

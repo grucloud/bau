@@ -49,6 +49,22 @@ export default (context: Context) => {
             },
             use({ href: `${config.base}/azure.svg#azure` })
           )
+        ),
+        Button(
+          {
+            onclick: onclickProvider("Google"),
+            variant: "outline",
+            color: "primary",
+          },
+          svg(
+            {
+              width: 473,
+              height: 90,
+              viewBox: "0 0 473 75",
+              fill: "currentColor",
+            },
+            use({ href: `${config.base}/gcp.svg#gcp` })
+          )
         )
       )
     );
