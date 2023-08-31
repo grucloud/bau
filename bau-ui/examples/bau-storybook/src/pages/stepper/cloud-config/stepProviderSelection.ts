@@ -44,7 +44,6 @@ export default (context: Context) => {
             {
               width: 261,
               height: 90,
-              viewBox: "0 0 261 75",
               fill: "currentColor",
             },
             use({ href: `${config.base}/azure.svg#azure` })
@@ -58,7 +57,7 @@ export default (context: Context) => {
           },
           svg(
             {
-              width: 473,
+              width: 300,
               height: 90,
               viewBox: "0 0 473 75",
               fill: "currentColor",

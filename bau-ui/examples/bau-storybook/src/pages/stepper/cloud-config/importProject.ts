@@ -48,7 +48,7 @@ const importTypeItem = (context: Context) => {
 
 export default (context: Context) => {
   const { bau } = context;
-  const { section, h1, header, p, i, footer } = bau.tags;
+  const { section, h1, header, p, footer } = bau.tags;
 
   const Button = button(context);
   const Form = form(context);
