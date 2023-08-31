@@ -17,6 +17,7 @@ export default function (context, options) {
   const className = css`
     display: flex;
     flex-direction: column;
+    padding: 1rem;
     & > ul {
       display: flex;
       align-items: flex-end;
@@ -46,6 +47,9 @@ export default function (context, options) {
           justify-content: center;
           align-items: center;
           border-radius: 100%;
+        }
+        & .step-label {
+          text-align: center;
         }
       }
       & .not-completed {

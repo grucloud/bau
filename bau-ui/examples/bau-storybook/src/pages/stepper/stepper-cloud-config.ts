@@ -2,6 +2,8 @@ import stepper, { type StepperPage } from "@grucloud/bau-ui/stepper";
 import { Context } from "@grucloud/bau-ui/context";
 
 import stepStepProviderSelection from "./cloud-config/stepProviderSelection";
+import importProject from "./cloud-config/importProject";
+
 import configAws from "./cloud-config/configAws";
 import configAzure from "./cloud-config/configAzure";
 import configGoogle from "./cloud-config/configGoogle";
@@ -14,12 +16,12 @@ export default (context: Context) => {
   const ConfigAws = configAws(context);
   const ConfigAzure = configAzure(context);
   const ConfigGoogle = configGoogle(context);
-
+  const ImportProject = importProject(context);
   const providerNameState = bau.state("");
   const activeStepIndex = bau.state(0);
 
   // For testing
-  // const providerNameState = bau.state("Google");
+  // const providerNameState = bau.state("AWS");
   // const activeStepIndex = bau.state(1);
 
   const Header = ({ name }: any) => name;
@@ -50,6 +52,18 @@ export default (context: Context) => {
       enter: async () => {
         providerNameState.val = "";
       },
+    },
+    {
+      name: "Import",
+      Header: () => "Import Project",
+      Content: () =>
+        ImportProject({
+          providerName: providerNameState.val,
+          onclickPrevious,
+          onclickImportExistingInfra: () => {
+            debugger;
+          },
+        }),
     },
     {
       name: "Configuration",

@@ -4,7 +4,7 @@ import { Colors } from "../constants.js";
 
 export default function (context, options) {
   const { bau, css } = context;
-  const { dialog } = bau.tags;
+  const { dialog, div } = bau.tags;
 
   const colorsToCss = () =>
     Colors.map(
@@ -20,7 +20,6 @@ export default function (context, options) {
   color: inherit;
 }
 &.modal.solid.${color} {
-
 }
 `
     ).join("\n");
@@ -28,34 +27,32 @@ export default function (context, options) {
   const className = css`
     box-shadow: var(--shadow-s);
     background-color: var(--background-color);
-    top: 0;
-    left: 0;
-    max-height: 90vh;
-    max-width: 95vw;
-    transition: transform 0.3s ease-out;
-    border-radius: 10px;
+    border-radius: var(--global-radius);
     min-width: 400px;
-    padding: 0px;
+    padding: 1rem;
     border: 0px;
-    & header {
-      padding: 1rem;
-      font-size: 1.8rem;
-      font-weight: 800;
-      text-align: center;
-    }
-    & footer {
+    > div {
       display: flex;
-      justify-content: flex-end;
-      margin: 0px;
-      box-shadow: var(--shadow-s);
-      padding: 1rem;
-      gap: 1rem;
+      flex-direction: column;
+      overflow: hidden;
+      max-height: 90vh;
+      max-width: 95vw;
+      & > header {
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+      & > main {
+        flex-grow: 1;
+        overflow-y: auto;
+      }
+      & > footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+        gap: 1rem;
+      }
     }
-    & > main {
-      margin: 12px;
-      flex-grow: 1;
-      overflow: scroll;
-    }
+
     ${colorsToCss()}
   `;
 
@@ -77,7 +74,7 @@ export default function (context, options) {
           props?.class
         ),
       },
-      ...children
+      div(...children)
     );
   };
 }
