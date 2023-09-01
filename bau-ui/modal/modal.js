@@ -41,7 +41,8 @@ export default function (context, options) {
         font-size: 1.5rem;
         font-weight: 500;
       }
-      & > main {
+      & > main,
+      > section {
         flex-grow: 1;
         overflow-y: auto;
       }

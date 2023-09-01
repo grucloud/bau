@@ -1,3 +1,5 @@
+type DefaultDesignProps = import("./constants").DefaultDesignProps;
+
 type ChildDom = import("@grucloud/bau").ChildDom;
 
 export type Component<
@@ -26,4 +28,4 @@ export type ComponentGeneric = (
 
 export type ComponentOption = {
   class?: string;
-};
+} & DefaultDesignProps;

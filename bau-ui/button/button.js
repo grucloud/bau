@@ -1,10 +1,10 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
 
-  const clasName = css`
+  const className = css`
     color: inherit;
     display: inline-flex;
     align-items: center;
@@ -67,11 +67,14 @@ export default function (context, options) {
         ...props,
         class: classNames(
           "button",
+          options.class,
+          options.variant,
+          options.size,
+          options.color,
           variant,
           size,
           color,
-          clasName,
-          options?.class,
+          className,
           props.class
         ),
         href,

@@ -5,7 +5,7 @@ export default (context: Context) => {
   const { bau, css, config } = context;
   const { section, div, h1 } = bau.tags;
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
-  const Button = button(context);
+  const Button = button(context, { variant: "outline", color: "primary" });
 
   return function ProviderSelection({ onclickProvider }: any) {
     return section(
@@ -20,9 +20,8 @@ export default (context: Context) => {
         },
         Button(
           {
+            "data-button-select-aws": true,
             onclick: onclickProvider("AWS"),
-            variant: "outline",
-            color: "primary",
           },
           svg(
             {
@@ -36,9 +35,8 @@ export default (context: Context) => {
         ),
         Button(
           {
+            "data-button-select-azure": true,
             onclick: onclickProvider("Azure"),
-            variant: "outline",
-            color: "primary",
           },
           svg(
             {
@@ -51,9 +49,8 @@ export default (context: Context) => {
         ),
         Button(
           {
+            "data-button-select-google": true,
             onclick: onclickProvider("Google"),
-            variant: "outline",
-            color: "primary",
           },
           svg(
             {

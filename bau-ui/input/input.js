@@ -17,7 +17,6 @@ const colorsToCss = () =>
   border: 1px solid var(--color-${color});
   &:focus {
     outline: 4px auto var(--color-${color});
-
   };
 }
 &.input.solid.${color} {
@@ -35,7 +34,7 @@ const colorsToCss = () =>
 `
   ).join("\n");
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { input } = bau.tags;
 
@@ -77,12 +76,15 @@ export default function (context, options) {
       disabled,
       class: classNames(
         "input",
+        options.class,
+        options.variant,
+        options.size,
+        options.color,
         size,
         color,
         variant,
         className,
         disabled && "disabled",
-        options?.class,
         otherProps.class
       ),
     });

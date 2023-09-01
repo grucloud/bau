@@ -30,14 +30,20 @@ const projectItem = (context: Context) => {
 
 const importTypeItem = (context: Context) => {
   const { bau, css } = context;
-  const { li, strong, small } = bau.tags;
+  const { strong, small } = bau.tags;
+  const Button = button(context);
+
   return function ImportTypeItem({ item, onclickItem }: any) {
-    return li(
+    return Button(
       {
         onclick: onclickItem(item),
         class: css`
-          flex-direction: column;
-          align-items: flex-start;
+          &.button {
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            padding: 1rem;
+          }
         `,
       },
       strong(item.title),
@@ -105,30 +111,28 @@ export default (context: Context) => {
       },
       header(h1("Import Project"), p("")),
       section(
-        List(
-          ImportTypeItem({
-            "data-selection-project-import-existing": true,
-            item: {
-              title: "Import an existing infrastructure",
-              description:
-                "Choose this option to visualize an existing infrastructure.",
-            },
-            onclickItem: () => () => {
-              onclickImportExistingInfra();
-            },
-          }),
-          ImportTypeItem({
-            "data-selection-project-new-from-template": true,
-            item: {
-              title: "Create new infrastructure from a template",
-              description:
-                "This option lets you create an infrastructure from a selection of ready made template.",
-            },
-            onclickItem: () => () => {
-              modalEl.showModal();
-            },
-          })
-        )
+        ImportTypeItem({
+          "data-selection-project-import-existing": true,
+          item: {
+            title: "Import an existing infrastructure",
+            description:
+              "Choose this option to visualize an existing infrastructure.",
+          },
+          onclickItem: () => () => {
+            onclickImportExistingInfra();
+          },
+        }),
+        ImportTypeItem({
+          "data-selection-project-new-from-template": true,
+          item: {
+            title: "Create new infrastructure from a template",
+            description:
+              "This option lets you create an infrastructure from a selection of ready made template.",
+          },
+          onclickItem: () => () => {
+            modalEl.showModal();
+          },
+        })
       ),
       modalEl,
       ButtonsFooter(ButtonPrevious({ onclick: onclickPrevious }))

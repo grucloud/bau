@@ -1,7 +1,7 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { span } = bau.tags;
 
@@ -44,13 +44,16 @@ export default function (context, options) {
         onclick,
         class: classNames(
           "chip",
+          options.class,
+          options.variant,
+          options.size,
+          options.color,
           size,
           variant,
           color,
           onclick && "clickable",
           className,
-          options?.class,
-          props?.class
+          props.class
         ),
       },
       ...children
