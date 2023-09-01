@@ -8,6 +8,7 @@ export default function (context, options) {
   const className = css`
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: 1rem;
     padding: 1rem;
     & section {
@@ -20,6 +21,12 @@ export default function (context, options) {
       flex-direction: column;
       gap: 0.3rem;
       font-weight: 500;
+      font-size: smaller;
+      color: var(--color-content-secondary);
+    }
+    & > footer {
+      display: flex;
+      gap: 1rem;
     }
   `;
 

@@ -86,7 +86,7 @@ export default (context: Context) => {
         section(
           h3(example.title),
           p(example.description),
-          Paper(example.createComponent(context)()),
+          Paper(example.createComponent(context)({})),
           HighlighContainer({ text: example.code })
         )
       )

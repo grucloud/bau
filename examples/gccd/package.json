@@ -1,5 +1,5 @@
 {
-  "name": "bau-ui-template-ts",
+  "name": "gcmp",
   "private": true,
   "version": "0.42.0",
   "type": "module",
@@ -13,6 +13,7 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
+    "@grucloud/bau-router": "^0.42.0",
     "@grucloud/bau-ui": "^0.42.0"
   }
 }

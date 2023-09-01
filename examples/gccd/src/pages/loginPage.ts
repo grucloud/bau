@@ -8,16 +8,20 @@ import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { bau, css, config } = context;
-  const { section, h1, header, label, img, footer } = bau.tags;
+  const { section, h1, footer, header, label, img } = bau.tags;
 
   const LoadingButton = loadingButton(context);
   const Alert = alert(context, { variant: "outline", color: "danger" });
   const Input = input(context);
   const Form = form(context, {
     class: css`
-      align-items: center;
+      min-width: 350px;
       & > header {
         text-align: center;
+        & h1 {
+          line-height: 0;
+          font-size: 1.3rem;
+        }
       }
       & > footer {
         & button {
@@ -26,17 +30,10 @@ export default (context: Context) => {
       }
     `,
   });
-  const Paper = paper(context, {
-    class: css`
-      max-width: 400px;
-    `,
-  });
+  const Paper = paper(context);
 
-  type LoginFormProp = {
-    onLoggedIn: (response: object) => void;
-  };
-
-  return function LoginForm({ onLoggedIn = () => {} }: LoginFormProp) {
+  return function LoginPage({ onLoggedIn }: any) {
+    //const dataState = bau.state("");
     const loadingState = bau.state(false);
     const errorMessageState = bau.state("");
 
@@ -45,7 +42,7 @@ export default (context: Context) => {
       event.preventDefault();
       try {
         loadingState.val = true;
-        const response = await fetch("/auth/login", {
+        const response = await fetch("/api/v1/auth/login", {
           method: "post",
           headers: {
             "Content-Type": "application/json",

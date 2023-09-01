@@ -7,7 +7,6 @@ export default function (context, options) {
   const className = css`
     border: 1px solid transparent;
     border-radius: var(--global-radius);
-    padding: 1rem;
     &.sm {
       box-shadow: var(--shadow-s);
       background-image: linear-gradient(

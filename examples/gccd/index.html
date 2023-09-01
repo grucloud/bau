@@ -4,10 +4,98 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GruCloud Cloud Management platform</title>
+    <title>GruCloud Platform</title>
   </head>
   <body>
+    <div id="loading">
+      <style type="text/css">
+        html {
+          position: relative;
+          font-family: sans-serif;
+          -ms-text-size-adjust: 100%;
+          -webkit-text-size-adjust: 100%;
+        }
+
+        html,
+        body {
+          height: 100%;
+          padding: 0;
+          margin: 0;
+        }
+        h1 {
+          font-size: 50px;
+        }
+
+        #loading {
+          position: fixed;
+          font-family: sans-serif;
+          width: 100vw;
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        #initializing {
+          text-align: center;
+        }
+
+        .m-fadeOut {
+          visibility: hidden;
+          opacity: 0;
+          transition: visibility 0s linear 300ms, opacity 300ms;
+        }
+        .spinner {
+          animation: rotate 2s linear infinite;
+          z-index: 2;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: -25px 0 0 -25px;
+          width: 50px;
+          height: 50px;
+        }
+        .spinner .path {
+          stroke: #070707;
+          stroke-linecap: round;
+          animation: dash 1.5s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes dash {
+          0% {
+            stroke-dasharray: 1, 150;
+            stroke-dashoffset: 0;
+          }
+          50% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -35;
+          }
+          100% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -124;
+          }
+        }
+      </style>
+      <div id="initializing">
+        <svg class="spinner" viewBox="0 0 50 50">
+          <circle
+            class="path"
+            cx="25"
+            cy="25"
+            r="20"
+            fill="none"
+            stroke-width="5"
+          ></circle>
+        </svg>
+      </div>
+    </div>
     <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/entry.ts"></script>
   </body>
 </html>
