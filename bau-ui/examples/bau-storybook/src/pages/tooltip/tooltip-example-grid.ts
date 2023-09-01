@@ -7,8 +7,7 @@ export default (context: Context) => {
   const { bau, css } = context;
   const { div, p, em, section } = bau.tags;
 
-  const Chip = (...children: any[]) =>
-    chip(context)({ variant: "outline", color: "primary" }, children);
+  const Chip = chip(context, { variant: "outline", color: "primary" });
 
   const Tooltip = tooltip(context);
 

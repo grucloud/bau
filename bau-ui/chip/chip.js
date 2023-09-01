@@ -1,7 +1,7 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { span } = bau.tags;
 
@@ -9,7 +9,6 @@ export default function (context, options) {
     display: inline-block;
     box-sizing: border-box;
     border-radius: var(--global-radius);
-    padding: 0.2rem 0.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -45,13 +44,16 @@ export default function (context, options) {
         onclick,
         class: classNames(
           "chip",
-          className,
+          options.class,
+          options.variant,
+          options.size,
+          options.color,
           size,
           variant,
           color,
           onclick && "clickable",
-          options?.class,
-          props?.class
+          className,
+          props.class
         ),
       },
       ...children

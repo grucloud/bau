@@ -53,6 +53,8 @@ const tree = {
         { data: { name: "Select", href: "/components/select" } },
         { data: { name: "Slider", href: "/components/slider" } },
         { data: { name: "Spinner", href: "/components/spinner" } },
+        { data: { name: "Stepper", href: "/components/stepper" } },
+
         { data: { name: "Switch", href: "/components/switch" } },
         { data: { name: "Table", href: "/components/table" } },
         {

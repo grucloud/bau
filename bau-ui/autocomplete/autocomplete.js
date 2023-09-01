@@ -50,15 +50,6 @@ export default function (context, componentOptions) {
     ${colorsToCss()}
   `;
 
-  const selectedState = bau.state("");
-  const inputState = bau.state("");
-  const openState = bau.state(false);
-  const itemIndexActive = bau.state(0);
-
-  const onClose = () => {
-    openState.val = false;
-  };
-
   return function AutoComplete(...args) {
     let [
       {
@@ -75,6 +66,15 @@ export default function (context, componentOptions) {
       },
       ...children
     ] = toPropsAndChildren(args);
+
+    const selectedState = bau.state("");
+    const inputState = bau.state("");
+    const openState = bau.state(false);
+    const itemIndexActive = bau.state(0);
+
+    const onClose = () => {
+      openState.val = false;
+    };
 
     const optionsFilteredState = bau.state(options);
 
@@ -171,7 +171,7 @@ export default function (context, componentOptions) {
       placeholder,
       autofocus: true,
       type: "search",
-      autocomplete: "new-password",
+      autocomplete: "off",
       autocapitalize: "none",
       spellcheck: false,
       role: "combobox",

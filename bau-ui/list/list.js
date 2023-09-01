@@ -6,6 +6,8 @@ export default function (context, options) {
   const { ul } = bau.tags;
 
   const className = css`
+    display: flex;
+    flex-direction: column;
     list-style: none;
     padding: 0;
     margin: 0 0;
@@ -17,13 +19,12 @@ export default function (context, options) {
         filter: brightness(var(--brightness-active-always));
       }
     }
-    & li {
+    & > li {
       padding: 0.4rem;
       cursor: pointer;
       background-color: inherit;
       transition: all var(--transition-slow) ease-out;
       display: flex;
-      align-items: center;
       &:hover {
         filter: brightness(var(--brightness-hover));
       }

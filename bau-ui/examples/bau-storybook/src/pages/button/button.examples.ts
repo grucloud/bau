@@ -8,6 +8,10 @@ import buttonDefault from "./button-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./button-example-default.ts?raw";
 
+import buttonDisabled from "./button-disabled.ts";
+// @ts-ignore
+import codeExampleDisabled from "./button-disabled.ts?raw";
+
 export const buttonSpec = {
   title: "Button",
   package: "button",
@@ -17,10 +21,16 @@ export const buttonSpec = {
   importStatement: `import button from "@grucloud/bau-ui/button";`,
   examples: [
     {
-      title: "Default",
+      title: "Solid Button",
       description: "A simple button.",
       code: codeExampleDefault,
       createComponent: buttonDefault,
+    },
+    {
+      title: "Disabled Button",
+      description: "A disabled button.",
+      code: codeExampleDisabled,
+      createComponent: buttonDisabled,
     },
   ],
   gridItem: buttonGridItem,

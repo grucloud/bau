@@ -8,8 +8,12 @@ import selectDefault from "./select-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./select-example-default.ts?raw";
 
+import selectAwsRegion from "./select-aws-region.ts";
+// @ts-ignore
+import codeExampleAwsRegion from "./select-aws-region.ts?raw";
+
 export const selectSpec = {
-  title: "Modal",
+  title: "Select",
   package: "select",
   description: "The select component allows user to select from a list.",
   sourceCodeUrl:
@@ -17,10 +21,16 @@ export const selectSpec = {
   importStatement: `import select from "@grucloud/bau-ui/select";`,
   examples: [
     {
-      title: "Default",
+      title: "Simple Select",
       description: "A simple select.",
       code: codeExampleDefault,
       createComponent: selectDefault,
+    },
+    {
+      title: "Select AWS region",
+      description: "Select the AWS region",
+      code: codeExampleAwsRegion,
+      createComponent: selectAwsRegion,
     },
   ],
   gridItem: selectGridItem,

@@ -22,17 +22,6 @@ const colorsToCss = () =>
 export default function (context, options) {
   const { bau, css } = context;
   const { div, ul, li, h3, button } = bau.tags;
-  const itemNameState = bau.state("");
-
-  const Collapsible = collapsible(context);
-
-  const onclick = (name) => (event) => {
-    if (itemNameState.val == name) {
-      itemNameState.val = "";
-    } else {
-      itemNameState.val = name;
-    }
-  };
 
   const className = css`
     & ul {
@@ -82,6 +71,18 @@ export default function (context, options) {
   return function Accordion(...args) {
     let [{ color, variant = "outline", size = "md", data = [], ...props }] =
       toPropsAndChildren(args);
+
+    const itemNameState = bau.state("");
+
+    const Collapsible = collapsible(context);
+
+    const onclick = (name) => (event) => {
+      if (itemNameState.val == name) {
+        itemNameState.val = "";
+      } else {
+        itemNameState.val = name;
+      }
+    };
 
     const AccordionItem = (item) => {
       const { Header, Content, name } = item;

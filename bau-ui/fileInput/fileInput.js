@@ -7,10 +7,7 @@ export default function (context, options) {
 
   const style = {
     base: css`
-      display: inline-block;
-      > * {
-        margin: 1rem 0;
-      }
+      display: inline-flex;
       & input {
         width: 0.1px;
         height: 0.1px;
@@ -26,8 +23,9 @@ export default function (context, options) {
         text-overflow: ellipsis;
       }
       & label {
+        padding: 1rem;
         border-radius: var(--global-radius);
-        display: flex;
+        display: inline-flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;

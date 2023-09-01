@@ -16,14 +16,9 @@ const colorsToCss = () =>
 &.input.outline.${color} {
   border: 1px solid var(--color-${color});
   &:focus {
-    border: 2px solid var(--color-${color});
+    outline: 4px auto var(--color-${color});
   };
 }
-&.input.soft.${color} {
-  &:focus {
-    border-color: var(--color-${color});
-  };
-} 
 &.input.solid.${color} {
   &:focus {
     border-color: var(--color-${color});
@@ -39,7 +34,7 @@ const colorsToCss = () =>
 `
   ).join("\n");
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { input } = bau.tags;
 
@@ -71,21 +66,25 @@ export default function (context, options) {
       size = "md",
       variant = "outline",
       color = "neutral",
-      name,
-      id,
       disabled,
       ...otherProps
     } = props;
 
     return input({
+      type: "text",
       ...otherProps,
+      disabled,
       class: classNames(
         "input",
+        options.class,
+        options.variant,
+        options.size,
+        options.color,
         size,
         color,
         variant,
         className,
-        options?.class,
+        disabled && "disabled",
         otherProps.class
       ),
     });

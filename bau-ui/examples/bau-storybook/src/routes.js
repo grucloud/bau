@@ -33,6 +33,7 @@ import radioButtonExamples from "./pages/radioButton/radioButton.examples";
 import selectExamples from "./pages/select/select.examples";
 import sliderExamples from "./pages/slider/slider.examples";
 import spinnerExamples from "./pages/spinner/spinner.examples";
+import stepperExamples from "./pages/stepper/stepper.examples";
 import switchExamples from "./pages/switch/switch.examples";
 import tabsExamples from "./pages/tabs/tabs.examples";
 import tableExamples from "./pages/table/table.examples";
@@ -276,6 +277,13 @@ export const createRoutes = ({ context }) => [
         action: () => ({
           title: "Spinner",
           component: spinnerExamples(context),
+        }),
+      },
+      {
+        path: "stepper",
+        action: () => ({
+          title: "Stepper",
+          component: stepperExamples(context),
         }),
       },
       {

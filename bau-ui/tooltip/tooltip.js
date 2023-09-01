@@ -11,7 +11,6 @@ export default function (context, options) {
     & .container {
       & .content {
         box-shadow: var(--shadow-m);
-        font-size: smaller;
         border-radius: var(--global-radius);
         padding: 0.3rem;
       }
@@ -103,11 +102,7 @@ export default function (context, options) {
 
     const tooltipContentEl = div(
       {
-        class: classNames(
-          "container",
-
-          ...side.split("-")
-        ),
+        class: classNames("container", ...side.split("-")),
       },
       div(
         { class: classNames("content", color, variant, size), role: "tooltip" },
