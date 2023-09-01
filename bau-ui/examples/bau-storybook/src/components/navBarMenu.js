@@ -34,6 +34,7 @@ const tree = {
           data: { name: "DrillDown Menu", href: "/components/drillDownMenu" },
         },
         { data: { name: "File Input", href: "/components/fileInput" } },
+        { data: { name: "Form", href: "/components/form" } },
         { data: { name: "Input", href: "/components/input" } },
         {
           data: { name: "Linear Progress", href: "/components/linearProgress" },
@@ -54,7 +55,6 @@ const tree = {
         { data: { name: "Slider", href: "/components/slider" } },
         { data: { name: "Spinner", href: "/components/spinner" } },
         { data: { name: "Stepper", href: "/components/stepper" } },
-
         { data: { name: "Switch", href: "/components/switch" } },
         { data: { name: "Table", href: "/components/table" } },
         {

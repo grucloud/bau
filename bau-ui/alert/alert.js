@@ -12,43 +12,39 @@ const severityMap = {
   neutral: "\u2139",
 };
 
-const createStyles = ({ css, createGlobalStyles }) => {
-  createGlobalStyles`
-:root {
-  --alert-border-left-width: 8px;
-}
-`;
-};
-
 const colorsToCss = () =>
   Colors.map(
     (color) =>
       `
-&.alert.outline.${color} {
-  & .icon {
-    color: var(--color-${color})
+&.alert {
+  &.plain.${color} {
+    & .icon {
+      color: var(--color-${color})
+    }
+  }
+  &.outline.${color} {
+    & .icon {
+      color: var(--color-${color})
+    }
   }
 }
-`
+  `
   ).join("\n");
 
-export default function (context, options) {
-  const { bau, css, createGlobalStyles } = context;
+export default function (context, options = {}) {
+  const { bau, css } = context;
   const { div, i } = bau.tags;
-
-  createStyles({ css, createGlobalStyles });
 
   const className = css`
     display: flex;
     max-width: 600px;
     justify-content: flex-start;
     align-items: center;
-    margin: 0.5rem;
     font-weight: var(--font-weight-semibold);
     box-shadow: var(--shadow-m);
     border-radius: var(--global-radius);
     & .icon {
-      padding: 0 1rem;
+      padding: 0 0.5rem;
       font-size: 2.5rem;
     }
     & .content {
@@ -76,26 +72,33 @@ export default function (context, options) {
       "\u2716"
     );
 
-  return function Alert(props, ...children) {
-    const {
-      variant = "outline",
-      color = "neutral",
-      size = "md",
-      onRemove,
-      ...otherProps
-    } = props;
+  return function Alert(...args) {
+    let [
+      {
+        color = options.color ?? "neutral",
+        variant = options.variant ?? "outline",
+        size = "md",
+        onRemove,
+        ...props
+      },
+      ...children
+    ] = toPropsAndChildren(args);
+
     return div(
       {
-        ...otherProps,
+        ...props,
         class: classNames(
+          "alert",
           `alert-${variant}`,
+          options.class,
+          options.variant,
+          options.size,
+          options.color,
           variant,
           color,
           size,
           className,
-          options?.class,
-          props.class,
-          "alert"
+          props.class
         ),
         role: "alert",
       },

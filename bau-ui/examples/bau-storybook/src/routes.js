@@ -21,6 +21,7 @@ import collapsibleExamples from "./pages/collapsible/collapsible.examples";
 import drawerExamples from "./pages/drawer/drawer.examples";
 import drillDownMenuExamples from "./pages/drilldownMenu/drillDownMenu.examples";
 import fileInputExamples from "./pages/fileInput/fileInput.examples";
+import formExamples from "./pages/form/form.examples";
 import inputExamples from "./pages/input/input.examples";
 import linearProgressExamples from "./pages/linearProgress/linearProgress.examples";
 import loadingButtonExamples from "./pages/loadingButton/loadingButton.examples";
@@ -193,6 +194,13 @@ export const createRoutes = ({ context }) => [
         action: () => ({
           title: "File Input",
           component: fileInputExamples(context),
+        }),
+      },
+      {
+        path: "form",
+        action: () => ({
+          title: "Form",
+          component: formExamples(context),
         }),
       },
       {

@@ -3,8 +3,8 @@ import button from "@grucloud/bau-ui/button";
 import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
-  const { bau, css } = context;
-  const { div, p, em, span } = bau.tags;
+  const { bau } = context;
+  const { div, p, em } = bau.tags;
   const Button = button(context);
 
   const Tooltip = tooltip(context);
