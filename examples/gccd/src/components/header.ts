@@ -2,10 +2,11 @@ import button from "@grucloud/bau-ui/button";
 import { type Context } from "@grucloud/bau-ui/context";
 
 export default function (context: Context) {
-  const { tr, bau, css, config } = context;
-  const { i, header, div, a, img, b } = bau.tags;
+  const { tr, bau, css, config, stores } = context;
+  const { i, header, div, a, b } = bau.tags;
   const { svg, path } = bau.tagsNS("http://www.w3.org/2000/svg");
   // const drawerOpenState = states.drawerOpen;
+  const { meQuery } = stores.auth;
 
   const Button = button(context, {
     class: css`
@@ -69,29 +70,16 @@ export default function (context: Context) {
           display: flex;
           padding: 1rem;
           align-items: center;
+          font-size: small;
+          font-weight: 500;
+          color: var(--color-content-secondary);
         `,
       },
-      Button(
-        {
-          class: css``,
-          target: "_blank",
-          href: "https://github.com/grucloud/grucloud",
-          title: "GruCloud's Github",
-        },
-        img({
-          class: css`
-            border-radius: 50%;
-            background: black;
-          `,
-          alt: "GitHub",
-          src: `${config.base}/github-mark-white.svg`,
-          width: 30,
-          height: 30,
-        })
-      )
+      () => meQuery.data.val && meQuery.data.val.email
     );
 
   return function headerNav() {
+    meQuery.run();
     return header(
       {
         class: css`
@@ -104,7 +92,7 @@ export default function (context: Context) {
           align-items: center;
           height: var(--header-height);
           background-color: var(--background-color);
-          border-bottom: 1px solid var(--color-emphasis-200);
+          border-bottom: 1px solid var(--color-emphasis-100);
         `,
       },
       NavBarLeft(),

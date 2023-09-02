@@ -22,7 +22,7 @@ export default function (context: Context) {
     const buildUrl = () =>
       params
         ? `${config.apiUrl}${url}?${new URLSearchParams(params).toString()}`
-        : url;
+        : `${config.apiUrl}${url}`;
 
     try {
       const response = await fetch(buildUrl(), {

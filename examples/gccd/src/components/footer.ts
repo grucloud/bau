@@ -14,6 +14,12 @@ export default function (context: Context) {
           & > li {
             display: inline-block;
             padding: 0.2rem;
+            & img {
+              filter: opacity(60%);
+              &:hover {
+                filter: none;
+              }
+            }
           }
         `,
       },
@@ -51,22 +57,12 @@ export default function (context: Context) {
         class: css`
           grid-area: footer;
           padding: 0.3rem;
-          box-shadow: var(--shadow-s);
+          border-top: 1px solid var(--color-emphasis-100);
           display: flex;
           justify-content: space-between;
           align-items: center;
           gap: 0.5rem;
           font-size: 0.8rem;
-          .footer-version {
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s ease-in 300ms, opacity 300ms;
-          }
-          :hover .footer-version {
-            visibility: visible;
-            opacity: 1;
-            transition: visibility 0s ease-out 0s, opacity 300ms;
-          }
           color: var(--color-content-secondary);
           & a {
             text-decoration: none;

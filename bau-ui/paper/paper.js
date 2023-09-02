@@ -6,6 +6,7 @@ export default function (context, options) {
   const { div } = bau.tags;
   const className = css`
     border: 1px solid transparent;
+    height: fit-content;
     border-radius: var(--global-radius);
     &.sm {
       box-shadow: var(--shadow-s);

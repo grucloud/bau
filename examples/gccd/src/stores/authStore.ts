@@ -5,7 +5,8 @@ export default function (context: Context) {
   const { rest, bau, config, window } = context;
   const query = useQuery(context);
 
-  const logoutQuery = query(() => rest.get("auth/logout"));
+  const meQuery = query(() => rest.get("me"));
+  const logoutQuery = query(() => rest.post("auth/logout"));
 
   const authenticated = bau.state(false);
   const userState = bau.state({});
@@ -32,6 +33,7 @@ export default function (context: Context) {
 
   const store = {
     authenticated,
+    meQuery,
     setResult,
     logoutQuery,
     reset,

@@ -7,16 +7,24 @@ export const onLocationChange = ({
 }: any) => {
   const { window, bau } = context;
   const componentState = bau.state();
-  const layoutEl = LayoutDefault({ componentState });
-  const app = document.getElementById("app");
-  app?.replaceChildren(layoutEl);
-
+  let CurrentLayout: any;
   return ({ router }: { router: Router }) => {
-    //console.log("onLocationChange");
+    console.log("onLocationChange");
     const pathname = window.location.pathname.replace(base, "");
-    const { title, component } = router.resolve({
+    const {
+      title,
+      component,
+      Layout = LayoutDefault,
+    } = router.resolve({
       pathname,
     });
+
+    if (CurrentLayout != Layout) {
+      CurrentLayout = Layout;
+      document
+        .getElementById("app")
+        ?.replaceChildren(Layout({ componentState }));
+    }
     componentState.val = component({});
     document.title = `${title}`;
   };
