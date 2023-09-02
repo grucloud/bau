@@ -49,6 +49,10 @@ export default function (context, options = {}) {
     &.input:hover {
       background-color: var(--color-emphasis-100);
     }
+    &.input:disabled {
+      filter: grayscale(100%);
+      background-color: var(--color-emphasis-100);
+    }
     &.sm {
       padding: 0.4rem;
     }
@@ -63,9 +67,9 @@ export default function (context, options = {}) {
 
   return function Input(props) {
     const {
-      size = "md",
-      variant = "outline",
-      color = "neutral",
+      size = options.size ?? "md",
+      variant = options.variant ?? "outline",
+      color = options.color ?? "neutral",
       disabled,
       ...otherProps
     } = props;
@@ -77,9 +81,6 @@ export default function (context, options = {}) {
       class: classNames(
         "input",
         options.class,
-        options.variant,
-        options.size,
-        options.color,
         size,
         color,
         variant,

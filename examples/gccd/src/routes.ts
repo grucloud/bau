@@ -1,7 +1,8 @@
 import loginPage from "./pages/loginPage";
 import logoutPage from "./pages/logoutPage";
-
 import landingPage from "./pages/landingPage";
+import profilePage from "./pages/profilePage";
+
 import layoutUnauthenticated from "./layoutUnauthenticated";
 
 import { type Context } from "@grucloud/bau-ui/context";
@@ -12,6 +13,20 @@ export const createRoutes = ({ context }: { context: Context }) => [
     action: () => ({
       title: "Dashboard",
       component: landingPage(context),
+    }),
+  },
+  {
+    path: "dashboard",
+    action: () => ({
+      title: "Dashboard",
+      component: landingPage(context),
+    }),
+  },
+  {
+    path: "profile",
+    action: () => ({
+      title: "Profile",
+      component: profilePage(context),
     }),
   },
   {
