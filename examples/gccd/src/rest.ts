@@ -20,7 +20,9 @@ export default function (context: Context) {
     }
 
     const buildUrl = () =>
-      params ? `${url}?${new URLSearchParams(params).toString()}` : url;
+      params
+        ? `${config.apiUrl}${url}?${new URLSearchParams(params).toString()}`
+        : url;
 
     try {
       const response = await fetch(buildUrl(), {
@@ -37,9 +39,11 @@ export default function (context: Context) {
           [401, 403].includes(response.status) &&
           !window.location.pathname.includes("login")
         ) {
-          debugger;
-          // @ts-ignore
-          history.push(`${config.loginPath}?nextPath=${location.pathname}`);
+          history.pushState(
+            {},
+            "",
+            `${config.loginPath}?nextPath=${location.pathname}`
+          );
         }
       }
     } catch (error: any) {

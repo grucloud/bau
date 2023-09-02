@@ -7,7 +7,7 @@ import alert from "@grucloud/bau-ui/alert";
 import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
-  const { bau, css, config } = context;
+  const { bau, css, config, stores } = context;
   const { section, h1, footer, header, label, img } = bau.tags;
 
   const LoadingButton = loadingButton(context);
@@ -32,8 +32,7 @@ export default (context: Context) => {
   });
   const Paper = paper(context);
 
-  return function LoginPage({ onLoggedIn }: any) {
-    //const dataState = bau.state("");
+  return function LoginPage() {
     const loadingState = bau.state(false);
     const errorMessageState = bau.state("");
 
@@ -54,7 +53,8 @@ export default (context: Context) => {
         });
         if (response.ok) {
           const json = await response.json();
-          onLoggedIn(json);
+          console.log(json);
+          stores.auth.setResult(json);
         } else if (response.status == 401) {
           errorMessageState.val = "Invalid username or password";
         } else {

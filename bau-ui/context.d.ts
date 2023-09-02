@@ -8,6 +8,7 @@ export type Context = {
   config?: any;
   states?: any;
   rest?: any;
+  stores?: any;
 } & ReturnType<typeof BauCss>;
 
 export function createContext(input?: any): Context;

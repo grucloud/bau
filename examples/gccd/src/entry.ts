@@ -9,6 +9,8 @@ import { onLocationChange } from "./onLocationChange.js";
 import { createStyles } from "./style.js";
 import rest from "./rest";
 import config from "./config";
+import infraStores from "./stores/infraStore";
+import authStores from "./stores/authStore";
 
 initialScreenFadeOut();
 
@@ -17,6 +19,13 @@ const context = createContext({
 });
 
 context.rest = rest(context);
+
+context.stores = {
+  //
+  infra: infraStores(context),
+  auth: authStores(context),
+};
+
 createStyles(context);
 
 BauRouter({

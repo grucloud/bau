@@ -3,6 +3,7 @@ const config = {
     title: "GruCloud",
     base: "",
     loginPath: "/login",
+    routeAfterLogin: "/",
     description: "",
     apiUrl: "/api/v1/",
     socialAuth: ["github"],
