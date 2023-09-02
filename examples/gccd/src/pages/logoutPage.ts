@@ -22,8 +22,8 @@ export default (context: Context) => {
   const Paper = paper(context);
 
   return function LogoutPage() {
-    const { logoutQuery } = stores.auth;
-    logoutQuery.run();
+    const { logout, logoutQuery } = stores.auth;
+    logout();
 
     return Paper(
       Form(

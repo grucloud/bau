@@ -1,5 +1,6 @@
-import button from "@grucloud/bau-ui/button";
 import { type Context } from "@grucloud/bau-ui/context";
+import button from "@grucloud/bau-ui/button";
+import avatar from "@grucloud/bau-ui/avatar";
 
 export default function (context: Context) {
   const { tr, bau, css, config, stores } = context;
@@ -7,6 +8,14 @@ export default function (context: Context) {
   const { svg, path } = bau.tagsNS("http://www.w3.org/2000/svg");
   // const drawerOpenState = states.drawerOpen;
   const { meQuery } = stores.auth;
+
+  const Avatar = avatar(context, {
+    class: css`
+      > img {
+        border-radius: 50%;
+      }
+    `,
+  });
 
   const Button = button(context, {
     class: css`
@@ -22,7 +31,7 @@ export default function (context: Context) {
           version: "1.1",
           viewBox: "0 0 32 32",
           width: "40px",
-          height: "50px",
+          height: "40px",
         },
         path({
           fill: "currentColor",
@@ -75,7 +84,13 @@ export default function (context: Context) {
           color: var(--color-content-secondary);
         `,
       },
-      () => meQuery.data.val && meQuery.data.val.email
+      () =>
+        meQuery.data.val.picture
+          ? Avatar({
+              src: meQuery.data.val.picture.url,
+              alt: meQuery.data.val.email,
+            })
+          : meQuery.data.val.email
     );
 
   return function headerNav() {

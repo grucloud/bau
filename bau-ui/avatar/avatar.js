@@ -16,6 +16,9 @@ export default function (context, options) {
   };
 
   const className = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &.sm {
       width: 20px;
       height: 20px;
@@ -35,8 +38,8 @@ export default function (context, options) {
         color,
         variant = "outline",
         size = "md",
-        width = 30,
-        height = 30,
+        width = 40,
+        height = 40,
         ...props
       },
       ...children

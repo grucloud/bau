@@ -17,7 +17,6 @@ export default function (context: Context) {
     const nextPath =
       new URLSearchParams(window.location.search.slice(1)).get("nextPath") ||
       config.routeAfterLogin;
-    // console.log(`redirect to ${nextPath}`);
     window.history.pushState("", "", nextPath);
   };
 
@@ -33,13 +32,19 @@ export default function (context: Context) {
     localStorage.removeItem("JWT");
   };
 
+  const logout = () => {
+    logoutQuery.run();
+    reset();
+  };
+
   const store = {
     authenticated,
     meQuery,
     accountDeleteQuery,
     setResult,
-    logoutQuery,
     reset,
+    logout,
+    logoutQuery,
     redirectFromSocialLogin: async () => {
       try {
         await rest.get("me");
