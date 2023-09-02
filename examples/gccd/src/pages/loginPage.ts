@@ -1,10 +1,12 @@
+import { Context } from "@grucloud/bau-ui/context";
+
 import form from "@grucloud/bau-ui/form";
 import input from "@grucloud/bau-ui/input";
 import paper from "@grucloud/bau-ui/paper";
 import loadingButton from "@grucloud/bau-ui/loadingButton";
 import alert from "@grucloud/bau-ui/alert";
 
-import { Context } from "@grucloud/bau-ui/context";
+import socialLogin from "../components/socialLogin";
 
 export default (context: Context) => {
   const { bau, css, config, stores } = context;
@@ -23,6 +25,8 @@ export default (context: Context) => {
     `,
   });
   const Paper = paper(context);
+
+  const SocialLogin = socialLogin(context);
 
   return function LoginPage() {
     const loadingState = bau.state(false);
@@ -66,6 +70,7 @@ export default (context: Context) => {
           img({ width: "100", src: `${config.base}/gc.svg` }),
           h1("Login to Grucloud")
         ),
+        SocialLogin(),
         section(
           () => errorMessageState.val && Alert(errorMessageState.val),
           label(

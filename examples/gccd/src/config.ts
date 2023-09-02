@@ -7,6 +7,7 @@ const config = {
     description: "",
     apiUrl: "/api/v1/",
     socialAuth: ["github"],
+    //    socialAuth: ["github", "facebook", "google"],
   },
   development: {
     env: "development",
