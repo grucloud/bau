@@ -11,7 +11,6 @@ export const layoutDefault = (context: Context) => {
   const { div } = bau.tags;
 
   // const Animate = animate(context);
-
   const Header = header(context);
   const NavBarMenu = navBarMenu(context);
   const Footer = footer(context);

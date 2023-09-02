@@ -8,6 +8,8 @@ export default function (context: Context) {
   const meQuery = query(() => rest.get("me"));
   const logoutQuery = query(() => rest.post("auth/logout"));
 
+  const accountDeleteQuery = query(() => rest.del("me"));
+
   const authenticated = bau.state(false);
   const userState = bau.state({});
 
@@ -34,6 +36,7 @@ export default function (context: Context) {
   const store = {
     authenticated,
     meQuery,
+    accountDeleteQuery,
     setResult,
     logoutQuery,
     reset,

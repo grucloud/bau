@@ -1,5 +1,6 @@
 import BauRouter from "@grucloud/bau-router";
 import { createContext } from "@grucloud/bau-ui/context";
+import alertStack from "@grucloud/bau-ui/alertStack";
 
 import { initialScreenFadeOut } from "./initialScreenFadeOut.js";
 import { layoutDefault } from "./layoutDefault.js";
@@ -12,11 +13,14 @@ import config from "./config";
 import infraStores from "./stores/infraStore";
 import authStores from "./stores/authStore";
 
-initialScreenFadeOut();
-
 const context = createContext({
   config,
 });
+
+initialScreenFadeOut();
+
+const AlertStack = alertStack(context, { deleteAfterDuration: 20e3 });
+document.getElementById("alert-stack")?.append(AlertStack());
 
 context.rest = rest(context);
 

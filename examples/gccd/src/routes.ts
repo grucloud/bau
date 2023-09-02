@@ -2,7 +2,7 @@ import loginPage from "./pages/loginPage";
 import logoutPage from "./pages/logoutPage";
 import landingPage from "./pages/landingPage";
 import profilePage from "./pages/profilePage";
-
+import accountDeletePage from "./pages/accountDeletePage";
 import layoutUnauthenticated from "./layoutUnauthenticated";
 
 import { type Context } from "@grucloud/bau-ui/context";
@@ -43,6 +43,13 @@ export const createRoutes = ({ context }: { context: Context }) => [
       title: "Logout",
       component: logoutPage(context),
       Layout: layoutUnauthenticated(context),
+    }),
+  },
+  {
+    path: "accountDelete",
+    action: () => ({
+      title: "Delete Account",
+      component: accountDeletePage(context),
     }),
   },
 ];

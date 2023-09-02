@@ -5,25 +5,14 @@ import paper from "@grucloud/bau-ui/paper";
 import button from "@grucloud/bau-ui/button";
 
 export default function (context: Context) {
-  const { bau, css, stores } = context;
+  const { bau, stores } = context;
   const { section, h1, footer, header, label } = bau.tags;
 
   const { meQuery } = stores.auth;
 
   const Button = button(context, { variant: "outline", color: "danger" });
   const Input = input(context, { variant: "plain", color: "neutral" });
-  const Form = form(context, {
-    class: css`
-      min-width: 350px;
-      & > header {
-        text-align: center;
-        & h1 {
-          line-height: 0;
-          font-size: 1.3rem;
-        }
-      }
-    `,
-  });
+  const Form = form(context);
   const Paper = paper(context);
 
   return function ProfilePage({}) {
@@ -49,7 +38,7 @@ export default function (context: Context) {
             })
           )
         ),
-        footer(Button({ href: "profileDelete" }, "Danger Zone"))
+        footer(Button({ href: "accountDelete" }, "Danger Zone"))
       )
     );
   };
