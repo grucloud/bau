@@ -3,7 +3,7 @@ import { type Context } from "@grucloud/bau-ui/context";
 
 export default function (context: Context) {
   const { tr, bau, css, config } = context;
-  const { header, div, a, b } = bau.tags;
+  const { header, div, a, b, img } = bau.tags;
 
   const Button = button(context);
 
@@ -13,11 +13,13 @@ export default function (context: Context) {
         class: css`
           display: flex;
           align-items: center;
+          gap: 0.5rem;
           & a {
             color: var(--color-inverse);
           }
         `,
       },
+      img({ alt: "GruCloud", src: `${config.base}/gc.svg`, width: 28 }),
       a(
         {
           href: `${config.base}/`,
@@ -55,6 +57,7 @@ export default function (context: Context) {
           z-index: 2;
           position: sticky;
           top: 0;
+          padding: 0 0.5rem;
           grid-area: header;
           display: flex;
           justify-content: space-between;
