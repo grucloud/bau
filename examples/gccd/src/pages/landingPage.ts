@@ -1,12 +1,21 @@
 import { Context } from "@grucloud/bau-ui/context";
+import infraList from "../components/infraList";
 
 export default function (context: Context) {
   const { bau, stores } = context;
-  const { div } = bau.tags;
+  const { section } = bau.tags;
+
+  const InfraList = infraList(context);
+
+  const onclickItem =
+    ({ id }: any) =>
+    () => {
+      debugger;
+      console.log("onclickItem", id);
+    };
 
   return function Main({}) {
-    console.log("Main");
     stores.infra.getAll();
-    return div({}, "Main");
+    return section({}, InfraList({ onclickItem }));
   };
 }

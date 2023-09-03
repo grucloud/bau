@@ -3,6 +3,8 @@ import logoutPage from "./pages/logoutPage";
 import landingPage from "./pages/landingPage";
 import profilePage from "./pages/profilePage";
 import accountDeletePage from "./pages/accountDeletePage";
+import infraStepperPage from "./pages/infraStepperPage";
+
 import layoutUnauthenticated from "./layoutUnauthenticated";
 
 import { type Context } from "@grucloud/bau-ui/context";
@@ -20,6 +22,13 @@ export const createRoutes = ({ context }: { context: Context }) => [
     action: () => ({
       title: "Dashboard",
       component: landingPage(context),
+    }),
+  },
+  {
+    path: "infra/create",
+    action: () => ({
+      title: "Create New Infrastructure",
+      component: infraStepperPage(context),
     }),
   },
   {

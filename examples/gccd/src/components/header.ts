@@ -85,12 +85,12 @@ export default function (context: Context) {
         `,
       },
       () =>
-        meQuery.data.val.picture
+        meQuery.data.val?.picture
           ? Avatar({
               src: meQuery.data.val.picture.url,
               alt: meQuery.data.val.email,
             })
-          : meQuery.data.val.email
+          : meQuery.data.val?.email
     );
 
   return function headerNav() {

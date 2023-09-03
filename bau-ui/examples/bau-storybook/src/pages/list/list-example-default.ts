@@ -12,7 +12,7 @@ export default (context: Context) => {
 
   const List = list(context);
 
-  const listItem = ({ code, label }: any) =>
+  const ListItem = ({ code, label }: any) =>
     li(
       {
         class: css`
@@ -26,6 +26,6 @@ export default (context: Context) => {
 
   return () =>
     section(
-      List({ variant: "outline", color: "primary" }, phoneCodes.map(listItem))
+      List({ variant: "outline", color: "primary" }, phoneCodes.map(ListItem))
     );
 };
