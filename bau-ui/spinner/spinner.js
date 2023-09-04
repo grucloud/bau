@@ -60,16 +60,16 @@ export default function (context, options = {}) {
   `;
 
   return function Spinner({
-    size = "md",
-    color = "primary",
-    variant = "outline",
+    size = options.size ?? "md",
+    color = options.color ?? "primary",
+    variant = options.variant ?? "outline",
     visibility = true,
     ...otherProps
   } = {}) {
     const className = css`
       visibility: hidden;
       opacity: 0;
-      transition: all 0.5s ease-in-out;
+      transition: all var(--transition-slow) ease-in-out;
       &.visibility {
         visibility: visible;
         opacity: 1;

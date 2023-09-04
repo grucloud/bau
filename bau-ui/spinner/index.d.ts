@@ -3,7 +3,7 @@ declare module "@grucloud/bau-ui/spinner" {
   type ComponentOption = import("../bau-ui").ComponentOption;
 
   export type SpinnerProps = {
-    visibility?: boolean;
+    visibility?: boolean | import("@grucloud/bau").State<boolean>;
   } & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<SpinnerProps>;

@@ -1,9 +1,10 @@
 import loginPage from "./pages/loginPage";
 import logoutPage from "./pages/logoutPage";
-import landingPage from "./pages/landingPage";
+import infrastructurePage from "./pages/infra/infraPage";
 import profilePage from "./pages/profilePage";
 import accountDeletePage from "./pages/accountDeletePage";
-import infraStepperPage from "./pages/infraStepperPage";
+import infraStepperPage from "./pages/infra/infraStepperPage";
+import infraDetailPage from "./pages/infra/infraDetailsPage";
 
 import layoutUnauthenticated from "./layoutUnauthenticated";
 
@@ -14,22 +15,31 @@ export const createRoutes = ({ context }: { context: Context }) => [
     path: "",
     action: () => ({
       title: "Dashboard",
-      component: landingPage(context),
+      component: infrastructurePage(context),
     }),
   },
   {
-    path: "dashboard",
+    path: "infra",
     action: () => ({
-      title: "Dashboard",
-      component: landingPage(context),
+      title: "Infrastructures",
+      component: infrastructurePage(context),
     }),
-  },
-  {
-    path: "infra/create",
-    action: () => ({
-      title: "Create New Infrastructure",
-      component: infraStepperPage(context),
-    }),
+    children: [
+      {
+        path: "create",
+        action: () => ({
+          title: "Create New Infrastructure",
+          component: infraStepperPage(context),
+        }),
+      },
+      {
+        path: "details/(?<id>.+)",
+        action: ({ match }: any) => ({
+          title: "Infrastructure Details",
+          component: () => infraDetailPage(context)({ id: match.groups.id }),
+        }),
+      },
+    ],
   },
   {
     path: "profile",

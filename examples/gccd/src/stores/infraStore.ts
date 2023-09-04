@@ -18,9 +18,7 @@ export default function (context: Context) {
     },
     getAllQuery,
     createQuery,
-    getById: async () => {
-      getByIdQuery.run();
-    },
+    getByIdQuery,
   };
 
   return infraStore;

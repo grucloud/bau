@@ -1,15 +1,15 @@
 import stepper, { type StepperPage } from "@grucloud/bau-ui/stepper";
 import { Context } from "@grucloud/bau-ui/context";
 
-import stepStepProviderSelection from "../components/infraSteps/stepProviderSelection";
+import stepStepProviderSelection from "../../components/infra/stepProviderSelection";
 //import importProject from "../components/infraSteps/importProject";
 
-import configAws from "../components/infraSteps/configAws";
-import configAzure from "../components/infraSteps/configAzure";
-import configGoogle from "../components/infraSteps/configGoogle";
-import infraSettings from "../components/infraSteps/infraSettings";
-import gitCredentialConfig from "../components/infraSteps/gitCredentialConfig";
-import gitRepositoryConfig from "../components/infraSteps/gitRepositoryConfig";
+import configAws from "../../components/infra/configAws";
+import configAzure from "../../components/infra/configAzure";
+import configGoogle from "../../components/infra/configGoogle";
+import infraSettings from "../../components/infra/infraSettings";
+import gitCredentialConfig from "../../components/infra/gitCredentialConfig";
+import gitRepositoryConfig from "../../components/infra/gitRepositoryConfig";
 
 export default (context: Context) => {
   const { bau, css, stores } = context;
