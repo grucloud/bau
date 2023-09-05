@@ -1,18 +1,20 @@
 import { Context } from "@grucloud/bau-ui/context";
 import button from "@grucloud/bau-ui/button";
 import spinner from "@grucloud/bau-ui/spinner";
-
+import paper from "@grucloud/bau-ui/paper";
 import infraList from "../../components/infra/infraList";
 
 export default function (context: Context) {
-  const { bau, stores, css } = context;
-  const { section, span, header } = bau.tags;
+  const { bau, stores, css, config } = context;
+  const { span, header } = bau.tags;
   const Button = button(context);
   const Spinner = spinner(context, { size: "lg" });
+  const Paper = paper(context);
 
   const InfraList = infraList(context);
 
   const className = css`
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -29,12 +31,16 @@ export default function (context: Context) {
 
   return function Main({}) {
     stores.infra.getAll();
-    return section(
+    return Paper(
       { class: className },
       header(
         span({ class: "title" }, "Infrastructure List"),
         Button(
-          { href: "infra/create", color: "primary", variant: "solid" },
+          {
+            href: `${config.base}/infra/create`,
+            color: "primary",
+            variant: "solid",
+          },
           "+ New Infrastructure"
         )
       ),

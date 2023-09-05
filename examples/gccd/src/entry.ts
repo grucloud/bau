@@ -12,6 +12,7 @@ import rest from "./rest";
 import config from "./config";
 import infraStores from "./stores/infraStore";
 import authStores from "./stores/authStore";
+import gitCredentialsStore from "./stores/gitCredentialsStore";
 
 const context = createContext({
   config,
@@ -28,6 +29,7 @@ context.stores = {
   //
   infra: infraStores(context),
   auth: authStores(context),
+  gitCredentials: gitCredentialsStore(context),
 };
 
 createStyles(context);

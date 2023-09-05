@@ -24,16 +24,14 @@ export default (context: Context) => {
   return function LogoutPage() {
     const { logout, logoutQuery } = stores.auth;
     logout();
-
     return Paper(
       Form(
-        {},
         header(
           img({ width: "100", src: `${config.base}/gc.svg` }),
           h1("Logout from Grucloud")
         ),
         section(() =>
-          logoutQuery.loading ? "Logout ..." : "Successfully logged out."
+          logoutQuery.loading.val ? "Logout ..." : "Successfully logged out."
         ),
         footer(
           Button(

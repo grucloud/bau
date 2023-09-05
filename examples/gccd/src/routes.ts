@@ -1,6 +1,6 @@
 import loginPage from "./pages/loginPage";
 import logoutPage from "./pages/logoutPage";
-import infrastructurePage from "./pages/infra/infraPage";
+import infrastructurePage from "./pages/infra/infraListPage";
 import profilePage from "./pages/profilePage";
 import accountDeletePage from "./pages/accountDeletePage";
 import infraStepperPage from "./pages/infra/infraStepperPage";

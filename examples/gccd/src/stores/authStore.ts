@@ -37,7 +37,7 @@ export default function (context: Context) {
     reset();
   };
 
-  const store = {
+  return {
     authenticated,
     meQuery,
     accountDeleteQuery,
@@ -55,6 +55,4 @@ export default function (context: Context) {
       }
     },
   };
-
-  return store;
 }

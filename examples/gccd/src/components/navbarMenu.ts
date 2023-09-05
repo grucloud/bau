@@ -3,7 +3,7 @@ import button from "@grucloud/bau-ui/button";
 import list from "@grucloud/bau-ui/list";
 
 export default function (context: Context) {
-  const { bau, css } = context;
+  const { bau, css, config } = context;
   const { nav, li } = bau.tags;
 
   const Button = button(context);
@@ -15,15 +15,19 @@ export default function (context: Context) {
     { name: "Logout", href: "logout" },
   ];
 
+  const className = css`
+    grid-area: navbar;
+    border-right: 1px solid var(--color-emphasis-100);
+  `;
+
   return function NavBarMenu() {
     return nav(
-      {
-        class: css`
-          grid-area: navbar;
-          border-right: 1px solid var(--color-emphasis-100);
-        `,
-      },
-      List(links.map(({ name, href }) => li(Button({ href }, name))))
+      { class: className },
+      List(
+        links.map(({ name, href }) =>
+          li(Button({ href: `${config.base}/${href}` }, name))
+        )
+      )
     );
   };
 }

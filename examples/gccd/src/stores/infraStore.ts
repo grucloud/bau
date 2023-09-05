@@ -8,6 +8,9 @@ export default function (context: Context) {
   const getAllQuery = query(() => rest.get("infra"));
   const createQuery = query((data: any) => rest.post("infra", data));
   const getByIdQuery = query((id: string) => rest.get(`infra/${id}`));
+  const scanQuery = query(({ id }: any) =>
+    rest.post(`cloudDiagram/`, { infra_id: id })
+  );
 
   const infraStore = {
     getAll: async () => {
@@ -19,6 +22,7 @@ export default function (context: Context) {
     getAllQuery,
     createQuery,
     getByIdQuery,
+    scanQuery,
   };
 
   return infraStore;

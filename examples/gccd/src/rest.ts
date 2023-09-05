@@ -1,7 +1,12 @@
 import { type Context } from "@grucloud/bau-ui/context";
+import alert from "@grucloud/bau-ui/alert";
 
 export default function (context: Context) {
-  const { config, window } = context;
+  const { bau, config, window } = context;
+  const { div } = bau.tags;
+  const Alert = alert(context, {
+    color: "danger",
+  });
 
   const headersDefault = {
     "Content-Type": "application/json",
@@ -34,26 +39,42 @@ export default function (context: Context) {
       if (response.ok) {
         const json = await response.json();
         return json;
+      } else if (
+        [401, 403].includes(response.status) &&
+        !window.location.pathname.includes("login")
+      ) {
+        history.pushState(
+          {},
+          "",
+          `${config.loginPath}?nextPath=${location.pathname}`
+        );
       } else {
-        if (
-          [401, 403].includes(response.status) &&
-          !window.location.pathname.includes("login")
-        ) {
-          history.pushState(
-            {},
-            "",
-            `${config.loginPath}?nextPath=${location.pathname}`
-          );
-        }
+        document.dispatchEvent(
+          new CustomEvent("alert.add", {
+            detail: {
+              Component: () =>
+                Alert(div(response.statusText), div(response.status)),
+            },
+          })
+        );
       }
     } catch (error: any) {
+      document.dispatchEvent(
+        new CustomEvent("alert.add", {
+          detail: {
+            Component: () => Alert(error.message),
+          },
+        })
+      );
       throw error;
-    } finally {
     }
   }
 
   return {
     get: (url: string, params = {}) => doFetch(url, "GET", undefined, params),
     post: (url: string, data = {}) => doFetch(url, "POST", data),
+    patch: (url: string, data = {}) => doFetch(url, "PATCH", data),
+    put: (url: string, data = {}) => doFetch(url, "PUT", data),
+    del: (url: string) => doFetch(url, "DELETE"),
   };
 }
