@@ -12,9 +12,11 @@ export default function (context) {
     & h1 {
       font-size: 56px;
       color: var(--color-primary);
+      line-height: 56px;
     }
     & h2 {
       font-size: 48px;
+      line-height: 48px;
     }
     & p {
       font-size: 24px;

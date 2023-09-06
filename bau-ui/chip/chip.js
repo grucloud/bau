@@ -12,6 +12,7 @@ export default function (context, options = {}) {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    vertical-align: middle;
     &.clickable {
       cursor: pointer;
     }
@@ -29,9 +30,9 @@ export default function (context, options = {}) {
   return function Chip(...args) {
     let [
       {
-        size = "md",
-        variant = "outline",
-        color = "neutral",
+        size = options.size ?? "md",
+        variant = options.variant ?? "outline",
+        color = options.color ?? "neutral",
         onclick,
         ...props
       },
@@ -45,9 +46,6 @@ export default function (context, options = {}) {
         class: classNames(
           "chip",
           options.class,
-          options.variant,
-          options.size,
-          options.color,
           size,
           variant,
           color,

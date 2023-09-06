@@ -13,7 +13,7 @@ export default function (context, options) {
     --table-border-width: 1px;
     --table-border-color: var(--color-emphasis-300);
     --table-head-background: inherit;
-    --table-head-color: inherit;
+    --table-head-color: var(--font-color-secondary);
     --table-cell-color: inherit;
   }
 
@@ -56,8 +56,7 @@ export default function (context, options) {
   const className = css`
     display: inline-block;
     border: 1px solid var(--color-emphasis-50);
-    box-shadow: var(--shadow-s);
-    border-radius: var(--global-radius);
+    width: fit-content;
   `;
 
   return function TableContainer(...args) {

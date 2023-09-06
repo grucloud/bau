@@ -109,11 +109,11 @@ export default function (
 export const createDocAppProp = async ({ context }) => {
   if (isProd()) {
     // Prod
-    const mainEls = document.getElementsByTagName("main");
+    const mainEl = document.getElementById("main-content");
     const breadcrumbsEl = document.querySelector("ul[data-breadcrumbs]");
     const paginationNavEl = document.querySelector("nav[data-paginationnav]");
     return {
-      contentHtml: mainEls[0].innerHTML,
+      contentHtml: mainEl.innerHTML,
       breadcrumbs: JSON.parse(breadcrumbsEl.dataset.breadcrumbs),
       paginationNav: JSON.parse(paginationNavEl.dataset.paginationnav),
     };

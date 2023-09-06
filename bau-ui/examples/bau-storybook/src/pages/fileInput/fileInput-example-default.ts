@@ -31,9 +31,7 @@ export default (context: Context) => {
             flex-direction: column;
             stroke: var(--font-color-base);
             fill: var(--font-color-base);
-            > * {
-              margin: 1rem;
-            }
+            gap: 1rem;
           `,
           disabled &&
             css`

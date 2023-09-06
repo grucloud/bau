@@ -1,4 +1,4 @@
-export type Variant = "plain" | "outline" | "soft" | "solid";
+export type Variant = "plain" | "outline" | "soft" | "solid" | "none";
 export type Size = "sm" | "md" | "lg";
 export type Color =
   | "primary"
