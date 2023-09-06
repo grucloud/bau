@@ -2,7 +2,7 @@
   "name": "@grucloud/bau-ui-storybook",
   "description": "Display the various BauUI components",
   "homepage": "https://grucloud.github.io/bau/bau-ui",
-  "version": "0.43.1",
+  "version": "0.43.2",
   "private": true,
   "type": "module",
   "license": "BSD",
@@ -25,7 +25,7 @@
     "@grucloud/bau": "^0.43.0",
     "@grucloud/bau-css": "^0.43.0",
     "@grucloud/bau-router": "^0.43.0",
-    "@grucloud/bau-ui": "^0.43.1",
+    "@grucloud/bau-ui": "^0.43.2",
     "highlight.js": "11.8.0"
   },
   "devDependencies": {
