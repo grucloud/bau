@@ -3,7 +3,7 @@ import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import button from "../button";
 import spinner from "../spinner";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css, keyframes } = context;
   const { span } = bau.tags;
 
@@ -38,7 +38,13 @@ export default function (context, options) {
 
   return function LoadingButton(...args) {
     let [
-      { color, variant = "plain", size = "md", loading, ...props },
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
+        loading,
+        ...props
+      },
       ...children
     ] = toPropsAndChildren(args);
 

@@ -5,7 +5,7 @@ import buttonGroup from "../buttonGroup/buttonGroup.js";
 
 import spinner from "../spinner/spinner.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { div } = bau.tags;
   const ButtonGroup = buttonGroup(context);
@@ -55,6 +55,9 @@ export default function (context, options) {
   return function TablePagination(...args) {
     let [
       {
+        size = options.size ?? "md",
+        variant = options.variant ?? "outline",
+        color = options.color ?? "neutral",
         count = 0,
         totalCount = 0,
         page = 1,
@@ -121,10 +124,8 @@ export default function (context, options) {
         : PagesNumbersNoTotal({ count, page, maxPages, rowsPerPage }),
 
       ButtonGroup(
-        { variant: "outline", color: "neutral" },
-        actions.map((action) =>
-          ActionButton({ ...action, variant: "outline", color: "neutral" })
-        )
+        { variant, color },
+        actions.map((action) => ActionButton({ ...action, variant, color }))
       )
     );
   };

@@ -70,14 +70,12 @@ export default function (context, options = {}) {
       size = options.size ?? "md",
       variant = options.variant ?? "outline",
       color = options.color ?? "neutral",
-      disabled,
       ...otherProps
     } = props;
 
     return input({
       type: "text",
       ...otherProps,
-      disabled,
       class: classNames(
         "input",
         options.class,
@@ -85,7 +83,6 @@ export default function (context, options = {}) {
         color,
         variant,
         className,
-        disabled && "disabled",
         otherProps.class
       ),
     });

@@ -2,7 +2,7 @@ import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import { Colors } from "../constants.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { input } = bau.tags;
 
@@ -29,8 +29,14 @@ export default function (context, options) {
   `;
 
   return function RadioButton(...args) {
-    let [{ color = "neutral", variant = "plain", size = "md", ...props }] =
-      toPropsAndChildren(args);
+    let [
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
+        ...props
+      },
+    ] = toPropsAndChildren(args);
 
     return input({
       ...props,

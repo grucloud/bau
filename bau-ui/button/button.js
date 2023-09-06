@@ -56,8 +56,16 @@ export default function (context, options = {}) {
   `;
 
   return function Button(...args) {
-    let [{ color, variant, size = "md", href, ...props }, ...children] =
-      toPropsAndChildren(args);
+    let [
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "none",
+        color = options.color ?? "none",
+        href,
+        ...props
+      },
+      ...children
+    ] = toPropsAndChildren(args);
 
     const tagButton = href ? bau.tags.a : bau.tags.button;
 
@@ -68,9 +76,6 @@ export default function (context, options = {}) {
         class: classNames(
           "button",
           options.class,
-          options.variant,
-          options.size,
-          options.color,
           variant,
           size,
           color,

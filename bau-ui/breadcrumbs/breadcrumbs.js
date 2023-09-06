@@ -2,8 +2,8 @@ import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 import button from "../button/button.js";
 
-export default function (context, options) {
-  const { bau, css } = context;
+export default function (context, options = {}) {
+  const { bau, css, config } = context;
   const { ul, li, span } = bau.tags;
 
   const Button = button(context);
@@ -42,7 +42,13 @@ export default function (context, options) {
 
   return function Breadcrumbs(...args) {
     let [
-      { color = "neutral", variant = "plain", size = "md", items, ...props },
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
+        items,
+        ...props
+      },
       ...children
     ] = toPropsAndChildren(args);
     return ul(
@@ -54,7 +60,7 @@ export default function (context, options) {
         li(
           (href ? Button : span)(
             {
-              href,
+              href: `${config.base}${href}`,
               color,
               variant,
               size,

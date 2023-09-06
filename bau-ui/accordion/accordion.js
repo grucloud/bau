@@ -19,7 +19,7 @@ const colorsToCss = () =>
 `
   ).join("\n");
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { div, ul, li, h3, button } = bau.tags;
 
@@ -69,8 +69,15 @@ export default function (context, options) {
   `;
 
   return function Accordion(...args) {
-    let [{ color, variant = "outline", size = "md", data = [], ...props }] =
-      toPropsAndChildren(args);
+    let [
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
+        data = [],
+        ...props
+      },
+    ] = toPropsAndChildren(args);
 
     const itemNameState = bau.state("");
 

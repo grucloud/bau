@@ -2,7 +2,7 @@ import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import { Colors } from "../constants.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css, keyframes } = context;
   const { div } = bau.tags;
 
@@ -60,7 +60,13 @@ export default function (context, options) {
 
   return function LinearProgress(...args) {
     let [
-      { color = "neutral", variant = "plain", size = "md", running, ...props },
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
+        running,
+        ...props
+      },
     ] = toPropsAndChildren(args);
 
     return div({

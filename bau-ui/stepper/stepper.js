@@ -10,7 +10,7 @@ const colorsToCss = () =>
 `
   ).join("\n");
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { div, ul, li, span } = bau.tags;
 

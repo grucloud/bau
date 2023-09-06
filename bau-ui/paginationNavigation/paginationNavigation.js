@@ -55,8 +55,15 @@ export default function (context, options) {
       );
 
   return function PaginationNavigation(...args) {
-    let [{ color, variant = "plain", size = "md", data = {}, ...props }] =
-      toPropsAndChildren(args);
+    let [
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
+        data = {},
+        ...props
+      },
+    ] = toPropsAndChildren(args);
     const { next, previous } = data;
     return nav(
       {

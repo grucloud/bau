@@ -115,8 +115,15 @@ export default function (context, options = {}) {
   };
 
   return function TableOfContent(...args) {
-    let [{ color, variant, size = "md", contentEl, ...props }] =
-      toPropsAndChildren(args);
+    let [
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
+        contentEl,
+        ...props
+      },
+    ] = toPropsAndChildren(args);
 
     const toc = createToc({ contentEl });
 

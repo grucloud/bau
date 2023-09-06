@@ -20,7 +20,7 @@ const colorsToCss = () =>
   `
   ).join("\n");
 
-export default function (context, componentOptions) {
+export default function (context, componentOptions = {}) {
   const { bau, css } = context;
   const { div, li } = bau.tags;
 
@@ -53,9 +53,9 @@ export default function (context, componentOptions) {
   return function AutoComplete(...args) {
     let [
       {
-        variant = "outline",
-        color,
-        size = "md",
+        size = componentOptions.size ?? "md",
+        variant = componentOptions.variant ?? "plain",
+        color = componentOptions.color ?? "neutral",
         id,
         label,
         placeholder,
