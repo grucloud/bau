@@ -1,7 +1,7 @@
 {
   "name": "@grucloud/bausaurus-core",
   "description": "core utilities for Bausarus",
-  "version": "0.43.0",
+  "version": "0.43.1",
   "type": "module",
   "license": "BSD",
   "files": [
@@ -20,7 +20,7 @@
   "dependencies": {
     "@grucloud/bau": "^0.43.0",
     "@grucloud/bau-css": "^0.43.0",
-    "@grucloud/bau-ui": "^0.43.0"
+    "@grucloud/bau-ui": "^0.43.1"
   },
   "repository": {
     "type": "git",
