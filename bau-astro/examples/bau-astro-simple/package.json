@@ -1,7 +1,7 @@
 {
   "name": "bau-astro-simple",
   "type": "module",
-  "version": "0.42.0",
+  "version": "0.43.0",
   "private": true,
   "scripts": {
     "dev": "astro dev",
@@ -11,8 +11,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.42.0",
-    "@grucloud/bau-astro": "^0.42.0",
+    "@grucloud/bau": "^0.43.0",
+    "@grucloud/bau-astro": "^0.43.0",
     "astro": "^2.9.5",
     "jsdom": "22.1.0"
   }
