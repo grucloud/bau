@@ -12,7 +12,7 @@ const colorsToCss = () =>
 `
   ).join("\n");
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { tabDefs } = options;
   const { div, ul, li } = bau.tags;
@@ -74,8 +74,15 @@ export default function (context, options) {
   `;
 
   return function Tabs(...args) {
-    let [{ color, variant = "plain", size, ...props }, ...children] =
-      toPropsAndChildren(args);
+    let [
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "outline",
+        color = options.color ?? "neutral",
+        ...props
+      },
+      ...children
+    ] = toPropsAndChildren(args);
 
     const tabsState = bau.state(tabDefs);
 

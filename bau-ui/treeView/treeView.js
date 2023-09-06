@@ -64,7 +64,7 @@ const createStyles = ({ css, createGlobalStyles }) => {
   };
 };
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css, createGlobalStyles } = context;
   const { renderMenuItem } = options;
   const { ul, li, nav, div } = bau.tags;
@@ -114,9 +114,9 @@ export default function (context, options) {
   return function TreeView({
     tree,
     maxDepth = Infinity,
-    size = "md",
-    variant = "plain",
-    color = "neutral",
+    size = options.size ?? "md",
+    variant = options.variant ?? "outline",
+    color = options.color ?? "neutral",
     ...otherProps
   }) {
     return nav(

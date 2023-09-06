@@ -1,7 +1,7 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { span, img } = bau.tags;
 
@@ -35,9 +35,9 @@ export default function (context, options) {
   return function Avatar(...args) {
     let [
       {
-        color,
-        variant = "outline",
-        size = "md",
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
         width = 40,
         height = 40,
         ...props

@@ -1,7 +1,7 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { div, span, label, input } = bau.tags;
 
@@ -50,9 +50,9 @@ export default function (context, options) {
 
   return function FileInput(props, ...children) {
     const {
-      variant = "outline",
-      color = "neutral",
-      size = "md",
+      size = options.size ?? "md",
+      variant = options.variant ?? "plain",
+      color = options.color ?? "neutral",
       Component,
       disabled,
       ...otherProps

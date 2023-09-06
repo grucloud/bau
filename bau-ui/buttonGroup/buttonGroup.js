@@ -27,7 +27,7 @@ const colorsToCss = () =>
 `
   ).join("\n");
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { div } = bau.tags;
 
@@ -47,8 +47,15 @@ export default function (context, options) {
   `;
 
   return function ButtonGroup(...args) {
-    let [{ variant = "outline", size = "md", color, ...props }, ...children] =
-      toPropsAndChildren(args);
+    let [
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
+        ...props
+      },
+      ...children
+    ] = toPropsAndChildren(args);
 
     return div(
       {

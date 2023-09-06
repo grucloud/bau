@@ -19,7 +19,7 @@ const colorsToCss = () =>
 `
   ).join("\n");
 
-export default function (context, componentOptions) {
+export default function (context, componentOptions = {}) {
   const { bau, css } = context;
   const { div, li, select, option } = bau.tags;
   const Button = button(context);
@@ -43,9 +43,9 @@ export default function (context, componentOptions) {
   return function Select(...args) {
     let [
       {
-        color = "neutral",
-        variant = "outline",
-        size = "md",
+        size = componentOptions.size ?? "md",
+        variant = componentOptions.variant ?? "plain",
+        color = componentOptions.color ?? "neutral",
         label,
         Option,
         options,

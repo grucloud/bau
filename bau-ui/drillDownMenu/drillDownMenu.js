@@ -213,9 +213,9 @@ export default function (context, options = {}) {
 
   return function DrillDownMenu(props) {
     const {
-      variant = "plain",
-      color = "neutral",
-      size = "md",
+      size = options.size ?? "md",
+      variant = options.variant ?? "plain",
+      color = options.color ?? "neutral",
       tree,
       ...otherProps
     } = props;

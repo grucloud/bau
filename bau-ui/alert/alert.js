@@ -75,9 +75,9 @@ export default function (context, options = {}) {
   return function Alert(...args) {
     let [
       {
-        color = options.color ?? "neutral",
+        size = options.size ?? "md",
         variant = options.variant ?? "outline",
-        size = "md",
+        color = options.color ?? "neutral",
         onRemove,
         ...props
       },
@@ -91,9 +91,6 @@ export default function (context, options = {}) {
           "alert",
           `alert-${variant}`,
           options.class,
-          options.variant,
-          options.size,
-          options.color,
           variant,
           color,
           size,

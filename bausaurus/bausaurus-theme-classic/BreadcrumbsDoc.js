@@ -1,7 +1,7 @@
 import breadcrumbs from "@grucloud/bau-ui/breadcrumbs/breadcrumbs.js";
 
 export default function (context) {
-  const { bau, css } = context;
+  const { css } = context;
 
   const Breadcrumbs = breadcrumbs(context);
 

@@ -1,7 +1,7 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css, window } = context;
   const { div } = bau.tags;
 
@@ -92,9 +92,9 @@ export default function (context, options) {
       {
         titleEl,
         side = "bottom-start",
-        color = "neutral",
-        variant = "outline",
-        size = "md",
+        size = options.size ?? "md",
+        variant = options.variant ?? "outline",
+        color = options.color ?? "neutral",
         ...props
       },
       ...children

@@ -1,7 +1,7 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { span } = bau.tags;
 
@@ -28,7 +28,13 @@ export default function (context, options) {
 
   return function Badge(...args) {
     let [
-      { color, variant = "outline", size = "md", content, ...props },
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
+        content,
+        ...props
+      },
       ...children
     ] = toPropsAndChildren(args);
     return span(

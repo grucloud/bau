@@ -14,7 +14,7 @@ const colorsToCss = () =>
 `
   ).join("\n");
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css, window } = context;
   const { input } = bau.tags;
 
@@ -95,8 +95,15 @@ export default function (context, options) {
   `;
 
   return function ThemeSwitch(...args) {
-    let [{ color, variant = "outline", size = "md", ...props }, ...children] =
-      toPropsAndChildren(args);
+    let [
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
+        ...props
+      },
+      ...children
+    ] = toPropsAndChildren(args);
 
     return input(
       {

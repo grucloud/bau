@@ -2,7 +2,7 @@ import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 import { Colors } from "../constants.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { input } = bau.tags;
 
@@ -22,7 +22,12 @@ export default function (context, options) {
 
   return function Slider(...args) {
     let [
-      { color = "neutral", variant = "outline", size, ...props },
+      {
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
+        ...props
+      },
       ...children
     ] = toPropsAndChildren(args);
 
@@ -36,7 +41,6 @@ export default function (context, options) {
           variant,
           size,
           className,
-
           options?.class,
           props.class
         ),

@@ -27,7 +27,7 @@ const colorsToCss = () =>
 `
   ).join("\n");
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { div } = bau.tags;
   const className = css`
@@ -47,9 +47,9 @@ export default function (context, options) {
   return function ToggleGroup(...args) {
     let [
       {
-        color,
-        variant = "plain",
-        size = "md",
+        size = options.size ?? "md",
+        variant = options.variant ?? "outline",
+        color = options.color ?? "neutral",
         exclusive = false,
         onChange = () => {},
         ...props

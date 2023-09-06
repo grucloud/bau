@@ -1,7 +1,7 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css, createGlobalStyles } = context;
   const { button } = bau.tags;
 
@@ -65,9 +65,9 @@ export default function (context, options) {
   return function Toggle(...args) {
     let [
       {
-        color,
-        variant,
-        size = "md",
+        size = options.size ?? "md",
+        variant = options.variant ?? "outline",
+        color = options.color ?? "neutral",
         selected = false,
         disabled,
         onChange,
