@@ -55,8 +55,7 @@ export default function (context: Context) {
     };
 
     const onclickScan = () => {
-      // TODO
-      scanQuery.run({ id: "" });
+      scanQuery.run({ id });
     };
 
     return Paper(

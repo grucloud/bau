@@ -25,7 +25,7 @@ export default (context: Context) => {
       const { repository } = event.target.elements;
       event.preventDefault();
       onclickGitRepository({
-        repository: repository.value,
+        url: repository.value,
       });
     };
 
@@ -36,17 +36,29 @@ export default (context: Context) => {
       },
       header(
         h1("Git Repository"),
-        p("Provide information about the git repository.")
+        p(
+          "Provide information about the git repository. The resources inventory and generated code are stored on your source code git repository."
+        )
       ),
       section(
         label(
           "Repository",
           Input({
             autofocus: true,
-            placeholder: "Git Repository",
+            placeholder:
+              "Git Repository URL: https://github.com/youruser/yourproject",
             name: "repository",
             minLength: 3,
-            maxLength: 128,
+            required: true,
+          })
+        ),
+        label(
+          "Branch",
+          Input({
+            autofocus: true,
+            placeholder: "Git Branch",
+            name: "branch",
+            minLength: 3,
             required: true,
           })
         )

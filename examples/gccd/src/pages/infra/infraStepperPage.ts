@@ -19,10 +19,9 @@ export default (context: Context) => {
   const InfraSettings = infraSettings(context);
   const ConfigAws = configAws(context);
   const ConfigAzure = configAzure(context);
+  const ConfigGoogle = configGoogle(context);
   const GitCredentialConfig = gitCredentialConfig(context);
   const GitRepositoryConfig = gitRepositoryConfig(context);
-
-  const ConfigGoogle = configGoogle(context);
 
   // const ImportProject = importProject(context);
 
@@ -66,16 +65,16 @@ export default (context: Context) => {
       activeStepIndex.val++;
     };
 
-    const onclickGitCredential = (cloudconfig: any) => {
-      //TODO
-      cloudconfig;
+    const onclickGitCredential = (gitCredential: any) => {
+      stores.gitCredentials.createQuery.run(gitCredential);
       activeStepIndex.val++;
     };
-    const onclickGitRepository = (cloudconfig: any) => {
-      //TODO
-      cloudconfig;
+
+    const onclickGitRepository = (gitRepository: any) => {
+      stores.gitRepository.createQuery.run(gitRepository);
       activeStepIndex.val++;
     };
+
     const ConfigPage = () => {
       switch (providerNameState.val) {
         case "AWS":

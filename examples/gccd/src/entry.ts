@@ -13,6 +13,7 @@ import config from "./config";
 import infraStores from "./stores/infraStore";
 import authStores from "./stores/authStore";
 import gitCredentialsStore from "./stores/gitCredentialsStore";
+import gitRepositoryStore from "./stores/gitRepositoryStore";
 
 const context = createContext({
   config,
@@ -26,10 +27,10 @@ document.getElementById("alert-stack")?.append(AlertStack());
 context.rest = rest(context);
 
 context.stores = {
-  //
   infra: infraStores(context),
   auth: authStores(context),
   gitCredentials: gitCredentialsStore(context),
+  gitRepository: gitRepositoryStore(context),
 };
 
 createStyles(context);
