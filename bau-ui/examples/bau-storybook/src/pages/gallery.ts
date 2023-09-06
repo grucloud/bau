@@ -185,6 +185,11 @@ export default (context: Context) => {
   ];
   return () =>
     section(
+      {
+        class: css`
+          overflow-y: scroll;
+        `,
+      },
       h1("Bau Component Gallery"),
       p("This page displays the components with various colors and variants."),
       ul(
