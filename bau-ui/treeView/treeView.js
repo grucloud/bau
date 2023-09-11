@@ -105,6 +105,7 @@ export default function (context, options = {}) {
         );
       return li(
         Collapsible({
+          size,
           Header,
           Content: children && depth < maxDepth && Content,
         })
