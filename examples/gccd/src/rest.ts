@@ -48,7 +48,7 @@ export default function (context: Context) {
           "",
           `${config.loginPath}?nextPath=${location.pathname}`
         );
-      } else {
+      } else if (![401, 403].includes(response.status)) {
         document.dispatchEvent(
           new CustomEvent("alert.add", {
             detail: {
