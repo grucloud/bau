@@ -25,6 +25,8 @@ import modalGridItem from "./modal/modal-grid-item";
 import radioButtonGridItem from "./radioButton/radioButton-grid-item";
 
 import selectItem from "./select/select-grid-item";
+import selectNativeItem from "./selectNative/select-native-grid-item";
+
 import sliderItem from "./slider/slider-grid-item";
 import spinnerItem from "./spinner/spinner-grid-item";
 import createSwitchItem from "./switch/switch-grid-item";
@@ -141,6 +143,10 @@ export default (context: Context) => {
     {
       name: "Select",
       Item: selectItem(context),
+    },
+    {
+      name: "Select Native",
+      Item: selectNativeItem(context),
     },
     {
       name: "Slider",
