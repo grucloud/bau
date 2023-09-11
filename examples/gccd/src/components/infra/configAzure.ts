@@ -90,8 +90,9 @@ export default (context: Context) => {
                 autofocus: true,
                 placeholder: "Subscription Id",
                 name: "subscriptionId",
-                pattern: String.raw`\w{32,32}`,
-                title: "Length should be 32 characters.",
+                minLength: 32,
+                maxLength: 32,
+                size: 32,
                 required: true,
               })
             )
@@ -107,8 +108,9 @@ export default (context: Context) => {
                 autofocus: true,
                 placeholder: "Tenant Id",
                 name: "tenantId",
-                pattern: String.raw`\w{36,36}`,
-                title: "Length should be 36 characters.",
+                minLength: 32,
+                maxLength: 32,
+                size: 32,
                 required: true,
               })
             )
@@ -126,7 +128,8 @@ export default (context: Context) => {
             div(
               {
                 class: css`
-                  display: flex;
+                  display: inline-flex;
+                  flex-direction: column;
                   gap: 1rem;
                 `,
               },
@@ -136,8 +139,9 @@ export default (context: Context) => {
                   "data-input-azure-app-id": true,
                   placeholder: "App Id",
                   name: "appId",
-                  pattern: String.raw`\w{36,36}`,
-                  title: "Length should be 36 characters.",
+                  minLength: 36,
+                  maxLength: 36,
+                  size: 36,
                   required: true,
                 })
               ),
@@ -148,8 +152,9 @@ export default (context: Context) => {
                   type: "password",
                   placeholder: "Password",
                   name: "password",
-                  pattern: String.raw`\w{8,64}`,
-                  title: "Length should be greater than 8 and below 64",
+                  minLength: 8,
+                  maxLength: 64,
+                  size: 32,
                   required: true,
                 })
               )
