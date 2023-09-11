@@ -21,11 +21,11 @@ export default (context: Context) => {
     onclickGitCredential,
   }: any) {
     const onsubmit = (event: any) => {
-      const { username, password } = event.target.elements;
+      const { gitUsername, gitPassword } = event.target.elements;
       event.preventDefault();
       onclickGitCredential({
-        username: username.value,
-        password: password.value,
+        username: gitUsername.value,
+        password: gitPassword.value,
       });
     };
 
@@ -44,7 +44,7 @@ export default (context: Context) => {
           Input({
             autofocus: true,
             placeholder: "Git Username",
-            name: "username",
+            name: "gitUsername",
             minLength: 3,
             maxLength: 128,
             required: true,
@@ -54,7 +54,8 @@ export default (context: Context) => {
           "Git Personal Access Code or password",
           Input({
             placeholder: "Git Personal Access Code",
-            name: "password",
+            type: "password",
+            name: "gitPassword",
             minLength: 6,
             required: true,
           })
