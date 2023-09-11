@@ -1,7 +1,7 @@
 {
   "name": "@grucloud/bausaurus-theme-classic",
   "description": "Classic Theme for Bausarus",
-  "version": "0.43.3",
+  "version": "0.43.4",
   "type": "module",
   "license": "BSD",
   "files": [
@@ -26,8 +26,8 @@
   "dependencies": {
     "@grucloud/bau": "^0.43.0",
     "@grucloud/bau-css": "^0.43.0",
-    "@grucloud/bau-ui": "^0.43.3",
-    "@grucloud/bausaurus-core": "^0.43.3"
+    "@grucloud/bau-ui": "^0.43.4",
+    "@grucloud/bausaurus-core": "^0.43.4"
   },
   "repository": {
     "type": "git",
