@@ -44,7 +44,7 @@ export default function (context, componentOptions = {}) {
     let [
       {
         size = componentOptions.size ?? "md",
-        variant = componentOptions.variant ?? "plain",
+        variant = componentOptions.variant ?? "outline",
         color = componentOptions.color ?? "neutral",
         label,
         Option,
