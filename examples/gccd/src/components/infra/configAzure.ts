@@ -1,10 +1,11 @@
+import { Context } from "@grucloud/bau-ui/context";
 import input from "@grucloud/bau-ui/input";
 import form from "@grucloud/bau-ui/form";
 import buttonPrevious from "./buttonPrevious";
 import buttonsFooter from "./buttonsFooter";
 import buttonNext from "./buttonNext";
 
-import { Context } from "@grucloud/bau-ui/context";
+import selectAzureRegion from "./selectAzureRegion";
 
 export default (context: Context) => {
   const { bau, css } = context;
@@ -13,13 +14,13 @@ export default (context: Context) => {
   const ButtonPrevious = buttonPrevious(context);
   const ButtonNext = buttonNext(context);
   const ButtonsFooter = buttonsFooter(context);
-
+  const SelectAzureRegion = selectAzureRegion(context);
   const Input = input(context);
   const Form = form(context);
 
   return function ConfigAzure({ onclickPrevious, onclickCloudConfig }: any) {
     const onsubmit = (event: any) => {
-      const { subscriptionId, tenantId, appId, password } =
+      const { subscriptionId, tenantId, appId, password, region } =
         event.target.elements;
       event.preventDefault();
       onclickCloudConfig({
@@ -31,6 +32,7 @@ export default (context: Context) => {
           appId: appId.value,
           password: password.value,
         },
+        options: { region: region.value },
       });
     };
     const className = css`
@@ -159,7 +161,8 @@ export default (context: Context) => {
                 })
               )
             )
-          )
+          ),
+          li(h3("Region"), p("Select the region:"), SelectAzureRegion({}))
         )
       ),
       ButtonsFooter(ButtonPrevious({ onclick: onclickPrevious }), ButtonNext())

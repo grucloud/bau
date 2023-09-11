@@ -1,38 +1,46 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import chip from "@grucloud/bau-ui/chip";
-import list from "@grucloud/bau-ui/list";
+import tableContainer from "@grucloud/bau-ui/tableContainer";
 
 import providerLogo from "../providerLogo";
 
 export default function (context: Context) {
   const { bau, css, stores } = context;
-  const { div, li, span, a } = bau.tags;
+  const { div, span, a, table, tr, td } = bau.tags;
   const Chip = chip(context);
-  const List = list(context);
   const ProviderLogo = providerLogo(context);
+  const TableContainer = tableContainer(context, {
+    class: css`
+      max-width: 650px;
+    `,
+  });
 
   const ListItem = ({ id, name, providerName, providerAuth }: any) =>
-    li(
+    tr(
       {
         "data-infra-list-item-name": name,
       },
-      a(
-        {
-          href: `infra/details/${id}`,
-          class: css`
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            text-decoration: none;
-            color: var(--font-color);
-          `,
-        },
-        span(name),
-        ProviderLogo({ providerName }),
-        providerAuth && Chip(providerAuth.AWS_REGION)
-      )
+      td(
+        a(
+          {
+            href: `infra/details/${id}`,
+            class: css`
+              width: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 1rem;
+              color: var(--font-color);
+            `,
+          },
+          span(name)
+        )
+      ),
+      // TODO
+      //         {item.Jobs[0] && <ResourceStat stats={resourceStats(item.Jobs[0])} />}
+
+      td(ProviderLogo({ providerName })),
+      td(providerAuth.AWS_REGION && Chip(providerAuth.AWS_REGION))
     );
 
   const className = css``;
@@ -43,9 +51,7 @@ export default function (context: Context) {
       {
         class: className,
       },
-      () =>
-        data.val &&
-        List({ variant: "outline", color: "none" }, data.val.map(ListItem))
+      () => data.val && TableContainer({}, table(data.val.map(ListItem)))
     );
   };
 }

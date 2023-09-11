@@ -32,6 +32,7 @@ import paginationNavigationExamples from "./pages/paginationNavigation/paginatio
 import paperExamples from "./pages/paper/paper.examples";
 import radioButtonExamples from "./pages/radioButton/radioButton.examples";
 import selectExamples from "./pages/select/select.examples";
+import selectNativeExamples from "./pages/selectNative/select-native.examples";
 import sliderExamples from "./pages/slider/slider.examples";
 import spinnerExamples from "./pages/spinner/spinner.examples";
 import stepperExamples from "./pages/stepper/stepper.examples";
@@ -271,6 +272,13 @@ export const createRoutes = ({ context }) => [
         action: () => ({
           title: "Select",
           component: selectExamples(context),
+        }),
+      },
+      {
+        path: "selectNative",
+        action: () => ({
+          title: "Select Native",
+          component: selectNativeExamples(context),
         }),
       },
       {

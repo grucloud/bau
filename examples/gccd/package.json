@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "aws-regions": "cd scripts; node awsRegions.js",
+    "azure-regions": "cd scripts; node azureRegions.js"
   },
   "devDependencies": {
     "typescript": "^5.0.2",

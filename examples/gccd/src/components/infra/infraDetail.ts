@@ -12,8 +12,7 @@ import resourceTable from "./resourceTable";
 
 export default function (context: Context) {
   const { bau, css } = context;
-  const { section, table, tbody, th, tr, td, span } = bau.tags;
-  const { svg } = bau.tagsNS("http://www.w3.org/2000/svg");
+  const { div, section, table, tbody, th, tr, td, span } = bau.tags;
 
   const Chip = chip(context, { size: "sm" });
 
@@ -37,8 +36,8 @@ export default function (context: Context) {
     const svgContent = get("result.svg")(lastJob);
     const lives = get("result.list.result.results[0].results")(lastJob);
 
-    const svgEl = svg({});
-    svgEl.innerHTML = svgContent;
+    const svgContainerEl = div({});
+    svgContainerEl.innerHTML = svgContent;
 
     return section(
       {
@@ -80,7 +79,7 @@ export default function (context: Context) {
         )
       ),
       lives && ResourceTable(lives),
-      svgContent && svgEl
+      svgContent && svgContainerEl
     );
   };
 }
