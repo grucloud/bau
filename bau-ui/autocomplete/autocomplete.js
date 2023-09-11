@@ -24,11 +24,6 @@ export default function (context, componentOptions = {}) {
   const { bau, css } = context;
   const { div, li } = bau.tags;
 
-  const Popover = popover(context);
-  const Button = button(context);
-  const Input = input(context);
-  const List = list(context);
-
   const className = css`
     & button {
       &::after {
@@ -66,6 +61,11 @@ export default function (context, componentOptions = {}) {
       },
       ...children
     ] = toPropsAndChildren(args);
+
+    const Popover = popover(context);
+    const Button = button(context);
+    const Input = input(context, { variant, color, size });
+    const List = list(context);
 
     const selectedState = bau.state("");
     const inputState = bau.state("");
@@ -179,9 +179,6 @@ export default function (context, componentOptions = {}) {
       "aria-expanded": openState,
       oninput,
       onkeydown,
-      variant,
-      color,
-      size,
     });
 
     const Content = () =>

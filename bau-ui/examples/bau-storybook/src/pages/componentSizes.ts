@@ -4,7 +4,7 @@ import { Context } from "@grucloud/bau-ui/context";
 export default (context: Context) => {
   const { bau, css } = context;
   const { section } = bau.tags;
-  return function ComponentSizes({ Item }: any) {
+  return function ComponentSizes({ item }: any) {
     return section(
       {
         class: css`
@@ -15,14 +15,11 @@ export default (context: Context) => {
         `,
       },
       Sizes.map((size, index) =>
-        Item(
-          {
-            color: "success",
-            variant: "outline",
-            size,
-          },
-          { index }
-        )
+        item(context, {
+          color: "success",
+          variant: "outline",
+          size,
+        })({ index })
       )
     );
   };

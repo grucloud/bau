@@ -74,7 +74,7 @@ export default (context: Context) => {
         spec.gridItem &&
           Paper(
             ComponentSizes({
-              Item: spec.gridItem(context),
+              item: spec.gridItem,
             })
           ),
       ],

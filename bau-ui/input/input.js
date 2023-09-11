@@ -67,7 +67,7 @@ export default function (context, options = {}) {
 
   return function Input(props) {
     const {
-      size = options.size ?? "md",
+      // Use options to set the comonent size,
       variant = options.variant ?? "outline",
       color = options.color ?? "neutral",
       ...otherProps
@@ -79,7 +79,7 @@ export default function (context, options = {}) {
       class: classNames(
         "input",
         options.class,
-        size,
+        options.size ?? "md",
         color,
         variant,
         className,
