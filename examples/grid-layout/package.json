@@ -1,7 +1,7 @@
 {
   "name": "grid-layout",
   "private": true,
-  "version": "0.43.0",
+  "version": "0.44.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.43.0",
-    "@grucloud/bau-css": "^0.43.0"
+    "@grucloud/bau": "^0.44.0",
+    "@grucloud/bau-css": "^0.44.0"
   },
   "devDependencies": {
     "vite": "4.3.9"
