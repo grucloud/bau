@@ -17,7 +17,7 @@ export default (context: Context) => {
       Sizes.map((size, index) =>
         item(context, {
           size,
-        })({ color: "success", variant: "outline", size }, { size, index })
+        })({ color: "success", variant: "outline" }, { size, index })
       )
     );
   };
