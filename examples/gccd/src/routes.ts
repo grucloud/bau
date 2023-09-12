@@ -5,6 +5,7 @@ import profilePage from "./pages/profilePage";
 import accountDeletePage from "./pages/accountDeletePage";
 import infraStepperPage from "./pages/infra/infraStepperPage";
 import infraDetailPage from "./pages/infra/infraDetailsPage";
+import infraDestroyPage from "./pages/infra/infraDestroyPage";
 
 import layoutUnauthenticated from "./layoutUnauthenticated";
 
@@ -30,6 +31,13 @@ export const createRoutes = ({ context }: { context: Context }) => [
         action: () => ({
           title: "Create New Infrastructure",
           component: infraStepperPage(context),
+        }),
+      },
+      {
+        path: "details/(?<id>.+)/destroy",
+        action: ({ match }: any) => ({
+          title: "Destroy Infrastructure",
+          component: () => infraDestroyPage(context)({ id: match.groups.id }),
         }),
       },
       {

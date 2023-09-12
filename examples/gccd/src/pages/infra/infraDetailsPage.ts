@@ -8,10 +8,12 @@ import loadingButton from "@grucloud/bau-ui/loadingButton";
 import infraDetail from "../../components/infra/infraDetail";
 
 export default function (context: Context) {
-  const { bau, stores, css, window } = context;
+  const { bau, stores, css, window, config } = context;
   const { h1, header, div } = bau.tags;
 
   const ButtonEdit = button(context, { variant: "outline", color: "neutral" });
+  const ButtonDelete = button(context, { variant: "outline", color: "danger" });
+
   const Form = form(context);
   const Spinner = spinner(context, { size: "lg" });
   const InfraDetail = infraDetail(context);
@@ -70,7 +72,6 @@ export default function (context: Context) {
                 gap: 1rem;
               `,
             },
-            ButtonEdit({ onclick: onclickEdit }, "Edit"),
             LoadingButton(
               {
                 variant: "solid",
@@ -78,7 +79,12 @@ export default function (context: Context) {
                 loading: scanQuery.loading,
                 onclick: onclickScan,
               },
-              "SCAN"
+              "Scan"
+            ),
+            ButtonEdit({ onclick: onclickEdit }, "Edit"),
+            ButtonDelete(
+              { href: `${config.base}/infra/details/${id}/destroy` },
+              "Remove"
             )
           )
         ),

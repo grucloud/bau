@@ -15,7 +15,7 @@ export default function (context: Context) {
     `,
   });
 
-  const ListItem = ({ id, name, providerName, providerAuth }: any) =>
+  const ListItem = ({ id, name, providerName, options }: any) =>
     tr(
       {
         "data-infra-list-item-name": name,
@@ -40,7 +40,7 @@ export default function (context: Context) {
       //         {item.Jobs[0] && <ResourceStat stats={resourceStats(item.Jobs[0])} />}
 
       td(ProviderLogo({ providerName })),
-      td(providerAuth.AWS_REGION && Chip(providerAuth.AWS_REGION))
+      td(options?.region && Chip(options?.region))
     );
 
   const className = css``;

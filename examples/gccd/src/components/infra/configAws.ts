@@ -32,6 +32,7 @@ export default (context: Context) => {
           AWSSecretKey: secretKey.value,
           AWS_REGION: region.value,
         },
+        options: { region: region.value },
       });
     };
 

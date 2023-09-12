@@ -27,10 +27,10 @@ export default (context: Context) => {
         providerType: "azure",
         providerName: "azure",
         providerAuth: {
-          subscriptionId: subscriptionId.value,
-          tenantId: tenantId.value,
-          appId: appId.value,
-          password: password.value,
+          AZURE_SUBSCRIPTION_ID: subscriptionId.value,
+          AZURE_TENANT_ID: tenantId.value,
+          AZURE_CLIENT_ID: appId.value,
+          AZURE_CLIENT_SECRET: password.value,
         },
         options: { region: region.value },
       });
@@ -92,9 +92,9 @@ export default (context: Context) => {
                 autofocus: true,
                 placeholder: "Subscription Id",
                 name: "subscriptionId",
-                minLength: 32,
-                maxLength: 32,
-                size: 32,
+                minLength: 36,
+                maxLength: 36,
+                size: 36,
                 required: true,
               })
             )
@@ -110,9 +110,9 @@ export default (context: Context) => {
                 autofocus: true,
                 placeholder: "Tenant Id",
                 name: "tenantId",
-                minLength: 32,
-                maxLength: 32,
-                size: 32,
+                minLength: 36,
+                maxLength: 36,
+                size: 36,
                 required: true,
               })
             )
