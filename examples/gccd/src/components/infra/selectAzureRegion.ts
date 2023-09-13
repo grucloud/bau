@@ -21,7 +21,7 @@ export default (context: Context) => {
         optgroup(
           { label: group },
           regions.map(({ name, displayName }) =>
-            option({ value: name }, displayName)
+            option({ value: name, selected: props.value == name }, displayName)
           )
         )
       )

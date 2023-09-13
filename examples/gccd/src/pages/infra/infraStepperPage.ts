@@ -2,7 +2,6 @@ import stepper, { type StepperPage } from "@grucloud/bau-ui/stepper";
 import { Context } from "@grucloud/bau-ui/context";
 
 import stepStepProviderSelection from "../../components/infra/stepProviderSelection";
-//import importProject from "../components/infraSteps/importProject";
 
 import configAws from "../../components/infra/configAws";
 import configAzure from "../../components/infra/configAzure";
@@ -10,10 +9,11 @@ import configGoogle from "../../components/infra/configGoogle";
 import infraSettings from "../../components/infra/infraSettings";
 import gitCredentialConfig from "../../components/infra/gitCredentialConfig";
 import gitRepositoryConfig from "../../components/infra/gitRepositoryConfig";
+import stepperFinal from "../../components/infra/stepperFinal";
 
 export default (context: Context) => {
-  const { bau, css, stores } = context;
-  const { section, div, p } = bau.tags;
+  const { bau, css } = context;
+  const { section } = bau.tags;
   const Stepper = stepper(context);
   const StepProviderSelection = stepStepProviderSelection(context);
   const InfraSettings = infraSettings(context);
@@ -22,12 +22,33 @@ export default (context: Context) => {
   const ConfigGoogle = configGoogle(context);
   const GitCredentialConfig = gitCredentialConfig(context);
   const GitRepositoryConfig = gitRepositoryConfig(context);
-
-  // const ImportProject = importProject(context);
+  const StepperFinal = stepperFinal(context);
 
   const providerNameState = bau.state("");
   const activeStepIndex = bau.state(0);
+  /**
+    {
+        providerType: "aws",
+        providerName: "aws",
+        providerAuth: {
+          AWSAccessKeyId: "AAAAAAAAAAAAAAAAAAAAAAAA",
+          AWSSecretKey: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          AWS_REGION: "us-east-1",
+        },
+        options: { region: "us-east-1" },
+      }
+   */
+  let _cloudconfig: object;
+  /**
+   {
+      name: "my-infra",
+      environment: "dev"
+    }
+   */
   let _settings: object;
+  let _gitCredential: object;
+  let _gitRepository: object;
+
   // For testing
   // const providerNameState = bau.state("AWS");
   // const activeStepIndex = bau.state(1);
@@ -46,32 +67,23 @@ export default (context: Context) => {
       activeStepIndex.val++;
     };
 
-    // const onclickImportExistingInfra = () => {
-    //   activeStepIndex.val++;
-    // };
-
-    // const onclickImportFromTemplate = () => {
-    //   //TODO
-    //   activeStepIndex.val++;
-    // };
-
     const onclickSettings = (settings: any) => {
       _settings = settings;
       activeStepIndex.val++;
     };
 
-    const onclickCloudConfig = (cloudconfig: any) => {
-      stores.infra.createQuery.run({ ..._settings, ...cloudconfig });
+    const onclickCloudConfig = async (cloudconfig: any) => {
+      _cloudconfig = cloudconfig;
       activeStepIndex.val++;
     };
 
-    const onclickGitCredential = (gitCredential: any) => {
-      stores.gitCredentials.createQuery.run(gitCredential);
+    const onclickGitCredential = async (gitCredential: any) => {
+      _gitCredential = gitCredential;
       activeStepIndex.val++;
     };
 
     const onclickGitRepository = (gitRepository: any) => {
-      stores.gitRepository.createQuery.run(gitRepository);
+      _gitRepository = gitRepository;
       activeStepIndex.val++;
     };
 
@@ -93,27 +105,12 @@ export default (context: Context) => {
         name: "Provider Selection",
         Header,
         Content: () => StepProviderSelection({ onclickProvider }),
-        enter: async () => {
-          providerNameState.val = "";
-        },
       },
-      // {
-      //   name: "Import",
-      //   Header: () => "Import Project",
-      //   Content: () =>
-      //     ImportProject({
-      //       providerName: providerNameState.val,
-      //       onclickPrevious,
-      //       onclickImportExistingInfra,
-      //       onclickImportFromTemplate,
-      //     }),
-      // },
       {
         name: "Settings",
         Header,
         Content: () => InfraSettings({ onclickPrevious, onclickSettings }),
       },
-
       {
         name: "Configuration",
         Header: () => `Configuration ${providerNameState.val}`,
@@ -130,17 +127,18 @@ export default (context: Context) => {
         Content: () => GitRepositoryConfig({ onclickGitRepository }),
       },
       {
-        name: "Scan",
+        name: "Review",
         Header,
-        Content: () => div(p("My stepper 3 Content")),
+        Content: () =>
+          StepperFinal({
+            onclickGitRepository,
+            cloudconfig: _cloudconfig,
+            gitCredential: _gitCredential,
+            gitRepository: _gitRepository,
+            settings: _settings,
+          }),
       },
     ];
-
-    // const onclickNext = () => {
-    //   if (stepperDefs.length > activeStepIndex.val + 1) {
-    //     activeStepIndex.val++;
-    //   }
-    // };
 
     return section(
       {

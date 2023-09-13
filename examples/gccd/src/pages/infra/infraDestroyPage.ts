@@ -61,6 +61,7 @@ export default function (context: Context) {
             )
           ),
           Input({
+            autofocus: true,
             placeholder: "Type 'remove'",
             pattern: "remove",
             required: true,

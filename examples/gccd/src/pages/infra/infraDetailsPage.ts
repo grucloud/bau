@@ -52,7 +52,7 @@ export default function (context: Context) {
       window.history.pushState(
         state,
         "",
-        `${detail.id}/${detail.providerName || detail.providerType}/edit`
+        `${detail.id}/edit/${detail.providerType}`
       );
     };
 

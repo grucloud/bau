@@ -55,7 +55,7 @@ export default function (context, componentOptions = {}) {
       ...children
     ] = toPropsAndChildren(args);
 
-    const inputState = bau.state("");
+    const inputState = bau.state(props.value);
     const openState = bau.state(false);
     const itemIndexActive = bau.state(0);
 
@@ -167,6 +167,7 @@ export default function (context, componentOptions = {}) {
       option({ value: "" }, "--Select Category--"),
       options.map((opt) => option(getOptionLabel(opt)))
     );
+    selectEl.value = props.value;
 
     return div(
       {

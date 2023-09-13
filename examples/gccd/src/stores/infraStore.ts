@@ -9,6 +9,9 @@ export default function (context: Context) {
   const createQuery = query((data: any) => rest.post("infra", data));
   const getByIdQuery = query((id: string) => rest.get(`infra/${id}`));
   const destroyQuery = query((id: string) => rest.del(`infra/${id}`));
+  const patchQuery = query((id: string, data: any) =>
+    rest.patch(`infra/${id}`, data)
+  );
 
   const scanQuery = query(({ id }: any) =>
     rest.post(`cloudDiagram/`, { infra_id: id })
@@ -25,6 +28,7 @@ export default function (context: Context) {
     createQuery,
     getByIdQuery,
     destroyQuery,
+    patchQuery,
     scanQuery,
   };
 

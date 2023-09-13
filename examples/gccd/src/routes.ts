@@ -1,3 +1,4 @@
+import { type Context } from "@grucloud/bau-ui/context";
 import loginPage from "./pages/loginPage";
 import logoutPage from "./pages/logoutPage";
 import infrastructurePage from "./pages/infra/infraListPage";
@@ -5,11 +6,12 @@ import profilePage from "./pages/profilePage";
 import accountDeletePage from "./pages/accountDeletePage";
 import infraStepperPage from "./pages/infra/infraStepperPage";
 import infraDetailPage from "./pages/infra/infraDetailsPage";
+import infraDetailEditAwsPage from "./pages/infra/infraDetailEditAwsPage";
+import infraDetailEditAzurePage from "./pages/infra/infraDetailEditAzurePage";
+import infraDetailEditGooglePage from "./pages/infra/infraDetailEditGooglePage";
+
 import infraDestroyPage from "./pages/infra/infraDestroyPage";
-
 import layoutUnauthenticated from "./layoutUnauthenticated";
-
-import { type Context } from "@grucloud/bau-ui/context";
 
 export const createRoutes = ({ context }: { context: Context }) => [
   {
@@ -31,6 +33,30 @@ export const createRoutes = ({ context }: { context: Context }) => [
         action: () => ({
           title: "Create New Infrastructure",
           component: infraStepperPage(context),
+        }),
+      },
+      {
+        path: "details/(?<id>.+)/edit/aws",
+        action: ({ match }: any) => ({
+          title: "Edit AWS",
+          component: () =>
+            infraDetailEditAwsPage(context)({ id: match.groups.id }),
+        }),
+      },
+      {
+        path: "details/(?<id>.+)/edit/azure",
+        action: ({ match }: any) => ({
+          title: "Edit AWS",
+          component: () =>
+            infraDetailEditAzurePage(context)({ id: match.groups.id }),
+        }),
+      },
+      {
+        path: "details/(?<id>.+)/edit/google",
+        action: ({ match }: any) => ({
+          title: "Edit Google Cloud",
+          component: () =>
+            infraDetailEditGooglePage(context)({ id: match.groups.id }),
         }),
       },
       {

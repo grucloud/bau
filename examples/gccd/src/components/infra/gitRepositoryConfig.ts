@@ -22,10 +22,11 @@ export default (context: Context) => {
     onclickGitRepository,
   }: any) {
     const onsubmit = (event: any) => {
-      const { repository } = event.target.elements;
+      const { repository, branch } = event.target.elements;
       event.preventDefault();
       onclickGitRepository({
         url: repository.value,
+        branch: branch.value,
       });
     };
 
@@ -55,7 +56,6 @@ export default (context: Context) => {
         label(
           "Branch",
           Input({
-            autofocus: true,
             placeholder: "Git Branch",
             name: "branch",
             minLength: 3,

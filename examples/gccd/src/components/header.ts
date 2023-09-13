@@ -68,7 +68,7 @@ export default function (context: Context) {
             font-size: x-large;
           `,
         },
-        b(tr("GruCloud Platform"))
+        b(tr("GruCloud Console"))
       )
     );
 

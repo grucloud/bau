@@ -3,7 +3,7 @@ import classNames from "@grucloud/bau-css/classNames.js";
 
 export default function (context, options = {}) {
   const { bau, css } = context;
-  const { div, span, label, input } = bau.tags;
+  const { div, label, input } = bau.tags;
 
   const style = {
     base: css`
@@ -15,12 +15,6 @@ export default function (context, options = {}) {
         overflow: hidden;
         position: absolute;
         z-index: -1;
-      }
-      & .filename-display {
-        display: inline-block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
       & label {
         padding: 1rem;
@@ -51,7 +45,7 @@ export default function (context, options = {}) {
   return function FileInput(props, ...children) {
     const {
       size = options.size ?? "md",
-      variant = options.variant ?? "plain",
+      variant = options.variant ?? "outline",
       color = options.color ?? "neutral",
       Component,
       disabled,
@@ -73,8 +67,7 @@ export default function (context, options = {}) {
         },
         Component({ disabled }),
         input({ type: "file", disabled, ...otherProps })
-      ),
-      span({ class: "filename-display" })
+      )
     );
   };
 }
