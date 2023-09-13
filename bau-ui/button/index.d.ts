@@ -3,7 +3,6 @@ declare module "@grucloud/bau-ui/button" {
   type ComponentOption = import("../bau-ui").ComponentOption;
 
   type ButtonProps = {
-    disabled?: boolean;
     href?: string;
   } & DefaultDesignProps;
 
