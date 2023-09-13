@@ -1,17 +1,24 @@
 import { Context } from "@grucloud/bau-ui/context";
 import fileInput from "@grucloud/bau-ui/fileInput";
 import alert from "@grucloud/bau-ui/alert";
-type ConfigGoogleFormContentProp = { onConfig: (config: object) => void };
+import selectGoogleRegion from "./selectGoogleRegion";
+
+type ConfigGoogleFormContentProp = {
+  region?: string;
+  onConfig: (config: object) => void;
+};
 
 export default (context: Context) => {
   const { bau, config, css } = context;
-  const { section, div, ol, li, span, em, a, table, tbody, th, tr, td } =
+  const { section, div, ol, li, span, em, a, table, tbody, th, tr, td, label } =
     bau.tags;
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
-
+  const SelectGoogleRegion = selectGoogleRegion(context);
   const FileInput = fileInput(context);
   const Alert = alert(context, { color: "danger" });
   const className = css`
+    align-items: flex-start;
+
     & ol {
       & > li {
         padding: 0.3rem 0;
@@ -30,6 +37,10 @@ export default (context: Context) => {
             border-bottom: 1px solid var(--color-emphasis-100);
             padding: 0.5rem;
             text-align: left;
+          }
+          & th {
+            font-size: smaller;
+            color: var(--font-color-secondary);
           }
         `,
       },
@@ -62,6 +73,7 @@ export default (context: Context) => {
 
   return function configGoogleFormContent({
     onConfig,
+    region,
   }: ConfigGoogleFormContentProp) {
     const fileState = bau.state("No file selected");
     const contentState = bau.state({});
@@ -151,7 +163,9 @@ export default (context: Context) => {
       }),
       () => errorMessage.val && Alert(errorMessage.val),
       () =>
-        CredentialFile({ fileName: fileState.val, content: contentState.val })
+        CredentialFile({ fileName: fileState.val, content: contentState.val }),
+
+      label("Select the region:", SelectGoogleRegion({ value: region }))
     );
   };
 };

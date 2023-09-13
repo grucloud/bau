@@ -169,8 +169,7 @@ export default (context: Context) => {
         ),
         li(
           h3("Region"),
-          p("Select the region:"),
-          SelectAzureRegion({ value: region })
+          label("Select the region:", SelectAzureRegion({ value: region }))
         )
       )
     );

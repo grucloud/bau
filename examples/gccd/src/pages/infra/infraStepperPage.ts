@@ -119,18 +119,21 @@ export default (context: Context) => {
       {
         name: "Git Credentials",
         Header,
-        Content: () => GitCredentialConfig({ onclickGitCredential }),
+        Content: () =>
+          GitCredentialConfig({ onclickPrevious, onclickGitCredential }),
       },
       {
         name: "Git Repository",
         Header,
-        Content: () => GitRepositoryConfig({ onclickGitRepository }),
+        Content: () =>
+          GitRepositoryConfig({ onclickPrevious, onclickGitRepository }),
       },
       {
         name: "Review",
         Header,
         Content: () =>
           StepperFinal({
+            onclickPrevious,
             onclickGitRepository,
             cloudconfig: _cloudconfig,
             gitCredential: _gitCredential,

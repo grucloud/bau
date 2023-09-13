@@ -31,7 +31,12 @@ export default function (context: Context) {
 
     const onsubmit = async (event: any) => {
       event.preventDefault();
-      await stores.infra.patchQuery.run(id, _googleConfig);
+      const { region } = event.target.elements;
+
+      await stores.infra.patchQuery.run(id, {
+        ..._googleConfig,
+        options: { region: region.value },
+      });
       window.history.pushState("", "", `${config.base}/infra/details/${id}`);
     };
 
@@ -45,7 +50,11 @@ export default function (context: Context) {
           h1("Google Cloud Configuration"),
           p("Edit and Save the Google Cloud configuration.")
         ),
-        () => ConfigGoogleFormContent({ onConfig }),
+        () =>
+          ConfigGoogleFormContent({
+            onConfig,
+            region: getByIdQuery.data.val.options?.region,
+          }),
         ButtonsFooter(
           ButtonPrevious({ onclick: () => window.history.back() }),
           LoadingButtonSave(

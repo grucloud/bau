@@ -5,8 +5,7 @@ import { Context } from "@grucloud/bau-ui/context";
 import buttonsFooter from "./buttonsFooter";
 import buttonPrevious from "./buttonPrevious";
 
-import configGoogleFormContent from // googleFormElementToData,
-"./configGoogleFormContent";
+import configGoogleFormContent from "./configGoogleFormContent"; // googleFormElementToData,
 
 export default (context: Context) => {
   const { bau } = context;
@@ -23,11 +22,13 @@ export default (context: Context) => {
     const disabledState = bau.state(true);
 
     const onsubmit = (event: any) => {
+      const { region } = event.target.elements;
       event.preventDefault();
       onclickCloudConfig({
         providerType: "google",
         providerName: "google",
         providerAuth: { credentials: contentState.val },
+        options: { region: region.value },
       });
     };
 
@@ -48,13 +49,15 @@ export default (context: Context) => {
           disabledState.val = false;
         },
       }),
-      ButtonsFooter(ButtonPrevious({ onclick: onclickPrevious }), () =>
+      ButtonsFooter(
+        //
+        ButtonPrevious({ onclick: onclickPrevious }),
         Button(
           {
             type: "submit",
             variant: "outline",
             color: "primary",
-            disabled: disabledState.val,
+            disabled: disabledState,
           },
           "Next",
           i("\u25b6")

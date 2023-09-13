@@ -20,7 +20,7 @@ export default function (context, options = {}) {
       }
     }
     & section {
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
       gap: 1rem;
     }
