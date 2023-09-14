@@ -47,7 +47,7 @@ export default function (context, options) {
       } else {
         dialogEl.style.top =
           Math.max(0, rectAnchor.top - rectDialog.height) + "px";
-        if (rectDialog.height > rectAnchor.top) {
+        if (dialogEl.scrollHeight > rectAnchor.top) {
           dialogEl.style.height = rectAnchor.top + "px";
         }
       }
