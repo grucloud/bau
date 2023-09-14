@@ -32,6 +32,8 @@ export default function (context, componentOptions = {}) {
       }
     }
     & .content {
+      display: flex;
+      flex-direction: column;
       height: fit-content;
       & ul {
         border-width: 0px !important;
@@ -104,11 +106,7 @@ export default function (context, componentOptions = {}) {
     };
 
     const onclickButton = (event) => {
-      if (!openState.val) {
-        dialogOpen();
-      } else {
-        dialogClose();
-      }
+      popoverEl.open ? dialogClose() : dialogOpen();
     };
 
     const onclickItem =
