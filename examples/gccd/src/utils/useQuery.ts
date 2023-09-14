@@ -12,9 +12,13 @@ type Query = {
 export default function (context: Context) {
   const { bau } = context;
 
-  return function UseQuery(action: any): Query {
+  type UseQueryOptions = {
+    initialState: any;
+  };
+
+  return function UseQuery(action: any, options?: UseQueryOptions): Query {
     const loading = bau.state(false);
-    const data = bau.state("");
+    const data = bau.state(options?.initialState ?? "");
     const error = bau.state("");
 
     const run = async (...args: any[]) => {
