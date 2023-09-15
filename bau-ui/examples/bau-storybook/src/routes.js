@@ -48,337 +48,341 @@ import themeSwitchExamples from "./pages/themeSwitch/themeSwitch.examples";
 import treeViewExamples from "./pages/treeView/treeView.examples";
 import gallery from "./pages/gallery";
 
-export const createRoutes = ({ context }) => [
-  {
-    path: "",
-    action: (routerContext) => ({
-      title: "Bau UI",
-      component: landingPage(context),
-    }),
-  },
-  {
-    path: "GettingStarted",
-    action: (routerContext) => ({
-      title: "Getting Started",
-      component: gettingStarted(context),
-    }),
-  },
-  {
-    path: "components",
-    action: () => ({
-      title: "Component",
-      component: gallery(context),
-    }),
-    children: [
-      {
-        path: "accordion",
-        action: () => ({
-          title: "Accordion",
-          component: accordionExamples(context),
-        }),
-      },
-      {
-        path: "alert",
-        action: () => ({
-          title: "Alert",
-          component: alertExamples(context),
-        }),
-      },
-      {
-        path: "alertStack",
-        action: () => ({
-          title: "Alert Stack",
-          component: alertStackExamples(context),
-        }),
-      },
-      {
-        path: "animate",
-        action: () => ({
-          title: "Animate",
-          component: animateExamples(context),
-        }),
-      },
-      {
-        path: "autocomplete",
-        action: () => ({
-          title: "Autocomplete",
-          component: autocompleteExamples(context),
-        }),
-      },
-      {
-        path: "avatar",
-        action: () => ({
-          title: "Avatar",
-          component: avatarExamples(context),
-        }),
-      },
+export const createRoutes = ({ context }) => {
+  const Gallery = gallery(context);
 
-      {
-        path: "badge",
-        action: () => ({
-          title: "Badge",
-          component: badgeExamples(context),
-        }),
-      },
-      {
-        path: "breadcrumb",
-        action: () => ({
-          title: "Breadcrumb",
-          component: breadcrumbExamples(context),
-        }),
-      },
-      {
-        path: "button",
-        action: () => ({
-          title: "Button",
-          component: buttonExamples(context),
-        }),
-      },
-      {
-        path: "buttonGroup",
-        action: () => ({
-          title: "Button Group",
-          component: buttonGroupExamples(context),
-        }),
-      },
-      {
-        path: "calendar",
-        action: () => ({
-          title: "Calendar",
-          component: calendarExamples(context),
-        }),
-      },
-      {
-        path: "carousel",
-        action: () => ({
-          title: "Carousel",
-          component: carouselExamples(context),
-        }),
-      },
-      {
-        path: "chip",
-        action: () => ({
-          title: "Chip",
-          component: chipExamples(context),
-        }),
-      },
-      {
-        path: "checkbox",
-        action: () => ({
-          title: "Checkbox",
-          component: checkboxExamples(context),
-        }),
-      },
-      {
-        path: "collapsible",
-        action: () => ({
-          title: "Collapsible",
-          component: collapsibleExamples(context),
-        }),
-      },
-      {
-        path: "drawer",
-        action: () => ({
-          title: "Drawer",
-          component: drawerExamples(context),
-        }),
-      },
-      {
-        path: "drillDownMenu",
-        action: () => ({
-          title: "DrillDown Menu",
-          component: drillDownMenuExamples(context),
-        }),
-      },
-      {
-        path: "fileInput",
-        action: () => ({
-          title: "File Input",
-          component: fileInputExamples(context),
-        }),
-      },
-      {
-        path: "form",
-        action: () => ({
-          title: "Form",
-          component: formExamples(context),
-        }),
-      },
-      {
-        path: "input",
-        action: () => ({
-          title: "Input",
-          component: inputExamples(context),
-        }),
-      },
-      {
-        path: "linearProgress",
-        action: () => ({
-          title: "Linear Progress",
-          component: linearProgressExamples(context),
-        }),
-      },
-      {
-        path: "list",
-        action: () => ({
-          title: "List",
-          component: listExamples(context),
-        }),
-      },
-      {
-        path: "loadingButton",
-        action: () => ({
-          title: "Loading Button",
-          component: loadingButtonExamples(context),
-        }),
-      },
-      {
-        path: "modal",
-        action: () => ({
-          title: "Modal",
-          component: modalExamples(context),
-        }),
-      },
-      {
-        path: "paginationNavigation",
-        action: () => ({
-          title: "Pagination Navigation",
-          component: paginationNavigationExamples(context),
-        }),
-      },
-      {
-        path: "paper",
-        action: () => ({
-          title: "Paper",
-          component: paperExamples(context),
-        }),
-      }, //
-      {
-        path: "popover",
-        action: () => ({
-          title: "Popover",
-          component: popoverExamples(context),
-        }),
-      },
-      {
-        path: "radioButton",
-        action: () => ({
-          title: "Radio Button",
-          component: radioButtonExamples(context),
-        }),
-      },
-      {
-        path: "select",
-        action: () => ({
-          title: "Select",
-          component: selectExamples(context),
-        }),
-      },
-      {
-        path: "selectNative",
-        action: () => ({
-          title: "Select Native",
-          component: selectNativeExamples(context),
-        }),
-      },
-      {
-        path: "slider",
-        action: () => ({
-          title: "Slider",
-          component: sliderExamples(context),
-        }),
-      },
-      {
-        path: "spinner",
-        action: () => ({
-          title: "Spinner",
-          component: spinnerExamples(context),
-        }),
-      },
-      {
-        path: "stepper",
-        action: () => ({
-          title: "Stepper",
-          component: stepperExamples(context),
-        }),
-      },
-      {
-        path: "switch",
-        action: () => ({
-          title: "Switch",
-          component: switchExamples(context),
-        }),
-      },
-      {
-        path: "table",
-        action: () => ({
-          title: "Table",
-          component: tableExamples(context),
-        }),
-      },
-      {
-        path: "tableOfContent",
-        action: () => ({
-          title: "Table",
-          component: tableOfContentExamples(context),
-        }),
-      },
-      {
-        path: "tablePagination",
-        action: () => ({
-          title: "Table Pagination",
-          component: tablePaginationExamples(context),
-        }),
-      },
-      {
-        path: "tabs",
-        action: () => ({
-          title: "Tabs",
-          component: tabsExamples(context),
-        }),
-      },
-      {
-        path: "toggle",
-        action: () => ({
-          title: "Toggle",
-          component: toggleExamples(context),
-        }),
-      },
-      {
-        path: "toggleGroup",
-        action: () => ({
-          title: "Toggle Group",
-          component: toggleGroupExamples(context),
-        }),
-      },
-      {
-        path: "tooltip",
-        action: () => ({
-          title: "Tooltip",
-          component: tooltipExamples(context),
-        }),
-      },
-      {
-        path: "themeSwitch",
-        action: () => ({
-          title: "Theme Switch",
-          component: themeSwitchExamples(context),
-        }),
-      },
-      {
-        path: "treeView",
-        action: () => ({
-          title: "Tree View",
-          component: treeViewExamples(context),
-        }),
-      },
-    ],
-  },
-  {
-    path: "pages",
-    action: (routerContext) => ({
-      title: "Pages",
-      component: pagesList(context),
-    }),
-  },
-];
+  return [
+    {
+      path: "",
+      action: (routerContext) => ({
+        title: "Bau UI",
+        component: landingPage(context),
+      }),
+    },
+    {
+      path: "GettingStarted",
+      action: (routerContext) => ({
+        title: "Getting Started",
+        component: gettingStarted(context),
+      }),
+    },
+    {
+      path: "components",
+      action: () => ({
+        title: "Component",
+        component: Gallery,
+      }),
+      children: [
+        {
+          path: "accordion",
+          action: () => ({
+            title: "Accordion",
+            component: accordionExamples(context),
+          }),
+        },
+        {
+          path: "alert",
+          action: () => ({
+            title: "Alert",
+            component: alertExamples(context),
+          }),
+        },
+        {
+          path: "alertStack",
+          action: () => ({
+            title: "Alert Stack",
+            component: alertStackExamples(context),
+          }),
+        },
+        {
+          path: "animate",
+          action: () => ({
+            title: "Animate",
+            component: animateExamples(context),
+          }),
+        },
+        {
+          path: "autocomplete",
+          action: () => ({
+            title: "Autocomplete",
+            component: autocompleteExamples(context),
+          }),
+        },
+        {
+          path: "avatar",
+          action: () => ({
+            title: "Avatar",
+            component: avatarExamples(context),
+          }),
+        },
+
+        {
+          path: "badge",
+          action: () => ({
+            title: "Badge",
+            component: badgeExamples(context),
+          }),
+        },
+        {
+          path: "breadcrumb",
+          action: () => ({
+            title: "Breadcrumb",
+            component: breadcrumbExamples(context),
+          }),
+        },
+        {
+          path: "button",
+          action: () => ({
+            title: "Button",
+            component: buttonExamples(context),
+          }),
+        },
+        {
+          path: "buttonGroup",
+          action: () => ({
+            title: "Button Group",
+            component: buttonGroupExamples(context),
+          }),
+        },
+        {
+          path: "calendar",
+          action: () => ({
+            title: "Calendar",
+            component: calendarExamples(context),
+          }),
+        },
+        {
+          path: "carousel",
+          action: () => ({
+            title: "Carousel",
+            component: carouselExamples(context),
+          }),
+        },
+        {
+          path: "chip",
+          action: () => ({
+            title: "Chip",
+            component: chipExamples(context),
+          }),
+        },
+        {
+          path: "checkbox",
+          action: () => ({
+            title: "Checkbox",
+            component: checkboxExamples(context),
+          }),
+        },
+        {
+          path: "collapsible",
+          action: () => ({
+            title: "Collapsible",
+            component: collapsibleExamples(context),
+          }),
+        },
+        {
+          path: "drawer",
+          action: () => ({
+            title: "Drawer",
+            component: drawerExamples(context),
+          }),
+        },
+        {
+          path: "drillDownMenu",
+          action: () => ({
+            title: "DrillDown Menu",
+            component: drillDownMenuExamples(context),
+          }),
+        },
+        {
+          path: "fileInput",
+          action: () => ({
+            title: "File Input",
+            component: fileInputExamples(context),
+          }),
+        },
+        {
+          path: "form",
+          action: () => ({
+            title: "Form",
+            component: formExamples(context),
+          }),
+        },
+        {
+          path: "input",
+          action: () => ({
+            title: "Input",
+            component: inputExamples(context),
+          }),
+        },
+        {
+          path: "linearProgress",
+          action: () => ({
+            title: "Linear Progress",
+            component: linearProgressExamples(context),
+          }),
+        },
+        {
+          path: "list",
+          action: () => ({
+            title: "List",
+            component: listExamples(context),
+          }),
+        },
+        {
+          path: "loadingButton",
+          action: () => ({
+            title: "Loading Button",
+            component: loadingButtonExamples(context),
+          }),
+        },
+        {
+          path: "modal",
+          action: () => ({
+            title: "Modal",
+            component: modalExamples(context),
+          }),
+        },
+        {
+          path: "paginationNavigation",
+          action: () => ({
+            title: "Pagination Navigation",
+            component: paginationNavigationExamples(context),
+          }),
+        },
+        {
+          path: "paper",
+          action: () => ({
+            title: "Paper",
+            component: paperExamples(context),
+          }),
+        }, //
+        {
+          path: "popover",
+          action: () => ({
+            title: "Popover",
+            component: popoverExamples(context),
+          }),
+        },
+        {
+          path: "radioButton",
+          action: () => ({
+            title: "Radio Button",
+            component: radioButtonExamples(context),
+          }),
+        },
+        {
+          path: "select",
+          action: () => ({
+            title: "Select",
+            component: selectExamples(context),
+          }),
+        },
+        {
+          path: "selectNative",
+          action: () => ({
+            title: "Select Native",
+            component: selectNativeExamples(context),
+          }),
+        },
+        {
+          path: "slider",
+          action: () => ({
+            title: "Slider",
+            component: sliderExamples(context),
+          }),
+        },
+        {
+          path: "spinner",
+          action: () => ({
+            title: "Spinner",
+            component: spinnerExamples(context),
+          }),
+        },
+        {
+          path: "stepper",
+          action: () => ({
+            title: "Stepper",
+            component: stepperExamples(context),
+          }),
+        },
+        {
+          path: "switch",
+          action: () => ({
+            title: "Switch",
+            component: switchExamples(context),
+          }),
+        },
+        {
+          path: "table",
+          action: () => ({
+            title: "Table",
+            component: tableExamples(context),
+          }),
+        },
+        {
+          path: "tableOfContent",
+          action: () => ({
+            title: "Table",
+            component: tableOfContentExamples(context),
+          }),
+        },
+        {
+          path: "tablePagination",
+          action: () => ({
+            title: "Table Pagination",
+            component: tablePaginationExamples(context),
+          }),
+        },
+        {
+          path: "tabs",
+          action: () => ({
+            title: "Tabs",
+            component: tabsExamples(context),
+          }),
+        },
+        {
+          path: "toggle",
+          action: () => ({
+            title: "Toggle",
+            component: toggleExamples(context),
+          }),
+        },
+        {
+          path: "toggleGroup",
+          action: () => ({
+            title: "Toggle Group",
+            component: toggleGroupExamples(context),
+          }),
+        },
+        {
+          path: "tooltip",
+          action: () => ({
+            title: "Tooltip",
+            component: tooltipExamples(context),
+          }),
+        },
+        {
+          path: "themeSwitch",
+          action: () => ({
+            title: "Theme Switch",
+            component: themeSwitchExamples(context),
+          }),
+        },
+        {
+          path: "treeView",
+          action: () => ({
+            title: "Tree View",
+            component: treeViewExamples(context),
+          }),
+        },
+      ],
+    },
+    {
+      path: "pages",
+      action: (routerContext) => ({
+        title: "Pages",
+        component: pagesList(context),
+      }),
+    },
+  ];
+};

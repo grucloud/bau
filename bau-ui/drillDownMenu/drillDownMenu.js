@@ -10,7 +10,7 @@ const treeAddParent =
   ({ parent, grandParent }) =>
   (tree) => {
     const { children, ...othersTreeProps } = tree;
-    const result = structuredClone(othersTreeProps);
+    const result = { ...othersTreeProps };
     result.children = children?.map(
       treeAddParent({ parent: tree, grandParent: parent })
     );
@@ -175,41 +175,74 @@ export default function (context, options = {}) {
       }
     }
   `;
+  const renderListDefault = ({
+    children,
+    pathnameState,
+    variant,
+    color,
+    size,
+  }) =>
+    List(
+      { class: cn(variant, color, size) },
+      children.map((subTree) =>
+        li(
+          {
+            class: () =>
+              cn(
+                subTree.children && "has-children",
+                isActive({ pathname: pathnameState.val, subTree }) && "active"
+              ),
+          },
+          renderMenuItem({ variant, color, size, subTree })
+        )
+      )
+    );
 
   const Menu = ({ variant, color, size, currentTree, pathnameState }) => {
-    const { children, parentTree, data } = currentTree;
+    const { children, parentTree, data, renderList } = currentTree;
+    if (renderList) {
+    }
     return div(
       { class: cn("drillDownMenu", variant, color, size) },
       parentTree && renderHeader({ variant, color, size, data, currentTree }),
-      children &&
-        List(
-          { class: cn(variant, color, size) },
-          children.map((subTree) =>
-            li(
-              {
-                class: () =>
-                  cn(
-                    subTree.children && "has-children",
-                    isActive({ pathname: pathnameState.val, subTree }) &&
-                      "active"
-                  ),
-              },
-              renderMenuItem({ variant, color, size, subTree })
-            )
-          )
-        )
+      children && renderList
+        ? renderList({
+            renderListDefault,
+            children,
+            pathnameState,
+            variant,
+            color,
+            size,
+          })
+        : renderListDefault({ children, pathnameState, variant, color, size })
     );
   };
 
   const findInitialTree = ({ tree, pathname }) => {
-    let currentTree = treeAddParent({})(structuredClone(tree));
+    let currentTree = treeAddParent({})({ ...tree });
     let subTree = findSubTree(pathname)(currentTree);
     if (!subTree) {
-      console.error("drilldown no sub tree", pathname);
+      // console.error("drilldown no sub tree", pathname);
       subTree = currentTree;
     }
     return subTree;
   };
+
+  const pathnameState = bau.state(
+    window.location.pathname.replace(baseUrl, "")
+  );
+
+  window.document.addEventListener("click", (event) => {
+    const { target } = event;
+    const href = target.getAttribute("href");
+    if (target.tagName === "A" && href && !href.startsWith("http")) {
+      let path = href.replace(baseUrl, "");
+      if (!hashBased) {
+        path = path.replace(target.hash, "");
+      }
+      pathnameState.val = path;
+    }
+  });
 
   return function DrillDownMenu(props) {
     const {
@@ -219,28 +252,13 @@ export default function (context, options = {}) {
       tree,
       ...otherProps
     } = props;
-
-    const pathnameState = bau.state(
-      window.location.pathname.replace(baseUrl, "")
-    );
-
-    const treeState = bau.derive(() =>
-      findInitialTree({
+    let _currentTree;
+    let currentTreeState = bau.derive(() => {
+      _currentTree = findInitialTree({
         tree,
         pathname: pathnameState.val,
-      })
-    );
-
-    window.document.addEventListener("click", (event) => {
-      const { target } = event;
-      const href = target.getAttribute("href");
-      if (target.tagName === "A" && href && !href.startsWith("http")) {
-        let path = href.replace(baseUrl, "");
-        if (!hashBased) {
-          path = path.replace(target.hash, "");
-        }
-        pathnameState.val = path;
-      }
+      });
+      return _currentTree;
     });
 
     let direction = 1;
@@ -295,14 +313,17 @@ export default function (context, options = {}) {
           animationHide: () => animationHide(direction),
           animationShow: () => animationShow(direction),
         },
-        () =>
-          Menu({
-            variant,
-            color,
-            size,
-            currentTree: treeState.val,
-            pathnameState,
-          })
+        bau.bind({
+          deps: [currentTreeState],
+          render: () => () =>
+            Menu({
+              variant,
+              color,
+              size,
+              currentTree: _currentTree,
+              pathnameState,
+            }),
+        })
       )
     );
   };

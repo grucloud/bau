@@ -67,7 +67,7 @@ export default function (context, options = {}) {
 
   return function Input(props) {
     const {
-      // Use options to set the comonent size,
+      // Use options to set the component size,
       variant = options.variant ?? "outline",
       color = options.color ?? "neutral",
       ...otherProps

@@ -31,6 +31,7 @@ export default function (context, options = {}) {
     user-select: none;
     transition: all var(--transition-slow);
     box-sizing: border-box;
+    cursor: pointer;
     &.selected {
       background-color: var(--toggle-background-color);
     }
