@@ -1,6 +1,30 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 
+import { Colors } from "../constants.js";
+
+const colorsToCss = () =>
+  Colors.map(
+    (color) =>
+      `
+&.button.plain.${color} {
+  &:focus {
+    outline: 4px auto var(--color-${color});
+  };
+}
+&.button.outline.${color} {
+  &:focus {
+    outline: 4px auto var(--color-${color});
+  };
+}
+&.button.solid.${color} {
+  &:focus {
+    outline: 4px auto var(--color-${color}-lightest);
+  };
+}
+`
+  ).join("\n");
+
 export default function (context, options = {}) {
   const { bau, css } = context;
 
@@ -26,6 +50,7 @@ export default function (context, options = {}) {
     &.solid {
       box-shadow: var(--shadow-m);
     }
+
     &.outline:hover,
     &.solid:hover {
       box-shadow: var(--shadow-lg);
@@ -48,11 +73,12 @@ export default function (context, options = {}) {
       padding: 0.2rem 0.8rem;
     }
     &.lg {
-      padding: 0.2rem 2rem;
+      padding: 0.4rem 2rem;
     }
     & i {
       font-style: normal;
     }
+    ${colorsToCss()}
   `;
 
   return function Button(...args) {

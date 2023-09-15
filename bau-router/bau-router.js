@@ -53,8 +53,12 @@ export default function Router({ routes, notFoundRoute, onLocationChange }) {
     //console.log("popstate");
     //if (event.state != null) {
     // Back or Next button and not an in page navigation
-    onLocationChange({ router });
+    //onLocationChange({ router });
     // }
+    if (event.state != null) {
+      // Back or Next button and not an in page navigation
+      onLocationChange({ router });
+    }
   });
 
   window.history.pushState = new Proxy(window.history.pushState, {

@@ -7,6 +7,9 @@ import autocompleteDefault from "./autocomplete-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./autocomplete-example-default.ts?raw";
 
+import autocompleteLoading from "./autocomplete-loading.ts";
+// @ts-ignore
+import codeExampleLoading from "./autocomplete-loading.ts?raw";
 export const autocompleteSpec = {
   title: "Auto Complete",
   package: "autocomplete",
@@ -17,10 +20,16 @@ export const autocompleteSpec = {
   importStatement: `import autocomplete from "@grucloud/bau-ui/autocomplete";`,
   examples: [
     {
-      title: "Default",
+      title: "Basic",
       description: "A simple autocomplete.",
       code: codeExampleDefault,
       createComponent: autocompleteDefault,
+    },
+    {
+      title: "Loading Indicator",
+      description: "A autocomplete with a loading indicator.",
+      code: codeExampleLoading,
+      createComponent: autocompleteLoading,
     },
   ],
   gridItem: autocompleteGridItem,

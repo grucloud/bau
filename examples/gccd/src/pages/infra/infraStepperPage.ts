@@ -25,7 +25,7 @@ export default (context: Context) => {
   const StepperFinal = stepperFinal(context);
 
   const providerNameState = bau.state("");
-  const activeStepIndex = bau.state(0);
+  const activeStepIndex = bau.state(4);
   /**
     {
         providerType: "aws",
@@ -46,7 +46,10 @@ export default (context: Context) => {
     }
    */
   let _settings: object;
-  let _gitCredential: object;
+  //  let _gitCredential: object;
+  let _gitCredential = {
+    username: "fredericheem",
+  };
   let _gitRepository: object;
 
   // For testing
@@ -126,7 +129,11 @@ export default (context: Context) => {
         name: "Git Repository",
         Header,
         Content: () =>
-          GitRepositoryConfig({ onclickPrevious, onclickGitRepository }),
+          GitRepositoryConfig({
+            onclickPrevious,
+            onclickGitRepository,
+            gitCredential: _gitCredential,
+          }),
       },
       {
         name: "Review",

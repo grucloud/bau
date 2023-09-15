@@ -5,7 +5,7 @@ import { Context } from "@grucloud/bau-ui/context";
 import buttonsFooter from "./buttonsFooter";
 import buttonPrevious from "./buttonPrevious";
 
-import configGoogleFormContent from "./configGoogleFormContent"; // googleFormElementToData,
+import configGoogleFormContent from "./configGoogleFormContent";
 
 export default (context: Context) => {
   const { bau } = context;
@@ -50,7 +50,6 @@ export default (context: Context) => {
         },
       }),
       ButtonsFooter(
-        //
         ButtonPrevious({ onclick: onclickPrevious }),
         Button(
           {

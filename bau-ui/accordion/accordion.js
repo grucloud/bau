@@ -81,7 +81,7 @@ export default function (context, options = {}) {
 
     const itemNameState = bau.state("");
 
-    const Collapsible = collapsible(context);
+    const Collapsible = collapsible(context, { size, variant, color });
 
     const onclick = (name) => (event) => {
       if (itemNameState.val == name) {

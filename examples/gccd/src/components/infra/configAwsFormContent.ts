@@ -38,6 +38,7 @@ export default (context: Context) => {
       label(
         "Access Key Id",
         Input({
+          autofocus: true,
           placeholder: "Access Key Id",
           name: "AWSAccessKeyId",
           defaultValue: AWSAccessKeyId,

@@ -14,6 +14,7 @@ import infraStores from "./stores/infraStore";
 import authStores from "./stores/authStore";
 import gitCredentialsStore from "./stores/gitCredentialsStore";
 import gitRepositoryStore from "./stores/gitRepositoryStore";
+import gitHubStore from "./stores/gitHubStore";
 
 const context = createContext({
   config,
@@ -31,6 +32,7 @@ context.stores = {
   auth: authStores(context),
   gitCredentials: gitCredentialsStore(context),
   gitRepository: gitRepositoryStore(context),
+  gitHub: gitHubStore(context),
 };
 
 createStyles(context);

@@ -2,12 +2,12 @@ import tooltip from "@grucloud/bau-ui/tooltip";
 import button from "@grucloud/bau-ui/button";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context, options: any) => {
   const { bau } = context;
   const { div, p, em } = bau.tags;
   const Button = button(context);
 
-  const Tooltip = tooltip(context);
+  const Tooltip = tooltip(context, options);
 
   const TooltipContent = () =>
     div(p("A ", em("tooltip"), " can be any component"));

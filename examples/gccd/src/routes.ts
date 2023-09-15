@@ -9,6 +9,7 @@ import infraDetailPage from "./pages/infra/infraDetailsPage";
 import infraDetailEditAwsPage from "./pages/infra/infraDetailEditAwsPage";
 import infraDetailEditAzurePage from "./pages/infra/infraDetailEditAzurePage";
 import infraDetailEditGooglePage from "./pages/infra/infraDetailEditGooglePage";
+//import gitCredentialEditPage from "./pages/infra/gitCredentialEditPage";
 
 import infraDestroyPage from "./pages/infra/infraDestroyPage";
 import layoutUnauthenticated from "./layoutUnauthenticated";
