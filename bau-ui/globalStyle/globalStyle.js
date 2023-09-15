@@ -27,7 +27,7 @@ const variantToCss = () =>
     ([color]) =>
       `
 .outline.${color} {
-  border: 2px solid ${darkVar(color)};
+  border: 1px solid ${darkVar(color)};
   color: var(--font-color-base)
 }
 .soft.${color} {
@@ -111,7 +111,7 @@ export default function globalStyle(
       --color-content-secondary: hsl(0, 0%, 30%);
       --background-color: var(--color-white);
       --global-border-width: 1px;
-      --global-radius: 0.4rem;
+      --global-radius: 0.2rem;
       --font-color-base: var(--color-content);
       --font-color-disabled: var(--color-emphasis-600);
       --font-color-inverse: var(--color-content-inverse);

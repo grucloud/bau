@@ -1,7 +1,7 @@
 import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context, options?: any) => {
   const { bau } = context;
   const { div, p } = bau.tags;
 
@@ -18,7 +18,7 @@ export default (context: Context) => {
     },
   ];
 
-  const Tabs = tabs(context, { tabDefs });
+  const Tabs = tabs(context, { tabDefs, ...options });
 
   return (props: any) => Tabs(props);
 };

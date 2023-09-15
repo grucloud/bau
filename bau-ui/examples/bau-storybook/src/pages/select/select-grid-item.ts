@@ -1,11 +1,11 @@
 import select from "@grucloud/bau-ui/select";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context, componentOptions?: any) => {
   const { bau, css } = context;
   const { div, span } = bau.tags;
 
-  const Select = select(context);
+  const Select = select(context, componentOptions);
 
   const options = [
     { code: "AD", label: "Andorra", phone: "376" },

@@ -199,7 +199,9 @@ export default function Bau(input) {
 
   let toDom = (v) => {
     if (v == null || v === false) {
-      return h("span");
+      const spanEl = h("span");
+      spanEl.style.display = "none";
+      return spanEl;
     } else if (v.nodeType) {
       return v;
     } else {

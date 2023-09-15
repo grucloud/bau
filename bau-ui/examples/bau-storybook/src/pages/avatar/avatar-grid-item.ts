@@ -1,10 +1,11 @@
 import avatar from "@grucloud/bau-ui/avatar";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context, options?: any) => {
   const { css } = context;
 
   const Avatar = avatar(context, {
+    ...options,
     class: css`
       > img {
         border-radius: 50%;

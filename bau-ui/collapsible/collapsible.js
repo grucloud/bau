@@ -1,7 +1,7 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
-export default function (context, options) {
+export default function (context, options = {}) {
   const { bau, css } = context;
   const { div } = bau.tags;
   const className = css`
@@ -65,9 +65,9 @@ export default function (context, options) {
   return function Collapsible(...args) {
     let [
       {
-        color,
-        variant = "plain",
-        size = "md",
+        size = options.size ?? "md",
+        variant = options.variant ?? "plain",
+        color = options.color ?? "neutral",
         Header,
         Content,
         close = true,

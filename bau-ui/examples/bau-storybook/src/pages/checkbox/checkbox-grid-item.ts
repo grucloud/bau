@@ -1,11 +1,11 @@
 import checkbox from "@grucloud/bau-ui/checkbox";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context, options?: any) => {
   const { bau, css } = context;
   const { label } = bau.tags;
 
-  const Checkbox = checkbox(context);
+  const Checkbox = checkbox(context, options);
 
   return (props: any) =>
     label(

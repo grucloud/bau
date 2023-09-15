@@ -12,6 +12,7 @@ export default function (context, options = {}) {
     gap: 1rem;
     padding: 1rem;
     min-width: 350px;
+
     & > header {
       text-align: center;
       & h1 {
@@ -20,17 +21,21 @@ export default function (context, options = {}) {
       }
     }
     & section {
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
       gap: 1rem;
     }
-    & label {
+    & label,
+    legend {
       display: inline-flex;
       flex-direction: column;
       gap: 0.3rem;
       font-weight: 500;
       font-size: smaller;
       color: var(--color-content-secondary);
+    }
+    & fieldset {
+      border-radius: var(--global-radius);
     }
     & > footer {
       display: flex;

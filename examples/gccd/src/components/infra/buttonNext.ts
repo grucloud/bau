@@ -11,7 +11,7 @@ export default (context: Context) => {
     return Button(
       {
         type: "submit",
-        variant: "outline",
+        variant: "solid",
         color: "primary",
       },
       "Next",

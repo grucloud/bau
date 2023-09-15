@@ -85,9 +85,9 @@ export default (context: Context) => {
                 autofocus: true,
                 placeholder: "Subscription Id",
                 name: "subscriptionId",
-                minLength: 32,
-                maxLength: 32,
-                size: 32,
+                minLength: 36,
+                maxLength: 36,
+                size: 36,
                 required: true,
               })
             )
@@ -102,9 +102,9 @@ export default (context: Context) => {
                 "data-input-azure-tenant-id": true,
                 placeholder: "Tenant Id",
                 name: "tenantId",
-                minLength: 32,
-                maxLength: 32,
-                size: 32,
+                minLength: 36,
+                maxLength: 36,
+                size: 36,
                 required: true,
               })
             )

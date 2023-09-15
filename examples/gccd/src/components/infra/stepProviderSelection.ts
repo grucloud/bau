@@ -59,7 +59,7 @@ export default (context: Context) => {
               viewBox: "0 0 473 75",
               fill: "currentColor",
             },
-            use({ href: `${config.base}/gcp.svg#gcp` })
+            use({ href: `${config.base}/google.svg#gcp` })
           )
         )
       )

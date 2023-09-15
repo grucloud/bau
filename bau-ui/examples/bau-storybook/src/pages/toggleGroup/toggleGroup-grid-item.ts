@@ -2,11 +2,11 @@ import toggleGroup from "@grucloud/bau-ui/toggleGroup";
 import toggle from "@grucloud/bau-ui/toggle";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context, options?: any) => {
   const { bau } = context;
 
-  const ToggleGroup = toggleGroup(context);
-  const Toggle = toggle(context);
+  const ToggleGroup = toggleGroup(context, options);
+  const Toggle = toggle(context, options);
 
   return (props: any) => {
     const selectedState = bau.state([""]);

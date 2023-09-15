@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "aws-regions": "cd scripts; node awsRegions.js",
-    "azure-regions": "cd scripts; node azureRegions.js"
+    "azure-regions": "cd scripts; node azureRegions.js",
+    "google-regions": "cd scripts; node googleRegions.js"
   },
   "devDependencies": {
     "typescript": "^5.0.2",

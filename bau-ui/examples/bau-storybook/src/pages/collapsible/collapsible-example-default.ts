@@ -7,7 +7,7 @@ export default (context: Context) => {
   const { section, div } = bau.tags;
 
   const Collapsible = collapsible(context);
-  const Button = button(context);
+  const Button = button(context, { variant: "outline" });
 
   const Header = () => Button("Header");
   const Content = () => div("Content");

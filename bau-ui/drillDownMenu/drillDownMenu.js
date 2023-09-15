@@ -280,7 +280,14 @@ export default function (context, options = {}) {
 
     return nav(
       {
-        class: cn(className, options?.class, otherProps.class),
+        class: cn(
+          className,
+          variant,
+          color,
+          size,
+          options?.class,
+          otherProps.class
+        ),
         onclick,
       },
       Animate(

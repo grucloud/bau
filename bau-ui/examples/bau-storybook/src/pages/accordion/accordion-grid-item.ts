@@ -1,7 +1,7 @@
 import accordion, { Accordion } from "@grucloud/bau-ui/accordion";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context, options?: any) => {
   const { bau } = context;
 
   const { div, p } = bau.tags;
@@ -19,6 +19,6 @@ export default (context: Context) => {
     },
   ];
 
-  const Accordion = accordion(context);
+  const Accordion = accordion(context, options);
   return (props: any) => Accordion({ ...props, data: accordionDefs });
 };

@@ -1,7 +1,6 @@
 import rubico from "rubico";
 const { get } = rubico;
 import formatDistance from "date-fns/formatDistance";
-
 import { type Context } from "@grucloud/bau-ui/context";
 import chip from "@grucloud/bau-ui/chip";
 import button from "@grucloud/bau-ui/button";
@@ -25,12 +24,12 @@ export default function (context: Context) {
   const TableContainer = tableContainer(context);
 
   const ProviderLogo = providerLogo(context);
-  const Button = button(context);
+  const ButtonGitOpen = button(context);
 
   const ResourceTable = resourceTable(context);
 
   return function InfraDetail(props: any) {
-    const { name, providerName, providerAuth, gitRepository, Jobs } = props;
+    const { name, providerName, gitRepository, Jobs, options = {} } = props;
     const lastJob = Jobs[0];
     const lastUpdated = get("updatedAt")(lastJob);
     const svgContent = get("result.svg")(lastJob);
@@ -38,7 +37,6 @@ export default function (context: Context) {
 
     const svgContainerEl = div({});
     svgContainerEl.innerHTML = svgContent;
-
     return section(
       {
         class: className,
@@ -48,16 +46,18 @@ export default function (context: Context) {
           tbody(
             tr(th("Name"), td(name)), //
             tr(th("Provider"), td(ProviderLogo({ providerName }))),
-            tr(th("Region"), td(Chip(providerAuth.AWS_REGION))),
+            tr(th("Region"), td(Chip(options?.region ?? "Not set"))),
             tr(
               th("Git Repository"),
               td(
-                gitRepository
-                  ? Button({
-                      target: "_blank",
-                      href: gitRepository.url,
-                      label: "Open GitHub",
-                    })
+                gitRepository?.url
+                  ? ButtonGitOpen(
+                      {
+                        target: "_blank",
+                        href: gitRepository.url,
+                      },
+                      "Open GitHub"
+                    )
                   : "Not assigned"
               )
             ),

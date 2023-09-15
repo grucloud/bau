@@ -4,7 +4,7 @@ declare module "@grucloud/bau-ui/autocomplete" {
 
   export type Autocomplete = {
     options: object[];
-    id: string;
+    id?: string;
     label: string;
     placeholder: string;
     size?: string;

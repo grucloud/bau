@@ -6,11 +6,11 @@ const phoneCodes = [
   { code: "AF", label: "Afghanistan", phone: "93" },
 ];
 
-export default (context: Context) => {
+export default (context: Context, options?: any) => {
   const { bau, css } = context;
   const { span, li } = bau.tags;
 
-  const List = list(context);
+  const List = list(context, options);
 
   const ListItem = ({ code, label }: any) =>
     li(

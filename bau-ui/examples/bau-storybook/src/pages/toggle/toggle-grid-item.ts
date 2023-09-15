@@ -1,11 +1,10 @@
 import toggle from "@grucloud/bau-ui/toggle";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context, options?: any) => {
   const { bau } = context;
-  const Toggle = toggle(context);
+  const Toggle = toggle(context, options);
 
-  console.log("grid item");
   return (props: any) => {
     const selectedState = bau.state(false);
     return Toggle(

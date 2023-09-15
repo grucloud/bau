@@ -49,6 +49,12 @@ export default function Router({ routes, notFoundRoute, onLocationChange }) {
   });
 
   window.addEventListener("popstate", (event) => {
+    // TODO
+    //console.log("popstate");
+    //if (event.state != null) {
+    // Back or Next button and not an in page navigation
+    //onLocationChange({ router });
+    // }
     if (event.state != null) {
       // Back or Next button and not an in page navigation
       onLocationChange({ router });

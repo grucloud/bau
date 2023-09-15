@@ -25,6 +25,7 @@ export default function (context, options = {}) {
       background-color: inherit;
       transition: all var(--transition-slow) ease-out;
       display: flex;
+      align-items: center;
       &:hover {
         filter: brightness(var(--brightness-hover));
       }

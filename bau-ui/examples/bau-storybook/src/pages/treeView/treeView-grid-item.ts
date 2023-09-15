@@ -1,7 +1,7 @@
 import treeView, { type Tree } from "@grucloud/bau-ui/treeView";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context, option?: any) => {
   const { bau } = context;
   const { a } = bau.tags;
 
@@ -31,7 +31,7 @@ export default (context: Context) => {
       name
     );
 
-  const TreeView = treeView(context, { renderMenuItem });
+  const TreeView = treeView(context, { renderMenuItem, ...option });
 
   return (props: any) => TreeView({ ...props, tree: menu });
 };
