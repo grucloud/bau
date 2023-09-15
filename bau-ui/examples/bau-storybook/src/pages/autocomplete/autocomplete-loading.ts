@@ -6,7 +6,7 @@ export default (context: Context) => {
   const { bau, css } = context;
   const { section, div, span } = bau.tags;
 
-  const Button = button(context);
+  const Button = button(context, { variant: "outline" });
   const Autocomplete = autocomplete(context);
 
   const dataState = bau.state([]);

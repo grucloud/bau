@@ -1,7 +1,7 @@
 import toggle from "@grucloud/bau-ui/toggle";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context, options: any) => {
+export default (context: Context, options?: any) => {
   const { bau } = context;
   const Toggle = toggle(context, options);
 

@@ -1,10 +1,10 @@
 import radioButton from "@grucloud/bau-ui/radioButton";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context, options?: any) => {
   const { bau, css } = context;
   const { label, form } = bau.tags;
-  const RadioButton = radioButton(context);
+  const RadioButton = radioButton(context, options);
 
   return (props: any) =>
     form(

@@ -2,7 +2,7 @@ import classNames from "@grucloud/bau-css/classNames";
 import fileInput from "@grucloud/bau-ui/fileInput";
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context, options: any) => {
+export default (context: Context, options?: any) => {
   const { tr, bau, css, config } = context;
 
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");

@@ -6,7 +6,7 @@ const phoneCodes = [
   { code: "AF", label: "Afghanistan", phone: "93" },
 ];
 
-export default (context: Context, options: any) => {
+export default (context: Context, options?: any) => {
   const { bau, css } = context;
   const { span, li } = bau.tags;
 

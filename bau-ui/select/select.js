@@ -30,6 +30,7 @@ export default function (context, componentOptions = {}) {
     & select {
       width: 0;
       height: 0;
+      opacity: 0;
     }
     & button {
       &::after {
@@ -75,11 +76,7 @@ export default function (context, componentOptions = {}) {
     };
 
     const onclickButton = (event) => {
-      if (!openState.val) {
-        dialogOpen();
-      } else {
-        dialogClose();
-      }
+      popoverEl.open ? dialogClose() : dialogOpen();
       event.preventDefault();
     };
 
@@ -115,7 +112,7 @@ export default function (context, componentOptions = {}) {
           }
           break;
         case "Enter":
-          if (openState.val) {
+          if (popoverEl.open) {
             inputState.val = getOptionLabel(options[itemIndexActive.val]);
             dialogClose();
           } else {

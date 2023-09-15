@@ -10,6 +10,7 @@ const colorsToCss = () =>
 &.button.plain.${color} {
   &:focus {
     outline: 4px auto var(--color-${color});
+    border: 1px solid var(--color-neutral);
   };
 }
 &.button.outline.${color} {
@@ -50,7 +51,6 @@ export default function (context, options = {}) {
     &.solid {
       box-shadow: var(--shadow-m);
     }
-
     &.outline:hover,
     &.solid:hover {
       box-shadow: var(--shadow-lg);

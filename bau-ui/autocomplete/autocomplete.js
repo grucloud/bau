@@ -154,7 +154,6 @@ export default function (context, componentOptions = {}) {
     };
 
     const onkeydown = (event) => {
-      console.log("onkeydown", event.key, itemIndexActive.val);
       switch (event.key) {
         case "Escape":
           dialogClose();
@@ -166,7 +165,6 @@ export default function (context, componentOptions = {}) {
             itemIndexActive.val = 0;
           }
           scrollIntoView();
-
           break;
         case "ArrowUp":
           if (itemIndexActive.val <= 0) {
@@ -177,9 +175,13 @@ export default function (context, componentOptions = {}) {
           scrollIntoView();
           break;
         case "Enter":
-          selectedState.val = optionsFilteredState.val[itemIndexActive.val];
-          inputState.val = "";
-          dialogClose();
+          if (popoverEl.open) {
+            selectedState.val = optionsFilteredState.val[itemIndexActive.val];
+            inputState.val = "";
+            dialogClose();
+          } else {
+            dialogOpen();
+          }
           event.preventDefault();
           break;
       }
