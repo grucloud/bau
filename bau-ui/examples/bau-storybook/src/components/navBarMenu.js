@@ -1,93 +1,156 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import drillDownMenu from "@grucloud/bau-ui/drillDownMenu";
-
-const tree = {
-  data: { name: "Root" },
-  children: [
-    {
-      data: { name: "Home", href: "/" },
-    },
-    {
-      data: { name: "Getting Started", href: "/GettingStarted" },
-    },
-    {
-      data: { name: "Components", href: "/components" },
-      children: [
-        { data: { name: "Accordion", href: "/components/accordion" } },
-        { data: { name: "Alert", href: "/components/alert" } },
-        { data: { name: "Alert Stack", href: "/components/alertStack" } },
-        { data: { name: "Animate", href: "/components/animate" } },
-        { data: { name: "Autocomplete", href: "/components/autocomplete" } },
-        { data: { name: "Avatar", href: "/components/avatar" } },
-        { data: { name: "Badge", href: "/components/badge" } },
-        { data: { name: "Breadcrumb", href: "/components/breadcrumb" } },
-        { data: { name: "Button", href: "/components/button" } },
-        { data: { name: "Button Group", href: "/components/buttonGroup" } },
-        { data: { name: "Calendar", href: "/components/calendar" } },
-        { data: { name: "Carousel", href: "/components/carousel" } },
-
-        { data: { name: "Chip", href: "/components/chip" } },
-        { data: { name: "Checkbox", href: "/components/checkbox" } },
-        { data: { name: "Collapsible", href: "/components/collapsible" } },
-        { data: { name: "Drawer", href: "/components/drawer" } },
-        {
-          data: { name: "DrillDown Menu", href: "/components/drillDownMenu" },
-        },
-        { data: { name: "File Input", href: "/components/fileInput" } },
-        { data: { name: "Form", href: "/components/form" } },
-        { data: { name: "Input", href: "/components/input" } },
-        {
-          data: { name: "Linear Progress", href: "/components/linearProgress" },
-        },
-        { data: { name: "List", href: "/components/list" } },
-        { data: { name: "Loading Button", href: "/components/loadingButton" } },
-        { data: { name: "Modal", href: "/components/modal" } },
-        { data: { name: "Paper", href: "/components/paper" } },
-        {
-          data: {
-            name: "Pagination Navigation",
-            href: "/components/paginationNavigation",
-          },
-        },
-        { data: { name: "Popover", href: "/components/popover" } },
-        { data: { name: "Radio Button", href: "/components/radioButton" } },
-        { data: { name: "Select", href: "/components/select" } },
-        { data: { name: "Select Native", href: "/components/selectNative" } },
-        { data: { name: "Slider", href: "/components/slider" } },
-        { data: { name: "Spinner", href: "/components/spinner" } },
-        { data: { name: "Stepper", href: "/components/stepper" } },
-        { data: { name: "Switch", href: "/components/switch" } },
-        { data: { name: "Table", href: "/components/table" } },
-        {
-          data: {
-            name: "Table Pagination",
-            href: "/components/tablePagination",
-          },
-        },
-        { data: { name: "Tabs", href: "/components/tabs" } },
-        {
-          data: {
-            name: "Table of content",
-            href: "/components/tableOfContent",
-          },
-        },
-        { data: { name: "Toggle", href: "/components/toggle" } },
-        { data: { name: "Toggle Group", href: "/components/toggleGroup" } },
-        { data: { name: "Tooltip", href: "/components/tooltip" } },
-        { data: { name: "Theme Switch", href: "/components/themeSwitch" } },
-        { data: { name: "Tree View", href: "/components/treeView" } },
-      ],
-    },
-    // {
-    //   data: { name: "Pages", href: "/pages" },
-    //   children: [{ data: { name: "Login", href: "/pages/login" } }],
-    // },
-  ],
-};
+import inputSearch from "@grucloud/bau-ui/inputSearch";
 
 export default function (context) {
   const { tr, bau, css, config, states, window } = context;
   const { div, ul, li, nav, a, span } = bau.tags;
+
+  const InputSearch = inputSearch(context, {
+    variant: "plain",
+    color: "neutral",
+    size: "sm",
+  });
+
+  const componentSearch = ({
+    renderListDefault,
+    children,
+    pathnameState,
+    variant,
+    color,
+    size,
+  }) => {
+    const searchTerm = bau.state("");
+    const result = bau.derive(() => {
+      if (searchTerm.val == "") {
+        return children;
+      } else {
+        return children.filter((child) =>
+          child.data.name.match(new RegExp(`${searchTerm.val}`, "i"))
+        );
+      }
+    });
+
+    const oninput = (event) => {
+      searchTerm.val = event.target.value;
+    };
+
+    return div(
+      {
+        class: css`
+          display: flex;
+          flex-direction: column;
+        `,
+      },
+      InputSearch({
+        autocomplete: false,
+        name: "search",
+        autofocus: true,
+        value: searchTerm,
+        placeholder: `Search ${result.val.length} components`,
+        size: 22,
+        oninput,
+      }),
+      () =>
+        renderListDefault({
+          children: result.val,
+          pathnameState,
+          variant,
+          color,
+          size,
+        })
+    );
+  };
+  const tree = {
+    data: { name: "Root" },
+    children: [
+      {
+        data: { name: "Home", href: "/" },
+      },
+      {
+        data: { name: "Getting Started", href: "/GettingStarted" },
+      },
+      {
+        data: { name: "Components", href: "/components" },
+        renderList: componentSearch,
+        children: [
+          { data: { name: "Accordion", href: "/components/accordion" } },
+          { data: { name: "Alert", href: "/components/alert" } },
+          { data: { name: "Alert Stack", href: "/components/alertStack" } },
+          { data: { name: "Animate", href: "/components/animate" } },
+          { data: { name: "Autocomplete", href: "/components/autocomplete" } },
+          { data: { name: "Avatar", href: "/components/avatar" } },
+          { data: { name: "Badge", href: "/components/badge" } },
+          { data: { name: "Breadcrumb", href: "/components/breadcrumb" } },
+          { data: { name: "Button", href: "/components/button" } },
+          { data: { name: "Button Group", href: "/components/buttonGroup" } },
+          { data: { name: "Calendar", href: "/components/calendar" } },
+          { data: { name: "Carousel", href: "/components/carousel" } },
+
+          { data: { name: "Chip", href: "/components/chip" } },
+          { data: { name: "Checkbox", href: "/components/checkbox" } },
+          { data: { name: "Collapsible", href: "/components/collapsible" } },
+          { data: { name: "Drawer", href: "/components/drawer" } },
+          {
+            data: { name: "DrillDown Menu", href: "/components/drillDownMenu" },
+          },
+          { data: { name: "File Input", href: "/components/fileInput" } },
+          { data: { name: "Form", href: "/components/form" } },
+          { data: { name: "Input", href: "/components/input" } },
+          { data: { name: "Input Search", href: "/components/inputSearch" } },
+          {
+            data: {
+              name: "Linear Progress",
+              href: "/components/linearProgress",
+            },
+          },
+          { data: { name: "List", href: "/components/list" } },
+          {
+            data: { name: "Loading Button", href: "/components/loadingButton" },
+          },
+          { data: { name: "Modal", href: "/components/modal" } },
+          { data: { name: "Paper", href: "/components/paper" } },
+          {
+            data: {
+              name: "Pagination Navigation",
+              href: "/components/paginationNavigation",
+            },
+          },
+          { data: { name: "Popover", href: "/components/popover" } },
+          { data: { name: "Radio Button", href: "/components/radioButton" } },
+          { data: { name: "Select", href: "/components/select" } },
+          { data: { name: "Select Native", href: "/components/selectNative" } },
+          { data: { name: "Slider", href: "/components/slider" } },
+          { data: { name: "Spinner", href: "/components/spinner" } },
+          { data: { name: "Stepper", href: "/components/stepper" } },
+          { data: { name: "Switch", href: "/components/switch" } },
+          { data: { name: "Table", href: "/components/table" } },
+          {
+            data: {
+              name: "Table Pagination",
+              href: "/components/tablePagination",
+            },
+          },
+          { data: { name: "Tabs", href: "/components/tabs" } },
+          {
+            data: {
+              name: "Table of content",
+              href: "/components/tableOfContent",
+            },
+          },
+          { data: { name: "Toggle", href: "/components/toggle" } },
+          { data: { name: "Toggle Group", href: "/components/toggleGroup" } },
+          { data: { name: "Tooltip", href: "/components/tooltip" } },
+          { data: { name: "Theme Switch", href: "/components/themeSwitch" } },
+          { data: { name: "Tree View", href: "/components/treeView" } },
+        ],
+      },
+      // {
+      //   data: { name: "Pages", href: "/pages" },
+      //   children: [{ data: { name: "Login", href: "/pages/login" } }],
+      // },
+    ],
+  };
 
   let isMobile = false;
 

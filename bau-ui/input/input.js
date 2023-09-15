@@ -21,11 +21,10 @@ const colorsToCss = () =>
 }
 &.input.solid.${color} {
   &:focus {
-    border-color: var(--color-${color});
+    outline: 4px auto var(--color-${color}-lightest);
   };
   &::placeholder {
-    color: var(--font-color-inverse);
-    filter: brightness(var(--brightness-hover));
+    color: var(--font-color-inverse-secondary);
   }
   &:hover {
     background-color: var(--color-${color}-light);
@@ -67,7 +66,7 @@ export default function (context, options = {}) {
 
   return function Input(props) {
     const {
-      // Use options to set the comonent size,
+      // Use options to set the component size,
       variant = options.variant ?? "outline",
       color = options.color ?? "neutral",
       ...otherProps

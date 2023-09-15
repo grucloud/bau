@@ -17,6 +17,8 @@ import chipItem from "./chip/chip-grid-item";
 import drilldownMenuItem from "./drilldownMenu/drilldownMenu-grid-item";
 import fileInputItem from "./fileInput/fileInput-grid-item";
 import inputItem from "./input/input-grid-item";
+import inputSearchItem from "./inputSearch/inputSearch-grid-item";
+
 import linearProgressItem from "./linearProgress/linearProgress-grid-item";
 import loadingButtonItem from "./loadingButton/loadingButton-grid-item";
 import modalGridItem from "./modal/modal-grid-item";
@@ -114,6 +116,10 @@ export default (context: Context) => {
     {
       name: "Input",
       Item: inputItem(context),
+    },
+    {
+      name: "Input Search",
+      Item: inputSearchItem(context),
     },
 
     {

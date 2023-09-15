@@ -108,6 +108,7 @@ export default function globalStyle(
       ${variantToCss()}
       --color-content: hsl(0, 0%, 10%);
       --color-content-inverse: hsl(0, 0%, 95%);
+
       --color-content-secondary: hsl(0, 0%, 30%);
       --background-color: var(--color-white);
       --global-border-width: 1px;
@@ -116,6 +117,7 @@ export default function globalStyle(
       --font-color-disabled: var(--color-emphasis-600);
       --font-color-inverse: var(--color-content-inverse);
       --font-color-secondary: var(--color-content-secondary);
+      --font-color-inverse-secondary: hsl(0, 0%, 75%);
       --font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
       --font-family-monospace: Consolas, monospace;
       --font-weight-light: 300;
