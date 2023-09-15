@@ -1,10 +1,17 @@
 import classNames from "@grucloud/bau-css/classNames.js";
 import drillDownMenu from "@grucloud/bau-ui/drillDownMenu";
-import input from "@grucloud/bau-ui/input";
+import inputSearch from "@grucloud/bau-ui/inputSearch";
+
 export default function (context) {
   const { tr, bau, css, config, states, window } = context;
   const { div, ul, li, nav, a, span } = bau.tags;
-  const Input = input(context, { variant: "plain", color: "neutral" });
+
+  const InputSearch = inputSearch(context, {
+    variant: "plain",
+    color: "neutral",
+    size: "sm",
+  });
+
   const componentSearch = ({
     renderListDefault,
     children,
@@ -28,35 +35,20 @@ export default function (context) {
       searchTerm.val = event.target.value;
     };
 
-    const fillColor = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue(`--color-${color}`);
-
-    const svgData = `url('data:image/svg+xml,<svg fill="${fillColor}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>')`;
-
     return div(
       {
         class: css`
           display: flex;
           flex-direction: column;
-          & .input {
-            margin: 0.5rem 1rem;
-            padding-left: 1.8rem;
-            background-image: ${svgData};
-            background-repeat: no-repeat;
-            background-size: 1rem;
-            background-position: 0.3rem;
-            fill: red;
-          }
         `,
       },
-      Input({
-        type: "search",
+      InputSearch({
         autocomplete: false,
         name: "search",
         autofocus: true,
         value: searchTerm,
-        placeholder: "Search components",
+        placeholder: `Search ${result.val.length} components`,
+        size: 22,
         oninput,
       }),
       () =>
@@ -105,6 +97,7 @@ export default function (context) {
           { data: { name: "File Input", href: "/components/fileInput" } },
           { data: { name: "Form", href: "/components/form" } },
           { data: { name: "Input", href: "/components/input" } },
+          { data: { name: "Input Search", href: "/components/inputSearch" } },
           {
             data: {
               name: "Linear Progress",

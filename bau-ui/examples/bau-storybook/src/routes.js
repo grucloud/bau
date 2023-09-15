@@ -23,6 +23,7 @@ import drillDownMenuExamples from "./pages/drilldownMenu/drillDownMenu.examples"
 import fileInputExamples from "./pages/fileInput/fileInput.examples";
 import formExamples from "./pages/form/form.examples";
 import inputExamples from "./pages/input/input.examples";
+import inputSearchExamples from "./pages/inputSearch/inputSearch.examples";
 import linearProgressExamples from "./pages/linearProgress/linearProgress.examples";
 import loadingButtonExamples from "./pages/loadingButton/loadingButton.examples";
 import listExamples from "./pages/list/list.examples";
@@ -212,6 +213,13 @@ export const createRoutes = ({ context }) => {
           action: () => ({
             title: "Input",
             component: inputExamples(context),
+          }),
+        },
+        {
+          path: "inputSearch",
+          action: () => ({
+            title: "Input Search",
+            component: inputSearchExamples(context),
           }),
         },
         {
