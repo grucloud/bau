@@ -3,7 +3,6 @@ declare module "@grucloud/bau-ui/breadcrumbs" {
   type ComponentOption = import("../bau-ui").ComponentOption;
 
   export type BreadcrumbsProps = {
-    separator?: string;
     //TODO
     items: any[];
   } & DefaultDesignProps;
@@ -12,8 +11,10 @@ declare module "@grucloud/bau-ui/breadcrumbs" {
 
   type ComponentGeneric = import("../bau-ui").ComponentGeneric;
 
+  const BreadcrumbsOptions = { separator: string } & ComponentOption;
+
   export default function (
     context: Object,
-    options?: ComponentOption
+    options?: BreadcrumbsOptions
   ): Component;
 }

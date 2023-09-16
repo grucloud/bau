@@ -8,6 +8,10 @@ import breadcrumbsDefault from "./breadcrumbs-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./breadcrumbs-example-default.ts?raw";
 
+import breadcrumbsSeparator from "./breadcrumbs-separator.ts";
+// @ts-ignore
+import codeExampleSeparator from "./breadcrumbs-separator.ts?raw";
+
 export const breadcrumbsSpec = {
   title: "Breadcrumbs",
   package: "breadcrumbs",
@@ -22,6 +26,12 @@ export const breadcrumbsSpec = {
       description: "A simple breadcrumbs.",
       code: codeExampleDefault,
       createComponent: breadcrumbsDefault,
+    },
+    {
+      title: "Separator",
+      description: "A breadcrumbs with a custom separator.",
+      code: codeExampleSeparator,
+      createComponent: breadcrumbsSeparator,
     },
   ],
   gridItem: breadcrumbsGridItem,

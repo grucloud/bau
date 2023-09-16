@@ -5,8 +5,9 @@ export const onLocationChange = ({
   LayoutDefault,
   config: { base = "" },
 }: any) => {
-  const { window, bau } = context;
+  const { window, bau, stores } = context;
   const componentState = bau.state();
+  const pathnameState = stores.router.pathname;
   let CurrentLayout: any;
   return ({ router }: { router: Router }) => {
     console.log("onLocationChange");
@@ -26,6 +27,7 @@ export const onLocationChange = ({
         ?.replaceChildren(Layout({ componentState }));
     }
     componentState.val = component({});
+    pathnameState.val = pathname;
     document.title = `${title}`;
   };
 };

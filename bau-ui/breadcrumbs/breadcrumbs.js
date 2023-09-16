@@ -5,7 +5,7 @@ import button from "../button/button.js";
 export default function (context, options = {}) {
   const { bau, css, config } = context;
   const { ul, li, span } = bau.tags;
-
+  const { separator = "\u3009" } = options;
   const Button = button(context);
 
   const className = css`
@@ -13,13 +13,13 @@ export default function (context, options = {}) {
     display: flex;
     align-items: center;
     padding-left: 0;
-    margin-bottom: 0;
+    margin: 0;
     & li {
       display: flex;
       align-items: center;
       font-size: 0.9rem;
       &::after {
-        content: "\u3009";
+        content: "${separator}";
         padding: 0.5rem;
       }
       &:last-child {

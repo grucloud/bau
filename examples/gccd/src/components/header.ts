@@ -1,6 +1,7 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import button from "@grucloud/bau-ui/button";
 import avatar from "@grucloud/bau-ui/avatar";
+import breadcrumbsNav from "./breadcrumbsNav";
 
 export default function (context: Context) {
   const { tr, bau, css, config, stores } = context;
@@ -8,6 +9,7 @@ export default function (context: Context) {
   const { svg, path } = bau.tagsNS("http://www.w3.org/2000/svg");
   // const drawerOpenState = states.drawerOpen;
   const { meQuery } = stores.auth;
+  const BreadcrumbsNav = breadcrumbsNav(context);
 
   const Avatar = avatar(context, {
     class: css`
@@ -68,7 +70,7 @@ export default function (context: Context) {
             font-size: x-large;
           `,
         },
-        b(tr("GruCloud Console"))
+        b(tr("GruCloud"))
       )
     );
 
@@ -111,6 +113,7 @@ export default function (context: Context) {
         `,
       },
       NavBarLeft(),
+      BreadcrumbsNav(),
       NavBarRight()
     );
   };
