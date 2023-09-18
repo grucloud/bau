@@ -1,8 +1,9 @@
 import { Context } from "@grucloud/bau-ui/context";
 import button from "@grucloud/bau-ui/button";
 import spinner from "@grucloud/bau-ui/spinner";
-import infraList from "../../components/infra/infraList";
+
 import page from "../../components/page";
+import orgList from "../../components/org/orgList";
 
 export default function (context: Context) {
   const { bau, stores, config } = context;
@@ -11,23 +12,24 @@ export default function (context: Context) {
   const Spinner = spinner(context, { size: "lg" });
   const Page = page(context);
 
-  const InfraList = infraList(context);
+  const OrgList = orgList(context);
 
-  return function Main({}) {
-    stores.infra.getAll();
+  return function OrgListPage({}) {
+    stores.org.getAllQuery.run();
+
     return Page(
       header(
-        h1("Infrastructure"),
+        h1("Organisations"),
         ButtonAdd(
           {
-            href: `${config.base}/infra/create`,
+            href: `${config.base}/org/create`,
           },
-          "+ New Infrastructure"
+          "+ New Organisation"
         )
       ),
-      InfraList(),
+      OrgList({}),
       Spinner({
-        visibility: stores.infra.getAllQuery.loading,
+        visibility: stores.org.getAllQuery.loading,
       })
     );
   };

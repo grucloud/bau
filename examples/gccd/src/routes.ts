@@ -12,6 +12,9 @@ import infraDetailEditGooglePage from "./pages/infra/infraDetailEditGooglePage";
 //import gitCredentialEditPage from "./pages/infra/gitCredentialEditPage";
 
 import infraDestroyPage from "./pages/infra/infraDestroyPage";
+
+import orgListPage from "./pages/org/orgListPage";
+
 import layoutUnauthenticated from "./layoutUnauthenticated";
 
 export const createRoutes = ({ context }: { context: Context }) => [
@@ -34,6 +37,20 @@ export const createRoutes = ({ context }: { context: Context }) => [
         action: () => ({
           title: "Create New Infrastructure",
           component: infraStepperPage(context),
+        }),
+      },
+      {
+        path: "details/(?<id>.+)",
+        action: ({ match }: any) => ({
+          title: "Infrastructure Details",
+          component: () => infraDetailPage(context)({ id: match.groups.id }),
+        }),
+      },
+      {
+        path: "details/(?<id>.+)/destroy",
+        action: ({ match }: any) => ({
+          title: "Destroy Infrastructure",
+          component: () => infraDestroyPage(context)({ id: match.groups.id }),
         }),
       },
       {
@@ -60,19 +77,75 @@ export const createRoutes = ({ context }: { context: Context }) => [
             infraDetailEditGooglePage(context)({ id: match.groups.id }),
         }),
       },
+    ],
+  },
+  {
+    path: "org",
+    action: () => ({
+      title: "Org",
+      component: () => orgListPage(context)({}),
+    }),
+    children: [
       {
-        path: "details/(?<id>.+)/destroy",
-        action: ({ match }: any) => ({
-          title: "Destroy Infrastructure",
-          component: () => infraDestroyPage(context)({ id: match.groups.id }),
+        path: "create",
+        action: () => ({
+          title: "Create New Organisation",
+          component: () => "Create New Organisation",
         }),
       },
       {
-        path: "details/(?<id>.+)",
-        action: ({ match }: any) => ({
-          title: "Infrastructure Details",
-          component: () => infraDetailPage(context)({ id: match.groups.id }),
+        path: "(?<orgId>.+)/destroy",
+        action: ({ match: { groups } }: any) => ({
+          title: "Delete Organisation",
+          component: () => `View Organisation: ${groups.orgId} `,
         }),
+      },
+      {
+        path: "(?<orgId>.+)",
+        action: ({ match: { groups } }: any) => ({
+          title: "View Organisation Details",
+          component: () => {
+            return `View Organisation: ${groups.orgId} `;
+          },
+        }),
+        children: [
+          {
+            path: "projects",
+            action: ({ match: { groups } }: any) => ({
+              title: " Project",
+              component: () => {
+                return `Projects List Org: ${groups.orgId} `;
+              },
+            }),
+            children: [
+              {
+                path: "create",
+                action: () => ({
+                  title: "Create Project",
+                  component: () => "Create Project",
+                }),
+              },
+              {
+                path: "(?<projectId>.+)",
+                action: ({ match: { groups } }: any) => ({
+                  title: "View Project",
+                  component: () => {
+                    return `View Project: ${groups.projectId} from Org: ${groups.orgId} `;
+                  },
+                }),
+              },
+              {
+                path: "(?<projectId>.+)/destroy",
+                action: ({ match: { groups } }: any) => ({
+                  title: "Delete Project",
+                  component: () => {
+                    return `Delete Project: ${groups.projectId} from Org: ${groups.orgId} `;
+                  },
+                }),
+              },
+            ],
+          },
+        ],
       },
     ],
   },

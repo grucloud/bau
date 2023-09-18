@@ -19,8 +19,9 @@ export default (context: Context) => {
   };
 
   const Breadcrumbs = breadcrumbs(context, {
-    variant: "outline",
+    variant: "plain",
     color: "neutral",
+    separator: "/",
   });
 
   return () =>
