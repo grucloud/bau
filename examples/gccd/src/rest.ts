@@ -3,7 +3,7 @@ import alert from "@grucloud/bau-ui/alert";
 
 export default function (context: Context) {
   const { bau, config, window } = context;
-  const { div } = bau.tags;
+  const { div, small } = bau.tags;
   const Alert = alert(context, {
     color: "danger",
   });
@@ -53,7 +53,11 @@ export default function (context: Context) {
           new CustomEvent("alert.add", {
             detail: {
               Component: () =>
-                Alert(div(response.statusText), div(response.status)),
+                Alert(
+                  div(response.statusText),
+                  div(response.status),
+                  small(method, " ", response.url)
+                ),
             },
           })
         );

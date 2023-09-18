@@ -34,7 +34,7 @@ const LeanRouter = ({ routes = [], notFoundRoute }) => {
 
   return {
     resolve: ({ pathname }) => {
-      const route = _routes.find(({ regex }) => regex.test(pathname));
+      const route = _routes.reverse().find(({ regex }) => regex.test(pathname));
       return route
         ? route.action({ match: pathname.match(route.regex) })
         : notFoundRoute;

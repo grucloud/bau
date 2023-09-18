@@ -271,3 +271,5 @@ export type BauInstance = {
 };
 
 export default function Bau(input?: { window?: Window }): BauInstance;
+
+export function toPropsAndChildren(...args: any): any[];
