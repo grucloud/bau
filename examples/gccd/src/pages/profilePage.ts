@@ -18,6 +18,7 @@ export default function (context: Context) {
   return function ProfilePage({}) {
     return Paper(
       Form(
+        // TODO
         { onsubmit },
         header(h1("Profile")),
         section(

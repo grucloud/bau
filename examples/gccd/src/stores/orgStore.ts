@@ -7,8 +7,8 @@ export default function (context: Context) {
 
   return {
     getAllQuery: query(() => rest.get("org")),
-    createQuery: query((id: string) => rest.get(`org/${id}`)),
-    getByIdQuery: query((data: any) => rest.post("org", data)),
+    getByIdQuery: query((id: string) => rest.get(`org/${id}`)),
+    createQuery: query((data: any) => rest.post("org", data)),
     destroyQuery: query((id: string) => rest.del(`org/${id}`)),
     patchQuery: query((id: string, data: any) => rest.patch(`org/${id}`, data)),
   };

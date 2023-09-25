@@ -8,7 +8,7 @@ export default function (context: Context) {
     class: css``,
   });
 
-  const ListItem = ({ id, name }: any) =>
+  const ListItem = ({ org_id, name }: any) =>
     tr(
       {
         "data-org-list-item-name": name,
@@ -16,7 +16,7 @@ export default function (context: Context) {
       td(
         a(
           {
-            href: `org/details/${id}`,
+            href: `org/${org_id}`,
             class: css`
               width: 100%;
               display: flex;

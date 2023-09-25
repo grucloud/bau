@@ -2,7 +2,7 @@ import { Context } from "@grucloud/bau-ui/context";
 import useQuery from "../utils/useQuery";
 
 export default function (context: Context) {
-  const { rest, window } = context;
+  const { rest } = context;
   const query = useQuery(context);
 
   const getAllQuery = query(() => rest.get("infra"));
@@ -20,9 +20,10 @@ export default function (context: Context) {
   const infraStore = {
     getAll: async () => {
       const response: any = await getAllQuery.run();
-      if (!response.length) {
-        window.history.pushState("", "", "/infra/create");
-      }
+      return response;
+      // if (!response.length) {
+      //   window.history.pushState("", "", "/infra/create");
+      // }
     },
     getAllQuery,
     createQuery,
