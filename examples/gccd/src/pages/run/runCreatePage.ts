@@ -4,7 +4,7 @@ import loadingButton from "@grucloud/bau-ui/loadingButton";
 import form from "@grucloud/bau-ui/form";
 import buttonBack from "../../components/buttonBack";
 import page from "../../components/page";
-import workspaceCreateContent from "../../components/workspace/workspaceCreateContent";
+import runCreateContent from "../../components/run/runCreateContent";
 
 export default function (context: Context) {
   const { bau, stores, config, window } = context;
@@ -17,36 +17,36 @@ export default function (context: Context) {
   const Page = page(context);
   const Form = form(context);
 
-  const WorkspaceCreateContent = workspaceCreateContent(context);
+  const RunCreateContent = runCreateContent(context);
 
-  return function WorkspaceCreatePage({ org_id, project_id }: any) {
+  return function RunCreatePage({ org_id, project_id, workspace_id }: any) {
     const onsubmit = async (event: any) => {
       event.preventDefault();
-      const { workspace_name } = event.target.elements;
-
-      const { workspace_id } = await stores.workspace.createQuery.run(
-        { org_id, project_id },
+      const { reason, kind } = event.target.elements;
+      const { run_id } = await stores.run.createQuery.run(
+        { org_id, project_id, workspace_id },
         {
-          workspace_name: workspace_name.value,
+          reason: reason.value,
+          kind: kind.value,
         }
       );
 
       window.history.pushState(
         "",
         "",
-        `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
+        `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/runs/${run_id}`
       );
     };
 
     return Page(
       Form(
         { onsubmit },
-        header(h1("Create a new workspace")),
+        header(h1("Create a new Run")),
         p(),
-        WorkspaceCreateContent({}),
+        RunCreateContent({}),
         footer(
           LoadingButton(
-            { type: "submit", loading: stores.workspace.createQuery.loading },
+            { type: "submit", loading: stores.run.createQuery.loading },
             "Create"
           ),
           ButtonBack()

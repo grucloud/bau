@@ -1,6 +1,7 @@
 import { Context } from "@grucloud/bau-ui/context";
-import button from "@grucloud/bau-ui/button";
 import form from "@grucloud/bau-ui/form";
+import loadingButton from "@grucloud/bau-ui/loadingButton";
+
 import buttonBack from "../../components/buttonBack";
 import page from "../../components/page";
 import gitCredentialFormCreateContent from "../../components/gitCredential/gitCredentialFormContent";
@@ -9,7 +10,10 @@ export default function (context: Context) {
   const { bau, stores, config, window } = context;
   const { h1, p, header, footer } = bau.tags;
   const ButtonBack = buttonBack(context);
-  const ButtonCreate = button(context, { color: "primary", variant: "solid" });
+  const LoadingButton = loadingButton(context, {
+    color: "primary",
+    variant: "solid",
+  });
   const Page = page(context);
   const Form = form(context);
 
@@ -41,7 +45,16 @@ export default function (context: Context) {
         header(h1("Create new Git credentials")),
         p(),
         GitCredentialCreateContent({}),
-        footer(ButtonCreate({ type: "submit" }, "Create"), ButtonBack())
+        footer(
+          LoadingButton(
+            {
+              type: "submit",
+              loading: stores.gitCredential.createQuery.loading,
+            },
+            "Create"
+          ),
+          ButtonBack()
+        )
       )
     );
   };

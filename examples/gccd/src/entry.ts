@@ -10,13 +10,15 @@ import { onLocationChange } from "./onLocationChange.js";
 import { createStyles } from "./style.js";
 import rest from "./rest";
 import config from "./config";
-import orgStores from "./stores/orgStore";
-import projectStores from "./stores/projectStore";
-import workspaceStores from "./stores/workspaceStore";
+import orgStore from "./stores/orgStore";
+import projectStore from "./stores/projectStore";
+import workspaceStore from "./stores/workspaceStore";
+import runStore from "./stores/runStore";
 
 import infraStores from "./stores/infraStore";
 import authStores from "./stores/authStore";
 import gitCredentialsStore from "./stores/gitCredentialsStore";
+
 import gitRepositoryStore from "./stores/gitRepositoryStore";
 import gitHubStore from "./stores/gitHubStore";
 import routerStore from "./stores/routerStore";
@@ -33,10 +35,11 @@ document.getElementById("alert-stack")?.append(AlertStack());
 context.rest = rest(context);
 
 context.stores = {
-  org: orgStores(context),
+  org: orgStore(context),
   gitCredential: gitCredentialsStore(context),
-  project: projectStores(context),
-  workspace: workspaceStores(context),
+  project: projectStore(context),
+  workspace: workspaceStore(context),
+  run: runStore(context),
   infra: infraStores(context),
   auth: authStores(context),
   gitRepository: gitRepositoryStore(context),

@@ -33,6 +33,11 @@ import workspaceCreatePage from "./pages/workspace/workspaceCreatePage";
 import workspaceDetailPage from "./pages/workspace/workspaceDetailPage";
 import workspaceDestroyPage from "./pages/workspace/workspaceDestroyPage";
 
+// Run
+import runCreatePage from "./pages/run/runCreatePage";
+import runDetailPage from "./pages/run/runDetailPage";
+import runDestroyPage from "./pages/run/runDestroyPage";
+
 //
 import layoutUnauthenticated from "./layoutUnauthenticated";
 
@@ -186,6 +191,41 @@ export const createRoutes = ({ context }: { context: Context }) => [
                               component: () =>
                                 workspaceDestroyPage(context)(groups),
                             }),
+                          },
+                          {
+                            path: "runs",
+                            action: ({ match: {} }: any) => ({
+                              title: "List run",
+                              component: () => "List run",
+                            }),
+                            children: [
+                              {
+                                path: "create",
+                                action: ({ match: { groups } }: any) => ({
+                                  title: "Create Run",
+                                  component: () =>
+                                    runCreatePage(context)(groups),
+                                }),
+                              },
+                              {
+                                path: "(?<run_id>.{12})",
+                                action: ({ match: { groups } }: any) => ({
+                                  title: "Run Details",
+                                  component: () =>
+                                    runDetailPage(context)(groups),
+                                }),
+                                children: [
+                                  {
+                                    path: "destroy",
+                                    action: ({ match: { groups } }: any) => ({
+                                      title: "Delete Run",
+                                      component: () =>
+                                        runDestroyPage(context)(groups),
+                                    }),
+                                  },
+                                ],
+                              },
+                            ],
                           },
                         ],
                       },

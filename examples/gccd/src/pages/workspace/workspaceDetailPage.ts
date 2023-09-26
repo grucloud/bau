@@ -5,6 +5,7 @@ import button from "@grucloud/bau-ui/button";
 
 import page from "../../components/page";
 import workspaceDetailContent from "../../components/workspace/workspaceDetailContent";
+import runList from "../../components/run/runList";
 
 export default function (context: Context) {
   const { bau, stores } = context;
@@ -21,12 +22,15 @@ export default function (context: Context) {
   const ButtonDelete = button(context, { variant: "outline", color: "danger" });
 
   const WorkspaceDetailContent = workspaceDetailContent(context);
+  const RunList = runList(context);
+
   return function WorkspaceDetailPage({
     org_id,
     project_id,
     workspace_id,
   }: any) {
     getByIdQuery.run({ org_id, project_id, workspace_id });
+    stores.run.getAllByWorkspace.run({ org_id, project_id, workspace_id });
 
     return Page(
       Form(
@@ -42,6 +46,10 @@ export default function (context: Context) {
         () =>
           !getByIdQuery.loading.val &&
           WorkspaceDetailContent(getByIdQuery.data.val),
+        h2("Runs"),
+        () =>
+          !stores.run.getAllByWorkspace.loading.val &&
+          RunList(stores.run.getAllByWorkspace.data.val),
         h2("Danger Zone"),
         ButtonDelete({ href: `${workspace_id}/destroy` }, "Danger Zone")
       ),
