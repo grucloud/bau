@@ -2,8 +2,8 @@ import { Context } from "@grucloud/bau-ui/context";
 import paper from "@grucloud/bau-ui/paper";
 import buttonBack from "../../components/buttonBack";
 import loadingButton from "@grucloud/bau-ui/loadingButton";
-import input from "@grucloud/bau-ui/input";
 import formDestroy from "../../components/formDestroy";
+import inputDelete from "../../components/inputDelete";
 
 export default function (context: Context) {
   const { bau, stores, window, config } = context;
@@ -11,14 +11,11 @@ export default function (context: Context) {
 
   const Paper = paper(context);
   const ButtonBack = buttonBack(context);
-
   const LoadingButton = loadingButton(context, {
     variant: "solid",
     color: "danger",
   });
-
-  const Input = input(context);
-
+  const InputDelete = inputDelete(context);
   const FormDestroy = formDestroy(context);
 
   return function OrgDestroyPage({ org_id }: any) {
@@ -34,15 +31,7 @@ export default function (context: Context) {
       FormDestroy(
         { onsubmit },
         header(h1("Remove Organisation")),
-        section(
-          span("Remove the organisation"),
-          Input({
-            autofocus: true,
-            placeholder: "Type 'remove'",
-            pattern: "remove",
-            required: true,
-          })
-        ),
+        section(span("Remove the organisation"), InputDelete()),
         footer(
           ButtonBack(),
           LoadingButton(

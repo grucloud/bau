@@ -2,8 +2,8 @@ import { Context } from "@grucloud/bau-ui/context";
 import paper from "@grucloud/bau-ui/paper";
 import buttonBack from "../../components/buttonBack";
 import loadingButton from "@grucloud/bau-ui/loadingButton";
-import input from "@grucloud/bau-ui/input";
 import formDestroy from "../../components/formDestroy";
+import inputDelete from "../../components/inputDelete";
 
 export default function (context: Context) {
   const { bau, stores, window, config } = context;
@@ -16,7 +16,7 @@ export default function (context: Context) {
     variant: "solid",
     color: "danger",
   });
-  const Input = input(context);
+  const InputDelete = inputDelete(context);
 
   return function ProjectDestroyPage({
     org_id,
@@ -39,15 +39,7 @@ export default function (context: Context) {
       FormDestroy(
         { onsubmit },
         header(h1("Remove Workspace")),
-        section(
-          span("Remove the workspace from the project"),
-          Input({
-            autofocus: true,
-            placeholder: "Type 'remove'",
-            pattern: "remove",
-            required: true,
-          })
-        ),
+        section(span("Remove the workspace from the project"), InputDelete()),
         footer(
           ButtonBack(),
           LoadingButton(
