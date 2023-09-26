@@ -1,8 +1,7 @@
 import { Context } from "@grucloud/bau-ui/context";
 import form from "@grucloud/bau-ui/form";
 import paper from "@grucloud/bau-ui/paper";
-import button from "@grucloud/bau-ui/button";
-
+import buttonBack from "../../components/buttonBack";
 import loadingButton from "@grucloud/bau-ui/loadingButton";
 import input from "@grucloud/bau-ui/input";
 
@@ -12,10 +11,7 @@ export default function (context: Context) {
 
   const Form = form(context);
   const Paper = paper(context);
-  const ButtonCancel = button(context, {
-    variant: "outline",
-    color: "neutral",
-  });
+  const ButtonBack = buttonBack(context);
 
   const LoadingButton = loadingButton(context, {
     variant: "solid",
@@ -62,7 +58,7 @@ export default function (context: Context) {
           })
         ),
         footer(
-          ButtonCancel({ onclick: () => window.history.back() }, "Cancel"),
+          ButtonBack(),
           LoadingButton(
             {
               type: "submit",

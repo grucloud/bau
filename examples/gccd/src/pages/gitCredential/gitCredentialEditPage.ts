@@ -1,17 +1,14 @@
 import { Context } from "@grucloud/bau-ui/context";
 import button from "@grucloud/bau-ui/button";
 import form from "@grucloud/bau-ui/form";
-
+import buttonBack from "../../components/buttonBack";
 import page from "../../components/page";
 import gitCredentialFormContent from "../../components/gitCredential/gitCredentialFormContent";
 
 export default function (context: Context) {
   const { bau, stores, config, window } = context;
   const { h1, p, header, footer, h2 } = bau.tags;
-  const ButtonCancel = button(context, {
-    variant: "outline",
-    color: "neutral",
-  });
+  const ButtonBack = buttonBack(context);
   const ButtonEdit = button(context, { color: "primary", variant: "solid" });
   const Page = page(context);
   const Form = form(context);
@@ -41,10 +38,7 @@ export default function (context: Context) {
         header(h1("Edit Git credentials")),
         p(),
         GitCredentialFormContent({ username: "TODO" }),
-        footer(
-          ButtonEdit({ type: "submit" }, "Save"),
-          ButtonCancel({ onclick: () => window.history.back() }, "Cancel")
-        ),
+        footer(ButtonEdit({ type: "submit" }, "Save"), ButtonBack()),
         h2("Danger Zone"),
         ButtonDelete({ href: `${git_credential_id}/destroy` }, "Danger Zone")
       )
