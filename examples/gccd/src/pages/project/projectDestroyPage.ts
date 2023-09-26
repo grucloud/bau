@@ -1,15 +1,14 @@
 import { Context } from "@grucloud/bau-ui/context";
-import form from "@grucloud/bau-ui/form";
 import paper from "@grucloud/bau-ui/paper";
 import buttonBack from "../../components/buttonBack";
 import loadingButton from "@grucloud/bau-ui/loadingButton";
 import input from "@grucloud/bau-ui/input";
+import formDestroy from "../../components/formDestroy";
 
 export default function (context: Context) {
-  const { bau, stores, css, window, config } = context;
+  const { bau, stores, window, config } = context;
   const { h1, header, span, section, footer } = bau.tags;
 
-  const Form = form(context);
   const Paper = paper(context);
   const ButtonBack = buttonBack(context);
 
@@ -17,16 +16,7 @@ export default function (context: Context) {
     variant: "solid",
     color: "danger",
   });
-
-  const className = css`
-    max-width: 500px;
-    display: inline-flex;
-    flex-direction: column;
-    gap: 1rem;
-    & section {
-      display: inline-flex;
-    }
-  `;
+  const FormDestroy = formDestroy(context);
 
   const Input = input(context);
 
@@ -40,9 +30,9 @@ export default function (context: Context) {
     };
 
     return Paper(
-      Form(
-        { class: className, onsubmit },
-        header(h1({ class: "title" }, "Remove Project")),
+      FormDestroy(
+        { onsubmit },
+        header(h1("Remove Project")),
         section(
           span("Remove the project from the workspace"),
           Input({
