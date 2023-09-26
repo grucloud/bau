@@ -2,21 +2,25 @@ import { type Context } from "@grucloud/bau-ui/context";
 import tableContainer from "@grucloud/bau-ui/tableContainer";
 
 export default function (context: Context) {
-  const { bau, css, stores } = context;
-  const { span, a, table, tr, td } = bau.tags;
+  const { bau, css } = context;
+  const { span, a, table, tr, td, section } = bau.tags;
   const TableContainer = tableContainer(context, {
-    class: css``,
+    class: css`
+      & th {
+        text-align: left;
+      }
+    `,
   });
 
-  const ListItem = ({ org_id, org_name }: any) =>
+  const ListItem = ({ project_id, workspace_id, workspace_name }: any) =>
     tr(
       {
-        "data-org-list-item-name": org_id,
+        "data-workspace-list-item-name": workspace_id,
       },
       td(
         a(
           {
-            href: `org/${org_id}`,
+            href: `${project_id}/workspaces/${workspace_id}`,
             class: css`
               width: 100%;
               display: flex;
@@ -26,17 +30,12 @@ export default function (context: Context) {
               color: var(--font-color);
             `,
           },
-          span(org_name)
+          span(workspace_name)
         )
       )
     );
 
-  const { data } = stores.org.getAllQuery;
-
-  return function OrgList({}) {
-    return () =>
-      data.val
-        ? TableContainer(table(data.val.map(ListItem)))
-        : "No organisation";
+  return function WorkspaceList(workspaces: any) {
+    return section(TableContainer(table(workspaces.map(ListItem))));
   };
 }

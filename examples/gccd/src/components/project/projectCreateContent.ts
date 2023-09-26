@@ -6,14 +6,14 @@ export default function (context: Context) {
   const { section, label } = bau.tags;
   const Input = input(context);
 
-  return function OrgCreateContent({}) {
+  return function ProjectCreateContent({}) {
     return section(
       label(
-        "Organisation",
+        "Project Name",
         Input({
           autofocus: true,
-          placeholder: "Organisation",
-          name: "org_name",
+          placeholder: "Project name",
+          name: "project_name",
           minLength: 1,
           maxLength: 24,
           required: true,

@@ -11,13 +11,17 @@ export default function (context: Context) {
       }
     `,
   });
-  return function OrgDetailContent({ org_id, org_name }: any) {
+  return function WorkspaceDetailContent({
+    //org_id,
+    workspace_id,
+    workspace_name,
+  }: any) {
     return section(
       h2("Summary"),
       TableContainer(
         table(
-          tr(th("Organisation Name"), td(org_name)),
-          tr(th("Organisation Id"), td(org_id))
+          tr(th("Workspace Name"), td(workspace_name)),
+          tr(th("Workspace Id"), td(workspace_id))
         )
       )
     );

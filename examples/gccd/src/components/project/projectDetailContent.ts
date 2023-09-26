@@ -11,13 +11,17 @@ export default function (context: Context) {
       }
     `,
   });
-  return function OrgDetailContent({ org_id, org_name }: any) {
+  return function ProjectDetailContent({
+    //org_id,
+    project_id,
+    project_name,
+  }: any) {
     return section(
       h2("Summary"),
       TableContainer(
         table(
-          tr(th("Organisation Name"), td(org_name)),
-          tr(th("Organisation Id"), td(org_id))
+          tr(th("Project Name"), td(project_name)),
+          tr(th("Project Id"), td(project_id))
         )
       )
     );

@@ -3,7 +3,7 @@ import button from "@grucloud/bau-ui/button";
 import form from "@grucloud/bau-ui/form";
 
 import page from "../../components/page";
-import orgCreateContent from "../../components/org/orgCreateContent";
+import workspaceCreateContent from "../../components/workspace/workspaceCreateContent";
 
 export default function (context: Context) {
   const { bau, stores, config, window } = context;
@@ -16,27 +16,33 @@ export default function (context: Context) {
   const Page = page(context);
   const Form = form(context);
 
-  const OrgCreateContent = orgCreateContent(context);
+  const WorkspaceCreateContent = workspaceCreateContent(context);
 
-  const onsubmit = async (event: any) => {
-    event.preventDefault();
-    const { org_name } = event.target.elements;
-    const { org_id } = await stores.org.createQuery.run({
-      org_name: org_name.value,
-    });
+  return function WorkspaceCreatePage({ org_id, project_id }: any) {
+    const onsubmit = async (event: any) => {
+      event.preventDefault();
+      const { workspace_name } = event.target.elements;
 
-    window.history.pushState("", "", `${config.base}/org/${org_id}`);
-  };
+      const { workspace_id } = await stores.workspace.createQuery.run(
+        { org_id, project_id },
+        {
+          workspace_name: workspace_name.value,
+        }
+      );
 
-  return function OrgCreatePage({}) {
+      window.history.pushState(
+        "",
+        "",
+        `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
+      );
+    };
+
     return Page(
       Form(
         { onsubmit },
-        header(h1("Create a new organisation")),
-        p(
-          "A user can create or join an organisation. An organisation contains projects."
-        ),
-        OrgCreateContent({}),
+        header(h1("Create a new workspace")),
+        p(),
+        WorkspaceCreateContent({}),
         footer(
           ButtonCreate({ type: "submit" }, "Create"),
           ButtonCancel({ onclick: () => window.history.back() }, "Cancel")

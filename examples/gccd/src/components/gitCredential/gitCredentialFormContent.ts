@@ -13,7 +13,7 @@ export default (context: Context) => {
         Input({
           autofocus: true,
           placeholder: "Git Username",
-          name: "gitUsername",
+          name: "username",
           minLength: 3,
           maxLength: 128,
           required: true,
@@ -24,7 +24,7 @@ export default (context: Context) => {
         Input({
           placeholder: "Git Personal Access Code",
           type: "password",
-          name: "gitPassword",
+          name: "password",
           minLength: 8,
           required: true,
         }),

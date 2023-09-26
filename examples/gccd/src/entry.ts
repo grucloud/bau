@@ -11,6 +11,9 @@ import { createStyles } from "./style.js";
 import rest from "./rest";
 import config from "./config";
 import orgStores from "./stores/orgStore";
+import projectStores from "./stores/projectStore";
+import workspaceStores from "./stores/workspaceStore";
+
 import infraStores from "./stores/infraStore";
 import authStores from "./stores/authStore";
 import gitCredentialsStore from "./stores/gitCredentialsStore";
@@ -31,9 +34,11 @@ context.rest = rest(context);
 
 context.stores = {
   org: orgStores(context),
+  gitCredential: gitCredentialsStore(context),
+  project: projectStores(context),
+  workspace: workspaceStores(context),
   infra: infraStores(context),
   auth: authStores(context),
-  gitCredentials: gitCredentialsStore(context),
   gitRepository: gitRepositoryStore(context),
   gitHub: gitHubStore(context),
   router: routerStore(context),

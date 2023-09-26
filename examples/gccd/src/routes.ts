@@ -12,10 +12,26 @@ import accountDeletePage from "./pages/accountDeletePage";
 //import gitCredentialEditPage from "./pages/infra/gitCredentialEditPage";
 //import infraDestroyPage from "./pages/infra/infraDestroyPage";
 
+// Org
 import orgListPage from "./pages/org/orgListPage";
 import orgCreatePage from "./pages/org/orgCreatePage";
 import orgDetailPage from "./pages/org/orgDetailPage";
+import orgDestroyPage from "./pages/org/orgDestroyPage";
 
+// Project
+import projectCreatePage from "./pages/project/projectCreatePage";
+import projectDetailPage from "./pages/project/projectDetailPage";
+
+// Git Credential
+import gitCredentialCreatePage from "./pages/gitCredential/gitCredentialCreatePage";
+import gitCredentialEditPage from "./pages/gitCredential/gitCredentialEditPage";
+import gitCredentialDestroyPage from "./pages/gitCredential/gitCredentialDestroyPage";
+
+// Workspace
+import workspaceCreatePage from "./pages/workspace/workspaceCreatePage";
+import workspaceDetailPage from "./pages/workspace/workspaceDetailPage";
+
+//
 import layoutUnauthenticated from "./layoutUnauthenticated";
 
 export const createRoutes = ({ context }: { context: Context }) => [
@@ -95,19 +111,19 @@ export const createRoutes = ({ context }: { context: Context }) => [
         }),
       },
       {
-        path: "(?<org_id>.{12})/destroy",
-        action: ({ match: { groups } }: any) => ({
-          title: "Delete Organisation",
-          component: () => `Delete Organisation: ${groups.org_id} `,
-        }),
-      },
-      {
         path: "(?<org_id>.{12})",
         action: ({ match: { groups } }: any) => ({
           title: "Organisation Details",
-          component: () => orgDetailPage(context)({ org_id: groups.org_id }),
+          component: () => orgDetailPage(context)(groups),
         }),
         children: [
+          {
+            path: "destroy",
+            action: ({ match: { groups } }: any) => ({
+              title: "Delete Organisation",
+              component: () => orgDestroyPage(context)(groups),
+            }),
+          },
           {
             path: "projects",
             action: ({ match: { groups } }: any) => ({
@@ -119,28 +135,88 @@ export const createRoutes = ({ context }: { context: Context }) => [
             children: [
               {
                 path: "create",
-                action: () => ({
+                action: ({ match: { groups } }: any) => ({
                   title: "Create Project",
-                  component: () => "Create Project",
+                  component: () => projectCreatePage(context)(groups),
                 }),
               },
               {
-                path: "(?<projectId>.+)",
+                path: "(?<project_id>.{16})",
                 action: ({ match: { groups } }: any) => ({
-                  title: "View Project",
-                  component: () => {
-                    return `View Project: ${groups.projectId} from Org: ${groups.org_id} `;
+                  title: "Project Details",
+                  component: () => projectDetailPage(context)(groups),
+                }),
+                children: [
+                  {
+                    path: "destroy",
+                    action: ({ match: { groups } }: any) => ({
+                      title: "Delete Project",
+                      component: () => {
+                        return `Delete Project: ${groups.project_id} from Org: ${groups.org_id} `;
+                      },
+                    }),
                   },
+                  {
+                    path: "workspaces",
+                    action: ({ match: { groups } }: any) => ({
+                      title: "workspaces",
+                      component: () => {
+                        return `workspaces: ${groups.project_id} from Org: ${groups.org_id} `;
+                      },
+                    }),
+                    children: [
+                      {
+                        path: "create",
+                        action: ({ match: { groups } }: any) => ({
+                          title: "Create Workspace",
+                          component: () => workspaceCreatePage(context)(groups),
+                        }),
+                      },
+                      {
+                        path: "(?<workspace_id>.{18})",
+                        action: ({ match: { groups } }: any) => ({
+                          title: "Workspace Details",
+                          component: () => workspaceDetailPage(context)(groups),
+                        }),
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: "git_credential",
+            action: ({ match: { groups } }: any) => ({
+              title: "Git Credential",
+              component: () => {
+                return `Git Credential: ${groups.org_id} `;
+              },
+            }),
+            children: [
+              {
+                path: "create",
+                action: ({ match: { groups } }: any) => ({
+                  title: "Create Git Credential",
+                  component: () => gitCredentialCreatePage(context)(groups),
                 }),
               },
               {
-                path: "(?<projectId>.+)/destroy",
+                path: "(?<git_credential_id>.{13})",
                 action: ({ match: { groups } }: any) => ({
-                  title: "Delete Project",
-                  component: () => {
-                    return `Delete Project: ${groups.projectId} from Org: ${groups.org_id} `;
-                  },
+                  title: "Git Credential Details",
+                  component: () => gitCredentialEditPage(context)(groups),
                 }),
+                children: [
+                  {
+                    path: "destroy",
+                    action: ({ match: { groups } }: any) => ({
+                      title: "Delete Git Credential",
+                      component: () =>
+                        gitCredentialDestroyPage(context)(groups),
+                    }),
+                  },
+                ],
               },
             ],
           },

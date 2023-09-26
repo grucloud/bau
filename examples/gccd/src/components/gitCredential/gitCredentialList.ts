@@ -2,21 +2,21 @@ import { type Context } from "@grucloud/bau-ui/context";
 import tableContainer from "@grucloud/bau-ui/tableContainer";
 
 export default function (context: Context) {
-  const { bau, css, stores } = context;
+  const { bau, css } = context;
   const { span, a, table, tr, td } = bau.tags;
   const TableContainer = tableContainer(context, {
     class: css``,
   });
 
-  const ListItem = ({ org_id, org_name }: any) =>
+  const ListItem = ({ org_id, username, git_credential_id }: any) =>
     tr(
       {
-        "data-org-list-item-name": org_id,
+        "data-git-credential-list-item-name": git_credential_id,
       },
       td(
         a(
           {
-            href: `org/${org_id}`,
+            href: `${org_id}/git_credential/${git_credential_id}`,
             class: css`
               width: 100%;
               display: flex;
@@ -26,17 +26,14 @@ export default function (context: Context) {
               color: var(--font-color);
             `,
           },
-          span(org_name)
+          span(username)
         )
       )
     );
 
-  const { data } = stores.org.getAllQuery;
-
-  return function OrgList({}) {
-    return () =>
-      data.val
-        ? TableContainer(table(data.val.map(ListItem)))
-        : "No organisation";
+  return function GitCredentialList(items: any) {
+    return items
+      ? TableContainer(table(items.map(ListItem)))
+      : "No Git Credential";
   };
 }
