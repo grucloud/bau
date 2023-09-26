@@ -19,6 +19,7 @@ export default function (context: Context) {
     color: "primary",
     variant: "solid",
   });
+  const ButtonDelete = button(context, { variant: "outline", color: "danger" });
 
   const ProjectDetailContent = projectDetailContent(context);
   const WorkspaceList = workspaceList(context);
@@ -43,7 +44,9 @@ export default function (context: Context) {
         h2("Workspace"),
         () =>
           !stores.workspace.getAllByProject.loading.val &&
-          WorkspaceList(stores.workspace.getAllByProject.data.val)
+          WorkspaceList(stores.workspace.getAllByProject.data.val),
+        h2("Danger Zone"),
+        ButtonDelete({ href: `${project_id}/destroy` }, "Danger Zone")
       ),
       Spinner({
         visibility: getByIdQuery.loading,

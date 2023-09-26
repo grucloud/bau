@@ -18,8 +18,8 @@ export default function (context: Context) {
     patchQuery: query(({ org_id, project_id, workspace_id }: any, data: any) =>
       rest.patch(`org/${org_id}/project/${project_id}/${workspace_id}`, data)
     ),
-    destroyQuery: query(({ org_id, project_id, workspace_id }: any) =>
-      rest.del(`org/${org_id}/project/${project_id}/${workspace_id}`)
+    deleteQuery: query(({ org_id, project_id, workspace_id }: any) =>
+      rest.del(`org/${org_id}/project/${project_id}/workspace/${workspace_id}`)
     ),
   };
 }

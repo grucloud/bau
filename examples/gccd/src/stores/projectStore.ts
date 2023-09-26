@@ -18,7 +18,7 @@ export default function (context: Context) {
     patchQuery: query(({ org_id, project_id }: any, data: any) =>
       rest.patch(`org/${org_id}/project/${project_id}`, data)
     ),
-    destroyQuery: query(({ org_id, project_id }: any) =>
+    deleteQuery: query(({ org_id, project_id }: any) =>
       rest.del(`org/${org_id}/project/${project_id}`)
     ),
   };

@@ -20,6 +20,7 @@ export default function (context: Context) {
     color: "primary",
     variant: "solid",
   });
+  const ButtonDelete = button(context, { variant: "outline", color: "danger" });
 
   const OrgDetailContent = orgDetailContent(context);
   const ProjectList = projectList(context);
@@ -58,7 +59,10 @@ export default function (context: Context) {
         ),
         () =>
           !stores.gitCredential.getAllByOrgQuery.loading.val &&
-          GitCredentialList(stores.gitCredential.getAllByOrgQuery.data.val)
+          GitCredentialList(stores.gitCredential.getAllByOrgQuery.data.val),
+
+        h2("Danger Zone"),
+        ButtonDelete({ href: `${org_id}/destroy` }, "Danger Zone")
       ),
       Spinner({
         visibility: getByIdQuery.loading,

@@ -21,6 +21,7 @@ import orgDestroyPage from "./pages/org/orgDestroyPage";
 // Project
 import projectCreatePage from "./pages/project/projectCreatePage";
 import projectDetailPage from "./pages/project/projectDetailPage";
+import projectDestroyPage from "./pages/project/projectDestroyPage";
 
 // Git Credential
 import gitCredentialCreatePage from "./pages/gitCredential/gitCredentialCreatePage";
@@ -30,6 +31,7 @@ import gitCredentialDestroyPage from "./pages/gitCredential/gitCredentialDestroy
 // Workspace
 import workspaceCreatePage from "./pages/workspace/workspaceCreatePage";
 import workspaceDetailPage from "./pages/workspace/workspaceDetailPage";
+import workspaceDestroyPage from "./pages/workspace/workspaceDestroyPage";
 
 //
 import layoutUnauthenticated from "./layoutUnauthenticated";
@@ -151,9 +153,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
                     path: "destroy",
                     action: ({ match: { groups } }: any) => ({
                       title: "Delete Project",
-                      component: () => {
-                        return `Delete Project: ${groups.project_id} from Org: ${groups.org_id} `;
-                      },
+                      component: () => projectDestroyPage(context)(groups),
                     }),
                   },
                   {
@@ -178,6 +178,16 @@ export const createRoutes = ({ context }: { context: Context }) => [
                           title: "Workspace Details",
                           component: () => workspaceDetailPage(context)(groups),
                         }),
+                        children: [
+                          {
+                            path: "destroy",
+                            action: ({ match: { groups } }: any) => ({
+                              title: "Delete Workspace",
+                              component: () =>
+                                workspaceDestroyPage(context)(groups),
+                            }),
+                          },
+                        ],
                       },
                     ],
                   },

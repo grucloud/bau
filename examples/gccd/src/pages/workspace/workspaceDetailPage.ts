@@ -18,6 +18,7 @@ export default function (context: Context) {
     color: "primary",
     variant: "solid",
   });
+  const ButtonDelete = button(context, { variant: "outline", color: "danger" });
 
   const WorkspaceDetailContent = workspaceDetailContent(context);
   return function WorkspaceDetailPage({
@@ -41,7 +42,8 @@ export default function (context: Context) {
         () =>
           !getByIdQuery.loading.val &&
           WorkspaceDetailContent(getByIdQuery.data.val),
-        h2()
+        h2("Danger Zone"),
+        ButtonDelete({ href: `${workspace_id}/destroy` }, "Danger Zone")
       ),
       Spinner({
         visibility: getByIdQuery.loading,
