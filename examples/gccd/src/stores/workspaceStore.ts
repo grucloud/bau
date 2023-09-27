@@ -6,6 +6,7 @@ export default function (context: Context) {
   const query = useQuery(context);
 
   return {
+    getAllByUserQuery: query(() => rest.get(`workspaces`)),
     getAllByProject: query(({ org_id, project_id }: any) =>
       rest.get(`org/${org_id}/project/${project_id}/workspace`)
     ),

@@ -22,6 +22,7 @@ import orgDestroyPage from "./pages/org/orgDestroyPage";
 import projectCreatePage from "./pages/project/projectCreatePage";
 import projectDetailPage from "./pages/project/projectDetailPage";
 import projectDestroyPage from "./pages/project/projectDestroyPage";
+import projectUserPage from "./pages/project/projectUserPage";
 
 // Git Credential
 import gitCredentialCreatePage from "./pages/gitCredential/gitCredentialCreatePage";
@@ -29,6 +30,7 @@ import gitCredentialEditPage from "./pages/gitCredential/gitCredentialEditPage";
 import gitCredentialDestroyPage from "./pages/gitCredential/gitCredentialDestroyPage";
 
 // Workspace
+import workspaceUserPage from "./pages/workspace/workspaceUserPage";
 import workspaceCreatePage from "./pages/workspace/workspaceCreatePage";
 import workspaceDetailPage from "./pages/workspace/workspaceDetailPage";
 import workspaceDestroyPage from "./pages/workspace/workspaceDestroyPage";
@@ -47,6 +49,20 @@ export const createRoutes = ({ context }: { context: Context }) => [
     action: () => ({
       title: "Dashboard",
       component: () => orgListPage(context)({}),
+    }),
+  },
+  {
+    path: "workspaces",
+    action: () => ({
+      title: "Workspaces",
+      component: () => workspaceUserPage(context)({}),
+    }),
+  },
+  {
+    path: "projects",
+    action: () => ({
+      title: "Projects",
+      component: () => projectUserPage(context)({}),
     }),
   },
   // {
