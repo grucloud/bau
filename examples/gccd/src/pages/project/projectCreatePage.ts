@@ -45,7 +45,7 @@ export default function (context: Context) {
         p(
           "A project is a container for workspaces representing various environment of the infrastructure."
         ),
-        ProjectCreateContent({}),
+        ProjectCreateContent({ org_id }),
         footer(
           LoadingButton(
             { type: "submit", loading: stores.project.createQuery.loading },

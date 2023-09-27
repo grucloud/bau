@@ -6,8 +6,10 @@ export default function (context: Context) {
   const { section, label } = bau.tags;
   const Input = input(context);
 
-  return function ProjectCreateContent({}) {
+  return function ProjectCreateContent({ org_id }: any) {
+    org_id;
     return section(
+      // Select org
       label(
         "Project Name",
         Input({
