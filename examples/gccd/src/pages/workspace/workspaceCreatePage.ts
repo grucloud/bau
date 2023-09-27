@@ -22,19 +22,19 @@ export default function (context: Context) {
   return function WorkspaceCreatePage({ org_id, project_id }: any) {
     const onsubmit = async (event: any) => {
       event.preventDefault();
-      const { workspace_name } = event.target.elements;
+      const { workspace_id } = event.target.elements;
 
-      const { workspace_id } = await stores.workspace.createQuery.run(
+      const {} = await stores.workspace.createQuery.run(
         { org_id, project_id },
         {
-          workspace_name: workspace_name.value,
+          workspace_id: workspace_id.value,
         }
       );
 
       window.history.pushState(
         "",
         "",
-        `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
+        `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id.value}`
       );
     };
 

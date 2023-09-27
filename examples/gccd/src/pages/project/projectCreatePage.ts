@@ -22,19 +22,19 @@ export default function (context: Context) {
   return function ProjectCreatePage({ org_id }: any) {
     const onsubmit = async (event: any) => {
       event.preventDefault();
-      const { project_name } = event.target.elements;
+      const { project_id } = event.target.elements;
 
-      const { project_id } = await stores.project.createQuery.run(
+      const {} = await stores.project.createQuery.run(
         { org_id },
         {
-          project_name: project_name.value,
+          project_id: project_id.value,
         }
       );
 
       window.history.pushState(
         "",
         "",
-        `${config.base}/org/${org_id}/projects/${project_id}`
+        `${config.base}/org/${org_id}/projects/${project_id.value}`
       );
     };
 

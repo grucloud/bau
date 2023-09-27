@@ -13,7 +13,7 @@ export default function (context: Context) {
         Input({
           autofocus: true,
           placeholder: "Organisation",
-          name: "org_name",
+          name: "org_id",
           minLength: 1,
           maxLength: 24,
           required: true,

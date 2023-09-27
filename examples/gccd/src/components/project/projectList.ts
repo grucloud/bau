@@ -12,18 +12,12 @@ export default function (context: Context) {
     `,
   });
 
-  const ListItem = ({
-    org_id,
-    org_name,
-    project_id,
-    project_name,
-    workspace_count,
-  }: any) =>
+  const ListItem = ({ org_id, project_id, workspace_count }: any) =>
     tr(
       {
         "data-project-list-item-name": project_id,
       },
-      td(a({ href: `${config.base}/org/${org_id}` }, org_name)),
+      td(a({ href: `${config.base}/org/${org_id}` }, org_id)),
 
       td(
         a(
@@ -33,7 +27,7 @@ export default function (context: Context) {
               color: var(--font-color);
             `,
           },
-          span(project_name)
+          span(project_id)
         )
       ),
       td(workspace_count)

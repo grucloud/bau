@@ -12,16 +12,17 @@ export default function (context: Context) {
     `,
   });
   return function WorkspaceDetailContent({
-    //org_id,
+    org_id,
+    project_id,
     workspace_id,
-    workspace_name,
   }: any) {
     return section(
       h2("Summary"),
       TableContainer(
         table(
-          tr(th("Workspace Name"), td(workspace_name)),
-          tr(th("Workspace Id"), td(workspace_id))
+          tr(th("Organisation"), td(org_id)),
+          tr(th("Project"), td(project_id)),
+          tr(th("Workspace"), td(workspace_id))
         )
       )
     );

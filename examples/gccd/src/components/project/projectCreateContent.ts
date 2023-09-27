@@ -14,8 +14,8 @@ export default function (context: Context) {
         "Project Name",
         Input({
           autofocus: true,
-          placeholder: "Project name",
-          name: "project_name",
+          placeholder: "Project Id",
+          name: "project_id",
           minLength: 1,
           maxLength: 24,
           required: true,

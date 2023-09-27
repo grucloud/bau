@@ -33,7 +33,7 @@ export default function (context: Context) {
       // TODO window.location.host ?
       const socket = new WebSocket("ws://localhost:9000");
       // Connection opened
-      socket.addEventListener("open", (event) => {
+      socket.addEventListener("open", (_event) => {
         console.log("open");
         socket.send(
           JSON.stringify({
@@ -45,7 +45,7 @@ export default function (context: Context) {
       socket.addEventListener("close", (event) => {
         console.log("websocket closed", event);
       });
-      socket.addEventListener("error", (event) => {
+      socket.addEventListener("error", (_event) => {
         console.log("websocket error");
       });
       socket.addEventListener("message", (event) => {
@@ -56,6 +56,9 @@ export default function (context: Context) {
       h2("Summary"),
       TableContainer(
         table(
+          tr(th("Organisation"), td(org_id)),
+          tr(th("Project"), td(project_id)),
+          tr(th("Workspace"), td(workspace_id)),
           tr(th("Run Id"), td(run_id)),
           tr(th("Status"), td(status)),
           tr(

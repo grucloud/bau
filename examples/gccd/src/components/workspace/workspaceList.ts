@@ -12,23 +12,16 @@ export default function (context: Context) {
     `,
   });
 
-  const ListItem = ({
-    project_id,
-    workspace_id,
-    workspace_name,
-    org_name,
-    org_id,
-    project_name,
-  }: any) =>
+  const ListItem = ({ project_id, workspace_id, org_id }: any) =>
     tr(
       {
         "data-workspace-list-item-name": workspace_id,
       },
-      td(a({ href: `${config.base}/org/${org_id}` }, org_name)),
+      td(a({ href: `${config.base}/org/${org_id}` }, org_id)),
       td(
         a(
           { href: `${config.base}/org/${org_id}/projects/${project_id}` },
-          project_name
+          project_id
         )
       ),
       td(
@@ -39,7 +32,7 @@ export default function (context: Context) {
               color: var(--font-color);
             `,
           },
-          span(workspace_name)
+          span(workspace_id)
         )
       )
     );

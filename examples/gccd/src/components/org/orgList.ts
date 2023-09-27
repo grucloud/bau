@@ -8,7 +8,7 @@ export default function (context: Context) {
     class: css``,
   });
 
-  const ListItem = ({ org_id, org_name, project_count }: any) =>
+  const ListItem = ({ org_id, project_count }: any) =>
     tr(
       {
         "data-org-list-item-name": org_id,
@@ -21,7 +21,7 @@ export default function (context: Context) {
               color: var(--font-color);
             `,
           },
-          span(org_name)
+          span(org_id)
         )
       ),
       td(project_count)

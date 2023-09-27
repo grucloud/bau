@@ -134,7 +134,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
         }),
       },
       {
-        path: "(?<org_id>.{12})",
+        path: "(?<org_id>.[^/]+)",
         action: ({ match: { groups } }: any) => ({
           title: "Organisation Details",
           component: () => orgDetailPage(context)(groups),
@@ -151,9 +151,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
             path: "projects",
             action: ({ match: { groups } }: any) => ({
               title: " Project",
-              component: () => {
-                return `Projects List Org: ${groups.org_id} `;
-              },
+              component: () => orgDetailPage(context)(groups),
             }),
             children: [
               {
@@ -164,7 +162,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
                 }),
               },
               {
-                path: "(?<project_id>.{16})",
+                path: "(?<project_id>.[^/]+)",
                 action: ({ match: { groups } }: any) => ({
                   title: "Project Details",
                   component: () => projectDetailPage(context)(groups),
@@ -181,9 +179,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
                     path: "workspaces",
                     action: ({ match: { groups } }: any) => ({
                       title: "workspaces",
-                      component: () => {
-                        return `workspaces: ${groups.project_id} from Org: ${groups.org_id} `;
-                      },
+                      component: () => projectDetailPage(context)(groups),
                     }),
                     children: [
                       {
@@ -194,7 +190,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
                         }),
                       },
                       {
-                        path: "(?<workspace_id>.{18})",
+                        path: "(?<workspace_id>.[^/]+)",
                         action: ({ match: { groups } }: any) => ({
                           title: "Workspace Details",
                           component: () => workspaceDetailPage(context)(groups),
@@ -210,9 +206,10 @@ export const createRoutes = ({ context }: { context: Context }) => [
                           },
                           {
                             path: "runs",
-                            action: ({ match: {} }: any) => ({
+                            action: ({ match: { groups } }: any) => ({
                               title: "List run",
-                              component: () => "List run",
+                              component: () =>
+                                workspaceCreatePage(context)(groups),
                             }),
                             children: [
                               {
@@ -224,7 +221,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
                                 }),
                               },
                               {
-                                path: "(?<run_id>.{12})",
+                                path: "(?<run_id>.[^/]+)",
                                 action: ({ match: { groups } }: any) => ({
                                   title: "Run Details",
                                   component: () =>

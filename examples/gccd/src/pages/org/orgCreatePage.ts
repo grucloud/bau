@@ -21,12 +21,12 @@ export default function (context: Context) {
 
   const onsubmit = async (event: any) => {
     event.preventDefault();
-    const { org_name } = event.target.elements;
-    const { org_id } = await stores.org.createQuery.run({
-      org_name: org_name.value,
+    const { org_id } = event.target.elements;
+    const {} = await stores.org.createQuery.run({
+      org_id: org_id.value,
     });
 
-    window.history.pushState("", "", `${config.base}/org/${org_id}`);
+    window.history.pushState("", "", `${config.base}/org/${org_id.value}`);
   };
 
   return function OrgCreatePage({}) {
