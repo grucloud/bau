@@ -201,10 +201,10 @@ importers:
         specifier: ^0.47.0
         version: link:../../../bau-css
       '@grucloud/bau-router':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../../bau-router
       '@grucloud/bau-ui':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../..
       highlight.js:
         specifier: 11.8.0
@@ -238,7 +238,7 @@ importers:
   bau-ui/examples/bau-ui-template-js:
     dependencies:
       '@grucloud/bau-ui':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../..
     devDependencies:
       vite:
@@ -248,7 +248,7 @@ importers:
   bau-ui/examples/bau-ui-template-ts:
     dependencies:
       '@grucloud/bau-ui':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../..
     devDependencies:
       typescript:
@@ -270,7 +270,7 @@ importers:
   bausaurus:
     dependencies:
       '@grucloud/bausaurus-core':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:bausaurus-core
       '@rollup/plugin-virtual':
         specifier: 3.0.1
@@ -339,7 +339,7 @@ importers:
         specifier: ^0.47.0
         version: link:../../bau-css
       '@grucloud/bau-ui':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../bau-ui
 
   bausaurus/bausaurus-theme-classic:
@@ -351,10 +351,10 @@ importers:
         specifier: ^0.47.0
         version: link:../../bau-css
       '@grucloud/bau-ui':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../bau-ui
       '@grucloud/bausaurus-core':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../bausaurus-core
 
   bausaurus/example/bausaurus-doc:
@@ -366,13 +366,13 @@ importers:
         specifier: ^0.47.0
         version: link:../../../bau-css
       '@grucloud/bau-ui':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../../bau-ui
       '@grucloud/bausaurus-core':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../bausaurus-core
       '@grucloud/bausaurus-theme-classic':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../bausaurus-theme-classic
       gh-pages:
         specifier: 5.0.0
@@ -382,7 +382,7 @@ importers:
         version: 2.0.1
     devDependencies:
       '@grucloud/bausaurus':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../..
 
   bausaurus/example/bausaurus-template:
@@ -394,20 +394,20 @@ importers:
         specifier: ^0.47.0
         version: link:../../../bau-css
       '@grucloud/bau-ui':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../../bau-ui
       '@grucloud/bausaurus-core':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../bausaurus-core
       '@grucloud/bausaurus-theme-classic':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../bausaurus-theme-classic
       rubico:
         specifier: 2.0.1
         version: 2.0.1
     devDependencies:
       '@grucloud/bausaurus':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../..
 
   examples/bau-ace-editor:
@@ -457,10 +457,10 @@ importers:
         specifier: ^0.47.0
         version: link:../../bau-css
       '@grucloud/bau-router':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../bau-router
       '@grucloud/bau-ui':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../bau-ui
       rubico:
         specifier: 1.9.7
@@ -567,10 +567,10 @@ importers:
         specifier: ^0.47.0
         version: link:../../bau
       '@grucloud/bau-router':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../bau-router
       '@grucloud/bau-ui':
-        specifier: ^0.47.0
+        specifier: ^0.47.1
         version: link:../../bau-ui
       date-fns:
         specifier: 2.30.0
