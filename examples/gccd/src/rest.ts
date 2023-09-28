@@ -3,7 +3,7 @@ import alert from "@grucloud/bau-ui/alert";
 
 export default function (context: Context) {
   const { bau, config, window } = context;
-  const { div, small } = bau.tags;
+  const { div, small, p } = bau.tags;
   const Alert = alert(context, {
     color: "danger",
   });
@@ -50,6 +50,7 @@ export default function (context: Context) {
           `${config.loginPath}?nextPath=${location.pathname}`
         );
       } else if (![401, 403].includes(response.status)) {
+        const errorMessage = await response.text();
         document.dispatchEvent(
           new CustomEvent("alert.add", {
             detail: {
@@ -57,7 +58,8 @@ export default function (context: Context) {
                 Alert(
                   div(response.statusText),
                   div(response.status),
-                  small(method, " ", response.url)
+                  small(method, " ", response.url),
+                  errorMessage && p(small(errorMessage))
                 ),
             },
           })

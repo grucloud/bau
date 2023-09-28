@@ -49,7 +49,6 @@ export const layoutDefault = (context: Context) => {
             grid-area: main;
             margin: 1rem;
             display: grid;
-            justify-content: center;
           `,
         },
         () => componentState.val
