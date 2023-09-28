@@ -209,7 +209,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
                             action: ({ match: { groups } }: any) => ({
                               title: "List run",
                               component: () =>
-                                workspaceCreatePage(context)(groups),
+                                workspaceDetailPage(context)(groups),
                             }),
                             children: [
                               {
@@ -221,7 +221,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
                                 }),
                               },
                               {
-                                path: "(?<run_id>.[^/]+)",
+                                path: "(?<run_id>[^/]+)",
                                 action: ({ match: { groups } }: any) => ({
                                   title: "Run Details",
                                   component: () =>
@@ -252,9 +252,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
             path: "git_credential",
             action: ({ match: { groups } }: any) => ({
               title: "Git Credential",
-              component: () => {
-                return `Git Credential: ${groups.org_id} `;
-              },
+              component: () => orgDetailPage(context)(groups),
             }),
             children: [
               {

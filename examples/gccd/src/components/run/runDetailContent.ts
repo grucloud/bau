@@ -2,7 +2,7 @@ import { type Context } from "@grucloud/bau-ui/context";
 import tableContainer from "@grucloud/bau-ui/tableContainer";
 
 export default function (context: Context) {
-  const { bau, css } = context;
+  const { bau, css, config } = context;
   const { h2, table, tr, td, th, section, a } = bau.tags;
   const TableContainer = tableContainer(context, {
     class: css`
@@ -56,9 +56,30 @@ export default function (context: Context) {
       h2("Summary"),
       TableContainer(
         table(
-          tr(th("Organisation"), td(org_id)),
-          tr(th("Project"), td(project_id)),
-          tr(th("Workspace"), td(workspace_id)),
+          tr(
+            th("Organisation"),
+            td(a({ href: `${config.base}/org/${org_id}` }, org_id))
+          ),
+          tr(
+            th("Project"),
+            td(
+              a(
+                { href: `${config.base}/org/${org_id}/projects/${project_id}` },
+                project_id
+              )
+            )
+          ),
+          tr(
+            th("Workspace"),
+            td(
+              a(
+                {
+                  href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`,
+                },
+                workspace_id
+              )
+            )
+          ),
           tr(th("Run Id"), td(run_id)),
           tr(th("Status"), td(status)),
           tr(
