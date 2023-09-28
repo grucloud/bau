@@ -3,40 +3,38 @@ import tableContainer from "@grucloud/bau-ui/tableContainer";
 
 export default function (context: Context) {
   const { bau, css, stores } = context;
-  const { span, a, table, tr, td } = bau.tags;
+  const { span, a, table, thead, tbody, th, tr, td } = bau.tags;
   const TableContainer = tableContainer(context, {
     class: css``,
   });
 
-  const ListItem = ({ id, name }: any) =>
+  const ListItem = ({ org_id, project_count }: any) =>
     tr(
       {
-        "data-org-list-item-name": name,
+        "data-org-list-item-name": org_id,
       },
       td(
         a(
           {
-            href: `org/details/${id}`,
+            href: `org/${org_id}`,
             class: css`
-              width: 100%;
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              gap: 1rem;
               color: var(--font-color);
             `,
           },
-          span(name)
+          span(org_id)
         )
-      )
+      ),
+      td(project_count)
     );
 
   const { data } = stores.org.getAllQuery;
 
   return function OrgList({}) {
-    return () =>
-      data.val
-        ? TableContainer(table(data.val.map(ListItem)))
-        : "No organisation";
+    return TableContainer(
+      table(
+        thead(th("Organisation"), th("Projects")),
+        tbody(data.val.map(ListItem))
+      )
+    );
   };
 }

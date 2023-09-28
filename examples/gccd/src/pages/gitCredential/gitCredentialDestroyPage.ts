@@ -7,7 +7,7 @@ import input from "@grucloud/bau-ui/input";
 
 export default function (context: Context) {
   const { bau, stores, css, window, config } = context;
-  const { h1, header, span, section, ul, li, footer } = bau.tags;
+  const { h1, header, span, section, footer } = bau.tags;
 
   const Form = form(context);
   const Paper = paper(context);
@@ -30,32 +30,26 @@ export default function (context: Context) {
 
   const Input = input(context);
 
-  return function InfraDestroyPage({ id }: any) {
+  return function GitCredentialDestroyPage({ org_id, git_credential_id }: any) {
     const {
       //getByIdQuery,
-      destroyQuery,
-    } = stores.infra;
+      deleteQuery,
+    } = stores.gitCredential;
 
     // getByIdQuery.run(id);
 
     const onsubmit = async (event: any) => {
       event.preventDefault();
-      await destroyQuery.run(id);
-      window.history.pushState("", "", `${config.base}/infra`);
+      await deleteQuery.run({ org_id, git_credential_id });
+      window.history.pushState("", "", `${config.base}/org/${org_id}`);
     };
 
     return Paper(
       Form(
         { class: className, onsubmit },
-        header(h1({ class: "title" }, "Remove Infrastructure")),
+        header(h1({ class: "title" }, "Remove Git Credential")),
         section(
-          span(
-            "Remove the infrastructure from the GruCloud's database.",
-            ul(
-              li("The underlying infrastruture will NOT be destroyed."),
-              li("Files will NOT be deleted from the git repository.")
-            )
-          ),
+          span("Remove the git credential from the organisation"),
           Input({
             autofocus: true,
             placeholder: "Type 'remove'",
@@ -68,7 +62,7 @@ export default function (context: Context) {
           LoadingButton(
             {
               type: "submit",
-              loading: destroyQuery.loading,
+              loading: deleteQuery.loading,
             },
             "Remove"
           )

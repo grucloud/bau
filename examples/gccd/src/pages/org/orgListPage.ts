@@ -27,7 +27,7 @@ export default function (context: Context) {
           "+ New Organisation"
         )
       ),
-      OrgList({}),
+      () => !stores.org.getAllQuery.loading.val && OrgList({}),
       Spinner({
         visibility: stores.org.getAllQuery.loading,
       })

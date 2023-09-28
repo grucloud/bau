@@ -14,7 +14,6 @@ export default function (context, options = {}) {
     min-width: 350px;
 
     & > header {
-      text-align: center;
       & h1 {
         line-height: 0;
         font-size: 1.3rem;
@@ -23,7 +22,7 @@ export default function (context, options = {}) {
     & section {
       display: inline-flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.5rem;
     }
     & label,
     legend {

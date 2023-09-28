@@ -35,8 +35,9 @@ export default function (context: Context) {
         body: JSON.stringify(body),
         headers,
       });
-
-      if (response.ok) {
+      // response from Delete
+      if (response.status == 204) {
+      } else if (response.ok) {
         const json = await response.json();
         return json;
       } else if (

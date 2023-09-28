@@ -20,7 +20,6 @@ export default (context: Context) => {
 
   return function ConfigAzure({ onclickPrevious, onclickCloudConfig }: any) {
     const onsubmit = (event: any) => {
-      event.target.elements;
       event.preventDefault();
       onclickCloudConfig(azureFormElementToData(event));
     };

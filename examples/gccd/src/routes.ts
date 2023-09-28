@@ -1,20 +1,46 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import loginPage from "./pages/loginPage";
 import logoutPage from "./pages/logoutPage";
-import infrastructurePage from "./pages/infra/infraListPage";
 import profilePage from "./pages/profilePage";
 import accountDeletePage from "./pages/accountDeletePage";
-import infraStepperPage from "./pages/infra/infraStepperPage";
-import infraDetailPage from "./pages/infra/infraDetailsPage";
-import infraDetailEditAwsPage from "./pages/infra/infraDetailEditAwsPage";
-import infraDetailEditAzurePage from "./pages/infra/infraDetailEditAzurePage";
-import infraDetailEditGooglePage from "./pages/infra/infraDetailEditGooglePage";
+// import infrastructurePage from "./pages/infra/infraListPage";
+// import infraStepperPage from "./pages/infra/infraStepperPage";
+// import infraDetailPage from "./pages/infra/infraDetailsPage";
+// import infraDetailEditAwsPage from "./pages/infra/infraDetailEditAwsPage";
+// import infraDetailEditAzurePage from "./pages/infra/infraDetailEditAzurePage";
+// import infraDetailEditGooglePage from "./pages/infra/infraDetailEditGooglePage";
 //import gitCredentialEditPage from "./pages/infra/gitCredentialEditPage";
+//import infraDestroyPage from "./pages/infra/infraDestroyPage";
 
-import infraDestroyPage from "./pages/infra/infraDestroyPage";
-
+// Org
 import orgListPage from "./pages/org/orgListPage";
+import orgCreatePage from "./pages/org/orgCreatePage";
+import orgDetailPage from "./pages/org/orgDetailPage";
+import orgDestroyPage from "./pages/org/orgDestroyPage";
 
+// Project
+import projectCreatePage from "./pages/project/projectCreatePage";
+import projectDetailPage from "./pages/project/projectDetailPage";
+import projectDestroyPage from "./pages/project/projectDestroyPage";
+import projectUserPage from "./pages/project/projectUserPage";
+
+// Git Credential
+import gitCredentialCreatePage from "./pages/gitCredential/gitCredentialCreatePage";
+import gitCredentialEditPage from "./pages/gitCredential/gitCredentialEditPage";
+import gitCredentialDestroyPage from "./pages/gitCredential/gitCredentialDestroyPage";
+
+// Workspace
+import workspaceUserPage from "./pages/workspace/workspaceUserPage";
+import workspaceCreatePage from "./pages/workspace/workspaceCreatePage";
+import workspaceDetailPage from "./pages/workspace/workspaceDetailPage";
+import workspaceDestroyPage from "./pages/workspace/workspaceDestroyPage";
+
+// Run
+import runCreatePage from "./pages/run/runCreatePage";
+import runDetailPage from "./pages/run/runDetailPage";
+import runDestroyPage from "./pages/run/runDestroyPage";
+
+//
 import layoutUnauthenticated from "./layoutUnauthenticated";
 
 export const createRoutes = ({ context }: { context: Context }) => [
@@ -22,67 +48,81 @@ export const createRoutes = ({ context }: { context: Context }) => [
     path: "",
     action: () => ({
       title: "Dashboard",
-      component: infrastructurePage(context),
+      component: () => orgListPage(context)({}),
     }),
   },
   {
-    path: "infra",
+    path: "workspaces",
     action: () => ({
-      title: "Infrastructures",
-      component: infrastructurePage(context),
+      title: "Workspaces",
+      component: () => workspaceUserPage(context)({}),
     }),
-    children: [
-      {
-        path: "create",
-        action: () => ({
-          title: "Create New Infrastructure",
-          component: infraStepperPage(context),
-        }),
-      },
-      {
-        path: "details/(?<id>.+)",
-        action: ({ match }: any) => ({
-          title: "Infrastructure Details",
-          component: () => infraDetailPage(context)({ id: match.groups.id }),
-        }),
-      },
-      {
-        path: "details/(?<id>.+)/destroy",
-        action: ({ match }: any) => ({
-          title: "Destroy Infrastructure",
-          component: () => infraDestroyPage(context)({ id: match.groups.id }),
-        }),
-      },
-      {
-        path: "details/(?<id>.+)/edit/aws",
-        action: ({ match }: any) => ({
-          title: "Edit AWS",
-          component: () =>
-            infraDetailEditAwsPage(context)({ id: match.groups.id }),
-        }),
-      },
-      {
-        path: "details/(?<id>.+)/edit/azure",
-        action: ({ match }: any) => ({
-          title: "Edit AWS",
-          component: () =>
-            infraDetailEditAzurePage(context)({ id: match.groups.id }),
-        }),
-      },
-      {
-        path: "details/(?<id>.+)/edit/google",
-        action: ({ match }: any) => ({
-          title: "Edit Google Cloud",
-          component: () =>
-            infraDetailEditGooglePage(context)({ id: match.groups.id }),
-        }),
-      },
-    ],
   },
+  {
+    path: "projects",
+    action: () => ({
+      title: "Projects",
+      component: () => projectUserPage(context)({}),
+    }),
+  },
+  // {
+  //   path: "infra",
+  //   action: () => ({
+  //     title: "Infrastructures",
+  //     component: infrastructurePage(context),
+  //   }),
+  //   children: [
+  //     {
+  //       path: "create",
+  //       action: () => ({
+  //         title: "Create New Infrastructure",
+  //         component: infraStepperPage(context),
+  //       }),
+  //     },
+  //     {
+  //       path: "details/(?<id>.+)",
+  //       action: ({ match }: any) => ({
+  //         title: "Infrastructure Details",
+  //         component: () => orgDetailPage(context)({ org_id: match.groups.id }),
+  //       }),
+  //     },
+  //     {
+  //       path: "details/(?<id>.+)/destroy",
+  //       action: ({ match }: any) => ({
+  //         title: "Destroy Infrastructure",
+  //         component: () => infraDestroyPage(context)({ id: match.groups.id }),
+  //       }),
+  //     },
+  //     {
+  //       path: "details/(?<id>.+)/edit/aws",
+  //       action: ({ match }: any) => ({
+  //         title: "Edit AWS",
+  //         component: () =>
+  //           infraDetailEditAwsPage(context)({ id: match.groups.id }),
+  //       }),
+  //     },
+  //     {
+  //       path: "details/(?<id>.+)/edit/azure",
+  //       action: ({ match }: any) => ({
+  //         title: "Edit AWS",
+  //         component: () =>
+  //           infraDetailEditAzurePage(context)({ id: match.groups.id }),
+  //       }),
+  //     },
+  //     {
+  //       path: "details/(?<id>.+)/edit/google",
+  //       action: ({ match }: any) => ({
+  //         title: "Edit Google Cloud",
+  //         component: () =>
+  //           infraDetailEditGooglePage(context)({ id: match.groups.id }),
+  //       }),
+  //     },
+  //   ],
+  // },
   {
     path: "org",
     action: () => ({
-      title: "Org",
+      title: "Organisations",
       component: () => orgListPage(context)({}),
     }),
     children: [
@@ -90,58 +130,154 @@ export const createRoutes = ({ context }: { context: Context }) => [
         path: "create",
         action: () => ({
           title: "Create New Organisation",
-          component: () => "Create New Organisation",
+          component: () => orgCreatePage(context)({}),
         }),
       },
       {
-        path: "(?<orgId>.+)/destroy",
+        path: "(?<org_id>.[^/]+)",
         action: ({ match: { groups } }: any) => ({
-          title: "Delete Organisation",
-          component: () => `View Organisation: ${groups.orgId} `,
-        }),
-      },
-      {
-        path: "(?<orgId>.+)",
-        action: ({ match: { groups } }: any) => ({
-          title: "View Organisation Details",
-          component: () => {
-            return `View Organisation: ${groups.orgId} `;
-          },
+          title: "Organisation Details",
+          component: () => orgDetailPage(context)(groups),
         }),
         children: [
+          {
+            path: "destroy",
+            action: ({ match: { groups } }: any) => ({
+              title: "Delete Organisation",
+              component: () => orgDestroyPage(context)(groups),
+            }),
+          },
           {
             path: "projects",
             action: ({ match: { groups } }: any) => ({
               title: " Project",
-              component: () => {
-                return `Projects List Org: ${groups.orgId} `;
-              },
+              component: () => orgDetailPage(context)(groups),
             }),
             children: [
               {
                 path: "create",
-                action: () => ({
+                action: ({ match: { groups } }: any) => ({
                   title: "Create Project",
-                  component: () => "Create Project",
+                  component: () => projectCreatePage(context)(groups),
                 }),
               },
               {
-                path: "(?<projectId>.+)",
+                path: "(?<project_id>.[^/]+)",
                 action: ({ match: { groups } }: any) => ({
-                  title: "View Project",
-                  component: () => {
-                    return `View Project: ${groups.projectId} from Org: ${groups.orgId} `;
+                  title: "Project Details",
+                  component: () => projectDetailPage(context)(groups),
+                }),
+                children: [
+                  {
+                    path: "destroy",
+                    action: ({ match: { groups } }: any) => ({
+                      title: "Delete Project",
+                      component: () => projectDestroyPage(context)(groups),
+                    }),
                   },
+                  {
+                    path: "workspaces",
+                    action: ({ match: { groups } }: any) => ({
+                      title: "workspaces",
+                      component: () => projectDetailPage(context)(groups),
+                    }),
+                    children: [
+                      {
+                        path: "create",
+                        action: ({ match: { groups } }: any) => ({
+                          title: "Create Workspace",
+                          component: () => workspaceCreatePage(context)(groups),
+                        }),
+                      },
+                      {
+                        path: "(?<workspace_id>.[^/]+)",
+                        action: ({ match: { groups } }: any) => ({
+                          title: "Workspace Details",
+                          component: () => workspaceDetailPage(context)(groups),
+                        }),
+                        children: [
+                          {
+                            path: "destroy",
+                            action: ({ match: { groups } }: any) => ({
+                              title: "Delete Workspace",
+                              component: () =>
+                                workspaceDestroyPage(context)(groups),
+                            }),
+                          },
+                          {
+                            path: "runs",
+                            action: ({ match: { groups } }: any) => ({
+                              title: "List run",
+                              component: () =>
+                                workspaceDetailPage(context)(groups),
+                            }),
+                            children: [
+                              {
+                                path: "create",
+                                action: ({ match: { groups } }: any) => ({
+                                  title: "Create Run",
+                                  component: () =>
+                                    runCreatePage(context)(groups),
+                                }),
+                              },
+                              {
+                                path: "(?<run_id>[^/]+)",
+                                action: ({ match: { groups } }: any) => ({
+                                  title: "Run Details",
+                                  component: () =>
+                                    runDetailPage(context)(groups),
+                                }),
+                                children: [
+                                  {
+                                    path: "destroy",
+                                    action: ({ match: { groups } }: any) => ({
+                                      title: "Delete Run",
+                                      component: () =>
+                                        runDestroyPage(context)(groups),
+                                    }),
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: "git_credential",
+            action: ({ match: { groups } }: any) => ({
+              title: "Git Credential",
+              component: () => orgDetailPage(context)(groups),
+            }),
+            children: [
+              {
+                path: "create",
+                action: ({ match: { groups } }: any) => ({
+                  title: "Create Git Credential",
+                  component: () => gitCredentialCreatePage(context)(groups),
                 }),
               },
               {
-                path: "(?<projectId>.+)/destroy",
+                path: "(?<git_credential_id>.{13})",
                 action: ({ match: { groups } }: any) => ({
-                  title: "Delete Project",
-                  component: () => {
-                    return `Delete Project: ${groups.projectId} from Org: ${groups.orgId} `;
-                  },
+                  title: "Git Credential Details",
+                  component: () => gitCredentialEditPage(context)(groups),
                 }),
+                children: [
+                  {
+                    path: "destroy",
+                    action: ({ match: { groups } }: any) => ({
+                      title: "Delete Git Credential",
+                      component: () =>
+                        gitCredentialDestroyPage(context)(groups),
+                    }),
+                  },
+                ],
               },
             ],
           },

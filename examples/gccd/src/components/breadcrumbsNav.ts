@@ -3,6 +3,7 @@ import breadcrumbs from "@grucloud/bau-ui/breadcrumbs";
 export default function (context: Context) {
   const { bau, stores } = context;
   const Breadcrumbs = breadcrumbs(context, {
+    size: "sm",
     variant: "plain",
     color: "neutral",
     separator: "/",

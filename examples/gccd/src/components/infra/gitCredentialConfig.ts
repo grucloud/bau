@@ -4,7 +4,7 @@ import form from "@grucloud/bau-ui/form";
 import buttonsFooter from "./buttonsFooter";
 import buttonPrevious from "./buttonPrevious";
 import buttonNext from "./buttonNext";
-import gitCredentialFormContent from "./gitCredentialFormContent";
+import gitCredentialFormContent from "../gitCredential/gitCredentialFormContent";
 
 export default (context: Context) => {
   const { bau } = context;
@@ -21,11 +21,11 @@ export default (context: Context) => {
     onclickGitCredential,
   }: any) {
     const onsubmit = (event: any) => {
-      const { gitUsername, gitPassword } = event.target.elements;
+      const { username, password } = event.target.elements;
       event.preventDefault();
       onclickGitCredential({
-        username: gitUsername.value,
-        password: gitPassword.value,
+        username: username.value,
+        password: password.value,
       });
     };
 

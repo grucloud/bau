@@ -17,6 +17,9 @@ export default (context: Context) => {
   const Input = input(context);
   const Form = form(context, {
     class: css`
+      & > header {
+        text-align: center;
+      }
       & > footer {
         & button {
           flex-grow: 1;

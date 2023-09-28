@@ -11,6 +11,9 @@ export default (context: Context) => {
   const Button = button(context);
   const Form = form(context, {
     class: css`
+      & > header {
+        text-align: center;
+      }
       & > footer {
         & a {
           flex-grow: 1;
