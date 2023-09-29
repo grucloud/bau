@@ -4,15 +4,12 @@
   "version": "0.47.1",
   "type": "module",
   "module": "./bau-router.js",
-  "exports": {
-    ".": {
-      "import": "./bau-router.js"
-    }
-  },
   "license": "BSD",
   "files": [
-    "bau-router.js"
+    "bau-router.js",
+    "bau-router.d.ts"
   ],
+  "types": "bau-router.d.ts",
   "keywords": [
     "router"
   ],
