@@ -20,16 +20,16 @@ export default function (context: Context) {
     status,
     logsUrl,
   }: any) {
-    // console.log(
-    //   "container_id",
-    //   org_id,
-    //   project_id,
-    //   workspace_id,
-    //   run_id,
-    //   container_id,
-    //   status
-    // );
-    if (status == "creating") {
+    console.log(
+      "container_id",
+      org_id,
+      project_id,
+      workspace_id,
+      run_id,
+      container_id,
+      status
+    );
+    if (status == "creating" && container_id) {
       // TODO window.location.host ?
       const socket = new WebSocket("ws://localhost:9000");
       // Connection opened
@@ -37,8 +37,10 @@ export default function (context: Context) {
         console.log("open");
         socket.send(
           JSON.stringify({
-            command: "Run",
-            options: { org_id, project_id, workspace_id, run_id, container_id },
+            command: "join",
+            options: {
+              room: `${org_id}/${project_id}/${workspace_id}/${run_id}`,
+            },
           })
         );
       });

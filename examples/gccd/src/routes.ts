@@ -39,6 +39,7 @@ import workspaceDestroyPage from "./pages/workspace/workspaceDestroyPage";
 import runCreatePage from "./pages/run/runCreatePage";
 import runDetailPage from "./pages/run/runDetailPage";
 import runDestroyPage from "./pages/run/runDestroyPage";
+import runUserPage from "./pages/run/runUserPage";
 
 //
 import layoutUnauthenticated from "./layoutUnauthenticated";
@@ -63,6 +64,13 @@ export const createRoutes = ({ context }: { context: Context }) => [
     action: () => ({
       title: "Projects",
       component: () => projectUserPage(context)({}),
+    }),
+  },
+  {
+    path: "runs",
+    action: () => ({
+      title: "Runs",
+      component: () => runUserPage(context)({}),
     }),
   },
   // {

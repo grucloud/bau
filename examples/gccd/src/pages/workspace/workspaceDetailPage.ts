@@ -30,7 +30,7 @@ export default function (context: Context) {
     workspace_id,
   }: any) {
     getByIdQuery.run({ org_id, project_id, workspace_id });
-    stores.run.getAllByWorkspace.run({ org_id, project_id, workspace_id });
+    stores.run.getAllByWorkspaceQuery.run({ org_id, project_id, workspace_id });
 
     return Page(
       Form(
@@ -48,8 +48,8 @@ export default function (context: Context) {
           WorkspaceDetailContent(getByIdQuery.data.val),
         h2("Runs"),
         () =>
-          !stores.run.getAllByWorkspace.loading.val &&
-          RunList(stores.run.getAllByWorkspace.data.val),
+          !stores.run.getAllByWorkspaceQuery.loading.val &&
+          RunList(stores.run.getAllByWorkspaceQuery.data.val),
         h2("Danger Zone"),
         ButtonDelete({ href: `${workspace_id}/destroy` }, "Danger Zone")
       ),

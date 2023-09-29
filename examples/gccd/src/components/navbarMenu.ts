@@ -10,6 +10,7 @@ export default function (context: Context) {
   const List = list(context);
 
   const links = [
+    { name: "Runs", href: "runs" },
     { name: "Workspaces", href: "workspaces" },
     { name: "Projects", href: "projects" },
     { name: "Organisations", href: "org" },

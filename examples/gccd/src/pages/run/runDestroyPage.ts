@@ -24,7 +24,7 @@ export default function (context: Context) {
     workspace_id,
     run_id,
   }: any) {
-    const { deleteQuery } = stores.workspace;
+    const { deleteQuery } = stores.run;
 
     const onsubmit = async (event: any) => {
       event.preventDefault();

@@ -6,7 +6,7 @@ const config = {
     routeAfterLogin: "/",
     description: "",
     apiUrl: "/api/v1/",
-    socialAuth: ["github"],
+    socialAuth: ["github", "facebook"],
     //    socialAuth: ["github", "facebook", "google"],
   },
   development: {
