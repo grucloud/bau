@@ -1,7 +1,7 @@
 {
   "name": "gcmp",
   "private": true,
-  "version": "0.47.1",
+  "version": "0.47.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@grucloud/bau": "^0.47.0",
-    "@grucloud/bau-router": "^0.47.1",
+    "@grucloud/bau-router": "^0.47.2",
     "@grucloud/bau-ui": "^0.47.1",
     "date-fns": "2.30.0",
     "rubico": "2.3.1"

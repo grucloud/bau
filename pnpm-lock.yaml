@@ -201,7 +201,7 @@ importers:
         specifier: ^0.47.0
         version: link:../../../bau-css
       '@grucloud/bau-router':
-        specifier: ^0.47.1
+        specifier: ^0.47.2
         version: link:../../../bau-router
       '@grucloud/bau-ui':
         specifier: ^0.47.1
@@ -457,7 +457,7 @@ importers:
         specifier: ^0.47.0
         version: link:../../bau-css
       '@grucloud/bau-router':
-        specifier: ^0.47.1
+        specifier: ^0.47.2
         version: link:../../bau-router
       '@grucloud/bau-ui':
         specifier: ^0.47.1
@@ -567,7 +567,7 @@ importers:
         specifier: ^0.47.0
         version: link:../../bau
       '@grucloud/bau-router':
-        specifier: ^0.47.1
+        specifier: ^0.47.2
         version: link:../../bau-router
       '@grucloud/bau-ui':
         specifier: ^0.47.1
