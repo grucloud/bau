@@ -17,9 +17,6 @@ export default function (context: Context) {
         a(
           {
             href: `org/${org_id}`,
-            class: css`
-              color: var(--font-color);
-            `,
           },
           span(org_id)
         )

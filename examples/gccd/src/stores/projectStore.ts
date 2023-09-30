@@ -6,9 +6,10 @@ export default function (context: Context) {
   const query = useQuery(context);
 
   return {
-    getAllByUserQuery: query(() => rest.get(`projects`)),
-    getAllByOrgQuery: query(({ org_id }: any) =>
-      rest.get(`org/${org_id}/project`)
+    getAllByUserQuery: query(() => rest.get(`projects`), { initialState: [] }),
+    getAllByOrgQuery: query(
+      ({ org_id }: any) => rest.get(`org/${org_id}/project`),
+      { initialState: [] }
     ),
     getByIdQuery: query(({ org_id, project_id }: any) =>
       rest.get(`org/${org_id}/project/${project_id}`)
