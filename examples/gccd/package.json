@@ -1,7 +1,7 @@
 {
   "name": "gcmp",
   "private": true,
-  "version": "0.47.1",
+  "version": "0.47.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,8 +11,8 @@
     "azure-regions": "cd scripts; node azureRegions.js",
     "google-regions": "cd scripts; node googleRegions.js",
     "docker:build": "docker build -t grucloud-ui .",
-    "docker:tag": "docker tag grucloud-ui fredericheem/grucloud-ui:12.9",
-    "docker:push": "docker push fredericheem/grucloud-ui:12.9",
+    "docker:tag": "docker tag grucloud-ui fredericheem/grucloud-ui:12.10",
+    "docker:push": "docker push fredericheem/grucloud-ui:12.10",
     "docker:btp": "npm run docker:build && npm run docker:tag && npm run docker:push"
   },
   "devDependencies": {
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@grucloud/bau": "^0.47.0",
-    "@grucloud/bau-router": "^0.47.1",
+    "@grucloud/bau-router": "^0.47.2",
     "@grucloud/bau-ui": "^0.47.1",
     "date-fns": "2.30.0",
     "rubico": "2.3.1"

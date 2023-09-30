@@ -304,6 +304,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
     path: "login",
     action: () => ({
       title: "Login",
+      description: "Login to GruCloud",
       component: loginPage(context),
       Layout: layoutUnauthenticated(context),
     }),
