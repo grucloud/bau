@@ -14,6 +14,7 @@ export const onLocationChange = ({
     const pathname = window.location.pathname.replace(base, "");
     const {
       title,
+      description,
       component,
       Layout = LayoutDefault,
     } = router.resolve({
@@ -29,5 +30,8 @@ export const onLocationChange = ({
     componentState.val = component({});
     pathnameState.val = pathname;
     document.title = `${title}`;
+    // @ts-ignore
+    document.getElementsByTagName("meta")["description"].content = description;
+    document.title = `${title} - GruCloud`;
   };
 };

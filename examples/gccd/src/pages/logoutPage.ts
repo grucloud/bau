@@ -30,7 +30,7 @@ export default (context: Context) => {
     return Paper(
       Form(
         header(
-          img({ width: "100", src: `${config.base}/gc.svg` }),
+          img({ width: "100", src: `${config.base}/gc.svg`, alt: "GruCloud" }),
           h1("Logout from Grucloud")
         ),
         section(() =>

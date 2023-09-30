@@ -70,7 +70,7 @@ export default (context: Context) => {
       Form(
         { onsubmit },
         header(
-          img({ width: "100", src: `${config.base}/gc.svg` }),
+          img({ width: "100", src: `${config.base}/gc.svg`, alt: "GruCloud" }),
           h1("Login to Grucloud")
         ),
         SocialLogin(),
