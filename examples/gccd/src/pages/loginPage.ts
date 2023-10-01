@@ -36,7 +36,7 @@ export default (context: Context) => {
     const errorMessageState = bau.state("");
 
     const onsubmit = async (event: any) => {
-      const { username, password } = event.target.elements;
+      const { email, password } = event.target.elements;
       event.preventDefault();
       try {
         loadingState.val = true;
@@ -46,7 +46,7 @@ export default (context: Context) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            username: username.value,
+            email: email.value,
             password: password.value,
           }),
         });
@@ -55,7 +55,7 @@ export default (context: Context) => {
           console.log(json);
           stores.auth.setResult(json);
         } else if (response.status == 401) {
-          errorMessageState.val = "Invalid username or password";
+          errorMessageState.val = "Invalid email or password";
         } else {
           errorMessageState.val = response.statusText;
         }
@@ -82,7 +82,7 @@ export default (context: Context) => {
               type: "email",
               autofocus: true,
               placeholder: "Email",
-              name: "username",
+              name: "email",
               autocomplete: "username",
               required: true,
             })
