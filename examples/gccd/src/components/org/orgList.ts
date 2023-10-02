@@ -26,10 +26,12 @@ export default function (context: Context) {
 
   const { data } = stores.org.getAllQuery;
 
+  const headers = ["Organisation", "Projects"];
+
   return function OrgList({}) {
     return TableContainer(
       table(
-        thead(th("Organisation"), th("Projects")),
+        thead(headers.map((header) => th({ scope: "col" }, header))),
         tbody(data.val.map(ListItem))
       )
     );

@@ -59,17 +59,13 @@ export default function (context: Context) {
       td(Chip({ color: statusToColor(status) }, status))
     );
 
+  const headers = ["Organisation", "Projects", "Workspaces", "Run", "Status"];
+
   return function RunList(runs: any) {
     return section(
       TableContainer(
         table(
-          thead(
-            th("Organisation"),
-            th("Projects"),
-            th("Workspaces"),
-            th("Run"),
-            th("Status")
-          ),
+          thead(headers.map((header) => th({ scope: "col" }, header))),
           tbody(runs.map(ListItem))
         )
       )
