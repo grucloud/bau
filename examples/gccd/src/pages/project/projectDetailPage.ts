@@ -8,7 +8,7 @@ import projectDetailContent from "../../components/project/projectDetailContent"
 import workspaceList from "../../components/workspace/workspaceList";
 
 export default function (context: Context) {
-  const { bau, stores } = context;
+  const { bau, stores, config } = context;
   const { h1, h2, header } = bau.tags;
   const { getByIdQuery } = stores.project;
 
@@ -33,7 +33,7 @@ export default function (context: Context) {
           h1("Project Details"),
           ButtonAddWorkspace(
             {
-              href: `${project_id}/workspaces/create`,
+              href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/create`,
             },
             "+ New Workspace"
           )
@@ -46,7 +46,12 @@ export default function (context: Context) {
           !stores.workspace.getAllByProject.loading.val &&
           WorkspaceList(stores.workspace.getAllByProject.data.val),
         h2("Danger Zone"),
-        ButtonDelete({ href: `${project_id}/destroy` }, "Danger Zone")
+        ButtonDelete(
+          {
+            href: `${config.base}/org/${org_id}/projects/${project_id}/destroy`,
+          },
+          "Danger Zone"
+        )
       ),
       Spinner({
         visibility: getByIdQuery.loading,
