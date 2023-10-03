@@ -5,8 +5,9 @@ export default function (context: Context) {
   const { rest } = context;
   const query = useQuery(context);
 
-  const getAllByOrgQuery = query(({ org_id }: any) =>
-    rest.get(`org/${org_id}/git_credential`)
+  const getAllByOrgQuery = query(
+    ({ org_id }: any) => rest.get(`org/${org_id}/git_credential`),
+    { initialState: [] }
   );
   const createQuery = query(({ org_id }: any, data: any) =>
     rest.post(`org/${org_id}/git_credential`, data)

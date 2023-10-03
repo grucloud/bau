@@ -33,11 +33,13 @@ export default function (context: Context) {
       td(workspace_count)
     );
 
+  const headers = ["Organisation", "Projects", "Workspaces"];
+
   return function ProjectList(projects: any) {
     return section(
       TableContainer(
         table(
-          thead(th("Organisation"), th("Projects"), th("Workspaces")),
+          thead(headers.map((header) => th({ scope: "col" }, header))),
           tbody(projects.map(ListItem))
         )
       )

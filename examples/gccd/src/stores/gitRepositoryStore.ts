@@ -5,7 +5,9 @@ export default function (context: Context) {
   const { rest } = context;
   const query = useQuery(context);
 
-  const getAllQuery = query(() => rest.get("git_repository"));
+  const getAllQuery = query(() => rest.get("git_repository"), {
+    initialState: [],
+  });
   const createQuery = query((data: any) => rest.post("git_repository", data));
   const getByIdQuery = query((id: string) => rest.get(`git_repository/${id}`));
   const patchQuery = query((id: string, data: object) =>

@@ -27,7 +27,12 @@ export default function (context: Context) {
         li(
           a(
             { href },
-            img({ alt: name, height: "16", src: `${config.base}/${src}` })
+            img({
+              alt: name,
+              height: "16",
+              width: "16",
+              src: `${config.base}/${src}`,
+            })
           )
         )
       )
@@ -81,7 +86,7 @@ export default function (context: Context) {
             gap: 1rem;
           `,
         },
-        FooterLinks({ links: links })
+        FooterLinks({ links })
       ),
       div(
         {

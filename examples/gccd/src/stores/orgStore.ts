@@ -6,7 +6,7 @@ export default function (context: Context) {
   const query = useQuery(context);
 
   return {
-    getAllQuery: query(() => rest.get("org")),
+    getAllQuery: query(() => rest.get("org"), { initialState: [] }),
     getByIdQuery: query((id: string) => rest.get(`org/${id}`)),
     createQuery: query((data: any) => rest.post("org", data)),
     deleteQuery: query(({ org_id }: any) => rest.del(`org/${org_id}`)),

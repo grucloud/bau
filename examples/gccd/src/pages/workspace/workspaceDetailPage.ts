@@ -8,7 +8,7 @@ import workspaceDetailContent from "../../components/workspace/workspaceDetailCo
 import runList from "../../components/run/runList";
 
 export default function (context: Context) {
-  const { bau, stores } = context;
+  const { bau, stores, config } = context;
   const { h1, h2, header } = bau.tags;
   const { getByIdQuery } = stores.workspace;
 
@@ -38,7 +38,7 @@ export default function (context: Context) {
           h1("Workspace Details"),
           ButtonAddWorkspace(
             {
-              href: `${workspace_id}/runs/create`,
+              href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/runs/create`,
             },
             "+ New Run"
           )
@@ -51,7 +51,12 @@ export default function (context: Context) {
           !stores.run.getAllByWorkspaceQuery.loading.val &&
           RunList(stores.run.getAllByWorkspaceQuery.data.val),
         h2("Danger Zone"),
-        ButtonDelete({ href: `${workspace_id}/destroy` }, "Danger Zone")
+        ButtonDelete(
+          {
+            href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/destroy`,
+          },
+          "Danger Zone"
+        )
       ),
       Spinner({
         visibility: getByIdQuery.loading,

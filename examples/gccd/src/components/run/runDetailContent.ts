@@ -37,10 +37,17 @@ export default function (context: Context) {
         console.log("open");
         socket.send(
           JSON.stringify({
+            origin: "browser",
             command: "join",
             options: {
               room: `${org_id}/${project_id}/${workspace_id}/${run_id}`,
             },
+          })
+        );
+        socket.send(
+          JSON.stringify({
+            command: "Run",
+            options: { org_id, project_id, workspace_id, run_id, container_id },
           })
         );
       });
@@ -51,7 +58,7 @@ export default function (context: Context) {
         console.log("websocket error");
       });
       socket.addEventListener("message", (event) => {
-        console.log("Message from server ", event.data);
+        console.log("Message from server ", event.data.toString());
       });
     }
     return section(
