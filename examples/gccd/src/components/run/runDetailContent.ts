@@ -19,6 +19,7 @@ export default function (context: Context) {
     container_id,
     status,
     logsUrl,
+    engine,
   }: any) {
     console.log(
       "container_id",
@@ -27,11 +28,11 @@ export default function (context: Context) {
       workspace_id,
       run_id,
       container_id,
-      status
+      status,
+      engine
     );
     if (status == "creating" && container_id) {
-      // TODO window.location.host ?
-      const socket = new WebSocket("ws://localhost:9000");
+      const socket = new WebSocket(`wss://${window.location.host}/ws`);
       // Connection opened
       socket.addEventListener("open", (_event) => {
         console.log("open");
@@ -47,7 +48,14 @@ export default function (context: Context) {
         socket.send(
           JSON.stringify({
             command: "Run",
-            options: { org_id, project_id, workspace_id, run_id, container_id },
+            options: {
+              org_id,
+              project_id,
+              workspace_id,
+              run_id,
+              container_id,
+              engine,
+            },
           })
         );
       });
