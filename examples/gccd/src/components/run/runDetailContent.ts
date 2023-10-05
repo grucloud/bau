@@ -32,8 +32,7 @@ export default function (context: Context) {
       engine
     );
     if (status == "creating" && container_id) {
-      // TODO window.location.host ?
-      const socket = new WebSocket("ws://localhost:9000");
+      const socket = new WebSocket(`wss://${window.location.host}/ws`);
       // Connection opened
       socket.addEventListener("open", (_event) => {
         console.log("open");
