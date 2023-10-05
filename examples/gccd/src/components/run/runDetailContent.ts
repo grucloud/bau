@@ -19,6 +19,7 @@ export default function (context: Context) {
     container_id,
     status,
     logsUrl,
+    engine,
   }: any) {
     console.log(
       "container_id",
@@ -27,7 +28,8 @@ export default function (context: Context) {
       workspace_id,
       run_id,
       container_id,
-      status
+      status,
+      engine
     );
     if (status == "creating" && container_id) {
       // TODO window.location.host ?
@@ -47,7 +49,14 @@ export default function (context: Context) {
         socket.send(
           JSON.stringify({
             command: "Run",
-            options: { org_id, project_id, workspace_id, run_id, container_id },
+            options: {
+              org_id,
+              project_id,
+              workspace_id,
+              run_id,
+              container_id,
+              engine,
+            },
           })
         );
       });
