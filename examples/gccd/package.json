@@ -11,8 +11,8 @@
     "azure-regions": "cd scripts; node azureRegions.js",
     "google-regions": "cd scripts; node googleRegions.js",
     "docker:build": "docker build -t grucloud-ui .",
-    "docker:tag": "docker tag grucloud-ui fredericheem/grucloud-ui:12.16",
-    "docker:push": "docker push fredericheem/grucloud-ui:12.16",
+    "docker:tag": "docker tag grucloud-ui fredericheem/grucloud-ui:12.17",
+    "docker:push": "docker push fredericheem/grucloud-ui:12.17",
     "docker:btp": "npm run docker:build && npm run docker:tag && npm run docker:push"
   },
   "devDependencies": {

@@ -28,6 +28,7 @@ export default function (context: Context) {
         {
           reason: reason.value,
           kind: kind.value,
+          engine: config.engine,
         }
       );
 
