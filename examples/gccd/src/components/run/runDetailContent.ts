@@ -1,9 +1,12 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import tableContainer from "@grucloud/bau-ui/tableContainer";
+import runStatus from "./runStatus";
 
 export default function (context: Context) {
   const { bau, css, config, window } = context;
   const { h2, table, tr, td, th, section, a, img } = bau.tags;
+  const RunStatus = runStatus(context);
+
   const TableContainer = tableContainer(context, {
     class: css`
       & th {
@@ -12,7 +15,7 @@ export default function (context: Context) {
     `,
   });
 
-  const isCreating = (status: string) => status == "creating";
+  const isCompleted = (status: string) => status == "completed";
 
   return function RunDetailContent({
     org_id,
@@ -25,6 +28,7 @@ export default function (context: Context) {
     logsUrl,
     svgUrl,
     engine,
+    error,
   }: any) {
     console.log(
       "container_id",
@@ -34,9 +38,10 @@ export default function (context: Context) {
       run_id,
       container_id,
       status,
-      engine
+      engine,
+      error
     );
-    if (isCreating(status) && container_id) {
+    if (container_id && !isCompleted(status)) {
       const socket = new WebSocket(config.wsUrl(window));
       // Connection opened
       socket.addEventListener("open", (_event) => {
@@ -59,7 +64,7 @@ export default function (context: Context) {
               workspace_id,
               run_id,
               container_id,
-              engine: "docker",
+              engine,
             },
           })
         );
@@ -103,28 +108,30 @@ export default function (context: Context) {
             )
           ),
           tr(th("Run Id"), td(run_id)),
-          tr(th("Status"), td(status)),
-          !isCreating(status) && [
+          tr(th("Status"), td(RunStatus({ status, error }))),
+          isCompleted(status) && [
             tr(
               th("State file"),
               td(a({ href: stateUrl, target: "_blank" }, "Download state file"))
             ),
-            tr(
-              th("Live Graph"),
-              td(
-                a(
-                  { href: svgUrl, target: "_blank" },
-                  "Download resources graph"
+            !error &&
+              tr(
+                th("Live Graph"),
+                td(
+                  a(
+                    { href: svgUrl, target: "_blank" },
+                    "Download resources graph"
+                  )
                 )
-              )
-            ),
+              ),
             tr(
               th("Logs"),
               td(a({ href: logsUrl, target: "_blank" }, "Download log file"))
             ),
           ]
         ),
-        !isCreating(status) &&
+        isCompleted(status) &&
+          !error &&
           img({
             src: svgUrl,
             alt: "Resources",

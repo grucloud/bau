@@ -1,19 +1,12 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import tableContainer from "@grucloud/bau-ui/tableContainer";
-import chip from "@grucloud/bau-ui/chip";
 
-const statusToColor = (status: string) => {
-  switch (status) {
-    case "completed":
-      return "success";
-    default:
-      return "warning";
-  }
-};
+import runStatus from "./runStatus";
+
 export default function (context: Context) {
   const { bau, css, config } = context;
   const { a, table, thead, tbody, th, tr, td, section } = bau.tags;
-  const Chip = chip(context, { size: "sm", variant: "solid" });
+  const RunStatus = runStatus(context);
   const TableContainer = tableContainer(context, {
     class: css`
       & th {
@@ -28,6 +21,7 @@ export default function (context: Context) {
     workspace_id,
     run_id,
     status,
+    error,
   }: any) =>
     tr(
       {
@@ -56,7 +50,7 @@ export default function (context: Context) {
           run_id
         )
       ),
-      td(Chip({ color: statusToColor(status) }, status))
+      td(RunStatus({ status, error }))
     );
 
   const headers = ["Organisation", "Projects", "Workspaces", "Run", "Status"];

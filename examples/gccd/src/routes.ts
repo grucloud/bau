@@ -3,14 +3,6 @@ import loginPage from "./pages/loginPage";
 import logoutPage from "./pages/logoutPage";
 import profilePage from "./pages/profilePage";
 import accountDeletePage from "./pages/accountDeletePage";
-// import infrastructurePage from "./pages/infra/infraListPage";
-// import infraStepperPage from "./pages/infra/infraStepperPage";
-// import infraDetailPage from "./pages/infra/infraDetailsPage";
-// import infraDetailEditAwsPage from "./pages/infra/infraDetailEditAwsPage";
-// import infraDetailEditAzurePage from "./pages/infra/infraDetailEditAzurePage";
-// import infraDetailEditGooglePage from "./pages/infra/infraDetailEditGooglePage";
-//import gitCredentialEditPage from "./pages/infra/gitCredentialEditPage";
-//import infraDestroyPage from "./pages/infra/infraDestroyPage";
 
 // Org
 import orgListPage from "./pages/org/orgListPage";
@@ -40,6 +32,15 @@ import runCreatePage from "./pages/run/runCreatePage";
 import runDetailPage from "./pages/run/runDetailPage";
 import runDestroyPage from "./pages/run/runDestroyPage";
 import runUserPage from "./pages/run/runUserPage";
+
+// Cloud Authentication
+import awsCreatePage from "./pages/cloudAuthentication/awsCreatePage";
+import awsEditPage from "./pages/cloudAuthentication/awsEditPage";
+import azureCreatePage from "./pages/cloudAuthentication/azureCreatePage";
+import azureEditPage from "./pages/cloudAuthentication/azureEditPage";
+import googleCreatePage from "./pages/cloudAuthentication/googleCreatePage";
+// import googleEditPage from "./pages/cloudAuthentication/googleEditPage";
+import cloudAuthenticationDestroyPage from "./pages/cloudAuthentication/cloudAuthenticationDestroyPage";
 
 //
 import layoutUnauthenticated from "./layoutUnauthenticated";
@@ -73,60 +74,6 @@ export const createRoutes = ({ context }: { context: Context }) => [
       component: () => runUserPage(context)({}),
     }),
   },
-  // {
-  //   path: "infra",
-  //   action: () => ({
-  //     title: "Infrastructures",
-  //     component: infrastructurePage(context),
-  //   }),
-  //   children: [
-  //     {
-  //       path: "create",
-  //       action: () => ({
-  //         title: "Create New Infrastructure",
-  //         component: infraStepperPage(context),
-  //       }),
-  //     },
-  //     {
-  //       path: "details/(?<id>.+)",
-  //       action: ({ match }: any) => ({
-  //         title: "Infrastructure Details",
-  //         component: () => orgDetailPage(context)({ org_id: match.groups.id }),
-  //       }),
-  //     },
-  //     {
-  //       path: "details/(?<id>.+)/destroy",
-  //       action: ({ match }: any) => ({
-  //         title: "Destroy Infrastructure",
-  //         component: () => infraDestroyPage(context)({ id: match.groups.id }),
-  //       }),
-  //     },
-  //     {
-  //       path: "details/(?<id>.+)/edit/aws",
-  //       action: ({ match }: any) => ({
-  //         title: "Edit AWS",
-  //         component: () =>
-  //           infraDetailEditAwsPage(context)({ id: match.groups.id }),
-  //       }),
-  //     },
-  //     {
-  //       path: "details/(?<id>.+)/edit/azure",
-  //       action: ({ match }: any) => ({
-  //         title: "Edit AWS",
-  //         component: () =>
-  //           infraDetailEditAzurePage(context)({ id: match.groups.id }),
-  //       }),
-  //     },
-  //     {
-  //       path: "details/(?<id>.+)/edit/google",
-  //       action: ({ match }: any) => ({
-  //         title: "Edit Google Cloud",
-  //         component: () =>
-  //           infraDetailEditGooglePage(context)({ id: match.groups.id }),
-  //       }),
-  //     },
-  //   ],
-  // },
   {
     path: "org",
     action: () => ({
@@ -211,6 +158,112 @@ export const createRoutes = ({ context }: { context: Context }) => [
                               component: () =>
                                 workspaceDestroyPage(context)(groups),
                             }),
+                          },
+                          {
+                            path: "cloud_authentication",
+                            action: ({ match: { groups } }: any) => ({
+                              title: "Cloud Authentication",
+                              component: () =>
+                                workspaceDetailPage(context)(groups),
+                            }),
+                            children: [
+                              {
+                                path: "create",
+                                action: ({ match: { groups } }: any) => ({
+                                  title: "Cloud Authentication",
+                                  component: () =>
+                                    workspaceDetailPage(context)(groups),
+                                }),
+                                children: [
+                                  {
+                                    path: "aws",
+                                    action: ({ match: { groups } }: any) => ({
+                                      title: "Create AWS Authentication",
+                                      component: () =>
+                                        awsCreatePage(context)(groups),
+                                    }),
+                                  },
+                                  {
+                                    path: "azure",
+                                    action: ({ match: { groups } }: any) => ({
+                                      title: "Create Azure Authentication",
+                                      component: () =>
+                                        azureCreatePage(context)(groups),
+                                    }),
+                                  },
+                                  {
+                                    path: "google",
+                                    action: ({ match: { groups } }: any) => ({
+                                      title:
+                                        "Create Google Cloud Authentication",
+                                      component: () =>
+                                        googleCreatePage(context)(groups),
+                                    }),
+                                  },
+                                ],
+                              },
+                              {
+                                path: "(?<cloud_authentication_id>[^/]+)",
+                                action: ({ match: { groups } }: any) => ({
+                                  title: "Cloud Authentication",
+                                  component: () =>
+                                    workspaceDetailPage(context)(groups),
+                                }),
+                                children: [
+                                  {
+                                    path: "destroy",
+                                    action: ({ match: { groups } }: any) => ({
+                                      title: "Delete Cloud Authentication",
+                                      component: () =>
+                                        cloudAuthenticationDestroyPage(context)(
+                                          groups
+                                        ),
+                                    }),
+                                  },
+                                  {
+                                    path: "edit",
+                                    action: ({ match: { groups } }: any) => ({
+                                      title: "Edit Cloud Authentication",
+                                      component: () =>
+                                        workspaceDetailPage(context)(groups),
+                                    }),
+                                    children: [
+                                      {
+                                        path: "aws",
+                                        action: ({
+                                          match: { groups },
+                                        }: any) => ({
+                                          title: "Edit AWS Authentication",
+                                          component: () =>
+                                            awsEditPage(context)(groups),
+                                        }),
+                                      },
+                                      {
+                                        path: "azure",
+                                        action: ({
+                                          match: { groups },
+                                        }: any) => ({
+                                          title: "Edit Azure Authentication",
+                                          component: () =>
+                                            azureEditPage(context)(groups),
+                                        }),
+                                      },
+                                      // {
+                                      //   path: "google",
+                                      //   action: ({
+                                      //     match: { groups },
+                                      //   }: any) => ({
+                                      //     title:
+                                      //       "Edit Google CLoud Authentication",
+                                      //     component: () =>
+                                      //       googleEditPage(context)(groups),
+                                      //   }),
+                                      // },
+                                    ],
+                                  },
+                                ],
+                              },
+                            ],
                           },
                           {
                             path: "runs",

@@ -13,6 +13,7 @@ import config from "./config";
 import orgStore from "./stores/orgStore";
 import projectStore from "./stores/projectStore";
 import workspaceStore from "./stores/workspaceStore";
+import cloudAuthenticationStore from "./stores/cloudAuthenticationStore";
 import runStore from "./stores/runStore";
 
 import infraStores from "./stores/infraStore";
@@ -39,6 +40,7 @@ context.stores = {
   gitCredential: gitCredentialsStore(context),
   project: projectStore(context),
   workspace: workspaceStore(context),
+  cloudAuthentication: cloudAuthenticationStore(context),
   run: runStore(context),
   infra: infraStores(context),
   auth: authStores(context),

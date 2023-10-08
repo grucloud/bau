@@ -7,10 +7,10 @@ const colorsToCss = () =>
     (color) =>
       `
 &.button-group.${color} {
-  & button:not(:last-child) { 
+  & .button:not(:last-child) { 
     border-right: 1px solid var(--color-${color}) !important;
   }
-  & button:not(:first-child) { 
+  & .button:not(:first-child) { 
     border-left: 1px solid var(--color-${color}) !important;
   }
 }
@@ -20,7 +20,7 @@ const colorsToCss = () =>
 }
 
 &.button-group.solid.${color} {
-  & button:not(:last-child) { 
+  & .button:not(:last-child) { 
     border-right: 1px solid var(--color-${color}-lightest) !important;
   }
 }
@@ -35,11 +35,11 @@ export default function (context, options = {}) {
     display: inline-flex;
     box-sizing: border-box;
     border-radius: var(--global-radius);
-    & button:not(:last-child) {
+    & .button:not(:last-child) {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
-    & button:not(:first-child) {
+    & .button:not(:first-child) {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
