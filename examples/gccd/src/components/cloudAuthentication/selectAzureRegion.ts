@@ -13,7 +13,7 @@ export default (context: Context) => {
       {
         required: "required",
         title: "Select an Azure region",
-        name: "region",
+        name: "AZURE_LOCATION",
         ...props,
       },
       option({ value: "" }, "--Please choose a region--"),
