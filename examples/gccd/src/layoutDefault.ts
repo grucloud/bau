@@ -49,6 +49,7 @@ export const layoutDefault = (context: Context) => {
             grid-area: main;
             margin: 1rem;
             display: grid;
+            overflow-y: scroll;
           `,
         },
         () => componentState.val
