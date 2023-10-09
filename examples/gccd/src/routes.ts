@@ -39,7 +39,7 @@ import awsEditPage from "./pages/cloudAuthentication/awsEditPage";
 import azureCreatePage from "./pages/cloudAuthentication/azureCreatePage";
 import azureEditPage from "./pages/cloudAuthentication/azureEditPage";
 import googleCreatePage from "./pages/cloudAuthentication/googleCreatePage";
-// import googleEditPage from "./pages/cloudAuthentication/googleEditPage";
+import googleEditPage from "./pages/cloudAuthentication/googleEditPage";
 import cloudAuthenticationDestroyPage from "./pages/cloudAuthentication/cloudAuthenticationDestroyPage";
 
 //
@@ -248,17 +248,17 @@ export const createRoutes = ({ context }: { context: Context }) => [
                                             azureEditPage(context)(groups),
                                         }),
                                       },
-                                      // {
-                                      //   path: "google",
-                                      //   action: ({
-                                      //     match: { groups },
-                                      //   }: any) => ({
-                                      //     title:
-                                      //       "Edit Google CLoud Authentication",
-                                      //     component: () =>
-                                      //       googleEditPage(context)(groups),
-                                      //   }),
-                                      // },
+                                      {
+                                        path: "google",
+                                        action: ({
+                                          match: { groups },
+                                        }: any) => ({
+                                          title:
+                                            "Edit Google Cloud Authentication",
+                                          component: () =>
+                                            googleEditPage(context)(groups),
+                                        }),
+                                      },
                                     ],
                                   },
                                 ],

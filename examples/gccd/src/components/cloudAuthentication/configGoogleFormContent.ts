@@ -4,7 +4,7 @@ import alert from "@grucloud/bau-ui/alert";
 import selectGoogleRegion from "./selectGoogleRegion";
 
 type ConfigGoogleFormContentProp = {
-  region?: string;
+  GCP_REGION?: string;
   onConfig: (config: object) => void;
 };
 
@@ -73,7 +73,7 @@ export default (context: Context) => {
 
   return function configGoogleFormContent({
     onConfig,
-    region,
+    GCP_REGION,
   }: ConfigGoogleFormContentProp) {
     const fileState = bau.state("No file selected");
     const contentState = bau.state({});
@@ -93,13 +93,7 @@ export default (context: Context) => {
               const contentJson = JSON.parse(reader.result);
               contentState.val = contentJson;
               if (contentJson.project_id) {
-                onConfig({
-                  providerType: "google",
-                  providerName: "google",
-                  providerAuth: { credentials: contentJson },
-                  //TODO
-                  // options: { region: Google_REGION.value },
-                });
+                onConfig({ credentials: contentJson });
               } else {
                 errorMessage.val = "File is not a GCP crendential file.";
               }
@@ -164,8 +158,7 @@ export default (context: Context) => {
       () => errorMessage.val && Alert(errorMessage.val),
       () =>
         CredentialFile({ fileName: fileState.val, content: contentState.val }),
-
-      label("Select the region:", SelectGoogleRegion({ value: region }))
+      label("Select the region:", SelectGoogleRegion({ value: GCP_REGION }))
     );
   };
 };

@@ -13,7 +13,7 @@ export default (context: Context) => {
       {
         required: "required",
         title: "Select a region",
-        name: "region",
+        name: "GCP_REGION",
         ...props,
       },
       option({ value: "" }, "--Please choose a region--"),
