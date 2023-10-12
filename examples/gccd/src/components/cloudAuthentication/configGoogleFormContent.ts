@@ -126,7 +126,7 @@ export default (context: Context) => {
 
   return function configGoogleFormContent({
     onConfig,
-    GOOGLE_CREDENTIALS,
+    GOOGLE_CREDENTIALS = {},
     GOOGLE_REGION,
     GOOGLE_ZONE,
   }: ConfigGoogleFormContentProp) {
