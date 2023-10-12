@@ -5,7 +5,7 @@ import { Context } from "@grucloud/bau-ui/context";
 import buttonsFooter from "./buttonsFooter";
 import buttonPrevious from "./buttonPrevious";
 
-import configGoogleFormContent from "./configGoogleFormContent";
+import configGoogleFormContent from "../cloudAuthentication/configGoogleFormContent";
 
 export default (context: Context) => {
   const { bau } = context;

@@ -24,6 +24,7 @@
     "@grucloud/bau-router": "^0.47.3",
     "@grucloud/bau-ui": "^0.47.3",
     "date-fns": "2.30.0",
+    "jose": "4.15.2",
     "rubico": "2.3.1"
   }
 }

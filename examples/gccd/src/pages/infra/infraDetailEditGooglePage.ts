@@ -3,7 +3,7 @@ import form from "@grucloud/bau-ui/form";
 import paper from "@grucloud/bau-ui/paper";
 import loadingButton from "@grucloud/bau-ui/loadingButton";
 
-import configGoogleFormContent from "../../components/infra/configGoogleFormContent";
+import configGoogleFormContent from "../../components/cloudAuthentication/configGoogleFormContent";
 import buttonsFooter from "../../components/infra/buttonsFooter";
 import buttonPrevious from "../../components/infra/buttonPrevious";
 
@@ -53,7 +53,7 @@ export default function (context: Context) {
         () =>
           ConfigGoogleFormContent({
             onConfig,
-            region: getByIdQuery.data.val.options?.region,
+            ...getByIdQuery.data.val,
           }),
         ButtonsFooter(
           ButtonPrevious({ onclick: () => window.history.back() }),

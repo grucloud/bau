@@ -1,11 +1,31 @@
+import rubico from "rubico";
+const { get, pipe, map, tap } = rubico;
+import rubicox from "rubico/x";
+const { isEmpty, callProp, last } = rubicox;
 import { Context } from "@grucloud/bau-ui/context";
 import fileInput from "@grucloud/bau-ui/fileInput";
 import alert from "@grucloud/bau-ui/alert";
+import spinner from "@grucloud/bau-ui/spinner";
+
 import selectGoogleRegion from "./selectGoogleRegion";
+import selectGoogleZone from "./selectGoogleZone";
+import { googleAuthorize } from "./googleAuthorize";
+import useQuery from "../../utils/useQuery";
 
 type ConfigGoogleFormContentProp = {
-  GCP_REGION?: string;
+  GOOGLE_CREDENTIALS?: Record<string, any>;
+  GOOGLE_REGION?: string;
+  GOOGLE_ZONE?: string;
   onConfig: (config: object) => void;
+};
+
+export const googleFormElementToData = (event: any) => {
+  const { GOOGLE_REGION, GOOGLE_ZONE } = event.target.elements;
+
+  return {
+    GOOGLE_REGION: GOOGLE_REGION.value,
+    GOOGLE_ZONE: GOOGLE_ZONE.value,
+  };
 };
 
 export default (context: Context) => {
@@ -13,7 +33,40 @@ export default (context: Context) => {
   const { section, div, ol, li, span, em, a, table, tbody, th, tr, td, label } =
     bau.tags;
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
+
+  const query = useQuery(context);
+
+  const getProjectQuery = query(
+    async ({ project_id, token }: any) => {
+      try {
+        const response = await fetch(
+          "https://corsproxy.io/?" +
+            encodeURIComponent(
+              `https://compute.googleapis.com/compute/v1/projects/${project_id}/regions`
+            ),
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.ok) {
+          const { items } = await response.json();
+          return items.filter(({ status }: any) => status === "UP");
+        }
+        throw response;
+      } catch (error) {
+        throw error;
+      }
+    },
+    { initialState: [] }
+  );
+  const Spinner = spinner(context);
   const SelectGoogleRegion = selectGoogleRegion(context);
+  const SelectGoogleZone = selectGoogleZone(context);
+
   const FileInput = fileInput(context);
   const Alert = alert(context, { color: "danger" });
   const className = css`
@@ -46,7 +99,7 @@ export default (context: Context) => {
       },
       tbody(
         tr(th("Credential File"), td(fileName)),
-        tr(th("Project Name"), td(content.project_id)),
+        tr(th("Project Id"), td(content.project_id)),
         tr(th("Service Account"), td(content.client_email))
       )
     );
@@ -73,10 +126,58 @@ export default (context: Context) => {
 
   return function configGoogleFormContent({
     onConfig,
-    GCP_REGION,
+    GOOGLE_CREDENTIALS,
+    GOOGLE_REGION,
+    GOOGLE_ZONE,
   }: ConfigGoogleFormContentProp) {
     const fileState = bau.state("No file selected");
-    const contentState = bau.state({});
+    const contentState = bau.state(GOOGLE_CREDENTIALS);
+
+    const project_id = bau.derive(() => contentState.val?.project_id);
+    const regionState = bau.state(GOOGLE_REGION);
+    const tokenState = bau.state("");
+
+    const zonesState = bau.derive(
+      pipe([
+        () => {
+          console.log("zonesState region", regionState.val);
+        },
+        () =>
+          getProjectQuery.data.val.find(
+            ({ name }: any) => name == regionState.val
+          ),
+        tap((zones: any) => {
+          console.log("zones", zones);
+        }),
+        get("zones", []),
+        map(pipe([callProp("split", "/"), last])),
+        tap((zones: any) => {
+          console.log("zones", zones);
+        }),
+      ])
+    );
+
+    bau.derive(async () => {
+      if (contentState.val?.private_key) {
+        const token = await googleAuthorize({
+          credentials: contentState.val,
+        });
+        //console.log("token", token);
+        tokenState.val = token.access_token;
+
+        if (
+          token.access_token &&
+          project_id &&
+          isEmpty(getProjectQuery.data.val)
+        ) {
+          getProjectQuery.run({
+            project_id: project_id.val,
+            token: token.access_token,
+          });
+        }
+      }
+    });
+
     const errorMessage = bau.state("");
 
     const onchange = (event: any) => {
@@ -93,12 +194,13 @@ export default (context: Context) => {
               const contentJson = JSON.parse(reader.result);
               contentState.val = contentJson;
               if (contentJson.project_id) {
-                onConfig({ credentials: contentJson });
+                onConfig(contentJson);
               } else {
                 errorMessage.val = "File is not a GCP crendential file.";
               }
             }
           } catch (error) {
+            debugger;
             errorMessage.val = "Error parsing file.";
           }
         };
@@ -158,7 +260,35 @@ export default (context: Context) => {
       () => errorMessage.val && Alert(errorMessage.val),
       () =>
         CredentialFile({ fileName: fileState.val, content: contentState.val }),
-      label("Select the region:", SelectGoogleRegion({ value: GCP_REGION }))
+      label("Select the region:", () =>
+        div(
+          {
+            class: css`
+              display: flex;
+              gap: 1rem;
+              align-items: center;
+            `,
+          },
+          SelectGoogleRegion({
+            value: GOOGLE_REGION,
+            regions: getProjectQuery.data.val.map(({ name }: any) => name),
+            loading: getProjectQuery.loading.val,
+            onchange: (event: any) => {
+              regionState.val = event.target.value;
+            },
+          }),
+          Spinner({
+            visibility: getProjectQuery.loading.val,
+          })
+        )
+      ),
+      label("Select the zone:", () =>
+        SelectGoogleZone({
+          value: GOOGLE_ZONE,
+          project_id: project_id.val,
+          zones: zonesState.val,
+        })
+      )
     );
   };
 };

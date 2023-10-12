@@ -1,17 +1,18 @@
 import { Context } from "@grucloud/bau-ui/context";
 import loadingButton from "@grucloud/bau-ui/loadingButton";
 import form from "@grucloud/bau-ui/form";
-
+import rubicox from "rubico/x";
+const { isEmpty } = rubicox;
 import buttonBack from "../../components/buttonBack";
 import page from "../../components/page";
 
-import configGoogleFormContent from "../../components/cloudAuthentication/configGoogleFormContent"; //googleFormElementToData,
+import configGoogleFormContent, {
+  googleFormElementToData,
+} from "../../components/cloudAuthentication/configGoogleFormContent"; //googleFormElementToData,
 
 export default function (context: Context) {
   const { bau, stores, config, window } = context;
   const { h1, p, header, footer } = bau.tags;
-
-  const contentState = bau.state({});
 
   const ButtonBack = buttonBack(context);
   const LoadingButton = loadingButton(context, {
@@ -35,17 +36,24 @@ export default function (context: Context) {
       workspace_id,
       cloud_authentication_id,
     });
+
+    const contentState = bau.state({});
+    bau.derive(() => {
+      if (isEmpty(contentState.val)) {
+        contentState.val =
+          stores.cloudAuthentication.getByIdQuery.data.val?.env_vars?.GOOGLE_CREDENTIALS;
+        console.log("GOOGLE_CREDENTIALS", contentState.val);
+      }
+    });
     const onsubmit = async (event: any) => {
       event.preventDefault();
-      const { GCP_REGION } = event.target.elements;
-
       await stores.cloudAuthentication.patchQuery.run(
         { org_id, project_id, workspace_id, cloud_authentication_id },
         {
           provider_type: "google",
           env_vars: {
-            credentials: contentState.val,
-            GCP_REGION: GCP_REGION.value,
+            GOOGLE_CREDENTIALS: contentState.val,
+            ...googleFormElementToData(event),
           },
         }
       );
@@ -64,9 +72,7 @@ export default function (context: Context) {
         () =>
           stores.cloudAuthentication.getByIdQuery.data.val &&
           ConfigGoogleFormContent({
-            GCP_REGION:
-              stores.cloudAuthentication.getByIdQuery.data.val?.env_vars
-                ?.GCP_REGION,
+            ...stores.cloudAuthentication.getByIdQuery.data.val?.env_vars,
             onConfig: (content: any) => {
               contentState.val = content;
             },

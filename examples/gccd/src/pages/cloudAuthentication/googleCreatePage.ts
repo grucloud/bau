@@ -5,7 +5,9 @@ import form from "@grucloud/bau-ui/form";
 import buttonBack from "../../components/buttonBack";
 import page from "../../components/page";
 
-import configGoogleFormContent from "../../components/cloudAuthentication/configGoogleFormContent";
+import configGoogleFormContent, {
+  googleFormElementToData,
+} from "../../components/cloudAuthentication/configGoogleFormContent";
 
 export default function (context: Context) {
   const { bau, stores, config, window } = context;
@@ -27,13 +29,15 @@ export default function (context: Context) {
   return function googleCreatePage({ org_id, project_id, workspace_id }: any) {
     const onsubmit = async (event: any) => {
       event.preventDefault();
-      const { region } = event.target.elements;
 
       await stores.cloudAuthentication.createQuery.run(
         { org_id, project_id, workspace_id },
         {
           provider_type: "google",
-          env_vars: { credentials: contentState.val, region: region.value },
+          env_vars: {
+            credentials: contentState.val,
+            ...googleFormElementToData(event),
+          },
         }
       );
 

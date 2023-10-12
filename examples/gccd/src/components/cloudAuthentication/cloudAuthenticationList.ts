@@ -25,7 +25,9 @@ export default function (context: Context) {
         "data-cloud-authentication-list-item-name": cloud_authentication_id,
       },
       td(provider_type),
-      td(env_vars.AWS_REGION ?? env_vars.AZURE_LOCATION ?? env_vars.GCP_REGION),
+      td(
+        env_vars.AWS_REGION ?? env_vars.AZURE_LOCATION ?? env_vars.GOOGLE_REGION
+      ),
       td(
         a(
           {
