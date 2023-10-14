@@ -18,6 +18,8 @@ import carouselExamples from "./pages/carousel/carousel.examples";
 import chipExamples from "./pages/chip/chip.examples";
 import checkboxExamples from "./pages/checkbox/checkbox.examples";
 import collapsibleExamples from "./pages/collapsible/collapsible.examples";
+import dividerExamples from "./pages/divider/divider.examples";
+
 import drawerExamples from "./pages/drawer/drawer.examples";
 import drillDownMenuExamples from "./pages/drilldownMenu/drillDownMenu.examples";
 import fileInputExamples from "./pages/fileInput/fileInput.examples";
@@ -179,6 +181,13 @@ export const createRoutes = ({ context }) => {
           action: () => ({
             title: "Collapsible",
             component: collapsibleExamples(context),
+          }),
+        },
+        {
+          path: "divider",
+          action: () => ({
+            title: "Divider",
+            component: dividerExamples(context),
           }),
         },
         {

@@ -9,7 +9,7 @@ Bau is reactive, data mutation drives the various views binded to this data. Whe
 In addition to this core library, a set of others has been released to provide a full ecosystem:
 
 - [bau-css](./bau-css): a CSS in JS library in 33 lines of code.
-- [bau-ui](https://grucloud.github.io/bau/bau-ui): a 40+ set of themable components such as Button, Input, Tabs, Tree View, Modal, etc...
+- [bau-ui](https://grucloud.github.io/bau/bau-ui): a 45+ set of themable components such as Button, Input, Tabs, Tree View, Modal, etc...
 - [bau-router](./bau-router): a router with nested route, asynchronous loading, layout. Under 0.6kB
 - [bau-kit](./examples/bau-kit): a Multi Page App starter kit, all of these features packed under 5KB, a **20X** decreased compared to the combo React/Redux/React Router/Style Component.
 - [bausaurus](https://grucloud.github.io/bau/bausaurus/): A Static Site Generator (SSG) from Markdown content.
