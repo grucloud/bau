@@ -53,31 +53,32 @@ export default (context: Context) => {
       },
       h1(spec.title),
       p(spec.description),
-      spec.gridItem && [
-        h2("Variant/Color"),
-        !spec.variantColorTableDisable &&
-          spec.gridItem &&
+      spec.gridItem &&
+        !spec.variantColorTableDisable && [
+          h2("Variant/Color"),
           Paper(
             ComponentGrid({
               Item: spec.gridItem(context),
             })
           ),
-        h2("Size"),
-        p(
-          "Component with size: ",
-          code("sm"),
-          ", ",
-          code("md"),
-          ", and ",
-          code("lg")
-        ),
-        spec.gridItem &&
+        ],
+      spec.gridItem &&
+        !spec.variantSizeDisable && [
+          h2("Size"),
+          p(
+            "Component with size: ",
+            code("sm"),
+            ", ",
+            code("md"),
+            ", and ",
+            code("lg")
+          ),
           Paper(
             ComponentSizes({
               item: spec.gridItem,
             })
           ),
-      ],
+        ],
       h2("Usage"),
       h3("Import"),
       HighlighContainer({ text: spec.importStatement }),

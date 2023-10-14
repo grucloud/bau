@@ -34,6 +34,7 @@ import paperExamples from "./pages/paper/paper.examples";
 import radioButtonExamples from "./pages/radioButton/radioButton.examples";
 import selectExamples from "./pages/select/select.examples";
 import selectNativeExamples from "./pages/selectNative/select-native.examples";
+import skeletonExamples from "./pages/skeleton/skeleton.examples";
 import sliderExamples from "./pages/slider/slider.examples";
 import spinnerExamples from "./pages/spinner/spinner.examples";
 import stepperExamples from "./pages/stepper/stepper.examples";
@@ -290,6 +291,13 @@ export const createRoutes = ({ context }) => {
           action: () => ({
             title: "Select Native",
             component: selectNativeExamples(context),
+          }),
+        },
+        {
+          path: "skeleton",
+          action: () => ({
+            title: "Skeleton",
+            component: skeletonExamples(context),
           }),
         },
         {

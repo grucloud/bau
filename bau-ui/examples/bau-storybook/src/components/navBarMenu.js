@@ -120,6 +120,7 @@ export default function (context) {
           { data: { name: "Radio Button", href: "/components/radioButton" } },
           { data: { name: "Select", href: "/components/select" } },
           { data: { name: "Select Native", href: "/components/selectNative" } },
+          { data: { name: "Skeleton", href: "/components/skeleton" } },
           { data: { name: "Slider", href: "/components/slider" } },
           { data: { name: "Spinner", href: "/components/spinner" } },
           { data: { name: "Stepper", href: "/components/stepper" } },
