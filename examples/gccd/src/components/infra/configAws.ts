@@ -6,7 +6,7 @@ import buttonNext from "./buttonNext";
 
 import configAwsFormContent, {
   awsFormElementToData,
-} from "./configAwsFormContent";
+} from "../cloudAuthentication/configAwsFormContent";
 
 export default (context: Context) => {
   const { bau } = context;

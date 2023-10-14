@@ -43,28 +43,27 @@ const LeanRouter = ({ routes = [], notFoundRoute }) => {
 };
 
 export default function Router({ routes, notFoundRoute, onLocationChange }) {
+  let _location = window.location;
+
+  const updateLocation = (location) => (_location = location);
+
   const router = LeanRouter({
     routes,
     notFoundRoute,
   });
 
   window.addEventListener("popstate", (event) => {
-    // TODO
-    //console.log("popstate");
-    //if (event.state != null) {
-    // Back or Next button and not an in page navigation
-    //onLocationChange({ router });
-    // }
-    if (event.state != null) {
-      // Back or Next button and not an in page navigation
+    if (_location.pathname != event.target.location.pathname) {
       onLocationChange({ router });
     }
+    updateLocation(event.target.location);
   });
 
   window.history.pushState = new Proxy(window.history.pushState, {
     apply: (target, thisArg, argArray) => {
       target.apply(thisArg, argArray);
       onLocationChange({ router });
+      updateLocation(window.location);
     },
   });
 

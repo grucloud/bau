@@ -14,16 +14,16 @@ export default function (context, options = {}) {
       align-items: center;
       justify-content: space-between;
       background-color: inherit;
-      &::after {
+      &::before {
         padding: 0.5rem;
         transition: transform var(--transition-fast) linear;
         line-height: 1rem;
       }
-      &.close::after {
+      &.close::before {
         content: "\u203A";
         padding: 0.5rem;
       }
-      &.open::after {
+      &.open::before {
         content: "\u203A";
         padding: 0.5rem;
         transform: rotate(90deg);

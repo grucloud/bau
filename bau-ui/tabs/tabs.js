@@ -13,7 +13,7 @@ const colorsToCss = () =>
   ).join("\n");
 
 export default function (context, options = {}) {
-  const { bau, css } = context;
+  const { bau, css, window } = context;
   const { tabDefs } = options;
   const { div, ul, li } = bau.tags;
 
@@ -27,8 +27,11 @@ export default function (context, options = {}) {
       align-items: flex-start;
       padding: 0;
       list-style: none;
-      border-bottom: 2px solid var(--color-emphasis-200);
       & li {
+        & > a {
+          color: inherit;
+          text-decoration: none;
+        }
         text-align: center;
         padding: 0.5rem;
         padding-bottom: 0rem;
@@ -39,14 +42,15 @@ export default function (context, options = {}) {
         overflow: hidden;
         &:hover {
           color: var(--color-primary-light);
-          background-color: var(--color-emphasis-300);
+          background-color: var(--color-emphasis-200);
           &::after {
             transform: translateY(0%);
           }
         }
         &::after {
           transition: var(--transition-fast) ease-in-out;
-          transform: translateY(400%);
+          transform: translateY(100%);
+          background: var(--color-primary-light);
           opacity: 1;
           content: "";
           margin-top: 0.3rem;
@@ -64,6 +68,7 @@ export default function (context, options = {}) {
       & .disabled {
         cursor: not-allowed;
         font-style: italic;
+        pointer-events: none;
         transform: none;
         &:hover {
           border: none;
@@ -85,10 +90,10 @@ export default function (context, options = {}) {
     ] = toPropsAndChildren(args);
 
     const tabsState = bau.state(tabDefs);
-
-    const tabCurrentState = bau.state(tabDefs[0]);
+    const tabNameInitial = window.location.hash.slice(1);
 
     const tabByName = (name) => tabsState.val.find((tab) => tab.name == name);
+    const tabCurrentState = bau.state(tabByName(tabNameInitial) ?? tabDefs[0]);
 
     const TabHeader = (tab) => {
       const { Header, disabled, name } = tab;
@@ -126,7 +131,8 @@ export default function (context, options = {}) {
       // Header
       bau.loop(tabsState, ul(), TabHeader),
       // Content
-      () => (tabCurrentState.val.Content ? tabCurrentState.val.Content({}) : "")
+      () =>
+        tabCurrentState.val.Content ? tabCurrentState.val.Content(props) : ""
     );
 
     rootEl.addEventListener(

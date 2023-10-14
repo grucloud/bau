@@ -6,7 +6,7 @@ import buttonNext from "./buttonNext";
 
 import configAzureFormContent, {
   azureFormElementToData,
-} from "./configAzureFormContent";
+} from "../cloudAuthentication/configAzureFormContent";
 
 export default (context: Context) => {
   const { bau } = context;

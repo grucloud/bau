@@ -235,7 +235,12 @@ export default function (context, options = {}) {
   window.document.addEventListener("click", (event) => {
     const { target } = event;
     const href = target.getAttribute("href");
-    if (target.tagName === "A" && href && !href.startsWith("http")) {
+    if (
+      target.tagName === "A" &&
+      href &&
+      !href.startsWith("http") &&
+      !href.startsWith("#")
+    ) {
       let path = href.replace(baseUrl, "");
       if (!hashBased) {
         path = path.replace(target.hash, "");

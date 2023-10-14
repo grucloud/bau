@@ -9,7 +9,7 @@ type ConfigAzureFormContentProp = {
   AZURE_TENANT_ID?: string;
   AZURE_CLIENT_ID?: string;
   AZURE_CLIENT_SECRET?: string;
-  region?: string;
+  AZURE_LOCATION?: string;
 };
 
 export const azureFormElementToData = (event: any) => {
@@ -18,18 +18,14 @@ export const azureFormElementToData = (event: any) => {
     AZURE_TENANT_ID,
     AZURE_CLIENT_ID,
     AZURE_CLIENT_SECRET,
-    region,
+    AZURE_LOCATION,
   } = event.target.elements;
   return {
-    providerType: "azure",
-    providerName: "azure",
-    providerAuth: {
-      AZURE_SUBSCRIPTION_ID: AZURE_SUBSCRIPTION_ID.value,
-      AZURE_TENANT_ID: AZURE_TENANT_ID.value,
-      AZURE_CLIENT_ID: AZURE_CLIENT_ID.value,
-      AZURE_CLIENT_SECRET: AZURE_CLIENT_SECRET.value,
-    },
-    options: { region: region.value },
+    AZURE_SUBSCRIPTION_ID: AZURE_SUBSCRIPTION_ID.value,
+    AZURE_TENANT_ID: AZURE_TENANT_ID.value,
+    AZURE_CLIENT_ID: AZURE_CLIENT_ID.value,
+    AZURE_CLIENT_SECRET: AZURE_CLIENT_SECRET.value,
+    AZURE_LOCATION: AZURE_LOCATION.value,
   };
 };
 
@@ -73,7 +69,7 @@ export default (context: Context) => {
     AZURE_TENANT_ID,
     AZURE_CLIENT_ID,
     AZURE_CLIENT_SECRET,
-    region,
+    AZURE_LOCATION,
   }: ConfigAzureFormContentProp) {
     return section(
       { class: className },
@@ -169,7 +165,10 @@ export default (context: Context) => {
         ),
         li(
           h3("Region"),
-          label("Select the region:", SelectAzureRegion({ value: region }))
+          label(
+            "Select the region:",
+            SelectAzureRegion({ value: AZURE_LOCATION })
+          )
         )
       )
     );

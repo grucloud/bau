@@ -8,18 +8,12 @@ type ConfigAwsFormContentProp = {
   AWSAccessKeyId?: string;
   AWS_REGION?: string;
 };
-
 export const awsFormElementToData = (event: any) => {
   const { AWSAccessKeyId, AWSSecretKey, AWS_REGION } = event.target.elements;
   return {
-    providerType: "aws",
-    providerName: "aws",
-    providerAuth: {
-      AWSAccessKeyId: AWSAccessKeyId.value.trim(),
-      AWSSecretKey: AWSSecretKey.value,
-      AWS_REGION: AWS_REGION.value,
-    },
-    options: { region: AWS_REGION.value },
+    AWSAccessKeyId: AWSAccessKeyId.value.trim(),
+    AWSSecretKey: AWSSecretKey.value,
+    AWS_REGION: AWS_REGION.value,
   };
 };
 

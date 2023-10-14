@@ -1,23 +1,25 @@
-import selectNative from "@grucloud/bau-ui/selectNative";
-
 import { Context } from "@grucloud/bau-ui/context";
-import regionsMap from "./googleRegion.json";
+import selectNative from "@grucloud/bau-ui/selectNative";
 
 export default (context: Context) => {
   const { bau } = context;
   const { option } = bau.tags;
+
   const SelectNative = selectNative(context);
 
   return function SelectGoogleRegion(props: any) {
+    //console.log("SelectGoogleRegion", props);
+    const { regions } = props;
+
     return SelectNative(
       {
         required: "required",
         title: "Select a region",
-        name: "region",
+        name: "GOOGLE_REGION",
         ...props,
       },
       option({ value: "" }, "--Please choose a region--"),
-      regionsMap.map((value) =>
+      regions.map((value: any) =>
         option({ value, selected: props.value == value }, value)
       )
     );
