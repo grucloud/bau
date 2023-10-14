@@ -1,10 +1,12 @@
+import rubicox from "rubico/x";
+const { isIn } = rubicox;
 import { type Context } from "@grucloud/bau-ui/context";
 import tableContainer from "@grucloud/bau-ui/tableContainer";
 import runStatus from "./runStatus";
 
 export default function (context: Context) {
-  const { bau, css, config, window } = context;
-  const { h2, table, tr, td, th, section, a, img } = bau.tags;
+  const { bau, css, config } = context;
+  const { table, tr, td, th, section, a, img } = bau.tags;
   const RunStatus = runStatus(context);
 
   const TableContainer = tableContainer(context, {
@@ -15,7 +17,7 @@ export default function (context: Context) {
     `,
   });
 
-  const isCompleted = (status: string) => status == "completed";
+  const isCompleted = isIn(["completed", "error"]);
 
   return function RunDetailContent({
     org_id,
@@ -41,46 +43,8 @@ export default function (context: Context) {
       engine,
       error
     );
-    if (container_id && !isCompleted(status)) {
-      const socket = new WebSocket(config.wsUrl(window));
-      // Connection opened
-      socket.addEventListener("open", (_event) => {
-        console.log("ws open");
-        socket.send(
-          JSON.stringify({
-            origin: "browser",
-            command: "join",
-            options: {
-              room: `${org_id}/${project_id}/${workspace_id}/${run_id}`,
-            },
-          })
-        );
-        socket.send(
-          JSON.stringify({
-            command: "Run",
-            options: {
-              org_id,
-              project_id,
-              workspace_id,
-              run_id,
-              container_id,
-              engine,
-            },
-          })
-        );
-      });
-      socket.addEventListener("close", (event) => {
-        console.log("websocket closed", event);
-      });
-      socket.addEventListener("error", (_event) => {
-        console.log("websocket error");
-      });
-      socket.addEventListener("message", (event) => {
-        console.log("Message from server ", event.data.toString());
-      });
-    }
     return section(
-      h2("Summary"),
+      //h2("Summary"),
       TableContainer(
         table(
           tr(

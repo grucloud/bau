@@ -41,8 +41,6 @@ import azureEditPage from "./pages/cloudAuthentication/azureEditPage";
 import googleCreatePage from "./pages/cloudAuthentication/googleCreatePage";
 import googleEditPage from "./pages/cloudAuthentication/googleEditPage";
 import cloudAuthenticationDestroyPage from "./pages/cloudAuthentication/cloudAuthenticationDestroyPage";
-
-//
 import layoutUnauthenticated from "./layoutUnauthenticated";
 
 export const createRoutes = ({ context }: { context: Context }) => [

@@ -131,7 +131,8 @@ export default function (context, options = {}) {
       // Header
       bau.loop(tabsState, ul(), TabHeader),
       // Content
-      () => (tabCurrentState.val.Content ? tabCurrentState.val.Content({}) : "")
+      () =>
+        tabCurrentState.val.Content ? tabCurrentState.val.Content(props) : ""
     );
 
     rootEl.addEventListener(
