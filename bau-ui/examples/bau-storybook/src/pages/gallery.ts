@@ -23,6 +23,8 @@ import linearProgressItem from "./linearProgress/linearProgress-grid-item";
 import loadingButtonItem from "./loadingButton/loadingButton-grid-item";
 import modalGridItem from "./modal/modal-grid-item";
 //import paperItem from "./paper/paper-grid-item";
+//import skeletonItem from "./paper/skeleton-grid-item";
+
 //import paginationNavigationItem from "./pages/paginationNavigation/paginationNavigation-grid-item";
 import radioButtonGridItem from "./radioButton/radioButton-grid-item";
 
