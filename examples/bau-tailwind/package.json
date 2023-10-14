@@ -1,7 +1,7 @@
 {
   "name": "bau-tailwind-example",
   "private": true,
-  "version": "0.49.0",
+  "version": "0.50.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.49.0",
+    "@grucloud/bau": "^0.50.0",
     "highlight.js": "11.8.0"
   },
   "devDependencies": {
