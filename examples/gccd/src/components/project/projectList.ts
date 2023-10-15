@@ -1,9 +1,12 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import tableContainer from "@grucloud/bau-ui/tableContainer";
+import tableSkeleton from "../tableSkeleton";
 
 export default function (context: Context) {
   const { bau, css, config } = context;
   const { span, a, table, thead, tbody, th, tr, td, section } = bau.tags;
+
+  const TableSkeleton = tableSkeleton(context);
   const TableContainer = tableContainer(context, {
     class: css`
       & th {
@@ -35,12 +38,15 @@ export default function (context: Context) {
 
   const headers = ["Organisation", "Projects", "Workspaces"];
 
-  return function ProjectList(projects: any) {
+  return function ProjectList({ data, loading }: any) {
     return section(
       TableContainer(
         table(
           thead(headers.map((header) => th({ scope: "col" }, header))),
-          tbody(projects.map(ListItem))
+          () =>
+            loading.val
+              ? TableSkeleton({ columnsSize: 3 })
+              : tbody(data.val.map(ListItem))
         )
       )
     );

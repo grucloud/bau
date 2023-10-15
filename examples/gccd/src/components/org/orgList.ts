@@ -1,9 +1,12 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import tableContainer from "@grucloud/bau-ui/tableContainer";
+import tableSkeleton from "../tableSkeleton";
 
 export default function (context: Context) {
-  const { bau, css, stores } = context;
+  const { bau, css } = context;
   const { span, a, table, thead, tbody, th, tr, td } = bau.tags;
+
+  const TableSkeleton = tableSkeleton(context);
   const TableContainer = tableContainer(context, {
     class: css``,
   });
@@ -24,15 +27,14 @@ export default function (context: Context) {
       td(project_count)
     );
 
-  const { data } = stores.org.getAllQuery;
-
   const headers = ["Organisation", "Projects"];
 
-  return function OrgList({}) {
+  return function OrgList({ data, loading }: any) {
     return TableContainer(
-      table(
-        thead(headers.map((header) => th({ scope: "col" }, header))),
-        tbody(data.val.map(ListItem))
+      table(thead(headers.map((header) => th({ scope: "col" }, header))), () =>
+        loading.val
+          ? TableSkeleton({ columnsSize: 2, rowSize: 1 })
+          : tbody(data.val.map(ListItem))
       )
     );
   };
