@@ -5,12 +5,14 @@ import input from "@grucloud/bau-ui/input";
 import paper from "@grucloud/bau-ui/paper";
 import loadingButton from "@grucloud/bau-ui/loadingButton";
 import alert from "@grucloud/bau-ui/alert";
+import divider from "@grucloud/bau-ui/divider";
 
 import socialLogin from "../components/socialLogin";
 
 export default (context: Context) => {
   const { bau, css, config, stores } = context;
   const { section, h1, footer, header, label, img } = bau.tags;
+  const Divider = divider(context);
 
   const LoadingButton = loadingButton(context);
   const Alert = alert(context, { variant: "outline", color: "danger" });
@@ -71,9 +73,10 @@ export default (context: Context) => {
         { onsubmit },
         header(
           img({ width: "100", src: `${config.base}/gc.svg`, alt: "GruCloud" }),
-          h1("Login to Grucloud")
+          h1("Log in to Grucloud")
         ),
         SocialLogin(),
+        Divider("OR"),
         section(
           () => errorMessageState.val && Alert(errorMessageState.val),
           label(

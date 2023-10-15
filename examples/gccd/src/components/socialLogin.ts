@@ -17,19 +17,19 @@ export default function (context: Context) {
 
   const socialAuthMap: any = {
     github: {
-      label: "Sign in with GitHub",
+      label: "Log in with GitHub",
       href: "auth/github",
       src: "/login/github.svg#Capa_1",
       dataButtonLogin: "github",
     },
     facebook: {
-      label: "Sign in with Facebook",
+      label: "Log in with Facebook",
       href: "auth/facebook",
       src: "/login/facebook.svg#Capa_1",
       dataButtonLogin: "facebook",
     },
     google: {
-      label: "Sign in with Google",
+      label: "Log in with Google",
       href: "auth/google",
       src: "/login/google.svg#google",
       dataButtonLogin: "google",
