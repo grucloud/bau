@@ -92,6 +92,7 @@ export default function (context) {
           { data: { name: "Collapsible", href: "/components/collapsible" } },
           { data: { name: "Divider", href: "/components/divider" } },
           { data: { name: "Drawer", href: "/components/drawer" } },
+          { data: { name: "Dropdown Menu", href: "/components/dropdownMenu" } },
           {
             data: { name: "DrillDown Menu", href: "/components/drillDownMenu" },
           },
