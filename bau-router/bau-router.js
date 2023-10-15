@@ -45,7 +45,9 @@ const LeanRouter = ({ routes = [], notFoundRoute }) => {
 export default function Router({ routes, notFoundRoute, onLocationChange }) {
   let _location = window.location;
 
-  const updateLocation = (location) => (_location = location);
+  const updateLocation = (location) => {
+    _location = { ...location };
+  };
 
   const router = LeanRouter({
     routes,
@@ -78,6 +80,7 @@ export default function Router({ routes, notFoundRoute, onLocationChange }) {
       !href.replace(window.location.pathname, "").startsWith("#")
     ) {
       history.pushState({}, null, href);
+      updateLocation(window.location);
 
       window.scrollTo({
         top: 0,
