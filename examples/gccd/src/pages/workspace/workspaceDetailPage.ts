@@ -109,9 +109,8 @@ export default function (context: Context) {
         //   )
         // ),
         () =>
-          !stores.cloudAuthentication.getAllByWorkspaceQuery.loading.val &&
           CloudAuthenticationList(
-            stores.cloudAuthentication.getAllByWorkspaceQuery.data.val
+            stores.cloudAuthentication.getAllByWorkspaceQuery
           ),
         h2("Runs"),
         RunList(stores.run.getAllByWorkspaceQuery),

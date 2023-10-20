@@ -42,9 +42,7 @@ export default function (context: Context) {
           !getByIdQuery.loading.val &&
           ProjectDetailContent(getByIdQuery.data.val),
         h2("Workspace"),
-        () =>
-          !stores.workspace.getAllByProject.loading.val &&
-          WorkspaceList(stores.workspace.getAllByProject.data.val),
+        () => WorkspaceList(stores.workspace.getAllByProject),
         h2("Danger Zone"),
         ButtonDelete(
           {

@@ -49,12 +49,12 @@ export default function (context: Context) {
 
   const headers = ["Provider", "Region", "Action"];
 
-  return function RunList(runs: any) {
+  return function CloudAuthenticationList(runs: any) {
     return section(
       TableContainer(
         table(
           thead(headers.map((header) => th({ scope: "col" }, header))),
-          tbody(runs.map(ListItem))
+          tbody(runs.data.val.map(ListItem))
         )
       )
     );
