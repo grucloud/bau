@@ -74,7 +74,7 @@ export default (context: Context) => {
       Form(
         { onsubmit },
         header(
-          img({ width: "100", src: `${config.base}/gc.svg` }),
+          img({ width: "100", height: "100", src: `${config.base}/gc.svg` }),
           h1("Login to Grucloud")
         ),
         section(

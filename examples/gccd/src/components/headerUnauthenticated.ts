@@ -19,7 +19,12 @@ export default function (context: Context) {
           }
         `,
       },
-      img({ alt: "GruCloud", src: `${config.base}/gc.svg`, width: 28 }),
+      img({
+        alt: "GruCloud",
+        src: `${config.base}/gc.svg`,
+        width: 28,
+        height: 28,
+      }),
       a(
         {
           href: `${config.base}/`,

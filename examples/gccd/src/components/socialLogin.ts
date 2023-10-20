@@ -49,6 +49,7 @@ export default function (context: Context) {
         src: `${config.base}${src}`,
         alt: label,
         width: 28,
+        height: 28,
       }),
       label
     );
