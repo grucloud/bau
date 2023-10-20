@@ -1,6 +1,5 @@
 import { Context } from "@grucloud/bau-ui/context";
 import button from "@grucloud/bau-ui/button";
-import spinner from "@grucloud/bau-ui/spinner";
 
 import page from "../../components/page";
 import orgList from "../../components/org/orgList";
@@ -9,7 +8,6 @@ export default function (context: Context) {
   const { bau, stores, config } = context;
   const { h1, header } = bau.tags;
   const ButtonAdd = button(context, { color: "primary", variant: "solid" });
-  const Spinner = spinner(context, { size: "lg" });
   const Page = page(context);
 
   const OrgList = orgList(context);
@@ -27,10 +25,7 @@ export default function (context: Context) {
           "+ New Organisation"
         )
       ),
-      () => !stores.org.getAllQuery.loading.val && OrgList({}),
-      Spinner({
-        visibility: stores.org.getAllQuery.loading,
-      })
+      OrgList(stores.org.getAllQuery)
     );
   };
 }

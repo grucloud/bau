@@ -1,12 +1,13 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import tableContainer from "@grucloud/bau-ui/tableContainer";
-
+import tableSkeleton from "../tableSkeleton";
 import runStatus from "./runStatus";
 
 export default function (context: Context) {
   const { bau, css, config } = context;
   const { a, table, thead, tbody, th, tr, td, section } = bau.tags;
   const RunStatus = runStatus(context);
+  const TableSkeleton = tableSkeleton(context);
   const TableContainer = tableContainer(context, {
     class: css`
       & th {
@@ -55,12 +56,15 @@ export default function (context: Context) {
 
   const headers = ["Organisation", "Projects", "Workspaces", "Run", "Status"];
 
-  return function RunList(runs: any) {
+  return function RunList({ data, loading }: any) {
     return section(
       TableContainer(
         table(
           thead(headers.map((header) => th({ scope: "col" }, header))),
-          tbody(runs.map(ListItem))
+          () =>
+            loading.val
+              ? TableSkeleton({ columnsSize: 5 })
+              : tbody(data.val.map(ListItem))
         )
       )
     );

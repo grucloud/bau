@@ -1,6 +1,5 @@
 import { Context } from "@grucloud/bau-ui/context";
 import form from "@grucloud/bau-ui/form";
-import spinner from "@grucloud/bau-ui/spinner";
 //import button from "@grucloud/bau-ui/button";
 
 import page from "../../components/page";
@@ -13,13 +12,12 @@ export default function (context: Context) {
 
   const Page = page(context);
   const Form = form(context);
-  const Spinner = spinner(context, { size: "lg" });
   // const ButtonAddWorkspace = button(context, {
   //   color: "primary",
   //   variant: "solid",
   // });
 
-  const WorkspaceList = projectList(context);
+  const ProjectList = projectList(context);
 
   return function WorkspaceUserPage({}: any) {
     getAllByUserQuery.run();
@@ -35,13 +33,8 @@ export default function (context: Context) {
           //   "+ New Run"
           // )
         ),
-        () =>
-          !getAllByUserQuery.loading.val &&
-          WorkspaceList(getAllByUserQuery.data.val)
-      ),
-      Spinner({
-        visibility: getAllByUserQuery.loading,
-      })
+        ProjectList(getAllByUserQuery)
+      )
     );
   };
 }

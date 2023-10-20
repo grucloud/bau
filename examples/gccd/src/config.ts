@@ -6,7 +6,7 @@ const config = {
     routeAfterLogin: "/",
     description: "",
     apiUrl: "/api/v1/",
-    socialAuth: ["github", "facebook"],
+    socialAuth: ["github"],
     //    socialAuth: ["github", "facebook", "google"],
     engine: "docker",
     wsUrl: (window: Window) => `ws://${window.location.hostname}:9000/ws`,

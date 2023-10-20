@@ -21,6 +21,7 @@ import collapsibleExamples from "./pages/collapsible/collapsible.examples";
 import dividerExamples from "./pages/divider/divider.examples";
 
 import drawerExamples from "./pages/drawer/drawer.examples";
+import dropdownMenuExamples from "./pages/dropdownMenu/dropdownMenu.examples";
 import drillDownMenuExamples from "./pages/drilldownMenu/drillDownMenu.examples";
 import fileInputExamples from "./pages/fileInput/fileInput.examples";
 import formExamples from "./pages/form/form.examples";
@@ -195,6 +196,13 @@ export const createRoutes = ({ context }) => {
           action: () => ({
             title: "Drawer",
             component: drawerExamples(context),
+          }),
+        },
+        {
+          path: "dropdownMenu",
+          action: () => ({
+            title: "Dropdown Menu ",
+            component: dropdownMenuExamples(context),
           }),
         },
         {

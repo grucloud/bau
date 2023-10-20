@@ -45,9 +45,7 @@ export default function (context: Context) {
             "+ New Project"
           )
         ),
-        () =>
-          !stores.project.getAllByOrgQuery.loading.val &&
-          ProjectList(stores.project.getAllByOrgQuery.data.val),
+        ProjectList(stores.project.getAllByOrgQuery),
         header(
           h2("Git Connections"),
           ButtonAdd(
