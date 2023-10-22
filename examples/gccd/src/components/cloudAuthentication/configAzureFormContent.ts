@@ -1,6 +1,7 @@
 import { Context } from "@grucloud/bau-ui/context";
 
 import input from "@grucloud/bau-ui/input";
+import radioButton from "@grucloud/bau-ui/radioButton";
 
 import selectAzureRegion from "./selectAzureRegion";
 
@@ -10,6 +11,8 @@ type ConfigAzureFormContentProp = {
   AZURE_CLIENT_ID?: string;
   AZURE_CLIENT_SECRET?: string;
   AZURE_LOCATION?: string;
+  AZURE_USE_OAUTH?: string;
+  AZURE_OAUTH_AUDIENCE?: string;
 };
 
 export const azureFormElementToData = (event: any) => {
@@ -19,21 +22,38 @@ export const azureFormElementToData = (event: any) => {
     AZURE_CLIENT_ID,
     AZURE_CLIENT_SECRET,
     AZURE_LOCATION,
+    federated,
   } = event.target.elements;
   return {
     AZURE_SUBSCRIPTION_ID: AZURE_SUBSCRIPTION_ID.value,
     AZURE_TENANT_ID: AZURE_TENANT_ID.value,
     AZURE_CLIENT_ID: AZURE_CLIENT_ID.value,
-    AZURE_CLIENT_SECRET: AZURE_CLIENT_SECRET.value,
+    AZURE_CLIENT_SECRET: AZURE_CLIENT_SECRET?.value,
     AZURE_LOCATION: AZURE_LOCATION.value,
+    AZURE_USE_OAUTH: federated.value === "federated" ? "TRUE" : undefined,
   };
 };
 
 export default (context: Context) => {
   const { bau, css } = context;
-  const { section, p, label, ol, li, h3, pre, em, div } = bau.tags;
+  const {
+    section,
+    p,
+    label,
+    ol,
+    li,
+    h3,
+    pre,
+    em,
+    div,
+    fieldset,
+    legend,
+    header,
+  } = bau.tags;
 
   const Input = input(context);
+  const RadioButton = radioButton(context);
+
   const SelectAzureRegion = selectAzureRegion(context);
 
   const className = css`
@@ -70,7 +90,94 @@ export default (context: Context) => {
     AZURE_CLIENT_ID,
     AZURE_CLIENT_SECRET,
     AZURE_LOCATION,
+    AZURE_OAUTH_AUDIENCE = "api://AzureADTokenExchange",
   }: ConfigAzureFormContentProp) {
+    const radioState = bau.state(AZURE_CLIENT_SECRET ? "sp" : "federated");
+
+    const oninput = (event: any) => {
+      radioState.val = event.target.id;
+    };
+
+    const FederatedCredential = ({}) =>
+      section(
+        label(
+          "Audience",
+          Input({
+            "data-input-oauth-audiencee": true,
+            placeholder: "api://AzureADTokenExchange",
+            name: "AZURE_OAUTH_AUDIENCE",
+            defaultValue: AZURE_OAUTH_AUDIENCE,
+            minLength: 8,
+            maxLength: 64,
+            size: 32,
+            required: true,
+          })
+        )
+      );
+    const Password = ({ AZURE_CLIENT_SECRET }: any) =>
+      section(
+        label(
+          "Password",
+          Input({
+            "data-input-azure-password": true,
+            type: "password",
+            placeholder: "Password",
+            name: "AZURE_CLIENT_SECRET",
+            defaultValue: AZURE_CLIENT_SECRET,
+            minLength: 8,
+            maxLength: 64,
+            size: 32,
+            required: true,
+          })
+        )
+      );
+
+    const Credentials = () =>
+      fieldset(
+        {
+          class: css`
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border: 1px solid var(--color-emphasis-500);
+            & header {
+              display: inline-flex;
+              justify-content: flex-start;
+              & label {
+                flex-direction: row;
+              }
+            }
+          `,
+        },
+        legend("Authentication Type"),
+        header(
+          label(
+            "Federated Credential",
+            RadioButton({
+              id: "federated",
+              name: "kind",
+              checked: radioState.val == "federated",
+              value: radioState,
+              oninput,
+            })
+          ),
+          label(
+            "Password",
+            RadioButton({
+              id: "password",
+              name: "kind",
+              checked: radioState.val == "sp",
+              value: radioState,
+              oninput,
+            })
+          )
+        ),
+        () =>
+          radioState.val == "federated"
+            ? FederatedCredential({})
+            : Password({ AZURE_CLIENT_SECRET })
+      );
+
     return section(
       { class: className },
       ol(
@@ -146,23 +253,10 @@ export default (context: Context) => {
                 size: 36,
                 required: true,
               })
-            ),
-            label(
-              "Password",
-              Input({
-                "data-input-azure-password": true,
-                type: "password",
-                placeholder: "Password",
-                name: "AZURE_CLIENT_SECRET",
-                defaultValue: AZURE_CLIENT_SECRET,
-                minLength: 8,
-                maxLength: 64,
-                size: 32,
-                required: true,
-              })
             )
           )
         ),
+        li(h3("Authentication"), Credentials()),
         li(
           h3("Region"),
           label(

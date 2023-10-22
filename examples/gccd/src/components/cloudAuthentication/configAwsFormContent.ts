@@ -9,6 +9,7 @@ type ConfigAwsFormContentProp = {
   AWSAccessKeyId?: string;
   AWSSecretKey?: string;
   GRUCLOUD_ROLE_WEB_IDENTITY_ARN?: string;
+  AWS_OAUTH_AUDIENCE?: string;
   AWS_REGION?: string;
 };
 export const awsFormElementToData = (event: any) => {
@@ -17,12 +18,14 @@ export const awsFormElementToData = (event: any) => {
     AWSSecretKey,
     AWS_REGION,
     GRUCLOUD_ROLE_WEB_IDENTITY_ARN,
+    AWS_OAUTH_AUDIENCE,
   } = event.target.elements;
   return {
     AWSAccessKeyId: AWSAccessKeyId?.value.trim(),
     AWSSecretKey: AWSSecretKey?.value,
     AWS_REGION: AWS_REGION.value,
     GRUCLOUD_ROLE_WEB_IDENTITY_ARN: GRUCLOUD_ROLE_WEB_IDENTITY_ARN?.value,
+    AWS_OAUTH_AUDIENCE: AWS_OAUTH_AUDIENCE?.value,
   };
 };
 
@@ -35,7 +38,10 @@ export default (context: Context) => {
 
   const SelectAwsRegion = selectAwsRegion(context);
 
-  const IamRoleSection = ({ GRUCLOUD_ROLE_WEB_IDENTITY_ARN }: any) =>
+  const IamRoleSection = ({
+    GRUCLOUD_ROLE_WEB_IDENTITY_ARN,
+    AWS_OAUTH_AUDIENCE = "aws.workload.identity",
+  }: any) =>
     section(
       label(
         "IAM Role ARN",
@@ -52,6 +58,19 @@ export default (context: Context) => {
         small(
           "The IAM Role ARN  such as arn:aws:iam::123456789:role/role-grucloud"
         )
+      ),
+      label(
+        "Audience",
+        Input({
+          "data-input-oauth-audiencee": true,
+          placeholder: "aws.workload.identity",
+          name: "AWS_OAUTH_AUDIENCE",
+          defaultValue: AWS_OAUTH_AUDIENCE,
+          minLength: 8,
+          maxLength: 64,
+          size: 32,
+          required: true,
+        })
       )
     );
 
@@ -89,13 +108,13 @@ export default (context: Context) => {
     AWSSecretKey,
     AWS_REGION,
     GRUCLOUD_ROLE_WEB_IDENTITY_ARN,
+    AWS_OAUTH_AUDIENCE,
   }: ConfigAwsFormContentProp) {
     const radioState = bau.state(AWSAccessKeyId ? "accessKey" : "role");
 
     const oninput = (event: any) => {
       radioState.val = event.target.id;
     };
-
     return section(
       fieldset(
         {
@@ -138,7 +157,10 @@ export default (context: Context) => {
         ),
         () =>
           radioState.val == "role"
-            ? IamRoleSection({ GRUCLOUD_ROLE_WEB_IDENTITY_ARN })
+            ? IamRoleSection({
+                GRUCLOUD_ROLE_WEB_IDENTITY_ARN,
+                AWS_OAUTH_AUDIENCE,
+              })
             : AccessSecretKeySection({ AWSAccessKeyId, AWSSecretKey })
       ),
 
