@@ -1,7 +1,7 @@
 {
   "name": "bau-d3-example",
   "private": true,
-  "version": "0.51.0",
+  "version": "0.52.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.51.0",
+    "@grucloud/bau": "^0.52.0",
     "d3": "7.8.5",
     "highlight.js": "11.8.0"
   },
