@@ -308,8 +308,10 @@ export default function Bau(input) {
         }
         props.bauChildMutated &&
           observerChildNode(element, props.bauChildMutated);
-
         add(element, ...children);
+        element.autofocus &&
+          element.focus &&
+          _window.requestAnimationFrame(() => element.focus());
         props.bauCreated?.({ element });
         props.bauMounted &&
           _window.requestAnimationFrame(() => props.bauMounted({ element }));
@@ -317,7 +319,6 @@ export default function Bau(input) {
           _window.requestAnimationFrame(() =>
             observerRemovedNode(element, props.bauUnmounted)
           );
-
         return element;
       },
       {
