@@ -8,7 +8,7 @@ import { writeFile, runCommand } from "./regionsUtils.js";
 const { pipe, tap, get, tryCatch, filter, map, pick } = rubico;
 const { groupBy, values, callProp } = rubicox;
 
-const filename = "../src/components/infra/azureRegion.json";
+const filename = "../src/components/cloudAuthentication/azureRegion.json";
 // Retrieves the azure regions with 'az account list-locations',
 // Transform the result:
 

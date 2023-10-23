@@ -5,10 +5,10 @@ import rubicox from "rubico/x/index.js";
 
 import { writeFile, runCommand } from "./regionsUtils.js";
 
-const { pipe, tap, get, tryCatch, filter, eq, map, pick } = rubico;
-const { pluck, callProp } = rubicox;
+const { pipe, tap, get, tryCatch, filter, eq, map, all } = rubico;
 
-const filename = "../src/components/infra/googleRegion.json";
+const { callProp, last } = rubicox;
+const filename = "../src/components/cloudAuthentication/googleRegion.json";
 // Retrieves the google cloud regions with 'gcloud compute regions list --format=json',
 
 const toSelect = pipe([
@@ -16,8 +16,13 @@ const toSelect = pipe([
     assert(regions);
   }),
   filter(eq(get("status"), "UP")),
-  pluck("name"),
-  callProp("sort", (a, b) => a.localeCompare(b)),
+  map(
+    all({
+      name: get("name"),
+      zones: pipe([get("zones"), map(pipe([callProp("split", "/"), last]))]),
+    })
+  ),
+  callProp("sort", (a, b) => a.name.localeCompare(b.name)),
   tap((regions) => {
     assert(true);
   }),
