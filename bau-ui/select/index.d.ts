@@ -6,7 +6,9 @@ declare module "@grucloud/bau-ui/select" {
     options: object[];
     id?: string;
     label: string;
-    getOptionLabel?: (item: object | string) => string;
+    defaultOption?: any;
+    getOptionLabel: (item: object | string) => HTMLElement | string;
+    getOptionValue: (item: object | string) => string;
     Option: (props) => HTMLElement;
   } & DefaultDesignProps;
 

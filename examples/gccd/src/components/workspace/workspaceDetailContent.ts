@@ -1,9 +1,10 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import tableContainer from "@grucloud/bau-ui/tableContainer";
+import button from "@grucloud/bau-ui/button";
 
 export default function (context: Context) {
   const { bau, css, config } = context;
-  const { h2, table, tr, td, th, section, a } = bau.tags;
+  const { h2, table, tr, td, th, section, a, div } = bau.tags;
   const TableContainer = tableContainer(context, {
     class: css`
       & th {
@@ -11,6 +12,9 @@ export default function (context: Context) {
       }
     `,
   });
+
+  const ButtonDelete = button(context, { variant: "outline", color: "danger" });
+
   return function WorkspaceDetailContent({
     org_id,
     project_id,
@@ -34,6 +38,15 @@ export default function (context: Context) {
             )
           ),
           tr(th("Workspace"), td(workspace_id))
+        )
+      ),
+      h2("Danger Zone"),
+      div(
+        ButtonDelete(
+          {
+            href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/destroy`,
+          },
+          "Danger Zone"
         )
       )
     );

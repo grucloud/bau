@@ -35,6 +35,7 @@ export default (context: Context, componentOptions?: any) => {
       ...props,
       options,
       Option,
+      getOptionValue: ({ code }: any) => code,
       getOptionLabel: ({ label }: any) => label,
       label: "Select a country...",
     });

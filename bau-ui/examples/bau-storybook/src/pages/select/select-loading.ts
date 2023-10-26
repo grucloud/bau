@@ -1,5 +1,5 @@
 import { Context } from "@grucloud/bau-ui/context";
-import autocomplete from "@grucloud/bau-ui/autocomplete";
+import select from "@grucloud/bau-ui/select";
 import button from "@grucloud/bau-ui/button";
 
 export default (context: Context) => {
@@ -7,7 +7,7 @@ export default (context: Context) => {
   const { section, div, span } = bau.tags;
 
   const Button = button(context, { variant: "outline" });
-  const Autocomplete = autocomplete(context);
+  const Select = select(context);
 
   const dataState = bau.state([]);
   const loadingState = bau.state(false);
@@ -63,13 +63,12 @@ export default (context: Context) => {
           `,
         },
         () =>
-          Autocomplete({
+          Select({
             options: dataState.val,
             Option,
             getOptionValue: ({ name }: any) => name.common,
             getOptionLabel: ({ name }: any) => name.common,
             label: "Country",
-            placeholder: "Search countries",
             id: "country",
             loading: loadingState.val,
           }),

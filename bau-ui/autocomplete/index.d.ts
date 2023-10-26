@@ -8,8 +8,10 @@ declare module "@grucloud/bau-ui/autocomplete" {
     label: string;
     placeholder: string;
     size?: string;
-    getOptionLabel?: (item: object | string) => string;
+    getOptionLabel: (item: object | string) => HTMLElement | string;
+    getOptionValue: (item: object | string) => string;
     Option: (props) => HTMLElement;
+    defaultOption?: any;
   } & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<

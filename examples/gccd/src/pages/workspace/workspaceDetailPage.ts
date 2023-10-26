@@ -1,38 +1,35 @@
 import { Context } from "@grucloud/bau-ui/context";
 import form from "@grucloud/bau-ui/form";
-import spinner from "@grucloud/bau-ui/spinner";
 import button from "@grucloud/bau-ui/button";
 import dropdownMenu from "@grucloud/bau-ui/dropdownMenu";
+import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
 
 import page from "../../components/page";
 import workspaceDetailContent from "../../components/workspace/workspaceDetailContent";
 import runList from "../../components/run/runList";
 import cloudAuthenticationList from "../../components/cloudAuthentication/cloudAuthenticationList";
+import gitRepositoryForm from "../../components/gitRepository/gitRepositoryForm";
 
 export default function (context: Context) {
   const { bau, stores, config, css } = context;
-  const { h1, h2, header, a } = bau.tags;
+  const { div, h2, header, a, section } = bau.tags;
   const { getByIdQuery } = stores.workspace;
   const DropdownMenu = dropdownMenu(context);
 
   const Page = page(context);
   const Form = form(context);
-  const Spinner = spinner(context, { size: "lg" });
-  const ButtonAddWorkspace = button(context, {
+  const ButtonAdd = button(context, {
     color: "primary",
     variant: "solid",
   });
-  const ButtonDelete = button(context, { variant: "outline", color: "danger" });
 
   const WorkspaceDetailContent = workspaceDetailContent(context);
   const RunList = runList(context);
   const CloudAuthenticationList = cloudAuthenticationList(context);
+  const GitRepositoryForm = gitRepositoryForm(context);
+  return function WorkspaceDetailPage(props: any) {
+    const { org_id, project_id, workspace_id } = props;
 
-  return function WorkspaceDetailPage({
-    org_id,
-    project_id,
-    workspace_id,
-  }: any) {
     getByIdQuery.run({ org_id, project_id, workspace_id });
     stores.run.getAllByWorkspaceQuery.run({ org_id, project_id, workspace_id });
     stores.cloudAuthentication.getAllByWorkspaceQuery.run({
@@ -40,6 +37,70 @@ export default function (context: Context) {
       project_id,
       workspace_id,
     });
+    stores.gitCredential.getAllByOrgQuery.run({ org_id });
+
+    const tabDefs: Tabs = [
+      {
+        name: "summary",
+        Header: () => a({ href: "#summary" }, "Workspace Summary"),
+        Content: () =>
+          section(
+            header(),
+            () =>
+              !getByIdQuery.loading.val &&
+              WorkspaceDetailContent(getByIdQuery.data.val)
+          ),
+      },
+      {
+        name: "runs",
+        Header: () => a({ href: "#runs" }, "Runs"),
+        Content: () =>
+          section(
+            div(
+              ButtonAdd(
+                {
+                  href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/runs/create`,
+                },
+                "+ New Run"
+              )
+            ),
+            RunList(stores.run.getAllByWorkspaceQuery)
+          ),
+      },
+      {
+        name: "cloudAuthentication",
+        Header: () =>
+          a({ href: "#cloudAuthentication" }, "Cloud Authentication"),
+        Content: () =>
+          section(
+            h2("Cloud Authentication"),
+            DropdownMenu({
+              items,
+              ListItem,
+              label: "+ Add",
+            }),
+            () =>
+              CloudAuthenticationList(
+                stores.cloudAuthentication.getAllByWorkspaceQuery
+              )
+          ),
+      },
+      {
+        name: "gitRepository",
+        Header: () => a({ href: "#gitRepository" }, "Git Repository"),
+        Content: () =>
+          section(
+            GitRepositoryForm({
+              org_id,
+              project_id,
+              workspace_id,
+              gitCredential: stores.gitCredential,
+            })
+          ),
+      },
+    ];
+
+    const Tabs = tabs(context, { tabDefs, variant: "plain", color: "neutral" });
 
     const items = [
       {
@@ -68,63 +129,6 @@ export default function (context: Context) {
         option.text
       );
 
-    return Page(
-      Form(
-        header(
-          h1("Workspace Details"),
-          ButtonAddWorkspace(
-            {
-              href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/runs/create`,
-            },
-            "+ New Run"
-          )
-        ),
-        () =>
-          !getByIdQuery.loading.val &&
-          WorkspaceDetailContent(getByIdQuery.data.val),
-        h2("Cloud Authentication"),
-        DropdownMenu({
-          items,
-          ListItem,
-          label: "+ Add",
-        }),
-        // ButtonGroup(
-        //   ButtonAdd(
-        //     {
-        //       href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/cloud_authentication/create/aws`,
-        //     },
-        //     "+ AWS "
-        //   ),
-        //   ButtonAdd(
-        //     {
-        //       href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/cloud_authentication/create/azure`,
-        //     },
-        //     "+ Azure "
-        //   ),
-        //   ButtonAdd(
-        //     {
-        //       href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/cloud_authentication/create/google`,
-        //     },
-        //     "+ Google Cloud "
-        //   )
-        // ),
-        () =>
-          CloudAuthenticationList(
-            stores.cloudAuthentication.getAllByWorkspaceQuery
-          ),
-        h2("Runs"),
-        RunList(stores.run.getAllByWorkspaceQuery),
-        h2("Danger Zone"),
-        ButtonDelete(
-          {
-            href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/destroy`,
-          },
-          "Danger Zone"
-        )
-      ),
-      Spinner({
-        visibility: getByIdQuery.loading,
-      })
-    );
+    return Page(Form(Tabs(props)));
   };
 }

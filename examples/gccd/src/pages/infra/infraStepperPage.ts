@@ -8,7 +8,7 @@ import configAzure from "../../components/infra/configAzure";
 import configGoogle from "../../components/infra/configGoogle";
 import infraSettings from "../../components/infra/infraSettings";
 import gitCredentialConfig from "../../components/infra/gitCredentialConfig";
-import gitRepositoryConfig from "../../components/infra/gitRepositoryConfig";
+//import gitRepositoryConfig from "../../components/infra/gitRepositoryConfig";
 import stepperFinal from "../../components/infra/stepperFinal";
 
 export default (context: Context) => {
@@ -21,7 +21,7 @@ export default (context: Context) => {
   const ConfigAzure = configAzure(context);
   const ConfigGoogle = configGoogle(context);
   const GitCredentialConfig = gitCredentialConfig(context);
-  const GitRepositoryConfig = gitRepositoryConfig(context);
+  //const GitRepositoryConfig = gitRepositoryConfig(context);
   const StepperFinal = stepperFinal(context);
 
   const providerNameState = bau.state("");
@@ -125,16 +125,16 @@ export default (context: Context) => {
         Content: () =>
           GitCredentialConfig({ onclickPrevious, onclickGitCredential }),
       },
-      {
-        name: "Git Repository",
-        Header,
-        Content: () =>
-          GitRepositoryConfig({
-            onclickPrevious,
-            onclickGitRepository,
-            gitCredential: _gitCredential,
-          }),
-      },
+      // {
+      //   name: "Git Repository",
+      //   Header,
+      //   Content: () =>
+      //     GitRepositoryConfig({
+      //       onclickPrevious,
+      //       onclickGitRepository,
+      //       gitCredential: _gitCredential,
+      //     }),
+      // },
       {
         name: "Review",
         Header,

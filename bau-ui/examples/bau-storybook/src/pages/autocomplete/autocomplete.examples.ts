@@ -7,6 +7,10 @@ import autocompleteDefault from "./autocomplete-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./autocomplete-example-default.ts?raw";
 
+import autocompleteDefaultOption from "./autocomplete-default-option.ts";
+// @ts-ignore
+import codeDefaultOption from "./autocomplete-default-option.ts?raw";
+
 import autocompleteLoading from "./autocomplete-loading.ts";
 // @ts-ignore
 import codeExampleLoading from "./autocomplete-loading.ts?raw";
@@ -30,6 +34,12 @@ export const autocompleteSpec = {
       description: "A autocomplete with a loading indicator.",
       code: codeExampleLoading,
       createComponent: autocompleteLoading,
+    },
+    {
+      title: "Default Option",
+      description: "A autocomplete with a default option.",
+      code: codeDefaultOption,
+      createComponent: autocompleteDefaultOption,
     },
   ],
   gridItem: autocompleteGridItem,

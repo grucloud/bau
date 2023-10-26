@@ -8,9 +8,17 @@ import selectDefault from "./select-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./select-example-default.ts?raw";
 
+import selectDefaultOption from "./select-default-option.ts";
+// @ts-ignore
+import codeDefaultOption from "./select-default-option.ts?raw";
+
 import selectAwsRegion from "./select-aws-region.ts";
 // @ts-ignore
 import codeExampleAwsRegion from "./select-aws-region.ts?raw";
+
+import selectLoading from "./select-loading.ts";
+// @ts-ignore
+import codeExampleLoading from "./select-loading.ts?raw";
 
 export const selectSpec = {
   title: "Select",
@@ -27,10 +35,22 @@ export const selectSpec = {
       createComponent: selectDefault,
     },
     {
+      title: "Default Option",
+      description: "Select with a default option",
+      code: codeDefaultOption,
+      createComponent: selectDefaultOption,
+    },
+    {
       title: "Select AWS region",
       description: "Select the AWS region",
       code: codeExampleAwsRegion,
       createComponent: selectAwsRegion,
+    },
+    {
+      title: "Loading Indicator",
+      description: "Select with a loading indicator",
+      code: codeExampleLoading,
+      createComponent: selectLoading,
     },
   ],
   gridItem: selectGridItem,

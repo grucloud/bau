@@ -64,7 +64,9 @@ export default function (context, componentOptions = {}) {
         placeholder,
         Option,
         options,
-        getOptionLabel = ({ label }) => label,
+        defaultOption,
+        getOptionLabel,
+        getOptionValue,
         onSelect = () => {},
         id,
         required,
@@ -81,14 +83,9 @@ export default function (context, componentOptions = {}) {
     const List = list(context);
     const Spinner = spinner(context, { variant, color, size });
 
-    const selectedState = bau.state(props.value);
-    bau.derive(() => {
-      if (selectedState.val) {
-        inputShadowEl.value = getOptionLabel(selectedState.val);
-        onSelect(selectedState.val);
-      }
-    });
-    const inputState = bau.state("");
+    const selectedState = bau.state(defaultOption);
+
+    const inputState = bau.state(props.value);
     const openState = bau.state(false);
     const itemIndexActive = bau.state(0);
 
@@ -265,6 +262,13 @@ export default function (context, componentOptions = {}) {
       class: css`
         overflow: hidden;
       `,
+    });
+
+    bau.derive(() => {
+      if (selectedState.val) {
+        inputShadowEl.value = getOptionValue(selectedState.val);
+        onSelect(selectedState.val);
+      }
     });
 
     return div(

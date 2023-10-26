@@ -5,21 +5,23 @@ export default function (context: Context) {
   const { rest } = context;
   const query = useQuery(context);
 
-  const getAllQuery = query(() => rest.get("git_repository"), {
-    initialState: [],
-  });
-  const createQuery = query((data: any) => rest.post("git_repository", data));
-  const getByIdQuery = query((id: string) => rest.get(`git_repository/${id}`));
-  const patchQuery = query((id: string, data: object) =>
-    rest.patch(`git_repository/${id}`, data)
-  );
-  const deleteQuery = query((id: string) => rest.del(`git_repository/${id}`));
-
   return {
-    getAllQuery,
-    getByIdQuery,
-    createQuery,
-    patchQuery,
-    deleteQuery,
+    createQuery: query(({ org_id, project_id, workspace_id }: any, data: any) =>
+      rest.post(
+        `org/${org_id}/project/${project_id}/workspace/${workspace_id}/git_repository`,
+        data
+      )
+    ),
+    getByIdQuery: query(({ org_id, project_id, workspace_id }: any) =>
+      rest.get(
+        `org/${org_id}/project/${project_id}/workspace/${workspace_id}/git_repository`
+      )
+    ),
+    patchQuery: query(({ org_id, project_id, workspace_id }: any, data: any) =>
+      rest.patch(
+        `org/${org_id}/project/${project_id}/workspaces/${workspace_id}/git_repository`,
+        data
+      )
+    ),
   };
 }
