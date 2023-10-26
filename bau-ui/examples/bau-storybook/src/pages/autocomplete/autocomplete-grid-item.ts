@@ -30,6 +30,7 @@ export default (context: Context, componentsOptions?: any) => {
       ...props,
       options,
       Option,
+      getOptionValue: ({ code }: any) => code,
       getOptionLabel: ({ label }: any) => label,
       label: "Country",
       placeholder: "Search countries",

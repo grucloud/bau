@@ -7,12 +7,12 @@ import gitCredentialFormContent from "../../components/gitCredential/gitCredenti
 
 export default function (context: Context) {
   const { bau, stores, config, window } = context;
-  const { h1, p, header, footer, h2 } = bau.tags;
+  const { h1, p, header, footer } = bau.tags;
   const ButtonBack = buttonBack(context);
   const ButtonEdit = button(context, { color: "primary", variant: "solid" });
   const Page = page(context);
   const Form = form(context);
-  const ButtonDelete = button(context, { variant: "outline", color: "danger" });
+  // const ButtonDelete = button(context, { variant: "outline", color: "danger" });
 
   const GitCredentialFormContent = gitCredentialFormContent(context);
 
@@ -38,9 +38,11 @@ export default function (context: Context) {
         header(h1("Edit Git credentials")),
         p(),
         GitCredentialFormContent({ username: "TODO" }),
-        footer(ButtonEdit({ type: "submit" }, "Save"), ButtonBack()),
-        h2("Danger Zone"),
-        ButtonDelete({ href: `${git_credential_id}/destroy` }, "Danger Zone")
+        footer(ButtonEdit({ type: "submit" }, "Save"), ButtonBack())
+        // h2("Danger Zone"),
+        // div(
+        //   ButtonDelete({ href: `${git_credential_id}/destroy` }, "Danger Zone")
+        // )
       )
     );
   };

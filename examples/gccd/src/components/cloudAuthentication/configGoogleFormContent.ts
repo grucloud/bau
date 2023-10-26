@@ -1,11 +1,11 @@
 import rubico from "rubico";
-const { get, pipe, map, tap } = rubico;
-import rubicox from "rubico/x";
-const { isEmpty, callProp, last } = rubicox;
+const { get, pipe, tap } = rubico;
 import { Context } from "@grucloud/bau-ui/context";
 import fileInput from "@grucloud/bau-ui/fileInput";
 import alert from "@grucloud/bau-ui/alert";
 import spinner from "@grucloud/bau-ui/spinner";
+import radioButton from "@grucloud/bau-ui/radioButton";
+import input from "@grucloud/bau-ui/input";
 
 import selectGoogleRegion from "./selectGoogleRegion";
 import selectGoogleZone from "./selectGoogleZone";
@@ -16,50 +16,53 @@ type ConfigGoogleFormContentProp = {
   GOOGLE_CREDENTIALS?: Record<string, any>;
   GOOGLE_REGION?: string;
   GOOGLE_ZONE?: string;
+  GOOGLE_PROJECT_ID?: string;
   onConfig: (config: object) => void;
 };
 
 export const googleFormElementToData = (event: any) => {
-  const { GOOGLE_REGION, GOOGLE_ZONE } = event.target.elements;
+  const { GOOGLE_REGION, GOOGLE_ZONE, GOOGLE_PROJECT_ID } =
+    event.target.elements;
 
   return {
     GOOGLE_REGION: GOOGLE_REGION.value,
     GOOGLE_ZONE: GOOGLE_ZONE.value,
+    GOOGLE_PROJECT_ID: GOOGLE_PROJECT_ID.value,
   };
 };
 
 export default (context: Context) => {
   const { bau, config, css } = context;
-  const { section, div, ol, li, span, em, a, table, tbody, th, tr, td, label } =
-    bau.tags;
+  const {
+    section,
+    div,
+    ol,
+    li,
+    span,
+    em,
+    a,
+    table,
+    tbody,
+    th,
+    tr,
+    td,
+    label,
+    legend,
+    header,
+    fieldset,
+    strong,
+    h3,
+  } = bau.tags;
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
 
   const query = useQuery(context);
 
+  const RadioButton = radioButton(context);
+
   const getProjectQuery = query(
-    async ({ project_id, token }: any) => {
-      try {
-        const response = await fetch(
-          "https://corsproxy.io/?" +
-            encodeURIComponent(
-              `https://compute.googleapis.com/compute/v1/projects/${project_id}/regions`
-            ),
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response.ok) {
-          const { items } = await response.json();
-          return items.filter(({ status }: any) => status === "UP");
-        }
-        throw response;
-      } catch (error) {
-        throw error;
-      }
+    async () => {
+      const { default: regions } = await import("./googleRegion.json");
+      return regions;
     },
     { initialState: [] }
   );
@@ -71,31 +74,31 @@ export default (context: Context) => {
   const Alert = alert(context, { color: "danger" });
   const className = css`
     align-items: flex-start;
-
     & ol {
       & > li {
         padding: 0.3rem 0;
       }
     }
   `;
+  const classNameTable = css`
+    border-collapse: collapse;
+    & td,
+    th {
+      border-top: 1px solid var(--color-emphasis-100);
+      border-bottom: 1px solid var(--color-emphasis-100);
+      padding: 0.5rem;
+      text-align: left;
+    }
+    & th {
+      font-size: smaller;
+      color: var(--font-color-secondary);
+    }
+  `;
 
-  const CredentialFile = ({ fileName, content }: any) => {
-    return table(
+  const ServicePrincipalFile = ({ fileName, content }: any) =>
+    table(
       {
-        class: css`
-          border-collapse: collapse;
-          & td,
-          th {
-            border-top: 1px solid var(--color-emphasis-100);
-            border-bottom: 1px solid var(--color-emphasis-100);
-            padding: 0.5rem;
-            text-align: left;
-          }
-          & th {
-            font-size: smaller;
-            color: var(--font-color-secondary);
-          }
-        `,
+        class: classNameTable,
       },
       tbody(
         tr(th("Credential File"), td(fileName)),
@@ -103,7 +106,17 @@ export default (context: Context) => {
         tr(th("Service Account"), td(content.client_email))
       )
     );
-  };
+
+  const WorkloadIdentityFile = ({ fileName, content }: any) =>
+    table(
+      {
+        class: classNameTable,
+      },
+      tbody(
+        tr(th("Credential File"), td(fileName)),
+        tr(th("Audience"), td(content.audience))
+      )
+    );
 
   const FileInputLabel = ({}: any) =>
     div(
@@ -129,51 +142,52 @@ export default (context: Context) => {
     GOOGLE_CREDENTIALS = {},
     GOOGLE_REGION,
     GOOGLE_ZONE,
+    GOOGLE_PROJECT_ID = "",
   }: ConfigGoogleFormContentProp) {
+    getProjectQuery.run();
     const fileState = bau.state("No file selected");
     const contentState = bau.state(GOOGLE_CREDENTIALS);
+    const project_id = bau.state(GOOGLE_PROJECT_ID);
+    bau.derive(() => {
+      if (contentState.val?.project_id) {
+        project_id.val = contentState.val?.project_id;
+      }
+    });
 
-    const project_id = bau.derive(() => contentState.val?.project_id);
     const regionState = bau.state(GOOGLE_REGION);
     const tokenState = bau.state("");
+    const radioState = bau.state(
+      GOOGLE_CREDENTIALS.type == "service_account" ? "sp" : "federated"
+    );
+
+    const oninput = (event: any) => {
+      radioState.val = event.target.id;
+    };
 
     const zonesState = bau.derive(
       pipe([
-        () => {
-          console.log("zonesState region", regionState.val);
-        },
         () =>
+          regionState.val &&
           getProjectQuery.data.val.find(
-            ({ name }: any) => name == regionState.val
+            ({ name }: any) => regionState.val === name
           ),
         tap((zones: any) => {
           console.log("zones", zones);
         }),
         get("zones", []),
-        map(pipe([callProp("split", "/"), last])),
-        tap((zones: any) => {
-          console.log("zones", zones);
-        }),
       ])
     );
 
     bau.derive(async () => {
       if (contentState.val?.private_key) {
-        const token = await googleAuthorize({
-          credentials: contentState.val,
-        });
-        //console.log("token", token);
-        tokenState.val = token.access_token;
-
-        if (
-          token.access_token &&
-          project_id &&
-          isEmpty(getProjectQuery.data.val)
-        ) {
-          getProjectQuery.run({
-            project_id: project_id.val,
-            token: token.access_token,
+        try {
+          const token = await googleAuthorize({
+            credentials: contentState.val,
           });
+          //console.log("token", token);
+          tokenState.val = token.access_token;
+        } catch (error) {
+          errorMessage.val = "Error authenticating";
         }
       }
     });
@@ -193,14 +207,13 @@ export default (context: Context) => {
               // @ts-ignore
               const contentJson = JSON.parse(reader.result);
               contentState.val = contentJson;
-              if (contentJson.project_id) {
+              if (contentJson.type) {
                 onConfig(contentJson);
               } else {
                 errorMessage.val = "File is not a GCP crendential file.";
               }
             }
           } catch (error) {
-            debugger;
             errorMessage.val = "Error parsing file.";
           }
         };
@@ -212,54 +225,194 @@ export default (context: Context) => {
       }
     };
 
+    const Input = input(context);
+
+    const WorkloadIdentity = ({}: any) =>
+      section(
+        h3("Create an identity pool"),
+        ol(
+          li(
+            "Visit the ",
+            a(
+              {
+                href: "https://console.cloud.google.com/iam-admin/workload-identity-pools",
+                target: "_blank",
+              },
+              "Workload Identity Pools"
+            ),
+            " page on the google cloud console"
+          ),
+          li("Click on ", em("CREATE POOL")),
+          li("Enter a name, for instance ", em("grucloud-my-project-dev")),
+          li("Enter a Pool ID, for instance ", em("grucloud-my-project-dev")),
+
+          li("Click on ", em("CONTINUE"))
+        ),
+        h3("Add a provider to pool"),
+        ol(
+          li("Select the ", em("OpenID Connect (OIDC)"), " provider"),
+          li(
+            "Enter the ",
+            em("Provider Name and ID"),
+            " such as ",
+            em("grucloud-my-project-dev")
+          ),
+          li("Enter the issuer ", strong("https://app.grucloud.com"))
+        ),
+        h3("Configure provider attributes"),
+        ol(
+          li(
+            "Set the ",
+            strong("google.subject"),
+            " to ",
+            strong(`assertion.sub`)
+          ),
+          li("Click on ", em("Save"))
+        ),
+        h3("Grant Access"),
+        ol(
+          li("Click on the button ", strong("GRANT ACCESS")),
+          li("Select an existing service account or create a new one"),
+          li("Click on ", em("Save")),
+          li(
+            "In the ",
+            em("Configure your application "),
+            "dialog, select the provider previously created."
+          ),
+          li(
+            "In the ",
+            em("OIDC ID token path"),
+            " field, enter ",
+            strong("oauth/token")
+          ),
+          li("Click on ", em("DOWNLOAD CONFIG"))
+        ),
+        FileInput({
+          "data-input-google-upload": true,
+          Component: FileInputLabel,
+          name: "file",
+          accept: "application/JSON",
+          onchange,
+        }),
+        () => errorMessage.val && Alert(errorMessage.val),
+        () =>
+          WorkloadIdentityFile({
+            fileName: fileState.val,
+            content: contentState.val,
+          })
+      );
+
+    const ServicePrincipal = () =>
+      section(
+        ol(
+          li(
+            "Visit the ",
+            a(
+              {
+                href: "https://console.cloud.google.com/iam-admin/serviceaccounts",
+                target: "_blank",
+              },
+              "service account page"
+            ),
+            " on the google cloud console"
+          ),
+          li("Select your project"),
+          li("Click on ", em("CREATE SERVICE ACCOUNT"), ""),
+          li(
+            "Set the ",
+            em("Service account name"),
+            " to 'grucloud' for instance"
+          ),
+          li("Click on ", em("CREATE"), ""),
+          li("Select the basic role 'Viewer'"),
+          li("Click on ", em("CONTINUE"), ""),
+          li("Click on ", em("DONE"), ""),
+          li(
+            "Go to the ",
+            em("Actions"),
+            " column, click on the three dot icon of the newly created service account"
+          ),
+          li("Click on ", em("Manage keys"), ""),
+          li("Click on ", em("ADD KEYS"), ", then ", em("Create new key"), ""),
+          li(
+            "Click on ",
+            em("CREATE"),
+            " to download the credential file in JSON format."
+          )
+        ),
+        FileInput({
+          "data-input-google-upload": true,
+          Component: FileInputLabel,
+          name: "file",
+          accept: "application/JSON",
+          onchange,
+        }),
+        () => errorMessage.val && Alert(errorMessage.val),
+        () =>
+          ServicePrincipalFile({
+            fileName: fileState.val,
+            content: contentState.val,
+          })
+      );
+
     return section(
       { class: className },
-      ol(
-        li(
-          "Visit the ",
-          a(
-            {
-              href: "https://console.cloud.google.com/iam-admin/serviceaccounts",
-              target: "_blank",
-            },
-            "service account page"
+      fieldset(
+        {
+          class: css`
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border: 1px solid var(--color-emphasis-500);
+            & header {
+              display: inline-flex;
+              justify-content: flex-start;
+              & label {
+                flex-direction: row;
+              }
+            }
+          `,
+        },
+        legend("Authentication Type"),
+        header(
+          label(
+            "Workload identity",
+            RadioButton({
+              id: "federated",
+              name: "kind",
+              checked: radioState.val == "federated",
+              value: radioState,
+              oninput,
+            })
           ),
-          " on the google cloud console"
+          label(
+            "Service Principal",
+            RadioButton({
+              id: "password",
+              name: "kind",
+              checked: radioState.val == "sp",
+              value: radioState,
+              oninput,
+            })
+          )
         ),
-        li("Select your project"),
-        li("Click on ", em("CREATE SERVICE ACCOUNT"), ""),
-        li(
-          "Set the ",
-          em("Service account name"),
-          " to 'grucloud' for instance"
-        ),
-        li("Click on ", em("CREATE"), ""),
-        li("Select the basic role 'Viewer'"),
-        li("Click on ", em("CONTINUE"), ""),
-        li("Click on ", em("DONE"), ""),
-        li(
-          "Go to the ",
-          em("Actions"),
-          " column, click on the three dot icon of the newly created service account"
-        ),
-        li("Click on ", em("Manage keys"), ""),
-        li("Click on ", em("ADD KEYS"), ", then ", em("Create new key"), ""),
-        li(
-          "Click on ",
-          em("CREATE"),
-          " to download the credential file in JSON format."
-        )
+        () =>
+          radioState.val == "federated"
+            ? WorkloadIdentity({ GOOGLE_PROJECT_ID })
+            : ServicePrincipal()
       ),
-      FileInput({
-        "data-input-google-upload": true,
-        Component: FileInputLabel,
-        name: "file",
-        accept: "application/JSON",
-        onchange,
-      }),
-      () => errorMessage.val && Alert(errorMessage.val),
-      () =>
-        CredentialFile({ fileName: fileState.val, content: contentState.val }),
+      label(
+        "Project Id",
+        Input({
+          placeholder: "Project Id",
+          name: "GOOGLE_PROJECT_ID",
+          value: project_id,
+          minLength: 8,
+          maxLength: 64,
+          size: 32,
+          required: true,
+        })
+      ),
       label("Select the region:", () =>
         div(
           {
@@ -285,7 +438,6 @@ export default (context: Context) => {
       label("Select the zone:", () =>
         SelectGoogleZone({
           value: GOOGLE_ZONE,
-          project_id: project_id.val,
           zones: zonesState.val,
         })
       )

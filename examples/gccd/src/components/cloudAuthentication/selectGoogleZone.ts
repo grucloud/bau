@@ -7,14 +7,12 @@ export default (context: Context) => {
   const SelectNative = selectNative(context);
 
   return function SelectGoogleZone(props: any) {
-    const { project_id, zones = [] } = props;
-    //console.log("SelectGoogleZone zones", zones, project_id);
+    const { zones = [] } = props;
     return SelectNative(
       {
         required: "required",
         title: "Select a zone",
         name: "GOOGLE_ZONE",
-        disabled: !project_id,
         ...props,
       },
       option({ value: "" }, "--Please choose a zone--"),

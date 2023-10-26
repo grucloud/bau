@@ -30,6 +30,7 @@ export default (context: Context) => {
       Autocomplete({
         options,
         Option,
+        getOptionValue: ({ code }: any) => code,
         getOptionLabel: ({ label }: any) => label,
         label: "Country",
         placeholder: "Search countries",

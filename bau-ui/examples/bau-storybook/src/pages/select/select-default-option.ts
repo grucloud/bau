@@ -7,6 +7,8 @@ export default (context: Context) => {
 
   const Select = select(context);
 
+  const defaultCode = "AD";
+
   const options = [
     { code: "AD", label: "Andorra", phone: "376" },
     {
@@ -35,6 +37,7 @@ export default (context: Context) => {
       Select({
         options,
         Option,
+        defaultOption: options.find(({ code }) => code == defaultCode),
         getOptionValue: ({ code }: any) => code,
         getOptionLabel: ({ label }: any) => label,
         label: "Select a country...",

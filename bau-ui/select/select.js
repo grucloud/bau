@@ -3,6 +3,7 @@ import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import popover from "../popover/popover.js";
 import button from "../button/button.js";
 import list from "../list/list.js";
+import spinner from "../spinner/spinner.js";
 
 import { Colors } from "../constants.js";
 
@@ -35,7 +36,9 @@ export default function (context, componentOptions = {}) {
     & button {
       &::after {
         content: "\u25BC";
-        padding: 0.3rem;
+      }
+      &.loading::after {
+        display: none;
       }
     }
     ${colorsToCss()}
@@ -50,13 +53,21 @@ export default function (context, componentOptions = {}) {
         label,
         Option,
         options,
-        getOptionLabel = ({ label }) => label,
+        defaultOption,
+        getOptionLabel,
+        getOptionValue,
+        onSelect = () => {},
+        loading,
         ...props
       },
       ...children
     ] = toPropsAndChildren(args);
 
-    const inputState = bau.state(props.value);
+    const Spinner = spinner(context, { variant, color, size });
+
+    const inputState = bau.state(
+      defaultOption ? getOptionLabel(defaultOption) : label
+    );
     const openState = bau.state(false);
     const itemIndexActive = bau.state(0);
 
@@ -84,10 +95,11 @@ export default function (context, componentOptions = {}) {
       ({ option, index }) =>
       (event) => {
         inputState.val = getOptionLabel(option);
-        selectEl.value = inputState.val;
+        selectEl.value = getOptionValue(option);
         selectEl.setCustomValidity("");
         itemIndexActive.val = index;
         dialogClose();
+        onSelect(option);
         event.preventDefault();
       };
 
@@ -114,6 +126,7 @@ export default function (context, componentOptions = {}) {
         case "Enter":
           if (popoverEl.open) {
             inputState.val = getOptionLabel(options[itemIndexActive.val]);
+            selectEl.value = getOptionValue(option);
             dialogClose();
           } else {
             dialogOpen();
@@ -147,9 +160,12 @@ export default function (context, componentOptions = {}) {
         color,
         variant,
         size,
+        class: loading == true && "loading",
+        disabled: loading,
       },
       () => !inputState.val && label,
-      inputState
+      inputState,
+      () => loading == true && Spinner({ visibility: loading })
     );
 
     const popoverEl = Popover({
@@ -162,7 +178,9 @@ export default function (context, componentOptions = {}) {
     const selectEl = select(
       props,
       option({ value: "" }, "--Select Category--"),
-      options.map((opt) => option(getOptionLabel(opt)))
+      options.map((opt) =>
+        option({ value: getOptionValue(opt) }, getOptionLabel(opt))
+      )
     );
     selectEl.value = props.value;
 

@@ -33,8 +33,7 @@ export default function (context, options = {}) {
           text-decoration: none;
         }
         text-align: center;
-        padding: 0.5rem;
-        padding-bottom: 0rem;
+        padding: 0.5rem 1rem 0 1rem;
         color: inherit;
         cursor: pointer;
         font-weight: var(--font-weight-semibold);

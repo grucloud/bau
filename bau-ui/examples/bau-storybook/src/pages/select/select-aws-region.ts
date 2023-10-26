@@ -35,6 +35,7 @@ export default (context: Context) => {
         options,
         Option,
         label: "Select a region",
+        getOptionValue: (label: any) => label,
         getOptionLabel: (label: any) => label,
       })
     );

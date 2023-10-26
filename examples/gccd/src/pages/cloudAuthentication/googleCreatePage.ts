@@ -35,7 +35,7 @@ export default function (context: Context) {
         {
           provider_type: "google",
           env_vars: {
-            credentials: contentState.val,
+            GOOGLE_CREDENTIALS: contentState.val,
             ...googleFormElementToData(event),
           },
         }

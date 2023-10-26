@@ -32,14 +32,13 @@ export default (context: Context) => {
       const { id: git_credential_id } =
         await stores.gitCredentials.createQuery.run(gitCredential);
 
-      const { id: git_repository_id } =
-        await stores.gitRepository.createQuery.run(gitRepository);
+      const {} = await stores.gitRepository.createQuery.run(gitRepository);
 
       const { id } = await stores.infra.createQuery.run({
         ...cloudconfig,
         ...settings,
         git_credential_id,
-        git_repository_id,
+        // git_repository_id,
       });
 
       window.document.dispatchEvent(

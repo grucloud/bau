@@ -47,7 +47,6 @@ export default (context: Context) => {
         reader.readAsText(file);
         reader.onload = () => {
           try {
-            debugger;
             if (reader.result) {
               // @ts-ignore
               const contentJson = JSON.parse(reader.result);

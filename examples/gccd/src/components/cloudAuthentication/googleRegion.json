@@ -1,40 +1,315 @@
 [
-  "asia-east1",
-  "asia-east2",
-  "asia-northeast1",
-  "asia-northeast2",
-  "asia-northeast3",
-  "asia-south1",
-  "asia-south2",
-  "asia-southeast1",
-  "asia-southeast2",
-  "australia-southeast1",
-  "australia-southeast2",
-  "europe-central2",
-  "europe-north1",
-  "europe-southwest1",
-  "europe-west1",
-  "europe-west10",
-  "europe-west12",
-  "europe-west2",
-  "europe-west3",
-  "europe-west4",
-  "europe-west6",
-  "europe-west8",
-  "europe-west9",
-  "me-central1",
-  "me-west1",
-  "northamerica-northeast1",
-  "northamerica-northeast2",
-  "southamerica-east1",
-  "southamerica-west1",
-  "us-central1",
-  "us-east1",
-  "us-east4",
-  "us-east5",
-  "us-south1",
-  "us-west1",
-  "us-west2",
-  "us-west3",
-  "us-west4"
+  {
+    "name": "asia-east1",
+    "zones": [
+      "asia-east1-a",
+      "asia-east1-b",
+      "asia-east1-c"
+    ]
+  },
+  {
+    "name": "asia-east2",
+    "zones": [
+      "asia-east2-c",
+      "asia-east2-b",
+      "asia-east2-a"
+    ]
+  },
+  {
+    "name": "asia-northeast1",
+    "zones": [
+      "asia-northeast1-a",
+      "asia-northeast1-b",
+      "asia-northeast1-c"
+    ]
+  },
+  {
+    "name": "asia-northeast2",
+    "zones": [
+      "asia-northeast2-b",
+      "asia-northeast2-c",
+      "asia-northeast2-a"
+    ]
+  },
+  {
+    "name": "asia-northeast3",
+    "zones": [
+      "asia-northeast3-a",
+      "asia-northeast3-c",
+      "asia-northeast3-b"
+    ]
+  },
+  {
+    "name": "asia-south1",
+    "zones": [
+      "asia-south1-b",
+      "asia-south1-a",
+      "asia-south1-c"
+    ]
+  },
+  {
+    "name": "asia-south2",
+    "zones": [
+      "asia-south2-a",
+      "asia-south2-c",
+      "asia-south2-b"
+    ]
+  },
+  {
+    "name": "asia-southeast1",
+    "zones": [
+      "asia-southeast1-a",
+      "asia-southeast1-b",
+      "asia-southeast1-c"
+    ]
+  },
+  {
+    "name": "asia-southeast2",
+    "zones": [
+      "asia-southeast2-a",
+      "asia-southeast2-c",
+      "asia-southeast2-b"
+    ]
+  },
+  {
+    "name": "australia-southeast1",
+    "zones": [
+      "australia-southeast1-c",
+      "australia-southeast1-a",
+      "australia-southeast1-b"
+    ]
+  },
+  {
+    "name": "australia-southeast2",
+    "zones": [
+      "australia-southeast2-a",
+      "australia-southeast2-c",
+      "australia-southeast2-b"
+    ]
+  },
+  {
+    "name": "europe-central2",
+    "zones": [
+      "europe-central2-b",
+      "europe-central2-c",
+      "europe-central2-a"
+    ]
+  },
+  {
+    "name": "europe-north1",
+    "zones": [
+      "europe-north1-b",
+      "europe-north1-c",
+      "europe-north1-a"
+    ]
+  },
+  {
+    "name": "europe-southwest1",
+    "zones": [
+      "europe-southwest1-b",
+      "europe-southwest1-a",
+      "europe-southwest1-c"
+    ]
+  },
+  {
+    "name": "europe-west1",
+    "zones": [
+      "europe-west1-b",
+      "europe-west1-c",
+      "europe-west1-d"
+    ]
+  },
+  {
+    "name": "europe-west10",
+    "zones": [
+      "europe-west10-c",
+      "europe-west10-a",
+      "europe-west10-b"
+    ]
+  },
+  {
+    "name": "europe-west12",
+    "zones": [
+      "europe-west12-c",
+      "europe-west12-a",
+      "europe-west12-b"
+    ]
+  },
+  {
+    "name": "europe-west2",
+    "zones": [
+      "europe-west2-a",
+      "europe-west2-b",
+      "europe-west2-c"
+    ]
+  },
+  {
+    "name": "europe-west3",
+    "zones": [
+      "europe-west3-c",
+      "europe-west3-a",
+      "europe-west3-b"
+    ]
+  },
+  {
+    "name": "europe-west4",
+    "zones": [
+      "europe-west4-c",
+      "europe-west4-b",
+      "europe-west4-a"
+    ]
+  },
+  {
+    "name": "europe-west6",
+    "zones": [
+      "europe-west6-b",
+      "europe-west6-c",
+      "europe-west6-a"
+    ]
+  },
+  {
+    "name": "europe-west8",
+    "zones": [
+      "europe-west8-a",
+      "europe-west8-b",
+      "europe-west8-c"
+    ]
+  },
+  {
+    "name": "europe-west9",
+    "zones": [
+      "europe-west9-b",
+      "europe-west9-a",
+      "europe-west9-c"
+    ]
+  },
+  {
+    "name": "me-central1",
+    "zones": [
+      "me-central1-a",
+      "me-central1-b",
+      "me-central1-c"
+    ]
+  },
+  {
+    "name": "me-central2",
+    "zones": [
+      "me-central2-c",
+      "me-central2-a",
+      "me-central2-b"
+    ]
+  },
+  {
+    "name": "me-west1",
+    "zones": [
+      "me-west1-b",
+      "me-west1-a",
+      "me-west1-c"
+    ]
+  },
+  {
+    "name": "northamerica-northeast1",
+    "zones": [
+      "northamerica-northeast1-a",
+      "northamerica-northeast1-b",
+      "northamerica-northeast1-c"
+    ]
+  },
+  {
+    "name": "northamerica-northeast2",
+    "zones": [
+      "northamerica-northeast2-b",
+      "northamerica-northeast2-a",
+      "northamerica-northeast2-c"
+    ]
+  },
+  {
+    "name": "southamerica-east1",
+    "zones": [
+      "southamerica-east1-a",
+      "southamerica-east1-b",
+      "southamerica-east1-c"
+    ]
+  },
+  {
+    "name": "southamerica-west1",
+    "zones": [
+      "southamerica-west1-a",
+      "southamerica-west1-b",
+      "southamerica-west1-c"
+    ]
+  },
+  {
+    "name": "us-central1",
+    "zones": [
+      "us-central1-a",
+      "us-central1-b",
+      "us-central1-c",
+      "us-central1-f"
+    ]
+  },
+  {
+    "name": "us-east1",
+    "zones": [
+      "us-east1-b",
+      "us-east1-c",
+      "us-east1-d"
+    ]
+  },
+  {
+    "name": "us-east4",
+    "zones": [
+      "us-east4-a",
+      "us-east4-b",
+      "us-east4-c"
+    ]
+  },
+  {
+    "name": "us-east5",
+    "zones": [
+      "us-east5-c",
+      "us-east5-b",
+      "us-east5-a"
+    ]
+  },
+  {
+    "name": "us-south1",
+    "zones": [
+      "us-south1-c",
+      "us-south1-a",
+      "us-south1-b"
+    ]
+  },
+  {
+    "name": "us-west1",
+    "zones": [
+      "us-west1-a",
+      "us-west1-b",
+      "us-west1-c"
+    ]
+  },
+  {
+    "name": "us-west2",
+    "zones": [
+      "us-west2-c",
+      "us-west2-b",
+      "us-west2-a"
+    ]
+  },
+  {
+    "name": "us-west3",
+    "zones": [
+      "us-west3-a",
+      "us-west3-b",
+      "us-west3-c"
+    ]
+  },
+  {
+    "name": "us-west4",
+    "zones": [
+      "us-west4-c",
+      "us-west4-a",
+      "us-west4-b"
+    ]
+  }
 ]
