@@ -1,7 +1,7 @@
 {
   "name": "bau-button",
   "private": true,
-  "version": "0.52.0",
+  "version": "0.53.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.52.0"
+    "@grucloud/bau": "^0.53.0"
   },
   "devDependencies": {
     "vite": "^4.3.9"

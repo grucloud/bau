@@ -1,7 +1,7 @@
 {
   "name": "@grucloud/bausaurus-theme-classic",
   "description": "Classic Theme for Bausarus",
-  "version": "0.52.0",
+  "version": "0.53.0",
   "type": "module",
   "license": "BSD",
   "files": [
@@ -24,10 +24,10 @@
   "author": "Frederic Heem",
   "scripts": {},
   "dependencies": {
-    "@grucloud/bau": "^0.52.0",
-    "@grucloud/bau-css": "^0.52.0",
-    "@grucloud/bau-ui": "^0.52.0",
-    "@grucloud/bausaurus-core": "^0.52.0"
+    "@grucloud/bau": "^0.53.0",
+    "@grucloud/bau-css": "^0.53.0",
+    "@grucloud/bau-ui": "^0.53.0",
+    "@grucloud/bausaurus-core": "^0.53.0"
   },
   "repository": {
     "type": "git",
