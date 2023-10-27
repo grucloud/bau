@@ -6,14 +6,14 @@ const config = {
     routeAfterLogin: "/",
     description: "",
     apiUrl: "/api/v1/",
-    socialAuth: ["github"],
-    //    socialAuth: ["github", "facebook", "google"],
+    socialAuth: ["github", "gitlab", "google", "facebook"],
+    //    socialAuth: ["github", "facebook", "google", "gitlab"],
     engine: "docker",
     wsUrl: (window: Window) => `ws://${window.location.hostname}:9000/ws`,
   },
   development: {
     env: "development",
-    disableUsernamePasswordAuth: false,
+    disableUsernamePasswordAuth: true,
   },
   production: {
     env: "production",

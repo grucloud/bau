@@ -8,6 +8,10 @@ import avatarDefault from "./avatar-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./avatar-example-default.ts?raw";
 
+import avatarNotFound from "./avatar-not-found";
+// @ts-ignore
+import codeNotFound from "./avatar-not-found?raw";
+
 export const avatarSpec = {
   title: "Avatar",
   package: "avatar",
@@ -22,6 +26,12 @@ export const avatarSpec = {
       description: "A simple avatar.",
       code: codeExampleDefault,
       createComponent: avatarDefault,
+    },
+    {
+      title: "Not Found",
+      description: "An avatar defaulting to alt when the image is not found.",
+      code: codeNotFound,
+      createComponent: avatarNotFound,
     },
   ],
   gridItem: avatarGridItem,

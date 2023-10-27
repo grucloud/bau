@@ -3,7 +3,7 @@ import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options = {}) {
   const { bau, css, keyframes } = context;
-  const { div } = bau.tags;
+  const { span } = bau.tags;
 
   const opacityKeyFrame = keyframes`
     0% {
@@ -46,7 +46,7 @@ export default function (context, options = {}) {
       },
       ...children
     ] = toPropsAndChildren(args);
-    return div(
+    return span(
       {
         ...props,
         class: classNames(
