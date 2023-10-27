@@ -1,9 +1,10 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
+import skeleton from "../skeleton";
 
 export default function (context, options = {}) {
   const { bau, css } = context;
-  const { span, img } = bau.tags;
+  const { div, img } = bau.tags;
 
   const loadingState = bau.state(true);
   const errorState = bau.state(false);
@@ -16,9 +17,10 @@ export default function (context, options = {}) {
   };
 
   const className = css`
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     &.sm {
       width: 20px;
       height: 20px;
@@ -31,6 +33,15 @@ export default function (context, options = {}) {
       width: 60px;
       height: 60px;
     }
+    & img {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity var(--transition-slow) ease-in;
+    }
+    & .visible {
+      visibility: visible;
+      opacity: 1;
+    }
   `;
   return function Avatar(...args) {
     let [
@@ -40,27 +51,44 @@ export default function (context, options = {}) {
         color = options.color ?? "neutral",
         width = 40,
         height = 40,
+        alt,
         ...props
       },
       ...children
     ] = toPropsAndChildren(args);
-    return span(
+    const Skeleton = skeleton(context, {
+      class: classNames(
+        css`
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: ${height}px;
+          width: ${width}px;
+        `,
+        options?.class,
+        props.class
+      ),
+    });
+
+    return div(
       { class: classNames(className, options?.class, props.class) },
-      () => (loadingState.val ? "Loading..." : ""),
-      () => errorState.val && "Error",
+      () => loadingState.val && Skeleton(),
+      () => errorState.val && alt,
       img({
         width,
         height,
         onload,
         onerror,
-        class: classNames(
-          color,
-          variant,
-          size,
-          className,
-          options?.class,
-          props.class
-        ),
+        class: () =>
+          classNames(
+            !errorState.val && !loadingState.val && "visible",
+            color,
+            variant,
+            size,
+            className,
+            options?.class,
+            props.class
+          ),
         ...props,
       })
     );

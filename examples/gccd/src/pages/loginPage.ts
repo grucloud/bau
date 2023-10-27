@@ -68,6 +68,46 @@ export default (context: Context) => {
       }
     };
 
+    const LocalAuth = () => [
+      Divider("OR"),
+      section(
+        () => errorMessageState.val && Alert(errorMessageState.val),
+        label(
+          "Email",
+          Input({
+            type: "email",
+            autofocus: true,
+            placeholder: "Email",
+            name: "email",
+            autocomplete: "username",
+            required: true,
+          })
+        ),
+        label(
+          "Password",
+          Input({
+            type: "password",
+            placeholder: "Password",
+            name: "password",
+            autocomplete: "current-password",
+            minlength: "8",
+            required: true,
+          })
+        )
+      ),
+      footer(
+        LoadingButton(
+          {
+            type: "submit",
+            variant: "solid",
+            color: "primary",
+            loading: loadingState,
+          },
+          "Login"
+        )
+      ),
+    ];
+
     return Paper(
       Form(
         { onsubmit },
@@ -76,43 +116,7 @@ export default (context: Context) => {
           h1("Log in to Grucloud")
         ),
         SocialLogin(),
-        Divider("OR"),
-        section(
-          () => errorMessageState.val && Alert(errorMessageState.val),
-          label(
-            "Email",
-            Input({
-              type: "email",
-              autofocus: true,
-              placeholder: "Email",
-              name: "email",
-              autocomplete: "username",
-              required: true,
-            })
-          ),
-          label(
-            "Password",
-            Input({
-              type: "password",
-              placeholder: "Password",
-              name: "password",
-              autocomplete: "current-password",
-              minlength: "8",
-              required: true,
-            })
-          )
-        ),
-        footer(
-          LoadingButton(
-            {
-              type: "submit",
-              variant: "solid",
-              color: "primary",
-              loading: loadingState,
-            },
-            "Login"
-          )
-        )
+        !config.disableUsernamePasswordAuth && LocalAuth()
       )
     );
   };

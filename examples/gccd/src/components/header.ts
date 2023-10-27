@@ -13,9 +13,7 @@ export default function (context: Context) {
 
   const Avatar = avatar(context, {
     class: css`
-      > img {
-        border-radius: 50%;
-      }
+      border-radius: 50%;
     `,
   });
 

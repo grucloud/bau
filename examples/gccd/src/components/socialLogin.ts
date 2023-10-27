@@ -34,6 +34,12 @@ export default function (context: Context) {
       src: "/login/google.svg#google",
       dataButtonLogin: "google",
     },
+    gitlab: {
+      label: "Log in with GitLab",
+      href: "auth/gitlab",
+      src: "/login/gitlab-logo.svg#Capa_1",
+      dataButtonLogin: "gitlab",
+    },
   };
 
   const SocialButton = ({ href, label, src, dataButtonLogin }: any) =>
