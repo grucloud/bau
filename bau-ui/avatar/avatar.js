@@ -42,6 +42,9 @@ export default function (context, options = {}) {
       visibility: visible;
       opacity: 1;
     }
+    & .hide {
+      display: none;
+    }
   `;
   return function Avatar(...args) {
     let [
@@ -81,7 +84,8 @@ export default function (context, options = {}) {
         onerror,
         class: () =>
           classNames(
-            !errorState.val && !loadingState.val && "visible",
+            !loadingState.val && "visible",
+            errorState.val && "hide",
             color,
             variant,
             size,
