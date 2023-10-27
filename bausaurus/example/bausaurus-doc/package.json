@@ -2,7 +2,7 @@
   "name": "bausaurus-doc",
   "private": true,
   "homepage": "https://grucloud.github.io/bau/bausaurus",
-  "version": "0.53.0",
+  "version": "0.54.0",
   "type": "module",
   "scripts": {
     "dev": "bausaurus dev",
@@ -11,15 +11,15 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.53.0",
-    "@grucloud/bau-css": "^0.53.0",
-    "@grucloud/bau-ui": "^0.53.0",
-    "@grucloud/bausaurus-core": "^0.53.0",
-    "@grucloud/bausaurus-theme-classic": "^0.53.0",
+    "@grucloud/bau": "^0.54.0",
+    "@grucloud/bau-css": "^0.54.0",
+    "@grucloud/bau-ui": "^0.54.0",
+    "@grucloud/bausaurus-core": "^0.54.0",
+    "@grucloud/bausaurus-theme-classic": "^0.54.0",
     "gh-pages": "5.0.0",
     "rubico": "2.0.1"
   },
   "devDependencies": {
-    "@grucloud/bausaurus": "^0.53.0"
+    "@grucloud/bausaurus": "^0.54.0"
   }
 }
