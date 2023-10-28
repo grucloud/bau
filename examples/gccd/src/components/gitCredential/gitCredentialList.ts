@@ -31,7 +31,8 @@ export default function (context: Context) {
       )
     );
 
-  return function GitCredentialList(items: any) {
+  return function GitCredentialList(data: any) {
+    const items = data.val ?? [];
     return items
       ? TableContainer(table(items.map(ListItem)))
       : "No Git Credential";
