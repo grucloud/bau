@@ -24,7 +24,7 @@ export default function (context: Context) {
       TableContainer(
         table(() =>
           loading.val
-            ? TableSkeleton({ columnsSize: 2, rowSize: 2 })
+            ? TableSkeleton({ columnsSize: 2, rowSize: 3 })
             : tbody(
                 tr(
                   th("Organisation"),
