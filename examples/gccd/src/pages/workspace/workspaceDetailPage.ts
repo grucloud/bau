@@ -43,13 +43,7 @@ export default function (context: Context) {
       {
         name: "summary",
         Header: () => a({ href: "#summary" }, "Workspace Summary"),
-        Content: () =>
-          section(
-            header(),
-            () =>
-              !getByIdQuery.loading.val &&
-              WorkspaceDetailContent(getByIdQuery.data.val)
-          ),
+        Content: () => section(header(), WorkspaceDetailContent(getByIdQuery)),
       },
       {
         name: "runs",

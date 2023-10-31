@@ -10,7 +10,6 @@ export default function (context: Context) {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
     & h1 {
       font-weight: 700;
       font-size: 1.3rem;

@@ -15,15 +15,15 @@ export default (context: Context) => {
     return Select({
       required: "required",
       title: "Select an AWS region",
+      label: "Select region",
       oninvalid: (event: any) => {
         event.target.setCustomValidity("Please select an AWS region");
       },
       Option,
+      defaultOption: props.value,
       options: AwsRegions,
-      label: "Select region",
       getOptionLabel: (label) => label,
       getOptionValue: (label) => label,
-
       ...props,
     });
   };

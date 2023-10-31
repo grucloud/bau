@@ -3,6 +3,7 @@ const { pipe, map } = rubico;
 import { type Context } from "@grucloud/bau-ui/context";
 import treeView from "@grucloud/bau-ui/treeView";
 import useQuery from "../utils/useQuery";
+import tableSkeleton from "./tableSkeleton";
 
 export default function (context: Context) {
   const { bau, css } = context;
@@ -11,6 +12,7 @@ export default function (context: Context) {
   const className = css`
     overflow-x: scroll;
   `;
+  const TableSkeleton = tableSkeleton(context);
 
   const query = useQuery(context);
 
@@ -67,20 +69,22 @@ export default function (context: Context) {
 
   const TreeView = treeView(context, { renderMenuItem, variant: "plain" });
 
-  return function ResourcesTree(props: any) {
-    const { stateUrl } = props;
-
-    if (!getResources.data.val && !getResources.error.val) {
-      getResources.run(stateUrl);
-    }
+  return function ResourcesTree({ data }: any) {
+    bau.derive(() => {
+      const { stateUrl } = data.val;
+      if (stateUrl && !getResources.data.val && !getResources.error.val) {
+        getResources.run(stateUrl);
+      }
+    });
 
     return div(
       {
         class: className,
       },
       () =>
-        getResources.data.val &&
-        TreeView({ tree: toTree(getResources.data.val) })
+        getResources.loading.val
+          ? TableSkeleton({ columnsSize: 1, rowSize: 20 })
+          : TreeView({ tree: toTree(getResources.data.val) })
     );
   };
 }
