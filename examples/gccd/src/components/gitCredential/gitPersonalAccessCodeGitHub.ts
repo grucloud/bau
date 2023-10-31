@@ -6,7 +6,13 @@ export default (context: Context) => {
   const { section, label, small, a, h2 } = bau.tags;
   const Input = input(context);
 
-  return function gitPersonalAccessCodeGitHub({}: any) {
+  return function gitPersonalAccessCodeGitHub(props: any) {
+    const { org_id } = props;
+    const search = new URLSearchParams({
+      scopes: "repo",
+      description: `Organisation ${org_id} by GruCloud`,
+    }).toString();
+
     return section(
       h2("GitHub Personal Access Code"),
       label(
@@ -32,7 +38,7 @@ export default (context: Context) => {
         small(
           a(
             {
-              href: "https://github.com/settings/tokens/new?scopes=repo",
+              href: `https://github.com/settings/tokens/new?${search}`,
               target: "_blank",
             },
             "Create a new Personal Access Code with the repo scope"

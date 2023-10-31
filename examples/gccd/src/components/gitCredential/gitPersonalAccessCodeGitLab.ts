@@ -5,8 +5,13 @@ export default (context: Context) => {
   const { bau } = context;
   const { section, label, small, a, h2 } = bau.tags;
   const Input = input(context);
+  return function gitPersonalAccessCodeGitLab(props: any) {
+    const { org_id } = props;
+    const search = new URLSearchParams({
+      scopes: "api,read_user",
+      name: `Organisation ${org_id} by GruCloud`,
+    }).toString();
 
-  return function gitPersonalAccessCodeGitLab({}: any) {
     return section(
       h2("GitLab Personal Access Code"),
       label(
@@ -32,7 +37,7 @@ export default (context: Context) => {
         small(
           a(
             {
-              href: "https://gitlab.com/-/profile/personal_access_tokens?scopes=api,read_user",
+              href: `https://gitlab.com/-/profile/personal_access_tokens?${search}`,
               target: "_blank",
             },
             "Create a new Personal Access Code with the api and read_user scopes."
