@@ -3,13 +3,14 @@ import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { bau } = context;
-  const { section, label, small, a } = bau.tags;
+  const { section, label, small, a, h2 } = bau.tags;
   const Input = input(context);
 
-  return function gitCredentialFormContent({}: any) {
+  return function gitPersonalAccessCodeGitHub({}: any) {
     return section(
+      h2("GitHub Personal Access Code"),
       label(
-        "Git Username",
+        "GitHub Username",
         Input({
           autofocus: true,
           placeholder: "Git Username",
@@ -20,7 +21,7 @@ export default (context: Context) => {
         })
       ),
       label(
-        "Git Personal Access Code or password",
+        "GitHub Personal Access Code or password",
         Input({
           placeholder: "Git Personal Access Code",
           type: "password",
@@ -30,8 +31,11 @@ export default (context: Context) => {
         }),
         small(
           a(
-            { href: "https://github.com/settings/tokens/new?scopes=repo" },
-            "Create a new Personal Access Code"
+            {
+              href: "https://github.com/settings/tokens/new?scopes=repo",
+              target: "_blank",
+            },
+            "Create a new Personal Access Code with the repo scope"
           )
         )
       )

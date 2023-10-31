@@ -3,7 +3,7 @@ import button from "@grucloud/bau-ui/button";
 import form from "@grucloud/bau-ui/form";
 import buttonBack from "../../components/buttonBack";
 import page from "../../components/page";
-import gitCredentialFormContent from "../../components/gitCredential/gitCredentialFormContent";
+import gitCredentialFormContent from "../../components/gitCredential/gitPersonalAccessCodeGitHub";
 
 export default function (context: Context) {
   const { bau, stores, config, window } = context;

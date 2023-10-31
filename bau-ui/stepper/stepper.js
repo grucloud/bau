@@ -11,7 +11,7 @@ const colorsToCss = () =>
   ).join("\n");
 
 export default function (context, options = {}) {
-  const { bau, css } = context;
+  const { bau, css, window } = context;
   const { div, ul, li, span } = bau.tags;
 
   const className = css`
@@ -76,6 +76,14 @@ export default function (context, options = {}) {
       }
     }
     ${colorsToCss()}
+    & .content {
+      visibility: hidden;
+      display: none;
+    }
+    & .visible {
+      visibility: visible;
+      display: block;
+    }
   `;
 
   return function Stepper(...args) {
@@ -94,6 +102,28 @@ export default function (context, options = {}) {
     const stepperState = bau.state(
       stepperDefs.map((stepper, index) => ({ ...stepper, index }))
     );
+
+    const hashchange = () => {
+      const stepNameInitial = window.location.hash.slice(1).split("?")[0];
+      // console.log("hashchange", stepNameInitial);
+      const initialActiveStep = stepperDefs.findIndex(
+        ({ name }) => name == stepNameInitial
+      );
+
+      if (initialActiveStep >= 0) {
+        activeStepIndex.val = initialActiveStep;
+      } else {
+        activeStepIndex.val = 0;
+      }
+    };
+
+    hashchange();
+
+    //TODO bauMounted
+    window.addEventListener("popstate", (event) => {
+      console.log("popstate");
+      hashchange();
+    });
 
     const stepperCurrentState = bau.derive(
       () => stepperState.val[activeStepIndex.val]
@@ -131,12 +161,24 @@ export default function (context, options = {}) {
       // Header
       bau.loop(stepperState, ul(), StepperHeader),
       // Content
+      stepperDefs.map((stepperDef) =>
+        div(
+          {
+            class: () =>
+              classNames(
+                "content",
+                stepperDef.name == stepperCurrentState.val.name && "visible"
+              ),
+          },
+          stepperDef.Content({})
+        )
+      )
       // No automatic binding possible in this case. Content contains states that would be automatically binded.
-      bau.bind({
-        deps: [stepperCurrentState],
-        render: () => (stepperCurrent) =>
-          stepperCurrent.Content ? stepperCurrent.Content({}) : "",
-      })
+      // bau.bind({
+      //   deps: [stepperCurrentState],
+      //   render: () => (stepperCurrent) =>
+      //     stepperCurrent.Content ? stepperCurrent.Content({}) : "",
+      // })
     );
 
     // rootEl.addEventListener(

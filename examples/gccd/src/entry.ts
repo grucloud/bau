@@ -22,6 +22,8 @@ import gitCredentialsStore from "./stores/gitCredentialsStore";
 
 import gitRepositoryStore from "./stores/gitRepositoryStore";
 import gitHubStore from "./stores/gitHubStore";
+import gitLabStore from "./stores/gitLabStore";
+
 import routerStore from "./stores/routerStore";
 
 const context = createContext({
@@ -46,6 +48,7 @@ context.stores = {
   auth: authStores(context),
   gitRepository: gitRepositoryStore(context),
   gitHub: gitHubStore(context),
+  gitLab: gitLabStore(context),
   router: routerStore(context),
 };
 
