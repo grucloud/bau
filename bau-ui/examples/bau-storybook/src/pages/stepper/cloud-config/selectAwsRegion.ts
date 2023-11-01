@@ -41,6 +41,8 @@ export default (context: Context) => {
       options,
       label: "Select region",
       getOptionLabel: (label) => label,
+      getOptionValue: (label) => label,
+
       ...props,
     });
   };
