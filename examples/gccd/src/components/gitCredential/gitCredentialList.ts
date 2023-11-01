@@ -5,9 +5,7 @@ import tableSkeleton from "../tableSkeleton";
 export default function (context: Context) {
   const { bau, css } = context;
   const { a, table, tr, th, td, tbody, thead } = bau.tags;
-  const TableContainer = tableContainer(context, {
-    class: css``,
-  });
+  const TableContainer = tableContainer(context);
   const TableSkeleton = tableSkeleton(context);
 
   const ListItem = ({
@@ -27,7 +25,7 @@ export default function (context: Context) {
       td(
         a(
           {
-            href: `${org_id}/git_credential/${git_credential_id}`,
+            href: `/org/${org_id}/git_credential/${git_credential_id}`,
             class: css`
               color: var(--font-color);
             `,
@@ -37,7 +35,7 @@ export default function (context: Context) {
         " ",
         a(
           {
-            href: `${org_id}/git_credential/${git_credential_id}/destroy`,
+            href: `/org/${org_id}/git_credential/${git_credential_id}/destroy`,
             class: css`
               color: var(--font-color);
             `,

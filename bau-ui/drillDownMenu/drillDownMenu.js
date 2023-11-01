@@ -239,7 +239,8 @@ export default function (context, options = {}) {
       target.tagName === "A" &&
       href &&
       !href.startsWith("http") &&
-      !href.startsWith("#")
+      !href.startsWith("#") &&
+      !href.startsWith("?")
     ) {
       let path = href.replace(baseUrl, "");
       if (!hashBased) {

@@ -8,7 +8,7 @@ export default (context: Context) => {
   const tabDefs: Tabs = [
     {
       name: "Tab1",
-      Header: () => a({ href: "#Tab1" }, "TAB"),
+      Header: () => a({ href: "#Tab1" }, "TAB 1"),
       Content: () => div(p("My Tab 1 Content")),
     },
     {

@@ -4,8 +4,9 @@ import alert from "@grucloud/bau-ui/alert";
 import useQuery from "../utils/useQuery";
 import { getAccessToken } from "../utils/authUtils";
 
-const defaultHeaders = ({ access_token }: any) => ({
-  Authorization: `Bearer ${access_token}`,
+const defaultHeaders = ({ access_token, password }: any) => ({
+  ...(access_token && { Authorization: `Bearer ${access_token}` }),
+  ...(password && { Authorization: `token ${password}` }),
   "X-GitHub-Api-Version": "2022-11-28",
 });
 
@@ -65,11 +66,11 @@ export default function (context: Context) {
 
   return {
     authenticatedUserQuery: query(
-      async ({ access_token }: any) => {
+      async ({ access_token, password }: any) => {
         try {
           const response = await fetch(`https://api.github.com/user`, {
             method: "GET",
-            headers: defaultHeaders({ access_token }),
+            headers: defaultHeaders({ access_token, password }),
           });
           if (response.ok) {
             return await response.json();

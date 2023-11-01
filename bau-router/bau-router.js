@@ -43,9 +43,10 @@ const LeanRouter = ({ routes = [], notFoundRoute }) => {
 };
 
 export default function Router({ routes, notFoundRoute, onLocationChange }) {
-  let _location = window.location;
+  let _location = { ...window.location };
 
   const updateLocation = (location) => {
+    //console.log("updateLocation", location);
     _location = { ...location };
   };
 
@@ -64,7 +65,10 @@ export default function Router({ routes, notFoundRoute, onLocationChange }) {
   window.history.pushState = new Proxy(window.history.pushState, {
     apply: (target, thisArg, argArray) => {
       target.apply(thisArg, argArray);
-      onLocationChange({ router });
+      //console.log("pushState", _location.pathname, window.location.pathname);
+      if (_location.pathname != window.location.pathname) {
+        onLocationChange({ router });
+      }
       updateLocation(window.location);
     },
   });
@@ -79,18 +83,19 @@ export default function Router({ routes, notFoundRoute, onLocationChange }) {
       !href.startsWith("http") &&
       !href.replace(window.location.pathname, "").startsWith("#")
     ) {
+      console.log("bau router click", href);
       history.pushState({}, null, href);
       updateLocation(window.location);
-
-      window.scrollTo({
-        top: 0,
-        left: 0,
-      });
+      if (!["?", "#"].includes(href[0])) {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+        });
+      }
 
       event.preventDefault();
     }
   });
-
   onLocationChange({ router });
   return router;
 }

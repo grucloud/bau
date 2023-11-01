@@ -6,6 +6,11 @@ import { getAccessToken } from "../utils/authUtils";
 
 const gitlabBaseUrl = "https://gitlab.com/api/v4";
 
+const defaultHeaders = ({ access_token, password }: any) => ({
+  ...(access_token && { Authorization: `Bearer ${access_token}` }),
+  ...(password && { "PRIVATE-TOKEN": password }),
+});
+
 export default function (context: Context) {
   const { bau, window } = context;
   const { div } = bau.tags;
@@ -41,11 +46,7 @@ export default function (context: Context) {
         }).toString()}`,
         {
           method,
-          headers: {
-            ...(password
-              ? { "PRIVATE-TOKEN": password }
-              : { Authorization: `Bearer ${access_token}` }),
-          },
+          headers: defaultHeaders({ access_token, password }),
         }
       );
       const body = await response.json();
@@ -79,13 +80,11 @@ export default function (context: Context) {
 
   return {
     authenticatedUserQuery: query(
-      async ({ access_token }: any) => {
+      async ({ access_token, password }: any) => {
         try {
           const response = await fetch(`${gitlabBaseUrl}/user`, {
             method: "GET",
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
+            headers: defaultHeaders({ access_token, password }),
           });
           if (response.ok) {
             return await response.json();
