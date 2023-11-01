@@ -46,7 +46,6 @@ export default function (context, options = {}) {
     box-sizing: border-box;
     user-select: none;
     transition: all var(--transition-slow);
-    cursor: pointer;
     &.outline,
     &.solid {
       box-shadow: var(--shadow-m);
@@ -57,6 +56,7 @@ export default function (context, options = {}) {
     }
     &:hover {
       filter: brightness(var(--brightness-hover));
+      cursor: pointer;
     }
     &:hover.solid {
       filter: brightness(var(--brightness-hover-always));

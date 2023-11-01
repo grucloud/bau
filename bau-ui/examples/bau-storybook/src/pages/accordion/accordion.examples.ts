@@ -25,7 +25,7 @@ export const accordionSpec = {
   importStatement: `import accordion from "@grucloud/bau-ui/accordion";`,
   examples: [
     {
-      title: "Default ",
+      title: "Simple",
       description: "A simple accordion.",
       code: codeEx,
       createComponent: accordionDefault,

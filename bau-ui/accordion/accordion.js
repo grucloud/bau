@@ -25,7 +25,7 @@ export default function (context, options = {}) {
 
   const className = css`
     & ul {
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
       justify-content: flex-start;
       padding: 0;

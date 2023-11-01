@@ -17,6 +17,16 @@ const colorsToCss = () =>
     (color) =>
       `
 &.alert {
+  &.sm {
+    & .icon {
+      font-size: 1.3rem;
+    }
+  }
+  &.lg {
+    & .icon {
+      font-size: 2.5rem;
+    }
+  }
   &.plain.${color} {
     & .icon {
       color: var(--color-${color})
@@ -45,7 +55,7 @@ export default function (context, options = {}) {
     border-radius: var(--global-radius);
     & .icon {
       padding: 0 0.5rem;
-      font-size: 2.5rem;
+      font-size: 2rem;
     }
     & .content {
       padding: 0 0.5rem;

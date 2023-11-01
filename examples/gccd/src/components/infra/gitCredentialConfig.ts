@@ -4,7 +4,7 @@ import form from "@grucloud/bau-ui/form";
 import buttonsFooter from "./buttonsFooter";
 import buttonPrevious from "./buttonPrevious";
 import buttonNext from "./buttonNext";
-import gitCredentialFormContent from "../gitCredential/gitCredentialFormContent";
+import gitCredentialFormContent from "../gitCredential/gitPersonalAccessCodeGitHub";
 
 export default (context: Context) => {
   const { bau } = context;

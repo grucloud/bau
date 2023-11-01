@@ -23,6 +23,7 @@ export default function (context: Context) {
 
     const run = async (...args: any[]) => {
       try {
+        error.val = "";
         loading.val = true;
         const result = await action(...args);
         data.val = result;

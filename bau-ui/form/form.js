@@ -36,7 +36,7 @@ export default function (context, options = {}) {
     & fieldset {
       border-radius: var(--global-radius);
     }
-    & > footer {
+    & footer {
       display: flex;
       gap: 1rem;
     }

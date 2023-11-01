@@ -8,8 +8,6 @@ import buttonsFooter from "./buttonsFooter";
 import buttonPrevious from "./buttonPrevious";
 import { PROJECTS } from "./projectList";
 
-//const projectId = (project: any) => `${project.url}${project.directory}`;
-
 const projectItem = (context: Context) => {
   const { bau, css } = context;
   const { li, strong, span } = bau.tags;
@@ -79,15 +77,16 @@ export default (context: Context) => {
       section(
         List(
           // @ts-ignore
-          PROJECTS[providerName].map((project: any) =>
-            ProjectItem({
-              project,
-              onclickItem: (project: any) => () => {
-                modalEl.close();
-                onclickImportFromTemplate(project);
-              },
-            })
-          )
+          PROJECTS[providerName] && // @ts-ignore
+            PROJECTS[providerName].map((project: any) =>
+              ProjectItem({
+                project,
+                onclickItem: (project: any) => () => {
+                  modalEl.close();
+                  onclickImportFromTemplate(project);
+                },
+              })
+            )
         )
       ),
       footer(

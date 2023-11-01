@@ -11,8 +11,8 @@ const colorsToCss = () =>
   ).join("\n");
 
 export default function (context, options = {}) {
-  const { bau, css } = context;
-  const { div, ul, li, span } = bau.tags;
+  const { bau, css, window } = context;
+  const { div, ul, li, span, footer } = bau.tags;
 
   const className = css`
     display: flex;
@@ -76,6 +76,19 @@ export default function (context, options = {}) {
       }
     }
     ${colorsToCss()}
+    &.stepper > .content {
+      visibility: hidden;
+      display: none;
+    }
+
+    &.stepper > .visible {
+      visibility: visible;
+      display: block;
+    }
+    &.stepper footer {
+      display: flex;
+      gap: 1rem;
+    }
   `;
 
   return function Stepper(...args) {
@@ -85,7 +98,7 @@ export default function (context, options = {}) {
         variant = "plain",
         size,
         stepperDefs = [],
-        activeStepIndex,
+        activeStepIndex = bau.state(0),
         ...props
       },
       ...children
@@ -94,6 +107,45 @@ export default function (context, options = {}) {
     const stepperState = bau.state(
       stepperDefs.map((stepper, index) => ({ ...stepper, index }))
     );
+
+    const hashchange = () => {
+      const stepNameInitial = window.location.hash.slice(1).split("?")[0];
+      console.log("hashchange", stepNameInitial);
+      const initialActiveStep = stepperDefs.findIndex(
+        ({ name }) => name == stepNameInitial
+      );
+
+      if (initialActiveStep >= 0) {
+        activeStepIndex.val = initialActiveStep;
+      } else {
+        activeStepIndex.val = 0;
+      }
+    };
+
+    hashchange();
+
+    window.history.pushState = new Proxy(window.history.pushState, {
+      apply: (target, thisArg, argArray) => {
+        target.apply(thisArg, argArray);
+        const url = argArray[2] ?? "";
+        if (["?", "#"].includes(url[0])) {
+          hashchange();
+        }
+      },
+    });
+    document.addEventListener("click", (event) => {
+      const { target } = event;
+      const href = target.getAttribute("href");
+      if (target.tagName === "A" && href && ["?", "#"].includes(href[0])) {
+        //console.log("a click");
+        hashchange();
+      }
+    });
+    //TODO bauMounted
+    window.addEventListener("popstate", (event) => {
+      //console.log("popstate");
+      hashchange();
+    });
 
     const stepperCurrentState = bau.derive(
       () => stepperState.val[activeStepIndex.val]
@@ -131,29 +183,20 @@ export default function (context, options = {}) {
       // Header
       bau.loop(stepperState, ul(), StepperHeader),
       // Content
-      // No automatic binding possible in this case. Content contains states that would be automatically binded.
-      bau.bind({
-        deps: [stepperCurrentState],
-        render: () => (stepperCurrent) =>
-          stepperCurrent.Content ? stepperCurrent.Content({}) : "",
-      })
+      stepperDefs.map((stepperDef) =>
+        div(
+          {
+            class: () =>
+              classNames(
+                "content",
+                stepperDef.name == stepperCurrentState.val.name && "visible"
+              ),
+          },
+          () => (stepperDef.Content ? stepperDef.Content(props) : ""),
+          footer(stepperDef.Footer ? stepperDef.Footer(props) : "")
+        )
+      )
     );
-
-    // rootEl.addEventListener(
-    //   "stepper.select",
-    //   (event) => {
-    //     const { stepperName } = event.detail;
-    //     const nextStepper = stepperByName(stepperName);
-    //     if (!nextStepper) {
-    //       return;
-    //     }
-    //     stepperCurrentState.val.exit?.call();
-    //     stepperCurrentState.val = nextStepper;
-    //     nextStepper.enter?.call();
-    //   },
-    //   false
-    // );
-
     return rootEl;
   };
 }

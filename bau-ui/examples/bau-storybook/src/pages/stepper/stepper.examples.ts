@@ -8,9 +8,9 @@ import stepperDefault from "./stepper-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./stepper-example-default.ts?raw";
 
-import stepperCloudConfig from "./stepper-cloud-config.ts";
+//import stepperCloudConfig from "./stepper-cloud-config.ts";
 // @ts-ignore
-import codeExampleCloudConfig from "./stepper-cloud-config.ts?raw";
+//import codeExampleCloudConfig from "./stepper-cloud-config.ts?raw";
 
 export const stepperSpec = {
   title: "Stepper",
@@ -27,12 +27,12 @@ export const stepperSpec = {
       code: codeExampleDefault,
       createComponent: stepperDefault,
     },
-    {
-      title: "Cloud Config Stepper",
-      description: "Configure cloud provider",
-      code: codeExampleCloudConfig,
-      createComponent: stepperCloudConfig,
-    },
+    // {
+    //   title: "Cloud Config Stepper",
+    //   description: "Configure cloud provider",
+    //   code: codeExampleCloudConfig,
+    //   createComponent: stepperCloudConfig,
+    // },
   ],
   //gridItem: stepperGridItem,
 };

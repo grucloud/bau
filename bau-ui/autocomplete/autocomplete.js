@@ -43,7 +43,7 @@ export default function (context, componentOptions = {}) {
       overflow: hidden;
       & ul {
         border-width: 0px !important;
-        overflow: auto;
+        overflow-y: scroll;
       }
       & input {
         padding: 0.8rem;

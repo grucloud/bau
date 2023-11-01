@@ -41,7 +41,11 @@ export default function (context: Context) {
     const onsubmit = async (event: any) => {
       event.preventDefault();
       await deleteQuery.run({ org_id, git_credential_id });
-      window.history.pushState("", "", `${config.base}/org/${org_id}`);
+      window.history.pushState(
+        "",
+        "",
+        `${config.base}/org/${org_id}#vcsProvider`
+      );
     };
 
     return Paper(

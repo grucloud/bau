@@ -4,10 +4,11 @@ import alert from "@grucloud/bau-ui/alert";
 import useQuery from "../utils/useQuery";
 import { getAccessToken } from "../utils/authUtils";
 
+const gitlabBaseUrl = "https://gitlab.com/api/v4";
+
 const defaultHeaders = ({ access_token, password }: any) => ({
   ...(access_token && { Authorization: `Bearer ${access_token}` }),
-  ...(password && { Authorization: `token ${password}` }),
-  "X-GitHub-Api-Version": "2022-11-28",
+  ...(password && { "PRIVATE-TOKEN": password }),
 });
 
 export default function (context: Context) {
@@ -23,11 +24,20 @@ export default function (context: Context) {
     method = "GET",
     searchParam = {},
     password,
+    transformPayload = (d: any) => d,
   }: any) => {
-    const access_token =
-      password ?? getAccessToken({ window })(/github-access-token=(.[^;]*)/gi);
-    if (!access_token) return;
-    const searchParamDefault = { per_page: "100" };
+    const access_token = getAccessToken({ window })(
+      /gitlab-access-token=(.[^;]*)/gi
+    );
+
+    const searchParamDefault = {
+      // pagination: "keyset",
+      per_page: 50,
+      order_by: "name",
+      //sort: "asc",
+      owned: true,
+    };
+
     try {
       const response = await fetch(
         `${buildUrl()}?${new URLSearchParams({
@@ -36,18 +46,22 @@ export default function (context: Context) {
         }).toString()}`,
         {
           method,
-          headers: defaultHeaders({ access_token }),
+          headers: defaultHeaders({ access_token, password }),
         }
       );
+      const body = await response.json();
       if (response.ok) {
-        const json = await response.json();
-        return json;
+        return transformPayload(body);
       } else {
         document.dispatchEvent(
           new CustomEvent("alert.add", {
             detail: {
               Component: () =>
-                Alert(div(response.statusText), div(response.status)),
+                Alert(
+                  div(response.statusText),
+                  div(response.status),
+                  div(body.error)
+                ),
             },
           })
         );
@@ -68,7 +82,7 @@ export default function (context: Context) {
     authenticatedUserQuery: query(
       async ({ access_token, password }: any) => {
         try {
-          const response = await fetch(`https://api.github.com/user`, {
+          const response = await fetch(`${gitlabBaseUrl}/user`, {
             method: "GET",
             headers: defaultHeaders({ access_token, password }),
           });
@@ -84,20 +98,25 @@ export default function (context: Context) {
       { initialState: {} }
     ),
     listRepoQuery: query(
-      ({ username, password }: any) =>
+      ({ password, access_token }: any) =>
         doFetch({
-          buildUrl: () => `https://api.github.com/users/${username}/repos`,
+          buildUrl: () => `${gitlabBaseUrl}/projects`,
           password,
+          access_token,
+          transformPayload: (repos: any[]) =>
+            repos.filter(
+              (repo) => !repo.name_with_namespace.includes("deleted")
+            ),
         }),
       { initialState: [] }
     ),
     listBranchesQuery: query(
-      ({ username, repo, password }: any) =>
+      ({ repo, password, access_token }: any) =>
         doFetch({
           buildUrl: () =>
-            `https://api.github.com/repos/${username}/${repo}/branches`,
-          searchParam: { protected: false },
+            `${gitlabBaseUrl}/projects/${repo}/repository/branches`,
           password,
+          access_token,
         }),
       { initialState: [] }
     ),

@@ -68,11 +68,13 @@ export default function (context: Context) {
         Content: () =>
           div(
             h2("Git Connections"),
-            ButtonAdd(
-              {
-                href: `${config.base}/org/${org_id}/git_credential/create`,
-              },
-              "+ New Git Connections"
+            div(
+              ButtonAdd(
+                {
+                  href: `${config.base}/org/${org_id}/git_credential/create`,
+                },
+                "+ New Git Connections"
+              )
             ),
             GitCredentialList(stores.gitCredential.getAllByOrgQuery)
           ),

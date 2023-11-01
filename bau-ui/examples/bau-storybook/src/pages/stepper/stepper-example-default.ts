@@ -1,76 +1,88 @@
 import stepper, { type StepperPage } from "@grucloud/bau-ui/stepper";
 import button from "@grucloud/bau-ui/button";
+import input from "@grucloud/bau-ui/input";
+import form from "@grucloud/bau-ui/form";
 
 import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
-  const { bau, css } = context;
-  const { section, div, p } = bau.tags;
-  const Stepper = stepper(context);
-  const Button = button(context);
+  const { bau, window } = context;
+  const { footer, p, label, section, a, ul, li } = bau.tags;
 
-  const Header = ({ name }: any) => name;
+  const Input = input(context);
+  const Form = form(context);
+  const Stepper = stepper(context);
+  const ButtonPrevious = button(context, {
+    variant: "outline",
+    color: "primary",
+  });
+  const ButtonNext = button(context, {
+    variant: "solid",
+    color: "primary",
+  });
+
+  const onsubmitStep1 = (event: any) => {
+    event.preventDefault();
+    //const { organization } = event.target.elements;
+    //console.log("onsubmit", organization.value);
+    window.history.pushState("", "", "#step2");
+  };
+
+  const onsubmitStep3 = (event: any) => {
+    event.preventDefault();
+    // @ts-ignore
+    const { organization } = window.document.forms?.formStep1.elements;
+    const search = new URLSearchParams(window.location.search);
+    const choice = search.get("choice");
+    alert(`organization ${organization.value}, choice:${choice}`);
+  };
 
   const stepperDefs: StepperPage[] = [
     {
-      name: "Step 1",
-      Header,
-      Content: () => div(p("My stepper 1 Content")),
+      name: "step1",
+      Header: () => "Step 1",
+      Content: () =>
+        Form(
+          { onsubmit: onsubmitStep1, id: "formStep1" },
+          label(
+            "Organization",
+            Input({
+              autofocus: true,
+              placeholder: "Organization",
+              name: "organization",
+              required: true,
+              minLength: 3,
+            })
+          ),
+          footer(ButtonNext({ type: "submit" }, "Next: Step 2"))
+        ),
     },
     {
-      name: "Step 2",
-      Header,
-      Content: () => div(p("My stepper 2 Content")),
+      name: "step2",
+      Header: () => "Step 2",
+      Content: () =>
+        Form(
+          ul(
+            li(a({ href: "?choice=choice1#step3" }, "Choice 1")),
+            li(a({ href: "?choice=choice2#step3" }, "Choice 2"))
+          ),
+          footer(ButtonPrevious({ href: "#step1" }, "Previous: Step 1"))
+        ),
     },
     {
-      name: "Step 3",
-      Header,
-      Content: () => div(p("My stepper 3 Content")),
+      name: "step3",
+      Header: () => "Step 3",
+      Content: () =>
+        Form(
+          { onsubmit: onsubmitStep3 },
+          p("My stepper 3 Content"),
+          footer(
+            ButtonPrevious({ href: "#step2" }, "Previous: Step 2"),
+            ButtonNext({ type: "submit" }, "Save")
+          )
+        ),
     },
   ];
 
-  const activeStepIndex = bau.state(0);
-
-  const onclickPrevious = () => {
-    if (activeStepIndex.val > 0) {
-      activeStepIndex.val--;
-    }
-  };
-
-  const onclickNext = () => {
-    if (stepperDefs.length > activeStepIndex.val + 1) {
-      activeStepIndex.val++;
-    }
-  };
-
-  const Buttons = () =>
-    div(
-      {
-        class: css`
-          display: flex;
-          justify-content: space-around;
-        `,
-      },
-      Button(
-        { onclick: onclickPrevious, variant: "outline", color: "primary" },
-        "Previous"
-      ),
-      Button(
-        { onclick: onclickNext, variant: "solid", color: "primary" },
-        "Next"
-      )
-    );
-
-  return () =>
-    section(
-      {
-        class: css`
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        `,
-      },
-      Stepper({ stepperDefs, activeStepIndex }),
-      Buttons()
-    );
+  return () => section(Stepper({ stepperDefs }));
 };

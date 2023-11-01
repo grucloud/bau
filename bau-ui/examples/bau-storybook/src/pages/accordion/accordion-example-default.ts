@@ -3,7 +3,7 @@ import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { bau } = context;
-  const { div, p } = bau.tags;
+  const { div, p, section } = bau.tags;
 
   const accordionDefs: Accordion[] = [
     {
@@ -20,5 +20,7 @@ export default (context: Context) => {
   const Accordion = accordion(context);
 
   return () =>
-    Accordion({ data: accordionDefs, color: "neutral", variant: "outline" });
+    section(
+      Accordion({ data: accordionDefs, color: "neutral", variant: "outline" })
+    );
 };

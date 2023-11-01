@@ -6,8 +6,11 @@ export default function (context, options = {}) {
   const { span } = bau.tags;
 
   const className = css`
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    flex-grow: 0;
     box-sizing: border-box;
+    gap: 0.5rem;
     border-radius: var(--global-radius);
     overflow: hidden;
     text-overflow: ellipsis;

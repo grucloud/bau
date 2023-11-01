@@ -3,13 +3,13 @@ import skeleton from "@grucloud/bau-ui/skeleton";
 
 export default function (context: Context, options?: any) {
   const { bau, css } = context;
-  const { table, tr, td, span } = bau.tags;
+  const { tbody, tr, td, span } = bau.tags;
 
   const className = css``;
 
   const Skeleton = skeleton(context, {
     class: css`
-      min-width: 7rem;
+      min-width: 3rem;
       & span {
         visibility: hidden;
       }
@@ -18,7 +18,7 @@ export default function (context: Context, options?: any) {
   });
 
   return function TableSkeleton({ rowSize = 10, columnsSize = 4 }) {
-    return table(
+    return tbody(
       {
         class: className,
       },

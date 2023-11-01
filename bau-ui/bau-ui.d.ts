@@ -14,7 +14,15 @@ export type Component<
 export type ComponentWithProp<TProps, TElement = HTMLElement> = (
   props: TProps & import("@grucloud/bau").PropsAll<TElement>,
   ...rest: readonly ChildDom[]
-) => TElement | string | number | boolean | bigint | null | undefined;
+) =>
+  | TElement
+  | TElement[]
+  | string
+  | number
+  | boolean
+  | bigint
+  | null
+  | undefined;
 
 export type ComponentOneChild<TProps, TElement = HTMLElement> = (
   props: TProps & import("@grucloud/bau").PropsAll<TElement>,

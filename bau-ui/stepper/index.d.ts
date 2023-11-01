@@ -14,6 +14,7 @@ declare module "@grucloud/bau-ui/stepper" {
   export type StepperPage = {
     Header: ComponentStepper;
     Content: ComponentStepper;
+    Footer?: ComponentStepper;
   } & StepperPagePropBase;
 
   export type StepperProps = {

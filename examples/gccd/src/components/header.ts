@@ -81,16 +81,17 @@ export default function (context: Context) {
           align-items: center;
           font-size: small;
           font-weight: 500;
+          gap: 0.5rem;
           color: var(--color-content-secondary);
         `,
       },
+      () => meQuery.data.val.username,
       () =>
-        meQuery.data.val?.picture
-          ? Avatar({
-              src: meQuery.data.val.picture.url,
-              alt: meQuery.data.val.email,
-            })
-          : meQuery.data.val?.email
+        meQuery.data.val?.picture &&
+        Avatar({
+          src: meQuery.data.val.picture.url,
+          alt: meQuery.data.val.email,
+        })
     );
 
   return function headerNav() {
