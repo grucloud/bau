@@ -7,7 +7,6 @@ import button from "@grucloud/bau-ui/button";
 import page from "../../components/page";
 import gitPersonalAccessCodeGitHub from "../../components/gitCredential/gitPersonalAccessCodeGitHub";
 import gitPersonalAccessCodeGitLab from "../../components/gitCredential/gitPersonalAccessCodeGitLab";
-
 import gitCredentialSelect from "../../components/gitCredential/gitProviderSelect";
 import gitSetupGitHubApp from "../../components/gitRepository/gitSetupGitHubApp";
 import gitSetupGitLabOAuth from "../../components/gitRepository/gitSetupGitLabOAuth";

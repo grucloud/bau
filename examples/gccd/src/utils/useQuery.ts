@@ -30,6 +30,7 @@ export default function (context: Context) {
         return result;
       } catch (exception: any) {
         error.val = exception.message;
+        throw exception;
       } finally {
         loading.val = false;
       }

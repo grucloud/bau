@@ -1,13 +1,6 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import input from "@grucloud/bau-ui/input";
 
-export const orgFormDataToPayload = (event: any) => {
-  const { org_id } = event.target.elements;
-  return {
-    org_id: org_id.value,
-  };
-};
-
 export default function (context: Context) {
   const { bau } = context;
   const { section, label } = bau.tags;
@@ -24,6 +17,14 @@ export default function (context: Context) {
           minLength: 1,
           maxLength: 24,
           required: true,
+        })
+      ),
+      label(
+        "Description",
+        Input({
+          placeholder: "Organisation Description",
+          name: "org_description",
+          maxLength: 128,
         })
       )
     );
