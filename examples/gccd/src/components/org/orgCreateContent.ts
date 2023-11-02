@@ -1,6 +1,13 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import input from "@grucloud/bau-ui/input";
 
+export const orgFormDataToPayload = (event: any) => {
+  const { org_id } = event.target.elements;
+  return {
+    org_id: org_id.value,
+  };
+};
+
 export default function (context: Context) {
   const { bau } = context;
   const { section, label } = bau.tags;

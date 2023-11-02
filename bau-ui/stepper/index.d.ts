@@ -18,12 +18,18 @@ declare module "@grucloud/bau-ui/stepper" {
   } & StepperPagePropBase;
 
   export type StepperProps = {
+    stepperName: string;
     stepperDefs: StepperPage[];
   };
 
   type Component = import("../bau-ui").Component<StepperProps>;
 
   type Option = {} & ComponentOption;
+
+  export function NextUrl(
+    context: any,
+    stepperName: string
+  ): (nextStep: string, state?: any) => string;
 
   export default function (context: any, option?: Option): Component;
 }

@@ -3,6 +3,9 @@ import loginPage from "./pages/loginPage";
 import logoutPage from "./pages/logoutPage";
 import profilePage from "./pages/profilePage";
 import accountDeletePage from "./pages/accountDeletePage";
+import layoutUnauthenticated from "./layoutUnauthenticated";
+
+import wizardPage from "./pages/wizard/WizardPage";
 
 // Org
 import orgListPage from "./pages/org/orgListPage";
@@ -41,7 +44,8 @@ import azureEditPage from "./pages/cloudAuthentication/azureEditPage";
 import googleCreatePage from "./pages/cloudAuthentication/googleCreatePage";
 import googleEditPage from "./pages/cloudAuthentication/googleEditPage";
 import cloudAuthenticationDestroyPage from "./pages/cloudAuthentication/cloudAuthenticationDestroyPage";
-import layoutUnauthenticated from "./layoutUnauthenticated";
+
+//
 
 export const createRoutes = ({ context }: { context: Context }) => [
   {
@@ -49,6 +53,13 @@ export const createRoutes = ({ context }: { context: Context }) => [
     action: () => ({
       title: "Dashboard",
       component: () => orgListPage(context)({}),
+    }),
+  },
+  {
+    path: "wizard",
+    action: () => ({
+      title: "Wizard",
+      component: () => wizardPage(context)(),
     }),
   },
   {
@@ -318,7 +329,17 @@ export const createRoutes = ({ context }: { context: Context }) => [
                 path: "create",
                 action: ({ match: { groups } }: any) => ({
                   title: "Create Git Credential",
-                  component: () => gitCredentialCreatePage(context)(groups),
+                  component: () =>
+                    gitCredentialCreatePage(context)({
+                      ...groups,
+                      onSubmitted: () => {
+                        context.window.history.pushState(
+                          "",
+                          "",
+                          `${context.config.base}/org/${groups.org_id}#vcsProvider  `
+                        );
+                      },
+                    }),
                 }),
               },
               {

@@ -141,8 +141,8 @@ export default function Bau(input) {
       pop: () => removeChild("lastChild"),
       shift: () => removeChild("firstChild"),
       splice: () => {
-        let [start, deleteCount, ...newItems] = args;
         const { length } = element.children;
+        let [start, deleteCount = length, ...newItems] = args;
         for (
           let i =
             start >= 0
