@@ -24,9 +24,12 @@ export default function (context: Context) {
     searchParam = {},
     password,
   }: any) => {
-    const access_token =
-      password ?? getAccessToken({ window })(/github-access-token=(.[^;]*)/gi);
-    if (!access_token) return;
+    const access_token = password
+      ? password
+      : getAccessToken({ window })(/github-access-token=(.[^;]*)/gi);
+    if (!access_token) {
+      throw Error("no token for github");
+    }
     const searchParamDefault = { per_page: "100" };
     try {
       const response = await fetch(
@@ -36,7 +39,7 @@ export default function (context: Context) {
         }).toString()}`,
         {
           method,
-          headers: defaultHeaders({ access_token }),
+          headers: defaultHeaders({ access_token, password }),
         }
       );
       if (response.ok) {

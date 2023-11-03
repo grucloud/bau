@@ -1,5 +1,5 @@
-import button from "@grucloud/bau-ui/button";
 import { Context } from "@grucloud/bau-ui/context";
+import button from "@grucloud/bau-ui/button";
 
 export default (context: Context) => {
   const { bau, css, config } = context;
@@ -7,21 +7,22 @@ export default (context: Context) => {
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
   const Button = button(context, { variant: "outline", color: "primary" });
 
-  return function ProviderSelection({ onclickProvider }: any) {
+  return function CloudProviderSelection({ nextUrl, nextStep }: any) {
     return section(
-      h1("Provider selection"),
+      h1("Cloud Provider selection"),
       div(
         {
           class: css`
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            max-width: 300px;
           `,
         },
         Button(
           {
             "data-button-select-aws": true,
-            onclick: onclickProvider("AWS"),
+            href: nextUrl(nextStep.name, { provider_type: "AWS" }),
           },
           svg(
             {
@@ -36,7 +37,7 @@ export default (context: Context) => {
         Button(
           {
             "data-button-select-azure": true,
-            onclick: onclickProvider("Azure"),
+            href: nextUrl(nextStep.name, { provider_type: "Azure" }),
           },
           svg(
             {
@@ -50,7 +51,7 @@ export default (context: Context) => {
         Button(
           {
             "data-button-select-google": true,
-            onclick: onclickProvider("Google"),
+            href: nextUrl(nextStep.name, { provider_type: "Google" }),
           },
           svg(
             {

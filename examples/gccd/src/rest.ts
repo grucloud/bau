@@ -29,6 +29,8 @@ export default function (context: Context) {
         ? `${config.apiUrl}${url}?${new URLSearchParams(params).toString()}`
         : `${config.apiUrl}${url}`;
 
+    let _errorAlert;
+    let _error: any;
     try {
       const response = await fetch(buildUrl(), {
         method,
@@ -51,29 +53,29 @@ export default function (context: Context) {
         );
       } else if (![401, 403].includes(response.status)) {
         const errorMessage = await response.text();
-        document.dispatchEvent(
-          new CustomEvent("alert.add", {
-            detail: {
-              Component: () =>
-                Alert(
-                  div(response.statusText),
-                  div(response.status),
-                  small(method, " ", response.url),
-                  errorMessage && p(small(errorMessage))
-                ),
-            },
-          })
-        );
+        _errorAlert = () =>
+          Alert(
+            div(response.statusText),
+            div(response.status),
+            small(method, " ", response.url),
+            errorMessage && p(small(errorMessage))
+          );
+        _error = new Error(errorMessage);
+        _error.response = response;
       }
     } catch (error: any) {
+      _error = error;
+      _errorAlert = () => Alert(error.message);
+    }
+    if (_errorAlert) {
       document.dispatchEvent(
         new CustomEvent("alert.add", {
           detail: {
-            Component: () => Alert(error.message),
+            Component: _errorAlert,
           },
         })
       );
-      throw error;
+      throw _error;
     }
   }
 

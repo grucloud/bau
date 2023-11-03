@@ -22,6 +22,9 @@ export default function (context: Context) {
     const error = bau.state("");
 
     const run = async (...args: any[]) => {
+      if (loading.val) {
+        return;
+      }
       try {
         error.val = "";
         loading.val = true;
@@ -30,6 +33,7 @@ export default function (context: Context) {
         return result;
       } catch (exception: any) {
         error.val = exception.message;
+        throw exception;
       } finally {
         loading.val = false;
       }

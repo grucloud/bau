@@ -12,7 +12,7 @@ export default function (context: Context) {
         "Workspace Name",
         Input({
           autofocus: true,
-          placeholder: "Workspace Id",
+          placeholder: "Workspace Name",
           name: "workspace_id",
           minLength: 1,
           maxLength: 24,

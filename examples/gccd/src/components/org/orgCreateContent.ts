@@ -18,6 +18,14 @@ export default function (context: Context) {
           maxLength: 24,
           required: true,
         })
+      ),
+      label(
+        "Description",
+        Input({
+          placeholder: "Organisation Description",
+          name: "org_description",
+          maxLength: 128,
+        })
       )
     );
   };

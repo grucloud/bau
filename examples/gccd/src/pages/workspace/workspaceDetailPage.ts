@@ -8,7 +8,7 @@ import page from "../../components/page";
 import workspaceDetailContent from "../../components/workspace/workspaceDetailContent";
 import runList from "../../components/run/runList";
 import cloudAuthenticationList from "../../components/cloudAuthentication/cloudAuthenticationList";
-import gitRepositoryForm from "../../components/gitRepository/gitRepositoryForm";
+import gitRepositoryForm from "../../components/gitRepository/gitRepositoryEditForm";
 
 export default function (context: Context) {
   const { bau, stores, config, css } = context;
@@ -43,7 +43,8 @@ export default function (context: Context) {
       {
         name: "summary",
         Header: () => a({ href: "#summary" }, "Workspace Summary"),
-        Content: () => section(header(), WorkspaceDetailContent(getByIdQuery)),
+        Content: () =>
+          section(header(), () => WorkspaceDetailContent(getByIdQuery)),
       },
       {
         name: "runs",

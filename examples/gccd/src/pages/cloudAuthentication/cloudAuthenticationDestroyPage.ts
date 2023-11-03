@@ -18,7 +18,7 @@ export default function (context: Context) {
   });
   const InputDelete = inputDelete(context);
 
-  return function ProjectDestroyPage({
+  return function CloudDestroyPage({
     org_id,
     project_id,
     workspace_id,

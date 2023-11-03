@@ -3,7 +3,7 @@ import button from "@grucloud/bau-ui/button";
 import list from "@grucloud/bau-ui/list";
 import buttonBack from "../../components/buttonBack";
 
-export default (context: Context) => {
+export default (context: Context, { nextUrl }: any) => {
   const { bau, config, css } = context;
   const { section, footer, li, img } = bau.tags;
   const Button = button(context, {});
@@ -20,7 +20,7 @@ export default (context: Context) => {
       List(
         li(
           Button(
-            { href: "?provider=github#method" },
+            { href: nextUrl("method", { provider: "github" }) },
             img({
               src: `${config.base}/login/github.svg#Capa_1`,
               alt: "GitHub",
@@ -32,7 +32,7 @@ export default (context: Context) => {
         ),
         li(
           Button(
-            { href: "?provider=gitlab#method" },
+            { href: nextUrl("method", { provider: "gitlab" }) },
             img({
               src: `${config.base}/login/gitlab-logo.svg#Capa_1`,
               alt: "GitLab",

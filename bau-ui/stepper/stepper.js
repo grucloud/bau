@@ -3,36 +3,41 @@ import classNames from "@grucloud/bau-css/classNames.js";
 
 import { Colors } from "../constants.js";
 
-const colorsToCss = () =>
-  Colors.map(
-    (color) =>
-      `
-`
-  ).join("\n");
+const colorsToCss = () => Colors.map((color) => ``).join("\n");
+
+export const NextUrl = (context, stepperName) => (nextStep, state) => {
+  const search = new URLSearchParams(context.window.location.search);
+  search.delete(stepperName);
+  search.append(stepperName, nextStep);
+  state &&
+    Object.entries(state).map(
+      ([k, v]) => (search.delete(k), search.append(k, v))
+    );
+  return `?${search.toString()}`;
+};
 
 export default function (context, options = {}) {
   const { bau, css, window } = context;
-  const { div, ul, li, span, footer } = bau.tags;
+  const { div, ul, li, span, section } = bau.tags;
 
   const className = css`
     display: flex;
     flex-direction: column;
-    padding: 1rem;
     & > ul {
       display: flex;
       align-items: flex-end;
-      justify-content: space-around;
+      justify-content: flex-start;
       align-items: flex-start;
       padding: 0;
+      gap: 1rem;
       list-style: none;
       & > li {
         display: flex;
         flex-direction: column;
         align-items: center;
         box-sizing: border-box;
-        flex-grow: 1;
+        flex-grow: 0;
         padding: 0.5rem;
-        padding-bottom: 0rem;
         color: inherit;
         font-weight: var(--font-weight-semibold);
         transition: all var(--transition-slow) ease-in-out;
@@ -76,18 +81,14 @@ export default function (context, options = {}) {
       }
     }
     ${colorsToCss()}
-    &.stepper > .content {
+    &.stepper > section > .content {
       visibility: hidden;
       display: none;
     }
 
-    &.stepper > .visible {
+    &.stepper > section > .visible {
       visibility: visible;
       display: block;
-    }
-    &.stepper footer {
-      display: flex;
-      gap: 1rem;
     }
   `;
 
@@ -98,28 +99,44 @@ export default function (context, options = {}) {
         variant = "plain",
         size,
         stepperDefs = [],
+        stepperName,
         activeStepIndex = bau.state(0),
         ...props
       },
       ...children
     ] = toPropsAndChildren(args);
-
     const stepperState = bau.state(
       stepperDefs.map((stepper, index) => ({ ...stepper, index }))
     );
 
-    const hashchange = () => {
-      const stepNameInitial = window.location.hash.slice(1).split("?")[0];
-      console.log("hashchange", stepNameInitial);
-      const initialActiveStep = stepperDefs.findIndex(
-        ({ name }) => name == stepNameInitial
-      );
+    const stepsCreatedState = bau.state([]);
 
-      if (initialActiveStep >= 0) {
-        activeStepIndex.val = initialActiveStep;
-      } else {
-        activeStepIndex.val = 0;
+    const hashchange = () => {
+      const search = new URLSearchParams(window.location.search);
+      const stepNameInitial = search.get(stepperName) ?? stepperDefs[0].name;
+      const nextActiveStep = Math.max(
+        stepperDefs.findIndex(({ name }) => name == stepNameInitial),
+        0
+      );
+      // console.log(
+      //   "hashchange",
+      //   stepNameInitial,
+      //   " stepsCreatedState.val",
+      //   stepsCreatedState.val,
+      //   "nextActiveStep",
+      //   nextActiveStep
+      // );
+
+      if (nextActiveStep < activeStepIndex.val) {
+        console.log("remove last step");
+        stepsCreatedState.val.pop();
       }
+
+      if (!stepsCreatedState.val.some(({ name }) => stepNameInitial == name)) {
+        console.log("add new step");
+        stepsCreatedState.val.push(stepperDefs[nextActiveStep]);
+      }
+      activeStepIndex.val = nextActiveStep;
     };
 
     hashchange();
@@ -127,6 +144,8 @@ export default function (context, options = {}) {
     window.history.pushState = new Proxy(window.history.pushState, {
       apply: (target, thisArg, argArray) => {
         target.apply(thisArg, argArray);
+        console.log("stepper pushState");
+
         const url = argArray[2] ?? "";
         if (["?", "#"].includes(url[0])) {
           hashchange();
@@ -137,8 +156,9 @@ export default function (context, options = {}) {
       const { target } = event;
       const href = target.getAttribute("href");
       if (target.tagName === "A" && href && ["?", "#"].includes(href[0])) {
-        //console.log("a click");
-        hashchange();
+        console.log("stepper click");
+        //hashchange();
+        event.preventDefault();
       }
     });
     //TODO bauMounted
@@ -167,8 +187,10 @@ export default function (context, options = {}) {
         span({ class: "step-label" }, () => Header(stepper))
       );
     };
+    const getIndex = (step) =>
+      stepperDefs.findIndex(({ name }) => name == step.name);
 
-    const rootEl = div(
+    return div(
       {
         class: classNames(
           "stepper",
@@ -182,8 +204,7 @@ export default function (context, options = {}) {
       },
       // Header
       bau.loop(stepperState, ul(), StepperHeader),
-      // Content
-      stepperDefs.map((stepperDef) =>
+      bau.loop(stepsCreatedState, section(), (stepperDef) =>
         div(
           {
             class: () =>
@@ -192,11 +213,12 @@ export default function (context, options = {}) {
                 stepperDef.name == stepperCurrentState.val.name && "visible"
               ),
           },
-          () => (stepperDef.Content ? stepperDef.Content(props) : ""),
-          footer(stepperDef.Footer ? stepperDef.Footer(props) : "")
+          stepperDef.Content({
+            nextStep: stepperDefs[getIndex(stepperDef) + 1],
+            previousStep: stepperDefs[getIndex(stepperDef) - 1],
+          })
         )
       )
     );
-    return rootEl;
   };
 }
