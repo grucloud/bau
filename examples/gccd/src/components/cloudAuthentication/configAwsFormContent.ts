@@ -53,6 +53,7 @@ export default (context: Context) => {
           autocomplete: "auto",
           minLength: 16,
           maxLength: 128,
+          size: 64,
           required: true,
         }),
         small(

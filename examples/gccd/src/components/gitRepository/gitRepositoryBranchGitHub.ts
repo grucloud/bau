@@ -9,8 +9,11 @@ export default (context: Context) => {
   const Autocomplete = autocomplete(context, { variant: "outline" });
 
   return function GitRepositoryBranchGitHub(props: any) {
-    const { username } = props;
-    listRepoQuery.run({ username });
+    const { username, password } = props;
+    if (username && !listRepoQuery.data.val.length) {
+      listRepoQuery.run({ username, password });
+    }
+
     const GitRepository = ({}: any) =>
       label("Repository URL", () =>
         Autocomplete({
@@ -29,6 +32,7 @@ export default (context: Context) => {
             if (username) {
               listBranchesQuery.run({
                 username,
+                password,
                 repo: item.name,
               });
             }

@@ -23,22 +23,21 @@ export default function (context, options = {}) {
   const className = css`
     display: flex;
     flex-direction: column;
-    padding: 1rem;
     & > ul {
       display: flex;
       align-items: flex-end;
-      justify-content: space-around;
+      justify-content: flex-start;
       align-items: flex-start;
       padding: 0;
+      gap: 1rem;
       list-style: none;
       & > li {
         display: flex;
         flex-direction: column;
         align-items: center;
         box-sizing: border-box;
-        flex-grow: 1;
+        flex-grow: 0;
         padding: 0.5rem;
-        padding-bottom: 0rem;
         color: inherit;
         font-weight: var(--font-weight-semibold);
         transition: all var(--transition-slow) ease-in-out;

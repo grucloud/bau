@@ -28,7 +28,7 @@ export default function (context: Context) {
       );
       try {
         await stores.project.createQuery.run({ org_id }, payload);
-        onSubmitted(payload);
+        onSubmitted({ ...payload, org_id });
       } catch (error) {}
     };
 

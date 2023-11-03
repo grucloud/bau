@@ -1,12 +1,12 @@
 import input from "@grucloud/bau-ui/input";
 import { Context } from "@grucloud/bau-ui/context";
 import gitPersonalAccessCodeTest from "./gitPersonalAccessCodeTest";
-import gitLabStore from "../../stores/gitLabStore";
+import gitHubStore from "../../stores/gitHubStore";
 
 export default (context: Context) => {
   const { bau } = context;
   const { section, label, small, a, h2 } = bau.tags;
-  const { authenticatedUserQuery } = gitLabStore(context);
+  const { authenticatedUserQuery } = gitHubStore(context);
   const Input = input(context);
 
   const GitPersonalAccessCodeTest = gitPersonalAccessCodeTest(context);

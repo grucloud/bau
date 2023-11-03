@@ -10,7 +10,7 @@ import configGoogleFormContent, {
 } from "../../components/cloudAuthentication/configGoogleFormContent";
 
 export default function (context: Context) {
-  const { bau, stores, config, window } = context;
+  const { bau, stores } = context;
   const { h1, header, footer } = bau.tags;
 
   const contentState = bau.state({});
@@ -26,7 +26,12 @@ export default function (context: Context) {
 
   const ConfigGoogleFormContent = configGoogleFormContent(context);
 
-  return function googleCreatePage({ org_id, project_id, workspace_id }: any) {
+  return function googleCreatePage({
+    org_id,
+    project_id,
+    workspace_id,
+    onSubmitted,
+  }: any) {
     const onsubmit = async (event: any) => {
       event.preventDefault();
 
@@ -40,18 +45,13 @@ export default function (context: Context) {
           },
         }
       );
-
-      window.history.pushState(
-        "",
-        "",
-        `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
-      );
+      onSubmitted({ org_id, project_id, workspace_id });
     };
 
     return Page(
       Form(
         { onsubmit },
-        header(h1("Create a new Google Profile")),
+        header(h1("Create a new Google Configuration")),
         ConfigGoogleFormContent({
           onConfig: (content: any) => {
             contentState.val = content;

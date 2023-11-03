@@ -264,13 +264,6 @@ export default function (context, componentOptions = {}) {
       `,
     });
 
-    bau.derive(() => {
-      if (selectedState.val) {
-        inputShadowEl.value = getOptionValue(selectedState.val);
-        onSelect(selectedState.val);
-      }
-    });
-
     return div(
       {
         ...props,
@@ -281,6 +274,15 @@ export default function (context, componentOptions = {}) {
           props?.class
         ),
       },
+      bau.bind({
+        deps: [selectedState],
+        render: () => (selected) => {
+          if (selected) {
+            inputShadowEl.value = getOptionValue(selected);
+            onSelect(selected);
+          }
+        },
+      }),
       buttonEl,
       inputShadowEl,
       popoverEl

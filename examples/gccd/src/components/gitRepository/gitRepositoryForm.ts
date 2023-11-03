@@ -32,24 +32,20 @@ export default function (context: Context) {
       );
     };
 
-    return () =>
-      stores.gitRepository.getByIdQuery.loading.val
-        ? "Loading"
-        : Form(
-            { onsubmit },
-            header(h1("Link a new Git Repository")),
-            GitRepositoryFormContent(
-              stores.gitRepository.getByIdQuery.data.val
-            ),
-            footer(
-              LoadingButton(
-                {
-                  type: "submit",
-                  loading: stores.gitRepository.createQuery.loading,
-                },
-                "Save"
-              )
-            )
-          );
+    return Form(
+      { onsubmit },
+      header(h1("Link a new Git Repository")),
+      () =>
+        GitRepositoryFormContent(stores.gitRepository.getByIdQuery.data.val),
+      footer(
+        LoadingButton(
+          {
+            type: "submit",
+            loading: stores.gitRepository.createQuery.loading,
+          },
+          "Save"
+        )
+      )
+    );
   };
 }

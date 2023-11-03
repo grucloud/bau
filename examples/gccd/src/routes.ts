@@ -189,7 +189,21 @@ export const createRoutes = ({ context }: { context: Context }) => [
                                     action: ({ match: { groups } }: any) => ({
                                       title: "Create AWS Authentication",
                                       component: () =>
-                                        awsCreatePage(context)(groups),
+                                        awsCreatePage(context)({
+                                          ...groups,
+                                          onSubmitted: () => {
+                                            const {
+                                              org_id,
+                                              project_id,
+                                              workspace_id,
+                                            } = groups;
+                                            window.history.pushState(
+                                              "",
+                                              "",
+                                              `${context.config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
+                                            );
+                                          },
+                                        }),
                                     }),
                                   },
                                   {
@@ -197,7 +211,21 @@ export const createRoutes = ({ context }: { context: Context }) => [
                                     action: ({ match: { groups } }: any) => ({
                                       title: "Create Azure Authentication",
                                       component: () =>
-                                        azureCreatePage(context)(groups),
+                                        azureCreatePage(context)({
+                                          ...groups,
+                                          onSubmitted: () => {
+                                            const {
+                                              org_id,
+                                              project_id,
+                                              workspace_id,
+                                            } = groups;
+                                            window.history.pushState(
+                                              "",
+                                              "",
+                                              `${context.config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
+                                            );
+                                          },
+                                        }),
                                     }),
                                   },
                                   {
@@ -206,7 +234,21 @@ export const createRoutes = ({ context }: { context: Context }) => [
                                       title:
                                         "Create Google Cloud Authentication",
                                       component: () =>
-                                        googleCreatePage(context)(groups),
+                                        googleCreatePage(context)({
+                                          ...groups,
+                                          onSubmitted: () => {
+                                            const {
+                                              org_id,
+                                              project_id,
+                                              workspace_id,
+                                            } = groups;
+                                            window.history.pushState(
+                                              "",
+                                              "",
+                                              `${context.config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
+                                            );
+                                          },
+                                        }),
                                     }),
                                   },
                                 ],

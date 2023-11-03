@@ -1,27 +1,33 @@
 import { Context } from "@grucloud/bau-ui/context";
 import select from "@grucloud/bau-ui/select";
-
-import gitRepositoryBranchGitHub from "./gitRepositoryBranchGitHub";
-import gitRepositoryBranchGitLab from "./gitRepositoryBranchGitLab";
-import gitRepositoryBranchGeneric from "./gitRepositoryBranchGeneric";
+import gitRepositoryBranch from "./gitRepositoryBranch";
 
 export default (context: Context) => {
   const { bau, stores, css } = context;
-  const { section, header, p, label, div, span } = bau.tags;
+  const { section, header, p, label, span, div } = bau.tags;
 
   const Select = select(context, { variant: "outline" });
 
-  const GitRepositoryBranchGitHub = gitRepositoryBranchGitHub(context);
-  const GitRepositoryBranchGitLab = gitRepositoryBranchGitLab(context);
-  const GitRepositoryBranchGeneric = gitRepositoryBranchGeneric(context);
+  const GitRepositoryBranch = gitRepositoryBranch(context);
 
   return function GitRepositoryFormContent(props: any) {
     const { git_credential_id } = props;
-    const gitProviderState = bau.state({
-      git_credential_id,
+    const gitCredential = bau.state({
+      git_credential_id: "",
       username: "",
       provider: "",
       auth_type: "",
+    });
+
+    const findCredentialById = (id: string) =>
+      stores.gitCredential.getAllByOrgQuery.data.val.find(
+        ({ git_credential_id }: any) => git_credential_id == id
+      );
+
+    bau.derive(() => {
+      if (git_credential_id && !gitCredential.val.git_credential_id) {
+        gitCredential.val = findCredentialById(git_credential_id);
+      }
     });
 
     const Option = (opt: any) =>
@@ -49,13 +55,10 @@ export default (context: Context) => {
           placeholder: "Select Git Provider",
           name: "git_credentials",
           required: true,
-          defaultOption: stores.gitCredential.getAllByOrgQuery.data.val.find(
-            ({ git_credential_id }: any) =>
-              git_credential_id == props.git_credential_id
-          ),
+          defaultOption: findCredentialById(git_credential_id),
           loading: () => stores.gitCredential.getAllByOrgQuery.loading.val,
           onSelect: (item: any) => {
-            gitProviderState.val = item;
+            gitCredential.val = item;
           },
         })
       );
@@ -71,18 +74,14 @@ export default (context: Context) => {
       ),
       section(
         GitProvider(),
-        div(() => {
-          const { provider } = gitProviderState.val;
-          switch (provider) {
-            case "github":
-              return GitRepositoryBranchGitHub(gitProviderState.val);
-            case "gitlab":
-              return GitRepositoryBranchGitLab(gitProviderState.val);
-            case "generic":
-              return GitRepositoryBranchGeneric(gitProviderState.val);
-            default:
-          }
+        bau.bind({
+          deps: [gitCredential],
+          render: () => () =>
+            GitRepositoryBranch({ ...gitCredential.val, ...props }),
         })
+        // div(() => {
+        //   return GitRepositoryBranch({ ...gitCredential.val, ...props });
+        // })
       )
     );
   };

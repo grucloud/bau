@@ -15,7 +15,7 @@ import gitAuthenticationMethod from "../../components/gitCredential/gitAuthentic
 const stepperName = "git_credential";
 
 export default function (context: Context) {
-  const { bau, stores, window } = context;
+  const { bau, stores, window, css } = context;
   const { h1, footer, div, section } = bau.tags;
 
   const LoadingButton = loadingButton(context, {
@@ -24,7 +24,22 @@ export default function (context: Context) {
   });
   const Page = page(context);
   const Form = form(context);
-  const Stepper = stepper(context);
+  const Stepper = stepper(context, {
+    class: css`
+      gap: 1rem;
+      &.stepper {
+        flex-direction: row;
+        & > ul {
+          flex-direction: column;
+          & > li {
+            flex-direction: row;
+            gap: 0.5rem;
+            justify-content: space-around;
+          }
+        }
+      }
+    `,
+  });
   const nextUrl = NextUrl(context, stepperName);
 
   const ButtonPrevious = button(context, {

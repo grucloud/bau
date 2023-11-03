@@ -36,7 +36,7 @@ export default function (context: Context) {
         }).toString()}`,
         {
           method,
-          headers: defaultHeaders({ access_token }),
+          headers: defaultHeaders({ access_token, password }),
         }
       );
       if (response.ok) {
