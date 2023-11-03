@@ -15,14 +15,14 @@ export default function (context: Context) {
 
   const GitRepositoryFormContent = gitRepositoryFormContent(context);
 
-  return function GitRepositoryForm(props: any) {
+  return function GitRepositoryEditForm(props: any) {
     const { org_id, project_id, workspace_id } = props;
     stores.gitRepository.getByIdQuery.run({ org_id, project_id, workspace_id });
 
     const onsubmit = async (event: any) => {
       event.preventDefault();
       const { branch, repository, git_credentials } = event.target.elements;
-      await stores.gitRepository.createQuery.run(
+      await stores.gitRepository.patchQuery.run(
         { org_id, project_id, workspace_id },
         {
           branch: branch.value,
@@ -35,13 +35,14 @@ export default function (context: Context) {
     return Form(
       { onsubmit },
       header(h1("Link a new Git Repository")),
+      //TODO
       () =>
         GitRepositoryFormContent(stores.gitRepository.getByIdQuery.data.val),
       footer(
         LoadingButton(
           {
             type: "submit",
-            loading: stores.gitRepository.createQuery.loading,
+            loading: stores.gitRepository.patchQuery.loading,
           },
           "Save"
         )

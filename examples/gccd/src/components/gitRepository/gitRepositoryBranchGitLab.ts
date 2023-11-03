@@ -21,7 +21,7 @@ export default (context: Context) => {
           getOptionValue: ({ http_url_to_repo }: any) => http_url_to_repo,
           label: "Repositories",
           placeholder: "Search repository",
-          name: "repository",
+          name: "repository_url",
           required: true,
           defaultOption: listRepoQuery.data.val.find(
             ({ http_url_to_repo }: any) =>

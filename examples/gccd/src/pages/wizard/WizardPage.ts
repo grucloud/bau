@@ -87,6 +87,12 @@ export default (context: Context) => {
         Content: ({ nextStep }: any) =>
           GitCredentialCreatePage({
             org_id: new URLSearchParams(window.location.search).get("org_id"),
+            project_id: new URLSearchParams(window.location.search).get(
+              "project_id"
+            ),
+            workspace_id: new URLSearchParams(window.location.search).get(
+              "workspace_id"
+            ),
             onSubmitted: () => pushState(nextUrl(nextStep.name)),
           }),
       },

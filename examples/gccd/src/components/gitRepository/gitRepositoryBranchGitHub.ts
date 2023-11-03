@@ -23,7 +23,7 @@ export default (context: Context) => {
           getOptionValue: ({ clone_url }: any) => clone_url,
           label: "Repositories",
           placeholder: "Search repository",
-          name: "repository",
+          name: "repository_url",
           required: true,
           defaultOption: listRepoQuery.data.val.find(
             ({ clone_url }: any) => clone_url == props.repository_url
