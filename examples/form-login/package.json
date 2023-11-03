@@ -1,7 +1,7 @@
 {
   "name": "bau-form-login",
   "private": true,
-  "version": "0.55.0",
+  "version": "0.56.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.55.0"
+    "@grucloud/bau": "^0.56.0"
   },
   "devDependencies": {
     "vite": "^4.3.9"
