@@ -6,8 +6,8 @@ import spinner from "@grucloud/bau-ui/spinner";
 
 export default (context: Context) => {
   const { bau, css, window, stores } = context;
-  const { section, div, h2, strong, a, p, input } = bau.tags;
-  const { authenticatedUserQuery, listRepoQuery } = stores.gitHub;
+  const { div, strong, a, p, input, fieldset, legend } = bau.tags;
+  const { authenticatedUserQuery } = stores.gitHub;
   const Button = button(context, { variant: "solid", color: "primary" });
   const Chip = chip(context);
   const Spinner = spinner(context);
@@ -57,11 +57,14 @@ export default (context: Context) => {
       )
     );
   return function GitSetupGitHubApp(props: any) {
-    const { org_id } = props;
-    const redirect = `/org/${org_id}/git_credential/create?provider=github&auth_type=githubapp#setup`;
+    const { org_id, project_id, onAuthenticated } = props;
+    console.assert(org_id);
+    console.assert(project_id);
+    console.assert(onAuthenticated);
+
     const githubSearchParam = new URLSearchParams({
       state: JSON.stringify({
-        redirect,
+        redirect: window.location.href,
       }),
     }).toString();
 
@@ -74,21 +77,20 @@ export default (context: Context) => {
     const usernameState = bau.state("");
     bau.derive(() => {
       const username = authenticatedUserQuery.data.val.login;
-      if (username && !listRepoQuery.data.val.length) {
+      if (username) {
         usernameState.val = username;
-        listRepoQuery.run({ username });
+        onAuthenticated({ username });
       }
     });
 
-    return section(
+    return fieldset(
       {
         class: css`
           display: flex;
           flex-direction: column;
-          min-height: 200px;
         `,
       },
-      h2("GitHub App Authorization"),
+      legend("GitHub App Authorization"),
       input({ type: "hidden", name: "username", value: usernameState }),
       Authenticating(),
       () =>

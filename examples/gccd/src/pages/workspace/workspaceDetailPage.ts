@@ -8,7 +8,6 @@ import page from "../../components/page";
 import workspaceDetailContent from "../../components/workspace/workspaceDetailContent";
 import runList from "../../components/run/runList";
 import cloudAuthenticationList from "../../components/cloudAuthentication/cloudAuthenticationList";
-import gitRepositoryForm from "../../components/gitRepository/gitRepositoryEditForm";
 
 export default function (context: Context) {
   const { bau, stores, config, css } = context;
@@ -26,7 +25,7 @@ export default function (context: Context) {
   const WorkspaceDetailContent = workspaceDetailContent(context);
   const RunList = runList(context);
   const CloudAuthenticationList = cloudAuthenticationList(context);
-  const GitRepositoryForm = gitRepositoryForm(context);
+
   return function WorkspaceDetailPage(props: any) {
     const { org_id, project_id, workspace_id } = props;
 
@@ -37,18 +36,17 @@ export default function (context: Context) {
       project_id,
       workspace_id,
     });
-    stores.gitCredential.getAllByOrgQuery.run({ org_id });
 
     const tabDefs: Tabs = [
       {
         name: "summary",
-        Header: () => a({ href: "#summary" }, "Workspace Summary"),
+        Header: () => "Workspace Summary",
         Content: () =>
           section(header(), () => WorkspaceDetailContent(getByIdQuery)),
       },
       {
         name: "runs",
-        Header: () => a({ href: "#runs" }, "Runs"),
+        Header: () => "Runs",
         Content: () =>
           section(
             div(
@@ -64,8 +62,7 @@ export default function (context: Context) {
       },
       {
         name: "cloudAuthentication",
-        Header: () =>
-          a({ href: "#cloudAuthentication" }, "Cloud Authentication"),
+        Header: () => "Cloud Authentication",
         Content: () =>
           section(
             h2("Cloud Authentication"),
@@ -78,19 +75,6 @@ export default function (context: Context) {
               CloudAuthenticationList(
                 stores.cloudAuthentication.getAllByWorkspaceQuery
               )
-          ),
-      },
-      {
-        name: "gitRepository",
-        Header: () => a({ href: "#gitRepository" }, "Git Repository"),
-        Content: () =>
-          section(
-            GitRepositoryForm({
-              org_id,
-              project_id,
-              workspace_id,
-              gitCredential: stores.gitCredential,
-            })
           ),
       },
     ];

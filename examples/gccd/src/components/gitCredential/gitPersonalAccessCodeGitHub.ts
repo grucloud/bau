@@ -4,22 +4,33 @@ import gitPersonalAccessCodeTest from "./gitPersonalAccessCodeTest";
 import gitHubStore from "../../stores/gitHubStore";
 
 export default (context: Context) => {
-  const { bau } = context;
-  const { section, label, small, a, h2 } = bau.tags;
+  const { bau, css } = context;
+  const { label, small, a, fieldset, legend } = bau.tags;
   const { authenticatedUserQuery } = gitHubStore(context);
   const Input = input(context);
 
   const GitPersonalAccessCodeTest = gitPersonalAccessCodeTest(context);
 
   return function gitPersonalAccessCodeGitHub(props: any) {
-    const { org_id } = props;
+    const { org_id, project_id, onAuthenticated } = props;
+    console.assert(org_id);
+    console.assert(project_id);
+    console.assert(onAuthenticated);
+
     const search = new URLSearchParams({
       scopes: "repo",
-      description: `Organisation ${org_id} by GruCloud`,
+      description: `Project ${project_id} on organisation ${org_id} by GruCloud`,
     }).toString();
 
-    return section(
-      h2("GitHub Personal Access Code"),
+    return fieldset(
+      {
+        class: css`
+          display: inline-flex;
+          flex-direction: column;
+          gap: 1rem;
+        `,
+      },
+      legend("GitHub Personal Access Code"),
       label(
         "GitHub Username",
         Input({
@@ -29,6 +40,7 @@ export default (context: Context) => {
           autocomplete: "username",
           minLength: 3,
           maxLength: 128,
+          siwe: 40,
           required: true,
         })
       ),
@@ -52,7 +64,8 @@ export default (context: Context) => {
           )
         )
       ),
-      () => GitPersonalAccessCodeTest(authenticatedUserQuery)
+      () =>
+        GitPersonalAccessCodeTest({ onAuthenticated, authenticatedUserQuery })
     );
   };
 };

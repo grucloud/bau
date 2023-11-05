@@ -5,9 +5,9 @@ import chip from "@grucloud/bau-ui/chip";
 import spinner from "@grucloud/bau-ui/spinner";
 
 export default (context: Context) => {
-  const { bau, css, window, stores, config } = context;
-  const { section, div, h2, strong, p, input } = bau.tags;
-  const { authenticatedUserQuery, listRepoQuery } = stores.gitLab;
+  const { bau, window, stores, config } = context;
+  const { div, strong, p, input, fieldset, legend } = bau.tags;
+  const { authenticatedUserQuery } = stores.gitLab;
   const Button = button(context, { variant: "solid", color: "primary" });
   const Chip = chip(context);
   const Spinner = spinner(context);
@@ -46,11 +46,13 @@ export default (context: Context) => {
     );
 
   return function GitSetupGitLabOAuth(props: any) {
-    const { org_id } = props;
-    const redirect = `/org/${org_id}/git_credential/create?provider=gitlab&auth_type=oauth#setup`;
+    const { org_id, project_id, onAuthenticated } = props;
+    console.assert(org_id);
+    console.assert(project_id);
+    console.assert(onAuthenticated);
 
     const gitlabSearchParam = new URLSearchParams({
-      nextPath: redirect,
+      nextPath: window.location.href,
     }).toString();
 
     const access_token = getAccessToken({ window })(
@@ -63,21 +65,14 @@ export default (context: Context) => {
 
     bau.derive(() => {
       const username = authenticatedUserQuery.data.val.username;
-      if (username && !listRepoQuery.data.val.length) {
+      if (username) {
         usernameState.val = username;
-        listRepoQuery.run({ username });
+        onAuthenticated({ username });
       }
     });
 
-    return section(
-      {
-        class: css`
-          display: flex;
-          flex-direction: column;
-          min-height: 200px;
-        `,
-      },
-      h2("GitLab OAuth"),
+    return fieldset(
+      legend("GitLab OAuth"),
       input({ type: "hidden", name: "username", value: usernameState }),
       Authenticating(),
       () =>

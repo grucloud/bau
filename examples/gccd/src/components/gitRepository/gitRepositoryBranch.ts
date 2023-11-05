@@ -5,22 +5,36 @@ import gitRepositoryBranchGitLab from "./gitRepositoryBranchGitLab";
 import gitRepositoryBranchGeneric from "./gitRepositoryBranchGeneric";
 
 export default (context: Context) => {
-  //const { bau } = context;
+  const { bau, css } = context;
+  const { fieldset, legend } = bau.tags;
   const GitRepositoryBranchGitHub = gitRepositoryBranchGitHub(context);
   const GitRepositoryBranchGitLab = gitRepositoryBranchGitLab(context);
   const GitRepositoryBranchGeneric = gitRepositoryBranchGeneric(context);
 
-  return function GitRepositoryBranch(props: any) {
-    const { provider } = props;
-    switch (provider) {
-      case "github":
+  function GitRepositoryBranch(props: any) {
+    const { git_provider_type } = props;
+    switch (git_provider_type) {
+      case "GitHub":
         return GitRepositoryBranchGitHub(props);
-      case "gitlab":
+      case "GitLab":
         return GitRepositoryBranchGitLab(props);
-      case "generic":
+      case "Generic":
         return GitRepositoryBranchGeneric(props);
       default:
-        return "Error";
+        return undefined;
     }
+  }
+
+  return function (props: any) {
+    return fieldset(
+      {
+        class: css`
+          display: flex;
+          flex-direction: column;
+        `,
+      },
+      legend("Repository & Branch"),
+      GitRepositoryBranch(props)
+    );
   };
 };

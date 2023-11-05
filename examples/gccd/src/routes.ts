@@ -5,8 +5,6 @@ import profilePage from "./pages/profilePage";
 import accountDeletePage from "./pages/accountDeletePage";
 import layoutUnauthenticated from "./layoutUnauthenticated";
 
-import wizardPage from "./pages/wizard/WizardPage";
-
 // Org
 import orgListPage from "./pages/org/orgListPage";
 import orgCreatePage from "./pages/org/orgCreatePage";
@@ -18,11 +16,6 @@ import projectCreatePage from "./pages/project/projectCreatePage";
 import projectDetailPage from "./pages/project/projectDetailPage";
 import projectDestroyPage from "./pages/project/projectDestroyPage";
 import projectUserPage from "./pages/project/projectUserPage";
-
-// Git Credential
-import gitCredentialCreatePage from "./pages/gitCredential/gitCredentialCreatePage";
-import gitCredentialEditPage from "./pages/gitCredential/gitCredentialEditPage";
-import gitCredentialDestroyPage from "./pages/gitCredential/gitCredentialDestroyPage";
 
 // Workspace
 import workspaceUserPage from "./pages/workspace/workspaceUserPage";
@@ -46,20 +39,12 @@ import googleEditPage from "./pages/cloudAuthentication/googleEditPage";
 import cloudAuthenticationDestroyPage from "./pages/cloudAuthentication/cloudAuthenticationDestroyPage";
 
 //
-
 export const createRoutes = ({ context }: { context: Context }) => [
   {
     path: "",
     action: () => ({
       title: "Dashboard",
       component: () => orgListPage(context)({}),
-    }),
-  },
-  {
-    path: "wizard",
-    action: () => ({
-      title: "Wizard",
-      component: () => wizardPage(context)(),
     }),
   },
   {
@@ -94,7 +79,7 @@ export const createRoutes = ({ context }: { context: Context }) => [
         path: "create",
         action: () => ({
           title: "Create New Organisation",
-          component: () => orgCreatePage(context)({}),
+          component: () => orgCreatePage(context)(),
         }),
       },
       {
@@ -355,49 +340,6 @@ export const createRoutes = ({ context }: { context: Context }) => [
                         ],
                       },
                     ],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            path: "git_credential",
-            action: ({ match: { groups } }: any) => ({
-              title: "Git Credential",
-              component: () => orgDetailPage(context)(groups),
-            }),
-            children: [
-              {
-                path: "create",
-                action: ({ match: { groups } }: any) => ({
-                  title: "Create Git Credential",
-                  component: () =>
-                    gitCredentialCreatePage(context)({
-                      ...groups,
-                      onSubmitted: () => {
-                        context.window.history.pushState(
-                          "",
-                          "",
-                          `${context.config.base}/org/${groups.org_id}#vcsProvider  `
-                        );
-                      },
-                    }),
-                }),
-              },
-              {
-                path: "(?<git_credential_id>.{13})",
-                action: ({ match: { groups } }: any) => ({
-                  title: "Git Credential Details",
-                  component: () => gitCredentialEditPage(context)(groups),
-                }),
-                children: [
-                  {
-                    path: "destroy",
-                    action: ({ match: { groups } }: any) => ({
-                      title: "Delete Git Credential",
-                      component: () =>
-                        gitCredentialDestroyPage(context)(groups),
-                    }),
                   },
                 ],
               },

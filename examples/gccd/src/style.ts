@@ -11,5 +11,8 @@ export const createStyles = (context: Context) => {
       scroll-behavior: smooth;
       scroll-padding-top: calc(var(--header-height) + 1rem);
     }
+    fieldset {
+      border: 1px solid var(--color-emphasis-200);
+    }
   `;
 };

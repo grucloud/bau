@@ -5,6 +5,8 @@ import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
 import page from "../../components/page";
 import projectDetailContent from "../../components/project/projectDetailContent";
 import workspaceList from "../../components/workspace/workspaceList";
+import gitConfig from "../../components/git/gitConfig";
+import tabsSkeleton from "../../components/tabsSkeleton";
 
 export default function (context: Context) {
   const { bau, stores, config } = context;
@@ -17,9 +19,10 @@ export default function (context: Context) {
     variant: "solid",
   });
   const ButtonDelete = button(context, { variant: "outline", color: "danger" });
-
+  const TabsSkeleton = tabsSkeleton(context);
   const ProjectDetailContent = projectDetailContent(context);
   const WorkspaceList = workspaceList(context);
+  const GitConfig = gitConfig(context);
 
   return function ProjectDetailPage(props: any) {
     const { org_id, project_id } = props;
@@ -29,7 +32,7 @@ export default function (context: Context) {
     const tabDefs: Tabs = [
       {
         name: "workspaces",
-        Header: () => a({ href: "#workspace" }, "Workspaces"),
+        Header: () => "Workspaces",
         Content: () =>
           div(
             div(
@@ -44,8 +47,23 @@ export default function (context: Context) {
           ),
       },
       {
+        name: "git",
+        Header: () => "Source Code",
+        Content: ({}: any) =>
+          GitConfig({
+            org_id,
+            project_id,
+            previousHref: "",
+            getByIdQuery,
+            onSubmitted: () => {
+              //TODO
+              debugger;
+            },
+          }),
+      },
+      {
         name: "summary",
-        Header: () => a({ href: "#summary" }, "Project Summary"),
+        Header: () => "Project Summary",
         Content: () =>
           div(
             ProjectDetailContent(getByIdQuery),
@@ -70,7 +88,11 @@ export default function (context: Context) {
         " in organisation ",
         a({ href: `${config.base}/org/${org_id}` }, org_id)
       ),
-      Tabs(props)
+      bau.bind({
+        deps: [getByIdQuery.loading],
+        render: () => (loading) =>
+          loading ? TabsSkeleton({ columnsSize: 3 }) : Tabs(props),
+      })
     );
   };
 }

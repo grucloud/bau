@@ -14,7 +14,6 @@ export default function (context: Context) {
     { name: "Workspaces", href: "workspaces" },
     { name: "Projects", href: "projects" },
     { name: "Organisations", href: "org" },
-    { name: "Wizard", href: "wizard" },
     { name: "Profile", href: "profile" },
     { name: "Logout", href: "logout" },
   ];
