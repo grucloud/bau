@@ -285,7 +285,7 @@ export default function Bau(input) {
         for (let [k, v] of Object.entries(props)) {
           if (k.startsWith("bau")) continue;
           let setter = isSettableProp(name, k, protoOf(element))
-            ? (v) => (element[k] = v)
+            ? (v) => v !== undefined && (element[k] = v)
             : (v) => element.setAttribute(k, v);
           if (v == null) {
           } else if (isState(v)) {

@@ -5,10 +5,12 @@ import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
 import page from "../../components/page";
 import projectDetailContent from "../../components/project/projectDetailContent";
 import workspaceList from "../../components/workspace/workspaceList";
+import gitConfig from "../../components/git/gitConfig";
+import tabsSkeleton from "../../components/tabsSkeleton";
 
 export default function (context: Context) {
-  const { bau, stores, config } = context;
-  const { h1, h2, div, a, p, strong } = bau.tags;
+  const { bau, stores, config, css } = context;
+  const { h1, h2, div, a, p, strong, section } = bau.tags;
   const { getByIdQuery } = stores.project;
 
   const Page = page(context);
@@ -17,9 +19,10 @@ export default function (context: Context) {
     variant: "solid",
   });
   const ButtonDelete = button(context, { variant: "outline", color: "danger" });
-
+  const TabsSkeleton = tabsSkeleton(context);
   const ProjectDetailContent = projectDetailContent(context);
   const WorkspaceList = workspaceList(context);
+  const GitConfig = gitConfig(context);
 
   return function ProjectDetailPage(props: any) {
     const { org_id, project_id } = props;
@@ -29,25 +32,38 @@ export default function (context: Context) {
     const tabDefs: Tabs = [
       {
         name: "workspaces",
-        Header: () => a({ href: "#workspace" }, "Workspaces"),
+        Header: () => "Workspaces",
         Content: () =>
-          div(
-            div(
-              ButtonAddWorkspace(
-                {
-                  href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/create`,
-                },
-                "+ New Workspace"
-              ),
-              div(() => WorkspaceList(stores.workspace.getAllByProject))
-            )
+          section(
+            {
+              class: css`
+                margin-top: 1rem;
+              `,
+            },
+            ButtonAddWorkspace(
+              {
+                href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/create`,
+              },
+              "+ New Workspace"
+            ),
+            div(() => WorkspaceList(stores.workspace.getAllByProject))
           ),
       },
       {
+        name: "git",
+        Header: () => "Source Code",
+        Content: ({}: any) =>
+          GitConfig({
+            edit: true,
+            ...getByIdQuery.data.val,
+            onSubmitted: () => {},
+          }),
+      },
+      {
         name: "summary",
-        Header: () => a({ href: "#summary" }, "Project Summary"),
+        Header: () => "Project Summary",
         Content: () =>
-          div(
+          section(
             ProjectDetailContent(getByIdQuery),
             h2("Danger Zone"),
             ButtonDelete(
@@ -70,7 +86,11 @@ export default function (context: Context) {
         " in organisation ",
         a({ href: `${config.base}/org/${org_id}` }, org_id)
       ),
-      Tabs(props)
+      bau.bind({
+        deps: [getByIdQuery.loading],
+        render: () => (loading) =>
+          loading ? TabsSkeleton({ columnsSize: 3 }) : Tabs(props),
+      })
     );
   };
 }

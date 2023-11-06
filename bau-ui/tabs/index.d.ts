@@ -23,6 +23,7 @@ declare module "@grucloud/bau-ui/tabs" {
 
   type Option = {
     tabDefs: Tab[];
+    tabsName?: string;
   } & ComponentOption;
 
   export default function (context: any, option: Option): Component;

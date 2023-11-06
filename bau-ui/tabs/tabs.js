@@ -15,7 +15,7 @@ const colorsToCss = () =>
 export default function (context, options = {}) {
   const { bau, css, window } = context;
   const { tabDefs } = options;
-  const { div, ul, li } = bau.tags;
+  const { div, ul, li, a } = bau.tags;
 
   const className = css`
     display: flex;
@@ -26,6 +26,7 @@ export default function (context, options = {}) {
       justify-content: flex-start;
       align-items: flex-start;
       padding: 0;
+      margin: 0;
       list-style: none;
       & li {
         & > a {
@@ -83,16 +84,46 @@ export default function (context, options = {}) {
         size = options.size ?? "md",
         variant = options.variant ?? "outline",
         color = options.color ?? "neutral",
+        tabsName = "tabs",
         ...props
       },
       ...children
     ] = toPropsAndChildren(args);
 
     const tabsState = bau.state(tabDefs);
-    const tabNameInitial = window.location.hash.slice(1);
-
     const tabByName = (name) => tabsState.val.find((tab) => tab.name == name);
-    const tabCurrentState = bau.state(tabByName(tabNameInitial) ?? tabDefs[0]);
+    const tabCurrentState = bau.state(tabDefs[0]);
+
+    const hashchange = () => {
+      //console.log("tabs hashchange");
+      const search = new URLSearchParams(window.location.search);
+      const tabName = search.get(tabsName) ?? tabDefs[0].name;
+
+      const nextTab = tabByName(tabName);
+      tabCurrentState.val.exit?.call();
+      tabCurrentState.val = nextTab;
+      nextTab.enter?.call();
+    };
+
+    hashchange();
+
+    window.history.pushState = new Proxy(window.history.pushState, {
+      apply: (target, thisArg, argArray) => {
+        target.apply(thisArg, argArray);
+        const url = argArray[2] ?? "";
+        //console.log("tabs pushState ", url);
+        if (["?", "#"].includes(url[0])) {
+          hashchange();
+        }
+      },
+    });
+
+    const buildHref = (nextTab) => {
+      const search = new URLSearchParams(window.location.search);
+      search.delete(tabsName);
+      search.append(tabsName, nextTab);
+      return `?${search.toString()}`;
+    };
 
     const TabHeader = (tab) => {
       const { Header, disabled, name } = tab;
@@ -103,15 +134,8 @@ export default function (context, options = {}) {
               tabCurrentState.val.name == name && "active",
               disabled && "disabled"
             ),
-          onclick: (event) =>
-            event.srcElement.dispatchEvent(
-              new CustomEvent("tab.select", {
-                detail: { tabName: name },
-                bubbles: true,
-              })
-            ),
         },
-        Header(tab)
+        a({ href: buildHref(name) }, Header(tab))
       );
     };
 
@@ -126,6 +150,12 @@ export default function (context, options = {}) {
           options?.class,
           props.class
         ),
+        bauMounted: ({ element }) => {
+          window.addEventListener("popstate", hashchange);
+        },
+        bauUnmounted: () => {
+          window.removeEventListener("popstate", hashchange);
+        },
       },
       // Header
       bau.loop(tabsState, ul(), TabHeader),
@@ -138,20 +168,6 @@ export default function (context, options = {}) {
       })
     );
 
-    rootEl.addEventListener(
-      "tab.select",
-      (event) => {
-        const { tabName } = event.detail;
-        const nextTab = tabByName(tabName);
-        if (!nextTab) {
-          return;
-        }
-        tabCurrentState.val.exit?.call();
-        tabCurrentState.val = nextTab;
-        nextTab.enter?.call();
-      },
-      false
-    );
     rootEl.addEventListener(
       "tab.add",
       (event) => {

@@ -1,51 +1,106 @@
 import { Context } from "@grucloud/bau-ui/context";
-import form from "@grucloud/bau-ui/form";
-import buttonBack from "../../components/buttonBack";
-import loadingButton from "@grucloud/bau-ui/loadingButton";
+import stepper, { NextUrl, type StepperPage } from "@grucloud/bau-ui/stepper";
 
-import page from "../../components/page";
-import orgCreateContent from "../../components/org/orgCreateContent";
+import orgCreateForm from "../../components/org/orgCreateForm";
+import projectCreateForm from "../../components/project/projectCreateForm";
+import workspaceCreateForm from "../../components/workspace/workspaceCreateForm";
+import cloudCreate from "../../components/cloudAuthentication/cloudCreate";
+import gitConfig from "../../components/git/gitConfig";
 
-export default function (context: Context) {
-  const { bau, stores, config, window } = context;
-  const { h1, p, header, footer } = bau.tags;
-  const ButtonBack = buttonBack(context);
-  const LoadingButton = loadingButton(context, {
-    color: "primary",
-    variant: "solid",
-  });
-  const Page = page(context);
-  const Form = form(context);
+const stepperName = "wizard";
 
-  const OrgCreateContent = orgCreateContent(context);
+export default (context: Context) => {
+  const { window } = context;
 
-  const onsubmit = async (event: any) => {
-    event.preventDefault();
-    const { org_id } = event.target.elements;
-    const {} = await stores.org.createQuery.run({
-      org_id: org_id.value,
-    });
+  const pushState = (url: string) => window.history.pushState("", "", url);
 
-    window.history.pushState("", "", `${config.base}/org/${org_id.value}`);
+  const nextUrl = NextUrl(context, stepperName);
+  const Stepper = stepper(context);
+
+  const OrgCreateForm = orgCreateForm(context);
+  const ProjectCreateForm = projectCreateForm(context);
+  const WorkspaceCreateForm = workspaceCreateForm(context);
+  const GitConfig = gitConfig(context);
+  const CloudCreate = cloudCreate(context);
+
+  return function orgCreatePage() {
+    const stepperDefs: StepperPage[] = [
+      {
+        name: "organisation",
+        Header: () => "Organisation",
+        Content: ({ nextStep }: any) =>
+          OrgCreateForm({
+            onSubmitted: ({ org_id }: any) =>
+              pushState(nextUrl(nextStep.name, { org_id })),
+          }),
+      },
+
+      {
+        name: "project",
+        Header: () => "Project",
+        Content: ({ nextStep, previousStep }: any) =>
+          ProjectCreateForm({
+            org_id: new URLSearchParams(window.location.search).get("org_id"),
+            previousHref: nextUrl(previousStep.name),
+            onSubmitted: ({ org_id, project_id }: any) =>
+              pushState(nextUrl(nextStep.name, { org_id, project_id })),
+          }),
+      },
+      {
+        name: "gitCredential",
+        Header: () => "Git Config",
+        Content: ({ nextStep, previousStep }: any) =>
+          GitConfig({
+            org_id: new URLSearchParams(window.location.search).get("org_id"),
+            project_id: new URLSearchParams(window.location.search).get(
+              "project_id"
+            ),
+            previousHref: nextUrl(previousStep.name),
+            onSubmitted: () => pushState(nextUrl(nextStep.name)),
+          }),
+      },
+      {
+        name: "workspace",
+        Header: () => "Workspace",
+        Content: ({ nextStep, previousStep }: any) =>
+          WorkspaceCreateForm({
+            org_id: new URLSearchParams(window.location.search).get("org_id"),
+            project_id: new URLSearchParams(window.location.search).get(
+              "project_id"
+            ),
+            previousHref: nextUrl(previousStep.name),
+            onSubmitted: ({ org_id, project_id, workspace_id }: any) =>
+              pushState(
+                nextUrl(nextStep.name, { org_id, project_id, workspace_id })
+              ),
+          }),
+      },
+      {
+        name: "cloud",
+        Header: () => "Cloud Provider",
+        Content: ({ nextStep, previousStep }: any) =>
+          CloudCreate({
+            org_id: new URLSearchParams(window.location.search).get("org_id"),
+            project_id: new URLSearchParams(window.location.search).get(
+              "project_id"
+            ),
+            workspace_id: new URLSearchParams(window.location.search).get(
+              "workspace_id"
+            ),
+            previousHref: nextUrl(previousStep.name),
+            onSubmitted: ({ org_id, project_id, workspace_id }: any) =>
+              pushState(
+                nextUrl(nextStep.name, { org_id, project_id, workspace_id })
+              ),
+          }),
+      },
+      {
+        name: "review",
+        Header: () => "Review",
+        Content: ({}: any) => "Review",
+      },
+    ];
+
+    return Stepper({ stepperDefs, stepperName });
   };
-
-  return function OrgCreatePage({}) {
-    return Page(
-      Form(
-        { onsubmit },
-        header(h1("Create a new organisation")),
-        p(
-          "A user can create or join an organisation. An organisation contains projects."
-        ),
-        OrgCreateContent({}),
-        footer(
-          LoadingButton(
-            { type: "submit", loading: stores.org.createQuery.loading },
-            "Create"
-          ),
-          ButtonBack()
-        )
-      )
-    );
-  };
-}
+};

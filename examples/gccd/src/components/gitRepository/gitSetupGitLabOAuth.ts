@@ -5,9 +5,9 @@ import chip from "@grucloud/bau-ui/chip";
 import spinner from "@grucloud/bau-ui/spinner";
 
 export default (context: Context) => {
-  const { bau, css, window, stores, config } = context;
-  const { section, div, h2, strong, p, input } = bau.tags;
-  const { authenticatedUserQuery, listRepoQuery } = stores.gitLab;
+  const { bau, window, stores, config } = context;
+  const { div, strong, p, input, fieldset, legend } = bau.tags;
+  const { authenticatedUserQuery } = stores.gitLab;
   const Button = button(context, { variant: "solid", color: "primary" });
   const Chip = chip(context);
   const Spinner = spinner(context);
@@ -34,24 +34,26 @@ export default (context: Context) => {
         )
     );
 
-  const InstallOAuthApp = ({ gitlabSearchParam }: any) =>
+  const InstallOAuthApp = () =>
     div(
       p("Not authorized to Gitlab"),
       Button(
         {
-          href: `${window.location.origin}${config.apiUrl}auth/gitlab?${gitlabSearchParam}`,
+          href: `${window.location.origin}${
+            config.apiUrl
+          }auth/gitlab?${new URLSearchParams({
+            nextPath: window.location.href,
+          }).toString()}`,
         },
         "Authenticate with GitLab"
       )
     );
 
   return function GitSetupGitLabOAuth(props: any) {
-    const { org_id } = props;
-    const redirect = `/org/${org_id}/git_credential/create?provider=gitlab&auth_type=oauth#setup`;
-
-    const gitlabSearchParam = new URLSearchParams({
-      nextPath: redirect,
-    }).toString();
+    const { org_id, project_id, onAuthenticated } = props;
+    console.assert(org_id);
+    console.assert(project_id);
+    console.assert(onAuthenticated);
 
     const access_token = getAccessToken({ window })(
       /gitlab-access-token=(.[^;]*)/gi
@@ -63,26 +65,19 @@ export default (context: Context) => {
 
     bau.derive(() => {
       const username = authenticatedUserQuery.data.val.username;
-      if (username && !listRepoQuery.data.val.length) {
+      if (username) {
         usernameState.val = username;
-        listRepoQuery.run({ username });
+        onAuthenticated({ username });
       }
     });
 
-    return section(
-      {
-        class: css`
-          display: flex;
-          flex-direction: column;
-          min-height: 200px;
-        `,
-      },
-      h2("GitLab OAuth"),
+    return fieldset(
+      legend("GitLab OAuth"),
       input({ type: "hidden", name: "username", value: usernameState }),
       Authenticating(),
       () =>
         authenticatedUserQuery.error.val || !access_token
-          ? InstallOAuthApp({ gitlabSearchParam })
+          ? InstallOAuthApp()
           : "",
       LoggedAs()
     );

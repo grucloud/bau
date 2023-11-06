@@ -16,6 +16,10 @@ import skeletonTable from "./skeleton-example-table.ts";
 // @ts-ignore
 import codeExampleTable from "./skeleton-example-table.ts?raw";
 
+import skeletonTabs from "./skeleton-example-tabs.ts";
+// @ts-ignore
+import codeExampleTabs from "./skeleton-example-tabs.ts?raw";
+
 export const skeletonSpec = {
   title: "Skeleton",
   package: "skeleton",
@@ -41,6 +45,12 @@ export const skeletonSpec = {
       description: "A table skeleton.",
       code: codeExampleTable,
       createComponent: skeletonTable,
+    },
+    {
+      title: "Tabs",
+      description: "A tabs skeleton.",
+      code: codeExampleTabs,
+      createComponent: skeletonTabs,
     },
   ],
   variantColorTableDisable: true,

@@ -5,15 +5,29 @@ import form from "@grucloud/bau-ui/form";
 
 import { Context } from "@grucloud/bau-ui/context";
 
-const stepperName = "my-wizard";
+const stepperName = "stepper-vertical";
 
 export default (context: Context) => {
-  const { bau, window } = context;
+  const { bau, window, css } = context;
   const { footer, p, label, section, a, ul, li } = bau.tags;
 
   const Input = input(context);
   const Form = form(context);
-  const Stepper = stepper(context);
+  const Stepper = stepper(context, {
+    class: css`
+      &.stepper {
+        flex-direction: row;
+        & > ul {
+          flex-direction: column;
+          & > li {
+            flex-direction: row;
+            gap: 0.5rem;
+            justify-content: space-around;
+          }
+        }
+      }
+    `,
+  });
   const nextUrl = NextUrl(context, stepperName);
   const ButtonPrevious = button(context, {
     variant: "outline",

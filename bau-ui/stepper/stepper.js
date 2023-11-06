@@ -111,60 +111,15 @@ export default function (context, options = {}) {
 
     const stepsCreatedState = bau.state([]);
 
-    const hashchange = () => {
-      const search = new URLSearchParams(window.location.search);
-      const stepNameInitial = search.get(stepperName) ?? stepperDefs[0].name;
-      const nextActiveStep = Math.max(
-        stepperDefs.findIndex(({ name }) => name == stepNameInitial),
-        0
-      );
-      // console.log(
-      //   "hashchange",
-      //   stepNameInitial,
-      //   " stepsCreatedState.val",
-      //   stepsCreatedState.val,
-      //   "nextActiveStep",
-      //   nextActiveStep
-      // );
-
-      if (nextActiveStep < activeStepIndex.val) {
-        console.log("remove last step");
-        stepsCreatedState.val.pop();
-      }
-
-      if (!stepsCreatedState.val.some(({ name }) => stepNameInitial == name)) {
-        console.log("add new step");
-        stepsCreatedState.val.push(stepperDefs[nextActiveStep]);
-      }
-      activeStepIndex.val = nextActiveStep;
-    };
-
-    hashchange();
-
     window.history.pushState = new Proxy(window.history.pushState, {
       apply: (target, thisArg, argArray) => {
         target.apply(thisArg, argArray);
-        console.log("stepper pushState");
-
         const url = argArray[2] ?? "";
+        console.log("stepper pushState ", url);
         if (["?", "#"].includes(url[0])) {
           hashchange();
         }
       },
-    });
-    document.addEventListener("click", (event) => {
-      const { target } = event;
-      const href = target.getAttribute("href");
-      if (target.tagName === "A" && href && ["?", "#"].includes(href[0])) {
-        console.log("stepper click");
-        //hashchange();
-        event.preventDefault();
-      }
-    });
-    //TODO bauMounted
-    window.addEventListener("popstate", (event) => {
-      //console.log("popstate");
-      hashchange();
     });
 
     const stepperCurrentState = bau.derive(
@@ -190,8 +145,35 @@ export default function (context, options = {}) {
     const getIndex = (step) =>
       stepperDefs.findIndex(({ name }) => name == step.name);
 
+    const hashchange = () => {
+      const search = new URLSearchParams(window.location.search);
+      const stepNameInitial = search.get(stepperName) ?? stepperDefs[0].name;
+      const nextActiveStep = Math.max(
+        stepperDefs.findIndex(({ name }) => name == stepNameInitial),
+        0
+      );
+      if (nextActiveStep < activeStepIndex.val) {
+        console.log("remove last step");
+        stepsCreatedState.val.pop();
+      }
+
+      if (!stepsCreatedState.val.some(({ name }) => stepNameInitial == name)) {
+        console.log("add new step");
+        stepsCreatedState.val.push(stepperDefs[nextActiveStep]);
+      }
+      activeStepIndex.val = nextActiveStep;
+    };
+
+    hashchange();
+
     return div(
       {
+        bauMounted: ({ element }) => {
+          window.addEventListener("popstate", hashchange);
+        },
+        bauUnmounted: () => {
+          window.removeEventListener("popstate", hashchange);
+        },
         class: classNames(
           "stepper",
           variant,

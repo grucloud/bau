@@ -18,9 +18,7 @@ import runStore from "./stores/runStore";
 
 import infraStores from "./stores/infraStore";
 import authStores from "./stores/authStore";
-import gitCredentialsStore from "./stores/gitCredentialsStore";
 
-import gitRepositoryStore from "./stores/gitRepositoryStore";
 import gitHubStore from "./stores/gitHubStore";
 import gitLabStore from "./stores/gitLabStore";
 
@@ -39,14 +37,12 @@ context.rest = rest(context);
 
 context.stores = {
   org: orgStore(context),
-  gitCredential: gitCredentialsStore(context),
   project: projectStore(context),
   workspace: workspaceStore(context),
   cloudAuthentication: cloudAuthenticationStore(context),
   run: runStore(context),
   infra: infraStores(context),
   auth: authStores(context),
-  gitRepository: gitRepositoryStore(context),
   gitHub: gitHubStore(context),
   gitLab: gitLabStore(context),
   router: routerStore(context),

@@ -15,7 +15,6 @@ export default (context: Context) => {
   const Input = input(context);
   const Form = form(context, {
     class: css`
-      align-items: center;
       & > header {
         text-align: center;
       }
@@ -41,8 +40,10 @@ export default (context: Context) => {
     const errorMessageState = bau.state("");
 
     const onsubmit = async (event: any) => {
-      const { username, password } = event.target.elements;
       event.preventDefault();
+      const { username, password } = Object.fromEntries(
+        new FormData(event.target.closest("form"))
+      );
       try {
         loadingState.val = true;
         const response = await fetch("/auth/login", {
@@ -51,8 +52,8 @@ export default (context: Context) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            username: username.value,
-            password: password.value,
+            username,
+            password,
           }),
         });
         if (response.ok) {

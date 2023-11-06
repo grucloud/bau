@@ -2,15 +2,15 @@ import { Context } from "@grucloud/bau-ui/context";
 import input from "@grucloud/bau-ui/input";
 
 export default (context: Context) => {
-  const { bau, css } = context;
-  const { label, section } = bau.tags;
+  const { bau } = context;
+  const { label } = bau.tags;
 
   const Input = input(context);
 
   return function GitRepositoryBranchGeneric(props: any) {
     const { repository_url, branch } = props;
 
-    const GitRepository = () =>
+    const GitRepository = ({}) =>
       label(
         "Repository URL",
         Input({
@@ -37,15 +37,6 @@ export default (context: Context) => {
         })
       );
 
-    return section(
-      {
-        class: css`
-          display: flex;
-          flex-direction: column;
-        `,
-      },
-      GitRepository(),
-      GitBranch({})
-    );
+    return [GitRepository(props), GitBranch(props)];
   };
 };

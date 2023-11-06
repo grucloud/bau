@@ -7,11 +7,10 @@ import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
 import page from "../../components/page";
 import orgDetailContent from "../../components/org/orgDetailContent";
 import projectList from "../../components/project/projectList";
-import gitCredentialList from "../../components/gitCredential/gitCredentialList";
 
 export default function (context: Context) {
   const { bau, stores, config } = context;
-  const { h2, div, a } = bau.tags;
+  const { h2, div } = bau.tags;
   const { getByIdQuery } = stores.org;
 
   const Page = page(context);
@@ -24,18 +23,16 @@ export default function (context: Context) {
 
   const OrgDetailContent = orgDetailContent(context);
   const ProjectList = projectList(context);
-  const GitCredentialList = gitCredentialList(context);
 
   return function OrgDetailPage(props: any) {
     const { org_id } = props;
     getByIdQuery.run(org_id);
     stores.project.getAllByOrgQuery.run({ org_id });
-    stores.gitCredential.getAllByOrgQuery.run({ org_id });
 
     const tabDefs: Tabs = [
       {
         name: "summary",
-        Header: () => a({ href: "#summary" }, "Organisation Details"),
+        Header: () => "Organisation Details",
         Content: () =>
           div(
             OrgDetailContent(getByIdQuery),
@@ -50,7 +47,7 @@ export default function (context: Context) {
       },
       {
         name: "projects",
-        Header: () => a({ href: "#projects" }, "Projects"),
+        Header: () => "Projects",
         Content: () =>
           div(
             ButtonAdd(
@@ -60,23 +57,6 @@ export default function (context: Context) {
               "+ New Project"
             ),
             div(ProjectList(stores.project.getAllByOrgQuery))
-          ),
-      },
-      {
-        name: "vcsProvider",
-        Header: () => a({ href: "#vcsProvider" }, "VCS Provider"),
-        Content: () =>
-          div(
-            h2("Git Connections"),
-            div(
-              ButtonAdd(
-                {
-                  href: `${config.base}/org/${org_id}/git_credential/create`,
-                },
-                "+ New Git Connections"
-              )
-            ),
-            GitCredentialList(stores.gitCredential.getAllByOrgQuery)
           ),
       },
     ];

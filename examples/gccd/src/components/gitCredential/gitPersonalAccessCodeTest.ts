@@ -34,12 +34,17 @@ export default (context: Context) => {
       );
     }
   };
-  return function GitPersonalAccessCodeTest(authenticatedUserQuery: any) {
-    const testCredential = (event: any) => {
+  return function GitPersonalAccessCodeTest({
+    onAuthenticated,
+    authenticatedUserQuery,
+  }: any) {
+    console.assert(onAuthenticated);
+    const testCredential = async (event: any) => {
       const form = event.target.closest("form");
       const { username, password } = form.elements;
       if (username.value && password.value) {
-        authenticatedUserQuery.run({ password: password.value });
+        await authenticatedUserQuery.run({ password: password.value });
+        onAuthenticated();
       }
     };
 

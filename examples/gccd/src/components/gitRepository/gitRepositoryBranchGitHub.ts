@@ -2,18 +2,18 @@ import { Context } from "@grucloud/bau-ui/context";
 import autocomplete from "@grucloud/bau-ui/autocomplete";
 
 export default (context: Context) => {
-  const { bau, stores, css } = context;
-  const { label, div, section } = bau.tags;
+  const { bau, stores } = context;
+  const { label, div } = bau.tags;
   const { listRepoQuery, listBranchesQuery } = stores.gitHub;
 
   const Autocomplete = autocomplete(context, { variant: "outline" });
 
   return function GitRepositoryBranchGitHub(props: any) {
     const { username, password } = props;
+    const branchState = bau.state(props.branch);
     if (username && !listRepoQuery.data.val.length) {
       listRepoQuery.run({ username, password });
     }
-
     const GitRepository = ({}: any) =>
       label("Repository URL", () =>
         Autocomplete({
@@ -41,7 +41,7 @@ export default (context: Context) => {
         })
       );
 
-    const GitBranch = ({ branch }: any) =>
+    const GitBranch = ({}: any) =>
       label("Branch", () =>
         Autocomplete({
           options: listBranchesQuery.data.val ?? [],
@@ -52,20 +52,15 @@ export default (context: Context) => {
           placeholder: "Search branches",
           name: "branch",
           required: true,
-          ...(branch && { defaultOption: { name: branch } }),
+          defaultOption: listBranchesQuery.data.val.find(
+            ({ name }: any) => name == branchState.val
+          ),
           loading: listBranchesQuery.loading.val,
+          onSelect: (item: any) => {
+            branchState.val = item.name;
+          },
         })
       );
-
-    return section(
-      {
-        class: css`
-          display: flex;
-          flex-direction: column;
-        `,
-      },
-      GitRepository({}),
-      GitBranch(props)
-    );
+    return [GitRepository(props), GitBranch(props)];
   };
 };

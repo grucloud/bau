@@ -4,22 +4,40 @@ import gitPersonalAccessCodeTest from "./gitPersonalAccessCodeTest";
 import gitLabStore from "../../stores/gitLabStore";
 
 export default (context: Context) => {
-  const { bau } = context;
-  const { section, label, small, a, h2 } = bau.tags;
+  const { bau, css } = context;
+  const { label, small, a, fieldset, legend } = bau.tags;
   const { authenticatedUserQuery } = gitLabStore(context);
 
   const Input = input(context);
   const GitPersonalAccessCodeTest = gitPersonalAccessCodeTest(context);
 
   return function gitPersonalAccessCodeGitLab(props: any) {
-    const { org_id } = props;
+    const { org_id, project_id, onAuthenticated } = props;
+    console.assert(org_id);
+    console.assert(project_id);
+    console.assert(onAuthenticated);
+
     const search = new URLSearchParams({
       scopes: "api,read_user",
-      name: `Organisation ${org_id} by GruCloud`,
+      name: `Project ${project_id} on organisation ${org_id} by GruCloud`,
     }).toString();
 
-    return section(
-      h2("GitLab Personal Access Code"),
+    bau.derive(() => {
+      const username = authenticatedUserQuery.data.val.username;
+      if (username) {
+        onAuthenticated({ username });
+      }
+    });
+
+    return fieldset(
+      {
+        class: css`
+          display: inline-flex;
+          flex-direction: column;
+          gap: 1rem;
+        `,
+      },
+      legend("GitLab Personal Access Code"),
       label(
         "Gitlab Username",
         Input({
@@ -30,6 +48,7 @@ export default (context: Context) => {
           minLength: 3,
           maxLength: 128,
           required: true,
+          defaultValue: props.username,
         })
       ),
       label(
@@ -41,6 +60,7 @@ export default (context: Context) => {
           autocomplete: "current-password",
           minLength: 8,
           required: true,
+          defaultValue: props.password,
         }),
         small(
           a(
@@ -52,7 +72,8 @@ export default (context: Context) => {
           )
         )
       ),
-      () => GitPersonalAccessCodeTest(authenticatedUserQuery)
+      () =>
+        GitPersonalAccessCodeTest({ onAuthenticated, authenticatedUserQuery })
     );
   };
 };

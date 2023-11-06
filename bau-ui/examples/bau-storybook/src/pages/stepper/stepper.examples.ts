@@ -8,6 +8,10 @@ import stepperDefault from "./stepper-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./stepper-example-default.ts?raw";
 
+import stepperVertical from "./stepper-vertical.ts";
+// @ts-ignore
+import codeExampleVertical from "./stepper-vertical.ts?raw";
+
 //import stepperCloudConfig from "./stepper-cloud-config.ts";
 // @ts-ignore
 //import codeExampleCloudConfig from "./stepper-cloud-config.ts?raw";
@@ -22,10 +26,16 @@ export const stepperSpec = {
   importStatement: `import stepper from "@grucloud/bau-ui/stepper";`,
   examples: [
     {
-      title: "Simple Stepper",
-      description: "A simple stepper.",
+      title: "Horizontal Stepper",
+      description: "A simple horizontal stepper.",
       code: codeExampleDefault,
       createComponent: stepperDefault,
+    },
+    {
+      title: "Vertical Stepper",
+      description: "A simple vertical stepper.",
+      code: codeExampleVertical,
+      createComponent: stepperVertical,
     },
     // {
     //   title: "Cloud Config Stepper",

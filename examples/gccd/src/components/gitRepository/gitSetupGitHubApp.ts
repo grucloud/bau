@@ -6,11 +6,18 @@ import spinner from "@grucloud/bau-ui/spinner";
 
 export default (context: Context) => {
   const { bau, css, window, stores } = context;
-  const { section, div, h2, strong, a, p, input } = bau.tags;
-  const { authenticatedUserQuery, listRepoQuery } = stores.gitHub;
+  const { div, strong, a, p, input, fieldset, legend } = bau.tags;
+  const { authenticatedUserQuery } = stores.gitHub;
   const Button = button(context, { variant: "solid", color: "primary" });
   const Chip = chip(context);
   const Spinner = spinner(context);
+
+  const githubSearchParam = () =>
+    new URLSearchParams({
+      state: JSON.stringify({
+        redirect: window.location.href,
+      }),
+    }).toString();
 
   const Authenticating = () => () =>
     authenticatedUserQuery.loading.val
@@ -34,36 +41,33 @@ export default (context: Context) => {
         )
     );
 
-  const InstallApp = ({ githubSearchParam }: any) =>
+  const InstallApp = () =>
     div(
       p("The GitHub App is not installed yet"),
       Button(
         {
-          href: `https://github.com/apps/grucloud-console-dev/installations/new?${githubSearchParam}`,
+          href: `https://github.com/apps/grucloud-console-dev/installations/new?${githubSearchParam()}`,
         },
         `Install the GitHub App`
       )
     );
-  const Reconfigure = ({ githubSearchParam }: any) =>
+  const Reconfigure = () =>
     div(
       p(
         "Need to allow and deny access to specific repositories ? ",
         a(
           {
-            href: `https://github.com/apps/grucloud-console-dev/installations/new?${githubSearchParam}`,
+            href: `https://github.com/apps/grucloud-console-dev/installations/new?${githubSearchParam()}`,
           },
           `Reconfigure the GitHub App`
         )
       )
     );
   return function GitSetupGitHubApp(props: any) {
-    const { org_id } = props;
-    const redirect = `/org/${org_id}/git_credential/create?provider=github&auth_type=githubapp#setup`;
-    const githubSearchParam = new URLSearchParams({
-      state: JSON.stringify({
-        redirect,
-      }),
-    }).toString();
+    const { org_id, project_id, onAuthenticated } = props;
+    console.assert(org_id);
+    console.assert(project_id);
+    console.assert(onAuthenticated);
 
     const access_token = getAccessToken({ window })(
       /github-access-token=(.[^;]*)/gi
@@ -74,31 +78,26 @@ export default (context: Context) => {
     const usernameState = bau.state("");
     bau.derive(() => {
       const username = authenticatedUserQuery.data.val.login;
-      if (username && !listRepoQuery.data.val.length) {
+      if (username) {
         usernameState.val = username;
-        listRepoQuery.run({ username });
+        onAuthenticated({ username });
       }
     });
 
-    return section(
+    return fieldset(
       {
         class: css`
           display: flex;
           flex-direction: column;
-          min-height: 200px;
         `,
       },
-      h2("GitHub App Authorization"),
+      legend("GitHub App Authorization"),
       input({ type: "hidden", name: "username", value: usernameState }),
       Authenticating(),
       () =>
-        authenticatedUserQuery.error.val || !access_token
-          ? InstallApp({ githubSearchParam })
-          : "",
+        authenticatedUserQuery.error.val || !access_token ? InstallApp() : "",
       LoggedAs(),
-      () =>
-        authenticatedUserQuery.data.val.login &&
-        Reconfigure({ githubSearchParam })
+      () => authenticatedUserQuery.data.val.login && Reconfigure()
     );
   };
 };
