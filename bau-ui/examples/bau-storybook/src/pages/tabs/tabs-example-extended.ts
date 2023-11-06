@@ -7,14 +7,14 @@ export default (context: Context) => {
   const tabDefs = [
     {
       name: "Tab1",
-      Header: () => div("TAB 1"),
+      Header: () => "TAB 1",
       Content: () => div(p("My Content")),
       enter: async () => console.log("tab1 enter"),
       exit: async () => console.log("tab1 exit"),
     },
     {
       name: "Tab2",
-      Header: () => div("TAB 2"),
+      Header: () => "TAB 2",
       Content: () => div(p("My TAB 2 Content")),
       enter: async () => console.log("tab2 enter"),
       exit: async () => console.log("tab2 exit"),
@@ -22,7 +22,8 @@ export default (context: Context) => {
     {
       name: "Tab Disabled",
       disabled: true,
-      Header: () => div("Tab Disabled"),
+      Header: () => "Tab Disabled",
+
       Content: () => div(p("My Content Disabled")),
     },
   ];
