@@ -12,6 +12,13 @@ export default (context: Context) => {
   const Chip = chip(context);
   const Spinner = spinner(context);
 
+  const githubSearchParam = () =>
+    new URLSearchParams({
+      state: JSON.stringify({
+        redirect: window.location.href,
+      }),
+    }).toString();
+
   const Authenticating = () => () =>
     authenticatedUserQuery.loading.val
       ? div(
@@ -34,23 +41,23 @@ export default (context: Context) => {
         )
     );
 
-  const InstallApp = ({ githubSearchParam }: any) =>
+  const InstallApp = () =>
     div(
       p("The GitHub App is not installed yet"),
       Button(
         {
-          href: `https://github.com/apps/grucloud-console-dev/installations/new?${githubSearchParam}`,
+          href: `https://github.com/apps/grucloud-console-dev/installations/new?${githubSearchParam()}`,
         },
         `Install the GitHub App`
       )
     );
-  const Reconfigure = ({ githubSearchParam }: any) =>
+  const Reconfigure = () =>
     div(
       p(
         "Need to allow and deny access to specific repositories ? ",
         a(
           {
-            href: `https://github.com/apps/grucloud-console-dev/installations/new?${githubSearchParam}`,
+            href: `https://github.com/apps/grucloud-console-dev/installations/new?${githubSearchParam()}`,
           },
           `Reconfigure the GitHub App`
         )
@@ -61,12 +68,6 @@ export default (context: Context) => {
     console.assert(org_id);
     console.assert(project_id);
     console.assert(onAuthenticated);
-
-    const githubSearchParam = new URLSearchParams({
-      state: JSON.stringify({
-        redirect: window.location.href,
-      }),
-    }).toString();
 
     const access_token = getAccessToken({ window })(
       /github-access-token=(.[^;]*)/gi
@@ -94,13 +95,9 @@ export default (context: Context) => {
       input({ type: "hidden", name: "username", value: usernameState }),
       Authenticating(),
       () =>
-        authenticatedUserQuery.error.val || !access_token
-          ? InstallApp({ githubSearchParam })
-          : "",
+        authenticatedUserQuery.error.val || !access_token ? InstallApp() : "",
       LoggedAs(),
-      () =>
-        authenticatedUserQuery.data.val.login &&
-        Reconfigure({ githubSearchParam })
+      () => authenticatedUserQuery.data.val.login && Reconfigure()
     );
   };
 };

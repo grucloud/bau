@@ -10,10 +10,10 @@ export default (context: Context) => {
 
   return function GitRepositoryBranchGitHub(props: any) {
     const { username, password } = props;
+    const branchState = bau.state(props.branch);
     if (username && !listRepoQuery.data.val.length) {
       listRepoQuery.run({ username, password });
     }
-
     const GitRepository = ({}: any) =>
       label("Repository URL", () =>
         Autocomplete({
@@ -41,7 +41,7 @@ export default (context: Context) => {
         })
       );
 
-    const GitBranch = ({ branch }: any) =>
+    const GitBranch = ({}: any) =>
       label("Branch", () =>
         Autocomplete({
           options: listBranchesQuery.data.val ?? [],
@@ -52,11 +52,15 @@ export default (context: Context) => {
           placeholder: "Search branches",
           name: "branch",
           required: true,
-          ...(branch && { defaultOption: { name: branch } }),
+          defaultOption: listBranchesQuery.data.val.find(
+            ({ name }: any) => name == branchState.val
+          ),
           loading: listBranchesQuery.loading.val,
+          onSelect: (item: any) => {
+            branchState.val = item.name;
+          },
         })
       );
-
     return [GitRepository(props), GitBranch(props)];
   };
 };

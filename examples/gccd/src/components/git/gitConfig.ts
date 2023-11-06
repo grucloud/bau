@@ -62,11 +62,11 @@ export default function (context: Context) {
 
   const oninputRadio = (radioState: any) => (event: any) => {
     //console.log("oninputRadio", event.target.id, event.target.name);
-    radioState.val = event.target.id;
     const search = new URLSearchParams(window.location.search);
     search.delete(event.target.name);
     search.append(event.target.name, event.target.id);
     window.history.pushState("", "", `?${search.toString()}`);
+    radioState.val = event.target.id;
   };
 
   const GithubImg = () =>
@@ -200,16 +200,18 @@ export default function (context: Context) {
   };
 
   return function gitConfig(props: any) {
-    const { org_id, project_id, previousHref } = props;
+    const { org_id, project_id, previousHref, edit } = props;
     console.assert(org_id);
     console.assert(project_id);
-
     const search = new URLSearchParams(window.location.search);
 
-    const radioStateProviderType = bau.state(search.get("git_provider_type"));
-    const radioStateAuthType = bau.state(search.get("git_auth_type"));
+    const radioStateProviderType = bau.state(
+      search.get("git_provider_type") ?? props.git_provider_type
+    );
+    const radioStateAuthType = bau.state(
+      search.get("git_auth_type") ?? props.git_auth_type
+    );
     const isAuthenticatedState = bau.state(false);
-
     return Form(
       {
         onsubmit: onsubmit(props),
@@ -246,19 +248,21 @@ export default function (context: Context) {
           render:
             ({ element }) =>
             (isAuthenticated, git_provider_type) => {
-              if (isAuthenticated) {
+              if (element && isAuthenticated) {
                 const formEl = element.closest("form");
                 if (!formEl) return;
                 const formData = new FormData(formEl);
                 const username = formData.get("username");
                 const password = formData.get("password");
                 return GitRepositoryBranch({
+                  ...props,
                   git_provider_type,
                   username,
                   password,
                 });
+              } else if (edit) {
+                return GitRepositoryBranch(props);
               }
-              return undefined;
             },
         })
       ),

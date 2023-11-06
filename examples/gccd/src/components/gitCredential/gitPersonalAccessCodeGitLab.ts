@@ -48,6 +48,7 @@ export default (context: Context) => {
           minLength: 3,
           maxLength: 128,
           required: true,
+          defaultValue: props.username,
         })
       ),
       label(
@@ -59,6 +60,7 @@ export default (context: Context) => {
           autocomplete: "current-password",
           minLength: 8,
           required: true,
+          defaultValue: props.password,
         }),
         small(
           a(

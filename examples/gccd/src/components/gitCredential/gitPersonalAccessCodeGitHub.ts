@@ -40,6 +40,7 @@ export default (context: Context) => {
           autocomplete: "username",
           minLength: 3,
           maxLength: 128,
+          defaultValue: props.username,
           siwe: 40,
           required: true,
         })
@@ -51,6 +52,7 @@ export default (context: Context) => {
           type: "password",
           name: "password",
           autocomplete: "current-password",
+          defaultValue: props.password,
           minLength: 8,
           required: true,
         }),

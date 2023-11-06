@@ -6,6 +6,14 @@ import formDefault from "./form-login.ts";
 // @ts-ignore
 import codeExampleForm from "./form-login.ts?raw";
 
+import formSimple from "./form-simple.ts";
+// @ts-ignore
+import codeExampleSimple from "./form-simple.ts?raw";
+
+import formSimpleState from "./form-simple-state.ts";
+// @ts-ignore
+import codeExampleSimpleState from "./form-simple-state.ts?raw";
+
 export const formSpec = {
   title: "Form",
   package: "form",
@@ -14,6 +22,18 @@ export const formSpec = {
     "https://github.com/grucloud/bau/blob/main/bau-ui/form/form.js",
   importStatement: `import form from "@grucloud/bau-ui/form";`,
   examples: [
+    {
+      title: "Simple form",
+      description: "A simple form.",
+      code: codeExampleSimple,
+      createComponent: formSimple,
+    },
+    {
+      title: "Form with state",
+      description: "A form with input state and a dervied state.",
+      code: codeExampleSimpleState,
+      createComponent: formSimpleState,
+    },
     {
       title: "Login page",
       description: "A login page.",

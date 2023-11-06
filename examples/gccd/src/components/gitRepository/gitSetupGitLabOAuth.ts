@@ -34,12 +34,16 @@ export default (context: Context) => {
         )
     );
 
-  const InstallOAuthApp = ({ gitlabSearchParam }: any) =>
+  const InstallOAuthApp = () =>
     div(
       p("Not authorized to Gitlab"),
       Button(
         {
-          href: `${window.location.origin}${config.apiUrl}auth/gitlab?${gitlabSearchParam}`,
+          href: `${window.location.origin}${
+            config.apiUrl
+          }auth/gitlab?${new URLSearchParams({
+            nextPath: window.location.href,
+          }).toString()}`,
         },
         "Authenticate with GitLab"
       )
@@ -50,10 +54,6 @@ export default (context: Context) => {
     console.assert(org_id);
     console.assert(project_id);
     console.assert(onAuthenticated);
-
-    const gitlabSearchParam = new URLSearchParams({
-      nextPath: window.location.href,
-    }).toString();
 
     const access_token = getAccessToken({ window })(
       /gitlab-access-token=(.[^;]*)/gi
@@ -77,7 +77,7 @@ export default (context: Context) => {
       Authenticating(),
       () =>
         authenticatedUserQuery.error.val || !access_token
-          ? InstallOAuthApp({ gitlabSearchParam })
+          ? InstallOAuthApp()
           : "",
       LoggedAs()
     );

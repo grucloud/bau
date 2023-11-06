@@ -9,8 +9,8 @@ import gitConfig from "../../components/git/gitConfig";
 import tabsSkeleton from "../../components/tabsSkeleton";
 
 export default function (context: Context) {
-  const { bau, stores, config } = context;
-  const { h1, h2, div, a, p, strong } = bau.tags;
+  const { bau, stores, config, css } = context;
+  const { h1, h2, div, a, p, strong, section } = bau.tags;
   const { getByIdQuery } = stores.project;
 
   const Page = page(context);
@@ -34,16 +34,19 @@ export default function (context: Context) {
         name: "workspaces",
         Header: () => "Workspaces",
         Content: () =>
-          div(
-            div(
-              ButtonAddWorkspace(
-                {
-                  href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/create`,
-                },
-                "+ New Workspace"
-              ),
-              div(() => WorkspaceList(stores.workspace.getAllByProject))
-            )
+          section(
+            {
+              class: css`
+                margin-top: 1rem;
+              `,
+            },
+            ButtonAddWorkspace(
+              {
+                href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/create`,
+              },
+              "+ New Workspace"
+            ),
+            div(() => WorkspaceList(stores.workspace.getAllByProject))
           ),
       },
       {
@@ -51,21 +54,16 @@ export default function (context: Context) {
         Header: () => "Source Code",
         Content: ({}: any) =>
           GitConfig({
-            org_id,
-            project_id,
-            previousHref: "",
-            getByIdQuery,
-            onSubmitted: () => {
-              //TODO
-              debugger;
-            },
+            edit: true,
+            ...getByIdQuery.data.val,
+            onSubmitted: () => {},
           }),
       },
       {
         name: "summary",
         Header: () => "Project Summary",
         Content: () =>
-          div(
+          section(
             ProjectDetailContent(getByIdQuery),
             h2("Danger Zone"),
             ButtonDelete(
