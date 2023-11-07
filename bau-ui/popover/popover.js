@@ -22,9 +22,6 @@ export default function (context, options) {
     padding: 0rem;
     margin: 0rem;
     transition: opacity 0.3s ease-in-out;
-    &::backdrop {
-      background: var(--background-color);
-    }
     opacity: 0;
   `;
 
@@ -66,8 +63,10 @@ export default function (context, options) {
       {
         role: "presentation",
         class: classNames("popover", className, options?.class, props?.class),
-        onclick: (event) =>
-          event.target === dialogEl && (closeDialog(), onClose?.call()),
+        onclick: (event) => {
+          event.stopPropagation();
+          event.target === dialogEl && (closeDialog(), onClose?.call());
+        },
       },
       Paper(contentEl)
     );

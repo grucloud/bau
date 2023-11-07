@@ -111,6 +111,8 @@ export default function (context) {
             data: { name: "Loading Button", href: "/components/loadingButton" },
           },
           { data: { name: "Modal", href: "/components/modal" } },
+          { data: { name: "Multi Select", href: "/components/multiSelect" } },
+
           { data: { name: "Paper", href: "/components/paper" } },
           {
             data: {
