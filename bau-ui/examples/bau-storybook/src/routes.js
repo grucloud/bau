@@ -31,6 +31,8 @@ import linearProgressExamples from "./pages/linearProgress/linearProgress.exampl
 import loadingButtonExamples from "./pages/loadingButton/loadingButton.examples";
 import listExamples from "./pages/list/list.examples";
 import modalExamples from "./pages/modal/modal.examples";
+import multiSelectExamples from "./pages/multiSelect/multiSelect.examples";
+
 import popoverExamples from "./pages/popover/popover.examples";
 import paginationNavigationExamples from "./pages/paginationNavigation/paginationNavigation.examples";
 import paperExamples from "./pages/paper/paper.examples";
@@ -268,6 +270,14 @@ export const createRoutes = ({ context }) => {
             component: modalExamples(context),
           }),
         },
+        {
+          path: "multiSelect",
+          action: () => ({
+            title: "Multi Select",
+            component: multiSelectExamples(context),
+          }),
+        },
+        //
         {
           path: "paginationNavigation",
           action: () => ({

@@ -72,7 +72,6 @@ export default function (context, options = {}) {
 
     return input({
       type: "checkbox",
-      required: "required",
       ...props,
       class: classNames(
         className,
