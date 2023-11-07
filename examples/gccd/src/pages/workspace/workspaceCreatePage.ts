@@ -1,57 +1,65 @@
 import { Context } from "@grucloud/bau-ui/context";
-import loadingButton from "@grucloud/bau-ui/loadingButton";
+import stepper, { NextUrl, type StepperPage } from "@grucloud/bau-ui/stepper";
 
-import form from "@grucloud/bau-ui/form";
-import buttonBack from "../../components/buttonBack";
-import page from "../../components/page";
-import workspaceCreateContent from "../../components/workspace/workspaceCreateContent";
+import workspaceCreateForm from "../../components/workspace/workspaceCreateForm";
+import cloudCreate from "../../components/cloudAuthentication/cloudCreate";
 
-export default function (context: Context) {
-  const { bau, stores, config, window } = context;
-  const { h1, p, header, footer } = bau.tags;
-  const ButtonBack = buttonBack(context);
-  const LoadingButton = loadingButton(context, {
-    color: "primary",
-    variant: "solid",
-  });
-  const Page = page(context);
-  const Form = form(context);
+const stepperName = "wizardWorkspace";
 
-  const WorkspaceCreateContent = workspaceCreateContent(context);
+export default (context: Context) => {
+  const { window } = context;
 
-  return function WorkspaceCreatePage({ org_id, project_id }: any) {
-    const onsubmit = async (event: any) => {
-      event.preventDefault();
-      const { workspace_id } = event.target.elements;
+  const pushState = (url: string) => window.history.pushState("", "", url);
 
-      const {} = await stores.workspace.createQuery.run(
-        { org_id, project_id },
-        {
-          workspace_id: workspace_id.value,
-        }
-      );
+  const nextUrl = NextUrl(context, stepperName);
+  const Stepper = stepper(context);
 
-      window.history.pushState(
-        "",
-        "",
-        `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id.value}`
-      );
-    };
+  const WorkspaceCreateForm = workspaceCreateForm(context);
+  const CloudCreate = cloudCreate(context);
 
-    return Page(
-      Form(
-        { onsubmit },
-        header(h1("Create a new workspace")),
-        p(),
-        WorkspaceCreateContent({}),
-        footer(
-          LoadingButton(
-            { type: "submit", loading: stores.workspace.createQuery.loading },
-            "Create"
-          ),
-          ButtonBack()
-        )
-      )
-    );
+  return function WorkspaceCreatePage(props: any) {
+    const { org_id, project_id } = props;
+    console.assert(org_id);
+    console.assert(project_id);
+
+    const stepperDefs: StepperPage[] = [
+      {
+        name: "workspace",
+        Header: () => "Workspace",
+        Content: ({ nextStep }: any) =>
+          WorkspaceCreateForm({
+            org_id,
+            project_id,
+            onSubmitted: ({ org_id, project_id, workspace_id }: any) =>
+              pushState(
+                nextUrl(nextStep.name, { org_id, project_id, workspace_id })
+              ),
+          }),
+      },
+      {
+        name: "cloud",
+        Header: () => "Cloud Provider",
+        Content: ({ nextStep, previousStep }: any) =>
+          CloudCreate({
+            org_id,
+            project_id,
+            workspace_id: new URLSearchParams(window.location.search).get(
+              "workspace_id"
+            ),
+            previousHref: nextUrl(previousStep.name),
+            onSubmitted: ({ org_id, project_id, workspace_id }: any) =>
+              pushState(
+                nextUrl(nextStep.name, { org_id, project_id, workspace_id })
+              ),
+          }),
+      },
+      {
+        name: "review",
+        Header: () => "Review",
+        Content: ({}: any) => "Review",
+      },
+    ];
+
+    return Stepper({ stepperDefs, stepperName });
   };
-}
+};

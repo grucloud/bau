@@ -56,7 +56,6 @@ export default function (context: Context) {
       Form(
         { onsubmit },
         header(h1("Edit the AWS Profile")),
-        p(),
         () =>
           stores.cloudAuthentication.getByIdQuery.data.val &&
           ConfigAwsFormContent(

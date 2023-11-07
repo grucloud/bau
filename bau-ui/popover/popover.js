@@ -64,7 +64,6 @@ export default function (context, options) {
         role: "presentation",
         class: classNames("popover", className, options?.class, props?.class),
         onclick: (event) => {
-          event.stopPropagation();
           event.target === dialogEl && (closeDialog(), onClose?.call());
         },
       },
