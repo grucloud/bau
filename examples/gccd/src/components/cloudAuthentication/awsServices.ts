@@ -36,7 +36,6 @@ export default (context: Context) => {
 
   return function AwsServices(props: any) {
     const { SERVICES } = props;
-    debugger;
     const selectedGroupState = bau.state(SERVICES ?? DefaultServices);
     const searchInputState = bau.state("");
     const servicesState = bau.derive(() => {
