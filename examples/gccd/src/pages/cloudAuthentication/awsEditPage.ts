@@ -11,7 +11,7 @@ import configAwsFormContent, {
 
 export default function (context: Context) {
   const { bau, stores, config, window } = context;
-  const { h1, p, header, footer } = bau.tags;
+  const { h1, header, footer } = bau.tags;
   const ButtonBack = buttonBack(context);
   const LoadingButton = loadingButton(context, {
     color: "primary",

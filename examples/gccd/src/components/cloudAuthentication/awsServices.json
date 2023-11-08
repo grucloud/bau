@@ -1,0 +1,19 @@
+[
+  { "group": "EC2", "category": "Essentials" },
+  { "group": "ECS", "category": "Essentials" },
+  { "group": "KMS", "category": "Essentials" },
+  { "group": "Lambda", "category": "Essentials" },
+  { "group": "Route53", "category": "Essentials" },
+  { "group": "S3", "category": "Essentials" },
+  { "group": "DocDB", "category": "Database" },
+  { "group": "DocDBElastic", "category": "Database" },
+  { "group": "ElastiCache", "category": "Database" },
+  { "group": "Keyspaces", "category": "Database" },
+  { "group": "MQ", "category": "Database" },
+  { "group": "QLDB", "category": "Database" },
+  { "group": "RDS", "category": "Database" },
+  { "group": "QuickSight", "category": "Data" },
+  { "group": "GuardDuty", "category": "Security" },
+  { "group": "SecurityHub", "category": "Security" },
+  { "group": "FSx", "category": "Storage" }
+]

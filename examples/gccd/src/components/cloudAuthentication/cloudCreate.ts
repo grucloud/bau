@@ -21,6 +21,9 @@ export default function (context: Context) {
       flex-direction: row;
       gap: 1rem;
       &.stepper {
+        > section {
+          flex-grow: 1;
+        }
         & > ul {
           flex-direction: column;
           & > li {

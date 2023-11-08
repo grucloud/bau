@@ -20,7 +20,7 @@ export default function (context, options = {}) {
       cursor: pointer;
     }
     &.sm {
-      padding: 0.2rem;
+      padding: 0rem 0.4rem;
     }
     &.md {
       padding: 0.2rem 0.5rem;
