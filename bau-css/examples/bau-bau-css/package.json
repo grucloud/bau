@@ -1,7 +1,7 @@
 {
   "name": "bau-bau-css",
   "description": "Example on how to use bau-css with bau",
-  "version": "0.58.0",
+  "version": "0.59.0",
   "private": true,
   "type": "module",
   "license": "BSD",
@@ -23,8 +23,8 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.58.0",
-    "@grucloud/bau-css": "^0.58.0"
+    "@grucloud/bau": "^0.59.0",
+    "@grucloud/bau-css": "^0.59.0"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "0.32.0",
