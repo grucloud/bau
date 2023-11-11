@@ -35,8 +35,6 @@ export default function (context, options = {}) {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    min-width: 2rem;
-    min-height: 2rem;
     border: none;
     border-radius: var(--global-radius);
     font-weight: var(--font-weight-semibold);
@@ -71,9 +69,13 @@ export default function (context, options = {}) {
     }
     &.md {
       padding: 0.2rem 0.8rem;
+      min-width: 2rem;
+      min-height: 2rem;
     }
     &.lg {
       padding: 0.4rem 2rem;
+      min-width: 2.5rem;
+      min-height: 2.5rem;
     }
     & i {
       font-style: normal;

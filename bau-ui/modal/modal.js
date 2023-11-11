@@ -29,17 +29,17 @@ export default function (context, options = {}) {
     background-color: var(--background-color);
     border-radius: var(--global-radius);
     min-width: 400px;
-    padding: 1rem;
     border: 0px;
     > div {
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      max-height: 90vh;
-      max-width: 95vw;
+      max-height: 96vh;
+      max-width: 96vw;
       & > header {
-        font-size: 1.5rem;
-        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
       }
       & > main,
       > section {
@@ -52,6 +52,16 @@ export default function (context, options = {}) {
         padding: 1rem;
         gap: 1rem;
       }
+    }
+    &.sm {
+      max-height: 50vh;
+      max-width: 50vw;
+    }
+    &.md {
+    }
+    &.lg {
+      height: 96vh;
+      width: 96vw;
     }
 
     ${colorsToCss()}
@@ -80,7 +90,7 @@ export default function (context, options = {}) {
           props?.class
         ),
       },
-      div(...children)
+      div(children)
     );
   };
 }

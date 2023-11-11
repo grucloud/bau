@@ -37,8 +37,8 @@ export default function (context, options = {}) {
       opacity: 0;
     }
     &.sm {
-      width: 1.3rem;
-      height: 1.3rem;
+      width: 1rem;
+      height: 1rem;
     }
     &.sm::after {
       font-size: 0.9rem;

@@ -6,7 +6,7 @@ import gitConfig from "../../components/git/gitConfig";
 import workspaceCreateForm from "../../components/workspace/workspaceCreateForm";
 import cloudCreate from "../../components/cloudAuthentication/cloudCreate";
 
-const stepperName = "wizard";
+const stepperName = "wizardProject";
 
 export default (context: Context) => {
   const { window } = context;

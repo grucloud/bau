@@ -1,9 +1,13 @@
-import input from "@grucloud/bau-ui/input";
+import pipe from "rubico/pipe";
+import map from "rubico/map";
+import filter from "rubico/filter";
 
 import { Context } from "@grucloud/bau-ui/context";
+import input from "@grucloud/bau-ui/input";
 import radioButton from "@grucloud/bau-ui/radioButton";
 
 import selectAwsRegion from "./selectAwsRegion";
+import awsServices from "./awsServices";
 
 type ConfigAwsFormContentProp = {
   AWSAccessKeyId?: string;
@@ -11,7 +15,15 @@ type ConfigAwsFormContentProp = {
   GRUCLOUD_ROLE_WEB_IDENTITY_ARN?: string;
   AWS_OAUTH_AUDIENCE?: string;
   AWS_REGION?: string;
+  SERVICES?: string[];
 };
+
+const checkboxArrayService = pipe([
+  Object.entries,
+  filter(([key]: any) => key.startsWith("checkbox")),
+  map(([k]: any) => k.replace("checkbox-", "")),
+]);
+
 export const awsFormElementToData = (event: any) => {
   const {
     AWSAccessKeyId,
@@ -20,19 +32,25 @@ export const awsFormElementToData = (event: any) => {
     GRUCLOUD_ROLE_WEB_IDENTITY_ARN,
     AWS_OAUTH_AUDIENCE,
   } = event.target.elements;
+
+  const payload = Object.fromEntries(
+    new FormData(event.target.closest("form"))
+  );
+
   return {
     AWSAccessKeyId: AWSAccessKeyId?.value.trim(),
     AWSSecretKey: AWSSecretKey?.value,
     AWS_REGION: AWS_REGION.value,
     GRUCLOUD_ROLE_WEB_IDENTITY_ARN: GRUCLOUD_ROLE_WEB_IDENTITY_ARN?.value,
     AWS_OAUTH_AUDIENCE: AWS_OAUTH_AUDIENCE?.value,
+    SERVICES: checkboxArrayService(payload),
   };
 };
 
 export default (context: Context) => {
   const { bau, css } = context;
   const { section, label, fieldset, legend, header, small } = bau.tags;
-
+  const AwsServices = awsServices(context);
   const Input = input(context);
   const RadioButton = radioButton(context);
 
@@ -110,6 +128,7 @@ export default (context: Context) => {
     AWS_REGION,
     GRUCLOUD_ROLE_WEB_IDENTITY_ARN,
     AWS_OAUTH_AUDIENCE,
+    SERVICES,
   }: ConfigAwsFormContentProp) {
     const radioState = bau.state(AWSAccessKeyId ? "accessKey" : "role");
 
@@ -117,6 +136,14 @@ export default (context: Context) => {
       radioState.val = event.target.id;
     };
     return section(
+      fieldset(
+        legend("Region"),
+        SelectAwsRegion({
+          name: "AWS_REGION",
+          value: AWS_REGION,
+        })
+      ),
+      AwsServices({ SERVICES }),
       fieldset(
         {
           class: css`
@@ -127,8 +154,12 @@ export default (context: Context) => {
             & header {
               display: inline-flex;
               justify-content: flex-start;
+              gap: 1rem;
               & label {
                 flex-direction: row;
+                border: 1px dotted var(--color-emphasis-500);
+                border-radius: var(--global-radius);
+                padding: 0.4rem;
               }
             }
           `,
@@ -163,14 +194,6 @@ export default (context: Context) => {
                 AWS_OAUTH_AUDIENCE,
               })
             : AccessSecretKeySection({ AWSAccessKeyId, AWSSecretKey })
-      ),
-
-      label(
-        "Region",
-        SelectAwsRegion({
-          name: "AWS_REGION",
-          value: AWS_REGION,
-        })
       )
     );
   };

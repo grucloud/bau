@@ -20,7 +20,7 @@ export default function (context: Context) {
       font-size: 1.2rem;
       line-height: 1.3rem;
     }
-    & header {
+    & > header {
       display: flex;
       gap: 2rem;
       align-items: center;

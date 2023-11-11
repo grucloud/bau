@@ -3,12 +3,12 @@ import button from "@grucloud/bau-ui/button";
 
 import { Context } from "@grucloud/bau-ui/context";
 
-export default (context: Context) => {
+export default (context: Context, options = {}) => {
   const { bau } = context;
   const { section, main, header, footer, p } = bau.tags;
 
   const Button = button(context);
-  const Modal = modal(context);
+  const Modal = modal(context, options);
 
   const Content = () =>
     main(
@@ -27,6 +27,7 @@ export default (context: Context) => {
           {
             variant: "outline",
             color: props.color,
+
             onclick: () => {
               modalEl.close();
             },

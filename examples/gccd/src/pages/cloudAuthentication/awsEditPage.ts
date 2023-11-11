@@ -11,7 +11,7 @@ import configAwsFormContent, {
 
 export default function (context: Context) {
   const { bau, stores, config, window } = context;
-  const { h1, p, header, footer } = bau.tags;
+  const { h1, header, footer } = bau.tags;
   const ButtonBack = buttonBack(context);
   const LoadingButton = loadingButton(context, {
     color: "primary",
@@ -56,7 +56,6 @@ export default function (context: Context) {
       Form(
         { onsubmit },
         header(h1("Edit the AWS Profile")),
-        p(),
         () =>
           stores.cloudAuthentication.getByIdQuery.data.val &&
           ConfigAwsFormContent(

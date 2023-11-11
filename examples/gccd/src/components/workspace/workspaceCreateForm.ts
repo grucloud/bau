@@ -42,7 +42,7 @@ export default function (context: Context) {
       { onsubmit: onsubmit({ onSubmitted, org_id, project_id }) },
       WorkspaceCreateContent({}),
       footer(
-        ButtonPrevious({ href: previousHref }, "Previous"),
+        previousHref && ButtonPrevious({ href: previousHref }, "Previous"),
         LoadingButton(
           { type: "submit", loading: stores.workspace.createQuery.loading },
           "Create Workspace"

@@ -11,9 +11,7 @@ export default function (context: Context) {
   const { table, tr, td, th, section, a, img, tbody } = bau.tags;
 
   const TableSkeleton = tableSkeleton(context);
-
   const RunStatus = runStatus(context);
-
   const TableContainer = tableContainer(context, {
     class: css`
       & th {
@@ -25,40 +23,28 @@ export default function (context: Context) {
   const isCompleted = isIn(["completed", "error"]);
 
   return function RunDetailContent({ data, loading }: any) {
-    const {
-      org_id,
-      workspace_id,
-      project_id,
-      run_id,
-      container_id,
-      status,
-      stateUrl,
-      logsUrl,
-      svgUrl,
-      engine,
-      error,
-    } = data.val;
-    console.log(
-      "container_id",
-      org_id,
-      project_id,
-      workspace_id,
-      run_id,
-      container_id,
-      status,
-      engine,
-      error
-    );
     return section(
-      //h2("Summary"),
       TableContainer(
-        table(() =>
-          loading.val
+        table(() => {
+          const {
+            org_id,
+            workspace_id,
+            project_id,
+            run_id,
+            status,
+            stateUrl,
+            logsUrl,
+            svgUrl,
+            error,
+          } = data.val;
+          return loading.val
             ? TableSkeleton({ columnsSize: 2, rowSize: 8 })
             : tbody(
                 tr(
                   th("Organisation"),
-                  td(a({ href: `${config.base}/org/${org_id}` }, org_id))
+                  td(
+                    a({ href: `${config.base}/org/${org_id}` }, data.val.org_id)
+                  )
                 ),
                 tr(
                   th("Project"),
@@ -114,13 +100,14 @@ export default function (context: Context) {
                     )
                   ),
                 ]
-              )
-        ),
+              );
+        }),
 
-        isCompleted(status) &&
-          !error &&
+        () =>
+          isCompleted(data.val.status) &&
+          !data.val.error &&
           img({
-            src: svgUrl,
+            src: data.val.svgUrl,
             alt: "Resources",
           })
       )

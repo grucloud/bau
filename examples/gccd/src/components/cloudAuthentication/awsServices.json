@@ -1,0 +1,996 @@
+[
+  {
+    "group": "ACM",
+    "label": "Certificate Manager",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html"
+  },
+  {
+    "group": "DynamoDB",
+    "label": "Dynamo DB",
+    "category": "Essentials",
+    "docs": "https://docs.aws.amazon.com/dynamodb/"
+  },
+  {
+    "group": "EC2",
+    "label": "",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/ec2/"
+  },
+  {
+    "group": "ECS",
+    "label": "Elastic Container Service",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/ecs/"
+  },
+  {
+    "group": "ElasticLoadBalancingV2",
+    "label": "Elastic Load Balancing",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/elasticloadbalancing/"
+  },
+  {
+    "group": "KMS",
+    "label": "Key Management Service",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/kms/latest/developerguide/overview.html"
+  },
+  {
+    "group": "Lambda",
+    "label": "",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/lambda/"
+  },
+  {
+    "group": "Route53",
+    "label": "",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/route53/"
+  },
+  {
+    "group": "SecretsManager",
+    "label": "Secrets Manager",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html"
+  },
+  {
+    "group": "SNS",
+    "label": "Simple Notification Service",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/sns/latest/dg/welcome.html"
+  },
+  {
+    "group": "SQS",
+    "label": "Simple Queue Service",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/sqs/"
+  },
+  {
+    "group": "SSM",
+    "label": "Systems Manager",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/systems-manager/"
+  },
+
+  {
+    "group": "S3",
+    "label": "",
+    "category": "Essentials",
+    "doc": "https://docs.aws.amazon.com/s3/"
+  },
+
+  {
+    "group": "DAX",
+    "label": "DynamoDB Accelerator",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.html"
+  },
+  {
+    "group": "DocDB",
+    "label": "Document DB (MongoDB)",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/documentdb/latest/developerguide/what-is.html"
+  },
+  {
+    "group": "DocDBElastic",
+    "label": "DocumentDB Elastic",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/documentdb/latest/developerguide/what-is.html"
+  },
+  {
+    "group": "ElastiCache",
+    "label": "ElastiCache",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/WhatIs.html"
+  },
+  {
+    "group": "Keyspaces",
+    "label": "Keyspaces (Cassandra)",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/keyspaces/latest/devguide/what-is-keyspaces.html"
+  },
+  {
+    "group": "MemoryDB",
+    "label": "MemoryDB (Redis)",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/memorydb/latest/devguide/getting-started.html"
+  },
+  {
+    "group": "MQ",
+    "label": "",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/welcome.html"
+  },
+  {
+    "group": "MSK",
+    "label": "Managed Streaming (Kafka)",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/msk/latest/developerguide/welcome.html"
+  },
+  {
+    "group": "QLDB",
+    "label": "Quantum Ledger Database",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/qldb/latest/developerguide/what-is.html"
+  },
+  {
+    "group": "Redshift",
+    "label": "",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/redshift/latest/dg/welcome.html"
+  },
+  {
+    "group": "RedshiftServerless",
+    "label": "Redshift Serverless",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-serverless.html"
+  },
+
+  {
+    "group": "RDS",
+    "label": "",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/rds/latest/userguide/Welcome.html"
+  },
+  {
+    "group": "TimestreamWrite",
+    "label": "Timestream Write",
+    "category": "Database",
+    "doc": "https://docs.aws.amazon.com/timestream/latest/developerguide/welcome.html"
+  },
+
+  {
+    "group": "Athena",
+    "label": "",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/athena/latest/ug/welcome.html"
+  },
+  {
+    "group": "DataBrew",
+    "label": "DataBrew",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/databrew/latest/dg/welcome.html"
+  },
+  {
+    "group": "DataSync",
+    "label": "Data Sync",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/datasync/latest/userguide/what-is-datasync.html"
+  },
+  {
+    "group": "EMR",
+    "label": "Elastic MapReduce",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html"
+  },
+  {
+    "group": "EMRContainers",
+    "label": "EMR Containers",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/what-is-emr-containers.html"
+  },
+  {
+    "group": "EMRServerless",
+    "label": "EMR Serverless",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/emr/latest/developerguide/emr-serverless-overview.html"
+  },
+  {
+    "group": "Firehose",
+    "label": "",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html"
+  },
+  {
+    "group": "Glue",
+    "label": "",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/glue/latest/dg/welcome.html"
+  },
+  {
+    "group": "Kinesis",
+    "label": "",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/kinesis/latest/dev/introduction.html"
+  },
+  {
+    "group": "KinesisAnalyticsV2",
+    "label": "Kinesis Analytics",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/kinesisanalytics/latest/java/welcome.html"
+  },
+  {
+    "group": "KinesisVideo",
+    "label": "Kinesis Video",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/welcome.html"
+  },
+  {
+    "group": "OAM",
+    "label": "Observability Access Manager",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/OAM/latest/APIReference/Welcome.html"
+  },
+  {
+    "group": "OpenSearch",
+    "label": "OpenSearch (Elastic Search)",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/welcome.html"
+  },
+  {
+    "group": "OpenSearchServerless",
+    "label": "OpenSearch Serverless",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless.html"
+  },
+  {
+    "group": "OSIS",
+    "label": "OpenSearch Ingestion",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ingestion.html"
+  },
+  {
+    "group": "Pipes",
+    "label": "Event Bridge Pipes",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-pipes.html"
+  },
+  {
+    "group": "QuickSight",
+    "label": "",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/quicksight/latest/user/welcome.html"
+  },
+  {
+    "group": "SageMaker",
+    "label": "Sage Maker",
+    "category": "Data",
+    "doc": "https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-what-is.html"
+  },
+
+  {
+    "group": "Amplify",
+    "label": "",
+    "category": "Application",
+    "doc": "https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html"
+  },
+  {
+    "group": "AppConfig",
+    "label": "App Config",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/appconfig/latest/developerguide/Welcome.html"
+  },
+  {
+    "group": "ApplicationAutoScaling",
+    "label": "Application AutoScaling",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html"
+  },
+  {
+    "group": "ApplicationInsight",
+    "label": "Application Insight",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/application-insights/latest/userguide/welcome.html"
+  },
+  {
+    "group": "AppMesh",
+    "label": "App Mesh",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/app-mesh/latest/userguide/welcome.html"
+  },
+  {
+    "group": "AutoScaling",
+    "label": "",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+  },
+  {
+    "group": "AutoScalingPlans",
+    "label": "AutoScaling Plans",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+  },
+  {
+    "group": "Backup",
+    "label": "",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisawsbackup.html"
+  },
+  {
+    "group": "DMS",
+    "label": "Database Migration Service",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html"
+  },
+  {
+    "group": "ECR",
+    "label": "Elastic Container Registry",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html"
+  },
+  {
+    "group": "ResilienceHub",
+    "label": "Resilience Hub",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/resilience-hub/"
+  },
+  {
+    "group": "Schemas",
+    "label": "",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-schema.html"
+  },
+
+  {
+    "group": "Route53RecoveryControlConfig",
+    "label": "Route53 Recovery Control Config",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/recovery-cluster/latest/api/welcome.html"
+  },
+  {
+    "group": "Route53RecoveryReadiness",
+    "label": "Route53 Recovery Readiness",
+    "category": "Application Management",
+    "doc": "https://docs.aws.amazon.com/recovery-readiness/latest/api/welcome.html"
+  },
+
+  {
+    "group": "AppRunner",
+    "label": "App Runner",
+    "category": "Serverless",
+    "doc": "https://docs.aws.amazon.com/apprunner/latest/dg/welcome.html"
+  },
+  {
+    "group": "Batch",
+    "label": "",
+    "category": "Application Orchestration",
+    "doc": "https://docs.aws.amazon.com/batch/latest/userguide/what-is-batch.html"
+  },
+  {
+    "group": "EKS",
+    "label": "Elastic Kubernetes Service",
+    "category": "Application Orchestration",
+    "doc": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html"
+  },
+  {
+    "group": "ElasticBeanstalk",
+    "label": "Elastic Beanstalk",
+    "category": "Application Orchestration",
+    "doc": "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html"
+  },
+  {
+    "group": "Lightsail",
+    "label": "",
+    "category": "Application Orchestration",
+    "doc": "https://docs.aws.amazon.com/lightsail/latest/dg/welcome.html"
+  },
+  {
+    "group": "StepFunctions",
+    "label": "Step Functions",
+    "category": "Application Orchestration",
+    "doc": "https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html"
+  },
+  {
+    "group": "Account",
+    "label": "",
+    "category": "Account Management",
+    "doc": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html"
+  },
+
+  {
+    "group": "AuditManager",
+    "label": "Audit Manager",
+    "category": "Account Management",
+    "doc": "https://docs.aws.amazon.com/audit-manager/latest/userguide/what-is.html"
+  },
+  {
+    "group": "Config",
+    "label": "",
+    "category": "Account Management",
+    "doc": "https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html"
+  },
+  {
+    "group": "ControlTower",
+    "label": "Control Tower",
+    "category": "Account Management",
+    "doc": "https://docs.aws.amazon.com/controltower/latest/userguide/what-is-controltower.html"
+  },
+  {
+    "group": "LicenseManager",
+    "label": "License Manager",
+    "category": "Account Management",
+    "doc": "https://docs.aws.amazon.com/license-manager/latest/userguide/what-is.html"
+  },
+  {
+    "group": "Organisations",
+    "label": "",
+    "category": "Account Management",
+    "doc": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html"
+  },
+  {
+    "group": "RAM",
+    "label": "Resource Access Manager",
+    "category": "Account Management",
+    "doc": "https://docs.aws.amazon.com/ram/latest/userguide/what-is.html"
+  },
+  {
+    "group": "ResourcesGroups",
+    "label": "Resources Groups",
+    "category": "Account Management",
+    "doc": "https://docs.aws.amazon.com/resource-groups/latest/userguide/what-is.html"
+  },
+  {
+    "group": "ServiceCatalog",
+    "label": "Service Catalog",
+    "category": "Account Management",
+    "doc": "https://docs.aws.amazon.com/servicecatalog/latest/userguide/introduction.html"
+  },
+  {
+    "group": "ServiceDiscovery",
+    "label": "Service Discovery",
+    "category": "Account Management",
+    "doc": "https://docs.aws.amazon.com/servicediscovery/latest/developerguide/what-is-servicediscovery.html"
+  },
+  {
+    "group": "ServiceQuotas",
+    "label": "Service Quotas",
+    "category": "Account Management",
+    "doc": "https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html"
+  },
+  {
+    "group": "Budgets",
+    "label": "",
+    "category": "Cost",
+    "doc": "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/budgets-managing-costs.html"
+  },
+  {
+    "group": "CostExplorer",
+    "label": "Cost Explorer",
+    "category": "Cost",
+    "doc": "https://docs.aws.amazon.com/aws-cost-management/latest/userguide/cost-explorer.html"
+  },
+  {
+    "group": "CUR",
+    "label": "",
+    "category": "Cost",
+    "doc": "https://docs.aws.amazon.com/cur/latest/userguide/cur-overview.html"
+  },
+  {
+    "group": "Cognito",
+    "label": "",
+    "category": "Identity",
+    "doc": "https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html"
+  },
+  {
+    "group": "CognitoIdentityServiceProvider",
+    "label": "Cognito Identity Service Provider",
+    "category": "Identity",
+    "doc": "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html"
+  },
+  {
+    "group": "DirectoryService",
+    "label": "Directory Service",
+    "category": "Identity",
+    "doc": "https://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html"
+  },
+  {
+    "group": "SSOAdmin",
+    "label": "SSO Admin",
+    "category": "Identity",
+    "doc": "https://docs.aws.amazon.com/singlesignon/latest/adminguide/what-is.html"
+  },
+  {
+    "group": "IVS",
+    "label": "Interactive Video Service",
+    "category": "Media",
+    "doc": "https://docs.aws.amazon.com/ivs/latest/userguide/what-is.html"
+  },
+  {
+    "group": "IvsChat",
+    "label": "",
+    "category": "Media"
+  },
+  {
+    "group": "MediaConnect",
+    "label": "Media Connect",
+    "category": "Media",
+    "doc": "https://docs.aws.amazon.com/mediaconnect/latest/ug/what-is.html"
+  },
+  {
+    "group": "MediaConvert",
+    "label": "Media Convert",
+    "category": "Media",
+    "doc": "https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html"
+  },
+  {
+    "group": "MediaLive",
+    "label": "Media Live",
+    "category": "Media",
+    "doc": "https://docs.aws.amazon.com/medialive/latest/ug/what-is.html"
+  },
+  {
+    "group": "MediaPackage",
+    "label": "Media Package",
+    "category": "Media",
+    "doc": "https://docs.aws.amazon.com/mediapackage/latest/ug/what-is.html"
+  },
+  {
+    "group": "MediaStore",
+    "label": "Media Store",
+    "category": "Media",
+    "doc": "https://docs.aws.amazon.com/mediastore/latest/ug/what-is.html"
+  },
+  {
+    "group": "MediaTailor",
+    "label": "Media Tailor",
+    "category": "Media",
+    "doc": "https://docs.aws.amazon.com/mediatailor/latest/ug/what-is.html"
+  },
+  {
+    "group": "Scheduler",
+    "label": "",
+    "category": "Messaging"
+  },
+  {
+    "group": "SNS",
+    "label": "",
+    "category": "Messaging",
+    "doc": "https://docs.aws.amazon.com/sns/latest/dg/welcome.html"
+  },
+  {
+    "group": "SQS",
+    "label": "",
+    "category": "Messaging",
+    "doc": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html"
+  },
+  {
+    "group": "Aps",
+    "label": "Prometheus",
+    "category": "Monitoring"
+  },
+  {
+    "group": "CloudTrail",
+    "label": "Cloud Trail",
+    "category": "Monitoring",
+    "doc": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html"
+  },
+  {
+    "group": "CloudWatch",
+    "label": "Cloud Watch",
+    "category": "Monitoring",
+    "doc": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html"
+  },
+  {
+    "group": "CloudWatchEvent",
+    "label": "CloudWatch Event",
+    "category": "Monitoring",
+    "doc": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html"
+  },
+  {
+    "group": "CloudWatchLogs",
+    "label": "CloudWatch Logs",
+    "category": "Monitoring",
+    "doc": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html"
+  },
+  {
+    "group": "EventBridge",
+    "label": "Event Bridge",
+    "category": "Monitoring",
+    "doc": "https://docs.aws.amazon.com/eventbridge/latest/userguide/what-is-amazon-eventbridge.html"
+  },
+  {
+    "group": "Grafana",
+    "label": "",
+    "category": "Monitoring"
+  },
+  {
+    "group": "InternetMonitor",
+    "label": "Internet Monitor",
+    "category": "Monitoring",
+    "doc": "https://docs.aws.amazon.com/observability/latest/userguide/what-is-monitoring.html"
+  },
+  {
+    "group": "ResourceExplorer2",
+    "label": "Resource Explorer",
+    "category": "Monitoring",
+    "doc": "https://docs.aws.amazon.com/observability/latest/userguide/what-is-monitoring.html"
+  },
+  {
+    "group": "RUM",
+    "label": "Realtime User Monitoring",
+    "category": "Monitoring",
+    "doc": "https://docs.aws.amazon.com/observability/latest/userguide/what-is-monitoring.html"
+  },
+  {
+    "group": "Synthetics",
+    "label": "",
+    "category": "Monitoring",
+    "doc": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries.html"
+  },
+  {
+    "group": "XRay",
+    "label": "",
+    "category": "Monitoring",
+    "doc": "https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html"
+  },
+  {
+    "group": "DirectConnect",
+    "label": "Direct Connect",
+    "category": "Networking",
+    "doc": "https://docs.aws.amazon.com/directconnect/latest/UserGuide/what-is-direct-connect.html"
+  },
+  {
+    "group": "GlobalAccelerator",
+    "label": "Global Accelerator",
+    "category": "Networking",
+    "doc": "https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html"
+  },
+  {
+    "group": "NetworkFirewall",
+    "label": "Network Firewall",
+    "category": "Networking",
+    "doc": "https://docs.aws.amazon.com/network-firewall/latest/developerguide/what-is-network-firewall.html"
+  },
+  {
+    "group": "NetworkManager",
+    "label": "Network Manager",
+    "category": "Networking",
+    "doc": "https://docs.aws.amazon.com/networkmanager/latest/userguide/what-is-networkmanager.html"
+  },
+  {
+    "group": "Route53Domains",
+    "label": "Route53 Domains",
+    "category": "Networking",
+    "doc": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar.html"
+  },
+  {
+    "group": "Route53Resolver",
+    "label": "Route53 Resolver",
+    "category": "Networking",
+    "doc": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html"
+  },
+  {
+    "group": "VpcLattice",
+    "label": "Vpc Lattice",
+    "category": "Networking",
+    "doc": "https://docs.aws.amazon.com/vpclattice/latest/userguide/what-is.html"
+  },
+  {
+    "group": "DeviceFarm",
+    "label": "Device Farm",
+    "category": "Quality Assurance",
+    "doc": "https://docs.aws.amazon.com/devicefarm/latest/developerguide/what-is.html"
+  },
+  {
+    "group": "Evidently",
+    "label": "CloudWatch Evidently",
+    "category": "Quality Assurance",
+    "doc": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Evidently.html"
+  },
+  {
+    "group": "Fis",
+    "label": "Fault Injection Simulator",
+    "category": "Quality Assurance",
+    "doc": "https://docs.aws.amazon.com/fis/latest/userguide/what-is.html"
+  },
+  {
+    "group": "ACMPA",
+    "label": "Certificate Manager Private Authority",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/acmpca/latest/userguide/what-is.html"
+  },
+  {
+    "group": "CloudHSMV2",
+    "label": "Cloud HSM",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/cloudhsm/latest/userguide/what-is.html"
+  },
+  {
+    "group": "Detective",
+    "label": "",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/detective/latest/adminguide/what-is.html"
+  },
+  {
+    "group": "FMS",
+    "label": "Firewall Manager",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/waf/latest/developerguide/fms-what-is.html"
+  },
+  {
+    "group": "GuardDuty",
+    "label": "Guard Duty",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html"
+  },
+  {
+    "group": "Inspector2",
+    "label": "Inspector",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html"
+  },
+  {
+    "group": "Macie2",
+    "label": "Macie",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/macie/latest/userguide/what-is-macie.html"
+  },
+  {
+    "group": "RolesAnywhere",
+    "label": "Roles Anywhere",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/rolesanywhere/latest/userguide/introduction.html"
+  },
+  {
+    "group": "SecretsManager",
+    "label": "Secrets Manager",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html"
+  },
+  {
+    "group": "SecurityHub",
+    "label": "Security Hub",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-what-is.html"
+  },
+  {
+    "group": "Shield",
+    "label": "",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/shield/"
+  },
+  {
+    "group": "Signer",
+    "label": "",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html"
+  },
+  {
+    "group": "WAFv2",
+    "label": "WAF",
+    "category": "Security",
+    "doc": "https://docs.aws.amazon.com/waf/latest/developerguide/what-is-waf.html"
+  },
+  {
+    "group": "APIGateway",
+    "label": "",
+    "category": "Serverless",
+    "doc": "https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html"
+  },
+  {
+    "group": "ApiGatewayV2",
+    "label": "",
+    "category": "Serverless",
+    "doc": "https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html"
+  },
+  {
+    "group": "AppSync",
+    "label": "App Sync (graphql)",
+    "category": "Serverless",
+    "doc": "https://docs.aws.amazon.com/appsync/latest/devguide/intro.html"
+  },
+  {
+    "group": "CodeArtifact",
+    "label": "Code Artifact",
+    "category": "Source Code",
+    "doc": "https://docs.aws.amazon.com/codeartifact/latest/ug/welcome.html"
+  },
+  {
+    "group": "CodeBuild",
+    "label": "Code Build",
+    "category": "Source Code",
+    "doc": "https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html"
+  },
+  {
+    "group": "CodeCatalyst",
+    "label": "Code Catalyst",
+    "category": "Source Code",
+    "doc": "https://aws.amazon.com/codeguru/"
+  },
+  {
+    "group": "CodeCommit",
+    "label": "Code Commit",
+    "category": "Source Code",
+    "doc": "https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html"
+  },
+  {
+    "group": "CodeDeploy",
+    "label": "Code Deploy",
+    "category": "Source Code",
+    "doc": "https://docs.aws.amazon.com/codedeploy/latest/userguide/welcome.html"
+  },
+  {
+    "group": "CodeGuruReviewer",
+    "label": "Code Guru Reviewer",
+    "category": "Source Code",
+    "doc": "https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/welcome.html"
+  },
+  {
+    "group": "CodePipeline",
+    "label": "Code Pipeline",
+    "category": "Source Code",
+    "doc": "https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html"
+  },
+  {
+    "group": "CodeStar",
+    "label": "Code Star",
+    "category": "Source Code",
+    "doc": "https://docs.aws.amazon.com/codestar/latest/userguide/welcome.html"
+  },
+  {
+    "group": "CodeStarConnections",
+    "label": "Code Star Connections",
+    "category": "Source Code",
+    "doc": "https://docs.aws.amazon.com/codestar-connections/latest/userguide/welcome.html"
+  },
+  {
+    "group": "CodeStarNotifications",
+    "label": "Code Star Notifications",
+    "category": "Source Code",
+    "doc": "https://docs.aws.amazon.com/codestar-notifications/latest/userguide/welcome.html"
+  },
+  {
+    "group": "AccessAnalyzer",
+    "label": "Access Analyzer",
+    "category": "Storage",
+    "doc": "https://docs.aws.amazon.com/access-analyzer/latest/userguide/what-is-access-analyzer.html"
+  },
+  {
+    "group": "EFS",
+    "label": "Elastic File System",
+    "category": "Storage",
+    "doc": "https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html"
+  },
+  {
+    "group": "FSx",
+    "label": "",
+    "category": "Storage",
+    "doc": "https://docs.aws.amazon.com/fsx/"
+  },
+  {
+    "group": "Glacier",
+    "label": "",
+    "category": "Storage",
+    "doc": "https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html"
+  },
+  {
+    "group": "Rbin",
+    "label": "Recycle Bin",
+    "category": "Storage",
+    "doc": "https://docs.aws.amazon.com/s3/latest/userguide/using-recycle-bin.html"
+  },
+  {
+    "group": "S3Control",
+    "label": "S3 Control",
+    "category": "Storage",
+    "doc": "https://docs.aws.amazon.com/s3/latest/userguide/what-is-s3control.html"
+  },
+  {
+    "group": "Appflow",
+    "label": "App Flow",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/appflow/latest/userguide/what-is-appflow.html"
+  },
+  {
+    "group": "AppStream",
+    "label": "App Stream",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/appstream2/latest/developerguide/what-is-appstream.html"
+  },
+  {
+    "group": "Comprehend",
+    "label": "",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/comprehend/latest/dg/comprehend-general.html"
+  },
+  {
+    "group": "Cloud9",
+    "label": "",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/cloud9/latest/user-guide/welcome.html"
+  },
+  {
+    "group": "Kendra",
+    "label": "",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/kendra/latest/dg/welcome.html"
+  },
+  {
+    "group": "LexModelsV2",
+    "label": "LexModels",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/lex/latest/dg/getting-started.html"
+  },
+  {
+    "group": "Location",
+    "label": "",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/location/latest/developerguide/welcome.html"
+  },
+  {
+    "group": "LookoutMetrics",
+    "label": "Lookout Metrics",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/lookoutmetrics/latest/ug/what-is.html"
+  },
+  {
+    "group": "LookoutVision",
+    "label": "Lookout Vision",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/welcome.html"
+  },
+  {
+    "group": "MWAA",
+    "label": "Managed Workflows for Apache Airflow",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/mwaa/latest/userguide/what-is-mwaa.html"
+  },
+  {
+    "group": "Pinpoint",
+    "label": "",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html"
+  },
+  {
+    "group": "Rekognition",
+    "label": "",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html"
+  },
+  {
+    "group": "SESV2",
+    "label": "Simple Email Service",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/ses/latest/DeveloperGuide/Welcome.html"
+  },
+  {
+    "group": "SSMContacts",
+    "label": "SSM Contacts",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/incident-manager/latest/userguide/ssm-contacts.html"
+  },
+  {
+    "group": "SSMIncidents",
+    "label": "SSM Incidents",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/incident-manager/latest/userguide/welcome.html"
+  },
+  {
+    "group": "Transfer",
+    "label": "",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/transfer/latest/userguide/what-is.html"
+  },
+  {
+    "group": "WorkSpaces",
+    "label": "",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/workspaces/latest/adminguide/welcome.html"
+  },
+  {
+    "group": "WorkSpacesWeb",
+    "label": "WorkSpaces Web",
+    "category": "Misc",
+    "doc": "https://docs.aws.amazon.com/workspaces-web/"
+  }
+]
