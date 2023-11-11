@@ -15,7 +15,7 @@ const DefaultServices = ["EC2"];
 
 export default (context: Context) => {
   const { bau, css } = context;
-  const { section, legend, fieldset, label, h2, div, span } = bau.tags;
+  const { section, legend, fieldset, h2, div, span } = bau.tags;
 
   const Chip = chip(context, {
     size: "sm",
@@ -69,15 +69,15 @@ export default (context: Context) => {
       selectedGroupState.val = [...selectedSet.values()];
     };
 
-    const Service = ({ group }: any) =>
-      label(
+    const Service = ({ group, label }: any) =>
+      bau.tags.label(
         Checkbox({
           name: `checkbox-${group}`,
           checked: selectedGroupState.val.includes(group),
           "data-group": group,
           onchange: onchangeCheckbox,
         }),
-        group
+        label || group
       );
 
     const ServicesCheckboxes = (services: any) =>
@@ -120,6 +120,7 @@ export default (context: Context) => {
             border: 1px dotted var(--color-emphasis-200);
             border-radius: var(--global-radius);
             padding: 0.3rem;
+            font-size: x-small;
             & input {
               margin: 0;
             }
@@ -127,7 +128,8 @@ export default (context: Context) => {
           & fieldset {
             display: flex;
             flex-direction: row;
-            gap: 1rem;
+            flex-wrap: wrap;
+            gap: 0.4rem;
           }
         `,
       },

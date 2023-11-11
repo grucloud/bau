@@ -64,7 +64,8 @@ export default (context: Context) => {
       label(
         "IAM Role ARN",
         Input({
-          autofocus: true,
+          //TODO
+          //autofocus: true,
           placeholder: "The IAM Role ARN",
           name: "GRUCLOUD_ROLE_WEB_IDENTITY_ARN",
           defaultValue: GRUCLOUD_ROLE_WEB_IDENTITY_ARN,
