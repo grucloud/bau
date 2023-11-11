@@ -64,8 +64,7 @@ export default (context: Context) => {
       label(
         "IAM Role ARN",
         Input({
-          //TODO
-          //autofocus: true,
+          autofocus: true,
           placeholder: "The IAM Role ARN",
           name: "GRUCLOUD_ROLE_WEB_IDENTITY_ARN",
           defaultValue: GRUCLOUD_ROLE_WEB_IDENTITY_ARN,
@@ -137,6 +136,13 @@ export default (context: Context) => {
       radioState.val = event.target.id;
     };
     return section(
+      fieldset(
+        legend("Region"),
+        SelectAwsRegion({
+          name: "AWS_REGION",
+          value: AWS_REGION,
+        })
+      ),
       AwsServices({ SERVICES }),
       fieldset(
         {
@@ -184,14 +190,6 @@ export default (context: Context) => {
                 AWS_OAUTH_AUDIENCE,
               })
             : AccessSecretKeySection({ AWSAccessKeyId, AWSSecretKey })
-      ),
-
-      label(
-        "Region",
-        SelectAwsRegion({
-          name: "AWS_REGION",
-          value: AWS_REGION,
-        })
       )
     );
   };

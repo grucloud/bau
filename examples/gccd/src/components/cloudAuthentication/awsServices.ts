@@ -3,6 +3,8 @@ import checkbox from "@grucloud/bau-ui/checkbox";
 import button from "@grucloud/bau-ui/button";
 import chip from "@grucloud/bau-ui/chip";
 import input from "@grucloud/bau-ui/input";
+import modal from "@grucloud/bau-ui/modal";
+
 import pipe from "rubico/pipe";
 import map from "rubico/map";
 
@@ -15,24 +17,34 @@ const DefaultServices = ["EC2"];
 
 export default (context: Context) => {
   const { bau, css } = context;
-  const { section, legend, fieldset, h2, div, span } = bau.tags;
+  const { section, legend, fieldset, div, span, main, header, footer, h1 } =
+    bau.tags;
 
   const Chip = chip(context, {
     size: "sm",
     color: "primary",
     variant: "solid",
   });
-  const Button = button(context, {
+
+  const ButtonDelete = button(context, {
     size: "sm",
     color: "primary",
     variant: "solid",
   });
+
+  const Button = button(context, {
+    color: "primary",
+    variant: "solid",
+  });
+
   const Input = input(context);
   const Checkbox = checkbox(context, {
     size: "sm",
     color: "neutral",
     variant: "outline",
   });
+
+  const Modal = modal(context, { size: "lg" });
 
   return function AwsServices(props: any) {
     const { SERVICES } = props;
@@ -93,22 +105,71 @@ export default (context: Context) => {
         values,
       ])();
 
-    const GroupSelected = (groups: any[]) =>
-      fieldset(
+    const ServiceChips = (groups: any[]) =>
+      div(
         {
           class: css`
             display: inline-flex;
             gap: 0.5rem;
           `,
         },
-        legend("Selected Services"),
         groups.map((group) =>
           Chip(
             span(group),
-            Button({ onclick: onclickButtonDelete(group) }, "\u2715")
+            ButtonDelete({ onclick: onclickButtonDelete(group) }, "\u2715")
           )
         )
       );
+
+    const GroupSelected = (groups: any[]) =>
+      fieldset(legend("Selected Services"), ServiceChips(groups));
+
+    const Content = () =>
+      main(() => div(ServicesCheckboxes(servicesState.val)));
+
+    const modalEl = Modal(
+      { id: "aws-service-dialog" },
+      header(
+        h1("AWS Services Selection"),
+        div(
+          {
+            class: css`
+              display: flex;
+              align-items: center;
+              gap: 1rem;
+            `,
+          },
+          div(
+            Input({
+              autofocus: true,
+              placeholder: "Search AWS Services",
+              type: "search",
+              value: searchInputState,
+              size: 30,
+              oninput,
+            })
+          ),
+          () => GroupSelected(selectedGroupState.val)
+        )
+      ),
+      Content(),
+      footer(
+        Button(
+          {
+            variant: "outline",
+            onclick: () => modalEl.close(),
+          },
+          "Cancel"
+        ),
+        Button(
+          {
+            variant: "solid",
+            onclick: () => modalEl.close(),
+          },
+          "Save"
+        )
+      )
+    );
 
     return section(
       {
@@ -133,16 +194,32 @@ export default (context: Context) => {
           }
         `,
       },
-      h2("Aws Services"),
-      () => GroupSelected(selectedGroupState.val),
-      Input({
-        autofocus: true,
-        placeholder: "Search AWS Services",
-        type: "search",
-        value: searchInputState,
-        oninput,
-      }),
-      () => div(ServicesCheckboxes(servicesState.val))
+      fieldset(
+        legend("Services"),
+        div(
+          {
+            class: css`
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+            `,
+          },
+          div(
+            Button(
+              {
+                variant: "solid",
+                color: "primary",
+                onclick: () => {
+                  modalEl.showModal();
+                },
+              },
+              "ADD SERVICES"
+            )
+          ),
+          () => ServiceChips(selectedGroupState.val),
+          modalEl
+        )
+      )
     );
   };
 };
