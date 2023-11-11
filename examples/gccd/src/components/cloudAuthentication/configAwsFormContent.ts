@@ -154,8 +154,12 @@ export default (context: Context) => {
             & header {
               display: inline-flex;
               justify-content: flex-start;
+              gap: 1rem;
               & label {
                 flex-direction: row;
+                border: 1px dotted var(--color-emphasis-500);
+                border-radius: var(--global-radius);
+                padding: 0.4rem;
               }
             }
           `,

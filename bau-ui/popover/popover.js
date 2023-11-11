@@ -41,6 +41,11 @@ export default function (context, options) {
       }
       if (rectAnchor.y < window.innerHeight / 2) {
         dialogEl.style.top = rectAnchor.top + rectAnchor.height + "px";
+        dialogEl.style.height =
+          Math.min(
+            dialogEl.scrollHeight,
+            window.innerHeight - rectAnchor.top - rectAnchor.height
+          ) + "px";
       } else {
         dialogEl.style.top =
           Math.max(0, rectAnchor.top - rectDialog.height) + "px";
