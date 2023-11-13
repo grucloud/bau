@@ -41,3 +41,15 @@ jobs:
           cd bausaurus/example/bausaurus-template
           npm install
           npm run build
+
+      - name: build examples/bau-kit
+        run: |
+          cd examples/bau-kit
+          npm install
+          npm run build
+
+      - name: build examples/todoapp
+        run: |
+          cd examples/todoapp
+          npm install
+          npm run build
