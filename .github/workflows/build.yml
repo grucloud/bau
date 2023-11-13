@@ -29,3 +29,15 @@ jobs:
           cd bau-ui/examples/bau-storybook
           npm install
           npm run build
+
+      - name: build bausaurus/example/bausaurus-doc
+        run: |
+          cd bausaurus/example/bausaurus-doc
+          npm install
+          npm run build
+
+      - name: build bausaurus/example/bausaurus-template
+        run: |
+          cd bausaurus/example/bausaurus-template
+          npm install
+          npm run build
