@@ -1,9 +1,9 @@
+import createPaginationNav from "@grucloud/bau-ui/paginationNavigation/paginationNavigation.js";
 import docApp from "@grucloud/bausaurus-theme-classic/DocApp.js";
 import navBar from "@grucloud/bausaurus-theme-classic/NavBar.js";
 import mainContent from "@grucloud/bausaurus-theme-classic/MainContent.js";
 import toc from "@grucloud/bausaurus-theme-classic/Toc.js";
 import breadcrumbsDoc from "@grucloud/bausaurus-theme-classic/BreadcrumbsDoc.js";
-import createPaginationNav from "@grucloud/bau-ui/PaginationNavigation/PaginationNavigation.js";
 import pageNotFound from "@grucloud/bausaurus-theme-classic/NotFound.js";
 
 import header from "../views/Header.js";
