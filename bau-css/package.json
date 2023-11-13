@@ -8,7 +8,8 @@
   "files": [
     "bau-css.js",
     "bau-css.d.ts",
-    "classNames.js"
+    "classNames.js",
+    "classNames.d.ts"
   ],
   "types": "bau-css.d.ts",
   "keywords": [
