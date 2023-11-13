@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -21,5 +21,11 @@ jobs:
       - name: build bau/examples/bau-ts-test
         run: |
           cd bau/examples/bau-ts-test
+          npm install
+          npm run build
+
+      - name: build bau-ui/examples/bau-storybook
+        run: |
+          cd bau-ui/examples/bau-storybook
           npm install
           npm run build
