@@ -1,9 +1,7 @@
-name: Build bau example
+name: Bau
 
 on:
   push:
-    paths:
-      - "bau/**"
     branches:
       - "*"
 
@@ -20,8 +18,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
+      - name: build bau/examples/bau-ts-test
+        run: |
+          cd bau/examples/bau-ts-test
+          npm install
+          npm run build
