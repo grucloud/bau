@@ -18,38 +18,38 @@ jobs:
         with:
           node-version: 18
 
-      - name: build bau/examples/bau-ts-test
+      - name: Build bau/examples/bau-ts-test
+        working-directory: bau/examples/bau-ts-test
         run: |
-          cd bau/examples/bau-ts-test
           npm install
           npm run build
 
-      - name: build bau-ui/examples/bau-storybook
+      - name: Build bau-ui/examples/bau-storybook
+        working-directory: bau-ui/examples/bau-storybook
         run: |
-          cd bau-ui/examples/bau-storybook
           npm install
           npm run build
 
-      - name: build bausaurus/example/bausaurus-doc
+      - name: Build bausaurus/example/bausaurus-doc
+        working-directory: bausaurus/example/bausaurus-doc
         run: |
-          cd bausaurus/example/bausaurus-doc
           npm install
           npm run build
 
-      - name: build bausaurus/example/bausaurus-template
+      - name: Build bausaurus/example/bausaurus-template
+        working-directory: bausaurus/example/bausaurus-template
         run: |
-          cd bausaurus/example/bausaurus-template
           npm install
           npm run build
 
-      - name: build examples/bau-kit
+      - name: Build examples/bau-kit
+        working-directory: examples/bau-kit
         run: |
-          cd examples/bau-kit
           npm install
           npm run build
 
-      - name: build examples/todoapp
+      - name: Build examples/todoapp
+        working-directory: examples/todoapp
         run: |
-          cd examples/todoapp
           npm install
           npm run build
