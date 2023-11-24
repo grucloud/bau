@@ -2,7 +2,9 @@ declare module "@grucloud/bau-ui/modal" {
   type DefaultDesignProps = import("../constants").DefaultDesignProps;
   type ComponentOption = import("../bau-ui").ComponentOption;
 
-  export type ModalProps = {} & DefaultDesignProps;
+  export type ModalProps = {
+    id: string;
+  } & DefaultDesignProps;
 
   type Component = import("../bau-ui").Component<ModalProps, HTMLDialogElement>;
 

@@ -3,7 +3,7 @@ import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import { Colors } from "../constants.js";
 
 export default function (context, options = {}) {
-  const { bau, css } = context;
+  const { bau, css, window } = context;
   const { dialog, div } = bau.tags;
 
   const colorsToCss = () =>
@@ -78,8 +78,16 @@ export default function (context, options = {}) {
       ...children
     ] = toPropsAndChildren(args);
 
-    return dialog(
+    const dialogEl = dialog(
       {
+        ...props,
+        bauMounted: () => {
+          const search = new URLSearchParams(window.location.search);
+          const modalId = search.get("modal");
+          if (modalId == (props.id ?? "modal")) {
+            dialogEl.showModal();
+          }
+        },
         class: classNames(
           "modal",
           className,
@@ -92,5 +100,20 @@ export default function (context, options = {}) {
       },
       div(children)
     );
+
+    const observer = new MutationObserver((events) => {
+      const search = new URLSearchParams(window.location.search);
+      if (events[0].attributeName == "open") {
+        if (dialogEl.open) {
+          search.set("modal", dialogEl.id ?? "modal");
+        } else {
+          search.delete("modal");
+        }
+        window.history.pushState("", "", `?${search.toString()}`);
+      }
+    });
+    observer.observe(dialogEl, { attributes: true });
+
+    return dialogEl;
   };
 }

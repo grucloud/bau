@@ -19,7 +19,7 @@ export default (context: Context, options = {}) => {
 
   const MyModal = (props: any) => {
     const modalEl = Modal(
-      { id: "my-dialog", ...props },
+      { id: `dialog-${props.color}-${props.variant}`, ...props },
       header("Header"),
       Content(),
       footer(
