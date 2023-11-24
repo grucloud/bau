@@ -1,7 +1,7 @@
 {
   "name": "@grucloud/bau-css",
   "description": "A CSS in JS library in 35 lines of code",
-  "version": "0.60.1",
+  "version": "0.61.0",
   "type": "module",
   "module": "./bau-css.js",
   "license": "BSD",
