@@ -212,7 +212,6 @@ export default (context: Context) => {
             "Tenant Id",
             Input({
               "data-input-azure-tenant-id": true,
-              autofocus: true,
               placeholder: "Tenant Id",
               name: "AZURE_TENANT_ID",
               defaultValue: AZURE_TENANT_ID,

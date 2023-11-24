@@ -115,7 +115,6 @@ export default function (context, componentOptions = {}) {
     const dialogClose = () => {
       popoverEl.closeDialog();
       openState.val = false;
-      inputState.val = "";
       itemIndexActive.val = 0;
     };
 
@@ -135,10 +134,15 @@ export default function (context, componentOptions = {}) {
       popoverEl.open ? dialogClose() : dialogOpen();
     };
 
+    const saveOption = (option) => {
+      selectedState.val = option;
+      inputShadowEl.value = getOptionValue(option);
+    };
+
     const onclickItem =
       ({ option, index }) =>
       (event) => {
-        selectedState.val = option;
+        saveOption(option);
         itemIndexActive.val = index;
         dialogClose();
       };
@@ -173,8 +177,7 @@ export default function (context, componentOptions = {}) {
           break;
         case "Enter":
           if (popoverEl.open) {
-            selectedState.val = optionsFilteredState.val[itemIndexActive.val];
-            inputState.val = "";
+            saveOption(optionsFilteredState.val[itemIndexActive.val]);
             dialogClose();
           } else {
             dialogOpen();
@@ -227,7 +230,7 @@ export default function (context, componentOptions = {}) {
         position: absolute;
       `,
       tabindex: -1,
-      value: inputState,
+      defaultValue: defaultOption && getOptionValue(defaultOption),
       required,
       name,
     });
