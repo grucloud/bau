@@ -72,33 +72,35 @@ export default (context: Context) => {
   }: any) {
     const modalEl = Modal(
       { id: "my-dialog" },
-      header("Infrastructure from template"),
-      p("Select an infrastructure template from the list below."),
-      section(
-        List(
-          // @ts-ignore
-          PROJECTS[providerName] && // @ts-ignore
-            PROJECTS[providerName].map((project: any) =>
-              ProjectItem({
-                project,
-                onclickItem: (project: any) => () => {
-                  modalEl.close();
-                  onclickImportFromTemplate(project);
-                },
-              })
-            )
-        )
-      ),
-      footer(
-        Button(
-          {
-            variant: "outline",
-            //color,
-            onclick: () => {
-              modalEl.close();
+      Form(
+        header("Infrastructure from template"),
+        p("Select an infrastructure template from the list below."),
+        section(
+          List(
+            // @ts-ignore
+            PROJECTS[providerName] && // @ts-ignore
+              PROJECTS[providerName].map((project: any) =>
+                ProjectItem({
+                  project,
+                  onclickItem: (project: any) => () => {
+                    modalEl.close();
+                    onclickImportFromTemplate(project);
+                  },
+                })
+              )
+          )
+        ),
+        footer(
+          Button(
+            {
+              variant: "outline",
+              //color,
+              onclick: () => {
+                modalEl.close();
+              },
             },
-          },
-          "Cancel"
+            "Cancel"
+          )
         )
       )
     );

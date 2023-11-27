@@ -17,8 +17,18 @@ const DefaultServices = ["EC2"];
 
 export default (context: Context) => {
   const { bau, css } = context;
-  const { section, legend, fieldset, div, span, main, header, footer, h1 } =
-    bau.tags;
+  const {
+    form,
+    section,
+    legend,
+    fieldset,
+    div,
+    span,
+    main,
+    header,
+    footer,
+    h1,
+  } = bau.tags;
 
   const Chip = chip(context, {
     size: "sm",
@@ -129,44 +139,46 @@ export default (context: Context) => {
 
     const modalEl = Modal(
       { id: "aws-service-dialog" },
-      header(
-        h1("AWS Services Selection"),
-        div(
-          {
-            class: css`
-              display: flex;
-              align-items: center;
-              gap: 1rem;
-            `,
-          },
+      form(
+        header(
+          h1("AWS Services Selection"),
           div(
-            Input({
-              autofocus: true,
-              placeholder: "Search AWS Services",
-              type: "search",
-              value: searchInputState,
-              size: 30,
-              oninput,
-            })
-          ),
-          () => GroupSelected(selectedGroupState.val)
-        )
-      ),
-      Content(),
-      footer(
-        Button(
-          {
-            variant: "outline",
-            onclick: () => modalEl.close(),
-          },
-          "Cancel"
+            {
+              class: css`
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+              `,
+            },
+            div(
+              Input({
+                autofocus: true,
+                placeholder: "Search AWS Services",
+                type: "search",
+                value: searchInputState,
+                size: 30,
+                oninput,
+              })
+            ),
+            () => GroupSelected(selectedGroupState.val)
+          )
         ),
-        Button(
-          {
-            variant: "solid",
-            onclick: () => modalEl.close(),
-          },
-          "Save"
+        Content(),
+        footer(
+          Button(
+            {
+              variant: "outline",
+              onclick: () => modalEl.close(),
+            },
+            "Cancel"
+          ),
+          Button(
+            {
+              variant: "solid",
+              onclick: () => modalEl.close(),
+            },
+            "Save"
+          )
         )
       )
     );

@@ -30,26 +30,30 @@ export default function (context, options = {}) {
     border-radius: var(--global-radius);
     min-width: 400px;
     border: 0px;
-    > div {
+    overflow: hidden;
+    > form {
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      height: 100%;
       max-height: 96vh;
       max-width: 96vw;
       & > header {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        align-items: center;
         justify-content: flex-start;
+        gap: 1rem;
       }
       & > main,
-      > section {
-        flex-grow: 1;
+      > section,
+      > article {
         overflow-y: auto;
+        flex-grow: 1;
       }
       & > footer {
         display: flex;
         justify-content: flex-end;
-        padding: 1rem;
         gap: 1rem;
       }
     }
@@ -63,7 +67,6 @@ export default function (context, options = {}) {
       height: 96vh;
       width: 96vw;
     }
-
     ${colorsToCss()}
   `;
 
@@ -98,7 +101,7 @@ export default function (context, options = {}) {
           props?.class
         ),
       },
-      div(children)
+      children
     );
 
     const observer = new MutationObserver((events) => {

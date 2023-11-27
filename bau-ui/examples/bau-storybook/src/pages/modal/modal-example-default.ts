@@ -4,7 +4,7 @@ import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { bau } = context;
-  const { section, main, header, footer, p } = bau.tags;
+  const { form, section, main, header, footer, p } = bau.tags;
 
   const color = "neutral";
 
@@ -20,28 +20,30 @@ export default (context: Context) => {
 
   const modalEl = Modal(
     { id: "my-dialog" },
-    header("Header"),
-    Content(),
-    footer(
-      Button(
-        {
-          variant: "outline",
-          color,
-          onclick: () => {
-            modalEl.close();
+    form(
+      header("Header"),
+      Content(),
+      footer(
+        Button(
+          {
+            variant: "outline",
+            color,
+            onclick: () => {
+              modalEl.close();
+            },
           },
-        },
-        "Cancel"
-      ),
-      Button(
-        {
-          variant: "solid",
-          color,
-          onclick: () => {
-            modalEl.close();
+          "Cancel"
+        ),
+        Button(
+          {
+            variant: "solid",
+            color,
+            onclick: () => {
+              modalEl.close();
+            },
           },
-        },
-        "OK"
+          "OK"
+        )
       )
     )
   );

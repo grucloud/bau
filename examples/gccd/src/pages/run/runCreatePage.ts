@@ -5,10 +5,11 @@ import form from "@grucloud/bau-ui/form";
 import buttonBack from "../../components/buttonBack";
 import page from "../../components/page";
 import runCreateContent from "../../components/run/runCreateContent";
+import runLogsModal from "../../components/run/runLogsModal";
 
 export default function (context: Context) {
-  const { bau, stores, config, window } = context;
-  const { h1, p, header, footer, div } = bau.tags;
+  const { bau, stores, config } = context;
+  const { h1, header, footer } = bau.tags;
   const ButtonBack = buttonBack(context);
   const LoadingButton = loadingButton(context, {
     color: "primary",
@@ -16,12 +17,13 @@ export default function (context: Context) {
   });
   const Page = page(context);
   const Form = form(context);
-  const logViewEl = div();
   const RunCreateContent = runCreateContent(context);
+  const RunLogsModal = runLogsModal(context);
 
   return function RunCreatePage({ org_id, project_id, workspace_id }: any) {
     const onsubmit = async (event: any) => {
       event.preventDefault();
+
       const { reason, kind } = event.target.elements;
       const { run_id, container_id } = await stores.run.createQuery.run(
         { org_id, project_id, workspace_id },
@@ -32,57 +34,29 @@ export default function (context: Context) {
         }
       );
       console.log("run_id", run_id, "container_id", container_id);
-      const socket = new WebSocket(config.wsUrl(window));
-      // Connection opened
-      socket.addEventListener("open", (_event) => {
-        console.log("ws open");
-        socket.send(
-          JSON.stringify({
-            origin: "browser",
-            command: "join",
-            options: {
-              room: `${org_id}/${project_id}/${workspace_id}/${run_id}`,
-            },
-          })
-        );
-        socket.send(
-          JSON.stringify({
-            command: "Run",
-            options: {
-              org_id,
-              project_id,
-              workspace_id,
-              run_id,
-              container_id,
-              engine: config.engine,
-            },
-          })
-        );
+      const search = new URLSearchParams(window.location.search);
+      search.set("run_id", run_id);
+      if (container_id) {
+        search.set("container_id", container_id);
+      }
+
+      window.history.pushState("", "", `?${search}`);
+      const modelEl = RunLogsModal({
+        org_id,
+        project_id,
+        workspace_id,
+        run_id,
+        container_id,
       });
-      socket.addEventListener("close", (event) => {
-        console.log("websocket closed", event);
-        window.history.pushState(
-          "",
-          "",
-          `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/runs/${run_id}`
-        );
-      });
-      socket.addEventListener("error", (_event) => {
-        console.log("websocket error");
-      });
-      socket.addEventListener("message", (event) => {
-        console.log("Message from server ", event.data.toString());
-        logViewEl.append(div(event.data.toString()));
-      });
+      event.target.closest("form").append(modelEl);
+      modelEl.showModal();
     };
 
     return Page(
       Form(
         { onsubmit },
         header(h1("Create a new Run")),
-        p(),
         RunCreateContent({}),
-        logViewEl,
         footer(
           LoadingButton(
             { type: "submit", loading: stores.run.createQuery.loading },
