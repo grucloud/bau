@@ -168,6 +168,9 @@ export default function globalStyle(
       font: var(--font-size-base) / var(--line-height-base) var(--font-family);
       background-color: var(--background-color);
     }
+    html:has(dialog[open]) {
+      overflow: hidden;
+    }
     html[data-theme="dark"] {
       ${darkColors()}
       --color-scheme: dark;

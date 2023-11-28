@@ -3,13 +3,14 @@ import { Context } from "@grucloud/bau-ui/context";
 import gitRepositoryBranchGitHub from "./gitRepositoryBranchGitHub";
 import gitRepositoryBranchGitLab from "./gitRepositoryBranchGitLab";
 import gitRepositoryBranchGeneric from "./gitRepositoryBranchGeneric";
-
+import gitWorkingDirectory from "./gitWorkingDirectory";
 export default (context: Context) => {
   const { bau, css } = context;
   const { fieldset, legend } = bau.tags;
   const GitRepositoryBranchGitHub = gitRepositoryBranchGitHub(context);
   const GitRepositoryBranchGitLab = gitRepositoryBranchGitLab(context);
   const GitRepositoryBranchGeneric = gitRepositoryBranchGeneric(context);
+  const GitWorkingDirectory = gitWorkingDirectory(context);
 
   function GitRepositoryBranch(props: any) {
     const { git_provider_type } = props;
@@ -34,7 +35,8 @@ export default (context: Context) => {
         `,
       },
       legend("Repository & Branch"),
-      GitRepositoryBranch(props)
+      GitRepositoryBranch(props),
+      GitWorkingDirectory(props)
     );
   };
 };
