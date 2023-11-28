@@ -5,9 +5,17 @@ import spinner from "@grucloud/bau-ui/spinner";
 
 import logView from "../logView";
 
+function keepAlive(webSocket: any) {
+  var timeout = 20000;
+  if (webSocket.readyState == webSocket.OPEN) {
+    webSocket.send("{}");
+  }
+  setTimeout(() => keepAlive(webSocket), timeout);
+}
+
 export default function (context: Context) {
   const { bau, config, css, window } = context;
-  const { form, h1, header, footer, div, article } = bau.tags;
+  const { form, h1, header, footer, pre, article } = bau.tags;
   const Button = button(context, { color: "neutral" });
   const Modal = modal(context, { size: "lg" });
   const Spinner = spinner(context, { size: "lg" });
@@ -36,6 +44,8 @@ export default function (context: Context) {
       // Connection opened
       socket.addEventListener("open", (_event) => {
         console.log("ws open");
+
+        keepAlive(socket);
 
         socket.send(
           JSON.stringify({
@@ -70,16 +80,32 @@ export default function (context: Context) {
         runningState.val = false;
       });
       socket.addEventListener("message", (event) => {
-        let msg;
+        console.log("Message from server ", event.data);
+
         try {
-          msg = JSON.parse(event.data).data;
+          const msg = JSON.parse(event.data);
+          switch (msg.command) {
+            case "logs":
+              {
+                const linesEl = msg.data
+                  .split("\n")
+                  .filter((line: string) => line)
+                  .map((line: string) => pre(line));
+                logViewEl.append(...linesEl);
+                linesEl[0].scrollIntoView({ block: "end" });
+              }
+              break;
+            case "end":
+              socket.close();
+              break;
+            default:
+              break;
+          }
+
+          //console.log("Message from server ", msg);
         } catch (error) {
-          msg = event.data.toString();
+          //console.error("Message from server ");
         }
-        console.log("Message from server ", msg);
-        const divEl = div(msg);
-        logViewEl.append(divEl);
-        divEl.scrollIntoView({ block: "end" });
       });
     };
 

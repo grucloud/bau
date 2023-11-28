@@ -5,10 +5,16 @@ export default function (context: Context) {
   const { div } = bau.tags;
 
   const className = css`
-    background-color: var(--color-gray-100);
     font-size: 0.8rem;
     padding: 0.5rem;
     height: 100%;
+    background-color: var(--color-gray-100);
+    overflow-y: scroll;
+    & pre {
+      background-color: var(--color-gray-100);
+      padding: 0.1rem 0;
+      margin: 0 0;
+    }
   `;
 
   return function LogView() {
