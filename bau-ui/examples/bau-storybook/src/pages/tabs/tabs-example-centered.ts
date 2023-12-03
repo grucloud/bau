@@ -8,16 +8,14 @@ export default (context: Context) => {
 
   const tabDefs = createTabDefs(context);
 
-  const Tabs = tabs(context, { tabDefs });
+  const Tabs = tabs(context, {
+    tabDefs,
+    class: css`
+      & ul {
+        justify-content: center;
+      }
+    `,
+  });
 
-  return () =>
-    Tabs({
-      variant: "outline",
-      color: "neutral",
-      class: css`
-        & ul {
-          justify-content: center;
-        }
-      `,
-    });
+  return () => Tabs({});
 };

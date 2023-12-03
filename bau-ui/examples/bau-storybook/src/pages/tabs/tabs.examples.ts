@@ -2,7 +2,7 @@ import { Context } from "@grucloud/bau-ui/context";
 
 import pageExample from "../pageExample.ts";
 
-import tabsGridItem from "./tabs-grid-item.ts";
+//import tabsGridItem from "./tabs-grid-item.ts";
 
 import tabsDefault from "./tabs-example-default.ts";
 // @ts-ignore
@@ -54,7 +54,7 @@ export const tabsSpec = {
       createComponent: tabsCentered,
     },
   ],
-  gridItem: tabsGridItem,
+  //    gridItem: tabsGridItem,
 };
 
 export default (context: Context) => {

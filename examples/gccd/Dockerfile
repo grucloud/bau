@@ -5,7 +5,7 @@ ENV BUILD_VERSION $BUILD_VERSION
 ENV PUPPETEER_SKIP_DOWNLOAD true
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache bash git openssh
+    apk add --no-cache bash openssh
 
 WORKDIR /app
 

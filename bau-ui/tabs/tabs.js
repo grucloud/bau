@@ -27,12 +27,19 @@ export default function (context, options = {}) {
       align-items: flex-start;
       padding: 0;
       margin: 0;
+      border-bottom: 1px solid var(--color-emphasis-100);
       list-style: none;
+      & li:not(:last-child) {
+        border-right: 1px solid var(--color-emphasis-100);
+      }
       & li {
+        display: flex;
+        flex-direction: column;
+
         & > a {
+          padding: 0.6rem 1rem 0.6rem 1rem;
           color: inherit;
           text-decoration: none;
-          padding: 0.5rem 1rem 0 1rem;
         }
         text-align: center;
         color: inherit;
@@ -43,9 +50,6 @@ export default function (context, options = {}) {
         &:hover {
           color: var(--color-primary-light);
           background-color: var(--color-emphasis-200);
-          &::after {
-            transform: translateY(0%);
-          }
         }
         &::after {
           transition: var(--transition-fast) ease-in-out;
@@ -53,7 +57,6 @@ export default function (context, options = {}) {
           background: var(--color-primary-light);
           opacity: 1;
           content: "";
-          margin-top: 0.3rem;
           height: 2px;
           width: 100%;
           display: block;
@@ -82,9 +85,9 @@ export default function (context, options = {}) {
     let [
       {
         size = options.size ?? "md",
-        variant = options.variant ?? "outline",
+        variant = options.variant ?? "plain",
         color = options.color ?? "neutral",
-        tabsName = "tabs",
+        tabsKey = "tabs",
         ...props
       },
       ...children
@@ -97,12 +100,12 @@ export default function (context, options = {}) {
     const hashchange = () => {
       //console.log("tabs hashchange");
       const search = new URLSearchParams(window.location.search);
-      const tabName = search.get(tabsName) ?? tabDefs[0].name;
+      const tabName = search.get(tabsKey) ?? tabDefs[0].name;
 
       const nextTab = tabByName(tabName);
       tabCurrentState.val.exit?.call();
       tabCurrentState.val = nextTab;
-      nextTab.enter?.call();
+      nextTab?.enter?.call();
     };
 
     hashchange();
@@ -120,8 +123,8 @@ export default function (context, options = {}) {
 
     const buildHref = (nextTab) => {
       const search = new URLSearchParams(window.location.search);
-      search.delete(tabsName);
-      search.append(tabsName, nextTab);
+      search.delete(tabsKey);
+      search.append(tabsKey, nextTab);
       return `?${search.toString()}`;
     };
 
