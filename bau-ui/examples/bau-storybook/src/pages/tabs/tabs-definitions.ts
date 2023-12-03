@@ -8,12 +8,12 @@ export default (context: Context): Tabs => {
   return [
     {
       name: "Tab1",
-      Header: () => div("TAB"),
+      Header: () => "TAB",
       Content: () => div(p("My Tab 1 Content")),
     },
     {
       name: "Tab2",
-      Header: () => div("TAB 2"),
+      Header: () => "TAB 2",
       Content: () => div(p("My tab 2 Content")),
     },
   ];

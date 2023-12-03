@@ -20,9 +20,7 @@ export default (context: Context) => {
 
   const Tabs = tabs(context, {
     tabDefs,
-    variant: "outline",
-    color: "neutral",
   });
 
-  return () => Tabs({ tabsName: "my-tab" });
+  return () => Tabs({});
 };

@@ -8,19 +8,19 @@ export default (context: Context) => {
 
   const tabDefs = createTabDefs(context);
 
-  const Tabs = tabs(context, { tabDefs });
+  const Tabs = tabs(context, {
+    tabDefs,
+    class: css`
+      flex-direction: row;
+      & ul {
+        border-right: 2px solid var(--color-primary);
+        border-bottom: none;
+        margin-right: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    `,
+  });
 
-  return () =>
-    Tabs({
-      class: css`
-        flex-direction: row;
-        & ul {
-          border-right: 2px solid var(--color-primary);
-          border-bottom: none;
-          margin-right: 1rem;
-          flex-direction: column;
-          align-items: flex-start;
-        }
-      `,
-    });
+  return () => Tabs({});
 };
