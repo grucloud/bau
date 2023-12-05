@@ -23,6 +23,7 @@ export default function (context: Context) {
     run_id,
     status,
     error,
+    kind,
   }: any) =>
     tr(
       {
@@ -51,10 +52,18 @@ export default function (context: Context) {
           run_id
         )
       ),
+      td(kind),
       td(RunStatus({ status, error }))
     );
 
-  const headers = ["Organisation", "Projects", "Workspaces", "Run", "Status"];
+  const headers = [
+    "Organisation",
+    "Projects",
+    "Workspaces",
+    "Run",
+    "Kind",
+    "Status",
+  ];
 
   return function RunList({ data, loading }: any) {
     return section(
@@ -63,7 +72,7 @@ export default function (context: Context) {
           thead(headers.map((header) => th({ scope: "col" }, header))),
           () =>
             loading.val
-              ? TableSkeleton({ columnsSize: 5 })
+              ? TableSkeleton({ columnsSize: 6 })
               : tbody(data.val.map(ListItem))
         )
       )

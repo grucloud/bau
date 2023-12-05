@@ -8,7 +8,7 @@ export default function (context: Context) {
   const Input = input(context);
   const RadioButton = radioButton(context);
 
-  const checkedGitProviderState = bau.state("inventory");
+  const checkedGitProviderState = bau.state("list");
   const oninput = (event: any) => {
     checkedGitProviderState.val = event.target.id;
   };
@@ -30,7 +30,7 @@ export default function (context: Context) {
       label(
         "Inventory",
         RadioButton({
-          id: "inventory",
+          id: "list",
           name: "kind",
           checked: true,
           value: checkedGitProviderState,
@@ -45,11 +45,30 @@ export default function (context: Context) {
           value: checkedGitProviderState,
           oninput,
         })
+      ),
+      label(
+        "Apply",
+        RadioButton({
+          id: "apply",
+          name: "kind",
+          value: checkedGitProviderState,
+          oninput,
+        })
+      ),
+      label(
+        "Destroy",
+        RadioButton({
+          id: "destroy",
+          name: "kind",
+          value: checkedGitProviderState,
+          oninput,
+        })
       )
     );
 
   return function RunCreateContent({}) {
     return section(
+      RunKind(),
       label(
         "Reason",
         Input({
@@ -58,8 +77,7 @@ export default function (context: Context) {
           name: "reason",
           minLength: 1,
           maxLength: 24,
-        }),
-        RunKind()
+        })
       )
     );
   };
