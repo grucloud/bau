@@ -12,10 +12,8 @@ export default function (context, options = {}) {
     gap: 1rem;
     padding: 1rem;
     min-width: 350px;
-
     & > header {
       & h1 {
-        line-height: 0;
         font-size: 1.3rem;
       }
     }

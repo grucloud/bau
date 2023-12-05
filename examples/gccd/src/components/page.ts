@@ -13,12 +13,10 @@ export default function (context: Context) {
     & h1 {
       font-weight: 700;
       font-size: 1.3rem;
-      line-height: 1.4rem;
     }
     & h2 {
       font-weight: 600;
       font-size: 1.2rem;
-      line-height: 1.3rem;
     }
     & > header {
       display: flex;

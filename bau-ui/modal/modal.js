@@ -25,6 +25,8 @@ export default function (context, options = {}) {
     ).join("\n");
 
   const className = css`
+    margin: auto;
+    padding: 1rem;
     box-shadow: var(--shadow-s);
     background-color: var(--background-color);
     border-radius: var(--global-radius);

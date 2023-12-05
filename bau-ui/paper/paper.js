@@ -8,6 +8,7 @@ export default function (context, options = {}) {
     border: 1px solid transparent;
     height: fit-content;
     border-radius: var(--global-radius);
+    margin: 1rem 0;
     &.sm {
       box-shadow: var(--shadow-s);
       background-image: linear-gradient(

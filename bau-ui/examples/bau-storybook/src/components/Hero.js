@@ -9,15 +9,12 @@ export default function (context) {
     padding: 0 1rem 1rem 1rem;
     & h1 {
       font-size: 56px;
-      line-height: 2rem;
     }
     & h2 {
       font-size: 48px;
-      line-height: 1.8rem;
     }
     & p {
       font-size: 24px;
-      line-height: 1.8rem;
       color: var(--color-emphasis-900);
     }
   `;

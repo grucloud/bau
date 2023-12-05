@@ -213,7 +213,7 @@ export default (context: Context) => {
             flex-wrap: wrap;
             gap: 1rem;
             list-style: none;
-            padding: 0;
+            padding: 1rem;
           `,
         },
         components.map(({ name }) =>

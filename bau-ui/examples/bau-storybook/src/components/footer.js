@@ -60,6 +60,7 @@ export default function ({ tr, bau, css }) {
           align-items: center;
           gap: 1rem;
           margin-top: 4rem;
+          padding: 1rem;
           border-top: 1px solid var(--color-emphasis-200);
           color: var(--color-content-secondary);
         `,

@@ -13,6 +13,7 @@ export const createStyles = (context: Context) => {
     }
     fieldset {
       border: 1px solid var(--color-emphasis-200);
+      padding: 0.5rem;
     }
   `;
 };

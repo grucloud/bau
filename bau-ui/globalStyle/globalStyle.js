@@ -94,6 +94,10 @@ export default function globalStyle(
   { colorPalette = ColorPaletteDefault } = {}
 ) {
   createGlobalStyles`
+    * {
+      margin: 0;
+      padding: 0;
+    }
     :root {
       --color-scheme: light;
       --contrast-background-value: 90%;
