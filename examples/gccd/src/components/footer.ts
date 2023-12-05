@@ -2,7 +2,8 @@ import { type Context } from "@grucloud/bau-ui/context";
 
 export default function (context: Context) {
   const { bau, css, config } = context;
-  const { footer, span, a, ul, li, div, img } = bau.tags;
+  const { footer, span, a, ul, li, div } = bau.tags;
+  const { svg, use, title } = bau.tagsNS("http://www.w3.org/2000/svg");
 
   const FooterLinks = ({ links }: any) =>
     ul(
@@ -23,16 +24,15 @@ export default function (context: Context) {
           }
         `,
       },
-      links.map(({ href, name, src }: any) =>
+      links.map(({ href, name, id }: any) =>
         li(
           a(
             { href },
-            img({
-              alt: name,
-              height: "16",
-              width: "16",
-              src: `${config.base}/${src}`,
-            })
+            svg(
+              { width: 16, height: 16, fill: "currentColor" },
+              title(name),
+              use({ href: `${config.base}/footer.svg#${id}` })
+            )
           )
         )
       )
@@ -42,17 +42,17 @@ export default function (context: Context) {
     {
       href: "mailto:hello@grucloud.com",
       name: "Contact Us",
-      src: "mail-line.svg",
+      id: "mail-line",
     },
     {
       href: "https://github.com/grucloud/grucloud/issues",
       name: "Report an issue",
-      src: "bug-line.svg",
+      id: "bug-line",
     },
     {
       href: "https://twitter.com/grucloud_iac",
       name: "Twitter",
-      src: "twitter-x-line.svg",
+      id: "twitter-x-line",
     },
   ];
 
