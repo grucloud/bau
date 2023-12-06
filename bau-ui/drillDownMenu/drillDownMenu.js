@@ -200,8 +200,6 @@ export default function (context, options = {}) {
 
   const Menu = ({ variant, color, size, currentTree, pathnameState }) => {
     const { children, parentTree, data, renderList } = currentTree;
-    if (renderList) {
-    }
     return div(
       { class: cn("drillDownMenu", variant, color, size) },
       parentTree && renderHeader({ variant, color, size, data, currentTree }),
@@ -267,21 +265,21 @@ export default function (context, options = {}) {
       return _currentTree;
     });
 
-    let direction = 1;
+    let directionState = bau.state(0);
 
     const onclick = (event) => {
       const { dataset } = event.target;
       if (dataset.buttonback == "true") {
-        direction = -1;
+        directionState.val = -1;
       } else if (dataset.ischild == "false") {
-        direction = 1;
+        directionState.val = 1;
       } else if (dataset.ischild == "true") {
-        direction = 0;
+        //direction = 0;
       }
     };
 
-    const animationHide = (direction) => {
-      switch (direction) {
+    const animationHide = (directionState) => {
+      switch (directionState.val) {
         case 1:
           return `${hideToLeft} ${animationDuration}`;
         case -1:
@@ -291,8 +289,8 @@ export default function (context, options = {}) {
       }
     };
 
-    const animationShow = (direction) => {
-      switch (direction) {
+    const animationShow = (directionState) => {
+      switch (directionState.val) {
         case 1:
           return `${hideToRight} ${animationDuration} reverse`;
         case -1:
@@ -316,11 +314,11 @@ export default function (context, options = {}) {
       },
       Animate(
         {
-          animationHide: () => animationHide(direction),
-          animationShow: () => animationShow(direction),
+          animationHide: () => animationHide(directionState),
+          animationShow: () => animationShow(directionState),
         },
         bau.bind({
-          deps: [currentTreeState],
+          deps: [directionState],
           render: () => () =>
             Menu({
               variant,

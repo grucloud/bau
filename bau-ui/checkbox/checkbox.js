@@ -5,6 +5,7 @@ export default function (context, options = {}) {
   const { bau, css } = context;
   const { input } = bau.tags;
   const className = css`
+    margin: 0.5rem;
     width: 1.5rem;
     height: 1.5rem;
     border-radius: var(--global-radius);

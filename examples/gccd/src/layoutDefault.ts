@@ -15,15 +15,6 @@ export const layoutDefault = (context: Context) => {
   const NavBarMenu = navBarMenu(context);
   const Footer = footer(context);
 
-  // const fadeIn = keyframes`
-  //   from {
-  //     opacity: 1;
-  //   }
-  //   to {
-  //     opacity: 0;
-  //   }
-  // `;
-
   //const animation = (reverse = "") => `${fadeIn} ease-in-out 0.5s ${reverse}`;
 
   return function LayoutDefault({ componentState }: any) {
