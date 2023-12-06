@@ -10,7 +10,7 @@ import gitConfig from "../../components/git/gitConfig";
 const stepperName = "wizardOrg";
 
 export default (context: Context) => {
-  const { window } = context;
+  const { window, config } = context;
 
   const pushState = (url: string) => window.history.pushState("", "", url);
 
@@ -78,7 +78,7 @@ export default (context: Context) => {
       {
         name: "cloud",
         Header: () => "Cloud Provider",
-        Content: ({ nextStep, previousStep }: any) =>
+        Content: ({ previousStep }: any) =>
           CloudCreate({
             org_id: new URLSearchParams(window.location.search).get("org_id"),
             project_id: new URLSearchParams(window.location.search).get(
@@ -90,14 +90,9 @@ export default (context: Context) => {
             previousHref: nextUrl(previousStep.name),
             onSubmitted: ({ org_id, project_id, workspace_id }: any) =>
               pushState(
-                nextUrl(nextStep.name, { org_id, project_id, workspace_id })
+                `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/`
               ),
           }),
-      },
-      {
-        name: "review",
-        Header: () => "Review",
-        Content: ({}: any) => "Review",
       },
     ];
 

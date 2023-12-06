@@ -4,18 +4,16 @@ import button from "@grucloud/bau-ui/button";
 import dropdownMenu from "@grucloud/bau-ui/dropdownMenu";
 import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
 
-import page from "../../components/page";
 import workspaceDetailContent from "../../components/workspace/workspaceDetailContent";
 import runList from "../../components/run/runList";
 import cloudAuthenticationList from "../../components/cloudAuthentication/cloudAuthenticationList";
 
 export default function (context: Context) {
   const { bau, stores, config, css } = context;
-  const { div, h2, header, a, section } = bau.tags;
+  const { h2, p, header, a, section, strong } = bau.tags;
   const { getByIdQuery } = stores.workspace;
   const DropdownMenu = dropdownMenu(context);
 
-  const Page = page(context);
   const Form = form(context);
   const ButtonAdd = button(context, {
     color: "primary",
@@ -39,26 +37,9 @@ export default function (context: Context) {
 
     const tabDefs: Tabs = [
       {
-        name: "summary",
-        Header: () => "Workspace Summary",
-        Content: () =>
-          section(header(), () => WorkspaceDetailContent(getByIdQuery)),
-      },
-      {
         name: "runs",
         Header: () => "Runs",
-        Content: () =>
-          section(
-            div(
-              ButtonAdd(
-                {
-                  href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/runs/create`,
-                },
-                "+ New Run"
-              )
-            ),
-            RunList(stores.run.getAllByWorkspaceQuery)
-          ),
+        Content: () => section(RunList(stores.run.getAllByWorkspaceQuery)),
       },
       {
         name: "cloudAuthentication",
@@ -76,6 +57,12 @@ export default function (context: Context) {
                 stores.cloudAuthentication.getAllByWorkspaceQuery
               )
           ),
+      },
+      {
+        name: "summary",
+        Header: () => "Workspace Details",
+        Content: () =>
+          section(header(), () => WorkspaceDetailContent(getByIdQuery)),
       },
     ];
 
@@ -108,6 +95,28 @@ export default function (context: Context) {
         option.text
       );
 
-    return Page(Form(Tabs(props)));
+    return Form(
+      h2("Workspace"),
+      p(
+        "Workspace ",
+        strong(workspace_id),
+        " in project ",
+        a(
+          { href: `${config.base}/org/${org_id}/projects/${project_id}` },
+          project_id
+        ),
+        " of organisation ",
+        a({ href: `${config.base}/org/${org_id}` }, org_id)
+      ),
+      p(
+        ButtonAdd(
+          {
+            href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/runs/create`,
+          },
+          "+ New Run"
+        )
+      ),
+      Tabs(props)
+    );
   };
 }

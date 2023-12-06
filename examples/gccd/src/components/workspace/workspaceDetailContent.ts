@@ -20,7 +20,6 @@ export default function (context: Context) {
   return function WorkspaceDetailContent({ data, loading }: any) {
     const { org_id, project_id, workspace_id } = data.val;
     return section(
-      h2("Summary"),
       TableContainer(
         table(() =>
           loading.val
