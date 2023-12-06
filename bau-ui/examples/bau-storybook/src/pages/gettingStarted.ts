@@ -13,7 +13,6 @@ export default function (context: Context) {
       {
         class: css`
           background-color: var(--background-color);
-          border-bottom: 1px solid var(--color-emphasis-200);
         `,
       },
       h1("Getting Started"),

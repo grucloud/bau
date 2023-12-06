@@ -269,7 +269,7 @@ export default function (context, options = {}) {
           tree,
           pathname: pathFromHref(event),
         });
-        console.log("direction", _direction);
+        //console.log("direction", _direction);
 
         const { ischild } = event.target.dataset;
 

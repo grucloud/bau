@@ -6,7 +6,14 @@ export default function (context: Context) {
   const { bau, css, config } = context;
   const { nav, li } = bau.tags;
 
-  const Button = button(context);
+  const Button = button(context, {
+    class: css`
+      &.button {
+        justify-content: flex-start;
+        width: 100%;
+      }
+    `,
+  });
   const List = list(context);
 
   const links = [

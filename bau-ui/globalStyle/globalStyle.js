@@ -98,6 +98,12 @@ export default function globalStyle(
       margin: 0;
       padding: 0;
     }
+    p {
+      margin:0.4rem 0;
+    }
+    ul {
+      padding-left:1rem
+    }
     :root {
       --color-scheme: light;
       --contrast-background-value: 90%;
@@ -187,9 +193,6 @@ export default function globalStyle(
       --brightness-active: 180%;
       --brightness-hover: 150%;
       --brightness-hover-reverse: 70% ${buildEmphasis({ dark: true })};
-    }
-    body {
-      margin: 0;
     }
   `;
 }
