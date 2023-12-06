@@ -1,4 +1,3 @@
-import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import cn from "@grucloud/bau-css/classNames.js";
 import animate from "../animate/animate.js";
 import button from "../button/button.js";
@@ -220,7 +219,7 @@ export default function (context, options = {}) {
     let currentTree = treeAddParent({})({ ...tree });
     let subTree = findSubTree(pathname)(currentTree);
     if (!subTree) {
-      // console.error("drilldown no sub tree", pathname);
+      //console.error("drilldown no sub tree", pathname);
       subTree = currentTree;
     }
     return subTree;
@@ -230,23 +229,14 @@ export default function (context, options = {}) {
     window.location.pathname.replace(baseUrl, "")
   );
 
-  window.document.addEventListener("click", (event) => {
-    const { target } = event;
-    const href = target.getAttribute("href");
-    if (
-      target.tagName === "A" &&
-      href &&
-      !href.startsWith("http") &&
-      !href.startsWith("#") &&
-      !href.startsWith("?")
-    ) {
-      let path = href.replace(baseUrl, "");
-      if (!hashBased) {
-        path = path.replace(target.hash, "");
-      }
-      pathnameState.val = path;
+  const pathFromHref = ({ target }) => {
+    const href = target.closest("a").getAttribute("href");
+    let path = href.replace(baseUrl, "");
+    if (!hashBased) {
+      path = path.replace(target.hash, "");
     }
-  });
+    return path;
+  };
 
   return function DrillDownMenu(props) {
     const {
@@ -256,30 +246,52 @@ export default function (context, options = {}) {
       tree,
       ...otherProps
     } = props;
-    let _currentTree;
-    let currentTreeState = bau.derive(() => {
-      _currentTree = findInitialTree({
-        tree,
-        pathname: pathnameState.val,
-      });
-      return _currentTree;
+
+    let _currentTree = findInitialTree({
+      tree,
+      pathname: pathnameState.val,
     });
 
-    let directionState = bau.state(0);
+    let _direction;
+    window.document.addEventListener("click", (event) => {
+      const { target } = event;
+      const anchor = target.closest("a");
+      if (!anchor) return;
+      const href = anchor.getAttribute("href");
+
+      if (
+        href &&
+        !href.startsWith("http") &&
+        !href.startsWith("#") &&
+        !href.startsWith("?")
+      ) {
+        _currentTree = findInitialTree({
+          tree,
+          pathname: pathFromHref(event),
+        });
+        console.log("direction", _direction);
+
+        const { ischild } = event.target.dataset;
+
+        if (ischild !== "true") {
+          pathnameState.val = pathFromHref({ target });
+        }
+      }
+    });
 
     const onclick = (event) => {
-      const { dataset } = event.target;
-      if (dataset.buttonback == "true") {
-        directionState.val = -1;
-      } else if (dataset.ischild == "false") {
-        directionState.val = 1;
-      } else if (dataset.ischild == "true") {
-        //direction = 0;
+      const { buttonback, ischild } = event.target.dataset;
+      if (buttonback == "true") {
+        _direction = -1;
+      } else if (ischild == "false") {
+        _direction = 1;
+      } else if (ischild == "true") {
+        _direction = 0;
       }
     };
 
-    const animationHide = (directionState) => {
-      switch (directionState.val) {
+    const animationHide = (direction) => {
+      switch (direction) {
         case 1:
           return `${hideToLeft} ${animationDuration}`;
         case -1:
@@ -289,8 +301,8 @@ export default function (context, options = {}) {
       }
     };
 
-    const animationShow = (directionState) => {
-      switch (directionState.val) {
+    const animationShow = (direction) => {
+      switch (direction) {
         case 1:
           return `${hideToRight} ${animationDuration} reverse`;
         case -1:
@@ -314,11 +326,11 @@ export default function (context, options = {}) {
       },
       Animate(
         {
-          animationHide: () => animationHide(directionState),
-          animationShow: () => animationShow(directionState),
+          animationHide: () => animationHide(_direction),
+          animationShow: () => animationShow(_direction),
         },
         bau.bind({
-          deps: [directionState],
+          deps: [pathnameState],
           render: () => () =>
             Menu({
               variant,
