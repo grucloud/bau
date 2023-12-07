@@ -8,6 +8,7 @@ export default function (context, options = {}) {
   const className = css`
     list-style: none;
     & li {
+      margin: 0.5rem 0;
       display: flex;
       flex-direction: column;
       font-size: smaller;
