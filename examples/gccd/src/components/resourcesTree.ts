@@ -83,7 +83,7 @@ export default function (context: Context) {
       },
       () =>
         getResources.loading.val
-          ? TableSkeleton({ columnsSize: 1, rowSize: 20 })
+          ? TableSkeleton({ columnsSize: 2, rowSize: 20 })
           : TreeView({ tree: toTree(getResources.data.val) })
     );
   };

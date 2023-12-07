@@ -5,7 +5,11 @@ export default function (context: Context, options?: any) {
   const { bau, css } = context;
   const { tbody, tr, td, span } = bau.tags;
 
-  const className = css``;
+  const className = css`
+    & td {
+      padding: 0.2rem;
+    }
+  `;
 
   const Skeleton = skeleton(context, {
     class: css`
