@@ -101,6 +101,9 @@ export default function (context) {
           { data: { name: "Input", href: "/components/input" } },
           { data: { name: "Input Search", href: "/components/inputSearch" } },
           {
+            data: { name: "Key Value List", href: "/components/keyValueList" },
+          },
+          {
             data: {
               name: "Linear Progress",
               href: "/components/linearProgress",

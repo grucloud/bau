@@ -118,8 +118,7 @@ export default function globalStyle(
       ${variantToCss()}
       --color-content: hsl(0, 0%, 10%);
       --color-content-inverse: hsl(0, 0%, 95%);
-
-      --color-content-secondary: hsl(0, 0%, 30%);
+      --color-content-secondary: hsl(0, 0%, 60%);
       --background-color: var(--color-white);
       --global-border-width: 1px;
       --global-radius: 0.2rem;
@@ -187,7 +186,7 @@ export default function globalStyle(
       --background-color: #121212;
       --hover-overlay: rgba(255, 255, 255, 0.05);
       --color-content: #e3e3e3;
-      --color-content-secondary: rgba(255, 255, 255, 0.7);
+      --color-content-secondary: rgba(255, 255, 255, 0.5);
       --brightness-hover-always: 130%;
       --brightness-active-always: 120%;
       --brightness-active: 180%;

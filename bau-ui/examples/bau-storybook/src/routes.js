@@ -19,7 +19,6 @@ import chipExamples from "./pages/chip/chip.examples";
 import checkboxExamples from "./pages/checkbox/checkbox.examples";
 import collapsibleExamples from "./pages/collapsible/collapsible.examples";
 import dividerExamples from "./pages/divider/divider.examples";
-
 import drawerExamples from "./pages/drawer/drawer.examples";
 import dropdownMenuExamples from "./pages/dropdownMenu/dropdownMenu.examples";
 import drillDownMenuExamples from "./pages/drilldownMenu/drillDownMenu.examples";
@@ -27,12 +26,12 @@ import fileInputExamples from "./pages/fileInput/fileInput.examples";
 import formExamples from "./pages/form/form.examples";
 import inputExamples from "./pages/input/input.examples";
 import inputSearchExamples from "./pages/inputSearch/inputSearch.examples";
+import keyValueListExamples from "./pages/keyValueList/keyValueList.examples";
 import linearProgressExamples from "./pages/linearProgress/linearProgress.examples";
 import loadingButtonExamples from "./pages/loadingButton/loadingButton.examples";
 import listExamples from "./pages/list/list.examples";
 import modalExamples from "./pages/modal/modal.examples";
 import multiSelectExamples from "./pages/multiSelect/multiSelect.examples";
-
 import popoverExamples from "./pages/popover/popover.examples";
 import paginationNavigationExamples from "./pages/paginationNavigation/paginationNavigation.examples";
 import paperExamples from "./pages/paper/paper.examples";
@@ -240,6 +239,13 @@ export const createRoutes = ({ context }) => {
           action: () => ({
             title: "Input Search",
             component: inputSearchExamples(context),
+          }),
+        },
+        {
+          path: "keyValueList",
+          action: () => ({
+            title: "Key Value List",
+            component: keyValueListExamples(context),
           }),
         },
         {
