@@ -98,8 +98,8 @@ export default function globalStyle(
       margin: 0;
       padding: 0;
     }
-    p {
-      margin:0.4rem 0;
+    h1,h2,h3,p {
+      margin:0.3rem 0;
     }
     ul {
       padding-left:1rem

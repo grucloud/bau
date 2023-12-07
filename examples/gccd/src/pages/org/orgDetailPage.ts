@@ -10,7 +10,7 @@ import projectList from "../../components/project/projectList";
 
 export default function (context: Context) {
   const { bau, stores, config } = context;
-  const { h2, div } = bau.tags;
+  const { h1, h2, div, p } = bau.tags;
   const { getByIdQuery } = stores.org;
 
   const Page = page(context);
@@ -31,13 +31,18 @@ export default function (context: Context) {
 
     const tabDefs: Tabs = [
       {
+        name: "projects",
+        Header: () => "Projects",
+        Content: () => div(ProjectList(stores.project.getAllByOrgQuery)),
+      },
+      {
         name: "summary",
         Header: () => "Organisation Details",
         Content: () =>
           div(
             OrgDetailContent(getByIdQuery),
             h2("Danger Zone"),
-            div(
+            p(
               ButtonDelete(
                 { href: `${config.base}/org/${org_id}/destroy` },
                 "Danger Zone"
@@ -45,24 +50,21 @@ export default function (context: Context) {
             )
           ),
       },
-      {
-        name: "projects",
-        Header: () => "Projects",
-        Content: () =>
-          div(
-            ButtonAdd(
-              {
-                href: `${config.base}/org/${org_id}/projects/create`,
-              },
-              "+ New Project"
-            ),
-            div(ProjectList(stores.project.getAllByOrgQuery))
-          ),
-      },
     ];
 
     const Tabs = tabs(context, { tabDefs, variant: "plain", color: "neutral" });
 
-    return Page(Form(Tabs(props)));
+    return Page(
+      h1("Organisation ", org_id),
+      p(
+        ButtonAdd(
+          {
+            href: `${config.base}/org/${org_id}/projects/create`,
+          },
+          "+ New Project"
+        )
+      ),
+      Form(Tabs(props))
+    );
   };
 }
