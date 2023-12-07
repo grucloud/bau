@@ -29,6 +29,7 @@ export default function (context: Context) {
         svgUrl,
         error,
         kind,
+        created_at,
       } = data.val;
       return loading.val
         ? TableSkeleton({ columnsSize: 2, rowSize: 8 })
@@ -69,11 +70,23 @@ export default function (context: Context) {
                 )
               ),
               li(label("RunId"), span(run_id)),
-              li(label("Kind"), span(kind)),
-              li(label("Status"), span(RunStatus({ status, error })))
+              li(label("Kind"), span(kind))
             ),
-            isCompleted(status) &&
-              KeyValueList(
+            KeyValueList(
+              li(label("Status"), span(RunStatus({ status, error }))),
+              li(
+                label("Created at"),
+                span(
+                  new Intl.DateTimeFormat("default", {
+                    hour: "numeric",
+                    minute: "numeric",
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                  }).format(new Date(created_at))
+                )
+              ),
+              isCompleted(status) && [
                 li(
                   label("State file"),
                   span(
@@ -98,8 +111,9 @@ export default function (context: Context) {
                   span(
                     a({ href: logsUrl, target: "_blank" }, "Download log file")
                   )
-                )
-              )
+                ),
+              ]
+            )
           );
     });
   };
