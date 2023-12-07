@@ -118,7 +118,7 @@ export default function globalStyle(
       ${variantToCss()}
       --color-content: hsl(0, 0%, 10%);
       --color-content-inverse: hsl(0, 0%, 95%);
-      --color-content-secondary: hsl(0, 0%, 60%);
+      --color-content-secondary: hsl(0, 0%, 40%);
       --background-color: var(--color-white);
       --global-border-width: 1px;
       --global-radius: 0.2rem;

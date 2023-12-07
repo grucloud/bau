@@ -28,6 +28,7 @@ export default function (context: Context) {
         logsUrl,
         svgUrl,
         error,
+        kind,
       } = data.val;
       return loading.val
         ? TableSkeleton({ columnsSize: 2, rowSize: 8 })
@@ -68,6 +69,7 @@ export default function (context: Context) {
                 )
               ),
               li(label("RunId"), span(run_id)),
+              li(label("Kind"), span(kind)),
               li(label("Status"), span(RunStatus({ status, error })))
             ),
             isCompleted(status) &&
