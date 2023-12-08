@@ -78,6 +78,7 @@ export default function (context, options = {}) {
       () => loadingState.val && Skeleton(),
       () => errorState.val && alt,
       img({
+        alt,
         width,
         height,
         onload,
