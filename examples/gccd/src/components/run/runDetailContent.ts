@@ -5,6 +5,7 @@ import keyValueList from "@grucloud/bau-ui/keyValueList";
 
 import tableSkeleton from "../tableSkeleton";
 import runStatus from "./runStatus";
+import { duration } from "../../utils/duration";
 
 export default function (context: Context) {
   const { bau, css, config } = context;
@@ -30,6 +31,7 @@ export default function (context: Context) {
         error,
         kind,
         created_at,
+        updated_at,
       } = data.val;
       return loading.val
         ? TableSkeleton({ columnsSize: 2, rowSize: 8 })
@@ -80,12 +82,15 @@ export default function (context: Context) {
                   new Intl.DateTimeFormat("default", {
                     hour: "numeric",
                     minute: "numeric",
+                    second: "numeric",
+
                     year: "numeric",
                     month: "numeric",
                     day: "numeric",
                   }).format(new Date(created_at))
                 )
               ),
+              li(label("Duration"), span(duration(updated_at, created_at))),
               isCompleted(status) && [
                 li(
                   label("State file"),
