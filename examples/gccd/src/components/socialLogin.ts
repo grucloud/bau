@@ -53,7 +53,7 @@ export default function (context: Context) {
       },
       img({
         src: `${config.base}${src}`,
-        alt: label,
+        alt: dataButtonLogin,
         width: 28,
         height: 28,
       }),
