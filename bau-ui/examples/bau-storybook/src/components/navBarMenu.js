@@ -105,6 +105,12 @@ export default function (context) {
           },
           {
             data: {
+              name: "Lazy",
+              href: "/components/lazy",
+            },
+          },
+          {
+            data: {
               name: "Linear Progress",
               href: "/components/linearProgress",
             },

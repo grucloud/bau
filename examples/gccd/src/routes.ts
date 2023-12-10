@@ -1,383 +1,516 @@
 import { type Context } from "@grucloud/bau-ui/context";
-import loginPage from "./pages/loginPage";
-import logoutPage from "./pages/logoutPage";
-import profilePage from "./pages/profilePage";
-import accountDeletePage from "./pages/accountDeletePage";
 import layoutUnauthenticated from "./layoutUnauthenticated";
+import lazy from "@grucloud/bau-ui/lazy";
 
-// Org
-import orgListPage from "./pages/org/orgListPage";
-import orgCreatePage from "./pages/org/orgCreatePage";
-import orgDetailPage from "./pages/org/orgDetailPage";
-import orgDestroyPage from "./pages/org/orgDestroyPage";
+export const createRoutes = ({ context }: { context: Context }) => {
+  const Lazy = lazy(context);
 
-// Project
-import projectCreatePage from "./pages/project/projectCreatePage";
-import projectDetailPage from "./pages/project/projectDetailPage";
-import projectDestroyPage from "./pages/project/projectDestroyPage";
-import projectUserPage from "./pages/project/projectUserPage";
-
-// Workspace
-import workspaceUserPage from "./pages/workspace/workspaceUserPage";
-import workspaceCreatePage from "./pages/workspace/workspaceCreatePage";
-import workspaceDetailPage from "./pages/workspace/workspaceDetailPage";
-import workspaceDestroyPage from "./pages/workspace/workspaceDestroyPage";
-
-// Run
-import runCreatePage from "./pages/run/runCreatePage";
-import runDetailPage from "./pages/run/runDetailPage";
-import runDestroyPage from "./pages/run/runDestroyPage";
-import runUserPage from "./pages/run/runUserPage";
-
-// Cloud Authentication
-import awsCreatePage from "./pages/cloudAuthentication/awsCreatePage";
-import awsEditPage from "./pages/cloudAuthentication/awsEditPage";
-import azureCreatePage from "./pages/cloudAuthentication/azureCreatePage";
-import azureEditPage from "./pages/cloudAuthentication/azureEditPage";
-import googleCreatePage from "./pages/cloudAuthentication/googleCreatePage";
-import googleEditPage from "./pages/cloudAuthentication/googleEditPage";
-import cloudAuthenticationDestroyPage from "./pages/cloudAuthentication/cloudAuthenticationDestroyPage";
-
-//
-export const createRoutes = ({ context }: { context: Context }) => [
-  {
-    path: "",
-    action: () => ({
-      title: "Dashboard",
-      component: () => orgListPage(context)({}),
-    }),
-  },
-  {
-    path: "workspaces",
-    action: () => ({
-      title: "Workspaces",
-      component: () => workspaceUserPage(context)({}),
-    }),
-  },
-  {
-    path: "projects",
-    action: () => ({
-      title: "Projects",
-      component: () => projectUserPage(context)({}),
-    }),
-  },
-  {
-    path: "runs",
-    action: () => ({
-      title: "Runs",
-      component: () => runUserPage(context)({}),
-    }),
-  },
-  {
-    path: "org",
-    action: () => ({
-      title: "Organisations",
-      component: () => orgListPage(context)({}),
-    }),
-    children: [
-      {
-        path: "create",
-        action: () => ({
-          title: "Create New Organisation",
-          component: () => orgCreatePage(context)(),
-        }),
-      },
-      {
-        path: "(?<org_id>.[^/]+)",
-        action: ({ match: { groups } }: any) => ({
-          title: "Organisation Details",
-          component: () => orgDetailPage(context)(groups),
-        }),
-        children: [
-          {
-            path: "destroy",
-            action: ({ match: { groups } }: any) => ({
-              title: "Delete Organisation",
-              component: () => orgDestroyPage(context)(groups),
-            }),
-          },
-          {
-            path: "projects",
-            action: ({ match: { groups } }: any) => ({
-              title: " Project",
-              component: () => orgDetailPage(context)(groups),
-            }),
-            children: [
-              {
-                path: "create",
-                action: ({ match: { groups } }: any) => ({
-                  title: "Create Project",
-                  component: () => projectCreatePage(context)(groups),
-                }),
-              },
-              {
-                path: "(?<project_id>.[^/]+)",
-                action: ({ match: { groups } }: any) => ({
-                  title: "Project Details",
-                  component: () => projectDetailPage(context)(groups),
-                }),
-                children: [
-                  {
-                    path: "destroy",
-                    action: ({ match: { groups } }: any) => ({
-                      title: "Delete Project",
-                      component: () => projectDestroyPage(context)(groups),
-                    }),
-                  },
-                  {
-                    path: "workspaces",
-                    action: ({ match: { groups } }: any) => ({
-                      title: "workspaces",
-                      component: () => projectDetailPage(context)(groups),
-                    }),
-                    children: [
-                      {
-                        path: "create",
-                        action: ({ match: { groups } }: any) => ({
-                          title: "Create Workspace",
-                          component: () => workspaceCreatePage(context)(groups),
-                        }),
-                      },
-                      {
-                        path: "(?<workspace_id>.[^/]+)",
-                        action: ({ match: { groups } }: any) => ({
-                          title: "Workspace Details",
-                          component: () => workspaceDetailPage(context)(groups),
-                        }),
-                        children: [
-                          {
-                            path: "destroy",
-                            action: ({ match: { groups } }: any) => ({
-                              title: "Delete Workspace",
-                              component: () =>
-                                workspaceDestroyPage(context)(groups),
-                            }),
-                          },
-                          {
-                            path: "cloud_authentication",
-                            action: ({ match: { groups } }: any) => ({
-                              title: "Cloud Authentication",
-                              component: () =>
-                                workspaceDetailPage(context)(groups),
-                            }),
-                            children: [
-                              {
-                                path: "create",
-                                action: ({ match: { groups } }: any) => ({
-                                  title: "Cloud Authentication",
-                                  component: () =>
-                                    workspaceDetailPage(context)(groups),
-                                }),
-                                children: [
-                                  {
-                                    path: "aws",
-                                    action: ({ match: { groups } }: any) => ({
-                                      title: "Create AWS Authentication",
-                                      component: () =>
-                                        awsCreatePage(context)({
-                                          ...groups,
-                                          onSubmitted: () => {
-                                            const {
-                                              org_id,
-                                              project_id,
-                                              workspace_id,
-                                            } = groups;
-                                            window.history.pushState(
-                                              "",
-                                              "",
-                                              `${context.config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
-                                            );
-                                          },
-                                        }),
-                                    }),
-                                  },
-                                  {
-                                    path: "azure",
-                                    action: ({ match: { groups } }: any) => ({
-                                      title: "Create Azure Authentication",
-                                      component: () =>
-                                        azureCreatePage(context)({
-                                          ...groups,
-                                          onSubmitted: () => {
-                                            const {
-                                              org_id,
-                                              project_id,
-                                              workspace_id,
-                                            } = groups;
-                                            window.history.pushState(
-                                              "",
-                                              "",
-                                              `${context.config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
-                                            );
-                                          },
-                                        }),
-                                    }),
-                                  },
-                                  {
-                                    path: "google",
-                                    action: ({ match: { groups } }: any) => ({
-                                      title:
-                                        "Create Google Cloud Authentication",
-                                      component: () =>
-                                        googleCreatePage(context)({
-                                          ...groups,
-                                          onSubmitted: () => {
-                                            const {
-                                              org_id,
-                                              project_id,
-                                              workspace_id,
-                                            } = groups;
-                                            window.history.pushState(
-                                              "",
-                                              "",
-                                              `${context.config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
-                                            );
-                                          },
-                                        }),
-                                    }),
-                                  },
-                                ],
-                              },
-                              {
-                                path: "(?<cloud_authentication_id>[^/]+)",
-                                action: ({ match: { groups } }: any) => ({
-                                  title: "Cloud Authentication",
-                                  component: () =>
-                                    workspaceDetailPage(context)(groups),
-                                }),
-                                children: [
-                                  {
-                                    path: "destroy",
-                                    action: ({ match: { groups } }: any) => ({
-                                      title: "Delete Cloud Authentication",
-                                      component: () =>
-                                        cloudAuthenticationDestroyPage(context)(
-                                          groups
-                                        ),
-                                    }),
-                                  },
-                                  {
-                                    path: "edit",
-                                    action: ({ match: { groups } }: any) => ({
-                                      title: "Edit Cloud Authentication",
-                                      component: () =>
-                                        workspaceDetailPage(context)(groups),
-                                    }),
-                                    children: [
-                                      {
-                                        path: "aws",
-                                        action: ({
-                                          match: { groups },
-                                        }: any) => ({
-                                          title: "Edit AWS Authentication",
-                                          component: () =>
-                                            awsEditPage(context)(groups),
-                                        }),
-                                      },
-                                      {
-                                        path: "azure",
-                                        action: ({
-                                          match: { groups },
-                                        }: any) => ({
-                                          title: "Edit Azure Authentication",
-                                          component: () =>
-                                            azureEditPage(context)(groups),
-                                        }),
-                                      },
-                                      {
-                                        path: "google",
-                                        action: ({
-                                          match: { groups },
-                                        }: any) => ({
-                                          title:
-                                            "Edit Google Cloud Authentication",
-                                          component: () =>
-                                            googleEditPage(context)(groups),
-                                        }),
-                                      },
-                                    ],
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                          {
-                            path: "runs",
-                            action: ({ match: { groups } }: any) => ({
-                              title: "List run",
-                              component: () =>
-                                workspaceDetailPage(context)(groups),
-                            }),
-                            children: [
-                              {
-                                path: "create",
-                                action: ({ match: { groups } }: any) => ({
-                                  title: "Create Run",
-                                  component: () =>
-                                    runCreatePage(context)(groups),
-                                }),
-                              },
-                              {
-                                path: "(?<run_id>[^/]+)",
-                                action: ({ match: { groups } }: any) => ({
-                                  title: "Run Details",
-                                  component: () =>
-                                    runDetailPage(context)(groups),
-                                }),
-                                children: [
-                                  {
-                                    path: "destroy",
-                                    action: ({ match: { groups } }: any) => ({
-                                      title: "Delete Run",
-                                      component: () =>
-                                        runDestroyPage(context)(groups),
-                                    }),
-                                  },
-                                ],
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: "profile",
-    action: () => ({
-      title: "Profile",
-      component: profilePage(context),
-    }),
-  },
-  {
-    path: "login",
-    action: () => ({
-      title: "Login",
-      description: "Login to GruCloud",
-      component: loginPage(context),
-      Layout: layoutUnauthenticated(context),
-    }),
-  },
-  {
-    path: "logout",
-    action: () => ({
-      title: "Logout",
-      component: logoutPage(context),
-      Layout: layoutUnauthenticated(context),
-    }),
-  },
-  {
-    path: "accountDelete",
-    action: () => ({
-      title: "Delete Account",
-      component: accountDeletePage(context),
-    }),
-  },
-];
+  return [
+    {
+      path: "",
+      action: () => ({
+        title: "Dashboard",
+        component: () =>
+          Lazy({
+            getModule: () => import("./pages/org/orgListPage"),
+          }),
+      }),
+    },
+    {
+      path: "workspaces",
+      action: () => ({
+        title: "Workspaces",
+        component: () =>
+          Lazy({
+            getModule: () => import("./pages/workspace/workspaceUserPage"),
+          }),
+      }),
+    },
+    {
+      path: "projects",
+      action: () => ({
+        title: "Projects",
+        component: () =>
+          Lazy({
+            getModule: () => import("./pages/project/projectUserPage"),
+          }),
+      }),
+    },
+    {
+      path: "runs",
+      action: () => ({
+        title: "Runs",
+        component: () =>
+          Lazy({
+            getModule: () => import("./pages/run/runUserPage"),
+          }),
+      }),
+    },
+    {
+      path: "org",
+      action: () => ({
+        title: "Organisations",
+        component: () =>
+          Lazy({
+            getModule: () => import("./pages/org/orgListPage"),
+          }),
+      }),
+      children: [
+        {
+          path: "create",
+          action: () => ({
+            title: "Create New Organisation",
+            component: () =>
+              Lazy({
+                getModule: () => import("./pages/org/orgCreatePage"),
+              }),
+          }),
+        },
+        {
+          path: "(?<org_id>.[^/]+)",
+          action: ({ match: { groups } }: any) => ({
+            title: "Organisation Details",
+            component: () =>
+              Lazy({
+                getModule: () => import("./pages/org/orgDetailPage"),
+                props: groups,
+              }),
+          }),
+          children: [
+            {
+              path: "destroy",
+              action: ({ match: { groups } }: any) => ({
+                title: "Delete Organisation",
+                component: () =>
+                  Lazy({
+                    getModule: () => import("./pages/org/orgDestroyPage"),
+                    props: groups,
+                  }),
+              }),
+            },
+            {
+              path: "projects",
+              action: ({ match: { groups } }: any) => ({
+                title: " Project",
+                component: () =>
+                  Lazy({
+                    getModule: () => import("./pages/org/orgDetailPage"),
+                    props: groups,
+                  }),
+              }),
+              children: [
+                {
+                  path: "create",
+                  action: ({ match: { groups } }: any) => ({
+                    title: "Create Project",
+                    component: () =>
+                      Lazy({
+                        getModule: () =>
+                          import("./pages/project/projectCreatePage"),
+                        props: groups,
+                      }),
+                  }),
+                },
+                {
+                  path: "(?<project_id>.[^/]+)",
+                  action: ({ match: { groups } }: any) => ({
+                    title: "Project Details",
+                    component: () =>
+                      Lazy({
+                        getModule: () =>
+                          import("./pages/project/projectDetailPage"),
+                        props: groups,
+                      }),
+                  }),
+                  children: [
+                    {
+                      path: "destroy",
+                      action: ({ match: { groups } }: any) => ({
+                        title: "Delete Project",
+                        component: () =>
+                          Lazy({
+                            getModule: () =>
+                              import("./pages/project/projectDestroyPage"),
+                            props: groups,
+                          }),
+                      }),
+                    },
+                    {
+                      path: "workspaces",
+                      action: ({ match: { groups } }: any) => ({
+                        title: "workspaces",
+                        component: () =>
+                          Lazy({
+                            getModule: () =>
+                              import("./pages/project/projectDetailPage"),
+                            props: groups,
+                          }),
+                      }),
+                      children: [
+                        {
+                          path: "create",
+                          action: ({ match: { groups } }: any) => ({
+                            title: "Create Workspace",
+                            component: () =>
+                              Lazy({
+                                getModule: () =>
+                                  import(
+                                    "./pages/workspace/workspaceCreatePage"
+                                  ),
+                                props: groups,
+                              }),
+                          }),
+                        },
+                        {
+                          path: "(?<workspace_id>.[^/]+)",
+                          action: ({ match: { groups } }: any) => ({
+                            title: "Workspace Details",
+                            component: () =>
+                              Lazy({
+                                getModule: () =>
+                                  import(
+                                    "./pages/workspace/workspaceDetailPage"
+                                  ),
+                                props: groups,
+                              }),
+                          }),
+                          children: [
+                            {
+                              path: "destroy",
+                              action: ({ match: { groups } }: any) => ({
+                                title: "Delete Workspace",
+                                component: () =>
+                                  Lazy({
+                                    getModule: () =>
+                                      import(
+                                        "./pages/workspace/workspaceDestroyPage"
+                                      ),
+                                    props: groups,
+                                  }),
+                              }),
+                            },
+                            {
+                              path: "cloud_authentication",
+                              action: ({ match: { groups } }: any) => ({
+                                title: "Cloud Authentication",
+                                component: () =>
+                                  Lazy({
+                                    getModule: () =>
+                                      import(
+                                        "./pages/workspace/workspaceDetailPage"
+                                      ),
+                                    props: groups,
+                                  }),
+                              }),
+                              children: [
+                                {
+                                  path: "create",
+                                  action: ({ match: { groups } }: any) => ({
+                                    title: "Cloud Authentication",
+                                    component: () =>
+                                      Lazy({
+                                        getModule: () =>
+                                          import(
+                                            "./pages/workspace/workspaceDetailPage"
+                                          ),
+                                        props: groups,
+                                      }),
+                                  }),
+                                  children: [
+                                    {
+                                      path: "aws",
+                                      action: ({ match: { groups } }: any) => ({
+                                        title: "Create AWS Authentication",
+                                        component: () =>
+                                          Lazy({
+                                            getModule: () =>
+                                              import(
+                                                "./pages/cloudAuthentication/awsCreatePage"
+                                              ),
+                                            props: {
+                                              ...groups,
+                                              onSubmitted: () => {
+                                                const {
+                                                  org_id,
+                                                  project_id,
+                                                  workspace_id,
+                                                } = groups;
+                                                window.history.pushState(
+                                                  "",
+                                                  "",
+                                                  `${context.config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
+                                                );
+                                              },
+                                            },
+                                          }),
+                                      }),
+                                    },
+                                    {
+                                      path: "azure",
+                                      action: ({ match: { groups } }: any) => ({
+                                        title: "Create Azure Authentication",
+                                        component: () =>
+                                          Lazy({
+                                            getModule: () =>
+                                              import(
+                                                "./pages/cloudAuthentication/azureCreatePage"
+                                              ),
+                                            props: {
+                                              ...groups,
+                                              onSubmitted: () => {
+                                                const {
+                                                  org_id,
+                                                  project_id,
+                                                  workspace_id,
+                                                } = groups;
+                                                window.history.pushState(
+                                                  "",
+                                                  "",
+                                                  `${context.config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
+                                                );
+                                              },
+                                            },
+                                          }),
+                                      }),
+                                    },
+                                    {
+                                      path: "google",
+                                      action: ({ match: { groups } }: any) => ({
+                                        title:
+                                          "Create Google Cloud Authentication",
+                                        component: () =>
+                                          Lazy({
+                                            getModule: () =>
+                                              import(
+                                                "./pages/cloudAuthentication/googleCreatePage"
+                                              ),
+                                            props: {
+                                              ...groups,
+                                              onSubmitted: () => {
+                                                const {
+                                                  org_id,
+                                                  project_id,
+                                                  workspace_id,
+                                                } = groups;
+                                                window.history.pushState(
+                                                  "",
+                                                  "",
+                                                  `${context.config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
+                                                );
+                                              },
+                                            },
+                                          }),
+                                      }),
+                                    },
+                                  ],
+                                },
+                                {
+                                  path: "(?<cloud_authentication_id>[^/]+)",
+                                  action: ({ match: { groups } }: any) => ({
+                                    title: "Cloud Authentication",
+                                    component: () =>
+                                      Lazy({
+                                        getModule: () =>
+                                          import(
+                                            "./pages/workspace/workspaceDetailPage"
+                                          ),
+                                        props: groups,
+                                      }),
+                                  }),
+                                  children: [
+                                    {
+                                      path: "destroy",
+                                      action: ({ match: { groups } }: any) => ({
+                                        title: "Delete Cloud Authentication",
+                                        component: () =>
+                                          Lazy({
+                                            getModule: () =>
+                                              import(
+                                                "./pages/cloudAuthentication/cloudAuthenticationDestroyPage"
+                                              ),
+                                            props: groups,
+                                          }),
+                                      }),
+                                    },
+                                    {
+                                      path: "edit",
+                                      action: ({ match: { groups } }: any) => ({
+                                        title: "Edit Cloud Authentication",
+                                        component: () =>
+                                          Lazy({
+                                            getModule: () =>
+                                              import(
+                                                "./pages/workspace/workspaceDetailPage"
+                                              ),
+                                            props: groups,
+                                          }),
+                                      }),
+                                      children: [
+                                        {
+                                          path: "aws",
+                                          action: ({
+                                            match: { groups },
+                                          }: any) => ({
+                                            title: "Edit AWS Authentication",
+                                            component: () =>
+                                              Lazy({
+                                                getModule: () =>
+                                                  import(
+                                                    "./pages/cloudAuthentication/awsEditPage"
+                                                  ),
+                                                props: groups,
+                                              }),
+                                          }),
+                                        },
+                                        {
+                                          path: "azure",
+                                          action: ({
+                                            match: { groups },
+                                          }: any) => ({
+                                            title: "Edit Azure Authentication",
+                                            component: () =>
+                                              Lazy({
+                                                getModule: () =>
+                                                  import(
+                                                    "./pages/cloudAuthentication/azureEditPage"
+                                                  ),
+                                                props: groups,
+                                              }),
+                                          }),
+                                        },
+                                        {
+                                          path: "google",
+                                          action: ({
+                                            match: { groups },
+                                          }: any) => ({
+                                            title:
+                                              "Edit Google Cloud Authentication",
+                                            component: () =>
+                                              Lazy({
+                                                getModule: () =>
+                                                  import(
+                                                    "./pages/cloudAuthentication/googleEditPage"
+                                                  ),
+                                                props: groups,
+                                              }),
+                                          }),
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                            {
+                              path: "runs",
+                              action: ({ match: { groups } }: any) => ({
+                                title: "List run",
+                                component: () =>
+                                  Lazy({
+                                    getModule: () =>
+                                      import(
+                                        "./pages/workspace/workspaceDetailPage"
+                                      ),
+                                    props: groups,
+                                  }),
+                              }),
+                              children: [
+                                {
+                                  path: "create",
+                                  action: ({ match: { groups } }: any) => ({
+                                    title: "Create Run",
+                                    component: () =>
+                                      Lazy({
+                                        getModule: () =>
+                                          import("./pages/run/runCreatePage"),
+                                        props: groups,
+                                      }),
+                                  }),
+                                },
+                                {
+                                  path: "(?<run_id>[^/]+)",
+                                  action: ({ match: { groups } }: any) => ({
+                                    title: "Run Details",
+                                    component: () =>
+                                      Lazy({
+                                        getModule: () =>
+                                          import("./pages/run/runDetailPage"),
+                                        props: groups,
+                                      }),
+                                  }),
+                                  children: [
+                                    {
+                                      path: "destroy",
+                                      action: ({ match: { groups } }: any) => ({
+                                        title: "Delete Run",
+                                        component: () =>
+                                          Lazy({
+                                            getModule: () =>
+                                              import(
+                                                "./pages/run/runDestroyPage"
+                                              ),
+                                            props: groups,
+                                          }),
+                                      }),
+                                    },
+                                  ],
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: "profile",
+      action: () => ({
+        title: "Profile",
+        component: () =>
+          Lazy({
+            getModule: () => import("./pages/profilePage"),
+          }),
+      }),
+    },
+    {
+      path: "login",
+      action: () => ({
+        title: "Login",
+        description: "Login to GruCloud",
+        component: () =>
+          Lazy({
+            getModule: () => import("./pages/loginPage"),
+          }),
+        Layout: layoutUnauthenticated(context),
+      }),
+    },
+    {
+      path: "logout",
+      action: () => ({
+        title: "Logout",
+        component: () =>
+          Lazy({
+            getModule: () => import("./pages/logoutPage"),
+          }),
+        Layout: layoutUnauthenticated(context),
+      }),
+    },
+    {
+      path: "accountDelete",
+      action: () => ({
+        title: "Delete Account",
+        component: () =>
+          Lazy({
+            getModule: () => import("./pages/accountDeletePage"),
+          }),
+      }),
+    },
+  ];
+};

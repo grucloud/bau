@@ -90,7 +90,7 @@ export default (context: Context) => {
             previousHref: nextUrl(previousStep.name),
             onSubmitted: ({ org_id, project_id, workspace_id }: any) =>
               pushState(
-                `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/`
+                `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`
               ),
           }),
       },

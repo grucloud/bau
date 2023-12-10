@@ -27,6 +27,7 @@ import formExamples from "./pages/form/form.examples";
 import inputExamples from "./pages/input/input.examples";
 import inputSearchExamples from "./pages/inputSearch/inputSearch.examples";
 import keyValueListExamples from "./pages/keyValueList/keyValueList.examples";
+import lazyExamples from "./pages/lazy/lazy.examples";
 import linearProgressExamples from "./pages/linearProgress/linearProgress.examples";
 import loadingButtonExamples from "./pages/loadingButton/loadingButton.examples";
 import listExamples from "./pages/list/list.examples";
@@ -248,6 +249,14 @@ export const createRoutes = ({ context }) => {
             component: keyValueListExamples(context),
           }),
         },
+        {
+          path: "lazy",
+          action: () => ({
+            title: "Lazy",
+            component: lazyExamples(context),
+          }),
+        },
+
         {
           path: "linearProgress",
           action: () => ({
