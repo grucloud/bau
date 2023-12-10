@@ -58,7 +58,7 @@ export default function (context, options = {}) {
       },
       items.map(({ href, name }) =>
         li(
-          (href ? Button : span)(
+          (href != undefined ? Button : span)(
             {
               href: `${config.base}${href}`,
               color,

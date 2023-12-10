@@ -13,7 +13,7 @@ export default function (context) {
       `,
       items: [
         {
-          href: "/",
+          href: "",
           name: "\u2302",
         },
         ...breadcrumbs,
