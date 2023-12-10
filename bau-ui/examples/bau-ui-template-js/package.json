@@ -1,7 +1,7 @@
 {
   "name": "bau-ui-template-js",
   "private": true,
-  "version": "0.67.0",
+  "version": "0.67.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,6 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
-    "@grucloud/bau-ui": "^0.67.0"
+    "@grucloud/bau-ui": "^0.67.1"
   }
 }

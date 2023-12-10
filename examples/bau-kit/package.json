@@ -1,7 +1,7 @@
 {
   "name": "bau-kit",
   "description": "Bau.js multi page app starter kit",
-  "version": "0.67.0",
+  "version": "0.67.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -20,7 +20,7 @@
     "@grucloud/bau": "^0.67.0",
     "@grucloud/bau-css": "^0.67.0",
     "@grucloud/bau-router": "^0.67.0",
-    "@grucloud/bau-ui": "^0.67.0",
+    "@grucloud/bau-ui": "^0.67.1",
     "rubico": "1.9.7"
   }
 }
