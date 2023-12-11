@@ -6,7 +6,10 @@ export default function (context, options = {}) {
   const { ul } = bau.tags;
 
   const className = css`
+    display: flex;
+    flex-direction: column;
     list-style: none;
+    padding-left: 0;
     & li {
       margin: 0.5rem 0;
       display: flex;

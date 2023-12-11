@@ -22,7 +22,7 @@ export default function (context: Context) {
         const response = await fetch(stateUrl);
         if (response.ok) {
           const res = await response.json();
-          return res.result.lives.results[0].results;
+          return res.result?.lives?.results[0].results;
         }
         throw response;
       } catch (error) {

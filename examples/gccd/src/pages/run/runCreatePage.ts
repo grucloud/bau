@@ -1,15 +1,16 @@
 import { Context } from "@grucloud/bau-ui/context";
 import loadingButton from "@grucloud/bau-ui/loadingButton";
-
 import form from "@grucloud/bau-ui/form";
+import keyValueList from "@grucloud/bau-ui/keyValueList";
+
 import buttonBack from "../../components/buttonBack";
 import page from "../../components/page";
 import runCreateContent from "../../components/run/runCreateContent";
 import runLogsModal from "../../components/run/runLogsModal";
 
 export default function (context: Context) {
-  const { bau, stores, config } = context;
-  const { h1, header, footer } = bau.tags;
+  const { bau, stores, config, css } = context;
+  const { h1, header, footer, li, label, span, a } = bau.tags;
   const ButtonBack = buttonBack(context);
   const LoadingButton = loadingButton(context, {
     color: "primary",
@@ -19,6 +20,14 @@ export default function (context: Context) {
   const Form = form(context);
   const RunCreateContent = runCreateContent(context);
   const RunLogsModal = runLogsModal(context);
+  const KeyValueList = keyValueList(context, {
+    class: css`
+      &.keyValueList {
+        flex-direction: row;
+        gap: 1rem;
+      }
+    `,
+  });
 
   return function RunCreatePage({ org_id, project_id, workspace_id }: any) {
     const onsubmit = async (event: any) => {
@@ -55,7 +64,38 @@ export default function (context: Context) {
     return Page(
       Form(
         { onsubmit },
-        header(h1("Create a new Run")),
+        header(
+          h1("Create a new Run"),
+          KeyValueList(
+            li(
+              label("Organisation"),
+              span(a({ href: `${config.base}/org/${org_id}` }, org_id))
+            ),
+            li(
+              label("Project"),
+              span(
+                a(
+                  {
+                    href: `${config.base}/org/${org_id}/projects/${project_id}`,
+                  },
+                  project_id
+                )
+              )
+            ),
+            li(
+              label("Workspace"),
+              span(
+                a(
+                  {
+                    href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}`,
+                  },
+                  workspace_id
+                )
+              )
+            )
+          )
+        ),
+
         RunCreateContent({}),
         footer(
           LoadingButton(
