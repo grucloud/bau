@@ -2,9 +2,13 @@ import { Context } from "@grucloud/bau-ui/context";
 
 import pageExample from "../pageExample.ts";
 
-import keyValueListDefault from "./keyValueList-example-default.ts";
+import keyValueListDefault from "./keyValueList-vertical.ts";
 // @ts-ignore
-import codeExampleDefault from "./keyValueList-example-default.ts?raw";
+import codeExampleDefault from "./keyValueList-vertical.ts?raw";
+
+import keyValueListHorizontal from "./keyValueList-horizontal.ts";
+// @ts-ignore
+import codeExampleHorizontal from "./keyValueList-horizontal.ts?raw";
 
 export const keyValueListSpec = {
   title: "KeyValueList",
@@ -15,10 +19,16 @@ export const keyValueListSpec = {
   importStatement: `import keyValueList from "@grucloud/bau-ui/keyValueList";`,
   examples: [
     {
-      title: "Simple",
-      description: "A simple keyValueList.",
+      title: "Vertical keyValueList",
+      description: "A vertical keyValueList.",
       code: codeExampleDefault,
       createComponent: keyValueListDefault,
+    },
+    {
+      title: "Horizontal keyValueList",
+      description: "A horizontal keyValueList.",
+      code: codeExampleHorizontal,
+      createComponent: keyValueListHorizontal,
     },
   ],
 };
