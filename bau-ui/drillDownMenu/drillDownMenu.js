@@ -225,10 +225,6 @@ export default function (context, options = {}) {
     return subTree;
   };
 
-  const pathnameState = bau.state(
-    window.location.pathname.replace(baseUrl, "")
-  );
-
   const pathFromHref = ({ target }) => {
     const href = target.closest("a").getAttribute("href");
     let path = href.replace(baseUrl, "");
@@ -247,10 +243,15 @@ export default function (context, options = {}) {
       ...otherProps
     } = props;
 
+    const pathnameState = bau.state(
+      window.location.pathname.replace(baseUrl, "")
+    );
+
     let _currentTree = findInitialTree({
       tree,
       pathname: pathnameState.val,
     });
+    const nodeNameState = bau.state(JSON.stringify(_currentTree.data));
 
     let _direction;
     window.document.addEventListener("click", (event) => {
@@ -269,13 +270,8 @@ export default function (context, options = {}) {
           tree,
           pathname: pathFromHref(event),
         });
-        //console.log("direction", _direction);
-
-        const { ischild } = event.target.dataset;
-
-        if (ischild !== "true") {
-          pathnameState.val = pathFromHref({ target });
-        }
+        nodeNameState.val = JSON.stringify(_currentTree.data);
+        pathnameState.val = pathFromHref({ target });
       }
     });
 
@@ -330,7 +326,7 @@ export default function (context, options = {}) {
           animationShow: () => animationShow(_direction),
         },
         bau.bind({
-          deps: [pathnameState],
+          deps: [nodeNameState],
           render: () => () =>
             Menu({
               variant,
