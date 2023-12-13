@@ -1,6 +1,5 @@
 import form from "@grucloud/bau-ui/form";
 import input from "@grucloud/bau-ui/input";
-import paper from "@grucloud/bau-ui/paper";
 import loadingButton from "@grucloud/bau-ui/loadingButton";
 import alert from "@grucloud/bau-ui/alert";
 
@@ -15,6 +14,7 @@ export default (context: Context) => {
   const Input = input(context);
   const Form = form(context, {
     class: css`
+      max-width: 400px;
       & > header {
         text-align: center;
       }
@@ -23,11 +23,6 @@ export default (context: Context) => {
           flex-grow: 1;
         }
       }
-    `,
-  });
-  const Paper = paper(context, {
-    class: css`
-      max-width: 400px;
     `,
   });
 
@@ -71,48 +66,46 @@ export default (context: Context) => {
       }
     };
 
-    return Paper(
-      Form(
-        { onsubmit },
-        header(
-          img({ width: "100", height: "100", src: `${config.base}/gc.svg` }),
-          h1("Login to Grucloud")
+    return Form(
+      { onsubmit },
+      header(
+        img({ width: "100", height: "100", src: `${config.base}/gc.svg` }),
+        h1("Login to Grucloud")
+      ),
+      section(
+        () => errorMessageState.val && Alert(errorMessageState.val),
+        label(
+          "Email",
+          Input({
+            type: "email",
+            autofocus: true,
+            placeholder: "Email",
+            name: "username",
+            autocomplete: "username",
+            required: true,
+          })
         ),
-        section(
-          () => errorMessageState.val && Alert(errorMessageState.val),
-          label(
-            "Email",
-            Input({
-              type: "email",
-              autofocus: true,
-              placeholder: "Email",
-              name: "username",
-              autocomplete: "username",
-              required: true,
-            })
-          ),
-          label(
-            "Password",
-            Input({
-              type: "password",
-              placeholder: "Password",
-              name: "password",
-              autocomplete: "current-password",
-              minlength: "8",
-              required: true,
-            })
-          )
-        ),
-        footer(
-          LoadingButton(
-            {
-              type: "submit",
-              variant: "solid",
-              color: "primary",
-              loading: loadingState,
-            },
-            "Login"
-          )
+        label(
+          "Password",
+          Input({
+            type: "password",
+            placeholder: "Password",
+            name: "password",
+            autocomplete: "current-password",
+            minlength: "8",
+            required: true,
+          })
+        )
+      ),
+      footer(
+        LoadingButton(
+          {
+            type: "submit",
+            variant: "solid",
+            color: "primary",
+            loading: loadingState,
+          },
+          "Login"
         )
       )
     );

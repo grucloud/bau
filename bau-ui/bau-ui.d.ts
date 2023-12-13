@@ -11,12 +11,8 @@ export type Component<
   ...rest: readonly ChildDom[]
 ) => TElement & TAction;
 
-export type ComponentWithProp<TProps, TElement = HTMLElement> = (
-  props: TProps & import("@grucloud/bau").PropsAll<TElement>,
-  ...rest: readonly ChildDom[]
-) =>
+type ComponentReturnedSimple =
   | TElement
-  | TElement[]
   | string
   | number
   | boolean
@@ -24,15 +20,22 @@ export type ComponentWithProp<TProps, TElement = HTMLElement> = (
   | null
   | undefined;
 
+type ComponentReturned = ComponentReturnedSimple | ComponentReturnedSimple[];
+
+export type ComponentWithProp<TProps, TElement = HTMLElement> = (
+  props: TProps & import("@grucloud/bau").PropsAll<TElement>,
+  ...rest: readonly ChildDom[]
+) => ComponentReturned;
+
 export type ComponentOneChild<TProps, TElement = HTMLElement> = (
   props: TProps & import("@grucloud/bau").PropsAll<TElement>,
   child: ChildDom
-) => TElement;
+) => ComponentReturned;
 
 export type ComponentGeneric = (
-  props?: import("@grucloud/bau").Props<HTMLElementHTMLElement>,
+  props?: import("@grucloud/bau").Props<HTMLElement>,
   ...rest: readonly ChildDom[]
-) => HTMLElement | string | number | boolean | bigint | null | undefined;
+) => ComponentReturned;
 
 export type ComponentOption = {
   class?: string;

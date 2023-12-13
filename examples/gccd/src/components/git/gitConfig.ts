@@ -1,8 +1,8 @@
 import { type Context } from "@grucloud/bau-ui/context";
-import radioButton from "@grucloud/bau-ui/radioButton";
 import form from "@grucloud/bau-ui/form";
 import loadingButton from "@grucloud/bau-ui/loadingButton";
 import button from "@grucloud/bau-ui/button";
+import radioButtonGroup from "@grucloud/bau-ui/radioButtonGroup";
 
 import gitSetupGitHubApp from "../gitRepository/gitSetupGitHubApp";
 import gitPersonalAccessCodeGitHub from "../gitCredential/gitPersonalAccessCodeGitHub";
@@ -12,10 +12,11 @@ import gitRepositoryBranch from "../gitRepository/gitRepositoryBranch";
 
 export default function (context: Context) {
   const { bau, css, window, stores, config } = context;
-  const { h2, section, label, fieldset, legend, footer, img } = bau.tags;
+  const { h2, section, fieldset, legend, footer, img } = bau.tags;
 
   const Form = form(context);
-  const RadioButton = radioButton(context);
+  const RadioButtonGroup = radioButtonGroup(context);
+
   const ButtonPrevious = button(context, {
     variant: "outline",
     color: "primary",
@@ -91,80 +92,41 @@ export default function (context: Context) {
         class: className,
       },
       legend("Source Code Provider"),
-      label(
-        GithubImg(),
-        "GitHub",
-        RadioButton({
-          id: "GitHub",
-          name: "git_provider_type",
-          checked: radioStateProviderType.val == "GitHub",
-          value: radioStateProviderType,
-          oninput: oninputRadio(radioStateProviderType),
-        })
-      ),
-      label(
-        GitlabImg(),
-        "GitLab",
-        RadioButton({
-          id: "GitLab",
-          name: "git_provider_type",
-          checked: radioStateProviderType.val == "GitLab",
-          value: radioStateProviderType,
-          oninput: oninputRadio(radioStateProviderType),
-        })
-      )
+      RadioButtonGroup({
+        oninput: oninputRadio(radioStateProviderType),
+        name: "git_provider_type",
+        value: radioStateProviderType.val,
+        radios: [
+          { id: "GitHub", Label: () => [GithubImg(), "GitHub"] },
+          { id: "GitLab", Label: () => [GitlabImg(), "GitLab"] },
+        ],
+      })
     );
   };
 
   function GitAuthType({ git_provider_type, radioStateAuthType }: any) {
     switch (git_provider_type) {
       case "GitHub":
-        return [
-          label(
-            "GitHub App",
-            RadioButton({
-              id: "GitHubApp",
-              name: "git_auth_type",
-              checked: radioStateAuthType.val == "GitHubApp",
-              value: radioStateAuthType,
-              oninput: oninputRadio(radioStateAuthType),
-            })
-          ),
-          label(
-            "Personal Access Code",
-            RadioButton({
-              id: "PersonalAccessCode",
-              name: "git_auth_type",
-              checked: radioStateAuthType.val == "PersonalAccessCode",
-              value: radioStateAuthType,
-              oninput: oninputRadio(radioStateAuthType),
-            })
-          ),
-        ];
-      case "GitLab":
-        return [
-          label(
-            "OAuth App",
-            RadioButton({
-              id: "OAuth",
-              name: "git_auth_type",
-              checked: radioStateAuthType.val == "OAuth",
-              value: radioStateAuthType,
-              oninput: oninputRadio(radioStateAuthType),
-            })
-          ),
-          label(
-            "Personal Access Code",
-            RadioButton({
-              id: "PersonalAccessCode",
-              name: "git_auth_type",
-              checked: radioStateAuthType.val == "PersonalAccessCode",
-              value: radioStateAuthType,
-              oninput: oninputRadio(radioStateAuthType),
-            })
-          ),
-        ];
+        return RadioButtonGroup({
+          oninput: oninputRadio(radioStateAuthType),
+          name: "git_auth_type",
+          value: radioStateAuthType.val,
+          radios: [
+            { id: "GitHubApp", Label: () => "GitHub App" },
+            { id: "PersonalAccessCode", Label: () => "Personal Access Code" },
+          ],
+        });
 
+      case "GitLab":
+        return RadioButtonGroup({
+          oninput: oninputRadio(radioStateAuthType),
+          name: "git_auth_type",
+          value: radioStateAuthType.val,
+          radios: [
+            { id: "OAuth", Label: () => "OAuth App" },
+            { id: "PersonalAccessCode", Label: () => "Personal Access Code" },
+          ],
+        });
       default:
         return "";
     }

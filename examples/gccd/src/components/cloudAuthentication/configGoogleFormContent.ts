@@ -4,7 +4,8 @@ import { Context } from "@grucloud/bau-ui/context";
 import fileInput from "@grucloud/bau-ui/fileInput";
 import alert from "@grucloud/bau-ui/alert";
 import spinner from "@grucloud/bau-ui/spinner";
-import radioButton from "@grucloud/bau-ui/radioButton";
+import radioButtonGroup from "@grucloud/bau-ui/radioButtonGroup";
+
 import input from "@grucloud/bau-ui/input";
 
 import selectGoogleRegion from "./selectGoogleRegion";
@@ -57,7 +58,7 @@ export default (context: Context) => {
 
   const query = useQuery(context);
 
-  const RadioButton = radioButton(context);
+  const RadioButtonGroup = radioButtonGroup(context);
 
   const getProjectQuery = query(
     async () => {
@@ -375,26 +376,15 @@ export default (context: Context) => {
         },
         legend("Authentication Type"),
         header(
-          label(
-            "Workload identity",
-            RadioButton({
-              id: "federated",
-              name: "kind",
-              checked: radioState.val == "federated",
-              value: radioState,
-              oninput,
-            })
-          ),
-          label(
-            "Service Principal",
-            RadioButton({
-              id: "password",
-              name: "kind",
-              checked: radioState.val == "sp",
-              value: radioState,
-              oninput,
-            })
-          )
+          RadioButtonGroup({
+            oninput,
+            name: "kind",
+            value: radioState.val,
+            radios: [
+              { id: "federated", Label: () => "Workload identity" },
+              { id: "password", Label: () => "Service Principal" },
+            ],
+          })
         ),
         () =>
           radioState.val == "federated"

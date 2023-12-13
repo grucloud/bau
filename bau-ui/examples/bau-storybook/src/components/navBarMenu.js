@@ -131,6 +131,12 @@ export default function (context) {
           },
           { data: { name: "Popover", href: "/components/popover" } },
           { data: { name: "Radio Button", href: "/components/radioButton" } },
+          {
+            data: {
+              name: "Radio Button Group",
+              href: "/components/radioButtonGroup",
+            },
+          },
           { data: { name: "Select", href: "/components/select" } },
           { data: { name: "Select Native", href: "/components/selectNative" } },
           { data: { name: "Skeleton", href: "/components/skeleton" } },

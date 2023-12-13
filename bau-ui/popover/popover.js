@@ -1,17 +1,9 @@
-import paper from "../paper";
 import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options) {
   const { bau, css, window } = context;
   const { dialog } = bau.tags;
-  const Paper = paper(context, {
-    class: css`
-      &.paper {
-        padding: 0;
-      }
-    `,
-  });
 
   const className = css`
     width: fit-content;
@@ -72,7 +64,7 @@ export default function (context, options) {
           event.target === dialogEl && (closeDialog(), onClose?.call());
         },
       },
-      Paper(contentEl)
+      contentEl
     );
 
     dialogEl.closeDialog = closeDialog;

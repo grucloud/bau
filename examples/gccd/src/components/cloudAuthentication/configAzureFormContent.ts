@@ -1,7 +1,7 @@
 import { Context } from "@grucloud/bau-ui/context";
 
 import input from "@grucloud/bau-ui/input";
-import radioButton from "@grucloud/bau-ui/radioButton";
+import radioButtonGroup from "@grucloud/bau-ui/radioButtonGroup";
 
 import selectAzureRegion from "./selectAzureRegion";
 
@@ -52,7 +52,7 @@ export default (context: Context) => {
   } = bau.tags;
 
   const Input = input(context);
-  const RadioButton = radioButton(context);
+  const RadioButtonGroup = radioButtonGroup(context);
 
   const SelectAzureRegion = selectAzureRegion(context);
 
@@ -151,26 +151,15 @@ export default (context: Context) => {
         },
         legend("Authentication Type"),
         header(
-          label(
-            "Federated Credential",
-            RadioButton({
-              id: "federated",
-              name: "kind",
-              checked: radioState.val == "federated",
-              value: radioState,
-              oninput,
-            })
-          ),
-          label(
-            "Password",
-            RadioButton({
-              id: "password",
-              name: "kind",
-              checked: radioState.val == "sp",
-              value: radioState,
-              oninput,
-            })
-          )
+          RadioButtonGroup({
+            name: "kind",
+            oninput,
+            value: radioState.val,
+            radios: [
+              { id: "federated", Label: () => "Federated Credential" },
+              { id: "password", Label: () => "Password" },
+            ],
+          })
         ),
         () =>
           radioState.val == "federated"

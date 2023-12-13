@@ -6,7 +6,10 @@ import { Context } from "@grucloud/bau-ui/context";
 export default (context: Context) => {
   const { bau } = context;
   const { section } = bau.tags;
-  const Button = button(context);
+  const Button = button(context, {
+    variant: "solid",
+    color: "primary",
+  });
   const Spinner = spinner(context, { size: "lg" });
 
   const runningState = bau.state(true);
@@ -15,8 +18,6 @@ export default (context: Context) => {
     section(
       Button(
         {
-          variant: "solid",
-          color: "primary",
           onclick: () => (runningState.val = !runningState.val),
         },
         () => (runningState.val ? "Stop" : "Start")

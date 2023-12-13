@@ -2,7 +2,7 @@ import radioButton from "@grucloud/bau-ui/radioButton";
 import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
-  const { bau } = context;
+  const { bau, css } = context;
   const { label, div, form } = bau.tags;
   const RadioButton = radioButton(context);
 
@@ -12,6 +12,15 @@ export default (context: Context) => {
 
   return () =>
     form(
+      {
+        class: css`
+          & label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+        `,
+      },
       label(
         "One",
         RadioButton({

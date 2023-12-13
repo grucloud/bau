@@ -17,6 +17,7 @@ export default (context: Context, options?: any) => {
             align-items: center;
             color: var(--color-content-secondary);
             padding: 0.2rem;
+            gap: 0.5rem;
           }
         `,
       },

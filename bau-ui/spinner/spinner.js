@@ -28,8 +28,7 @@ const colorsToCss = () =>
 &.solid.${color} {
   background-color:transparent;
   & .path {
-    stroke: var(--font-color-inverse);
-    ;
+    stroke: var(--color-${color});
   }
 }
 `
@@ -40,9 +39,9 @@ export default function (context, options = {}) {
   const { svg, circle } = bau.tagsNS("http://www.w3.org/2000/svg");
 
   const rotate = keyframes`
-100% {
+    100% {
       transform: rotate(360deg);
-}
+    }
   `;
   const dash = keyframes`
 0% {

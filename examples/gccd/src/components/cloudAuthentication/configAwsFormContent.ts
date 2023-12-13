@@ -4,7 +4,7 @@ import filter from "rubico/filter";
 
 import { Context } from "@grucloud/bau-ui/context";
 import input from "@grucloud/bau-ui/input";
-import radioButton from "@grucloud/bau-ui/radioButton";
+import radioButtonGroup from "@grucloud/bau-ui/radioButtonGroup";
 
 import selectAwsRegion from "./selectAwsRegion";
 import awsServices from "./awsServices";
@@ -52,7 +52,7 @@ export default (context: Context) => {
   const { section, label, fieldset, legend, header, small } = bau.tags;
   const AwsServices = awsServices(context);
   const Input = input(context);
-  const RadioButton = radioButton(context);
+  const RadioButtonGroup = radioButtonGroup(context);
 
   const SelectAwsRegion = selectAwsRegion(context);
 
@@ -166,26 +166,15 @@ export default (context: Context) => {
         },
         legend("Authentication Type"),
         header(
-          label(
-            "IAM Role",
-            RadioButton({
-              id: "role",
-              name: "kind",
-              checked: radioState.val == "role",
-              value: radioState,
-              oninput,
-            })
-          ),
-          label(
-            "Access and Secret Key",
-            RadioButton({
-              id: "accessKey",
-              name: "kind",
-              checked: radioState.val == "accessKey",
-              value: radioState,
-              oninput,
-            })
-          )
+          RadioButtonGroup({
+            oninput,
+            name: "kind",
+            value: radioState.val,
+            radios: [
+              { id: "role", Label: () => "OICD Provider IAM Role" },
+              { id: "accessKey", Label: () => "Access and Secret Key" },
+            ],
+          })
         ),
         () =>
           radioState.val == "role"

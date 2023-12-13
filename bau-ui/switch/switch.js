@@ -50,6 +50,7 @@ export default function (context, options = {}) {
   const { input } = bau.tags;
 
   const style = css`
+    cursor: pointer;
     position: relative;
     border-radius: 0.7rem;
     appearance: none;

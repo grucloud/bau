@@ -37,6 +37,7 @@ import popoverExamples from "./pages/popover/popover.examples";
 import paginationNavigationExamples from "./pages/paginationNavigation/paginationNavigation.examples";
 import paperExamples from "./pages/paper/paper.examples";
 import radioButtonExamples from "./pages/radioButton/radioButton.examples";
+import radioButtonGroupExamples from "./pages/radioButtonGroup/radioButtonGroup.examples";
 import selectExamples from "./pages/select/select.examples";
 import selectNativeExamples from "./pages/selectNative/select-native.examples";
 import skeletonExamples from "./pages/skeleton/skeleton.examples";
@@ -319,6 +320,13 @@ export const createRoutes = ({ context }) => {
           action: () => ({
             title: "Radio Button",
             component: radioButtonExamples(context),
+          }),
+        },
+        {
+          path: "radioButtonGroup",
+          action: () => ({
+            title: "Radio Button Group",
+            component: radioButtonGroupExamples(context),
           }),
         },
         {

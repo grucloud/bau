@@ -17,7 +17,7 @@ export default function (context, options = {}) {
     ).join("\n");
 
   const className = css`
-    margin: 0.5rem;
+    cursor: pointer;
     &.sm {
       transform: scale(0.8);
     }

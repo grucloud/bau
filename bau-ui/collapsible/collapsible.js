@@ -12,7 +12,6 @@ export default function (context, options = {}) {
     & .header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       background-color: inherit;
       &::before {
         padding: 0.5rem;
