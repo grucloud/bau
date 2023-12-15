@@ -1,5 +1,5 @@
 const ColorPaletteDefault = [
-  ["neutral", { h: "0", s: "0%", l: "50%" }],
+  ["neutral", { h: "0", s: "0%", l: "10%" }],
   ["primary", { h: "230", s: "70%", l: "30%" }],
   ["secondary", { h: "338", s: "70%", l: "50%" }],
   ["success", { h: "120", s: "70%", l: "25%" }],
@@ -27,7 +27,7 @@ const variantToCss = () =>
     ([color]) =>
       `
 .outline.${color} {
-  border: 1px solid ${darkVar(color)};
+  border: 1px solid var(--color-emphasis-600);
   color: var(--font-color-base)
 }
 .soft.${color} {

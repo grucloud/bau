@@ -118,11 +118,13 @@ export default function (context, options = {}) {
           children.map(Tree({ depth: depth + 1, maxDepth, parent: item }))
         );
       return li(
-        Collapsible({
-          expanded,
-          Header,
-          Content: children && depth < maxDepth && Content,
-        })
+        children.length
+          ? Collapsible({
+              expanded,
+              Header,
+              Content: children && depth < maxDepth && Content,
+            })
+          : Header()
       );
     };
 
