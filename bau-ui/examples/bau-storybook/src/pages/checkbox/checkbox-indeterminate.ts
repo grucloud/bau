@@ -7,8 +7,14 @@ export default (context: Context) => {
   const { label, footer, article, form } = bau.tags;
 
   const Checkbox = checkbox(context, { color: "neutral", variant: "outline" });
+
   const Button = button(context, {
     variant: "outline",
+    color: "primary",
+  });
+
+  const ButtonSubmit = button(context, {
+    variant: "solid",
     color: "primary",
   });
 
@@ -19,7 +25,13 @@ export default (context: Context) => {
     );
     alert(JSON.stringify(payload));
   };
-
+  const onclickIndeterminate = (_event: any) => {
+    const checkboxEl = window.document.getElementById("my-checkbox");
+    if (checkboxEl) {
+      // @ts-ignore
+      checkboxEl.indeterminate = !checkboxEl.indeterminate;
+    }
+  };
   return () =>
     form(
       {
@@ -41,10 +53,12 @@ export default (context: Context) => {
         label(
           "My Checkbox",
           Checkbox({
-            name: "my-checkbox-uncontrolled",
+            id: "my-checkbox",
+            name: "my-checkbox",
           })
-        )
+        ),
+        Button({ onclick: onclickIndeterminate }, "Toggle Indeterminate")
       ),
-      footer(Button({ type: "submit" }, "Submit"))
+      footer(ButtonSubmit({ type: "submit" }, "Submit"))
     );
 };

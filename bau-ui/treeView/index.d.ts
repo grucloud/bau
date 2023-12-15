@@ -10,6 +10,7 @@ declare module "@grucloud/bau-ui/treeView" {
 
   export type TreeViewProps = {
     tree: Tree;
+    maxDepth?: integer;
   };
 
   type Component = import("../bau-ui").Component<TreeViewProps>;

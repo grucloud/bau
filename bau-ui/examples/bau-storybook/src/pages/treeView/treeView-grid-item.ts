@@ -23,13 +23,11 @@ export default (context: Context, option?: any) => {
     ],
   };
 
-  const renderMenuItem = ({ name, href }: any) =>
-    a(
-      {
-        href,
-      },
-      name
-    );
+  const renderMenuItem = ({
+    item: {
+      data: { name, href },
+    },
+  }: any) => a({ href }, name);
 
   const TreeView = treeView(context, { renderMenuItem, ...option });
 

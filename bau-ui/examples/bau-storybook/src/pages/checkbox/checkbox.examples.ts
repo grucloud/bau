@@ -12,6 +12,10 @@ import checkboxUncontrolled from "./checkbox-uncontrolled.ts";
 // @ts-ignore
 import codeExampleUncontrolled from "./checkbox-uncontrolled.ts?raw";
 
+import checkboxIndeterminate from "./checkbox-indeterminate.ts";
+// @ts-ignore
+import codeIndeterminate from "./checkbox-indeterminate.ts?raw";
+
 export const checkboxSpec = {
   title: "Checkbox",
   package: "checkbox",
@@ -31,6 +35,12 @@ export const checkboxSpec = {
       description: "An uncontrolled checkbox.",
       code: codeExampleUncontrolled,
       createComponent: checkboxUncontrolled,
+    },
+    {
+      title: "Indeterminate checkbox",
+      description: "An indeterminate checkbox.",
+      code: codeIndeterminate,
+      createComponent: checkboxIndeterminate,
     },
   ],
   gridItem: checkboxGridItem,

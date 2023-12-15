@@ -22,7 +22,10 @@ export default function (context, options = {}) {
       flex-direction: column;
       gap: 0.5rem;
     }
-    & label,
+    &
+      label:has(
+        :is(input[type="text"], input[type="password"], input[type="email"])
+      ),
     legend {
       display: inline-flex;
       flex-direction: column;

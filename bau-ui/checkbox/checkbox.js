@@ -22,14 +22,19 @@ export default function (context, options = {}) {
     &:hover.solid {
       filter: brightness(var(--brightness-hover-always));
     }
+    &:indeterminate::after {
+      content: "\u2796";
+      opacity: 1;
+    }
     &:disabled {
       border: 2px dashed var(--color-gray-500);
     }
     &:checked::after {
+      content: "\u2716";
       opacity: 1;
     }
     &::after {
-      content: "\u2716";
+      content: "";
       position: absolute;
       top: 50%;
       left: 50%;

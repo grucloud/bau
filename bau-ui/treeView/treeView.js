@@ -2,10 +2,25 @@ import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import classNames from "@grucloud/bau-css/classNames.js";
 import collapsible from "../collapsible";
 
+const treeAddParent =
+  ({ parent, grandParent }) =>
+  (tree) => {
+    const { children = [], ...othersTreeProps } = tree;
+    const result = { ...othersTreeProps };
+    result.children = children?.map(
+      treeAddParent({ parent: tree, grandParent: parent })
+    );
+    if (parent) {
+      parent.parent = grandParent;
+    }
+    result.parent = parent;
+    return result;
+  };
+
 const createStyles = ({ css, createGlobalStyles }) => {
   createGlobalStyles`
 :root {
-  --treeview-link-padding-horizontal: 0.75rem;
+  --treeview-link-padding-horizontal: 2rem;
   --treeview-link-padding-vertical: 0.375rem;
 }
 `;
@@ -14,11 +29,9 @@ const createStyles = ({ css, createGlobalStyles }) => {
     font-weight: var(--font-weight-semibold);
     overflow-x: hidden;
     display: inline-flex;
-
     &.solid div:hover {
       filter: brightness(var(--brightness-hover-always));
     }
-
     & ul {
       display: block;
       list-style: none;
@@ -46,9 +59,8 @@ const createStyles = ({ css, createGlobalStyles }) => {
             display: flex;
             flex-grow: 1;
             text-decoration: none;
+            text-align: left;
             color: inherit;
-            padding: var(--treeview-link-padding-vertical)
-              var(--treeview-link-padding-horizontal);
           }
         }
       }
@@ -74,7 +86,7 @@ export default function (context, options = {}) {
   const Collapsible = collapsible(context);
 
   const Tree =
-    ({ depth = 1, maxDepth, color, variant, size }) =>
+    ({ depth = 1, maxDepth, parent, color, variant, size }) =>
     (item) => {
       const { children, expanded } = item;
       const closeState = bau.state(!expanded);
@@ -83,8 +95,10 @@ export default function (context, options = {}) {
         div(
           {
             class: css`
-              cursor: pointer;
-              display: flex;
+              cursor: ${children ? "pointer" : "auto"};
+              display: inline-flex;
+              justify-content: flex-start;
+              align-items: center;
               width: 100%;
             `,
             onclick: (event) => {
@@ -93,7 +107,7 @@ export default function (context, options = {}) {
               }
             },
           },
-          renderMenuItem(item.data)
+          renderMenuItem({ item, parent, depth })
         );
 
       const Content = () =>
@@ -101,11 +115,11 @@ export default function (context, options = {}) {
           {
             class: classNames(color, size),
           },
-          children.map(Tree({ depth: depth + 1, maxDepth }))
+          children.map(Tree({ depth: depth + 1, maxDepth, parent: item }))
         );
       return li(
         Collapsible({
-          size,
+          expanded,
           Header,
           Content: children && depth < maxDepth && Content,
         })
@@ -131,8 +145,9 @@ export default function (context, options = {}) {
           otherProps.class
         ),
       },
-      tree.children &&
-        ul(tree.children.map(Tree({ maxDepth, color, variant, size })))
+      ul(
+        Tree({ maxDepth, color, variant, size })(treeAddParent({})({ ...tree }))
+      )
     );
   };
 }

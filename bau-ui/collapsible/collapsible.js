@@ -69,13 +69,12 @@ export default function (context, options = {}) {
         color = options.color ?? "neutral",
         Header,
         Content,
-        close = true,
+        expanded = false,
         ...props
       },
     ] = toPropsAndChildren(args);
 
-    const closeState = bau.state(close);
-
+    const closeState = bau.state(!expanded);
     return div(
       {
         ...props,
