@@ -102,10 +102,12 @@ export default function (context, options = {}) {
       const search = new URLSearchParams(window.location.search);
       const tabName = search.get(tabsKey) ?? tabDefs[0].name;
 
-      const nextTab = tabByName(tabName);
-      tabCurrentState.val.exit?.call();
-      tabCurrentState.val = nextTab;
-      nextTab?.enter?.call();
+      if (tabName != tabCurrentState.val.name) {
+        const nextTab = tabByName(tabName);
+        tabCurrentState.val.exit?.call();
+        tabCurrentState.val = nextTab;
+        nextTab?.enter?.call();
+      }
     };
 
     hashchange();

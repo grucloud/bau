@@ -30,9 +30,13 @@ export default function (context: Context) {
   });
 
   return function RunCreatePage({ org_id, project_id, workspace_id }: any) {
+    console.assert(org_id);
+    console.assert(project_id);
+    console.assert(workspace_id);
+
     const onsubmit = async (event: any) => {
       event.preventDefault();
-
+      const formEl = event.target.closest("form");
       const { reason, kind } = event.target.elements;
       const { run_id, container_id } = await stores.run.createQuery.run(
         { org_id, project_id, workspace_id },
@@ -50,15 +54,15 @@ export default function (context: Context) {
       }
 
       window.history.pushState("", "", `?${search}`);
-      const modelEl = RunLogsModal({
+      const modalEl = RunLogsModal({
         org_id,
         project_id,
         workspace_id,
         run_id,
         container_id,
       });
-      event.target.closest("form").append(modelEl);
-      modelEl.showModal();
+      formEl.append(modalEl);
+      modalEl.showModal();
     };
 
     return Page(
