@@ -361,12 +361,13 @@ export default function Bau(input) {
       renderItem,
     });
 
-  let batch = (batchFn) => {
+  let batch = async (batchFn) => {
     _inBatch = true;
-    batchFn();
+    const res = await batchFn();
     _inBatch = false;
     _stateSetInBatch.forEach(updateDom);
     _stateSetInBatch.clear();
+    return res;
   };
 
   return {

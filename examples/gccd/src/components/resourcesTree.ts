@@ -224,11 +224,7 @@ export default function (context: Context) {
 
     bau.derive(() => {
       const { stateUrl } = data.val;
-      if (
-        stateUrl &&
-        !getResources.data.val.length &&
-        !getResources.error.val
-      ) {
+      if (stateUrl && !getResources.completed.val) {
         getResources.run(stateUrl);
       }
     });

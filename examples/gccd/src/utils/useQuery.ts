@@ -6,6 +6,7 @@ type Query = {
   data: State<any>;
   error: State<any>;
   loading: State<boolean>;
+  completed: State<boolean>;
   run: (...args: any[]) => any;
 };
 
@@ -18,6 +19,7 @@ export default function (context: Context) {
 
   return function UseQuery(action: any, options?: UseQueryOptions): Query {
     const loading = bau.state(false);
+    const completed = bau.state(false);
     const data = bau.state(options?.initialState ?? "");
     const error = bau.state("");
 
@@ -25,19 +27,23 @@ export default function (context: Context) {
       if (loading.val) {
         return;
       }
-      try {
-        error.val = "";
-        loading.val = true;
-        const result = await action(...args);
-        data.val = result;
-        return result;
-      } catch (exception: any) {
-        error.val = exception.message;
-        throw exception;
-      } finally {
-        loading.val = false;
-      }
+      return bau.batch(async () => {
+        try {
+          error.val = "";
+          loading.val = true;
+          completed.val = false;
+          const result = await action(...args);
+          data.val = result;
+          return result;
+        } catch (exception: any) {
+          error.val = exception.message;
+          throw exception;
+        } finally {
+          completed.val = true;
+          loading.val = false;
+        }
+      });
     };
-    return { loading, data, error, run };
+    return { loading, data, error, completed, run };
   };
 }
