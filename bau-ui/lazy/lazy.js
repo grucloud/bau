@@ -35,8 +35,10 @@ export default function (context, options = {}) {
 
     getModule()
       .then((module) => {
-        componentState.val = module.default(context);
-        loadingState.val = false;
+        bau.batch(() => {
+          componentState.val = module.default(context);
+          loadingState.val = false;
+        });
       })
       .catch((error) => {
         errorState.val = error.message;
@@ -46,11 +48,11 @@ export default function (context, options = {}) {
       if (errorState.val) {
         return error({ message: errorState.val });
       }
-      if (componentState.val) {
-        return componentState.val(props);
-      }
       if (loadingState.val) {
         return loading();
+      }
+      if (componentState.val) {
+        return componentState.val(props);
       }
     });
   };

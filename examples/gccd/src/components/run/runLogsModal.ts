@@ -32,11 +32,15 @@ export default function (context: Context) {
     project_id,
     workspace_id,
     run_id,
-    container_id,
   }: any) {
     console.assert(org_id);
     console.assert(project_id);
     console.assert(workspace_id);
+    console.assert(run_id);
+
+    const search = new URLSearchParams(window.location.search);
+    const container_id = search.get("container_id");
+
     const runningState = bau.state(true);
 
     const connectWebSocket = async () => {
@@ -114,7 +118,10 @@ export default function (context: Context) {
     return Modal(
       { id: "run-dialog", class: className },
       form(
-        header(h1("Run"), Spinner({ visibility: runningState })),
+        header(
+          h1("Run ", org_id, project_id),
+          Spinner({ visibility: runningState })
+        ),
         article(logViewEl),
         footer(
           Button(

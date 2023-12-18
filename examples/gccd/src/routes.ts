@@ -440,6 +440,20 @@ export const createRoutes = ({ context }: { context: Context }) => {
                                   }),
                                   children: [
                                     {
+                                      path: "logs",
+                                      action: ({ match: { groups } }: any) => ({
+                                        title: "Run Logs",
+                                        component: () =>
+                                          Lazy({
+                                            getModule: () =>
+                                              import(
+                                                "./components/run/runLogsModal"
+                                              ),
+                                            props: groups,
+                                          }),
+                                      }),
+                                    },
+                                    {
                                       path: "destroy",
                                       action: ({ match: { groups } }: any) => ({
                                         title: "Delete Run",

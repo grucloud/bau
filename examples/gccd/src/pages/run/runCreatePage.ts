@@ -6,7 +6,6 @@ import keyValueList from "@grucloud/bau-ui/keyValueList";
 import buttonBack from "../../components/buttonBack";
 import page from "../../components/page";
 import runCreateContent from "../../components/run/runCreateContent";
-import runLogsModal from "../../components/run/runLogsModal";
 
 export default function (context: Context) {
   const { bau, stores, config, css } = context;
@@ -19,7 +18,6 @@ export default function (context: Context) {
   const Page = page(context);
   const Form = form(context);
   const RunCreateContent = runCreateContent(context);
-  const RunLogsModal = runLogsModal(context);
   const KeyValueList = keyValueList(context, {
     class: css`
       &.keyValueList {
@@ -36,7 +34,6 @@ export default function (context: Context) {
 
     const onsubmit = async (event: any) => {
       event.preventDefault();
-      const formEl = event.target.closest("form");
       const { reason, kind } = event.target.elements;
       const { run_id, container_id } = await stores.run.createQuery.run(
         { org_id, project_id, workspace_id },
@@ -48,21 +45,18 @@ export default function (context: Context) {
       );
       console.log("run_id", run_id, "container_id", container_id);
       const search = new URLSearchParams(window.location.search);
-      search.set("run_id", run_id);
+      search.set("modal", "run-dialog");
       if (container_id) {
         search.set("container_id", container_id);
       }
 
-      window.history.pushState("", "", `?${search}`);
-      const modalEl = RunLogsModal({
-        org_id,
-        project_id,
-        workspace_id,
-        run_id,
-        container_id,
-      });
-      formEl.append(modalEl);
-      modalEl.showModal();
+      window.history.pushState(
+        "",
+        "",
+        `${
+          config.base
+        }/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/runs/${run_id}/logs?${search.toString()}`
+      );
     };
 
     return Page(
