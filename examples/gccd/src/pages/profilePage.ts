@@ -1,7 +1,6 @@
 import { Context } from "@grucloud/bau-ui/context";
 import form from "@grucloud/bau-ui/form";
 import input from "@grucloud/bau-ui/input";
-import paper from "@grucloud/bau-ui/paper";
 import button from "@grucloud/bau-ui/button";
 
 export default function (context: Context) {
@@ -13,34 +12,31 @@ export default function (context: Context) {
   const Button = button(context, { variant: "outline", color: "danger" });
   const Input = input(context, { variant: "plain", color: "neutral" });
   const Form = form(context);
-  const Paper = paper(context);
 
   return function ProfilePage({}) {
-    return Paper(
-      Form(
-        // TODO
-        { onsubmit },
-        header(h1("Profile")),
-        section(
-          label(
-            "Email",
-            Input({
-              value: () => meQuery.data.val.email,
-              type: "email",
-              disabled: true,
-            })
-          ),
-          label(
-            "Username",
-            Input({
-              value: () => meQuery.data.val.username,
-              type: "text",
-              disabled: true,
-            })
-          )
+    return Form(
+      // TODO onsubmit
+      {},
+      header(h1("Profile")),
+      section(
+        label(
+          "Email",
+          Input({
+            value: () => meQuery.data.val.email,
+            type: "email",
+            disabled: true,
+          })
         ),
-        footer(Button({ href: "accountDelete" }, "Danger Zone"))
-      )
+        label(
+          "Username",
+          Input({
+            value: () => meQuery.data.val.username,
+            type: "text",
+            disabled: true,
+          })
+        )
+      ),
+      footer(Button({ href: "accountDelete" }, "Danger Zone"))
     );
   };
 }
