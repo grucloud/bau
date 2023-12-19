@@ -118,17 +118,6 @@ export default function (context: Context) {
         KvWorkspace({ org_id, project_id, workspace_id })
       ),
       p(
-        "Workspace ",
-        strong(workspace_id),
-        " in project ",
-        a(
-          { href: `${config.base}/org/${org_id}/projects/${project_id}` },
-          project_id
-        ),
-        " of organisation ",
-        a({ href: `${config.base}/org/${org_id}` }, org_id)
-      ),
-      p(
         ButtonAdd(
           {
             href: `${config.base}/org/${org_id}/projects/${project_id}/workspaces/${workspace_id}/runs/create`,
