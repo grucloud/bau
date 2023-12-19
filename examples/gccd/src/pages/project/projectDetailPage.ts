@@ -1,6 +1,7 @@
 import { Context } from "@grucloud/bau-ui/context";
 import button from "@grucloud/bau-ui/button";
 import tabs, { Tabs } from "@grucloud/bau-ui/tabs";
+import keyValueList from "@grucloud/bau-ui/keyValueList";
 
 import page from "../../components/page";
 import projectDetailContent from "../../components/project/projectDetailContent";
@@ -8,9 +9,12 @@ import workspaceList from "../../components/workspace/workspaceList";
 import gitConfig from "../../components/git/gitConfig";
 import tabsSkeleton from "../../components/tabsSkeleton";
 
+import kvOrg from "../../components/kvOrg";
+import kvProject from "../../components/kvProject";
+
 export default function (context: Context) {
   const { bau, stores, config, css } = context;
-  const { h1, h2, div, a, p, strong, section } = bau.tags;
+  const { h1, h2, div, section } = bau.tags;
   const { getByIdQuery } = stores.project;
 
   const Page = page(context);
@@ -23,6 +27,18 @@ export default function (context: Context) {
   const ProjectDetailContent = projectDetailContent(context);
   const WorkspaceList = workspaceList(context);
   const GitConfig = gitConfig(context);
+
+  const KvOrg = kvOrg(context);
+  const KvProject = kvProject(context);
+
+  const KeyValueList = keyValueList(context, {
+    class: css`
+      &.keyValueList {
+        flex-direction: row;
+        gap: 1rem;
+      }
+    `,
+  });
 
   return function ProjectDetailPage(props: any) {
     const { org_id, project_id } = props;
@@ -80,12 +96,13 @@ export default function (context: Context) {
 
     return Page(
       h1("Project Details"),
-      p(
-        "Project ",
-        strong(project_id),
-        " in organisation ",
-        a({ href: `${config.base}/org/${org_id}` }, org_id)
-      ),
+      KeyValueList(KvOrg({ org_id }), KvProject({ org_id, project_id })),
+      // p(
+      //   "Project ",
+      //   strong(project_id),
+      //   " in organisation ",
+      //   a({ href: `${config.base}/org/${org_id}` }, org_id)
+      // ),
       bau.bind({
         deps: [getByIdQuery.loading],
         render: () => (loading) =>

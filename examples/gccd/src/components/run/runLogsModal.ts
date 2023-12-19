@@ -2,6 +2,12 @@ import { Context } from "@grucloud/bau-ui/context";
 import button from "@grucloud/bau-ui/button";
 import modal from "@grucloud/bau-ui/modal";
 import spinner from "@grucloud/bau-ui/spinner";
+import keyValueList from "@grucloud/bau-ui/keyValueList";
+import kvOrg from "../../components/kvOrg";
+import kvProject from "../../components/kvProject";
+import kvWorkspace from "../../components/kvWorkspace";
+import kvRepository from "../../components/kvRepository";
+import kvRun from "../../components/kvRun";
 
 import logView from "../logView";
 
@@ -19,12 +25,27 @@ export default function (context: Context) {
   const Button = button(context, { color: "neutral" });
   const Modal = modal(context, { size: "lg" });
   const Spinner = spinner(context, { size: "lg" });
+  const KeyValueList = keyValueList(context, {
+    class: css`
+      &.keyValueList {
+        flex-direction: row;
+        gap: 1rem;
+      }
+    `,
+  });
+
+  const KvOrg = kvOrg(context);
+  const KvProject = kvProject(context);
+  const KvWorkspace = kvWorkspace(context);
+  const KvRepository = kvRepository(context);
+  const KvRun = kvRun(context);
 
   const className = css`
     > form {
       gap: 0.5rem;
     }
   `;
+
   const logViewEl = logView(context)();
 
   return function RunLogsModal({
@@ -40,7 +61,7 @@ export default function (context: Context) {
 
     const search = new URLSearchParams(window.location.search);
     const container_id = search.get("container_id");
-
+    const repository_url = search.get("repository_url");
     const runningState = bau.state(true);
 
     const connectWebSocket = async () => {
@@ -119,8 +140,15 @@ export default function (context: Context) {
       { id: "run-dialog", class: className },
       form(
         header(
-          h1("Run ", org_id, project_id),
-          Spinner({ visibility: runningState })
+          h1("Run"),
+          Spinner({ visibility: runningState }),
+          KeyValueList(
+            KvOrg({ org_id }),
+            KvProject({ org_id, project_id }),
+            KvWorkspace({ org_id, project_id, workspace_id }),
+            KvRun({ org_id, project_id, workspace_id, run_id }),
+            KvRepository({ repository_url })
+          )
         ),
         article(logViewEl),
         footer(
