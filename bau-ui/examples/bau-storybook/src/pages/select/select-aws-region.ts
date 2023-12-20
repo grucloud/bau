@@ -1,11 +1,13 @@
-import select from "@grucloud/bau-ui/select";
 import { Context } from "@grucloud/bau-ui/context";
+import button from "@grucloud/bau-ui/button";
+import select from "@grucloud/bau-ui/select";
 
 export default (context: Context) => {
   const { bau } = context;
-  const { span, form } = bau.tags;
+  const { form, article, footer, span } = bau.tags;
 
   const Select = select(context);
+  const ButtonSubmit = button(context, { variant: "solid", color: "primary" });
 
   const options: any = [
     "eu-north-1",
@@ -29,14 +31,31 @@ export default (context: Context) => {
 
   const Option = (option: any) => span({}, option);
 
+  const onsubmit = (event: any) => {
+    event.preventDefault();
+    const payload = Object.fromEntries(
+      new FormData(event.target.closest("form"))
+    );
+    alert(JSON.stringify(payload));
+  };
+
   return () =>
     form(
-      Select({
-        options,
-        Option,
-        label: "Select a region",
-        getOptionValue: (label: any) => label,
-        getOptionLabel: (label: any) => label,
-      })
+      { onsubmit },
+      article(
+        Select({
+          name: "region",
+          options,
+          Option,
+          label: "Select a region",
+          getOptionValue: (label: any) => label,
+          getOptionLabel: (label: any) => label,
+          required: true,
+          oninvalid: (event: any) => {
+            event.target.setCustomValidity("Please select an AWS region");
+          },
+        })
+      ),
+      footer(ButtonSubmit({ type: "submit" }, "Submit"))
     );
 };

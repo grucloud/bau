@@ -1,11 +1,17 @@
-import { Context } from "@grucloud/bau-ui/context";
 import autocomplete from "@grucloud/bau-ui/autocomplete";
+import button from "@grucloud/bau-ui/button";
+
+import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { bau, css } = context;
-  const { section, div, span } = bau.tags;
+  const { div, span, form, article, footer } = bau.tags;
 
   const Autocomplete = autocomplete(context);
+  const Button = button(context, {
+    variant: "outline",
+    color: "primary",
+  });
 
   const options = [
     { code: "AD", label: "Andorra", phone: "376" },
@@ -25,16 +31,28 @@ export default (context: Context) => {
       span(option.code)
     );
 
+  const onsubmit = (event: any) => {
+    event.preventDefault();
+    const payload = Object.fromEntries(
+      new FormData(event.target.closest("form"))
+    );
+    alert(JSON.stringify(payload));
+  };
+
   return () =>
-    section(
-      Autocomplete({
-        options,
-        Option,
-        getOptionValue: ({ code }: any) => code,
-        getOptionLabel: ({ label }: any) => label,
-        label: "Country",
-        placeholder: "Search countries",
-        id: "country",
-      })
+    form(
+      { onsubmit },
+      article(
+        Autocomplete({
+          options,
+          Option,
+          getOptionValue: ({ code }: any) => code,
+          getOptionLabel: ({ label }: any) => label,
+          label: "Country",
+          placeholder: "Search countries",
+          name: "country",
+        })
+      ),
+      footer(Button({ type: "submit" }, "Submit"))
     );
 };

@@ -4,9 +4,11 @@ import button from "@grucloud/bau-ui/button";
 
 export default (context: Context) => {
   const { bau, css } = context;
-  const { section, div, span } = bau.tags;
+  const { form, article, footer, span, div } = bau.tags;
 
   const Button = button(context, { variant: "outline" });
+  const ButtonSubmit = button(context, { variant: "solid", color: "primary" });
+
   const Select = select(context);
 
   const dataState = bau.state([]);
@@ -53,9 +55,18 @@ export default (context: Context) => {
       span(option.name.common)
     );
 
+  const onsubmit = (event: any) => {
+    event.preventDefault();
+    const payload = Object.fromEntries(
+      new FormData(event.target.closest("form"))
+    );
+    alert(JSON.stringify(payload));
+  };
+
   return () =>
-    section(
-      div(
+    form(
+      { onsubmit },
+      article(
         {
           class: css`
             display: flex;
@@ -64,6 +75,7 @@ export default (context: Context) => {
         },
         () =>
           Select({
+            name: "country",
             options: dataState.val,
             Option,
             getOptionValue: ({ name }: any) => name.common,
@@ -71,8 +83,10 @@ export default (context: Context) => {
             label: "Country",
             id: "country",
             loading: loadingState.val,
+            required: true,
           }),
         Button({ onclick: () => fetchCountries() }, "Reload")
-      )
+      ),
+      footer(ButtonSubmit({ type: "submit" }, "Submit"))
     );
 };

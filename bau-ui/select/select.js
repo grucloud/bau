@@ -182,7 +182,12 @@ export default function (context, componentOptions = {}) {
         option({ value: getOptionValue(opt) }, getOptionLabel(opt))
       )
     );
-    selectEl.value = props.value;
+
+    if (defaultOption) {
+      selectEl.value = getOptionValue(defaultOption);
+    } else {
+      selectEl.value = props.value;
+    }
 
     return div(
       {

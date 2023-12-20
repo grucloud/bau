@@ -1,11 +1,13 @@
-import select from "@grucloud/bau-ui/select";
 import { Context } from "@grucloud/bau-ui/context";
+import button from "@grucloud/bau-ui/button";
+import select from "@grucloud/bau-ui/select";
 
 export default (context: Context) => {
   const { bau, css } = context;
-  const { section, div, span } = bau.tags;
+  const { form, article, footer, div, span } = bau.tags;
 
   const Select = select(context);
+  const ButtonSubmit = button(context, { variant: "solid", color: "primary" });
 
   const options = [
     { code: "AD", label: "Andorra", phone: "376" },
@@ -30,14 +32,27 @@ export default (context: Context) => {
       span(option.code)
     );
 
+  const onsubmit = (event: any) => {
+    event.preventDefault();
+    const payload = Object.fromEntries(
+      new FormData(event.target.closest("form"))
+    );
+    alert(JSON.stringify(payload));
+  };
+
   return () =>
-    section(
-      Select({
-        options,
-        Option,
-        getOptionValue: ({ code }: any) => code,
-        getOptionLabel: ({ label }: any) => label,
-        label: "Select a country...",
-      })
+    form(
+      { onsubmit },
+      article(
+        Select({
+          name: "country",
+          options,
+          Option,
+          getOptionValue: ({ code }: any) => code,
+          getOptionLabel: ({ label }: any) => label,
+          label: "Select a country...",
+        })
+      ),
+      footer(ButtonSubmit({ type: "submit" }, "Submit"))
     );
 };
