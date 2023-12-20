@@ -4,9 +4,13 @@ import pageExample from "../pageExample.ts";
 
 import inputGridItem from "./input-grid-item.ts";
 
-import inputDefault from "./input-example-default.ts";
+import inputUncontrolled from "./input-uncontrolled.ts";
 // @ts-ignore
-import codeExampleDefault from "./input-example-default.ts?raw";
+import codeUncontrolled from "./input-uncontrolled.ts?raw";
+
+import inputControlled from "./input-controlled.ts";
+// @ts-ignore
+import codeControlled from "./input-controlled.ts?raw";
 
 export const inputSpec = {
   title: "Input",
@@ -17,10 +21,16 @@ export const inputSpec = {
   importStatement: `import input from "@grucloud/bau-ui/input";`,
   examples: [
     {
-      title: "Default",
-      description: "A simple input.",
-      code: codeExampleDefault,
-      createComponent: inputDefault,
+      title: "Uncontrolled Input",
+      description: "Various uncontrolled inputs.",
+      code: codeUncontrolled,
+      createComponent: inputUncontrolled,
+    },
+    {
+      title: "Controlled Input",
+      description: "Various controlled inputs.",
+      code: codeControlled,
+      createComponent: inputControlled,
     },
   ],
   gridItem: inputGridItem,

@@ -109,6 +109,7 @@ export default function (context, options = {}) {
       {
         required: "required",
         title: "Switch Theme",
+        name: "theme-switch",
         ...props,
         class: classNames(
           "theme-switch",

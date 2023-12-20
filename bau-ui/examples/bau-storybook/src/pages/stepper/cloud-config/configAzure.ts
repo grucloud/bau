@@ -20,11 +20,6 @@ export default (context: Context) => {
 
   return function ConfigAzure({ onclickPrevious, onclickNext }: any) {
     const onsubmit = (event: any) => {
-      // const { subscriptionId, tenantId, appId, password } =
-      //   event.target.elements;
-      // alert(
-      //   `subscriptionId: ${subscriptionId.value}  tenantId ${tenantId.value}, appId: ${appId.value}`
-      // );
       event.preventDefault();
       onclickNext();
     };

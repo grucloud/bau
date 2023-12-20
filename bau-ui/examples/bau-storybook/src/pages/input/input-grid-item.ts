@@ -3,12 +3,15 @@ import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context, options: any = {}) => {
   const Input = input(context, options);
-
-  return (props: any) =>
+  return ({ color, variant, size, ...props }: any) =>
     Input({
-      name: `myinput-gallery-${options.color}-${options.variant}-${options.size}`,
-      id: `myinput-gallery-${options.color}-${options.variant}-${options.size}`,
+      name: `myinput-gallery-${color ?? options.color}-${
+        variant ?? options.variant
+      }-${size ?? options.size}`,
       placeholder: "Enter text",
+      color,
+      variant,
+      size,
       ...props,
     });
 };

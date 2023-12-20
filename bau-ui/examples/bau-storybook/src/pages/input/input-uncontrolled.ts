@@ -6,8 +6,8 @@ import form from "@grucloud/bau-ui/form";
 export default (context: Context) => {
   const { bau } = context;
   const { article, footer, label } = bau.tags;
-  const Input = input(context);
 
+  const Input = input(context);
   const Form = form(context);
   const ButtonSubmit = button(context, { variant: "solid", color: "primary" });
 
@@ -34,6 +34,31 @@ export default (context: Context) => {
             required: true,
             name: "my-required-input",
             placeholder: "Enter Text",
+          })
+        ),
+        label(
+          "Input with minLength/maxLength",
+          Input({
+            name: "my-required-input-min-max",
+            placeholder: "Enter Text",
+            required: true,
+            minLength: 3,
+            maxLength: 24,
+          })
+        ),
+        label(
+          "Input with custom error message",
+          Input({
+            name: "my-required-input-custom",
+            placeholder: "Enter Text",
+            required: true,
+            minLength: 3,
+            maxLength: 24,
+            oninvalid: (event: any) => {
+              event.target.setCustomValidity(
+                "Please select the correct format."
+              );
+            },
           })
         ),
         label(
