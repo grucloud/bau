@@ -11,7 +11,7 @@ export default (context: Context) => {
   return function GitRepositoryBranchGitHub(props: any) {
     const { username, password } = props;
     const branchState = bau.state(props.branch);
-    if (username && !listRepoQuery.data.val.length) {
+    if (username && !listRepoQuery.completed.val) {
       listRepoQuery.run({ username, password });
     }
     const GitRepository = ({}: any) =>

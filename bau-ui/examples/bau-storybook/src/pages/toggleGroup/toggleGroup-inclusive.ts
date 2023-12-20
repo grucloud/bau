@@ -31,7 +31,7 @@ export default (context: Context) => {
 
   const onsubmit = (event: any) => {
     event.preventDefault();
-    const formEl = event.target.closest("form");
+    const formEl = event.currentTarget;
     const buttonNames = [
       ...formEl.querySelectorAll("button[aria-pressed=true]"),
     ].map(({ name }: any) => name);

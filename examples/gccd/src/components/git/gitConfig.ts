@@ -39,9 +39,7 @@ export default function (context: Context) {
       console.assert(project_id);
       console.assert(onSubmitted);
       event.preventDefault();
-      const payload = Object.fromEntries(
-        new FormData(event.target.closest("form"))
-      );
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
       await stores.project.patchQuery.run({ org_id, project_id }, payload);
       onSubmitted({ ...payload, org_id, project_id });
     };
@@ -62,7 +60,6 @@ export default function (context: Context) {
   `;
 
   const oninputRadio = (radioState: any) => (event: any) => {
-    //console.log("oninputRadio", event.target.id, event.target.name);
     const search = new URLSearchParams(window.location.search);
     search.delete(event.target.name);
     search.append(event.target.name, event.target.id);

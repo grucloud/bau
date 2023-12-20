@@ -58,7 +58,7 @@ export default (context: Context) => {
     const access_token = getAccessToken({ window })(
       /gitlab-access-token=(.[^;]*)/gi
     );
-    if (access_token) {
+    if (access_token && !authenticatedUserQuery.completed.val) {
       authenticatedUserQuery.run({ access_token });
     }
     const usernameState = bau.state("");

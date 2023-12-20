@@ -23,9 +23,10 @@ export default function (context: Context) {
     ({ onSubmitted, org_id, project_id }: any) =>
     async (event: any) => {
       event.preventDefault();
-      const payload = Object.fromEntries(
-        new FormData(event.target.closest("form"))
-      );
+      console.assert(onSubmitted);
+      console.log(org_id);
+      console.log(project_id);
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
       try {
         await stores.workspace.createQuery.run({ org_id, project_id }, payload);
         onSubmitted({ ...payload, org_id, project_id });

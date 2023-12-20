@@ -12,7 +12,9 @@ export default (context: Context) => {
     const { username, password } = props;
     const branchState = bau.state(props.branch);
 
-    listRepoQuery.run({ username, password });
+    if (username && !listRepoQuery.completed.val) {
+      listRepoQuery.run({ username, password });
+    }
 
     const GitRepository = ({}: any) =>
       label("Repository URL", () =>

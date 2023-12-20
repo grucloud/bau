@@ -16,7 +16,7 @@ export default (context: Context) => {
 
   const onsubmit = (event: any) => {
     event.preventDefault();
-    const formEl = event.target.closest("form");
+    const formEl = event.currentTarget;
     const buttonName = formEl.querySelector("button[aria-pressed=true]")?.name;
     alert(buttonName);
   };

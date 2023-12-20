@@ -24,7 +24,6 @@ export default (context: Context) => {
       Button(
         {
           variant: "solid",
-          color: "neutral",
           onclick: () => {
             const dialogEl = document.getElementById(
               "my-dialog"

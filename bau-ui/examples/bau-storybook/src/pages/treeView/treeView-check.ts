@@ -17,8 +17,7 @@ export default (context: Context) => {
 
   const onsubmit = (event: any) => {
     event.preventDefault();
-    const formEl = event.target.closest("form");
-    const payload = Object.fromEntries(new FormData(formEl));
+    const payload = Object.fromEntries(new FormData(event.currentTarget));
     alert(JSON.stringify(payload));
   };
 
@@ -87,7 +86,7 @@ export default (context: Context) => {
         },
       })(item);
 
-      const formEl = event.target.closest("form");
+      const formEl = event.currentTarget;
       const checkboxesChecked = formEl.querySelectorAll(
         'input[type="checkbox"][data-type="resources"]:checked'
       );

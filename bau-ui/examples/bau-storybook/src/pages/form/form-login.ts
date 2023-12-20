@@ -40,7 +40,7 @@ export default (context: Context) => {
     const onsubmit = async (event: any) => {
       event.preventDefault();
       const { username, password } = Object.fromEntries(
-        new FormData(event.target.closest("form"))
+        new FormData(event.currentTarget)
       );
       try {
         loadingState.val = true;

@@ -15,9 +15,7 @@ export default (context: Context) => {
   return function SimpleForm({ onSubmitted = () => {} }: any) {
     const onsubmit = async (event: any) => {
       event.preventDefault();
-      const payload = Object.fromEntries(
-        new FormData(event.target.closest("form"))
-      );
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
       alert(JSON.stringify(payload));
       onSubmitted(payload);
     };

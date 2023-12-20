@@ -20,9 +20,7 @@ export default (context: Context) => {
 
   const onsubmit = (event: any) => {
     event.preventDefault();
-    const payload = Object.fromEntries(
-      new FormData(event.target.closest("form"))
-    );
+    const payload = Object.fromEntries(new FormData(event.currentTarget));
     alert(JSON.stringify(payload));
   };
   const onclickIndeterminate = (_event: any) => {

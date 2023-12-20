@@ -17,7 +17,8 @@ export default function (context, options = {}) {
         font-size: 1.3rem;
       }
     }
-    & section {
+    & section,
+    article {
       display: inline-flex;
       flex-direction: column;
       gap: 0.5rem;
