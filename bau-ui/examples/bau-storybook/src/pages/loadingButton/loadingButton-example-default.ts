@@ -5,7 +5,10 @@ import { Context } from "@grucloud/bau-ui/context";
 export default (context: Context) => {
   const { bau } = context;
   const { section } = bau.tags;
-  const LoadingButton = loadingButton(context);
+  const LoadingButton = loadingButton(context, {
+    variant: "solid",
+    color: "primary",
+  });
 
   const loadingState = bau.state(true);
 
@@ -13,8 +16,6 @@ export default (context: Context) => {
     section(
       LoadingButton(
         {
-          variant: "solid",
-          color: "primary",
           loading: loadingState,
           onclick: () => (loadingState.val = !loadingState.val),
         },

@@ -26,9 +26,9 @@ const colorsToCss = () =>
   }
 }
 &.solid.${color} {
-  background-color:transparent;
+  background-color: transparent;
   & .path {
-    stroke: var(--color-${color});
+    stroke: var(--font-color-inverse);
   }
 }
 `

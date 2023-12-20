@@ -5,11 +5,11 @@ export default (context: Context) => {
   const { bau } = context;
   const { section } = bau.tags;
 
-  const Chip = chip(context);
+  const Chip = chip(context, { variant: "outline", color: "primary" });
 
   return () =>
     section(
       //
-      Chip({ variant: "outline", color: "primary" }, "My Chip")
+      Chip("My Chip")
     );
 };

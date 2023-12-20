@@ -4,7 +4,7 @@ import inputSearch from "@grucloud/bau-ui/inputSearch";
 
 export default function (context) {
   const { tr, bau, css, config, states, window } = context;
-  const { div, ul, li, nav, a, span } = bau.tags;
+  const { div, ul, li, nav, a, span, form } = bau.tags;
 
   const InputSearch = inputSearch(context, {
     variant: "plain",
@@ -35,7 +35,7 @@ export default function (context) {
       searchTerm.val = event.target.value;
     };
 
-    return div(
+    return form(
       {
         class: css`
           display: flex;
@@ -43,12 +43,12 @@ export default function (context) {
         `,
       },
       InputSearch({
-        autocomplete: false,
-        name: "search",
+        autocomplete: "off",
+        name: "component-search",
         autofocus: true,
         value: searchTerm,
         placeholder: `Search ${result.val.length} components`,
-        size: 22,
+        size: 32,
         oninput,
       }),
       () =>

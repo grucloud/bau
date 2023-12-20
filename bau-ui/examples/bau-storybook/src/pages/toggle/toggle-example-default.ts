@@ -1,23 +1,39 @@
-import toggle from "@grucloud/bau-ui/toggle";
-
 import { Context } from "@grucloud/bau-ui/context";
+import toggle from "@grucloud/bau-ui/toggle";
+import button from "@grucloud/bau-ui/button";
 
 export default (context: Context) => {
   const { bau } = context;
-  const { section } = bau.tags;
-  const Toggle = toggle(context);
+  const { form, article, footer } = bau.tags;
+
+  const Toggle = toggle(context, { variant: "plain" });
+  const Button = button(context, {
+    variant: "outline",
+    color: "primary",
+  });
 
   const selectedState = bau.state(false);
 
+  const onsubmit = (event: any) => {
+    event.preventDefault();
+    const formEl = event.target.closest("form");
+    const buttonName = formEl.querySelector("button[aria-pressed=true]")?.name;
+    alert(buttonName);
+  };
+
   return () =>
-    section(
-      Toggle(
-        {
-          variant: "plain",
-          selected: selectedState,
-          onclick: () => (selectedState.val = !selectedState.val),
-        },
-        "Toggle Me"
-      )
+    form(
+      { onsubmit },
+      article(
+        Toggle(
+          {
+            name: "my-toogle",
+            selected: selectedState,
+            onclick: () => (selectedState.val = !selectedState.val),
+          },
+          "Toggle Me"
+        )
+      ),
+      footer(Button({ type: "submit" }, "Submit"))
     );
 };

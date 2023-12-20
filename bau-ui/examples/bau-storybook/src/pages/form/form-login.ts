@@ -9,7 +9,10 @@ export default (context: Context) => {
   const { bau, css, config } = context;
   const { section, h1, header, label, img, footer } = bau.tags;
 
-  const LoadingButton = loadingButton(context);
+  const LoadingButton = loadingButton(context, {
+    variant: "solid",
+    color: "primary",
+  });
   const Alert = alert(context, { variant: "outline", color: "danger" });
   const Input = input(context);
   const Form = form(context, {
@@ -101,8 +104,6 @@ export default (context: Context) => {
         LoadingButton(
           {
             type: "submit",
-            variant: "solid",
-            color: "primary",
             loading: loadingState,
           },
           "Login"

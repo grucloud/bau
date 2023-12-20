@@ -1,9 +1,15 @@
-import selectNative from "@grucloud/bau-ui/selectNative";
 import { Context } from "@grucloud/bau-ui/context";
+import selectNative from "@grucloud/bau-ui/selectNative";
+import button from "@grucloud/bau-ui/button";
 
 export default (context: Context) => {
   const { bau } = context;
-  const { section, option } = bau.tags;
+  const { option, form, footer } = bau.tags;
+
+  const Button = button(context, {
+    variant: "outline",
+    color: "primary",
+  });
 
   const SelectNative = selectNative(context);
 
@@ -17,10 +23,22 @@ export default (context: Context) => {
     { code: "AF", label: "Afghanistan", phone: "93" },
   ];
 
+  const onsubmit = (event: any) => {
+    event.preventDefault();
+    const payload = Object.fromEntries(
+      new FormData(event.target.closest("form"))
+    );
+    alert(JSON.stringify(payload));
+  };
+
   return () =>
-    section(
+    form(
+      { onsubmit },
       SelectNative(
+        { name: "my-select" },
+        option({ value: "" }, "--Please choose a phone code--"),
         phoneOptions.map(({ label, phone }) => option({ value: phone }, label))
-      )
+      ),
+      footer(Button({ type: "submit" }, "Submit"))
     );
 };

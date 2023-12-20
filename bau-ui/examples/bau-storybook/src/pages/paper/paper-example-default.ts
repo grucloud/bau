@@ -5,7 +5,7 @@ export default (context: Context) => {
   const { bau } = context;
   const { section, div } = bau.tags;
 
-  const Paper = paper(context);
+  const Paper = paper(context, { size: "md" });
 
-  return () => section(Paper({ size: "md" }, div("My content")));
+  return () => section(Paper(div("My content")));
 };

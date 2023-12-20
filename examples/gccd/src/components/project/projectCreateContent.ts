@@ -16,7 +16,7 @@ export default function (context: Context) {
           placeholder: "Project Id",
           name: "project_id",
           minLength: 1,
-          maxLength: 24,
+          maxLength: 128,
           required: true,
         })
       )

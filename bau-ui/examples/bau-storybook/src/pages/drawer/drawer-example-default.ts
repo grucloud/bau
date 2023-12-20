@@ -10,7 +10,7 @@ export default (context: Context) => {
   const openState = bau.state(false);
 
   const Drawer = drawer(context);
-  const Button = button(context);
+  const Button = button(context, { color: "neutral", variant: "outline" });
   const NavBarMenu = navBarMenu(context);
 
   return () =>
@@ -18,8 +18,6 @@ export default (context: Context) => {
       p("Click on the button to open and close the drawer."),
       Button(
         {
-          color: "neutral",
-          variant: "outline",
           onclick: () => {
             openState.val = !openState.val;
           },

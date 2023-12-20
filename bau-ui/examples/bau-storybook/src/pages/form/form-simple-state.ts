@@ -11,7 +11,7 @@ export default (context: Context) => {
   const disabledState = bau.derive(() => inputState.val !== "Delete");
 
   const Form = form(context);
-  const Button = button(context, { variant: "solid", color: "primary" });
+  const Button = button(context, { variant: "solid", color: "danger" });
   const Input = input(context);
 
   return function SimpleForm({ onSubmitted = () => {} }: any) {

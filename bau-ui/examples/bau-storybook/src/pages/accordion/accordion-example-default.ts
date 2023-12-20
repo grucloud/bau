@@ -17,10 +17,11 @@ export default (context: Context) => {
       Content: () => div(p("Item 2 Content")),
     },
   ];
-  const Accordion = accordion(context);
 
-  return () =>
-    section(
-      Accordion({ data: accordionDefs, color: "neutral", variant: "outline" })
-    );
+  const Accordion = accordion(context, {
+    color: "neutral",
+    variant: "outline",
+  });
+
+  return () => section(Accordion({ data: accordionDefs }));
 };

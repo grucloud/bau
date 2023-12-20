@@ -9,16 +9,20 @@ export default (context: Context) => {
 
   const groups = ["ONE", "TWO", "THREE"];
 
-  const Button = button(context);
-  const ButtonGroup = buttonGroup(context);
-
   const color = "primary";
   const variant = "solid";
+
+  const Button = button(context, { color, variant });
+  const ButtonGroup = buttonGroup(context, { color, variant });
+
+  const onClick = (group: string) => (_event: any) => {
+    alert(group);
+  };
+
   return () =>
     section(
       ButtonGroup(
-        { color, variant },
-        groups.map((group) => Button({ color, variant }, group))
+        groups.map((group) => Button({ onclick: onClick(group) }, group))
       )
     );
 };

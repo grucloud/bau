@@ -5,7 +5,10 @@ import { Context } from "@grucloud/bau-ui/context";
 export default (context: Context) => {
   const { bau } = context;
   const { section } = bau.tags;
-  const PaginationNavigation = paginationNavigation(context);
+  const PaginationNavigation = paginationNavigation(context, {
+    variant: "solid",
+    color: "primary",
+  });
 
   const data = {
     next: {
@@ -23,8 +26,6 @@ export default (context: Context) => {
   return () =>
     section(
       PaginationNavigation({
-        variant: "solid",
-        color: "primary",
         data,
       })
     );

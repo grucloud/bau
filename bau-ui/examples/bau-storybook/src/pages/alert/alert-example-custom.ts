@@ -5,6 +5,7 @@ export default (context: Context) => {
   const { css } = context;
 
   const Alert = alert(context, {
+    color: "warning",
     class: css`
       &.alert {
         border: 3px dotted !important;
@@ -13,6 +14,5 @@ export default (context: Context) => {
     `,
   });
 
-  return () =>
-    Alert({ color: "warning" }, "Your coffee supply is getting low.");
+  return () => Alert("Your coffee supply is getting low.");
 };

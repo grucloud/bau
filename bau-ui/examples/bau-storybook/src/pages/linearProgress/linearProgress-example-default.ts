@@ -6,7 +6,7 @@ import { Context } from "@grucloud/bau-ui/context";
 export default (context: Context) => {
   const { bau } = context;
   const { section, hr } = bau.tags;
-  const Button = button(context);
+  const Button = button(context, { variant: "solid", color: "primary" });
   const LinearProgress = linearProgress(context);
 
   const runningState = bau.state(false);
@@ -15,8 +15,6 @@ export default (context: Context) => {
     section(
       Button(
         {
-          variant: "solid",
-          color: "primary",
           onclick: () => (runningState.val = !runningState.val),
         },
         () => (runningState.val ? "Stop" : "Start")

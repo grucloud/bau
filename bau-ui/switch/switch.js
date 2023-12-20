@@ -131,7 +131,6 @@ export default function (context, options = {}) {
           props.class
         ),
         type: "checkbox",
-        required: "required",
       },
       ...children
     );

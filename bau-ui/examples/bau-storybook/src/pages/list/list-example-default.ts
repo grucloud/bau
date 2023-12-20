@@ -10,7 +10,7 @@ export default (context: Context) => {
   const { bau, css } = context;
   const { section, span, li } = bau.tags;
 
-  const List = list(context);
+  const List = list(context, { variant: "outline", color: "primary" });
 
   const ListItem = ({ code, label }: any) =>
     li(
@@ -24,8 +24,5 @@ export default (context: Context) => {
       span(label)
     );
 
-  return () =>
-    section(
-      List({ variant: "outline", color: "primary" }, phoneCodes.map(ListItem))
-    );
+  return () => section(List(phoneCodes.map(ListItem)));
 };

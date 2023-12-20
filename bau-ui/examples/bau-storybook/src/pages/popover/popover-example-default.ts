@@ -6,14 +6,12 @@ export default (context: Context) => {
   const { bau } = context;
   const { section, div, h1, p } = bau.tags;
 
-  const Button = button(context);
+  const Button = button(context, { variant: "outline", color: "success" });
   const Popover = popover(context);
 
   const TriggerButton = () =>
     Button(
       {
-        variant: "outline",
-        color: "success",
         onclick: () =>
           popoverEl.open ? popoverEl.closeDialog() : popoverEl.openDialog(),
       },

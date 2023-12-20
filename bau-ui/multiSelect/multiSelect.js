@@ -45,6 +45,7 @@ export default function (context, componentOptions = {}) {
     & label {
       display: flex;
       gap: 0.5rem;
+      align-items: center;
       flex-grow: 1;
     }
     ${colorsToCss()}
