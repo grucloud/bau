@@ -7,10 +7,10 @@ export default function (context, options = {}) {
 
   createGlobalStyles`
     :root {
-      --toggle-background-color: rgba(0, 0, 0, 0.2);
+      --toggle-background-color: rgba(0, 0, 0, 0.3);
     }
     html[data-theme="dark"] {
-      --toggle-background-color: rgba(255, 255, 255, 0.16)
+      --toggle-background-color: rgba(255, 255, 255, 0.4)
     }
   `;
   const className = css`
@@ -46,11 +46,11 @@ export default function (context, options = {}) {
     &.solid:hover {
       box-shadow: var(--shadow-lg);
     }
-    &:hover {
-      filter: brightness(var(--brightness-hover));
+    &:hover:not(.selected) {
+      filter: brightness(var(--brightness-hover)) !important;
     }
-    &:hover.solid {
-      filter: brightness(var(--brightness-hover-always));
+    &:hover.solid:not(.selected) {
+      filter: brightness(var(--brightness-hover-always)) !important;
     }
     &.sm {
       padding: 0.3rem;
