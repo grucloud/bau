@@ -1,7 +1,7 @@
 {
   "name": "bau-counter-example",
   "private": true,
-  "version": "0.73.0",
+  "version": "0.74.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.73.0"
+    "@grucloud/bau": "^0.74.0"
   },
   "devDependencies": {
     "vite": "^4.3.9"
