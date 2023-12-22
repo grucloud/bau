@@ -40,9 +40,10 @@ export default (context: Context) => {
   const Previous = () => Button("\u25C0");
   const Next = () => Button("\u25B6");
 
-  return () =>
-    section(
+  return () => {
+    return section(
       //
       Carousel({ slides, Slide, Previous, Next })
     );
+  };
 };

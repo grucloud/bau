@@ -24,9 +24,10 @@ export default (context: Context) => {
     separator: "/",
   });
 
-  return () =>
-    section(
+  return () => {
+    return section(
       //
       Breadcrumbs(breadcrumbsProps)
     );
+  };
 };

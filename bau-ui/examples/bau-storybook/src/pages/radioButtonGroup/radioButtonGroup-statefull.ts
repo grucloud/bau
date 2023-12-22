@@ -5,24 +5,25 @@ import button from "@grucloud/bau-ui/button";
 export default (context: Context) => {
   const { bau } = context;
   const { form, article, footer, p } = bau.tags;
+
   const RadioButtonGroup = radioButtonGroup(context);
   const Button = button(context, {
     variant: "outline",
     color: "primary",
   });
 
-  const checkedState = bau.state("two");
+  return () => {
+    const checkedState = bau.state("two");
 
-  const oninput = ({ target }: { target: HTMLInputElement }) =>
-    (checkedState.val = target.id);
+    const oninput = ({ target }: { target: HTMLInputElement }) =>
+      (checkedState.val = target.id);
 
-  const onsubmit = (event: any) => {
-    event.preventDefault();
-    alert(checkedState.val);
-  };
+    const onsubmit = (event: any) => {
+      event.preventDefault();
+      alert(checkedState.val);
+    };
 
-  return () =>
-    form(
+    return form(
       { onsubmit },
       article(
         RadioButtonGroup({
@@ -38,4 +39,5 @@ export default (context: Context) => {
       ),
       footer(Button({ type: "submit" }, "Submit"))
     );
+  };
 };

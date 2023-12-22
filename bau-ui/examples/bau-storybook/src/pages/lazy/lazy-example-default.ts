@@ -6,13 +6,13 @@ export default (context: Context) => {
   const { bau } = context;
   const { section } = bau.tags;
 
-  const showState = bau.state(false);
-
   const Lazy = lazy(context);
   const Button = button(context);
 
-  return () =>
-    section(
+  return () => {
+    const showState = bau.state(false);
+
+    return section(
       Button({ onclick: () => (showState.val = !showState.val) }, () =>
         showState.val ? "Hide" : "Show"
       ),
@@ -23,4 +23,5 @@ export default (context: Context) => {
           props: { message: "myValue" },
         })
     );
+  };
 };

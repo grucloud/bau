@@ -4,9 +4,9 @@ import pageExample from "../pageExample.ts";
 
 import checkboxGridItem from "./checkbox-grid-item.ts";
 
-import checkboxDefault from "./checkbox-example-default.ts";
+import checkboxControlled from "./checkbox-controlled.ts";
 // @ts-ignore
-import codeExampleDefault from "./checkbox-example-default.ts?raw";
+import codeExampleControlled from "./checkbox-controlled.ts?raw";
 
 import checkboxUncontrolled from "./checkbox-uncontrolled.ts";
 // @ts-ignore
@@ -25,16 +25,16 @@ export const checkboxSpec = {
   importStatement: `import checkbox from "@grucloud/bau-ui/checkbox";`,
   examples: [
     {
-      title: "Controlled checkbox",
-      description: "A controlled checkbox.",
-      code: codeExampleDefault,
-      createComponent: checkboxDefault,
-    },
-    {
       title: "Uncontrolled checkbox",
       description: "An uncontrolled checkbox.",
       code: codeExampleUncontrolled,
       createComponent: checkboxUncontrolled,
+    },
+    {
+      title: "Controlled checkbox",
+      description: "A controlled checkbox.",
+      code: codeExampleControlled,
+      createComponent: checkboxControlled,
     },
     {
       title: "Indeterminate checkbox",

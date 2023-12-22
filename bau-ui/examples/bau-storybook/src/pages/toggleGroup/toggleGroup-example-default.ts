@@ -8,8 +8,6 @@ export default (context: Context) => {
   const { bau } = context;
   const { form, footer, article } = bau.tags;
 
-  const selectedState = bau.state([""]);
-
   const groups = [
     { value: "one", label: "ONE" },
     { value: "two", label: "TWO" },
@@ -26,19 +24,23 @@ export default (context: Context) => {
     color: "primary",
   });
 
-  const onChange = ({ values }: any) => {
-    selectedState.val = values;
-  };
+  return () => {
+    const selectedState = bau.state([""]);
 
-  const onsubmit = (event: any) => {
-    event.preventDefault();
-    const formEl = event.currentTarget;
-    const buttonName = formEl.querySelector("button[aria-pressed=true]")?.name;
-    alert(buttonName);
-  };
+    const onChange = ({ values }: any) => {
+      selectedState.val = values;
+    };
 
-  return () =>
-    form(
+    const onsubmit = (event: any) => {
+      event.preventDefault();
+      const formEl = event.currentTarget;
+      const buttonName = formEl.querySelector(
+        "button[aria-pressed=true]"
+      )?.name;
+      alert(buttonName);
+    };
+
+    return form(
       { onsubmit },
       article(
         ToggleGroup(
@@ -59,4 +61,5 @@ export default (context: Context) => {
       ),
       footer(Button({ type: "submit" }, "Submit"))
     );
+  };
 };

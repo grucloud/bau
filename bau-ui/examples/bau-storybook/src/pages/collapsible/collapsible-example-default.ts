@@ -12,9 +12,10 @@ export default (context: Context) => {
   const Header = () => Button("Header");
   const Content = () => div("Content");
 
-  return () =>
-    section(
+  return () => {
+    return section(
       //
       Collapsible({ Header, Content })
     );
+  };
 };

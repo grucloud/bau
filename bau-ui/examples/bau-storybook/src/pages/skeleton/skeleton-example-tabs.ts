@@ -39,5 +39,7 @@ export default (context: Context) => {
     );
   }
 
-  return () => section(TabsSkeleton({ columnsSize: 3 }));
+  return () => {
+    return section(TabsSkeleton({ columnsSize: 3 }));
+  };
 };

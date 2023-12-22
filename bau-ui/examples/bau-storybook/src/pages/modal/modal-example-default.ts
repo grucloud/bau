@@ -19,8 +19,8 @@ export default (context: Context) => {
         .map((_, k) => p(k + 1, ". Some text here" /*faker.lorem.paragraph()*/))
     );
 
-  return () =>
-    section(
+  return () => {
+    return section(
       Button(
         {
           variant: "solid",
@@ -61,4 +61,5 @@ export default (context: Context) => {
         )
       )
     );
+  };
 };

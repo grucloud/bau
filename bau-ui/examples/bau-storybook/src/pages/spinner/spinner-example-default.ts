@@ -12,10 +12,10 @@ export default (context: Context) => {
   });
   const Spinner = spinner(context, { size: "lg" });
 
-  const runningState = bau.state(true);
+  return () => {
+    const runningState = bau.state(true);
 
-  return () =>
-    section(
+    return section(
       Button(
         {
           onclick: () => (runningState.val = !runningState.val),
@@ -24,4 +24,5 @@ export default (context: Context) => {
       ),
       Spinner({ visibility: runningState })
     );
+  };
 };

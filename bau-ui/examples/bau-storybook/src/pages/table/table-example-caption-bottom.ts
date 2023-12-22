@@ -64,8 +64,8 @@ export default (context: Context) => {
     `,
   });
 
-  return () =>
-    section(
+  return () => {
+    return section(
       TableCaptionBottom(
         table(
           caption("Table Caption Bottom"),
@@ -74,4 +74,5 @@ export default (context: Context) => {
         )
       )
     );
+  };
 };

@@ -12,17 +12,19 @@ export default (context: Context) => {
     color: "primary",
   });
 
-  const selectedState = bau.state(false);
+  return () => {
+    const selectedState = bau.state(false);
 
-  const onsubmit = (event: any) => {
-    event.preventDefault();
-    const formEl = event.currentTarget;
-    const buttonName = formEl.querySelector("button[aria-pressed=true]")?.name;
-    alert(buttonName);
-  };
+    const onsubmit = (event: any) => {
+      event.preventDefault();
+      const formEl = event.currentTarget;
+      const buttonName = formEl.querySelector(
+        "button[aria-pressed=true]"
+      )?.name;
+      alert(buttonName);
+    };
 
-  return () =>
-    form(
+    return form(
       { onsubmit },
       article(
         Toggle(
@@ -36,4 +38,5 @@ export default (context: Context) => {
       ),
       footer(Button({ type: "submit" }, "Submit"))
     );
+  };
 };

@@ -12,20 +12,18 @@ export default (context: Context) => {
     color: "primary",
   });
 
-  const checkboxState = bau.state(false);
+  return () => {
+    const checkboxState = bau.state(false);
 
-  const onChange = (event: any) => {
-    checkboxState.val = event.target.checked ? true : false;
-  };
+    const onChange = (event: any) => (checkboxState.val = event.target.checked);
 
-  const onsubmit = (event: any) => {
-    event.preventDefault();
-    const payload = Object.fromEntries(new FormData(event.currentTarget));
-    alert(JSON.stringify(payload));
-  };
+    const onsubmit = (event: any) => {
+      event.preventDefault();
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
+      alert(JSON.stringify(payload));
+    };
 
-  return () =>
-    form(
+    return form(
       { onsubmit },
       article(
         label(
@@ -49,4 +47,5 @@ export default (context: Context) => {
       ),
       footer(Button({ type: "submit" }, "Submit"))
     );
+  };
 };

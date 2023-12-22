@@ -7,5 +7,7 @@ export default (context: Context) => {
 
   const Divider = divider(context);
 
-  return () => section(Divider("OR"));
+  return () => {
+    return section(Divider("OR"));
+  };
 };

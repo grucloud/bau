@@ -11,5 +11,5 @@ export default (context: Context) => {
 
   const Slider = slider(context);
 
-  return (props: any) => Slider({ ...props, oninput });
+  return (props: any) => Slider({ "aria-label": "slider", ...props, oninput });
 };

@@ -7,5 +7,7 @@ export default (context: Context) => {
 
   const Badge = badge(context);
 
-  return () => section(Badge({ content: "10" }, "\u260F"));
+  return () => {
+    return section(Badge({ content: "10" }, "\u260F"));
+  };
 };

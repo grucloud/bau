@@ -18,8 +18,8 @@ export default (context: Context) => {
     }
   `;
 
-  return () =>
-    section(
+  return () => {
+    return section(
       Button(
         {
           onclick: () => (hideState.val = !hideState.val),
@@ -34,4 +34,5 @@ export default (context: Context) => {
         "ON"
       )
     );
+  };
 };

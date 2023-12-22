@@ -18,20 +18,20 @@ export default (context: Context) => {
     color: "primary",
   });
 
-  const onsubmit = (event: any) => {
-    event.preventDefault();
-    const payload = Object.fromEntries(new FormData(event.currentTarget));
-    alert(JSON.stringify(payload));
-  };
-  const onclickIndeterminate = (_event: any) => {
-    const checkboxEl = window.document.getElementById("my-checkbox");
-    if (checkboxEl) {
-      // @ts-ignore
-      checkboxEl.indeterminate = !checkboxEl.indeterminate;
-    }
-  };
-  return () =>
-    form(
+  return () => {
+    const onsubmit = (event: any) => {
+      event.preventDefault();
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
+      alert(JSON.stringify(payload));
+    };
+    const onclickIndeterminate = (_event: any) => {
+      const checkboxEl = window.document.getElementById("my-checkbox");
+      if (checkboxEl) {
+        // @ts-ignore
+        checkboxEl.indeterminate = !checkboxEl.indeterminate;
+      }
+    };
+    return form(
       {
         onsubmit,
         class: css`
@@ -59,4 +59,5 @@ export default (context: Context) => {
       ),
       footer(ButtonSubmit({ type: "submit" }, "Submit"))
     );
+  };
 };

@@ -15,14 +15,15 @@ export default (context: Context) => {
   const Button = button(context, { color, variant });
   const ButtonGroup = buttonGroup(context, { color, variant });
 
-  const onClick = (group: string) => (_event: any) => {
-    alert(group);
-  };
+  return () => {
+    const onClick = (group: string) => (_event: any) => {
+      alert(group);
+    };
 
-  return () =>
-    section(
+    return section(
       ButtonGroup(
         groups.map((group) => Button({ onclick: onClick(group) }, group))
       )
     );
+  };
 };

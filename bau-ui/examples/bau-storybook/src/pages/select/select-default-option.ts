@@ -34,14 +34,13 @@ export default (context: Context) => {
       span(option.code)
     );
 
-  const onsubmit = (event: any) => {
-    event.preventDefault();
-    const payload = Object.fromEntries(new FormData(event.currentTarget));
-    alert(JSON.stringify(payload));
-  };
-
-  return () =>
-    form(
+  return () => {
+    const onsubmit = (event: any) => {
+      event.preventDefault();
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
+      alert(JSON.stringify(payload));
+    };
+    return form(
       { onsubmit },
       article(
         Select({
@@ -56,4 +55,5 @@ export default (context: Context) => {
       ),
       footer(ButtonSubmit({ type: "submit" }, "Submit"))
     );
+  };
 };

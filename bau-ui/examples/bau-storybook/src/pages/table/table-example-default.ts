@@ -61,10 +61,11 @@ export default (context: Context) => {
     `,
   });
 
-  return () =>
-    section(
+  return () => {
+    return section(
       TableSimple(
         table(caption("Basic Table"), TableHeader(), tbody(rows.map(Row)))
       )
     );
+  };
 };

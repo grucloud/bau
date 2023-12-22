@@ -64,10 +64,11 @@ export default (context: Context) => {
     `,
   });
 
-  return () =>
-    section(
+  return () => {
+    return section(
       TableZebra(
         table(caption("Table Zebra"), TableHeader(), tbody(rows.map(Row)))
       )
     );
+  };
 };

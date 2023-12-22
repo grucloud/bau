@@ -46,30 +46,29 @@ export default (context: Context) => {
     `,
   });
 
-  const rowsState = bau.state(rows);
+  return () => {
+    const rowsState = bau.state(rows);
 
-  const paginationState = bau.state({
-    count: rows.length,
-    totalCount: rows.length,
-    page: 1,
-    rowsPerPage: 10,
-  });
+    const paginationState = bau.state({
+      count: rows.length,
+      totalCount: rows.length,
+      page: 1,
+      rowsPerPage: 10,
+    });
 
-  const rowsVisibleState = bau.derive(() =>
-    rowsState.val.slice(
-      paginationState.val.page * paginationState.val.rowsPerPage,
-      (paginationState.val.page + 1) * paginationState.val.rowsPerPage
-    )
-  );
+    const rowsVisibleState = bau.derive(() =>
+      rowsState.val.slice(
+        paginationState.val.page * paginationState.val.rowsPerPage,
+        (paginationState.val.page + 1) * paginationState.val.rowsPerPage
+      )
+    );
 
-  const onPageChange: onPageChange =
-    ({ page }) =>
-    (_event) => {
-      paginationState.val.page = page;
-    };
-
-  return () =>
-    Table(
+    const onPageChange: onPageChange =
+      ({ page }) =>
+      (_event) => {
+        paginationState.val.page = page;
+      };
+    return Table(
       table(TableHeader(), () => tbody(rowsVisibleState.val.map(Row))),
       () =>
         TablePagination({
@@ -77,4 +76,5 @@ export default (context: Context) => {
           onPageChange,
         })
     );
+  };
 };

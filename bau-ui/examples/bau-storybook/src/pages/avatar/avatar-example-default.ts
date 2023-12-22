@@ -14,11 +14,12 @@ export default (context: Context) => {
     `,
   });
 
-  return () =>
-    section(
+  return () => {
+    return section(
       Avatar({
         src: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=robohash&f=y",
         alt: "my avatar",
       })
     );
+  };
 };

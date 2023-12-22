@@ -21,6 +21,7 @@ export default (context: Context) => {
       ),
       hr,
       LinearProgress({
+        "aria-label": "linear-progress",
         running: runningState,
       })
     );

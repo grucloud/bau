@@ -1,34 +1,35 @@
-import slider from "@grucloud/bau-ui/slider";
 import { Context } from "@grucloud/bau-ui/context";
+import button from "@grucloud/bau-ui/button";
+import slider from "@grucloud/bau-ui/slider";
 
 export default (context: Context) => {
   const { bau, css } = context;
-  const { section, form, label, datalist, br, option } = bau.tags;
-
-  const sliderState = bau.state(0);
-
-  const oninput = (event: any) => {
-    sliderState.val = event?.target.value;
-  };
+  const { article, footer, form, label, datalist, br, option } = bau.tags;
 
   const Slider = slider(context);
+  const ButtonSubmit = button(context, { variant: "solid", color: "primary" });
 
-  return () =>
-    section(
-      form(
+  return () => {
+    const onsubmit = (event: any) => {
+      event.preventDefault();
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
+      alert(JSON.stringify(payload));
+    };
+
+    return form(
+      { onsubmit },
+      article(
         {
           class: css`
             display: flex;
           `,
         },
-        label({ for: "temp" }, "Choose a comfortable temperature"),
+        label({ for: "temp-vertical" }, "Choose a comfortable temperature"),
         br,
         Slider({
-          oninput,
           id: "temp-vertical",
           name: "temp",
           list: "markers-vertical",
-          orient: "vertical",
           class: css`
             width: 30px;
             appearance: slider-vertical;
@@ -47,6 +48,8 @@ export default (context: Context) => {
             .reverse()
             .map((label) => option({ value: Number(label), label }))
         )
-      )
+      ),
+      footer(ButtonSubmit({ type: "submit" }, "Submit"))
     );
+  };
 };

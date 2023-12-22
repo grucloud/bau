@@ -43,5 +43,7 @@ export default (context: Context) => {
       )
     );
 
-  return () => section(ListSkeleton());
+  return () => {
+    return section(ListSkeleton());
+  };
 };

@@ -6,12 +6,13 @@ export default (context: Context) => {
   const { label, div, form } = bau.tags;
   const RadioButton = radioButton(context);
 
-  const checkedState = bau.state("one");
-  const oninput = ({ target }: { target: HTMLInputElement }) =>
-    (checkedState.val = target.id);
+  return () => {
+    const checkedState = bau.state("one");
+    const oninput = ({ target }: { target: HTMLInputElement }) =>
+      (checkedState.val = target.id);
 
-  return () =>
-    form(
+    // TODO onsubmit
+    return form(
       {
         class: css`
           & label {
@@ -42,4 +43,5 @@ export default (context: Context) => {
       ),
       div("Choice: ", checkedState)
     );
+  };
 };

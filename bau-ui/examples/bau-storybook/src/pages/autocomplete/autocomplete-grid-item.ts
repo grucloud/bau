@@ -34,6 +34,7 @@ export default (context: Context, componentsOptions?: any) => {
       getOptionLabel: ({ label }: any) => label,
       label: "Country",
       placeholder: "Search countries",
-      id: "country",
+      name: "country",
+      "aria-label": "country",
     });
 };

@@ -22,5 +22,7 @@ export default (context: Context) => {
     tabDefs,
   });
 
-  return () => Tabs({});
+  return () => {
+    return Tabs({});
+  };
 };

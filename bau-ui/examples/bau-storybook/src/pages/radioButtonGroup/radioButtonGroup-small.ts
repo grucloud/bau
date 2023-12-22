@@ -11,14 +11,13 @@ export default (context: Context) => {
     color: "primary",
   });
 
-  const onsubmit = (event: any) => {
-    event.preventDefault();
-    const payload = Object.fromEntries(new FormData(event.currentTarget));
-    alert(JSON.stringify(payload));
-  };
-
-  return () =>
-    form(
+  return () => {
+    const onsubmit = (event: any) => {
+      event.preventDefault();
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
+      alert(JSON.stringify(payload));
+    };
+    return form(
       { onsubmit },
       article(
         RadioButtonGroup({
@@ -38,4 +37,5 @@ export default (context: Context) => {
       ),
       footer(Button({ type: "submit" }, "Submit"))
     );
+  };
 };

@@ -64,10 +64,11 @@ export default (context: Context) => {
     `,
   });
 
-  return () =>
-    section(
+  return () => {
+    return section(
       TableDense(
         table(caption("Table Dense"), TableHeader(), tbody(rows.map(Row)))
       )
     );
+  };
 };

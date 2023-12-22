@@ -176,7 +176,7 @@ export default function (context, componentOptions = {}) {
     });
     // Hidden select, required to save the value.
     const selectEl = select(
-      props,
+      { ...props, "aria-label": label },
       option({ value: "" }, "--Select Category--"),
       options.map((opt) =>
         option({ value: getOptionValue(opt) }, getOptionLabel(opt))

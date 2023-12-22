@@ -11,14 +11,14 @@ export default (context: Context) => {
   const Form = form(context);
   const ButtonSubmit = button(context, { variant: "solid", color: "primary" });
 
-  const onsubmit = (event: any) => {
-    event.preventDefault();
-    const payload = Object.fromEntries(new FormData(event.currentTarget));
-    alert(JSON.stringify(payload));
-  };
+  return () => {
+    const onsubmit = (event: any) => {
+      event.preventDefault();
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
+      alert(JSON.stringify(payload));
+    };
 
-  return () =>
-    Form(
+    return Form(
       { onsubmit },
       article(
         label(
@@ -72,4 +72,5 @@ export default (context: Context) => {
       ),
       footer(ButtonSubmit({ type: "submit" }, "Submit"))
     );
+  };
 };

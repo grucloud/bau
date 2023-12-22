@@ -13,18 +13,18 @@ export default (context: Context) => {
     }
   `;
 
-  const checkedState = bau.state("one");
-  const oninput = ({ target }: { target: HTMLInputElement }) =>
-    (checkedState.val = target.id);
-
   const routeMap: any = {
     //
     one: () => div("ONE"),
     two: () => div("TWO"),
   };
 
-  return () =>
-    section(
+  return () => {
+    const checkedState = bau.state("one");
+    const oninput = ({ target }: { target: HTMLInputElement }) =>
+      (checkedState.val = target.id);
+
+    return section(
       label(
         "One",
         input({
@@ -54,4 +54,5 @@ export default (context: Context) => {
         () => routeMap[checkedState.val]()
       )
     );
+  };
 };

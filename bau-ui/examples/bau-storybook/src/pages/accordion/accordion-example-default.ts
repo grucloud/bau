@@ -23,5 +23,7 @@ export default (context: Context) => {
     variant: "outline",
   });
 
-  return () => section(Accordion({ data: accordionDefs }));
+  return () => {
+    return section(Accordion({ data: accordionDefs }));
+  };
 };

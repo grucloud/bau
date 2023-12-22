@@ -8,16 +8,18 @@ export default (context: Context) => {
 
   const tabDefs = createTabDefs(context);
 
-  const Tabs = tabs(context, { tabDefs });
-
-  return () =>
-    Tabs({
-      class: css`
-        & ul {
-          & li {
-            text-transform: uppercase;
-          }
+  const Tabs = tabs(context, {
+    tabDefs,
+    class: css`
+      & ul {
+        & li {
+          text-transform: uppercase;
         }
-      `,
-    });
+      }
+    `,
+  });
+
+  return () => {
+    return Tabs({});
+  };
 };

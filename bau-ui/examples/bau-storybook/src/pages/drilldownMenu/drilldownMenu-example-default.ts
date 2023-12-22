@@ -35,5 +35,7 @@ export default (context: Context) => {
     hashBased: true,
   });
 
-  return () => section({ id: "drilldown-example" }, DrillDownMenu({ tree }));
+  return () => {
+    return section({ id: "drilldown-example" }, DrillDownMenu({ tree }));
+  };
 };

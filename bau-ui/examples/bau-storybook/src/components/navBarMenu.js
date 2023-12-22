@@ -10,6 +10,9 @@ export default function (context) {
     variant: "plain",
     color: "neutral",
     size: "sm",
+    class: css`
+      margin: 0.5rem;
+    `,
   });
 
   const componentSearch = ({
@@ -40,6 +43,7 @@ export default function (context) {
         class: css`
           display: flex;
           flex-direction: column;
+          gap: 0;
         `,
       },
       InputSearch({

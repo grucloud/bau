@@ -39,5 +39,7 @@ export default (context: Context) => {
       )
     );
 
-  return () => section(TableSkeleton());
+  return () => {
+    return section(TableSkeleton());
+  };
 };

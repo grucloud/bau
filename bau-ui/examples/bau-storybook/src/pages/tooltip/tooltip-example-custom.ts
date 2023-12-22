@@ -19,8 +19,8 @@ export default (context: Context) => {
       p("A ", em("tooltip"), " can be any component")
     );
 
-  return () =>
-    Tooltip(
+  return () => {
+    return Tooltip(
       {
         titleEl: TooltipContent(),
         class: css`
@@ -59,4 +59,5 @@ export default (context: Context) => {
       },
       Button({}, "tooltip")
     );
+  };
 };

@@ -1,14 +1,12 @@
 import { Context } from "@grucloud/bau-ui/context";
 import button from "@grucloud/bau-ui/button";
-import inputSearch from "@grucloud/bau-ui/inputSearch";
-import form from "@grucloud/bau-ui/form";
+import slider from "@grucloud/bau-ui/slider";
 
 export default (context: Context) => {
   const { bau } = context;
-  const { label, footer, article } = bau.tags;
+  const { form, article, label, br, footer } = bau.tags;
 
-  const Form = form(context);
-  const InputSearch = inputSearch(context);
+  const Slider = slider(context);
   const ButtonSubmit = button(context, { variant: "solid", color: "primary" });
 
   return () => {
@@ -18,22 +16,17 @@ export default (context: Context) => {
       alert(JSON.stringify(payload));
     };
 
-    return Form(
+    return form(
       { onsubmit },
       article(
         label(
-          "Basic inputSearch",
-          InputSearch({
-            name: "my-inputSearch",
-            placeholder: "Enter Text",
-          })
-        ),
-        label(
-          "Disabled inputSearch",
-          InputSearch({
-            name: "my-inputSearch-disabled",
-            placeholder: "Enter Text",
-            disabled: true,
+          "Slider with step, min and max",
+          br,
+          Slider({
+            name: "slider-simple",
+            step: 20,
+            min: -100,
+            max: 100,
           })
         )
       ),

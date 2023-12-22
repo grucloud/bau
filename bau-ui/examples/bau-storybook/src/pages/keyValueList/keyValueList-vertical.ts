@@ -7,11 +7,12 @@ export default (context: Context) => {
 
   const KeyValueList = keyValueList(context);
 
-  return () =>
-    section(
+  return () => {
+    return section(
       KeyValueList(
         li(label("My label"), span("My Value")),
         li(label("My other label"), span("My Other Value"))
       )
     );
+  };
 };

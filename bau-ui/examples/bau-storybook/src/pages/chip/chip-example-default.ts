@@ -7,9 +7,10 @@ export default (context: Context) => {
 
   const Chip = chip(context, { variant: "outline", color: "primary" });
 
-  return () =>
-    section(
+  return () => {
+    return section(
       //
       Chip("My Chip")
     );
+  };
 };

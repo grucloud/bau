@@ -15,10 +15,10 @@ export default (context: Context) => {
     }
   `;
 
-  const showState = bau.state(true);
+  return () => {
+    const showState = bau.state(true);
 
-  return () =>
-    section(
+    return section(
       Button(
         {
           onclick: () => {
@@ -35,4 +35,5 @@ export default (context: Context) => {
         () => div(showState.val ? "Ciao" : "Mondo")
       )
     );
+  };
 };

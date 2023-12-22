@@ -3,7 +3,7 @@ import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { bau } = context;
-  const { a } = bau.tags;
+  const { a, span } = bau.tags;
 
   const menu: Tree = {
     data: { name: "Root Menu" },
@@ -27,9 +27,11 @@ export default (context: Context) => {
     item: {
       data: { name, href },
     },
-  }: any) => a({ href }, name);
+  }: any) => (href ? a({ href }, name) : span(name));
 
   const TreeView = treeView(context, { renderMenuItem });
 
-  return () => TreeView({ tree: menu });
+  return () => {
+    return TreeView({ tree: menu });
+  };
 };

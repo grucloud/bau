@@ -4,9 +4,13 @@ import pageExample from "../pageExample.ts";
 
 import sliderGridItem from "./slider-grid-item.ts";
 
-import sliderDefault from "./slider-example-default.ts";
+import sliderUncontrolled from "./slider-uncontrolled.ts";
 // @ts-ignore
-import codeExampleDefault from "./slider-example-default.ts?raw";
+import codeUncontrolled from "./slider-uncontrolled.ts?raw";
+
+import sliderControlled from "./slider-controlled.ts";
+// @ts-ignore
+import codeControlled from "./slider-controlled.ts?raw";
 
 import sliderMark from "./slider-example-mark.ts";
 // @ts-ignore
@@ -26,10 +30,16 @@ export const sliderSpec = {
   importStatement: `import slider from "@grucloud/bau-ui/slider";`,
   examples: [
     {
-      title: "Default",
-      description: "A simple slider.",
-      code: codeExampleDefault,
-      createComponent: sliderDefault,
+      title: "Uncontrolled slider",
+      description: "A uncontrolled slider.",
+      code: codeUncontrolled,
+      createComponent: sliderUncontrolled,
+    },
+    {
+      title: "Controlled slider",
+      description: "A controlled slider.",
+      code: codeControlled,
+      createComponent: sliderControlled,
     },
     {
       title: "Horizontal Mark",

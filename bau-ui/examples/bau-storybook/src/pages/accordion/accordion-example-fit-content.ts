@@ -20,8 +20,9 @@ export default (context: Context) => {
     `,
   });
 
-  return () =>
-    Accordion({
+  return () => {
+    return Accordion({
       data: accordionDefs,
     });
+  };
 };

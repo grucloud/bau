@@ -23,14 +23,13 @@ export default (context: Context) => {
     { code: "AF", label: "Afghanistan", phone: "93" },
   ];
 
-  const onsubmit = (event: any) => {
-    event.preventDefault();
-    const payload = Object.fromEntries(new FormData(event.currentTarget));
-    alert(JSON.stringify(payload));
-  };
-
-  return () =>
-    form(
+  return () => {
+    const onsubmit = (event: any) => {
+      event.preventDefault();
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
+      alert(JSON.stringify(payload));
+    };
+    return form(
       { onsubmit },
       SelectNative(
         { name: "my-select" },
@@ -39,4 +38,5 @@ export default (context: Context) => {
       ),
       footer(Button({ type: "submit" }, "Submit"))
     );
+  };
 };

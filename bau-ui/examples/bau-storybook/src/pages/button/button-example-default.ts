@@ -6,12 +6,15 @@ export default (context: Context) => {
   const { section } = bau.tags;
 
   const Button = button(context, { color: "primary", variant: "outline" });
-  const onclick = () => {
-    alert("Click");
-  };
-  return () =>
-    section(
+
+  return () => {
+    const onclick = () => {
+      alert("Click");
+    };
+
+    return section(
       //
       Button({ onclick }, "Click me")
     );
+  };
 };

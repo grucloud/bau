@@ -21,8 +21,8 @@ export default (context: Context) => {
     h3({ id: "h3-2-1" }, "h3 2 1")
   );
 
-  return () =>
-    section(
+  return () => {
+    return section(
       {
         class: css`
           display: grid;
@@ -34,4 +34,5 @@ export default (context: Context) => {
       contentEl,
       TableOfContent({ contentEl })
     );
+  };
 };

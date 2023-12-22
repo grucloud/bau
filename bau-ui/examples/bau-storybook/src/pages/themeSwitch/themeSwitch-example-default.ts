@@ -7,5 +7,7 @@ export default (context: Context) => {
 
   const ThemeSwitch = createThemeSwitch(context);
 
-  return () => section(ThemeSwitch({}));
+  return () => {
+    return section(ThemeSwitch({}));
+  };
 };

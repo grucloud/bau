@@ -31,8 +31,8 @@ export default (context: Context) => {
       ...children
     );
 
-  return () =>
-    section(
+  return () => {
+    return section(
       { id: "pagination" },
       h2(tr("Table Pagination")),
       h3("Asynchronous Pagination"),
@@ -40,4 +40,5 @@ export default (context: Context) => {
       h3("Simple Pagination"),
       Container(TablePagination())
     );
+  };
 };

@@ -12,9 +12,10 @@ export default (context: Context) => {
   const TooltipContent = () =>
     div(p("A ", em("tooltip"), " can be any component"));
 
-  return () =>
-    Tooltip(
+  return () => {
+    return Tooltip(
       { side: "bottom-start", titleEl: TooltipContent() },
       Button("tooltip")
     );
+  };
 };

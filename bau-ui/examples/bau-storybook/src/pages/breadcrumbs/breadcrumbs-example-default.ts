@@ -23,9 +23,10 @@ export default (context: Context) => {
     color: "neutral",
   });
 
-  return () =>
-    section(
+  return () => {
+    return section(
       //
       Breadcrumbs(breadcrumbsProps)
     );
+  };
 };

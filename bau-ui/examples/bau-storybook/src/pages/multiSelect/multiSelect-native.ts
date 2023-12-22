@@ -23,8 +23,8 @@ export default (context: Context) => {
     alert(JSON.stringify(values));
   };
 
-  return () =>
-    form(
+  return () => {
+    return form(
       {
         onsubmit,
         class: css`
@@ -42,4 +42,5 @@ export default (context: Context) => {
       ),
       Button({ type: "submit" }, "Submit")
     );
+  };
 };

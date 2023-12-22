@@ -23,10 +23,11 @@ export default (context: Context) => {
     },
   };
 
-  return () =>
-    section(
+  return () => {
+    return section(
       PaginationNavigation({
         data,
       })
     );
+  };
 };

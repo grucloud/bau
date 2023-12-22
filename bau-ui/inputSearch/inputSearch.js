@@ -25,7 +25,6 @@ export default function (context, options = {}) {
 
     const className = css`
       &.inputSearch {
-        margin: 0.5rem 1rem;
         padding-left: 1.8rem;
         background-image: ${svgData};
         background-repeat: no-repeat;

@@ -24,5 +24,7 @@ export default (context: Context) => {
       span(label)
     );
 
-  return () => section(List(phoneCodes.map(ListItem)));
+  return () => {
+    return section(List(phoneCodes.map(ListItem)));
+  };
 };

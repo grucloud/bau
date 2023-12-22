@@ -5,16 +5,16 @@ export default (context: Context) => {
   const { bau } = context;
   const { section, label } = bau.tags;
 
-  const calendarState = bau.state("2023-08-08");
-
   const Calendar = calendar(context);
 
-  return () =>
-    section(
+  return () => {
+    const calendarState = bau.state("2023-08-08");
+
+    return section(
       label(
         "Start date:",
         Calendar({
-          id: "start",
+          name: "start",
           min: "2023-01-01",
           max: "2024-12-31",
           value: calendarState.val,
@@ -24,4 +24,5 @@ export default (context: Context) => {
         })
       )
     );
+  };
 };

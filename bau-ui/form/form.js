@@ -25,7 +25,12 @@ export default function (context, options = {}) {
     }
     &
       label:has(
-        :is(input[type="text"], input[type="password"], input[type="email"])
+        :is(
+            input[type="text"],
+            input[type="password"],
+            input[type="email"],
+            input[type="search"]
+          )
       ),
     legend {
       display: inline-flex;

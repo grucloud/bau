@@ -22,15 +22,14 @@ export default (context: Context) => {
 
   const Option = (option: any) => span(option.group);
 
-  const onsubmit = (event: any) => {
-    event.preventDefault();
-    const { selectedOptions } = event.target.elements.myMultiSelect;
-    var values = Array.from(selectedOptions).map(({ value }: any) => value);
-    alert(JSON.stringify(values));
-  };
-
-  return () =>
-    form(
+  return () => {
+    const onsubmit = (event: any) => {
+      event.preventDefault();
+      const { selectedOptions } = event.target.elements.myMultiSelect;
+      const values = Array.from(selectedOptions).map(({ value }: any) => value);
+      alert(JSON.stringify(values));
+    };
+    return form(
       {
         onsubmit,
         class: css`
@@ -61,4 +60,5 @@ export default (context: Context) => {
       }),
       footer(Button({ type: "submit" }, "Submit"))
     );
+  };
 };

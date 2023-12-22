@@ -7,14 +7,13 @@ export default (context: Context) => {
   const { bau } = context;
   const { section, p } = bau.tags;
 
-  const openState = bau.state(false);
-
   const Drawer = drawer(context);
   const Button = button(context, { color: "neutral", variant: "outline" });
   const NavBarMenu = navBarMenu(context);
 
-  return () =>
-    section(
+  return () => {
+    const openState = bau.state(false);
+    return section(
       p("Click on the button to open and close the drawer."),
       Button(
         {
@@ -26,4 +25,5 @@ export default (context: Context) => {
       ),
       Drawer({ openState }, NavBarMenu())
     );
+  };
 };

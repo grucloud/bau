@@ -34,5 +34,7 @@ export default (context: Context) => {
       )
     );
 
-  return () => section(CardSkeleton());
+  return () => {
+    return section(CardSkeleton());
+  };
 };

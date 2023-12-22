@@ -19,7 +19,7 @@ export default (context: Context, options?: any) => {
 
   return (props: any) =>
     SelectNative(
-      props,
+      { ...props, "aria-label": "select-country" },
       phoneOptions.map(({ label, phone }) => option({ value: phone }, label))
     );
 };

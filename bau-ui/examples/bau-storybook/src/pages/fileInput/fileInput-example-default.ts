@@ -8,18 +8,7 @@ export default (context: Context) => {
   const { svg, use } = bau.tagsNS("http://www.w3.org/2000/svg");
   const { section, div, span } = bau.tags;
 
-  const fileState = bau.state("No file selected");
-
   const FileInput = fileInput(context);
-
-  const onchange = (event: any) => {
-    const file = event.target.files[0];
-    if (file) {
-      fileState.val = file.name;
-    } else {
-      fileState.val = "No file selected";
-    }
-  };
 
   const FileInputLabel = ({ disabled }: any) =>
     div(
@@ -47,8 +36,19 @@ export default (context: Context) => {
       span(tr("Choose a file to upload"))
     );
 
-  return () =>
-    section(
+  return () => {
+    const fileState = bau.state("No file selected");
+
+    const onchange = (event: any) => {
+      const file = event.target.files[0];
+      if (file) {
+        fileState.val = file.name;
+      } else {
+        fileState.val = "No file selected";
+      }
+    };
+
+    return section(
       FileInput({
         Component: FileInputLabel,
         name: "file",
@@ -57,4 +57,5 @@ export default (context: Context) => {
       }),
       div("File selected: ", fileState)
     );
+  };
 };

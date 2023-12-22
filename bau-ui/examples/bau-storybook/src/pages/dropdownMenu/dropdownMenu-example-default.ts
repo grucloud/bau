@@ -25,12 +25,13 @@ export default (context: Context) => {
       span(option.label)
     );
 
-  return () =>
-    section(
+  return () => {
+    return section(
       DropdownMenu({
         items,
         ListItem,
         label: "Action",
       })
     );
+  };
 };

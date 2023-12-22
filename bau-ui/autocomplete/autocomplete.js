@@ -232,6 +232,8 @@ export default function (context, componentOptions = {}) {
       tabindex: -1,
       defaultValue: defaultOption && getOptionValue(defaultOption),
       required,
+      "aria-hidden": false,
+      "aria-label": name,
       name,
     });
 

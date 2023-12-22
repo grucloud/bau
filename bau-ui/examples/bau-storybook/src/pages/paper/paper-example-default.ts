@@ -7,5 +7,7 @@ export default (context: Context) => {
 
   const Paper = paper(context, { size: "md" });
 
-  return () => section(Paper(div("My content")));
+  return () => {
+    return section(Paper(div("My content")));
+  };
 };

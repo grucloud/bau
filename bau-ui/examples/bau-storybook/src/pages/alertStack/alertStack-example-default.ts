@@ -11,8 +11,8 @@ export default (context: Context) => {
   const Button = button(context);
   const Alert = alert(context);
 
-  return () =>
-    section(
+  return () => {
+    return section(
       AlertStack(),
       Button(
         {
@@ -37,4 +37,5 @@ export default (context: Context) => {
         "Success Alert"
       )
     );
+  };
 };

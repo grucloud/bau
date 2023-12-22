@@ -1,39 +1,40 @@
 import { Context } from "@grucloud/bau-ui/context";
 import button from "@grucloud/bau-ui/button";
-import inputSearch from "@grucloud/bau-ui/inputSearch";
-import form from "@grucloud/bau-ui/form";
+import slider from "@grucloud/bau-ui/slider";
 
 export default (context: Context) => {
   const { bau } = context;
-  const { label, footer, article } = bau.tags;
+  const { form, article, label, br, footer } = bau.tags;
 
-  const Form = form(context);
-  const InputSearch = inputSearch(context);
+  const Slider = slider(context);
   const ButtonSubmit = button(context, { variant: "solid", color: "primary" });
 
   return () => {
+    const sliderState = bau.state(0);
+
+    const oninput = (event: any) => {
+      sliderState.val = event?.target.value;
+    };
+
     const onsubmit = (event: any) => {
       event.preventDefault();
       const payload = Object.fromEntries(new FormData(event.currentTarget));
       alert(JSON.stringify(payload));
     };
 
-    return Form(
+    return form(
       { onsubmit },
       article(
         label(
-          "Basic inputSearch",
-          InputSearch({
-            name: "my-inputSearch",
-            placeholder: "Enter Text",
-          })
-        ),
-        label(
-          "Disabled inputSearch",
-          InputSearch({
-            name: "my-inputSearch-disabled",
-            placeholder: "Enter Text",
-            disabled: true,
+          "Slider Value:",
+          sliderState,
+          br,
+          Slider({
+            oninput,
+            name: "slider-simple",
+            step: 20,
+            min: -100,
+            max: 100,
           })
         )
       ),

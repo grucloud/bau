@@ -1,19 +1,19 @@
-import loadingButton from "@grucloud/bau-ui/loadingButton";
-
 import { Context } from "@grucloud/bau-ui/context";
+import loadingButton from "@grucloud/bau-ui/loadingButton";
 
 export default (context: Context) => {
   const { bau } = context;
   const { section } = bau.tags;
+
   const LoadingButton = loadingButton(context, {
     variant: "solid",
     color: "primary",
   });
 
-  const loadingState = bau.state(true);
+  return () => {
+    const loadingState = bau.state(true);
 
-  return () =>
-    section(
+    return section(
       LoadingButton(
         {
           loading: loadingState,
@@ -22,4 +22,5 @@ export default (context: Context) => {
         "Save"
       )
     );
+  };
 };

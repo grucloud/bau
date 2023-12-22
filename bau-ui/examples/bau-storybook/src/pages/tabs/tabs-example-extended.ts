@@ -30,5 +30,7 @@ export default (context: Context) => {
 
   const Tabs = tabs(context, { tabDefs, variant: "plain", color: "neutral" });
 
-  return () => Tabs({ tabsKey: "my-tab" });
+  return () => {
+    return Tabs({ tabsKey: "my-tab" });
+  };
 };
