@@ -1,8 +1,7 @@
+import { Context } from "@grucloud/bau-ui/context";
 import toggleGroup from "@grucloud/bau-ui/toggleGroup";
 import toggle from "@grucloud/bau-ui/toggle";
 import button from "@grucloud/bau-ui/button";
-
-import { Context } from "@grucloud/bau-ui/context";
 
 export default (context: Context) => {
   const { bau } = context;

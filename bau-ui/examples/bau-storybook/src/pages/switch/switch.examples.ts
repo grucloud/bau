@@ -4,9 +4,13 @@ import pageExample from "../pageExample.ts";
 
 import switchGridItem from "./switch-grid-item.ts";
 
-import switchDefault from "./switch-example-default.ts";
+import switchUncontrolled from "./switch-uncontrolled.ts";
 // @ts-ignore
-import codeExampleDefault from "./switch-example-default.ts?raw";
+import codeUncontrolled from "./switch-uncontrolled.ts?raw";
+
+import switchControlled from "./switch-controlled.ts";
+// @ts-ignore
+import codeControlled from "./switch-controlled.ts?raw";
 
 export const switchSpec = {
   title: "Switch",
@@ -18,10 +22,16 @@ export const switchSpec = {
   importStatement: `import createSwitch from "@grucloud/bau-ui/switch";`,
   examples: [
     {
-      title: "Default",
-      description: "A simple switch.",
-      code: codeExampleDefault,
-      createComponent: switchDefault,
+      title: "Uncontrolled Switch",
+      description: "A uncontrolled switch.",
+      code: codeUncontrolled,
+      createComponent: switchUncontrolled,
+    },
+    {
+      title: "Controlled Switch",
+      description: "A controlled switch.",
+      code: codeControlled,
+      createComponent: switchControlled,
     },
   ],
   gridItem: switchGridItem,

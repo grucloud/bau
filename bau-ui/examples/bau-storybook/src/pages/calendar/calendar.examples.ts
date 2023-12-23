@@ -4,9 +4,13 @@ import pageExample from "../pageExample.ts";
 
 import calendarGridItem from "./calendar-grid-item.ts";
 
-import calendarDefault from "./calendar-example-default.ts";
+import calendarUncontrolled from "./calendar-uncontrolled.ts";
 // @ts-ignore
-import codeExampleDefault from "./calendar-example-default.ts?raw";
+import codeUncontrolled from "./calendar-uncontrolled.ts?raw";
+
+import calendarControlled from "./calendar-controlled.ts";
+// @ts-ignore
+import codeControlled from "./calendar-controlled.ts?raw";
 
 export const calendarSpec = {
   title: "Calendar",
@@ -17,10 +21,16 @@ export const calendarSpec = {
   importStatement: `import calendar from "@grucloud/bau-ui/calendar";`,
   examples: [
     {
-      title: "Default",
+      title: "Uncontrolled Calendar",
       description: "A simple calendar.",
-      code: codeExampleDefault,
-      createComponent: calendarDefault,
+      code: codeUncontrolled,
+      createComponent: calendarUncontrolled,
+    },
+    {
+      title: "Controlled Calendar",
+      description: "A controlled calendar.",
+      code: codeControlled,
+      createComponent: calendarControlled,
     },
   ],
   gridItem: calendarGridItem,

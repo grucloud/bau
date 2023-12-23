@@ -4,13 +4,21 @@ import button from "@grucloud/bau-ui/button";
 
 export default (context: Context) => {
   const { bau, css } = context;
-  const { footer, form, label } = bau.tags;
+  const { footer, form, label, article } = bau.tags;
 
   const Switch = createSwitch(context, { variant: "outline" });
   const Button = button(context, {
     variant: "outline",
     color: "primary",
   });
+
+  const className = css`
+    & label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  `;
 
   return () => {
     const onsubmit = (event: any) => {
@@ -20,17 +28,13 @@ export default (context: Context) => {
     };
 
     return form(
-      { onsubmit },
-      label(
-        {
-          class: css`
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-          `,
-        },
-        "My shinny switch",
-        Switch({ name: "my-shinny-switch" })
+      { onsubmit, class: className },
+      article(
+        label("My shinny switch", Switch({ name: "my-shinny-switch" })),
+        label(
+          "Switch with default",
+          Switch({ name: "my-switch--default", defaultChecked: "on" })
+        )
       ),
       footer(Button({ type: "submit" }, "Submit"))
     );
