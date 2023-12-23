@@ -74,7 +74,7 @@ export const createStyles = (context) => {
     }
 
     form {
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
       gap: 1rem;
     }

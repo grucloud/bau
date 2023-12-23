@@ -6,7 +6,10 @@ export default (context: Context) => {
   const { bau, css } = context;
   const { footer, form, label, article } = bau.tags;
 
-  const Switch = createSwitch(context, { variant: "outline" });
+  const Switch = createSwitch(context, {
+    variant: "outline",
+    color: "primary",
+  });
   const Button = button(context, {
     variant: "outline",
     color: "primary",
@@ -16,7 +19,13 @@ export default (context: Context) => {
     & label {
       display: flex;
       align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
       gap: 0.5rem;
+    }
+    & article {
+      display: inline-flex;
+      flex-direction: column;
     }
   `;
 

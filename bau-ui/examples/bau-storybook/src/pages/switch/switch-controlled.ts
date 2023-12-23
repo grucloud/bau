@@ -6,7 +6,10 @@ export default (context: Context) => {
   const { bau, css } = context;
   const { footer, form, label, article } = bau.tags;
 
-  const Switch = createSwitch(context, { variant: "outline" });
+  const Switch = createSwitch(context, {
+    variant: "outline",
+    color: "primary",
+  });
   const Button = button(context, {
     variant: "outline",
     color: "primary",

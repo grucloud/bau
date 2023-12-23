@@ -193,6 +193,7 @@ export default (context: Context) => {
             border: 1px dotted var(--color-emphasis-200);
             border-radius: var(--global-radius);
             padding: 0.3rem;
+            gap: 0.4rem;
             font-size: x-small;
             & input {
               margin: 0;

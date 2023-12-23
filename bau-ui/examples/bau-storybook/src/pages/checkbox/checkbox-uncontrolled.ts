@@ -26,9 +26,14 @@ export default (context: Context) => {
           display: inline-flex;
           flex-direction: column;
           gap: 1rem;
-          & label {
+          & article {
             display: inline-flex;
+            flex-direction: column;
+          }
+          & label {
+            display: flex;
             flex-direction: row;
+            justify-content: space-between;
             font-size: smaller;
             align-items: center;
             gap: 1rem;
@@ -40,6 +45,13 @@ export default (context: Context) => {
           "My Checkbox",
           Checkbox({
             name: "my-checkbox-uncontrolled",
+          })
+        ),
+        label(
+          "My Checkbox with default",
+          Checkbox({
+            name: "my-checkbox-uncontrolled-default",
+            defaultChecked: "on",
           })
         )
       ),
