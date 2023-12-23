@@ -1,7 +1,7 @@
 {
   "name": "bausaurus-template",
   "private": true,
-  "version": "0.77.0",
+  "version": "0.78.0",
   "type": "module",
   "scripts": {
     "dev": "bausaurus dev",
@@ -9,14 +9,14 @@
     "preview": "bausaurus preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.77.0",
-    "@grucloud/bau-css": "^0.77.0",
-    "@grucloud/bau-ui": "^0.77.0",
-    "@grucloud/bausaurus-core": "^0.77.0",
-    "@grucloud/bausaurus-theme-classic": "^0.77.0",
+    "@grucloud/bau": "^0.78.0",
+    "@grucloud/bau-css": "^0.78.0",
+    "@grucloud/bau-ui": "^0.78.0",
+    "@grucloud/bausaurus-core": "^0.78.0",
+    "@grucloud/bausaurus-theme-classic": "^0.78.0",
     "rubico": "2.0.1"
   },
   "devDependencies": {
-    "@grucloud/bausaurus": "^0.77.0"
+    "@grucloud/bausaurus": "^0.78.0"
   }
 }
