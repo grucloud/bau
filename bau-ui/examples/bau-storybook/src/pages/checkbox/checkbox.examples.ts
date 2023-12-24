@@ -16,6 +16,10 @@ import checkboxIndeterminate from "./checkbox-indeterminate.ts";
 // @ts-ignore
 import codeIndeterminate from "./checkbox-indeterminate.ts?raw";
 
+import checkboxUrl from "./checkbox-url.ts";
+// @ts-ignore
+import codeUrl from "./checkbox-url.ts?raw";
+
 export const checkboxSpec = {
   title: "Checkbox",
   package: "checkbox",
@@ -41,6 +45,12 @@ export const checkboxSpec = {
       description: "An indeterminate checkbox.",
       code: codeIndeterminate,
       createComponent: checkboxIndeterminate,
+    },
+    {
+      title: "State in URL",
+      description: "Checkbox states in URL",
+      code: codeUrl,
+      createComponent: checkboxUrl,
     },
   ],
   gridItem: checkboxGridItem,

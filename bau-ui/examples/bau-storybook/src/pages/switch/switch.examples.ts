@@ -12,6 +12,10 @@ import switchControlled from "./switch-controlled.ts";
 // @ts-ignore
 import codeControlled from "./switch-controlled.ts?raw";
 
+import switchUrl from "./switch-url.ts";
+// @ts-ignore
+import codeUrl from "./switch-url.ts?raw";
+
 export const switchSpec = {
   title: "Switch",
   package: "switch",
@@ -32,6 +36,12 @@ export const switchSpec = {
       description: "A controlled switch.",
       code: codeControlled,
       createComponent: switchControlled,
+    },
+    {
+      title: "State in URL",
+      description: "A switch with state in URL",
+      code: codeUrl,
+      createComponent: switchUrl,
     },
   ],
   gridItem: switchGridItem,
