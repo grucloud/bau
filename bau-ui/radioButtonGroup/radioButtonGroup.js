@@ -44,7 +44,6 @@ export default function (context, options = {}) {
         color = options.color ?? "neutral",
         name,
         oninput,
-        value,
         radios = [],
         ...props
       },
@@ -52,7 +51,6 @@ export default function (context, options = {}) {
 
     return div(
       {
-        ...props,
         class: classNames(
           "radioButtonGroup",
           size,
@@ -63,16 +61,17 @@ export default function (context, options = {}) {
           props?.class
         ),
       },
-      radios.map(({ id, Label }) =>
+      radios.map(({ value, Label }) =>
         label(
           RadioButton({
+            ...props,
             size,
             variant,
             color,
-            id,
+            id: value,
             name,
-            checked: value == id,
-            value: id,
+            checked: value == props.value,
+            value,
             oninput,
           }),
           Label()

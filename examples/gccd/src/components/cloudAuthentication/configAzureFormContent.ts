@@ -95,7 +95,7 @@ export default (context: Context) => {
     const radioState = bau.state(AZURE_CLIENT_SECRET ? "sp" : "federated");
 
     const oninput = (event: any) => {
-      radioState.val = event.target.id;
+      radioState.val = event.target.value;
     };
 
     const FederatedCredential = ({}) =>
@@ -156,8 +156,8 @@ export default (context: Context) => {
             oninput,
             value: radioState.val,
             radios: [
-              { id: "federated", Label: () => "Federated Credential" },
-              { id: "password", Label: () => "Password" },
+              { value: "federated", Label: () => "Federated Credential" },
+              { value: "password", Label: () => "Password" },
             ],
           })
         ),

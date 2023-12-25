@@ -5,6 +5,7 @@ import button from "@grucloud/bau-ui/button";
 export default (context: Context) => {
   const { bau } = context;
   const { form, article, footer, small, div } = bau.tags;
+
   const RadioButtonGroup = radioButtonGroup(context);
   const Button = button(context, {
     variant: "outline",
@@ -25,11 +26,11 @@ export default (context: Context) => {
           value: "",
           radios: [
             {
-              id: "GitHub",
+              value: "GitHub",
               Label: () => div("GitHub", small("Login with GitHub")),
             },
             {
-              id: "GitLab",
+              value: "GitLab",
               Label: () => div("GitLab", small("Login with GitLab")),
             },
           ],

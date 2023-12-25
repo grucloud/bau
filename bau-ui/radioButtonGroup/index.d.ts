@@ -5,7 +5,7 @@ declare module "@grucloud/bau-ui/radioButtonGroup" {
   type RadioComponent = import("../bau-ui").ComponentGeneric;
 
   type RadioItem = {
-    id: string;
+    value: string;
     Label: RadioComponent | RadioComponent[];
   };
   export type RadioButtonGroupProps = {

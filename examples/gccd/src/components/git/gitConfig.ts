@@ -62,9 +62,9 @@ export default function (context: Context) {
   const oninputRadio = (radioState: any) => (event: any) => {
     const search = new URLSearchParams(window.location.search);
     search.delete(event.target.name);
-    search.append(event.target.name, event.target.id);
+    search.append(event.target.name, event.target.value);
     window.history.pushState("", "", `?${search.toString()}`);
-    radioState.val = event.target.id;
+    radioState.val = event.target.value;
   };
 
   const GithubImg = () =>
@@ -94,8 +94,8 @@ export default function (context: Context) {
         name: "git_provider_type",
         value: radioStateProviderType.val,
         radios: [
-          { id: "GitHub", Label: () => [GithubImg(), "GitHub"] },
-          { id: "GitLab", Label: () => [GitlabImg(), "GitLab"] },
+          { value: "GitHub", Label: () => [GithubImg(), "GitHub"] },
+          { value: "GitLab", Label: () => [GitlabImg(), "GitLab"] },
         ],
       })
     );
@@ -109,8 +109,11 @@ export default function (context: Context) {
           name: "git_auth_type",
           value: radioStateAuthType.val,
           radios: [
-            { id: "GitHubApp", Label: () => "GitHub App" },
-            { id: "PersonalAccessCode", Label: () => "Personal Access Code" },
+            { value: "GitHubApp", Label: () => "GitHub App" },
+            {
+              value: "PersonalAccessCode",
+              Label: () => "Personal Access Code",
+            },
           ],
         });
 
@@ -120,8 +123,11 @@ export default function (context: Context) {
           name: "git_auth_type",
           value: radioStateAuthType.val,
           radios: [
-            { id: "OAuth", Label: () => "OAuth App" },
-            { id: "PersonalAccessCode", Label: () => "Personal Access Code" },
+            { value: "OAuth", Label: () => "OAuth App" },
+            {
+              value: "PersonalAccessCode",
+              Label: () => "Personal Access Code",
+            },
           ],
         });
       default:

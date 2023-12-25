@@ -162,7 +162,7 @@ export default (context: Context) => {
     );
 
     const oninput = (event: any) => {
-      radioState.val = event.target.id;
+      radioState.val = event.target.value;
     };
 
     const zonesState = bau.derive(
@@ -381,8 +381,8 @@ export default (context: Context) => {
             name: "kind",
             value: radioState.val,
             radios: [
-              { id: "federated", Label: () => "Workload identity" },
-              { id: "password", Label: () => "Service Principal" },
+              { value: "federated", Label: () => "Workload identity" },
+              { value: "password", Label: () => "Service Principal" },
             ],
           })
         ),

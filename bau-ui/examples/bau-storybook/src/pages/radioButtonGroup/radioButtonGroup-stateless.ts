@@ -26,8 +26,8 @@ export default (context: Context) => {
           name: "myRadio",
           value: "one",
           radios: [
-            { id: "one", Label: () => "One" },
-            { id: "two", Label: () => "Two" },
+            { value: "one", Label: () => "One" },
+            { value: "two", Label: () => "Two" },
           ],
         })
       ),

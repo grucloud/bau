@@ -6,6 +6,10 @@ import radioButtonGroupStatefull from "./radioButtonGroup-statefull.ts";
 // @ts-ignore
 import codeExampleStatefull from "./radioButtonGroup-statefull.ts?raw";
 
+import radioButtonGroupUrl from "./radioButtonGroup-url.ts";
+// @ts-ignore
+import codeUrl from "./radioButtonGroup-url.ts?raw";
+
 import radioButtonGroupStateless from "./radioButtonGroup-stateless.ts";
 // @ts-ignore
 import codeStateless from "./radioButtonGroup-stateless.ts?raw";
@@ -37,6 +41,12 @@ export const radioButtonGroupSpec = {
       description: "A statefull radio button group.",
       code: codeExampleStatefull,
       createComponent: radioButtonGroupStatefull,
+    },
+    {
+      title: "Url State Radio Button Group",
+      description: "A radio button group with the state in the URL",
+      code: codeUrl,
+      createComponent: radioButtonGroupUrl,
     },
     {
       title: "Label with Image",

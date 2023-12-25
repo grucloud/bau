@@ -10,7 +10,7 @@ export default function (context: Context) {
 
   const checkedGitProviderState = bau.state("list");
   const oninput = (event: any) => {
-    checkedGitProviderState.val = event.target.id;
+    checkedGitProviderState.val = event.target.value;
   };
 
   const RunKind = () =>
@@ -29,10 +29,10 @@ export default function (context: Context) {
         name: "kind",
         value: checkedGitProviderState.val,
         radios: [
-          { id: "list", Label: () => "Inventory" },
-          { id: "plan", Label: () => "Plan" },
-          { id: "apply", Label: () => "Apply" },
-          { id: "destroy", Label: () => "Destroy" },
+          { value: "list", Label: () => "Inventory" },
+          { value: "plan", Label: () => "Plan" },
+          { value: "apply", Label: () => "Apply" },
+          { value: "destroy", Label: () => "Destroy" },
         ],
       })
     );

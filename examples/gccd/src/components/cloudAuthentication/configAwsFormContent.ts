@@ -133,7 +133,7 @@ export default (context: Context) => {
     const radioState = bau.state(AWSAccessKeyId ? "accessKey" : "role");
 
     const oninput = (event: any) => {
-      radioState.val = event.target.id;
+      radioState.val = event.target.value;
     };
     return section(
       fieldset(
@@ -171,8 +171,8 @@ export default (context: Context) => {
             name: "kind",
             value: radioState.val,
             radios: [
-              { id: "role", Label: () => "OICD Provider IAM Role" },
-              { id: "accessKey", Label: () => "Access and Secret Key" },
+              { value: "role", Label: () => "OICD Provider IAM Role" },
+              { value: "accessKey", Label: () => "Access and Secret Key" },
             ],
           })
         ),

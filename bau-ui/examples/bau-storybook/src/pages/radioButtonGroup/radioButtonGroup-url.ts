@@ -4,7 +4,9 @@ import button from "@grucloud/bau-ui/button";
 
 export default (context: Context) => {
   const { bau } = context;
-  const { form, article, footer, p } = bau.tags;
+  const { form, article, footer } = bau.tags;
+
+  const radioButtonGroupName = "myRadio";
 
   const RadioButtonGroup = radioButtonGroup(context);
   const Button = button(context, {
@@ -13,14 +15,23 @@ export default (context: Context) => {
   });
 
   return () => {
-    const checkedState = bau.state("two");
+    const search = new URLSearchParams(window.location.search);
 
-    const oninput = ({ target }: { target: HTMLInputElement }) =>
-      (checkedState.val = target.value);
+    const oninput = ({ target }: { target: HTMLInputElement }) => {
+      const search = new URLSearchParams(window.location.search);
+      search.delete(target.name);
+      search.append(target.name, target.value);
+      window.history.pushState(
+        "",
+        "",
+        `?${search.toString()}${window.location.hash}`
+      );
+    };
 
     const onsubmit = (event: any) => {
       event.preventDefault();
-      alert(checkedState.val);
+      const payload = Object.fromEntries(new FormData(event.currentTarget));
+      alert(JSON.stringify(payload));
     };
 
     return form(
@@ -28,14 +39,13 @@ export default (context: Context) => {
       article(
         RadioButtonGroup({
           oninput,
-          name: "myRadio",
-          value: checkedState.val,
+          name: radioButtonGroupName,
+          value: search.get(radioButtonGroupName),
           radios: [
             { value: "one", Label: () => "One" },
             { value: "two", Label: () => "Two" },
           ],
-        }),
-        p("CheckedState: ", checkedState)
+        })
       ),
       footer(Button({ type: "submit" }, "Submit"))
     );

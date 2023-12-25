@@ -14,7 +14,7 @@ import cloudAuthenticationList from "../../components/cloudAuthentication/cloudA
 
 export default function (context: Context) {
   const { bau, stores, config, css } = context;
-  const { h2, p, header, a, section, strong } = bau.tags;
+  const { h2, p, header, a, section } = bau.tags;
   const { getByIdQuery } = stores.workspace;
   const KeyValueList = keyValueList(context, {
     class: css`

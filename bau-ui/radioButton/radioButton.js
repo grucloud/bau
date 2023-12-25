@@ -13,7 +13,7 @@ export default function (context, options = {}) {
 &.radio-button.${color} {
   accent-color: var(--color-${color});
 }
-  `
+`
     ).join("\n");
 
   const className = css`
