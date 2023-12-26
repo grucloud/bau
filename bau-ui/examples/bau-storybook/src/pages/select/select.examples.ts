@@ -12,6 +12,10 @@ import selectDefaultOption from "./select-default-option.ts";
 // @ts-ignore
 import codeDefaultOption from "./select-default-option.ts?raw";
 
+import selectUrl from "./select-url.ts";
+// @ts-ignore
+import codeUrl from "./select-url.ts?raw";
+
 import selectAwsRegion from "./select-aws-region.ts";
 // @ts-ignore
 import codeExampleAwsRegion from "./select-aws-region.ts?raw";
@@ -39,6 +43,12 @@ export const selectSpec = {
       description: "Select with a default option",
       code: codeDefaultOption,
       createComponent: selectDefaultOption,
+    },
+    {
+      title: "State in URL",
+      description: "Select with state in URL",
+      code: codeUrl,
+      createComponent: selectUrl,
     },
     {
       title: "Select AWS region",

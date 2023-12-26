@@ -3,7 +3,7 @@ import radioButtonGroup from "@grucloud/bau-ui/radioButtonGroup";
 import button from "@grucloud/bau-ui/button";
 
 export default (context: Context) => {
-  const { bau } = context;
+  const { bau, window } = context;
   const { form, article, footer } = bau.tags;
 
   const radioButtonGroupName = "myRadio";

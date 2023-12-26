@@ -10,9 +10,10 @@ declare module "@grucloud/bau-ui/select" {
     getOptionLabel: (item: object | string) => HTMLElement | string;
     getOptionValue: (item: object | string) => string;
     Option: (props) => HTMLElement;
+    onSelect?: (item: object | string) => any;
   } & DefaultDesignProps;
 
-  type Component = import("../bau-ui").Component<SelectProps, HTMLInputElement>;
+  type Component = import("../bau-ui").Component<SelectProps>;
 
   export default function (context: any, option?: ComponentOption): Component;
 }
