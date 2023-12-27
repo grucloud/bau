@@ -14,6 +14,11 @@ import codeDefaultOption from "./autocomplete-default-option.ts?raw";
 import autocompleteLoading from "./autocomplete-loading.ts";
 // @ts-ignore
 import codeExampleLoading from "./autocomplete-loading.ts?raw";
+
+import autocompleteUrl from "./autocomplete-url.ts";
+// @ts-ignore
+import codeUrl from "./autocomplete-url.ts?raw";
+
 export const autocompleteSpec = {
   title: "Auto Complete",
   package: "autocomplete",
@@ -40,6 +45,12 @@ export const autocompleteSpec = {
       description: "A autocomplete with a default option.",
       code: codeDefaultOption,
       createComponent: autocompleteDefaultOption,
+    },
+    {
+      title: "URL State",
+      description: "A autocomplete with the state in the URL",
+      code: codeUrl,
+      createComponent: autocompleteUrl,
     },
   ],
   gridItem: autocompleteGridItem,
