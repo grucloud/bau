@@ -38,6 +38,7 @@ import paginationNavigationExamples from "./pages/paginationNavigation/paginatio
 import paperExamples from "./pages/paper/paper.examples";
 import radioButtonExamples from "./pages/radioButton/radioButton.examples";
 import radioButtonGroupExamples from "./pages/radioButtonGroup/radioButtonGroup.examples";
+import resizableExamples from "./pages/resizable/resizable.examples";
 import selectExamples from "./pages/select/select.examples";
 import selectNativeExamples from "./pages/selectNative/select-native.examples";
 import skeletonExamples from "./pages/skeleton/skeleton.examples";
@@ -334,6 +335,13 @@ export const createRoutes = ({ context }) => {
           action: () => ({
             title: "Select",
             component: selectExamples(context),
+          }),
+        },
+        {
+          path: "resizable",
+          action: () => ({
+            title: "Resizable",
+            component: resizableExamples(context),
           }),
         },
         {

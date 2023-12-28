@@ -60,7 +60,7 @@ export default function (context) {
       title: "UI components for the web",
       Content: () => [
         p(
-          "Over 45 components such as button, input, tabs, autocomplete etc ..."
+          "Over 50 components such as button, input, tabs, autocomplete etc ..."
         ),
         Button(
           {

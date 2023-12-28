@@ -141,6 +141,8 @@ export default function (context) {
               href: "/components/radioButtonGroup",
             },
           },
+          { data: { name: "Resizable", href: "/components/resizable" } },
+
           { data: { name: "Select", href: "/components/select" } },
           { data: { name: "Select Native", href: "/components/selectNative" } },
           { data: { name: "Skeleton", href: "/components/skeleton" } },
