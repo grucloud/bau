@@ -63,7 +63,7 @@ export default function (context: Context) {
     const search = new URLSearchParams(window.location.search);
     search.delete(event.target.name);
     search.append(event.target.name, event.target.value);
-    window.history.pushState("", "", `?${search.toString()}`);
+    window.history.replaceState("", "", `?${search.toString()}`);
     radioState.val = event.target.value;
   };
 

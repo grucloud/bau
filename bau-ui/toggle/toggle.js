@@ -32,24 +32,25 @@ export default function (context, options = {}) {
     transition: all var(--transition-slow);
     box-sizing: border-box;
     cursor: pointer;
-    &.selected {
+    &[aria-pressed="true"] {
       background-color: var(--toggle-background-color);
+      box-shadow: var(--shadow-lg);
     }
-    &.selected.solid {
+    &[aria-pressed="true"].solid {
       filter: brightness(80%) !important;
     }
     &.outline,
     &.solid {
-      box-shadow: var(--shadow-m);
+      box-shadow: var(--shadow-sm);
     }
     &.outline:hover,
     &.solid:hover {
       box-shadow: var(--shadow-lg);
     }
-    &:hover:not(.selected) {
+    &:hover:not([aria-pressed="true"]) {
       filter: brightness(var(--brightness-hover)) !important;
     }
-    &:hover.solid:not(.selected) {
+    &:hover.solid:not([aria-pressed="true"]) {
       filter: brightness(var(--brightness-hover-always)) !important;
     }
     &.sm {
@@ -69,9 +70,7 @@ export default function (context, options = {}) {
         size = options.size ?? "md",
         variant = options.variant ?? "outline",
         color = options.color ?? "neutral",
-        selected = false,
-        disabled,
-        onChange,
+        onclick,
         ...props
       },
       ...children
@@ -81,25 +80,25 @@ export default function (context, options = {}) {
       {
         type: "button",
         ...props,
-        "aria-pressed": {
-          deps: [selected],
-          renderProp: () => (selected) => selected,
+        onclick: (event) => {
+          const { target } = event;
+          const pressed = target.getAttribute("aria-pressed");
+          target.setAttribute(
+            "aria-pressed",
+            pressed == "true" ? "false" : "true"
+          );
+          onclick && onclick(event);
         },
-        class: {
-          deps: [selected],
-          renderProp: () => (selected) =>
-            classNames(
-              "toggle",
-              size,
-              color,
-              variant,
-              className,
-              selected && "selected",
-              options?.class,
-              props?.class
-            ),
-        },
-        disabled,
+
+        class: classNames(
+          "toggle",
+          size,
+          color,
+          variant,
+          className,
+          options?.class,
+          props?.class
+        ),
       },
       children
     );

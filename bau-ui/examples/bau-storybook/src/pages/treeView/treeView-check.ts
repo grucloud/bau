@@ -86,7 +86,7 @@ export default (context: Context) => {
         },
       })(item);
 
-      const formEl = event.currentTarget;
+      const formEl = event.currentTarget.closest("form");
       const checkboxesChecked = formEl.querySelectorAll(
         'input[type="checkbox"][data-type="resources"]:checked'
       );

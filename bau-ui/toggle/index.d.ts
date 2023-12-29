@@ -4,7 +4,10 @@ declare module "@grucloud/bau-ui/toggle" {
 
   export type ToggleProps = {} & DefaultDesignProps;
 
-  type Component = import("../bau-ui").Component<ToggleProps>;
+  type Component = import("../bau-ui").Component<
+    ToggleProps,
+    HTMLButtonElement
+  >;
 
   export default function (context: any, option?: ComponentOption): Component;
 }

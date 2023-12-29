@@ -21,7 +21,7 @@ export default (context: Context) => {
       const search = new URLSearchParams(window.location.search);
       search.delete(event.target.name);
       search.append(event.target.name, event.target.checked);
-      window.history.pushState(
+      window.history.replaceState(
         "",
         "",
         `?${search.toString()}${window.location.hash}`

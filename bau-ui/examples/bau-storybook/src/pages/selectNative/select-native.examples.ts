@@ -8,6 +8,10 @@ import selectNativeDefault from "./select-native-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./select-native-example-default.ts?raw";
 
+import selectUrl from "./select-native-url.ts";
+// @ts-ignore
+import codeUrl from "./select-native-url.ts?raw";
+
 // import selectNativeAwsRegion from "./select-native-aws-region.ts";
 // // @ts-ignore
 // import codeExampleAwsRegion from "./selectNative-aws-region.ts?raw";
@@ -26,6 +30,12 @@ export const selectNativeSpec = {
       description: "A simple selectNative.",
       code: codeExampleDefault,
       createComponent: selectNativeDefault,
+    },
+    {
+      title: "State URL",
+      description: "A selectNative with state in URL",
+      code: codeUrl,
+      createComponent: selectUrl,
     },
   ],
   gridItem: selectNativeGridItem,

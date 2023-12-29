@@ -47,7 +47,7 @@ export default (context: Context) => {
       const search = new URLSearchParams(window.location.search);
       search.delete(selectName);
       search.append(selectName, getOptionValue(option));
-      window.history.pushState(
+      window.history.replaceState(
         "",
         "",
         `?${search.toString()}${window.location.hash}`

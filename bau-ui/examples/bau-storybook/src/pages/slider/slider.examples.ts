@@ -20,6 +20,10 @@ import sliderVertical from "./slider-example-vertical.ts";
 // @ts-ignore
 import codeExampleVertical from "./slider-example-vertical.ts?raw";
 
+import sliderUrl from "./slider-url.ts";
+// @ts-ignore
+import codeUrl from "./slider-url.ts?raw";
+
 export const sliderSpec = {
   title: "Slide",
   package: "slider",
@@ -52,6 +56,12 @@ export const sliderSpec = {
       description: "A vertical slider with marks.",
       code: codeExampleVertical,
       createComponent: sliderVertical,
+    },
+    {
+      title: "State URL",
+      description: "State stored in the URL",
+      code: codeUrl,
+      createComponent: sliderUrl,
     },
   ],
   gridItem: sliderGridItem,
