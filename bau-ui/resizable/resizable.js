@@ -102,7 +102,6 @@ export default function (context, options = {}) {
 
     const mouseMoveHandlerVertical = (event) => {
       const dy = event.clientY - _y;
-      console.log("mouseMoveHandlerHorizontal dy", dy, "width");
       if (_previousPanelRect) {
         _previousPanel.style.height = `${_previousPanelRect.height + dy}px`;
       }
@@ -112,7 +111,6 @@ export default function (context, options = {}) {
     };
 
     const mouseUpHandler = () => {
-      console.log("mouseUpHandler");
       _nextPanel = null;
       _previousPanel = null;
       _nextPanelRect = null;
@@ -131,7 +129,6 @@ export default function (context, options = {}) {
       const { target } = event;
       const handleEl = target.closest(".handle");
       _panelGroup = target.closest(".resizablePanelGroup");
-      console.log("mouseDownHandler", _x, _y, _panelGroup);
       _panelGroup.style.cursor = isHorizontal() ? "col-resize" : "row-resize";
       _panelGroup.style["user-select"] = "none";
 

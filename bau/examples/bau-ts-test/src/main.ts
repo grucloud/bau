@@ -414,6 +414,10 @@ const TestArrayOperation = () => {
     arrayState.val.splice(-2, 2);
     clearInput();
   };
+  const splice_0_0_2 = () => {
+    arrayState.val.splice(0, 0, "z");
+    clearInput();
+  };
   const reverse = () => {
     arrayState.val.reverse();
     clearInput();
@@ -433,6 +437,7 @@ const TestArrayOperation = () => {
     button({ onclick: setAt }, "set at index 0"),
     button({ onclick: splice12 }, "splice 1 2"),
     button({ onclick: splice_2_2 }, "splice -2 2"),
+    button({ onclick: splice_0_0_2 }, "splice 0 0 z"),
     button({ onclick: reverse }, "reverse"),
     table(bau.loop(arrayState, tbody(), renderItem))
   );

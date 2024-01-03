@@ -154,11 +154,11 @@ export default function Bau(input) {
           element.children[i].remove();
         }
         if (newItems.length) {
-          let elementNewItems = newItems.forEach((item, index) =>
+          let elementNewItems = newItems.map((item, index) =>
             renderDomItem(item, start + index)
           );
           element.children[start]
-            ? element.children[start].after(...elementNewItems)
+            ? element.children[start].before(...elementNewItems)
             : element.append(...elementNewItems);
         }
       },
