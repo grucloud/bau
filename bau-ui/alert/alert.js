@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 import { Colors } from "../constants.js";
 
 import button from "../button";
@@ -97,7 +96,7 @@ export default function (context, options = {}) {
     return div(
       {
         ...props,
-        class: classNames(
+        class: [
           "alert",
           `alert-${variant}`,
           options.class,
@@ -105,8 +104,8 @@ export default function (context, options = {}) {
           color,
           size,
           className,
-          props.class
-        ),
+          props.class,
+        ],
         role: "alert",
       },
       i({ class: "icon" }, severityMap[color]),

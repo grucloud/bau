@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames";
 import fileInput from "@grucloud/bau-ui/fileInput";
 import { Context } from "@grucloud/bau-ui/context";
 
@@ -24,7 +23,7 @@ export default (context: Context, options?: any) => {
   const FileInputLabel = ({ disabled }: any) =>
     div(
       {
-        class: classNames(
+        class: [
           css`
             display: flex;
             align-items: center;
@@ -37,8 +36,8 @@ export default (context: Context, options?: any) => {
             css`
               color: var(--color-emphasis-500);
               fill: var(--font-color-disabled);
-            `
-        ),
+            `,
+        ],
       },
       svg(
         { width: 100, height: 100, fill: "currentColor" },

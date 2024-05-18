@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 import { Colors } from "../constants.js";
 
 export default function (context, options = {}) {
@@ -35,15 +34,15 @@ export default function (context, options = {}) {
       {
         ...props,
         type: "range",
-        class: classNames(
+        class: [
           "slider",
           color,
           variant,
           size,
           className,
           options?.class,
-          props.class
-        ),
+          props.class,
+        ],
       },
       ...children
     );

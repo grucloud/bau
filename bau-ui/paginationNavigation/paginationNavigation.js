@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options = {}) {
@@ -70,13 +69,13 @@ export default function (context, options = {}) {
         "data-paginationnav": JSON.stringify(data),
         "aria-label": "pages navigation",
         ...props,
-        class: classNames(
+        class: [
           "paginationNavigation",
           size,
           className,
           options?.class,
-          props?.class
-        ),
+          props?.class,
+        ],
       },
       previous?.href && Link({ text: "Previous" })(previous),
       next?.href && Link({ text: "Next" })(next)

@@ -7,9 +7,7 @@
   "license": "BSD",
   "files": [
     "bau-css.js",
-    "bau-css.d.ts",
-    "classNames.js",
-    "classNames.d.ts"
+    "bau-css.d.ts"
   ],
   "types": "bau-css.d.ts",
   "keywords": [

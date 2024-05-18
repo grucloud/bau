@@ -12,10 +12,6 @@ export const uuid = () => {
   return uuid;
 };
 
-export function classNames(...cn) {
-  return cn.filter((className) => className).join(" ");
-}
-
 export function pluralize(count, word) {
   return count <= 1 ? word : word + "s";
 }

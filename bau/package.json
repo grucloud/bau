@@ -27,7 +27,6 @@
     "@vitest/browser": "0.32.2",
     "@vitest/coverage-c8": "0.32.2",
     "@vitest/utils": "0.32.2",
-    "happy-dom": "9.20.3",
     "vite": "4.3.9",
     "vite-bundle-visualizer": "0.8.0",
     "vitest": "0.32.2",

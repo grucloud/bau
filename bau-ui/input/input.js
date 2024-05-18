@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { Colors } from "../constants.js";
 
 const colorsToCss = () =>
@@ -75,15 +74,15 @@ export default function (context, options = {}) {
     return input({
       type: "text",
       ...otherProps,
-      class: classNames(
+      class: [
         "input",
         options.class,
         options.size ?? "md",
         color,
         variant,
         className,
-        otherProps.class
-      ),
+        otherProps.class,
+      ],
     });
   };
 }

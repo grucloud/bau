@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import button from "../button";
 import spinner from "../spinner";
@@ -57,7 +56,7 @@ export default function (context, options = {}) {
         Button(
           {
             ...props,
-            class: classNames(
+            class: [
               "loadingButton",
               size,
               variant,
@@ -65,8 +64,8 @@ export default function (context, options = {}) {
               className,
               loading && "loading",
               options?.class,
-              props?.class
-            ),
+              props?.class,
+            ].join(" "),
           },
           Spinner({ size, variant, color, visibility: loading }),
           span({ class: loading && "loading" }, children)

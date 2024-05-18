@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options = {}) {
@@ -78,21 +77,14 @@ export default function (context, options = {}) {
     return div(
       {
         ...props,
-        class: classNames(
-          "collapsible",
-          size,
-          className,
-          options?.class,
-          props?.class
-        ),
+        class: ["collapsible", size, className, options?.class, props?.class],
       },
       div(
         {
-          class: () =>
-            classNames(
-              "header",
-              Content ? (closeState.val ? "close" : "open") : ""
-            ),
+          class: () => [
+            "header",
+            Content ? (closeState.val ? "close" : "open") : "",
+          ],
           onclick: (event) => {
             closeState.val = !closeState.val;
             event.stopPropagation();

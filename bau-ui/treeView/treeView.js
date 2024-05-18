@@ -1,5 +1,3 @@
-import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 import collapsible from "../collapsible";
 
 const treeAddParent =
@@ -39,12 +37,10 @@ const createStyles = ({ css, createGlobalStyles }) => {
       padding-left: 0;
       overflow: hidden;
       background: inherit;
-
       & > li {
         padding-left: var(--treeview-link-padding-horizontal);
         border-radius: 0.25rem;
         background: inherit;
-
         & .header {
           width: 100%;
           display: flex;
@@ -65,7 +61,6 @@ const createStyles = ({ css, createGlobalStyles }) => {
         }
       }
     }
-
     & > ul > li {
       padding-left: 0rem;
     }
@@ -113,7 +108,7 @@ export default function (context, options = {}) {
       const Content = () =>
         ul(
           {
-            class: classNames(color, size),
+            class: [color, size],
           },
           children.map(Tree({ depth: depth + 1, maxDepth, parent: item }))
         );
@@ -138,14 +133,14 @@ export default function (context, options = {}) {
   }) {
     return nav(
       {
-        class: classNames(
+        class: [
           styles.nav,
           size,
           variant,
           color,
           options?.class,
-          otherProps.class
-        ),
+          otherProps.class,
+        ],
       },
       ul(
         Tree({ maxDepth, color, variant, size })(treeAddParent({})({ ...tree }))

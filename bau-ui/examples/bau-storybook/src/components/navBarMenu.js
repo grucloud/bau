@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import drillDownMenu from "@grucloud/bau-ui/drillDownMenu";
 import inputSearch from "@grucloud/bau-ui/inputSearch";
 
@@ -202,25 +201,23 @@ export default function (context) {
         },
         style: () =>
           states.drawerOpen.val ? "display:block;" : "display:none;",
-        class: classNames(
-          css`
-            grid-area: sidebar;
-            position: sticky;
-            top: calc(var(--header-height));
-            align-self: start;
-            overflow-y: scroll;
-            height: calc(100vh - var(--header-height) - 1rem);
-            border-right: 1px solid var(--color-emphasis-200);
-            min-width: 200px;
+        class: css`
+          grid-area: sidebar;
+          position: sticky;
+          top: calc(var(--header-height));
+          align-self: start;
+          overflow-y: scroll;
+          height: calc(100vh - var(--header-height) - 1rem);
+          border-right: 1px solid var(--color-emphasis-200);
+          min-width: 200px;
 
-            @media (max-width: 640px) {
-              position: fixed;
-              width: 100vw;
-              z-index: 1;
-              display: none;
-            }
-          `
-        ),
+          @media (max-width: 640px) {
+            position: fixed;
+            width: 100vw;
+            z-index: 1;
+            display: none;
+          }
+        `,
       },
       DrillDownMenu({ tree })
     );

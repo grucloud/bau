@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options = {}) {
@@ -40,9 +39,9 @@ export default function (context, options = {}) {
     return span(
       {
         ...props,
-        class: classNames("badge", className, options?.class, props?.class),
+        class: ["badge", className, options?.class, props?.class],
       },
-      span({ class: classNames(color, variant, size) }, content),
+      span({ class: [color, variant, size] }, content),
       ...children
     );
   };

@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import button from "../button/button.js";
 import buttonGroup from "../buttonGroup/buttonGroup.js";
@@ -110,13 +109,13 @@ export default function (context, options = {}) {
     return div(
       {
         ...props,
-        class: classNames(
+        class: [
           "table-pagination",
           className,
           isLoading && "disabled",
           options?.class,
-          props?.class
-        ),
+          props?.class,
+        ],
       },
       Spinner({ class: "spinner", visibility: isLoading, size: "md" }),
       totalCount > 0

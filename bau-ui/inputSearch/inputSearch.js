@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import input from "../input/input.js";
 
 export default function (context, options = {}) {
@@ -38,11 +37,8 @@ export default function (context, options = {}) {
       ...otherProps,
       color,
       variant,
-      class: classNames(
-        "inputSearch",
-        options.class,
-        className,
-        otherProps.class
+      class: ["inputSearch", options.class, className, otherProps.class].join(
+        " "
       ),
     });
   };

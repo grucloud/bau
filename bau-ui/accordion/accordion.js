@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 import collapsible from "../collapsible";
 import { Colors } from "../constants.js";
 
@@ -97,7 +96,7 @@ export default function (context, options = {}) {
       const AccordionHeader = () =>
         h3(
           {
-            class: () => classNames(itemNameState.val == name && "active"),
+            class: () => itemNameState.val == name && "active",
           },
           button(
             {
@@ -123,7 +122,7 @@ export default function (context, options = {}) {
 
       return li(
         {
-          class: classNames(color, variant, size),
+          class: [color, variant, size],
           onclick: onclick(name),
         },
         Collapsible({ Header: AccordionHeader, Content: AccordionContent })
@@ -131,7 +130,7 @@ export default function (context, options = {}) {
     };
     return div(
       {
-        class: classNames("accordion", className, options?.class, props.class),
+        class: ["accordion", className, options?.class, props.class],
       },
       ul(data.map(AccordionItem))
     );

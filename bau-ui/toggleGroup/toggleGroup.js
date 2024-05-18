@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import { Colors } from "../constants.js";
 
@@ -77,15 +76,15 @@ export default function (context, options = {}) {
     return div(
       {
         ...props,
-        class: classNames(
+        class: [
           "toggle-group",
           size,
           color,
           variant,
           className,
           options?.class,
-          props?.class
-        ),
+          props?.class,
+        ],
         onclick,
       },
       ...children

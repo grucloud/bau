@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options = {}) {
@@ -144,15 +143,15 @@ export default function (context, options = {}) {
     return nav(
       {
         ...props,
-        class: classNames(
+        class: [
           "tableOfContent",
           size,
           variant,
           color,
           className,
           options?.class,
-          props?.class
-        ),
+          props?.class,
+        ],
         bauMounted: (/*{ element }*/) => {
           window.addEventListener("scroll", handleScroll);
         },

@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options = {}) {
@@ -102,10 +101,10 @@ export default function (context, options = {}) {
 
     const tooltipContentEl = div(
       {
-        class: classNames("container", ...side.split("-")),
+        class: ["container", ...side.split("-")],
       },
       div(
-        { class: classNames("content", color, variant, size), role: "tooltip" },
+        { class: ["content", color, variant, size], role: "tooltip" },
         titleEl
       )
     );
@@ -159,7 +158,7 @@ export default function (context, options = {}) {
     const rootEl = div(
       {
         ...props,
-        class: classNames("tooltip", className, options?.class, props?.class),
+        class: ["tooltip", className, options?.class, props?.class],
         bauMounted: ({ element }) => {
           element.addEventListener("mouseover", mouseover);
           element.addEventListener("mouseout", mouseout);

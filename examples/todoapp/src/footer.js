@@ -1,5 +1,4 @@
 import { pluralize } from "./utils";
-import { classNames } from "./utils";
 
 export function footer({ bau, todosState, nowShowingState }) {
   const { a, footer, li, span, strong, ul, button } = bau.tags;
@@ -18,7 +17,7 @@ export function footer({ bau, todosState, nowShowingState }) {
   };
 
   const linkClass = (showType) => () =>
-    classNames(nowShowingState.val == showType && "selected");
+    nowShowingState.val == showType && "selected";
 
   const onclick = (showType) => (event) => {
     nowShowingState.val = showType;

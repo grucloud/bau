@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options = {}) {
@@ -48,15 +47,15 @@ export default function (context, options = {}) {
     return ul(
       {
         ...props,
-        class: classNames(
+        class: [
           "list",
           className,
           color,
           variant,
           size,
           options?.class,
-          props?.class
-        ),
+          props?.class.join(" "),
+        ],
       },
       ...children
     );

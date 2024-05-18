@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 import { Colors } from "../constants.js";
 
 const defaultMode = "light";
@@ -111,15 +110,15 @@ export default function (context, options = {}) {
         title: "Switch Theme",
         name: "theme-switch",
         ...props,
-        class: classNames(
+        class: [
           "theme-switch",
           color,
           variant,
           size,
           className,
           options?.class,
-          props.class
-        ),
+          props.class,
+        ],
         type: "checkbox",
         checked: getStoredTheme() == "dark",
         onclick: (event) => {

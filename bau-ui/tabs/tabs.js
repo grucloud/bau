@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 
 import { Colors } from "../constants.js";
 
@@ -134,11 +133,10 @@ export default function (context, options = {}) {
       const { Header, disabled, name } = tab;
       return li(
         {
-          class: () =>
-            classNames(
-              tabCurrentState.val.name == name && "active",
-              disabled && "disabled"
-            ),
+          class: () => [
+            tabCurrentState.val.name == name && "active",
+            disabled && "disabled",
+          ],
         },
         a({ href: buildHref(name) }, Header(tab))
       );
@@ -146,15 +144,15 @@ export default function (context, options = {}) {
 
     const rootEl = div(
       {
-        class: classNames(
+        class: [
           "tabs",
           variant,
           size,
           color,
           className,
           options?.class,
-          props.class
-        ),
+          props.class,
+        ],
         bauMounted: ({ element }) => {
           window.addEventListener("popstate", hashchange);
         },

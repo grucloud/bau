@@ -2,11 +2,7 @@ import "./style.css";
 import Bau from "@grucloud/bau";
 
 const bau = Bau();
-const { a, p, button, div, h1, span, td, tbody, datalist } = bau.tags;
-
-// const Row = ({ label }) => {
-//   return tr(td(label));
-// };
+const { button, div, h1 } = bau.tags;
 
 const App = () => {
   const appState = bau.state({

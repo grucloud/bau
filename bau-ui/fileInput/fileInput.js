@@ -1,6 +1,3 @@
-import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
-
 export default function (context, options = {}) {
   const { bau, css } = context;
   const { div, label, input } = bau.tags;
@@ -54,16 +51,16 @@ export default function (context, options = {}) {
 
     return div(
       {
-        class: classNames(
+        class: [
           style.base,
           disabled && style.disabled,
           options?.class,
-          props.class
-        ),
+          props.class,
+        ],
       },
       label(
         {
-          class: classNames(variant, color, size),
+          class: [variant, color, size],
         },
         Component({ disabled }),
         input({ type: "file", disabled, ...otherProps })

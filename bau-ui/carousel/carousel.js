@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options = {}) {
@@ -76,25 +75,19 @@ export default function (context, options = {}) {
     return div(
       {
         ...props,
-        class: classNames(
-          "carousel",
-          size,
-          className,
-          options?.class,
-          props?.class
-        ),
+        class: ["carousel", size, className, options?.class, props?.class],
       },
 
       div(
         {
-          class: classNames("control", "control-previous"),
+          class: ["control", "control-previous"],
           onclick: onclickPrevious,
         },
         Previous()
       ),
       div(
         {
-          class: classNames("control", "control-next"),
+          class: ["control", "control-next"],
           onclick: onclickNext,
         },
         Next()

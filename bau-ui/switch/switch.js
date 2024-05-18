@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 import { Colors } from "../constants.js";
 
 const colorsToCss = () =>
@@ -121,15 +120,15 @@ export default function (context, options = {}) {
     return input(
       {
         ...props,
-        class: classNames(
+        class: [
           "switch",
           style,
           color,
           variant,
           size,
           options?.class,
-          props.class
-        ),
+          props.class,
+        ],
         type: "checkbox",
       },
       ...children

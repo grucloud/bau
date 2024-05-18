@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import { Colors } from "../constants.js";
 
@@ -93,15 +92,15 @@ export default function (context, options = {}) {
             dialogEl.showModal();
           }
         },
-        class: classNames(
+        class: [
           "modal",
           className,
           color,
           variant,
           size,
           options?.class,
-          props?.class
-        ),
+          props?.class,
+        ],
       },
       children
     );
