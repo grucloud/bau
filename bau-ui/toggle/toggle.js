@@ -12,6 +12,7 @@ export default function (context, options = {}) {
       --toggle-background-color: rgba(255, 255, 255, 0.4)
     }
   `;
+
   const className = css`
     color: inherit;
     display: inline-flex;
@@ -31,11 +32,11 @@ export default function (context, options = {}) {
     transition: all var(--transition-slow);
     box-sizing: border-box;
     cursor: pointer;
-    &[aria-pressed="true"] {
+    &[selected="true"] {
       background-color: var(--toggle-background-color);
       box-shadow: var(--shadow-lg);
     }
-    &[aria-pressed="true"].solid {
+    &[selected="true"].solid {
       filter: brightness(80%) !important;
     }
     &.outline,
@@ -81,6 +82,7 @@ export default function (context, options = {}) {
         ...props,
         onclick: (event) => {
           const { target } = event;
+          //debugger;
           const pressed = target.getAttribute("aria-pressed");
           target.setAttribute(
             "aria-pressed",

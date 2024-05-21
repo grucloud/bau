@@ -102,12 +102,13 @@ export default function (context, options = {}) {
         ...props,
         class: [
           "button",
-          options.class,
+
           variant,
           size,
           color,
           className,
-          props.class.join(" "),
+          options.class,
+          Array.isArray(props.class) ? props.class?.join(" ") : props.class,
         ],
         href,
       },

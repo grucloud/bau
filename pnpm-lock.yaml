@@ -26,9 +26,6 @@ importers:
       '@vitest/utils':
         specifier: 0.32.2
         version: 0.32.2
-      happy-dom:
-        specifier: 9.20.3
-        version: 9.20.3
       vite:
         specifier: 4.3.9
         version: 4.3.9
@@ -37,7 +34,7 @@ importers:
         version: 0.8.0(rollup@2.79.1)
       vitest:
         specifier: 0.32.2
-        version: 0.32.2(@vitest/browser@0.32.2)(happy-dom@9.20.3)(webdriverio@8.11.2)
+        version: 0.32.2(@vitest/browser@0.32.2)(webdriverio@8.11.2)
       webdriverio:
         specifier: 8.11.2
         version: 8.11.2
@@ -45,7 +42,7 @@ importers:
   bau-astro:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../bau
     devDependencies:
       astro:
@@ -55,10 +52,10 @@ importers:
   bau-astro/examples/bau-astro-simple:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../../bau
       '@grucloud/bau-astro':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../..
       astro:
         specifier: ^2.9.5
@@ -88,10 +85,10 @@ importers:
   bau-css/examples/bau-bau-css:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../../bau
       '@grucloud/bau-css':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../..
     devDependencies:
       '@vitest/coverage-c8':
@@ -113,7 +110,7 @@ importers:
   bau-css/examples/react-bau-css:
     dependencies:
       '@grucloud/bau-css':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../..
       react:
         specifier: ^18.2.0
@@ -150,7 +147,7 @@ importers:
   bau-css/examples/vanillajs-bau-css:
     dependencies:
       '@grucloud/bau-css':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../..
     devDependencies:
       vite:
@@ -160,7 +157,7 @@ importers:
   bau-router:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../bau
     devDependencies:
       '@vitest/coverage-c8':
@@ -182,10 +179,10 @@ importers:
   bau-ui:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../bau
       '@grucloud/bau-css':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../bau-css
     devDependencies:
       typedoc:
@@ -195,16 +192,16 @@ importers:
   bau-ui/examples/bau-storybook:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../../bau
       '@grucloud/bau-css':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../../bau-css
       '@grucloud/bau-router':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../../bau-router
       '@grucloud/bau-ui':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../..
       highlight.js:
         specifier: 11.8.0
@@ -223,7 +220,7 @@ importers:
   bau-ui/examples/bau-ui-template-js:
     dependencies:
       '@grucloud/bau-ui':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../..
     devDependencies:
       vite:
@@ -233,7 +230,7 @@ importers:
   bau-ui/examples/bau-ui-template-ts:
     dependencies:
       '@grucloud/bau-ui':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../..
     devDependencies:
       typescript:
@@ -255,7 +252,7 @@ importers:
   bausaurus:
     dependencies:
       '@grucloud/bausaurus-core':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:bausaurus-core
       '@rollup/plugin-virtual':
         specifier: 3.0.1
@@ -318,46 +315,46 @@ importers:
   bausaurus/bausaurus-core:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       '@grucloud/bau-css':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau-css
       '@grucloud/bau-ui':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../../bau-ui
 
   bausaurus/bausaurus-theme-classic:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       '@grucloud/bau-css':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau-css
       '@grucloud/bau-ui':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../../bau-ui
       '@grucloud/bausaurus-core':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../bausaurus-core
 
   bausaurus/example/bausaurus-doc:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../../bau
       '@grucloud/bau-css':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../../bau-css
       '@grucloud/bau-ui':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../../../bau-ui
       '@grucloud/bausaurus-core':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../../bausaurus-core
       '@grucloud/bausaurus-theme-classic':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../../bausaurus-theme-classic
       gh-pages:
         specifier: 5.0.0
@@ -367,38 +364,38 @@ importers:
         version: 2.0.1
     devDependencies:
       '@grucloud/bausaurus':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../..
 
   bausaurus/example/bausaurus-template:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../../bau
       '@grucloud/bau-css':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../../bau-css
       '@grucloud/bau-ui':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../../../bau-ui
       '@grucloud/bausaurus-core':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../../bausaurus-core
       '@grucloud/bausaurus-theme-classic':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../../bausaurus-theme-classic
       rubico:
         specifier: 2.0.1
         version: 2.0.1
     devDependencies:
       '@grucloud/bausaurus':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../..
 
   examples/bau-ace-editor:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       highlight.js:
         specifier: 11.8.0
@@ -414,7 +411,7 @@ importers:
   examples/bau-d3:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       d3:
         specifier: 7.8.5
@@ -436,16 +433,16 @@ importers:
   examples/bau-kit:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       '@grucloud/bau-css':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau-css
       '@grucloud/bau-router':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau-router
       '@grucloud/bau-ui':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../../bau-ui
       rubico:
         specifier: 1.9.7
@@ -467,7 +464,7 @@ importers:
   examples/bau-tailwind:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       highlight.js:
         specifier: 11.8.0
@@ -486,7 +483,7 @@ importers:
   examples/benchmark:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       bootstrap:
         specifier: 3.3.6
@@ -499,7 +496,7 @@ importers:
   examples/button:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
     devDependencies:
       vite:
@@ -509,17 +506,30 @@ importers:
   examples/counter:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
     devDependencies:
       vite:
         specifier: ^4.3.9
         version: 4.3.9
 
+  examples/exchange-rate:
+    dependencies:
+      '@grucloud/bau-ui':
+        specifier: ^0.82.1
+        version: link:../../bau-ui
+    devDependencies:
+      typescript:
+        specifier: ^5.0.2
+        version: 5.0.2
+      vite:
+        specifier: ^4.4.5
+        version: 4.5.0(@types/node@20.2.5)
+
   examples/fetch-data:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
     devDependencies:
       vite:
@@ -529,7 +539,7 @@ importers:
   examples/form-login:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
     devDependencies:
       vite:
@@ -539,7 +549,7 @@ importers:
   examples/form-stateless-login:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
     devDependencies:
       vite:
@@ -549,13 +559,13 @@ importers:
   examples/gccd:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       '@grucloud/bau-router':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau-router
       '@grucloud/bau-ui':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../../bau-ui
       date-fns:
         specifier: 2.30.0
@@ -577,10 +587,10 @@ importers:
   examples/grid-layout:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       '@grucloud/bau-css':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau-css
     devDependencies:
       vite:
@@ -590,7 +600,7 @@ importers:
   examples/highlight:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       highlight.js:
         specifier: 11.8.0
@@ -606,7 +616,7 @@ importers:
   examples/lifecycle:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       highlight.js:
         specifier: 11.8.0
@@ -622,7 +632,7 @@ importers:
   examples/list-drag-drop:
     dependencies:
       '@grucloud/bau-ui':
-        specifier: ^0.81.0
+        specifier: ^0.82.1
         version: link:../../bau-ui
     devDependencies:
       vite:
@@ -632,17 +642,30 @@ importers:
   examples/mathml:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
     devDependencies:
       vite:
         specifier: ^4.3.9
         version: 4.3.9
 
+  examples/new-year-countdown:
+    dependencies:
+      '@grucloud/bau-ui':
+        specifier: ^0.82.1
+        version: link:../../bau-ui
+    devDependencies:
+      typescript:
+        specifier: ^5.0.2
+        version: 5.0.2
+      vite:
+        specifier: ^4.4.5
+        version: 4.5.0(@types/node@20.2.5)
+
   examples/playground:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
     devDependencies:
       vite:
@@ -652,7 +675,7 @@ importers:
   examples/todo-minimal:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
     devDependencies:
       vite:
@@ -662,7 +685,7 @@ importers:
   examples/todoapp:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
       todomvc-app-css:
         specifier: 2.4.2
@@ -678,7 +701,7 @@ importers:
   examples/tree-view:
     dependencies:
       '@grucloud/bau':
-        specifier: ^0.81.0
+        specifier: ^0.82.0
         version: link:../../bau
     devDependencies:
       vite:
@@ -2644,7 +2667,7 @@ packages:
     dependencies:
       modern-node-polyfills: 0.1.3(rollup@2.79.1)
       sirv: 2.0.3
-      vitest: 0.32.2(@vitest/browser@0.32.2)(happy-dom@9.20.3)(webdriverio@8.11.2)
+      vitest: 0.32.2(@vitest/browser@0.32.2)(webdriverio@8.11.2)
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -2672,7 +2695,7 @@ packages:
       magic-string: 0.30.0
       picocolors: 1.0.0
       std-env: 3.3.3
-      vitest: 0.32.2(@vitest/browser@0.32.2)(happy-dom@9.20.3)(webdriverio@8.11.2)
+      vitest: 0.32.2(@vitest/browser@0.32.2)(webdriverio@8.11.2)
     dev: true
 
   /@vitest/expect@0.31.4:
@@ -11854,7 +11877,7 @@ packages:
       - terser
     dev: true
 
-  /vitest@0.32.2(@vitest/browser@0.32.2)(happy-dom@9.20.3)(webdriverio@8.11.2):
+  /vitest@0.32.2(@vitest/browser@0.32.2)(webdriverio@8.11.2):
     resolution: {integrity: sha512-hU8GNNuQfwuQmqTLfiKcqEhZY72Zxb7nnN07koCUNmntNxbKQnVbeIS6sqUgR3eXSlbOpit8+/gr1KpqoMgWCQ==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -11900,7 +11923,6 @@ packages:
       chai: 4.3.7
       concordance: 5.0.4
       debug: 4.3.4
-      happy-dom: 9.20.3
       local-pkg: 0.4.3
       magic-string: 0.30.0
       pathe: 1.1.1

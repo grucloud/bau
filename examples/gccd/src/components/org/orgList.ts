@@ -12,7 +12,7 @@ export default function (context: Context) {
   });
   const TableSkeleton = tableSkeleton(context);
   const TableContainer = tableContainer(context, {
-    class: css``,
+    //class: css``,
   });
   const ButtonAdd = button(context, { color: "primary", variant: "solid" });
 

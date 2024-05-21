@@ -81,7 +81,7 @@ export default function (context, options = {}) {
         color,
         variant,
         className,
-        props.class.join(" "),
+        Array.isArray(props.class) ? props.class?.join(" ") : props.class,
       ],
     });
   };

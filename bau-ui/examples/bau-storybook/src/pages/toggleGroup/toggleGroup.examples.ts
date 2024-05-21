@@ -4,13 +4,17 @@ import pageExample from "../pageExample.ts";
 
 import toggleGroupGridItem from "./toggleGroup-grid-item.ts";
 
-import toggleGroupDefault from "./toggleGroup-example-default.ts";
+import toggleGroupExclusive from "./toggleGroup-exclusive.ts";
 // @ts-ignore
-import codeExampleDefault from "./toggleGroup-example-default.ts?raw";
+import codeExampleExclusive from "./toggleGroup-exclusive.ts?raw";
 
 import toggleGroupInclusive from "./toggleGroup-inclusive.ts";
 // @ts-ignore
 import codeExampleInclusive from "./toggleGroup-inclusive.ts?raw";
+
+import toggleGroupUrl from "./toggleGroup-url.ts";
+// @ts-ignore
+import codeExampleUrl from "./toggleGroup-url.ts?raw";
 
 export const toggleGroupSpec = {
   title: "Toggle Group",
@@ -23,14 +27,20 @@ export const toggleGroupSpec = {
     {
       title: "Exclusive ToggleGroup",
       description: "A simple exclusive toggleGroup.",
-      code: codeExampleDefault,
-      createComponent: toggleGroupDefault,
+      code: codeExampleExclusive,
+      createComponent: toggleGroupExclusive,
     },
     {
       title: "Inclusive ToggleGroup",
       description: "A simple inclusive toggleGroup.",
       code: codeExampleInclusive,
       createComponent: toggleGroupInclusive,
+    },
+    {
+      title: "State in URL",
+      description: "A toggleGroup with state in the URL.",
+      code: codeExampleUrl,
+      createComponent: toggleGroupUrl,
     },
   ],
   gridItem: toggleGroupGridItem,
