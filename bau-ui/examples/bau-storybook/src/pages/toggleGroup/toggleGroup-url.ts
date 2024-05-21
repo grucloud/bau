@@ -4,9 +4,10 @@ import toggle from "@grucloud/bau-ui/toggle";
 import button from "@grucloud/bau-ui/button";
 
 export default (context: Context) => {
-  const { bau } = context;
-  const { form, article, footer } = bau.tags;
+  const { bau, window } = context;
+  const { form, footer, article } = bau.tags;
 
+  const toggleGroupName = "my-toggle-group";
   const groups = [
     { value: "one", label: "ONE" },
     { value: "two", label: "TWO" },
@@ -16,34 +17,41 @@ export default (context: Context) => {
   const color = "primary";
   const variant = "solid";
 
-  const Toggle = toggle(context, { variant, color });
-  const ToggleGroup = toggleGroup(context, { variant, color });
+  const Toggle = toggle(context, { color, variant });
+  const ToggleGroup = toggleGroup(context, { color, variant });
   const Button = button(context, {
     variant: "outline",
     color: "primary",
   });
 
   return () => {
-    const selectedState = bau.state([""]);
+    const search = new URLSearchParams(window.location.search);
+
+    const selectedState = bau.state([...search.getAll(toggleGroupName)]);
 
     const onChange = ({ values }: any) => {
       selectedState.val = values;
+      const search = new URLSearchParams(window.location.search);
+      search.delete(toggleGroupName);
+      values.forEach((value: string) => search.append(toggleGroupName, value));
+      window.history.replaceState(
+        "",
+        "",
+        `?${search.toString()}${window.location.hash}`
+      );
     };
 
     const onsubmit = (event: any) => {
       event.preventDefault();
-      const formEl = event.currentTarget;
-      const buttonNames = [
-        ...formEl.querySelectorAll("button[selected=true]"),
-      ].map(({ name }: any) => name);
-      alert(JSON.stringify(buttonNames));
+      const search = new URLSearchParams(window.location.search);
+      alert(search.getAll(toggleGroupName));
     };
 
     return form(
       { onsubmit },
       article(
         ToggleGroup(
-          { onChange },
+          { name: toggleGroupName, exclusive: true, onChange },
           groups.map(
             ({ label, value }) =>
               () =>
