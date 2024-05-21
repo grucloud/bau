@@ -107,7 +107,7 @@ export default function (context, options = {}) {
           size,
           color,
           className,
-          props.class,
+          props.class.join(" "),
         ],
         href,
       },

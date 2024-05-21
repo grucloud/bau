@@ -65,7 +65,7 @@ export default function (context, options = {}) {
               loading && "loading",
               options?.class,
               props?.class,
-            ].join(" "),
+            ],
           },
           Spinner({ size, variant, color, visibility: loading }),
           span({ class: loading && "loading" }, children)

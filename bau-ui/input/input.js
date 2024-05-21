@@ -81,7 +81,7 @@ export default function (context, options = {}) {
         color,
         variant,
         className,
-        otherProps.class,
+        props.class.join(" "),
       ],
     });
   };

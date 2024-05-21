@@ -37,9 +37,7 @@ export default function (context, options = {}) {
       ...otherProps,
       color,
       variant,
-      class: ["inputSearch", options.class, className, otherProps.class].join(
-        " "
-      ),
+      class: ["inputSearch", options.class, className, otherProps.class],
     });
   };
 }
