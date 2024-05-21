@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import { Colors } from "../constants.js";
 
@@ -75,15 +74,15 @@ export default function (context, options = {}) {
       class: {
         deps: [running],
         renderProp: () => (running) =>
-          classNames(
+          [
             "linearProgress",
             size,
             color,
             className,
             running && "running",
             options?.class,
-            props?.class
-          ),
+            props?.class,
+          ],
       },
     });
   };

@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, componentOptions = {}) {
@@ -31,15 +30,15 @@ export default function (context, componentOptions = {}) {
     return select(
       {
         ...props,
-        class: classNames(
+        class: [
           "select-native",
           color,
           size,
           variant,
           className,
           componentOptions?.class,
-          props?.class
-        ),
+          props?.class,
+        ],
       },
       children
     );

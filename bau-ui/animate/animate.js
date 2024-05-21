@@ -1,5 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
-
 export default function (context, options = {}) {
   const { bau, window } = context;
   const { div } = bau.tags;
@@ -11,7 +9,7 @@ export default function (context, options = {}) {
   ) {
     return div(
       {
-        class: classNames("animate", options?.class, props.class),
+        class: ["animate", options?.class, props.class],
         bauChildMutated: ({ record, element }) => {
           // Removed Nodes
           [...record.removedNodes].forEach((childNode) => {

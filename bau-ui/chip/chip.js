@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options = {}) {
@@ -46,7 +45,7 @@ export default function (context, options = {}) {
       {
         ...props,
         onclick,
-        class: classNames(
+        class: [
           "chip",
           options.class,
           size,
@@ -54,8 +53,8 @@ export default function (context, options = {}) {
           color,
           onclick && "clickable",
           className,
-          props.class
-        ),
+          props.class,
+        ],
       },
       ...children
     );

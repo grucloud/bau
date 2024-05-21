@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options) {
@@ -59,7 +58,7 @@ export default function (context, options) {
     const dialogEl = dialog(
       {
         role: "presentation",
-        class: classNames("popover", className, options?.class, props?.class),
+        class: ["popover", className, options?.class, props?.class],
         onclick: (event) => {
           event.target === dialogEl && (closeDialog(), onClose?.call());
         },

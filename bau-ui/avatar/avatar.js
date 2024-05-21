@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 import skeleton from "../skeleton";
 
 export default function (context, options = {}) {
@@ -60,7 +59,7 @@ export default function (context, options = {}) {
       ...children
     ] = toPropsAndChildren(args);
     const Skeleton = skeleton(context, {
-      class: classNames(
+      class: [
         css`
           position: absolute;
           top: 0;
@@ -69,12 +68,12 @@ export default function (context, options = {}) {
           width: ${width}px;
         `,
         options?.class,
-        props.class
-      ),
+        props.class,
+      ],
     });
 
     return div(
-      { class: classNames(className, options?.class, props.class) },
+      { class: [className, options?.class, props.class] },
       () => loadingState.val && Skeleton(),
       () => errorState.val && alt,
       img({
@@ -83,17 +82,16 @@ export default function (context, options = {}) {
         height,
         onload,
         onerror,
-        class: () =>
-          classNames(
-            !loadingState.val && "visible",
-            errorState.val && "hide",
-            color,
-            variant,
-            size,
-            className,
-            options?.class,
-            props.class
-          ),
+        class: () => [
+          !loadingState.val && "visible",
+          errorState.val && "hide",
+          color,
+          variant,
+          size,
+          className,
+          options?.class,
+          props.class,
+        ],
         ...props,
       })
     );

@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options = {}) {
@@ -49,13 +48,7 @@ export default function (context, options = {}) {
     return div(
       {
         ...props,
-        class: classNames(
-          "skeleton",
-          size,
-          className,
-          options?.class,
-          props?.class
-        ),
+        class: ["skeleton", size, className, options?.class, props?.class],
       },
       ...children
     );

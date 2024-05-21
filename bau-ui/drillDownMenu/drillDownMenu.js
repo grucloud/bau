@@ -1,4 +1,3 @@
-import cn from "@grucloud/bau-css/classNames.js";
 import animate from "../animate/animate.js";
 import button from "../button/button.js";
 import list from "../list/list.js";
@@ -182,15 +181,14 @@ export default function (context, options = {}) {
     size,
   }) =>
     List(
-      { class: cn(variant, color, size) },
+      { class: [variant, color, size] },
       children.map((subTree) =>
         li(
           {
-            class: () =>
-              cn(
-                subTree.children && "has-children",
-                isActive({ pathname: pathnameState.val, subTree }) && "active"
-              ),
+            class: () => [
+              subTree.children && "has-children",
+              isActive({ pathname: pathnameState.val, subTree }) && "active",
+            ],
           },
           renderMenuItem({ variant, color, size, subTree })
         )
@@ -200,7 +198,7 @@ export default function (context, options = {}) {
   const Menu = ({ variant, color, size, currentTree, pathnameState }) => {
     const { children, parentTree, data, renderList } = currentTree;
     return div(
-      { class: cn("drillDownMenu", variant, color, size) },
+      { class: ["drillDownMenu", variant, color, size] },
       parentTree && renderHeader({ variant, color, size, data, currentTree }),
       children && renderList
         ? renderList({
@@ -310,14 +308,14 @@ export default function (context, options = {}) {
 
     return nav(
       {
-        class: cn(
+        class: [
           className,
           variant,
           color,
           size,
           options?.class,
-          otherProps.class
-        ),
+          otherProps.class,
+        ],
         onclick,
       },
       Animate(

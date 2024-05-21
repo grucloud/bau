@@ -1,4 +1,3 @@
-import { classNames } from "./utils";
 import { ESCAPE_KEY, ENTER_KEY } from "./utils";
 
 export function todoItem({ bau, todosState, editingIdState, onSave }) {
@@ -72,11 +71,10 @@ export function todoItem({ bau, todosState, editingIdState, onSave }) {
 
     return li(
       {
-        class: () =>
-          classNames(
-            completed && "completed",
-            id == editingIdState.val && "editing"
-          ),
+        class: () => [
+          completed && "completed",
+          id == editingIdState.val && "editing",
+        ],
       },
       div(
         { class: "view" },

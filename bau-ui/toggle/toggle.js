@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 
 export default function (context, options = {}) {
   const { bau, css, createGlobalStyles } = context;
@@ -90,15 +89,15 @@ export default function (context, options = {}) {
           onclick && onclick(event);
         },
 
-        class: classNames(
+        class: [
           "toggle",
           size,
           color,
           variant,
           className,
           options?.class,
-          props?.class
-        ),
+          props?.class,
+        ],
       },
       children
     );

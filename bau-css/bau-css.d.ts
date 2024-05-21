@@ -6,5 +6,3 @@ export default function BauCss(input?: {
   keyframes: (any) => string;
   createGlobalStyles: (any) => any;
 };
-
-export function classNames(...cn: string[]): string;

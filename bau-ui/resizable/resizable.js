@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 
 export default function (context, options = {}) {
@@ -48,12 +47,7 @@ export default function (context, options = {}) {
     return section(
       {
         ...props,
-        class: classNames(
-          "resizablePanelGroup",
-          props?.class,
-          options?.class,
-          className
-        ),
+        class: ["resizablePanelGroup", props?.class, options?.class, className],
       },
       children
     );
@@ -65,7 +59,7 @@ export default function (context, options = {}) {
     return article(
       {
         ...props,
-        class: classNames("resizablePanel", props?.class),
+        class: ["resizablePanel", props?.class],
       },
       children
     );
@@ -148,7 +142,7 @@ export default function (context, options = {}) {
     return div(
       {
         ...props,
-        class: classNames("handle", direction),
+        class: ["handle", direction],
         role: "separator",
         bauMounted: ({ element }) => {
           element.addEventListener("mousedown", mouseDownHandler);

@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 
 export default function (context, options = {}) {
   const { bau, css } = context;
@@ -79,14 +78,7 @@ export default function (context, options = {}) {
     return input({
       type: "checkbox",
       ...props,
-      class: classNames(
-        className,
-        color,
-        variant,
-        size,
-        options?.class,
-        props?.class
-      ),
+      class: [className, color, variant, size, options?.class, props?.class],
     });
   };
 }

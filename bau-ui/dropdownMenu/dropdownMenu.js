@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import popover from "../popover/popover.js";
 import button from "../button/button.js";
@@ -94,11 +93,11 @@ export default function (context, componentOptions = {}) {
 
     const Content = () =>
       List(
-        { tabindex: "0", class: classNames(color, variant) },
+        { tabindex: "0", class: [color, variant] },
         items.map((item, index) =>
           li(
             {
-              class: () => classNames(itemIndexActive.val == index && "active"),
+              class: () => [itemIndexActive.val == index && "active"],
               onclick: onclickItem({ item, index }),
             },
             ListItem(item)
@@ -125,14 +124,14 @@ export default function (context, componentOptions = {}) {
     return div(
       {
         ...props,
-        class: classNames(
+        class: [
           "dropdownMenu",
           color,
           size,
           className,
           componentOptions?.class,
-          props?.class
-        ),
+          props?.class,
+        ],
         onkeydown,
       },
       buttonEl,

@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 
 import { Colors } from "../constants.js";
 
@@ -101,15 +100,15 @@ export default function (context, options = {}) {
       {
         ...(!href && { type: "button" }),
         ...props,
-        class: classNames(
+        class: [
           "button",
           options.class,
           variant,
           size,
           color,
           className,
-          props.class
-        ),
+          props.class.join(" "),
+        ],
         href,
       },
       children

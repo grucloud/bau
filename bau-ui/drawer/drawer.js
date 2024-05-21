@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import cn from "@grucloud/bau-css/classNames";
 
 export default function (context, options) {
   const { bau, css } = context;
@@ -54,10 +53,10 @@ export default function (context, options) {
       ...children
     ] = toPropsAndChildren(args);
     return div(
-      { class: cn(className, options?.class, props.class) },
+      { class: [className, options?.class, props.class] },
       // Overlay
       div({
-        class: () => cn("overlay", openState.val && "overlay-open"),
+        class: () => ["overlay", openState.val && "overlay-open"],
         onclick: () => {
           openState.val = false;
         },
@@ -65,7 +64,7 @@ export default function (context, options) {
       // Content
       div(
         {
-          class: () => cn("content", openState.val && "content-open"),
+          class: () => ["content", openState.val && "content-open"],
         },
         children
       )

@@ -1,5 +1,4 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import classNames from "@grucloud/bau-css/classNames.js";
 
 import { Colors } from "../constants.js";
 
@@ -130,13 +129,12 @@ export default function (context, options = {}) {
       const { Header, disabled, name, index } = stepper;
       return li(
         {
-          class: () =>
-            classNames(
-              stepperCurrentState.val.name == name && "active",
-              activeStepIndex.val < index && "not-completed",
-              activeStepIndex.val > index && "completed",
-              disabled && "disabled"
-            ),
+          class: () => [
+            stepperCurrentState.val.name == name && "active",
+            activeStepIndex.val < index && "not-completed",
+            activeStepIndex.val > index && "completed",
+            disabled && "disabled",
+          ],
         },
         span({ class: "step-number" }, index + 1),
         span({ class: "step-label" }, () => Header(stepper))
@@ -174,26 +172,25 @@ export default function (context, options = {}) {
         bauUnmounted: () => {
           window.removeEventListener("popstate", hashchange);
         },
-        class: classNames(
+        class: [
           "stepper",
           variant,
           size,
           color,
           className,
           options?.class,
-          props.class
-        ),
+          props.class,
+        ],
       },
       // Header
       bau.loop(stepperState, ul(), StepperHeader),
       bau.loop(stepsCreatedState, section(), (stepperDef) =>
         div(
           {
-            class: () =>
-              classNames(
-                "content",
-                stepperDef.name == stepperCurrentState.val.name && "visible"
-              ),
+            class: () => [
+              "content",
+              stepperDef.name == stepperCurrentState.val.name && "visible",
+            ],
           },
           stepperDef.Content({
             nextStep: stepperDefs[getIndex(stepperDef) + 1],

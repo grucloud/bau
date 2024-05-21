@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import popover from "../popover/popover.js";
 import button from "../button/button.js";
@@ -238,19 +237,18 @@ export default function (context, componentOptions = {}) {
     });
 
     const contentEl = div(
-      { class: classNames(variant, color, size, "content") },
+      { class: [variant, color, size, "content"] },
       inputEl,
       () =>
         List(
-          { class: classNames(variant, color, size) },
+          { class: [variant, color, size] },
           optionsFilteredState.val.map((option, index) =>
             li(
               {
-                class: () =>
-                  classNames(
-                    itemIndexActive.val == index && "active",
-                    isOptionSelected(selectedState)(option) && "selected"
-                  ),
+                class: () => [
+                  itemIndexActive.val == index && "active",
+                  isOptionSelected(selectedState)(option) && "selected",
+                ],
                 onclick: onclickItem({ option, index }),
               },
               Option(option)
@@ -272,12 +270,12 @@ export default function (context, componentOptions = {}) {
     return div(
       {
         ...props,
-        class: classNames(
+        class: [
           "autocomplete",
           className,
           componentOptions?.class,
-          props?.class
-        ),
+          props?.class,
+        ],
       },
       bau.bind({
         deps: [selectedState],

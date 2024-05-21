@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames";
 import button from "@grucloud/bau-ui/button";
 import { Context } from "@grucloud/bau-ui/context";
 
@@ -28,8 +27,7 @@ export default (context: Context) => {
       ),
       p(
         {
-          class: () =>
-            classNames(hideState.val ? "hide" : "", classNameTransition),
+          class: () => [hideState.val ? "hide" : "", classNameTransition],
         },
         "ON"
       )

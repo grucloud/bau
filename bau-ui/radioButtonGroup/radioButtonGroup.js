@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
 import { Colors } from "../constants.js";
 import radioButton from "../radioButton";
@@ -51,15 +50,15 @@ export default function (context, options = {}) {
 
     return div(
       {
-        class: classNames(
+        class: [
           "radioButtonGroup",
           size,
           color,
           variant,
           className,
           options?.class,
-          props?.class
-        ),
+          props?.class,
+        ],
       },
       radios.map(({ value, Label }) =>
         label(

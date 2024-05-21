@@ -1,4 +1,3 @@
-import classNames from "@grucloud/bau-css/classNames.js";
 import { Colors } from "../constants.js";
 
 const sizeToPixel = {
@@ -88,15 +87,15 @@ export default function (context, options = {}) {
         class: {
           deps: [visibility],
           renderProp: () => (visibility) =>
-            classNames(
+            [
               "spinner",
               className,
               color,
               variant,
               visibility == false ? "" : "visibility",
               options?.class,
-              otherProps.class
-            ),
+              otherProps.class,
+            ],
         },
         version: "1.1",
         x: "0px",

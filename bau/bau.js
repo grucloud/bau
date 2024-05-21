@@ -286,7 +286,11 @@ export default function Bau(input) {
           if (k.startsWith("bau")) continue;
           let setter = isSettableProp(name, k, protoOf(element))
             ? (v) => v !== undefined && (element[k] = v)
-            : (v) => element.setAttribute(k, v);
+            : (v) =>
+                element.setAttribute(
+                  k,
+                  Array.isArray(v) ? v.filter((c) => c).join(" ") : v
+                );
           if (v == null) {
           } else if (isState(v)) {
             bind({ deps: [v], render: () => () => (setter(v.val), element) });

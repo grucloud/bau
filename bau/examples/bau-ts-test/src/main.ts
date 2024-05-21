@@ -26,10 +26,6 @@ const {
   pre,
 } = bau.tags;
 
-// const classNames = (...cn: string[]) =>
-//   cn.filter((className) => className).join(" ");
-// Conditional
-
 const TestConditionalTernary = () => {
   const showState = bau.state(true);
   return article(
@@ -764,6 +760,28 @@ const TestAttributeReturnNull = () =>
     //"attributes returns null"
   );
 
+const TestAttributeArray = () => {
+  const cond = true;
+  return section(
+    h1("class property as array"),
+    p(
+      { class: ["myclass", cond && "active"] },
+      "class as array to avoid using a classNames functions"
+    )
+  );
+};
+
+const TestAttributeReturnArray = () => {
+  const cond = true;
+  return section(
+    h1("class property as array"),
+    p(
+      { class: () => ["myclass", cond && "active"] },
+      "class as a function that return an array"
+    )
+  );
+};
+
 const App = ({}) => {
   return div(
     h1("Bau testing with Typescript"),
@@ -827,9 +845,13 @@ const App = ({}) => {
       TestElementObject(),
       TestElementObjectNested()
     ),
-
-    TestAttributeReturnString(),
-    TestAttributeReturnNull()
+    section(
+      h1("Attributes"),
+      TestAttributeReturnString(),
+      TestAttributeReturnNull(),
+      TestAttributeArray(),
+      TestAttributeReturnArray()
+    )
   );
 };
 
