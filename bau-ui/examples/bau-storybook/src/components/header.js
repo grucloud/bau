@@ -104,7 +104,6 @@ export default function (context) {
       ThemeSwitch(),
       Button(
         {
-          class: css``,
           target: "_blank",
           href: "https://github.com/grucloud/bau",
           title: "Bau's Github",
