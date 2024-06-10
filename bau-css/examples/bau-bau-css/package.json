@@ -1,7 +1,7 @@
 {
   "name": "bau-bau-css",
   "description": "Example on how to use bau-css with bau",
-  "version": "0.83.0",
+  "version": "0.84.0",
   "private": true,
   "type": "module",
   "license": "BSD",
