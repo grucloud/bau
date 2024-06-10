@@ -1,7 +1,7 @@
 {
   "name": "bau-kit",
   "description": "Bau.js multi page app starter kit",
-  "version": "0.84.0",
+  "version": "0.84.1",
   "private": true,
   "type": "module",
   "scripts": {

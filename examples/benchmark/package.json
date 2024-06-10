@@ -1,6 +1,6 @@
 {
   "name": "js-framework-benchmark-bau",
-  "version": "0.84.0",
+  "version": "0.84.1",
   "description": "bau demo benchmark",
   "private": true,
   "main": "index.js",
