@@ -1,6 +1,6 @@
 # BauCss
 
-A CSS in JS library in less than [33 lines of code](./bau-css.js).
+A CSS in JS library in less than [35 lines of code](./bau-css.js).
 
 _BauCss_ exports 3 functions: `css`, `keyframes`, and `createGlobalStyles`.
 
