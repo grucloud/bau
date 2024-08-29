@@ -23,8 +23,8 @@ export interface DerivedProp {
   readonly renderProp: (input: { element: HTMLElement }) => PropValue;
 }
 
-declare function RenderItem(
-  item: any,
+declare function RenderItem<T = any>(
+  item: T,
   index?: number
 ): HTMLElement | StatePrimitive;
 
@@ -256,7 +256,7 @@ declare function derive<T>(computed: () => T): ReadonlyState<T>;
 declare function loop<T, TElement extends HTMLElement>(
   stateArray: ReadonlyState<T[]>,
   container: TElement,
-  renderItem: typeof RenderItem
+  renderItem: typeof RenderItem<T>
 ): TElement;
 declare function batch(batchFn: () => void): void;
 
