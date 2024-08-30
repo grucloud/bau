@@ -1,7 +1,7 @@
 {
   "name": "@grucloud/bau-ui",
   "description": "Components library built with Bau",
-  "version": "0.84.3",
+  "version": "0.84.4",
   "type": "module",
   "license": "BSD",
   "keywords": [
@@ -20,7 +20,7 @@
     "directory": "bau-ui"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.84.3",
+    "@grucloud/bau": "^0.84.4",
     "@grucloud/bau-css": "^0.84.3"
   },
   "devDependencies": {

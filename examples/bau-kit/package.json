@@ -1,7 +1,7 @@
 {
   "name": "bau-kit",
   "description": "Bau.js multi page app starter kit",
-  "version": "0.84.3",
+  "version": "0.84.4",
   "private": true,
   "type": "module",
   "scripts": {
@@ -17,10 +17,10 @@
     "vite-plugin-virtual-mpa": "1.11.0"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.84.3",
+    "@grucloud/bau": "^0.84.4",
     "@grucloud/bau-css": "^0.84.3",
-    "@grucloud/bau-router": "^0.84.3",
-    "@grucloud/bau-ui": "^0.84.3",
+    "@grucloud/bau-router": "^0.84.4",
+    "@grucloud/bau-ui": "^0.84.4",
     "rubico": "2.3.5"
   }
 }
