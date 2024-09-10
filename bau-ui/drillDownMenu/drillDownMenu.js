@@ -224,8 +224,11 @@ export default function (context, options = {}) {
   };
 
   const pathFromHref = ({ target }) => {
-    const href = target.closest("a").getAttribute("href");
-    let path = href.replace(baseUrl, "");
+    let path = `${target
+      .closest("a")
+      .pathname.replace(".md", "")
+      .replace(baseUrl, "")}${target.hash}`;
+
     if (!hashBased) {
       path = path.replace(target.hash, "");
     }
@@ -257,7 +260,6 @@ export default function (context, options = {}) {
       const anchor = target.closest("a");
       if (!anchor) return;
       const href = anchor.getAttribute("href");
-
       if (
         href &&
         !href.startsWith("http") &&
