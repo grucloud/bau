@@ -99,10 +99,7 @@ export type Props<TElement extends HTMLElement> = {
 };
 
 export type PropsHTMLElement<TElement extends HTMLElement> = {
-  readonly [key in keyof TElement]?:
-    | PropValue
-    | StateView<PropValue>
-    | BindAttributeFunc<TElement>;
+  readonly [key in keyof TElement as key extends `on${string}` ? key : never]?: TElement[key]
 };
 
 export type PropsLifecycle<TElement extends HTMLElement> = {
@@ -116,10 +113,10 @@ export type PropsLifecycle<TElement extends HTMLElement> = {
 };
 
 export type PropsAll<TElement extends HTMLElement> =
-  | PropsHTMLElement<TElement>
-  | PropsLifecycle<TElement>
+  PropsHTMLElement<TElement> &
+  (PropsLifecycle<TElement>
   | Props<TElement>
-  | ChildDom;
+  | ChildDom);
 
 export type BindElementFunc = (input?: {
   element: HTMLElement;
