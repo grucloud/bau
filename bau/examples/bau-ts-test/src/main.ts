@@ -469,7 +469,7 @@ const TestDerived = () => {
     input({
       placeholder: "Enter username",
       value: inputState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
+      oninput: ({ target }) => target instanceof HTMLInputElement &&
         (inputState.val = target.value),
     }),
     button(
@@ -495,10 +495,10 @@ const TestDerivedSideEffect = () => {
     input({
       placeholder: "Enter username",
       value: inputState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
+      oninput: ({target}) => target instanceof HTMLInputElement &&
         (inputState.val = target.value),
     })
-  );
+  )
 };
 
 const TestDeriveText = () => {
@@ -574,7 +574,7 @@ const TestInputOninput = () => {
     input({
       placeholder: "Enter username",
       value: inputState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
+      oninput: ({ target }) => target instanceof HTMLInputElement &&
         (inputState.val = target.value),
     }),
     button(
@@ -597,7 +597,7 @@ const TestInputSearch = () => {
       type: "search",
       placeholder: "Search...",
       value: inputState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
+      oninput: ({ target }) => target instanceof HTMLInputElement &&
         (inputState.val = target.value),
     }),
     button(
@@ -641,8 +641,8 @@ const TestEventHandlingKeyUp = () => {
     input({
       type: "search",
       size: 25,
-      onkeyup: ({ target, key }: { key: string; target: HTMLInputElement }) => {
-        if (key == "Enter") {
+      onkeyup: ({ target, key }: KeyboardEvent) => {
+        if (key == "Enter" && target instanceof HTMLInputElement) {
           alert(target.value);
         }
       },
@@ -659,7 +659,7 @@ const TestInputCheckboxOninput = () => {
     input({
       type: "checkbox",
       checked: checkedState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
+      oninput: ({ target }) => target instanceof HTMLInputElement &&
         (checkedState.val = target.checked),
     }),
     div("Is checked: ", () => (checkedState.val ? "Checked" : "Not Checked"))
@@ -668,7 +668,7 @@ const TestInputCheckboxOninput = () => {
 
 const TestInputRadio = () => {
   const checkedState = bau.state("one");
-  const oninput = ({ target }: { target: HTMLInputElement }) =>
+  const oninput = ({ target }: Event) => target instanceof HTMLElement &&
     (checkedState.val = target.id);
 
   return article(
@@ -697,7 +697,7 @@ const TestInputRadio = () => {
 const TestSelect = () => {
   const selectState = bau.state("volvo");
 
-  const onchange = ({ target }: { target: HTMLSelectElement }) =>
+  const onchange = ({ target }: Event) => target instanceof HTMLSelectElement &&
     (selectState.val = target.value);
 
   return article(
