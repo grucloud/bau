@@ -53,18 +53,15 @@ type EventListener = (
     | ClipboardEvent
     | CloseEvent
     | CompositionEvent
-    | CustomEvent
     | DeviceMotionEvent
     | DeviceOrientationEvent
     | DragEvent
     | ErrorEvent
-    | FetchEvent
     | FocusEvent
     | FontFaceSetLoadEvent
     | FormDataEvent
     | GamepadEvent
     | HashChangeEvent
-    | HIDInputReportEvent
     | IDBVersionChangeEvent
     | InputEvent
     | KeyboardEvent
@@ -80,7 +77,6 @@ type EventListener = (
     | RTCPeerConnectionIceEvent
     | StorageEvent
     | SubmitEvent
-    | TimeEvent
     | TouchEvent
     | TrackEvent
     | TransitionEvent
