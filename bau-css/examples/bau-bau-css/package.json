@@ -17,21 +17,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "bundle-visualizer": "vite-bundle-visualizer",
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@grucloud/bau": "^0.85.0",
     "@grucloud/bau-css": "^0.85.0"
   },
   "devDependencies": {
-    "@vitest/coverage-c8": "0.32.0",
-    "happy-dom": "9.20.3",
-    "vite": "^5.2.11",
-    "vite-bundle-visualizer": "0.7.0",
-    "vitest": "0.31.4"
+    "vite": "^5.4.5"
   },
   "repository": {
     "type": "git",

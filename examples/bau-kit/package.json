@@ -11,10 +11,10 @@
     "bundle-visualizer": "vite-bundle-visualizer"
   },
   "devDependencies": {
-    "vite": "^5.2.11",
+    "vite": "^5.4.5",
     "vite-bundle-visualizer": "1.2.1",
     "vite-plugin-svg-sprite": "0.5.2",
-    "vite-plugin-virtual-mpa": "1.11.0"
+    "vite-plugin-virtual-mpa": "1.12.1"
   },
   "dependencies": {
     "@grucloud/bau": "^0.85.0",

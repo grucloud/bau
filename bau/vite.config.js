@@ -19,9 +19,5 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         name: "chrome", // browser name is required
       },
     },
-    // pnpm
-    resolve: {
-      preserveSymlinks: true,
-    },
   };
 });
