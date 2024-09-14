@@ -4,6 +4,10 @@
   "version": "0.85.0",
   "type": "module",
   "module": "bau.js",
+  "exports": {
+    ".": "./bau.js",
+    "./bau.js": "./bau.js"
+  },
   "license": "BSD",
   "files": [
     "bau.js",
@@ -24,13 +28,13 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@vitest/browser": "0.32.2",
-    "@vitest/coverage-c8": "0.32.2",
-    "@vitest/utils": "0.32.2",
-    "vite": "^5.2.11",
-    "vite-bundle-visualizer": "0.8.0",
-    "vitest": "0.32.2",
-    "webdriverio": "8.11.2"
+    "@vitest/browser": "2.1.1",
+    "@vitest/coverage-v8": "2.1.1",
+    "@vitest/utils": "2.1.1",
+    "vite": "^5.4.5",
+    "vite-bundle-visualizer": "1.2.1",
+    "vitest": "2.1.1",
+    "webdriverio": "9.0.9"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,4 @@
-import assert from "assert";
-import { beforeEach, describe, it, vi } from "vitest";
+import { beforeEach, describe, it, assert } from "vitest";
 
 import Bau from "../bau";
 
