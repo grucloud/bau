@@ -1,6 +1,6 @@
-# Bau UI Javascript Template
+# FrontendMentor Bento Grid
 
-Minimal example for the Bau UI component library in Javascript.
+Here is the implementation in _Bau.js_ of the [Frontend Mentor Bento Grid code challenge](https://www.frontendmentor.io/challenges/bento-grid-RMydElrlOj)
 
 ## Workflow
 

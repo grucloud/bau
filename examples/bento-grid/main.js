@@ -1,16 +1,22 @@
-import { createContext } from "@grucloud/bau-ui/context";
-import myComponent from "./myComponent";
+import Bau from "@grucloud/bau";
+import BauCss from "@grucloud/bau-css";
+import bentoGrid from "./bentoGrid";
 
-const context = createContext();
+import "./style.css";
+
+const context = {
+  bau: Bau(),
+  ...BauCss(),
+};
 
 const app = (context) => {
   const { bau, css } = context;
-  const { div } = bau.tags;
+  const { main } = bau.tags;
 
-  const MyComponent = myComponent(context);
+  const BentoGrid = bentoGrid(context);
 
   return function () {
-    return div(MyComponent());
+    return main(BentoGrid());
   };
 };
 
