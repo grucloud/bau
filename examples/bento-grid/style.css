@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: "DM Sans", sans-serif;
+  --clr-background: hsl(0, 0%, 95%);
+  --clr-primary-100: hsl(254, 88%, 90%);
+  --clr-primary-500: hsl(256, 67%, 59%);
+  --clr-secondary-100: hsl(31, 66%, 93%);
+  --clr-secondary-500: hsl(39, 100%, 71%);
+  --clr-white: hsl(0, 0%, 100%);
+  --clr-black: hsl(0, 0%, 7%);
+}
+
+body {
+  background-color: var(--clr-background);
+}
+
+main {
+  display: grid;
+  place-items: center;
+}
