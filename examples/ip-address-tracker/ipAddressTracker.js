@@ -50,7 +50,7 @@ export default function (context) {
   const { div, h1, h4, span, input, article, section, form, button, img, p } =
     bau.tags;
 
-  const ipifyState = bau.state(ipifyResponseMock);
+  const ipifyState = bau.state(defaultState);
 
   const locationFull = bau.derive(() => {
     if (ipifyState.val.location.city) {
@@ -131,6 +131,7 @@ export default function (context) {
     .result {
       position: absolute;
       display: flex;
+      justify-content: space-around;
       @media (max-width: 600px) {
         flex-direction: column;
       }
@@ -162,6 +163,9 @@ export default function (context) {
         p {
           font-size: 1.7rem;
           font-weight: 500;
+          &.timezone {
+            white-space: nowrap;
+          }
         }
       }
     }
@@ -249,7 +253,15 @@ export default function (context) {
             p(() => ipifyState.val.ip)
           ),
           section(h4("Location"), p(locationFull)),
-          section(h4("Timezone"), p(timezone)),
+          section(
+            h4("Timezone"),
+            p(
+              {
+                class: "timezone",
+              },
+              timezone
+            )
+          ),
           section(
             h4("ISP"),
             p(() => ipifyState.val.isp)
