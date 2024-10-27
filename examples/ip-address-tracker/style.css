@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: "Rubik", sans-serif;
+  --clr-background: hsl(0, 0%, 95%);
+  --clr-primary-100: hsl(254, 88%, 90%);
+  --clr-primary-500: hsl(256, 67%, 59%);
+  --clr-secondary-100: hsl(31, 66%, 93%);
+  --clr-secondary-500: hsl(39, 100%, 71%);
+  --clr-grey-500: hsl(0, 0%, 59%);
+  --clr-grey-800: hsl(0, 0%, 17%);
+  --clr-white: hsl(0, 0%, 100%);
+  --clr-black: hsl(0, 0%, 7%);
+}
+
+body {
+  background-color: var(--clr-background);
+}
+
+main {
+}

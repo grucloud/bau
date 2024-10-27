@@ -1,6 +1,6 @@
 # FrontendMentor Bento Grid
 
-Here is the implementation in _Bau.js_ of the [Frontend Mentor Bento Grid code challenge](https://www.frontendmentor.io/challenges/bento-grid-RMydElrlOj)
+Here is the implementation in [Bau.js](https://github.com/grucloud/bau) of the [Frontend Mentor Bento Grid code challenge](https://www.frontendmentor.io/challenges/bento-grid-RMydElrlOj)
 
 ## Workflow
 
