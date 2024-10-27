@@ -114,7 +114,6 @@ export default function (context, options = {}) {
       apply: (target, thisArg, argArray) => {
         target.apply(thisArg, argArray);
         const url = argArray[2] ?? "";
-        console.log("stepper pushState ", url);
         if (["?", "#"].includes(url[0])) {
           hashchange();
         }
@@ -151,12 +150,10 @@ export default function (context, options = {}) {
         0
       );
       if (nextActiveStep < activeStepIndex.val) {
-        console.log("remove last step");
         stepsCreatedState.val.pop();
       }
 
       if (!stepsCreatedState.val.some(({ name }) => stepNameInitial == name)) {
-        console.log("add new step");
         stepsCreatedState.val.push(stepperDefs[nextActiveStep]);
       }
       activeStepIndex.val = nextActiveStep;
