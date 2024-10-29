@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Montserrat:wght@500;700&display=swap");
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --btn-and-current-price-color: hsl(158, 36%, 37%);
+  --product-title-color: hsl(212, 21%, 14%);
+  --paragraph-color: hsl(228, 12%, 48%);
+  --card-color: hsl(0, 0%, 100%);
+  --hover-color: hsl(157, 46%, 17%);
+}
+
+body {
+  --background-color: hsl(30, 38%, 92%);
+  font-family: "Montserrat", sans-serif;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  display: grid;
+  place-items: center;
+
+  @media (max-width: 600px) {
+  }
+}
