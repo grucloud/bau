@@ -1,6 +1,8 @@
 import { type Context } from "@grucloud/bau-ui/context";
 import data from "./data.json";
 
+const score = 76;
+
 export default function (context: Context) {
   const { bau, css } = context;
   const { h1, h2, div, p, article, section, button, ul, li, span, img } =
@@ -140,6 +142,17 @@ export default function (context: Context) {
     }
   `;
 
+  const scoreState = bau.state(score);
+
+  var count = 0;
+  var interval = setInterval(() => {
+    count++;
+    scoreState.val = count;
+    if (count >= score) {
+      clearInterval(interval);
+    }
+  }, 5);
+
   return function resultSummary() {
     return article(
       { class: className },
@@ -149,7 +162,7 @@ export default function (context: Context) {
 
         div(
           { class: "score-container" },
-          div({ class: "score" }, "76"),
+          div({ class: "score" }, scoreState),
           div({ class: "score-total" }, "of 100")
         ),
         h2("Great"),
