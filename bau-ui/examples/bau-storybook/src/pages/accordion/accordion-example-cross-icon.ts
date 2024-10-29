@@ -14,14 +14,29 @@ export default (context: Context) => {
       &.accordion {
         & ul {
           & li {
-            & h3 {
-              &::after {
-                content: "\u002B";
+            .header {
+              justify-content: space-between;
+              &.close::before {
+                content: none;
+                width: 0;
               }
-            }
-            & h3.active {
+              &.open::before {
+                content: "";
+                width: 0;
+              }
               &::after {
-                transform: rotate(45deg);
+                padding: 0.5rem;
+                transition: transform var(--transition-fast) linear;
+                line-height: 1rem;
+              }
+              &.close::after {
+                content: "\u203A";
+                padding: 0.5rem;
+              }
+              &.open::after {
+                content: "\u203A";
+                padding: 0.5rem;
+                transform: rotate(90deg);
               }
             }
           }

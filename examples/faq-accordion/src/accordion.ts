@@ -1,24 +1,9 @@
 import { toPropsAndChildren } from "@grucloud/bau/bau.js";
-import collapsible from "../collapsible";
-import { Colors } from "../constants.js";
+import { Context } from "@grucloud/bau-ui/context";
 
-const colorsToCss = () =>
-  Colors.map(
-    (color) =>
-      `
-& li.plain.${color} h3::after {
-  color: var(--color-${color});
-}
-& li.outline.${color} h3::after {
-  color: var(--color-${color});
-}
-& h3.solid.${color}:hover {
-  filter: brightness(var(--brightness-hover-always));
-}
-`
-  ).join("\n");
+import collapsible from "./collapsible";
 
-export default function (context, options = {}) {
+export default function (context: Context, options = {}) {
   const { bau, css } = context;
   const { div, ul, li, h3, button } = bau.tags;
 
@@ -33,14 +18,11 @@ export default function (context, options = {}) {
         display: flex;
         flex-direction: column;
         padding: 0 0.5rem;
-        margin: 0.2rem;
+        margin: 0.6rem;
         overflow: hidden;
         border-radius: var(--global-radius);
         transition: all var(--transition-slow) ease-out;
         background-color: inherit;
-        &:hover.solid {
-          filter: brightness(var(--brightness-hover-always)) !important;
-        }
         &:hover {
           filter: brightness(var(--brightness-hover));
         }
@@ -55,6 +37,7 @@ export default function (context, options = {}) {
             background-color: inherit;
             text-align: left;
             font-size: large;
+            font-weight: bold;
             cursor: pointer;
             color: inherit;
           }
@@ -64,25 +47,16 @@ export default function (context, options = {}) {
         }
       }
     }
-    ${colorsToCss()}
   `;
 
   return function Accordion(...args) {
-    let [
-      {
-        size = options.size ?? "md",
-        variant = options.variant ?? "plain",
-        color = options.color ?? "neutral",
-        data = [],
-        ...props
-      },
-    ] = toPropsAndChildren(args);
+    let [{ data = [], ...props }] = toPropsAndChildren(args);
 
     const itemNameState = bau.state("");
 
-    const Collapsible = collapsible(context, { size, variant, color });
+    const Collapsible = collapsible(context, {});
 
-    const onclick = (name) => (event) => {
+    const onclick = (name: string) => () => {
       if (itemNameState.val == name) {
         itemNameState.val = "";
       } else {
@@ -101,7 +75,7 @@ export default function (context, options = {}) {
             {
               type: "button",
               "aria-controls": `bau-${name}`,
-              "aria-expanded": ({ element }) => itemNameState.val == name,
+              "aria-expanded": () => itemNameState.val == name,
             },
             Header(item)
           )
@@ -111,7 +85,7 @@ export default function (context, options = {}) {
         div(
           {
             id: `bau-${name}`,
-            "data-state": ({ element }) => {
+            "data-state": () => {
               const open = itemNameState.val == name;
               return open;
             },
@@ -121,7 +95,6 @@ export default function (context, options = {}) {
 
       return li(
         {
-          class: [color, variant, size],
           onclick: onclick(name),
         },
         Collapsible({ Header: AccordionHeader, Content: AccordionContent })
@@ -129,7 +102,7 @@ export default function (context, options = {}) {
     };
     return div(
       {
-        class: ["accordion", className, options?.class, props.class],
+        class: ["accordion", className, props.class],
       },
       ul(data.map(AccordionItem))
     );

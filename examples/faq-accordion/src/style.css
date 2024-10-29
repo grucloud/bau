@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap");
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --White: hsl(0, 0%, 100%);
+  --Light-pink: hsl(275, 100%, 97%);
+  --pink: hsl(281, 83%, 54%);
+  --Grayish-purple: hsl(292, 16%, 49%);
+  --Dark-purple: hsl(292, 42%, 14%);
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background-repeat: no-repeat;
+  background-image: url(./assets/images/background-pattern-desktop.svg);
+  background-color: hsl(275, 100%, 97%);
+
+  @media (max-width: 375px) {
+    background-image: url(./assets/images/background-pattern-mobile.svg);
+  }
+}
