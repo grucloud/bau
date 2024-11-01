@@ -1,0 +1,21 @@
+{
+  "name": "frontendmentor-product-list-cart",
+  "private": true,
+  "version": "0.85.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.2",
+    "vite": "^5.2.11"
+  },
+  "dependencies": {
+    "@grucloud/bau": "^0.85.0",
+    "@grucloud/bau-css": "^0.85.0",
+    "@grucloud/bau-ui": "^0.85.0",
+    "bignumber.js": "9.1.2"
+  }
+}
