@@ -32,6 +32,21 @@ export default function (context, options = {}) {
     min-width: 400px;
     border: 0px;
     overflow: hidden;
+
+    &,
+    &::backdrop {
+      transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete,
+        opacity 0.3s;
+      opacity: 0;
+    }
+    &[open],
+    &[open]::backdrop {
+      opacity: 1;
+      @starting-style {
+        opacity: 0;
+      }
+    }
+
     > form {
       display: flex;
       flex-direction: column;

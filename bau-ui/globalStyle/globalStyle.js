@@ -98,12 +98,7 @@ export default function globalStyle(
       margin: 0;
       padding: 0;
     }
-    h1,h2,h3,p {
-      margin:0.3rem 0;
-    }
-    ul,ol {
-      padding-left:1.3rem
-    }
+   
     :root {
       --color-scheme: light;
       --contrast-background-value: 90%;
