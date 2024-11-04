@@ -38,10 +38,10 @@ export default function (context: Context) {
       grid-template-columns: 1fr;
     }
     > section {
-      padding: 1rem;
     }
 
     .calculator-form {
+      padding: 1rem;
       background-color: var(--white);
       header {
         display: flex;
@@ -49,7 +49,7 @@ export default function (context: Context) {
         button {
           text-decoration: underline;
           background: none;
-          color: var(--grey-500);
+          color: var(--grey-700);
         }
       }
       form {
@@ -66,11 +66,17 @@ export default function (context: Context) {
         }
       }
     }
+    .result-container {
+      background-color: var(--white);
+    }
     .result {
+      padding: 1rem;
+
       color: var(--grey-100);
       background-color: var(--grey-900);
-      padding: 1rem;
+      border-bottom-left-radius: 4rem;
       display: flex;
+      height: 100%;
       flex-direction: column;
       gap: 1rem;
       &.no-result {
@@ -83,7 +89,7 @@ export default function (context: Context) {
 
       p,
       span {
-        color: var(--grey-500);
+        color: var(--grey-300);
       }
       .payments {
         background-color: var(--grey-1000);
@@ -252,11 +258,11 @@ export default function (context: Context) {
           button({ type: "submit" }, "Calculate Repayment")
         )
       ),
-      () =>
+      section({ class: "result-container" }, () =>
         monthlyRepaymentState.val == ""
           ? section(
               { class: "result no-result" },
-              img({ src: "./assets/images/illustration-empty.svg" }),
+              img({ src: "./assets/images/illustration-empty.svg", alt: "" }),
               h1("Results shown here"),
               p(
                 "Complete the form and click “calculate repayments” to see what your monthly repayments would be."
@@ -283,6 +289,7 @@ export default function (context: Context) {
                 )
               )
             )
+      )
     );
   };
 }
