@@ -4,7 +4,7 @@ import BN from "bignumber.js";
 import data from "./data.json";
 
 const locale = "en-US";
-const currency = "EUR";
+const currency = "USD";
 
 const formatCurrency = (number: number) =>
   new Intl.NumberFormat(locale, { style: "currency", currency }).format(number);
