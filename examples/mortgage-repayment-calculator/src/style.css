@@ -1,0 +1,120 @@
+/**@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Montserrat:wght@500;700&display=swap");**/
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /** Primary **/
+  --primary: hsl(61, 70%, 52%);
+  --primary-200: hsl(61, 70%, 92%);
+
+  --danger: hsl(4, 69%, 50%);
+
+  /** Neutral **/
+
+  --white: hsl(0, 0%, 100%);
+  --grey-100: hsl(202, 86%, 94%);
+  --grey-300: hsl(203, 41%, 72%);
+  --grey-500: hsl(200, 26%, 54%);
+  --grey-700: hsl(200, 24%, 40%);
+  --grey-900: hsl(202, 55%, 16%);
+  --grey-1000: hsl(202, 55%, 8%);
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  padding: 0.7rem;
+  font-weight: 600;
+}
+
+button[type="submit"] {
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  color: var(--grey-900);
+  background-color: var(--primary);
+}
+
+label {
+  color: var(--grey-500);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  line-height: 2rem;
+}
+
+label:has(> input[type="radio"]) {
+  cursor: pointer;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--grey-500);
+  font-weight: 600;
+  font-size: 0.9rem;
+  &:hover {
+    border-color: var(--grey-900);
+  }
+}
+
+label:has(> input[type="radio"]:checked) {
+  background-color: var(--primary-200);
+}
+
+input[type="radio"] {
+  accent-color: var(--primary);
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--grey-700);
+  border-radius: 0.5rem;
+  border: 1px solid var(--grey-500);
+}
+
+.input-unit {
+  display: flex;
+  outline: 1px solid var(--grey-500);
+  border-radius: 0.3rem;
+  overflow: hidden;
+  &:focus-within {
+    outline: 2px solid var(--primary);
+    > span {
+      background-color: var(--primary);
+    }
+  }
+  &:has(input[type="number"]:user-invalid) {
+    outline: 2px solid var(--danger);
+    span {
+      color: white;
+      background-color: var(--danger);
+    }
+  }
+
+  > span {
+    padding-inline: 0.8rem;
+    text-align: center;
+    background-color: var(--grey-100);
+  }
+  > input {
+    border: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+body {
+  background-color: var(--grey-100);
+  font-family: "Montserrat", sans-serif;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  @media (max-width: 600px) {
+    place-items: flex-start;
+  }
+}
