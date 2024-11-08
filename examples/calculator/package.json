@@ -1,12 +1,13 @@
 {
-  "name": "frontendmentor-contact-form",
+  "name": "frontendmentor-mortgage-repayment-calculator",
   "private": true,
   "version": "0.85.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "devDependencies": {
     "typescript": "^5.0.2",
@@ -16,6 +17,7 @@
     "@grucloud/bau": "^0.85.0",
     "@grucloud/bau-css": "^0.85.0",
     "@grucloud/bau-ui": "^0.85.0",
-    "bignumber.js": "9.1.2"
+    "bignumber.js": "9.1.2",
+    "vitest": "2.1.4"
   }
 }
