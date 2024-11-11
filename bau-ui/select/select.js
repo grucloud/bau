@@ -10,8 +10,11 @@ const colorsToCss = () =>
   Colors.map(
     (color) =>
       `
+& button.plain {
+  color: var(--font-color-secondary);
+}
 & button.plain.${color}::after {
-  color: var(--color-${color});
+  color: var(--font-color-secondary);
 }
 & button.outline.${color}::after {
   color: var(--color-${color});
@@ -31,8 +34,17 @@ export default function (context, componentOptions = {}) {
       width: 0;
       height: 0;
       opacity: 0;
+      border: 0;
+    }
+    dialog {
+      outline: none;
     }
     & button {
+      &.lg {
+        padding: 0.8rem;
+      }
+      box-shadow: var(--shadow-s);
+
       &::after {
         content: "\u25BC";
       }
@@ -103,6 +115,9 @@ export default function (context, componentOptions = {}) {
       };
 
     const onkeydown = (event) => {
+      if (!popoverEl.open) {
+        return;
+      }
       event.preventDefault();
       switch (event.key) {
         case "Escape":
@@ -126,6 +141,7 @@ export default function (context, componentOptions = {}) {
           if (popoverEl.open) {
             inputState.val = getOptionLabel(options[itemIndexActive.val]);
             selectEl.value = getOptionValue(option);
+            onSelect(options[itemIndexActive.val]);
             dialogClose();
           } else {
             dialogOpen();
@@ -175,7 +191,7 @@ export default function (context, componentOptions = {}) {
     });
     // Hidden select, required to save the value.
     const selectEl = select(
-      { ...props, "aria-label": label },
+      { ...props, "aria-label": label, tabindex: "-1" },
       option({ value: "" }, "--Select Category--"),
       options.map((opt) =>
         option({ value: getOptionValue(opt) }, getOptionLabel(opt))
