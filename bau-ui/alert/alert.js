@@ -7,8 +7,8 @@ const severityMap = {
   danger: "\u26A0",
   warning: "\u26A0",
   success: "\u2714",
-  primary: "\u2139",
-  neutral: "\u2139",
+  primary: "\u24D8",
+  neutral: "\u24D8",
 };
 
 const colorsToCss = () =>
@@ -16,25 +16,17 @@ const colorsToCss = () =>
     (color) =>
       `
 &.alert {
-  &.sm {
-    & .icon {
-      font-size: 1.3rem;
-    }
-  }
-  &.lg {
-    & .icon {
-      font-size: 2.5rem;
-    }
-  }
   &.plain.${color} {
     & .icon {
-      color: var(--color-${color})
+      color: var(--color-${color});
+      
     }
   }
   &.outline.${color} {
     & .icon {
-      color: var(--color-${color})
+      color: var(--color-${color});
     }
+    border: 2px solid var(--color-${color});
   }
 }
   `
@@ -42,16 +34,26 @@ const colorsToCss = () =>
 
 export default function (context, options = {}) {
   const { bau, css } = context;
-  const { div, i } = bau.tags;
+  const { div, span } = bau.tags;
 
   const className = css`
-    display: flex;
+    display: inline-flex;
     max-width: 600px;
     justify-content: flex-start;
     align-items: center;
     font-weight: var(--font-weight-semibold);
     box-shadow: var(--shadow-m);
     border-radius: var(--global-radius);
+    &.sm {
+      & .icon {
+        font-size: 1.3rem;
+      }
+    }
+    &.lg {
+      & .icon {
+        font-size: 2.5rem;
+      }
+    }
     & .icon {
       padding: 0 0.5rem;
       font-size: 2rem;
@@ -108,7 +110,7 @@ export default function (context, options = {}) {
         ],
         role: "alert",
       },
-      i({ class: "icon" }, severityMap[color]),
+      span({ class: "icon" }, severityMap[color]),
       div({ class: "content" }, ...children),
       onRemove && CloseIcon({ onclick: onRemove })
     );
