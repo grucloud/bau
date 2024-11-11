@@ -1,14 +1,17 @@
 {
   "name": "frontendmentor-rest-countries",
+  "homepage": "https://grucloud.github.io/bau/frontendmentor/rest-countries/",
   "private": true,
   "version": "0.86.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d ../../dist"
   },
   "devDependencies": {
+    "gh-pages": "6.1.1",
     "typescript": "^5.0.2",
     "vite": "^5.2.11"
   },

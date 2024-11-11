@@ -5,12 +5,15 @@ import { layoutDefault } from "./layoutDefault";
 import { createRoutes } from "./routes";
 import "./style.css";
 
-const context = createContext();
+const config = { base: "/bau/frontendmentor/rest-countries" };
+
+const context = createContext({ config });
 
 BauRouter({
   routes: createRoutes({ context }),
   onLocationChange: onLocationChange({
     context,
+    config,
     LayoutDefault: layoutDefault(context),
   }),
   //notFoundRoute: notFoundRouteDefault(context),
