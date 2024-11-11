@@ -43,7 +43,7 @@ export default function (context, options = {}) {
 
   const className = css`
     position: relative;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     border-radius: var(--global-radius);

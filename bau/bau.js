@@ -72,7 +72,8 @@ export default function Bau(input) {
         }
       }
     }
-    updateDerive(state);
+
+    _window.requestAnimationFrame(() => updateDerive(state));
     bindingCleanUp();
   };
 

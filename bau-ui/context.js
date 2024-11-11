@@ -5,7 +5,7 @@ import globalStyle from "./globalStyle";
 
 export function createContext(extra) {
   const bau = Bau();
-  const bauCss = BauCss();
+  const bauCss = BauCss({ target: window.document.getElementById("bau-css") });
   globalStyle(bauCss);
   return {
     bau,
