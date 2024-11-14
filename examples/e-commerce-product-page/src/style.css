@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700;800&display=swap");
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary-h: 26;
+  --color-primary-base-s: 100%;
+  --color-primary-l: 55%;
+
+  --color-neutral-h: 219;
+  --color-neutral-base-s: 9%;
+  --color-neutral-l: 45%;
+
+  --background-color: #fafafa;
+  --font-size: 1rem;
+  --font-color-secondary: #68707d;
+  --color-gray-50: hsl(0, 0%, 95%);
+}
+
+html[data-theme="dark"] {
+  --background-color: #202c37;
+}
+
+body {
+  font-family: "Kumbh Sans", sans-serif;
+  max-width: 100vw;
+  background-color: var(--background-color);
+  font-size: var(--font-size);
+}
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+button[type="submit"] {
+  cursor: pointer;
+  width: 100%;
+  background-color: var(--color-primary);
+  color: inherit;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+button[role="close"] {
+  outline: none;
+  font-size: large;
+  color: transparent;
+  transition: all 0.3s;
+  text-shadow: 0 0 0 var(--color-emphasis-100);
+  &:hover {
+    text-shadow: 0 0 0 var(--color-primary);
+  }
+}
+
+dialog {
+  z-index: 10;
+  border: none;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+dialog,
+dialog::backdrop {
+  transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete,
+    opacity 0.3s;
+  opacity: 0;
+}
+
+dialog[open],
+dialog[open]::backdrop {
+  opacity: 1;
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.badge {
+  display: block;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transform: translate(100%, -50%);
+  border-radius: 1rem;
+  min-width: 1rem;
+  min-height: 1rem;
+  padding-inline: 0.3rem;
+  &.solid {
+    background-color: var(--color-primary);
+  }
+}

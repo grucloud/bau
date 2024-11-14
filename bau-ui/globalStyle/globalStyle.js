@@ -11,7 +11,7 @@ const ColorPaletteDefault = [
 const SHADES_LIGHT = [
   ["light", "1.15"],
   ["lighter", "1.3"],
-  ["lightest", "1.5"],
+  ["lightest", "1.7"],
 ];
 const SHADES_DARK = [
   ["dark", "0.9"],
@@ -117,6 +117,7 @@ export default function globalStyle(
       --background-color: var(--color-white);
       --global-border-width: 1px;
       --global-radius: 0.2rem;
+      --font-color: var(--color-content);
       --font-color-base: var(--color-content);
       --font-color-disabled: var(--color-emphasis-600);
       --font-color-inverse: var(--color-content-inverse);
