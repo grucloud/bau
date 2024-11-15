@@ -15,7 +15,6 @@ const {
   span,
   input,
   h1,
-  h2,
   p,
   article,
   label,
