@@ -4,6 +4,7 @@ let isFunction = (obj) => getType(obj) == "Function";
 let isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
 let protoOf = Object.getPrototypeOf;
 let toVal = (state) => (isState(state) ? state.val : state);
+let toArray = (el) => (Array.isArray(el) ? el : [el]);
 let isState = (state) => state?.__isState;
 let METHODS = ["splice", "push", "pop", "shift", "unshift", "sort", "reverse"];
 
@@ -37,7 +38,10 @@ export default function Bau(input) {
     if (!_debounce) {
       _debounce = _window.requestAnimationFrame(() => {
         stateSet.forEach((state) => {
-          state.bindings = state.bindings.filter((b) => b.element?.isConnected);
+          state.bindings = state.bindings.filter(
+            ({ element }) =>
+              (Array.isArray(element) ? element[0] : element)?.isConnected
+          );
           !state.bindings.length && !state.computed && stateSet.delete(state);
         });
         _debounce = undefined;
@@ -68,7 +72,21 @@ export default function Bau(input) {
             })
           : render({ element, renderItem })(...deps.map(toVal));
         if (newElement !== element) {
-          element.replaceWith((binding.element = toDom(newElement)));
+          let newEls = toArray((binding.element = toDom(newElement)));
+          let oldEls = toArray(element);
+          let i = 0;
+          for (; i < oldEls.length && i < newEls.length; i++) {
+            oldEls[i].replaceWith(toDom(newEls[i]));
+          }
+          let newI = i;
+          while (newEls.length > newI) {
+            newEls[newI - 1].after(newEls[newI]);
+            newI++;
+          }
+          while (oldEls.length > i) {
+            oldEls[i].remove();
+            i++;
+          }
         }
       }
     }
@@ -205,6 +223,8 @@ export default function Bau(input) {
       return spanEl;
     } else if (v.nodeType) {
       return v;
+    } else if (Array.isArray(v)) {
+      return v.map(toDom);
     } else {
       return document.createTextNode(v);
     }
@@ -230,20 +250,27 @@ export default function Bau(input) {
     }
   };
 
-  let add = (element, ...children) => {
-    if (children.length) {
-      let childrenDom = [];
-      for (let child of children.flat(Infinity))
-        child != null &&
-          childrenDom.push(
-            isState(child)
-              ? bind({ deps: [child], render: () => (v) => v })
-              : isFunction(child)
-              ? bindInferred({ renderInferred: child })
-              : toDom(child)
-          );
-      element.append(...childrenDom);
+  let _add = (childrenDom, children = []) => {
+    for (let child of children) {
+      if (Array.isArray(child)) {
+        _add(childrenDom, child);
+      } else if (child != null) {
+        const newChild = isState(child)
+          ? bind({ deps: [child], render: () => (v) => v })
+          : isFunction(child)
+          ? bindInferred({ renderInferred: child })
+          : toDom(child);
+        Array.isArray(newChild)
+          ? childrenDom.push(...newChild)
+          : childrenDom.push(newChild);
+      }
     }
+  };
+
+  let add = (element, ...children) => {
+    let childrenDom = [];
+    _add(childrenDom, children);
+    element.append(...childrenDom);
   };
 
   let isSettablePropCache = {};
