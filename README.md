@@ -2,7 +2,7 @@
 
 A Javascript library to write reactive user interface for the web under 350 lines of code.
 
-No JSX, no templating, no virtual DOM, just a simple way to write UI components using Javascript.
+No JSX, no templating, no virtual DOM, no compiler, just a simple way to write UI components using Javascript.
 
 Bau is reactive, data mutation drives the various views binded to this data. When the data is modified, the mutation is intercepted via carefully crafted Javascript proxies, and the DOM is updated accordingly.
 
