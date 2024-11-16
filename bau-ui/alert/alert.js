@@ -92,7 +92,7 @@ export default function (context, options = {}) {
         onRemove,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     return div(
@@ -111,7 +111,7 @@ export default function (context, options = {}) {
         role: "alert",
       },
       span({ class: "icon" }, severityMap[color]),
-      div({ class: "content" }, ...children),
+      div({ class: "content" }, children),
       onRemove && CloseIcon({ onclick: onRemove })
     );
   };

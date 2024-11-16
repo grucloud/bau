@@ -34,7 +34,7 @@ export default function (context, componentOptions = {}) {
         items,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     const itemIndexActive = bau.state(0);

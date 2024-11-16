@@ -34,7 +34,7 @@ export default function (context, options = {}) {
         content,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
     return span(
       {
@@ -42,7 +42,7 @@ export default function (context, options = {}) {
         class: ["badge", className, options?.class, props?.class],
       },
       span({ class: [color, variant, size] }, content),
-      ...children
+      children
     );
   };
 }

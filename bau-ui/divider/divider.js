@@ -28,14 +28,14 @@ export default function (context, options = {}) {
         color = options.color ?? "neutral",
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
     return div(
       {
         ...props,
         class: ["divider", size, className, options?.class, props?.class],
       },
-      div({ class: "content" }, ...children)
+      div({ class: "content" }, children)
     );
   };
 }

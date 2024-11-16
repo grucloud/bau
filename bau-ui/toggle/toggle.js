@@ -73,7 +73,7 @@ export default function (context, options = {}) {
         onclick,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     return button(

@@ -28,7 +28,7 @@ export default (context: Context) => {
           }
         `,
       },
-      ...children
+      children
     );
 
   return () => {

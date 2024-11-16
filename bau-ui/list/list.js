@@ -42,7 +42,7 @@ export default function (context, options = {}) {
         color = options.color ?? "neutral",
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
     return ul(
       {
@@ -57,7 +57,7 @@ export default function (context, options = {}) {
           props?.class.join(" "),
         ],
       },
-      ...children
+      children
     );
   };
 }

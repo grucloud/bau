@@ -36,7 +36,7 @@ export default function (context) {
             gap: 1rem;
           `,
         },
-        ...children
+        children
       )
     );
 

@@ -59,13 +59,13 @@ export default function (context, options) {
   `;
 
   return function TableContainer(...args) {
-    let [{ ...props }, ...children] = toPropsAndChildren(args);
+    let [props, children] = toPropsAndChildren(args);
     return div(
       {
         ...props,
         class: ["table-container", className, options?.class, props?.class],
       },
-      ...children
+      children
     );
   };
 }

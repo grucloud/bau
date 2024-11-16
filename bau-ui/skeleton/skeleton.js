@@ -43,14 +43,14 @@ export default function (context, options = {}) {
         color = options.color ?? "neutral",
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
     return div(
       {
         ...props,
         class: ["skeleton", size, className, options?.class, props?.class],
       },
-      ...children
+      children
     );
   };
 }

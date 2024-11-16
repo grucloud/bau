@@ -39,7 +39,7 @@ export default function (context, options = {}) {
     `,
   };
 
-  return function FileInput(props, ...children) {
+  return function FileInput(props) {
     const {
       size = options.size ?? "md",
       variant = options.variant ?? "outline",

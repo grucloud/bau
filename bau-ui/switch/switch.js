@@ -115,7 +115,7 @@ export default function (context, options = {}) {
         color = options.color ?? "neutral",
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
     return input(
       {
@@ -131,7 +131,7 @@ export default function (context, options = {}) {
         ],
         type: "checkbox",
       },
-      ...children
+      children
     );
   };
 }

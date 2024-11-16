@@ -48,7 +48,7 @@ export default function (context, options = {}) {
         items,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
     return ul(
       {

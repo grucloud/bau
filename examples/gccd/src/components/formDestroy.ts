@@ -17,7 +17,7 @@ export default function (context: Context) {
   `;
 
   return function FormDestroy(...args: any[]) {
-    let [props, ...children] = toPropsAndChildren(args);
+    let [props, children] = toPropsAndChildren(args);
     return Form(
       {
         class: className,

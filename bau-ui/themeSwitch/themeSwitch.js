@@ -101,7 +101,7 @@ export default function (context, options = {}) {
         color = options.color ?? "neutral",
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     return input(
@@ -125,7 +125,7 @@ export default function (context, options = {}) {
           setDataThemeAttribute(event.target.checked ? "dark" : "light");
         },
       },
-      ...children
+      children
     );
   };
 }

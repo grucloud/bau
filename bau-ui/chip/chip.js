@@ -38,7 +38,7 @@ export default function (context, options = {}) {
         onclick,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     return span(
@@ -56,7 +56,7 @@ export default function (context, options = {}) {
           props.class,
         ],
       },
-      ...children
+      children
     );
   };
 }

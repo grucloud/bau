@@ -91,7 +91,7 @@ export default function (context, options = {}) {
         href,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     const tagButton = href ? bau.tags.a : bau.tags.button;
