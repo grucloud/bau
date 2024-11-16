@@ -8,14 +8,10 @@ let toArray = (el) => (Array.isArray(el) ? el : [el]);
 let isState = (state) => state?.__isState;
 let METHODS = ["splice", "push", "pop", "shift", "unshift", "sort", "reverse"];
 
-let renderChildren = (arr, renderItem) => {
-  const children = new Array(arr.length);
-  for (let i = 0; i < arr.length; i++) children[i] = renderItem(arr[i], i);
-  return children;
-};
-
 export const toPropsAndChildren = (args) =>
-  !isState(args[0]) && isObject(args[0]) ? args : [{}, ...args];
+  !isState(args[0]) && isObject(args[0])
+    ? [args[0], args.slice(1)]
+    : [{}, args];
 
 export default function Bau(input) {
   let _window = input?.window ?? window;
@@ -51,11 +47,12 @@ export default function Bau(input) {
 
   let updateDom = (state, method, result, args, data, parentProp) => {
     if (_inBatch) {
-      _stateSetInBatch.add(state);
+      _stateSetInBatch.add([state, method, result, args, data, parentProp]);
       return;
     }
     for (let binding of state.bindings) {
-      let { deps, element, renderInferred, render, renderItem } = binding;
+      let { deps, element, renderInferred, render, renderItem, isAttribute } =
+        binding;
       if (renderItem && method) {
         methodToActionMapping(
           element,
@@ -71,7 +68,7 @@ export default function Bau(input) {
               element,
             })
           : render({ element, renderItem })(...deps.map(toVal));
-        if (newElement !== element) {
+        if (newElement !== element && !isAttribute) {
           let newEls = toArray((binding.element = toDom(newElement)));
           let oldEls = toArray(element);
           let i = 0;
@@ -138,8 +135,11 @@ export default function Bau(input) {
     data,
     parentProp
   ) => {
-    let replaceChildren = () =>
-      element.replaceChildren(...renderChildren(result, renderDomItem));
+    let replaceChildren = () => {
+      element.textContent = "";
+      for (let i = 0; i < result.length; i++)
+        element.appendChild(renderDomItem(result[i], i));
+    };
     let removeChild = (key) =>
       element[key] && element.removeChild(element[key]);
     return {
@@ -150,13 +150,14 @@ export default function Bau(input) {
         let index = parentProp[0];
         element.children[index]?.replaceWith(renderDomItem(data[index], index));
       },
-      push: () =>
-        element.append(
-          ...renderChildren(args, (item, index) =>
-            renderDomItem(item, data.length + index)
-          )
-        ),
-      unshift: () => element.prepend(...renderChildren(args, renderDomItem)),
+      push: () => {
+        for (let i = 0; i < args.length; i++)
+          element.appendChild(renderDomItem(args[i], data.length + i));
+      },
+      unshift: () => {
+        for (let i = args.length - 1; i >= 0; i--)
+          element.prepend(renderDomItem(args[i]));
+      },
       pop: () => removeChild("lastChild"),
       shift: () => removeChild("firstChild"),
       splice: () => {
@@ -250,27 +251,21 @@ export default function Bau(input) {
     }
   };
 
-  let _add = (childrenDom, children = []) => {
+  let add = (element, children = []) => {
     for (let child of children) {
       if (Array.isArray(child)) {
-        _add(childrenDom, child);
+        add(element, child);
       } else if (child != null) {
         const newChild = isState(child)
           ? bind({ deps: [child], render: () => (v) => v })
           : isFunction(child)
-          ? bindInferred({ renderInferred: child })
+          ? bindInferred(child)
           : toDom(child);
         Array.isArray(newChild)
-          ? childrenDom.push(...newChild)
-          : childrenDom.push(newChild);
+          ? element.append(...newChild)
+          : element.appendChild(newChild);
       }
     }
-  };
-
-  let add = (element, ...children) => {
-    let childrenDom = [];
-    _add(childrenDom, children);
-    element.append(...childrenDom);
   };
 
   let isSettablePropCache = {};
@@ -306,7 +301,7 @@ export default function Bau(input) {
   let tagsNS = (namespace) =>
     new Proxy(
       function createTag(name, ...args) {
-        let [props, ...children] = toPropsAndChildren(args);
+        let [props, children] = toPropsAndChildren(args);
         let element = namespace
           ? document.createElementNS(namespace, name)
           : h(name);
@@ -321,26 +316,30 @@ export default function Bau(input) {
                 );
           if (v == null) {
           } else if (isState(v)) {
-            bind({ deps: [v], render: () => () => (setter(v.val), element) });
+            bind(
+              { deps: [v], render: () => () => (setter(v.val), element) },
+              true
+            );
           } else if (isFunction(v) && (!k.startsWith("on") || v.isDerived)) {
-            bindInferred({
-              renderInferred: () => (setter(v({ element })), element),
-            });
+            bindInferred(() => (setter(v({ element })), element), true);
           } else if (v.renderProp) {
-            bind({
-              deps: v["deps"],
-              render: () => () => (
-                setter(v["renderProp"]({ element })(...v["deps"].map(toVal))),
-                element
-              ),
-            });
+            bind(
+              {
+                deps: v["deps"],
+                render: () => () => (
+                  setter(v["renderProp"]({ element })(...v["deps"].map(toVal))),
+                  element
+                ),
+              },
+              true
+            );
           } else {
             setter(v);
           }
         }
         props.bauChildMutated &&
           observerChildNode(element, props.bauChildMutated);
-        add(element, ...children);
+        add(element, children);
         element.autofocus &&
           element.focus &&
           _window.requestAnimationFrame(() => element.focus());
@@ -358,8 +357,9 @@ export default function Bau(input) {
       }
     );
 
-  let bindFinalize = (binding, deps, newElement) => {
+  let bindFinalize = (binding, deps, newElement, isAttribute) => {
     binding.element = toDom(newElement);
+    binding.isAttribute = isAttribute;
     for (let dep of deps) {
       if (isState(dep)) {
         stateSet.add(dep);
@@ -369,17 +369,18 @@ export default function Bau(input) {
     return binding.element;
   };
 
-  let bindInferred = ({ renderInferred, element }) => {
+  let bindInferred = (renderInferred, isAttribute) => {
     let deps = new Set();
-    let newElement = runAndCaptureDeps(renderInferred, deps, { element });
-    return bindFinalize({ renderInferred }, deps, newElement);
+    let newElement = runAndCaptureDeps(renderInferred, deps, {});
+    return bindFinalize({ renderInferred }, deps, newElement, isAttribute);
   };
 
-  let bind = ({ deps, element, render, renderItem }) =>
+  let bind = ({ deps, element, render, renderItem }, isAttribute) =>
     bindFinalize(
       { deps, render, renderItem },
       deps,
-      render({ element, renderItem })(...deps.map(toVal))
+      render({ element, renderItem })(...deps.map(toVal)),
+      isAttribute
     );
 
   let loop = (stateArray, container, renderItem) =>
@@ -387,9 +388,11 @@ export default function Bau(input) {
       deps: [stateArray],
       render:
         ({ renderItem }) =>
-        (arr) => (
-          container.append(...renderChildren(arr, renderItem)), container
-        ),
+        (arr) => {
+          for (let i = 0; i < arr.length; i++)
+            container.appendChild(renderItem(arr[i], i));
+          return container;
+        },
       renderItem,
     });
 
@@ -397,7 +400,7 @@ export default function Bau(input) {
     _inBatch = true;
     const res = await batchFn();
     _inBatch = false;
-    _stateSetInBatch.forEach(updateDom);
+    _stateSetInBatch.forEach((args) => updateDom(...args));
     _stateSetInBatch.clear();
     return res;
   };
