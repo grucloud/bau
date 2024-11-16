@@ -1,7 +1,7 @@
 {
   "name": "frontendmentor-product-preview-card",
   "private": true,
-  "version": "0.86.0",
+  "version": "0.9.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,8 +13,8 @@
     "vite": "^5.2.11"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.86.0",
-    "@grucloud/bau-css": "^0.86.0",
-    "@grucloud/bau-ui": "^0.86.0"
+    "@grucloud/bau": "^0.9.0",
+    "@grucloud/bau-css": "^0.9.0",
+    "@grucloud/bau-ui": "^0.9.0"
   }
 }
