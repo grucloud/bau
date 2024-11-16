@@ -222,11 +222,11 @@ importers:
   bau/examples/bau-ts-test:
     devDependencies:
       typescript:
-        specifier: 5.4.5
-        version: 5.4.5
+        specifier: 5.6.3
+        version: 5.6.3
       vite:
-        specifier: ^5.2.11
-        version: 5.4.3
+        specifier: ^5.4.11
+        version: 5.4.11
 
   bausaurus:
     dependencies:
@@ -3617,7 +3617,25 @@ packages:
       vite: 5.4.5
     dev: true
 
-  /@vitest/mocker@2.1.4(vite@5.4.5):
+  /@vitest/mocker@2.1.1(@vitest/spy@2.1.1)(vite@5.4.11):
+    resolution: {integrity: sha512-LNN5VwOEdJqCmJ/2XJBywB11DLlkbY0ooDJW3uRX5cZyYCrc4PI/ePX0iQhE3BiEGiQmK4GE7Q/PqCkkaiPnrA==}
+    peerDependencies:
+      '@vitest/spy': 2.1.1
+      msw: ^2.3.5
+      vite: ^5.0.0
+    peerDependenciesMeta:
+      msw:
+        optional: true
+      vite:
+        optional: true
+    dependencies:
+      '@vitest/spy': 2.1.1
+      estree-walker: 3.0.3
+      magic-string: 0.30.11
+      vite: 5.4.11
+    dev: true
+
+  /@vitest/mocker@2.1.4(vite@5.4.11):
     resolution: {integrity: sha512-Ky/O1Lc0QBbutJdW0rqLeFNbuLEyS+mIPiNdlVlp2/yhJ0SbyYqObS5IHdhferJud8MbbwMnexg4jordE5cCoQ==}
     peerDependencies:
       msw: ^2.4.9
@@ -3631,7 +3649,7 @@ packages:
       '@vitest/spy': 2.1.4
       estree-walker: 3.0.3
       magic-string: 0.30.12
-      vite: 5.4.5
+      vite: 5.4.11
     dev: false
 
   /@vitest/pretty-format@2.1.1:
@@ -12579,6 +12597,12 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  /typescript@5.6.3:
+    resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: true
+
   /uglify-js@3.19.3:
     resolution: {integrity: sha512-v3Xu+yuwBXisp6QYTcH4UbH+xYJXqnq2m/LtQVWKWzYc1iehYnLixoQDN9FH6/j9/oybfd6W9Ghwkl8+UMKTKQ==}
     engines: {node: '>=0.8.0'}
@@ -12897,7 +12921,7 @@ packages:
       cac: 6.7.14
       debug: 4.3.7
       pathe: 1.1.2
-      vite: 5.4.5
+      vite: 5.4.11
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -12918,7 +12942,7 @@ packages:
       cac: 6.7.14
       debug: 4.3.7
       pathe: 1.1.2
-      vite: 5.4.5
+      vite: 5.4.11
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -13003,6 +13027,43 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
+  /vite@5.4.11:
+    resolution: {integrity: sha512-c7jFQRklXua0mTzneGW9QVyxFjUgwcihC4bXEtujIo2ouWCe1Ajt/amn2PCxYnhYfd5k09JX3SB7OYWFKYqj8Q==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || >=20.0.0
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      sass-embedded: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.21.5
+      postcss: 8.4.45
+      rollup: 4.21.2
+    optionalDependencies:
+      fsevents: 2.3.3
+
   /vite@5.4.3:
     resolution: {integrity: sha512-IH+nl64eq9lJjFqU+/yrRnrHPVTlgy42/+IzbOdaFDVlyLgI/wDlf+FCobXLX1cT0X5+7LMyH1mIy2xJdLfo8Q==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -13076,6 +13137,7 @@ packages:
       rollup: 4.21.2
     optionalDependencies:
       fsevents: 2.3.3
+    dev: true
 
   /vitefu@0.2.5(vite@4.5.3):
     resolution: {integrity: sha512-SgHtMLoqaeeGnd2evZ849ZbACbnwQCIwRH57t18FxcXoZop0uQu0uzlIhJBlF/eWVzuce0sHeqPcDo+evVcg8Q==}
@@ -13114,7 +13176,7 @@ packages:
     dependencies:
       '@vitest/browser': 2.1.1(@vitest/spy@2.1.1)(vite@5.4.5)(vitest@2.1.1)(webdriverio@9.0.9)
       '@vitest/expect': 2.1.1
-      '@vitest/mocker': 2.1.1(@vitest/spy@2.1.1)(msw@2.4.6)(vite@5.4.5)
+      '@vitest/mocker': 2.1.1(@vitest/spy@2.1.1)(vite@5.4.11)
       '@vitest/pretty-format': 2.1.1
       '@vitest/runner': 2.1.1
       '@vitest/snapshot': 2.1.1
@@ -13129,7 +13191,7 @@ packages:
       tinyexec: 0.3.0
       tinypool: 1.0.1
       tinyrainbow: 1.2.0
-      vite: 5.4.5
+      vite: 5.4.11
       vite-node: 2.1.1
       why-is-node-running: 2.3.0
     transitivePeerDependencies:
@@ -13170,7 +13232,7 @@ packages:
         optional: true
     dependencies:
       '@vitest/expect': 2.1.1
-      '@vitest/mocker': 2.1.1(@vitest/spy@2.1.1)(msw@2.4.6)(vite@5.4.5)
+      '@vitest/mocker': 2.1.1(@vitest/spy@2.1.1)(vite@5.4.11)
       '@vitest/pretty-format': 2.1.1
       '@vitest/runner': 2.1.1
       '@vitest/snapshot': 2.1.1
@@ -13186,7 +13248,7 @@ packages:
       tinyexec: 0.3.0
       tinypool: 1.0.1
       tinyrainbow: 1.2.0
-      vite: 5.4.5
+      vite: 5.4.11
       vite-node: 2.1.1
       why-is-node-running: 2.3.0
     transitivePeerDependencies:
@@ -13227,7 +13289,7 @@ packages:
         optional: true
     dependencies:
       '@vitest/expect': 2.1.4
-      '@vitest/mocker': 2.1.4(vite@5.4.5)
+      '@vitest/mocker': 2.1.4(vite@5.4.11)
       '@vitest/pretty-format': 2.1.4
       '@vitest/runner': 2.1.4
       '@vitest/snapshot': 2.1.4
@@ -13243,7 +13305,7 @@ packages:
       tinyexec: 0.3.1
       tinypool: 1.0.1
       tinyrainbow: 1.2.0
-      vite: 5.4.5
+      vite: 5.4.11
       vite-node: 2.1.4
       why-is-node-running: 2.3.0
     transitivePeerDependencies:
