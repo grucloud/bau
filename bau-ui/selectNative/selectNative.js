@@ -24,7 +24,7 @@ export default function (context, componentOptions = {}) {
         color = componentOptions.color ?? "neutral",
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     return select(

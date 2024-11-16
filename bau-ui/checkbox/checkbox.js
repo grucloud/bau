@@ -72,7 +72,7 @@ export default function (context, options = {}) {
         color = options.color ?? "neutral",
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     return input({

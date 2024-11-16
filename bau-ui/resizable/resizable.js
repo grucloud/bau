@@ -42,7 +42,7 @@ export default function (context, options = {}) {
   `;
 
   function PanelGroup(...args) {
-    let [props, ...children] = toPropsAndChildren(args);
+    let [props, children] = toPropsAndChildren(args);
 
     return section(
       {
@@ -54,7 +54,7 @@ export default function (context, options = {}) {
   }
 
   function Panel(...args) {
-    let [props, ...children] = toPropsAndChildren(args);
+    let [props, children] = toPropsAndChildren(args);
 
     return article(
       {
@@ -66,7 +66,7 @@ export default function (context, options = {}) {
   }
 
   function Handle(...args) {
-    let [props, ...children] = toPropsAndChildren(args);
+    let [props, children] = toPropsAndChildren(args);
 
     // The current position of mouse
     let _x = 0;

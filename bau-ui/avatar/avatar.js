@@ -56,7 +56,7 @@ export default function (context, options = {}) {
         alt,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
     const Skeleton = skeleton(context, {
       class: [

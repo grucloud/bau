@@ -514,6 +514,29 @@ const TestDeriveText = () => {
     )
   );
 };
+const TestDeriveReturnArray = () => {
+  const showState = bau.state(true);
+
+  return article(
+    h1("Derive returns an array of element"),
+    button(
+      {
+        onclick: () => (showState.val = !showState.val),
+      },
+      "TOOGLE"
+    ),
+    p("First element object, second is an array"),
+    div(() => (showState.val ? div("1") : [div("3"), div("4"), "Text node"])),
+    p("First element is an array, second is a smaller array"),
+    div(() =>
+      showState.val ? [div("A"), div("B"), "Text node"] : ["Other Text node"]
+    ),
+    p("First element is an array, second is a object"),
+    div(() =>
+      showState.val ? [div("A"), div("B"), "Text node"] : "Other Text node"
+    )
+  );
+};
 
 const TestButtonClickInline = () => {
   return section(
@@ -823,10 +846,10 @@ const App = ({}) => {
     ),
     section(
       h1("Derive"),
-      //
       TestDerived(),
       TestDerivedSideEffect(),
-      TestDeriveText()
+      TestDeriveText(),
+      TestDeriveReturnArray()
     ),
 
     section(

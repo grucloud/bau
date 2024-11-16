@@ -53,7 +53,7 @@ export default function (context, options = {}) {
         onChange = () => {},
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     const selectedSet = new Set();
@@ -87,7 +87,7 @@ export default function (context, options = {}) {
         ],
         onclick,
       },
-      ...children
+      children
     );
   };
 }

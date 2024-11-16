@@ -68,7 +68,7 @@ export default function (context, componentOptions = {}) {
         loading,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     const Spinner = spinner(context, { variant, color, size });

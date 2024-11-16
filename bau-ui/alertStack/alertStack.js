@@ -45,7 +45,7 @@ export default (context, options = {}) => {
     }
   };
 
-  return function AlertStack(props = {}, ...children) {
+  return function AlertStack(props = {}) {
     const remove = ({ id }) => {
       setStatus({ id, status: "removing" });
       const idx = messagesState.val.findIndex((message) => message.id === id);

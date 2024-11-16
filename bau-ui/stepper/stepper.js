@@ -102,7 +102,7 @@ export default function (context, options = {}) {
         activeStepIndex = bau.state(0),
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
     const stepperState = bau.state(
       stepperDefs.map((stepper, index) => ({ ...stepper, index }))

@@ -57,7 +57,7 @@ export default function (context, options = {}) {
         content,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
     return form(
       {
@@ -72,7 +72,7 @@ export default function (context, options = {}) {
           props?.class,
         ],
       },
-      ...children
+      children
     );
   };
 }

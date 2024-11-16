@@ -13,7 +13,7 @@ const app = ({ bau }) => {
         },
         onclick,
       },
-      ...children
+      children
     );
 
   const colorState = bau.state("green");

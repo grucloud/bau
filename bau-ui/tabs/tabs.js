@@ -89,7 +89,6 @@ export default function (context, options = {}) {
         tabsKey = "tabs",
         ...props
       },
-      ...children
     ] = toPropsAndChildren(args);
 
     const tabsState = bau.state(tabDefs);

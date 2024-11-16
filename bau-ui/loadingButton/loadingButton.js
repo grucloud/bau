@@ -44,7 +44,7 @@ export default function (context, options = {}) {
         loading,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     const Button = button(context);

@@ -48,10 +48,8 @@ export default function (context, options) {
   `;
 
   return function Drawer(...args) {
-    let [
-      { color, variant = "outline", size, openState, ...props },
-      ...children
-    ] = toPropsAndChildren(args);
+    let [{ color, variant = "outline", size, openState, ...props }, children] =
+      toPropsAndChildren(args);
     return div(
       { class: [className, options?.class, props.class] },
       // Overlay

@@ -73,7 +73,7 @@ export default function (context, componentOptions = {}) {
         loading,
         ...props
       },
-      ...children
+      children,
     ] = toPropsAndChildren(args);
 
     const Popover = popover(context);

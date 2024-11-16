@@ -110,5 +110,6 @@ const bau = Bau();
 const { div } = bau.tags;
 ```
 
+- Bau reactive functions can return an array of elements, the equivalent of a React Fragment.
 - Bau promotes only one paradigm: views derive from the state. Van could mix paradigms, imperative and state derived view. The imperative way is when your code directly maniplates the DOM, in the same way as vanilla js and jquery. This style of programming is error prone, therefore, preventing its use makes bau _hard to misuse_
 - Bau supports undefined or null attribute, see [issue 39](https://github.com/vanjs-org/van/pull/39)

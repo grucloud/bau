@@ -69,7 +69,6 @@ export default function (context, options = {}) {
         disableLast = () => isLastPage(page, totalCount, rowsPerPage),
         ...props
       },
-      ...children
     ] = toPropsAndChildren(args);
     const maxPages = Math.max(0, Math.ceil(totalCount / rowsPerPage));
 

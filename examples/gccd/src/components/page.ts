@@ -27,7 +27,7 @@ export default function (context: Context) {
   `;
 
   return function Page(...args: any[]) {
-    let [props, ...children] = toPropsAndChildren(args);
+    let [props, children] = toPropsAndChildren(args);
     return Paper(
       {
         ...props,

@@ -119,7 +119,7 @@ export type PropsAll<TElement extends HTMLElement> =
 
 export type BindElementFunc = (input?: {
   element: HTMLElement;
-}) => HTMLElement | Primitive;
+}) => HTMLElement | Primitive | (HTMLElement | Primitive)[];
 
 export type ChildDom =
   | Primitive
