@@ -1,7 +1,7 @@
 {
   "name": "frontendmentor-calculator",
   "private": true,
-  "version": "0.90.0",
+  "version": "0.91.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,9 +14,9 @@
     "vite": "^5.2.11"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.90.0",
-    "@grucloud/bau-css": "^0.90.0",
-    "@grucloud/bau-ui": "^0.90.0",
+    "@grucloud/bau": "^0.91.0",
+    "@grucloud/bau-css": "^0.91.0",
+    "@grucloud/bau-ui": "^0.91.0",
     "bignumber.js": "9.1.2",
     "vitest": "2.1.4"
   }

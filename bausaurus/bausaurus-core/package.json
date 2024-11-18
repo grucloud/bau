@@ -1,7 +1,7 @@
 {
   "name": "@grucloud/bausaurus-core",
   "description": "core utilities for Bausarus",
-  "version": "0.90.0",
+  "version": "0.91.0",
   "type": "module",
   "license": "BSD",
   "files": [
@@ -18,9 +18,9 @@
   "author": "Frederic Heem",
   "scripts": {},
   "dependencies": {
-    "@grucloud/bau": "^0.90.0",
-    "@grucloud/bau-css": "^0.90.0",
-    "@grucloud/bau-ui": "^0.90.0"
+    "@grucloud/bau": "^0.91.0",
+    "@grucloud/bau-css": "^0.91.0",
+    "@grucloud/bau-ui": "^0.91.0"
   },
   "repository": {
     "type": "git",
