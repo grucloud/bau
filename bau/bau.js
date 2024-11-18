@@ -168,7 +168,13 @@ export default function Bau(input) {
       reverse: replaceChildren,
       setItem: () => {
         let index = parentProp[0];
-        element.children[index]?.replaceWith(renderDomItem(data[index], index));
+        let oldEl = element.children[index];
+        let value = data[index];
+        if (oldEl) {
+          oldEl?.bauUpdate
+            ? oldEl.bauUpdate(oldEl, value)
+            : oldEl.replaceWith(renderDomItem(value, index));
+        }
       },
       push: () => {
         for (let i = 0; i < args.length; i++)
@@ -239,7 +245,7 @@ export default function Bau(input) {
 
   let toDom = (v) => {
     if (v == null || v === false) {
-      const spanEl = h("span");
+      let spanEl = h("span");
       spanEl.style.display = "none";
       return spanEl;
     } else if (v.nodeType) {
@@ -276,7 +282,7 @@ export default function Bau(input) {
       if (Array.isArray(child)) {
         add(element, child);
       } else if (child != null) {
-        const newChild = isState(child)
+        let newChild = isState(child)
           ? bind({ deps: [child], render: () => (v) => v })
           : isFunction(child)
           ? bindInferred(child)
@@ -424,7 +430,7 @@ export default function Bau(input) {
 
   let batch = async (batchFn) => {
     _inBatch = true;
-    const res = await batchFn();
+    let res = await batchFn();
     _inBatch = false;
     _stateSetInBatch.forEach((args) => updateDom(...args));
     _stateSetInBatch.clear();
