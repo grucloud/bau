@@ -136,9 +136,29 @@ export default function Bau(input) {
     parentProp
   ) => {
     let replaceChildren = () => {
-      element.textContent = "";
-      for (let i = 0; i < result.length; i++)
-        element.appendChild(renderDomItem(result[i], i));
+      if (result.length == 0) {
+        element.textContent = "";
+      } else {
+        for (var i = 0; i < result.length && i < element.children.length; i++) {
+          const oldEl = element.children[i];
+          oldEl?.bauUpdate
+            ? oldEl.bauUpdate(oldEl, result[i])
+            : oldEl.replaceWith(renderDomItem(result[i], i));
+        }
+
+        let old = element.children[i];
+        if (old) {
+          while (old) {
+            const next = old.nextSibling;
+            old.remove();
+            old = next;
+          }
+        } else {
+          for (; i < result.length; i++) {
+            element.appendChild(renderDomItem(result[i], i));
+          }
+        }
+      }
     };
     let removeChild = (key) =>
       element[key] && element.removeChild(element[key]);
@@ -306,35 +326,41 @@ export default function Bau(input) {
           ? document.createElementNS(namespace, name)
           : h(name);
         for (let [k, v] of Object.entries(props)) {
-          if (k.startsWith("bau")) continue;
-          let setter = isSettableProp(name, k, protoOf(element))
-            ? (v) => v !== undefined && (element[k] = v)
-            : (v) =>
-                element.setAttribute(
-                  k,
-                  Array.isArray(v) ? v.filter((c) => c).join(" ") : v
-                );
-          if (v == null) {
-          } else if (isState(v)) {
-            bind(
-              { deps: [v], render: () => () => (setter(v.val), element) },
-              true
-            );
-          } else if (isFunction(v) && (!k.startsWith("on") || v.isDerived)) {
-            bindInferred(() => (setter(v({ element })), element), true);
-          } else if (v.renderProp) {
-            bind(
-              {
-                deps: v["deps"],
-                render: () => () => (
-                  setter(v["renderProp"]({ element })(...v["deps"].map(toVal))),
-                  element
-                ),
-              },
-              true
-            );
+          if (k == "bauUpdate") {
+            element[k] = v;
+          } else if (k.startsWith("bau")) {
           } else {
-            setter(v);
+            let setter = isSettableProp(name, k, protoOf(element))
+              ? (v) => v !== undefined && (element[k] = v)
+              : (v) =>
+                  element.setAttribute(
+                    k,
+                    Array.isArray(v) ? v.filter((c) => c).join(" ") : v
+                  );
+            if (v == null) {
+            } else if (isState(v)) {
+              bind(
+                { deps: [v], render: () => () => (setter(v.val), element) },
+                true
+              );
+            } else if (isFunction(v) && (!k.startsWith("on") || v.isDerived)) {
+              bindInferred(() => (setter(v({ element })), element), true);
+            } else if (v.renderProp) {
+              bind(
+                {
+                  deps: v["deps"],
+                  render: () => () => (
+                    setter(
+                      v["renderProp"]({ element })(...v["deps"].map(toVal))
+                    ),
+                    element
+                  ),
+                },
+                true
+              );
+            } else {
+              setter(v);
+            }
           }
         }
         props.bauChildMutated &&
