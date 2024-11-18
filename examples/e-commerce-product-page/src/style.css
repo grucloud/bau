@@ -20,10 +20,6 @@
   --color-gray-50: hsl(0, 0%, 95%);
 }
 
-html[data-theme="dark"] {
-  --background-color: #202c37;
-}
-
 body {
   font-family: "Kumbh Sans", sans-serif;
   max-width: 100vw;
