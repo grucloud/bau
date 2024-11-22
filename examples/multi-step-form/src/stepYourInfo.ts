@@ -2,31 +2,52 @@ import { type Context } from "@grucloud/bau-ui/context";
 
 export default function (context: Context) {
   const { bau, css } = context;
-  const { form, h1, input, label, button } = bau.tags;
+  const { form, h1, input, label, button, p, footer } = bau.tags;
 
   const className = css`
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
+    h1 {
+    }
+    p {
+      font-size: 0.9rem;
+    }
   `;
 
-  return ({ onsubmit }) => {
+  return ({ onsubmit }: any) => {
     return form(
       { class: className, onsubmit },
-      h1("Your Info"),
+      h1("Personal Info"),
+      p("Please provide your name, email address, and phone number."),
       label(
         "Name",
-        input({ name: "name", placeholder: "e.g Stephen King", required: true })
+        input({
+          type: "text",
+          name: "name",
+          placeholder: "e.g Stephen King",
+          required: true,
+        })
       ),
       label(
         "Email Address",
-        input({ type: "email", placeholder: "e.g stephenking@lorem.com" })
+        input({
+          type: "email",
+          required: true,
+          placeholder: "e.g stephenking@lorem.com",
+        })
       ),
       label(
         "Phone Number",
-        input({ name: "phone", placeholder: "e.g. 1234567890" })
+        input({
+          type: "text",
+          required: true,
+          name: "phone",
+          pattern: String.raw`\d*`,
+          minLength: 6,
+          placeholder: "e.g. 1234567890",
+        })
       ),
-      button({ type: "submit" }, "Next")
+      footer(button({ type: "submit" }, "Next"))
     );
   };
 }

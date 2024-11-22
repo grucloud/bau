@@ -139,7 +139,7 @@ type Tags = Readonly<Record<string, TagFunc<Element>>> & {
   [K in keyof HTMLElementTagNameMap]: TagFunc<HTMLElementTagNameMap[K]>;
 };
 
-declare function state<T>(initVal: T): State<T>;
+declare function state<T>(initVal?: T): State<T>;
 declare function tagsNS(namespaceURI: string): Tags;
 declare function bind(input: BindInput): HTMLElement;
 declare function derive<T>(computed: () => T): ReadonlyState<T>;
