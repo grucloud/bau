@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Arcade",
+    "pricePerMonth": "9",
+    "image": "./assets/images/icon-arcade.svg"
+  },
+  {
+    "name": "Advanced",
+    "pricePerMonth": "12",
+    "image": "./assets/images/icon-advanced.svg"
+  },
+  {
+    "name": "Pro",
+    "pricePerMonth": "15",
+    "image": "./assets/images/icon-pro.svg"
+  }
+]

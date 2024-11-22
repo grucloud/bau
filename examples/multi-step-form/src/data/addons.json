@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Online service",
+    "description": "Access to multiplayer games",
+    "pricePerMonth": "1"
+  },
+  {
+    "name": "Larger storage",
+    "description": "Extra 1TB of cloud save",
+    "pricePerMonth": "2"
+  },
+  {
+    "name": "Customizable profile",
+    "description": "Custom theme on your profile",
+    "pricePerMonth": "3"
+  }
+]
