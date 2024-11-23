@@ -7,6 +7,8 @@ const colorsToCss = () =>
 `
   ).join("\n");
 
+// Inspired by https://css-tricks.com/auto-growing-inputs-textareas/#aa-other-ideas
+
 export default function (context, options = {}) {
   const { bau, css } = context;
   const { textarea, div } = bau.tags;
