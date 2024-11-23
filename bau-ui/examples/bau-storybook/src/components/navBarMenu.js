@@ -163,6 +163,13 @@ export default function (context) {
               href: "/components/tableOfContent",
             },
           },
+          {
+            data: {
+              name: "TextareaAutosize",
+              href: "/components/textareaAutosize",
+            },
+          },
+
           { data: { name: "Toggle", href: "/components/toggle" } },
           { data: { name: "Toggle Group", href: "/components/toggleGroup" } },
           { data: { name: "Tooltip", href: "/components/tooltip" } },
