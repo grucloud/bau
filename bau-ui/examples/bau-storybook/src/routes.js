@@ -50,6 +50,7 @@ import tabsExamples from "./pages/tabs/tabs.examples";
 import tableExamples from "./pages/table/table.examples";
 import tableOfContentExamples from "./pages/tableOfContent/tableOfContent.examples";
 import tablePaginationExamples from "./pages/table/tablePagination.examples";
+import textareaAutosizeExamples from "./pages/textareaAutosize/textareaAutosize.examples";
 import toggleExamples from "./pages/toggle/toggle.examples";
 import toggleGroupExamples from "./pages/toggleGroup/toggleGroup.examples";
 import tooltipExamples from "./pages/tooltip/tooltip.examples";
@@ -412,6 +413,13 @@ export const createRoutes = ({ context }) => {
           action: () => ({
             title: "Tabs",
             component: tabsExamples(context),
+          }),
+        },
+        {
+          path: "textareaAutosize",
+          action: () => ({
+            title: "Textarea Autosize",
+            component: textareaAutosizeExamples(context),
           }),
         },
         {
