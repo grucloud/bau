@@ -32,7 +32,7 @@ export default (context: Context) => {
           TextareaAutosize({
             name: "message",
             placeholder: "Enter your message",
-            rows: 3,
+            rows: 2,
             value: messageState,
             onchange: (event: any) => (messageState.val = event.target.value),
           })
