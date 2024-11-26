@@ -211,8 +211,8 @@ export default function Bau(input) {
     };
   };
 
-  let createState = (initVal) => ({
-    oldVal: initVal,
+  let createState = (initVal, { onUpdate } = {}) => ({
+    rawVal: initVal,
     bindings: [],
     listeners: [],
     __isState: true,
@@ -229,17 +229,16 @@ export default function Bau(input) {
     },
     set val(value) {
       let state = this;
-      let currentValue = state.val;
+      let oldVal = state.rawVal;
+      onUpdate?.(oldVal, value);
+      state.rawVal = value;
       if (isArrayOrObject(value)) {
         state.valProxy = createProxy(state, value);
         updateDom(state, "assign", value);
-      } else {
-        if (value !== currentValue) {
-          state.valProxy = value;
-          updateDom(state);
-        }
+      } else if (value !== oldVal) {
+        state.valProxy = value;
+        updateDom(state);
       }
-      state.oldVal = currentValue;
     },
   });
 
