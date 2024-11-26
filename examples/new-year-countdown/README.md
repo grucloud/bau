@@ -1,4 +1,4 @@
-# New Tear Countdown
+# New Year Countdown
 
 The new year countdown inspired from https://github.com/bradtraversy/vanillawebprojects/tree/master/new-year-countdown
 
