@@ -15,6 +15,7 @@ const {
   span,
   input,
   h1,
+  h3,
   p,
   article,
   label,
@@ -514,6 +515,29 @@ const TestDeriveText = () => {
     )
   );
 };
+
+const TestStateOnUpdate = () => {
+  const previousCounterState = bau.state(0);
+
+  const counterState = bau.state(0, {
+    onUpdate: (oldVal, _newVal) => {
+      previousCounterState.val = oldVal;
+    },
+  });
+
+  setInterval(() => {
+    counterState.val++;
+  }, 1e3);
+
+  return article(
+    h1("Counter "),
+    h3("Old Value"),
+    previousCounterState,
+    h3("New Value"),
+    counterState
+  );
+};
+
 const TestDeriveReturnArray = () => {
   const showState = bau.state(true);
 
@@ -808,6 +832,7 @@ const TestAttributeReturnArray = () => {
 const App = ({}) => {
   return div(
     h1("Bau testing with Typescript"),
+
     section(
       section(
         h1("Router"),
@@ -842,7 +867,8 @@ const App = ({}) => {
       TestReactiveClass(),
       TestReactiveStateNumber(),
       TestReactiveStateString(),
-      TestReactiveFunction()
+      TestReactiveFunction(),
+      TestStateOnUpdate()
     ),
     section(
       h1("Derive"),
