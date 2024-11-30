@@ -18,16 +18,21 @@ export default function Bau(input) {
   let { document } = _window;
   let _debounce;
   let stateSet = new Set();
-  let _stateSetInBatch = new Set();
-  let _inBatch = false;
+  let _stateOps = [];
   let _curDeps;
   let h = (tag) => document.createElement(tag);
   let runAndCaptureDeps = (render, deps, arg) => {
     let prevDeps = _curDeps;
     _curDeps = deps;
-    let result = render(arg);
-    _curDeps = prevDeps;
-    return result;
+
+    try {
+      return render(arg);
+    } catch (e) {
+      console.error(e);
+      return arg;
+    } finally {
+      _curDeps = prevDeps;
+    }
   };
 
   let bindingCleanUp = () => {
@@ -44,57 +49,81 @@ export default function Bau(input) {
       });
     }
   };
+  let updateDom = (state, op) => {
+    !_stateOps.length && _window.requestAnimationFrame(processDom);
+    _stateOps.push([state, op]);
+  };
 
-  let updateDom = (state, method, result, args, data, parentProp) => {
-    if (_inBatch) {
-      _stateSetInBatch.add([state, method, result, args, data, parentProp]);
-      return;
-    }
-    for (let binding of state.bindings) {
-      let { deps, element, renderInferred, render, renderItem, isAttribute } =
-        binding;
-      if (renderItem && method) {
-        methodToActionMapping(
-          element,
-          args,
-          (...args) => toDom(renderItem(...args)),
-          result,
-          data,
-          parentProp
-        )[method]?.call();
-      } else {
-        let newElement = renderInferred
-          ? renderInferred({
-              element,
-            })
-          : render({ element, renderItem })(...deps.map(toVal));
-        if (newElement !== element && !isAttribute) {
-          let newEls = toArray((binding.element = toDom(newElement)));
-          let oldEls = toArray(element);
-          let i = 0;
-          for (; i < oldEls.length && i < newEls.length; i++) {
-            oldEls[i].replaceWith(toDom(newEls[i]));
-          }
-          let newI = i;
-          while (newEls.length > newI) {
-            newEls[newI - 1].after(newEls[newI]);
-            newI++;
-          }
-          while (oldEls.length > i) {
-            oldEls[i].remove();
-            i++;
-          }
+  const processDom = () => {
+    let iStart = 0;
+    let iEnd = _stateOps.length;
+    do {
+      for (let listener of new Set(
+        _stateOps.slice(iStart, iEnd).flatMap(([state]) => state.listeners)
+      ))
+        deriveInternal(listener.computed, listener.state);
+      iStart = iEnd;
+      iEnd = _stateOps.length;
+    } while (iStart < iEnd);
+    for (let binding of new Set(
+      _stateOps.flatMap(([state, op]) =>
+        state.bindings.map((b) => ((b.op = op), b))
+      )
+    ))
+      updateBinding(binding);
+    _stateOps = [];
+    bindingCleanUp();
+  };
+
+  let updateBinding = (binding) => {
+    const {
+      deps,
+      element,
+      renderInferred,
+      render,
+      renderItem,
+      isAttribute,
+      op = [],
+    } = binding;
+    const [method, result, args, data, parentProp] = op;
+    if (method && renderItem) {
+      methodToActionMapping(
+        element,
+        args,
+        (...args) => toDom(renderItem(...args)),
+        result,
+        data,
+        parentProp
+      )[method]?.call();
+    } else {
+      let newElement = renderInferred
+        ? renderInferred({
+            element,
+          })
+        : render({ element, renderItem })(...deps.map(toVal));
+      if (newElement !== element && !isAttribute) {
+        let newEls = toArray((binding.element = toDom(newElement)));
+        let oldEls = toArray(element);
+        let i = 0;
+        for (; i < oldEls.length && i < newEls.length; i++) {
+          oldEls[i].replaceWith(toDom(newEls[i]));
+        }
+        let newI = i;
+        while (newEls.length > newI) {
+          newEls[newI - 1].after(newEls[newI]);
+          newI++;
+        }
+        while (oldEls.length > i) {
+          oldEls[i].remove();
+          i++;
         }
       }
     }
-
-    _window.requestAnimationFrame(() => updateDerive(state));
-    bindingCleanUp();
   };
 
   let proxyHandler = (state, data, parentProp = []) => ({
     get(target, prop, receiver) {
-      _curDeps?.add(state);
+      _curDeps?.g?.add(state);
       if (prop === "_isProxy") return true;
       if (
         !target[prop]?._isProxy &&
@@ -109,7 +138,7 @@ export default function Bau(input) {
         let origMethod = target[prop];
         return (...args) => {
           let result = origMethod.apply(target, args);
-          updateDom(state, prop, result, args, data, parentProp);
+          updateDom(state, [prop, result, args, data, parentProp]);
           return result;
         };
       }
@@ -117,9 +146,12 @@ export default function Bau(input) {
     },
     set(target, prop, value, receiver) {
       let result = Reflect.set(target, prop, value, receiver);
-      updateDom(state, "setItem", result, { prop, value }, data, [
-        ...parentProp,
-        prop,
+      updateDom(state, [
+        "setItem",
+        result,
+        { prop, value },
+        data,
+        [...parentProp, prop],
       ]);
       return result;
     },
@@ -211,14 +243,15 @@ export default function Bau(input) {
     };
   };
 
-  let createState = (initVal, { onUpdate } = {}) => ({
+  let createState = (initVal, { onUpdate, name } = {}) => ({
+    name,
     rawVal: initVal,
     bindings: [],
     listeners: [],
     __isState: true,
     get val() {
       let _state = this;
-      _curDeps?.add(_state);
+      _curDeps?.g?.add(_state);
       return (
         _state.valProxy ??
         ((_state.valProxy = isArrayOrObject(initVal)
@@ -230,14 +263,15 @@ export default function Bau(input) {
     set val(value) {
       let state = this;
       let oldVal = state.rawVal;
+      _curDeps?.s?.add(state);
       onUpdate?.(oldVal, value);
       state.rawVal = value;
       if (isArrayOrObject(value)) {
         state.valProxy = createProxy(state, value);
-        updateDom(state, "assign", value);
+        updateDom(state, ["assign", value]);
       } else if (value !== oldVal) {
         state.valProxy = value;
-        updateDom(state);
+        state.bindings.length + state.listeners.length && updateDom(state);
       }
     },
   });
@@ -257,23 +291,25 @@ export default function Bau(input) {
   };
 
   let deriveInternal = (computed, state) => {
-    let deps = new Set();
+    let deps = { g: new Set(), s: new Set() };
     state.val = runAndCaptureDeps(computed, deps);
     return deps;
   };
 
-  let derive = (computed) => {
-    let state = createState();
+  let derive = (computed, options) => {
+    let state = createState(undefined, options);
     let deps = deriveInternal(computed, state);
     state.computed = true;
-    for (let dep of deps) dep.listeners.push({ computed, deps, state });
+    let listener = { computed, state };
+    for (let dep of new Set(
+      [...deps.g].filter(
+        (dep) =>
+          !deps.s.has(dep) &&
+          dep.listeners.every((listener) => !deps.g.has(listener.state))
+      )
+    ))
+      dep.listeners.push(listener);
     return state;
-  };
-
-  let updateDerive = (state) => {
-    for (let listener of [...state.listeners]) {
-      deriveInternal(listener.computed, listener.state);
-    }
   };
 
   let add = (element, children = []) => {
@@ -391,7 +427,7 @@ export default function Bau(input) {
   let bindFinalize = (binding, deps, newElement, isAttribute) => {
     binding.element = toDom(newElement);
     binding.isAttribute = isAttribute;
-    for (let dep of deps) {
+    for (let dep of deps.g) {
       if (isState(dep)) {
         stateSet.add(dep);
         dep.bindings.push(binding);
@@ -401,7 +437,7 @@ export default function Bau(input) {
   };
 
   let bindInferred = (renderInferred, isAttribute) => {
-    let deps = new Set();
+    let deps = { g: new Set(), s: new Set() };
     let newElement = runAndCaptureDeps(renderInferred, deps, {});
     return bindFinalize({ renderInferred }, deps, newElement, isAttribute);
   };
@@ -409,7 +445,7 @@ export default function Bau(input) {
   let bind = ({ deps, element, render, renderItem }, isAttribute) =>
     bindFinalize(
       { deps, render, renderItem },
-      deps,
+      { g: new Set(deps), s: new Set() },
       render({ element, renderItem })(...deps.map(toVal)),
       isAttribute
     );
@@ -427,15 +463,6 @@ export default function Bau(input) {
       renderItem,
     });
 
-  let batch = async (batchFn) => {
-    _inBatch = true;
-    let res = await batchFn();
-    _inBatch = false;
-    _stateSetInBatch.forEach((args) => updateDom(...args));
-    _stateSetInBatch.clear();
-    return res;
-  };
-
   return {
     tags: tagsNS(),
     tagsNS,
@@ -444,6 +471,5 @@ export default function Bau(input) {
     loop,
     derive,
     stateSet,
-    batch,
   };
 }

@@ -23,7 +23,7 @@ Let's compare the bundle sizes thanks to [bundlephobia](https://bundlephobia.com
 
 ## Sample code
 
-Bau aims to be easy to use and its API surface consits of few functions: `tags`, `state`, `loop`, `derive` and `batch`
+Bau aims to be easy to use and its API surface consits of few functions: `tags`, `state`, `loop`, and `derive`
 
 ```js
 // main.js

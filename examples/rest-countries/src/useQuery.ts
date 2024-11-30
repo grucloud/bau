@@ -24,39 +24,32 @@ export default function (context: Context) {
     const data = bau.state(options?.initialState ?? "");
     const error = bau.state("");
 
-    const reset = async () =>
-      bau.batch(() => {
-        error.val = "";
-        loading.val = false;
-        completed.val = false;
-        data.val = options?.initialState ?? "";
-      });
+    const reset = async () => {
+      error.val = "";
+      loading.val = false;
+      completed.val = false;
+      data.val = options?.initialState ?? "";
+    };
 
     const run = async (...args: any[]) => {
       if (loading.val) {
         return;
       }
       try {
-        bau.batch(() => {
-          error.val = "";
-          loading.val = true;
-          completed.val = false;
-        });
+        error.val = "";
+        loading.val = true;
+        completed.val = false;
 
         const result = await action(...args);
 
-        bau.batch(() => {
-          data.val = result;
-          completed.val = true;
-          loading.val = false;
-        });
+        data.val = result;
+        completed.val = true;
+        loading.val = false;
         return result;
       } catch (exception: any) {
-        bau.batch(() => {
-          error.val = exception.message;
-          completed.val = true;
-          loading.val = false;
-        });
+        error.val = exception.message;
+        completed.val = true;
+        loading.val = false;
 
         throw exception;
       }

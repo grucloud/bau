@@ -6,7 +6,7 @@ import button from "@grucloud/bau-ui/button";
 
 export default function (context: Context) {
   const { bau, css, config } = context;
-  const { h1, p, span, a, table, thead, tbody, tfooter, th, tr, td } = bau.tags;
+  const { h1, p, span, a, table, thead, tbody, tfoot, th, tr, td } = bau.tags;
   const Alert = alert(context, {
     color: "primary",
   });
@@ -33,7 +33,7 @@ export default function (context: Context) {
     );
 
   const NoOrg = () =>
-    tfooter(
+    tfoot(
       Alert(
         {
           class: css`

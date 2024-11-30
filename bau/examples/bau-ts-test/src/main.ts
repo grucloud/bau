@@ -25,6 +25,8 @@ const {
   thead,
   th,
   pre,
+  strong,
+  small,
 } = bau.tags;
 
 const TestConditionalTernary = () => {
@@ -273,10 +275,8 @@ const TestElementObject = () => {
   const CardLength = () => div(span("Json Length: "), cardLengthState);
 
   const onclick = () => {
-    bau.batch(() => {
-      cardState.val.rank = 3;
-      cardState.val.name = "frederic";
-    });
+    cardState.val.rank = 3;
+    cardState.val.name = "frederic";
   };
 
   return article(
@@ -296,12 +296,10 @@ const TestElementObjectNested = () => {
   });
 
   const onclick = () => {
-    bau.batch(() => {
-      cardState.val.rank = 3;
-      cardState.val.name = "frederic";
-      cardState.val.nestedArray.push("new ");
-      cardState.val.nestedObject.b = 2;
-    });
+    ++cardState.val.rank;
+    cardState.val.name = "frederic";
+    cardState.val.nestedArray.push("new ");
+    ++cardState.val.nestedObject.b;
   };
 
   return article(
@@ -525,7 +523,7 @@ const TestStateOnUpdate = () => {
     },
   });
 
-  setInterval(() => {
+  setTimeout(() => {
     counterState.val++;
   }, 1e3);
 
@@ -559,6 +557,102 @@ const TestDeriveReturnArray = () => {
     div(() =>
       showState.val ? [div("A"), div("B"), "Text node"] : "Other Text node"
     )
+  );
+};
+
+const TestDeriveChain = () => {
+  const a = bau.state(1, { name: "A" });
+  const deriveds = new Array(1000).fill("").reduce((acc, _, i) => {
+    const derived = bau.derive(
+      () => {
+        return (i == 0 ? a.val : acc[i - 1].val) + 1;
+      },
+      { name: `${i}` }
+    );
+    acc.push(derived);
+    return acc;
+  }, []);
+
+  return article(
+    h1("Derive Chain"),
+    button(
+      {
+        onclick: (_event: Event) => {
+          a.val++;
+        },
+      },
+      "Increment"
+    ),
+    h3("A"),
+    a,
+    div(deriveds.map((d: any) => small(" ", d, ", ")))
+  );
+};
+const TestDeriveMultiple = () => {
+  const a = bau.state(1, { name: "A" });
+  const b = bau.derive(
+    () => {
+      return a.val + 1;
+    },
+    { name: "B" }
+  );
+
+  const sum = bau.derive(() => {
+    return a.val + b.val;
+  });
+
+  return article(
+    h1("Derive Text"),
+    button(
+      {
+        onclick: () => {
+          a.val++;
+        },
+      },
+      "increment"
+    ),
+    div(
+      strong("A:"),
+      a,
+      strong(" B:"),
+      b,
+      // strong(" C:"),
+      // c,
+      // strong(" D:"),
+      // d,
+      strong(" SUM:"),
+      sum
+    )
+  );
+};
+
+const TestDeriveCalledOnce = () => {
+  const a = bau.state(1, { name: "A" });
+  const b = bau.state(1, { name: "B" });
+  const s = bau.derive(
+    () => {
+      return a.val + b.val;
+    },
+    { name: "S" }
+  );
+
+  return article(
+    h1("Derive Once"),
+    button(
+      {
+        onclick: () => {
+          a.val++;
+          b.val++;
+        },
+      },
+      "s=a+b, increment a and b"
+    ),
+    h3("A"),
+    a,
+    h3("B"),
+    b,
+    h3("S"),
+    s
   );
 };
 
@@ -875,7 +969,10 @@ const App = ({}) => {
       TestDerived(),
       TestDerivedSideEffect(),
       TestDeriveText(),
-      TestDeriveReturnArray()
+      TestDeriveReturnArray(),
+      TestDeriveMultiple(),
+      TestDeriveCalledOnce(),
+      TestDeriveChain()
     ),
 
     section(

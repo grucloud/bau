@@ -28,26 +28,20 @@ export default function (context: Context) {
         return;
       }
       try {
-        bau.batch(() => {
-          error.val = "";
-          loading.val = true;
-          completed.val = false;
-        });
+        error.val = "";
+        loading.val = true;
+        completed.val = false;
 
         const result = await action(...args);
 
-        bau.batch(() => {
-          data.val = result;
-          completed.val = true;
-          loading.val = false;
-        });
+        data.val = result;
+        completed.val = true;
+        loading.val = false;
         return result;
       } catch (exception: any) {
-        bau.batch(() => {
-          error.val = exception.message;
-          completed.val = true;
-          loading.val = false;
-        });
+        error.val = exception.message;
+        completed.val = true;
+        loading.val = false;
 
         throw exception;
       }

@@ -44,21 +44,6 @@ myObjetState.val.ranks = 3;
 console.log(myObjetState.val.rank); // 3
 ```
 
-#### Batching
-
-When mutating a bunch of values, it is more efficient to use the **bau.batch** to gather all the data mutations, then render only once, and recompute the eventual derivation functions only once
-
-```js
-const myDerivedState = bau.derive(() => expensiveComutation(myObjetState.val));
-
-const onclick = () => {
-  bau.batch(() => {
-    cardState.val.score = 10;
-    cardState.val.rank = 3;
-  });
-};
-```
-
 ## Reactive State
 
 When a state with primitive value is inside a element, it is automatically reactive:

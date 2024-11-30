@@ -1,7 +1,7 @@
 import "./style.css";
 import Bau from "@grucloud/bau";
 const bau = Bau();
-const { div, h1, ul, li } = bau.tags;
+const { div, h1 } = bau.tags;
 
 const App = () =>
   div(

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Bau in one HTML file</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body></body>
+  <script type="module">
+    import Bau from "https://cdn.jsdelivr.net/npm/@grucloud/bau@0.93.0/+esm";
+    import BauCss from "https://cdn.jsdelivr.net/npm/@grucloud/bau-css@0.93.0/+esm";
+
+    const bau = Bau();
+    const { css } = BauCss();
+
+    const { h1, h2, div, p, main, header, footer } = bau.tags;
+
+    const el = div(
+      {
+        class: css`
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          main {
+            flex-grow: 1;
+            color: red;
+            border: 1px solid blue;
+          }
+        `,
+      },
+      header("Header"),
+      main("Main"),
+      footer("Footer")
+    );
+
+    document.getElementsByTagName("body")[0].replaceChildren(el);
+  </script>
+</html>
