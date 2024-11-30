@@ -1,0 +1,1 @@
+@import"https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap";*{margin:0;box-sizing:border-box}:root{--Yellow: hsl(47, 88%, 63%);--White: hsl(0, 0%, 100%);--Grey: hsl(0, 0%, 50%);--Black: hsl(0, 0%, 7%)}body{font-family:Inter,sans-serif;min-height:100vh;display:grid;place-items:center;background-color:var(--Yellow)}
