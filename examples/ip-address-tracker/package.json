@@ -1,14 +1,17 @@
 {
   "name": "frontendmentor-ip-address-tracker",
+  "homepage": "https://grucloud.github.io/bau/frontendmentor/ip-address-tracker/",
   "private": true,
   "version": "0.94.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d ../../dist"
   },
   "devDependencies": {
+    "gh-pages": "6.1.1",
     "vite": "^5.2.11"
   },
   "dependencies": {
