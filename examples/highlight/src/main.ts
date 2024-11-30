@@ -17,7 +17,7 @@ import Bau from "@grucloud/bau";
 
 const HighlighContainer = ({ text }: any) =>
   pre({
-    bauCreated: ({ element }) => {
+    bauCreated: ({ element }: any) => {
       element.innerHTML = hljs.highlight(text, {
         language: "js",
       }).value;

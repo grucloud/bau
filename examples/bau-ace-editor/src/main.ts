@@ -8,7 +8,8 @@ const MyEditor = ({ id }: any) => {
     {
       id,
       bauMounted: () => {
-        var editor = ace.edit(id);
+        // @ts-ignore
+        var editor = window.ace.edit(id);
         editor.setTheme("ace/theme/monokai");
         editor.session.setMode("ace/mode/javascript");
       },

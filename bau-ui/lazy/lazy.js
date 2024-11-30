@@ -35,10 +35,8 @@ export default function (context, options = {}) {
 
     getModule()
       .then((module) => {
-        bau.batch(() => {
-          componentState.val = module.default(context);
-          loadingState.val = false;
-        });
+        componentState.val = module.default(context);
+        loadingState.val = false;
       })
       .catch((error) => {
         errorState.val = error.message;

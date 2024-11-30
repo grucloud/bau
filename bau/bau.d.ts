@@ -139,18 +139,24 @@ type Tags = Readonly<Record<string, TagFunc<Element>>> & {
   [K in keyof HTMLElementTagNameMap]: TagFunc<HTMLElementTagNameMap[K]>;
 };
 
-type StateOptions<T> = { onUpdate: (oldVal: T, newVal: T) => void };
+type StateOptions<T> = {
+  name?: string;
+  onUpdate?: (oldVal: T, newVal: T) => void;
+};
 
 declare function state<T>(initVal?: T, options?: StateOptions<T>): State<T>;
 declare function tagsNS(namespaceURI: string): Tags;
 declare function bind(input: BindInput): HTMLElement;
-declare function derive<T>(computed: () => T): ReadonlyState<T>;
+declare function derive<T>(
+  computed: () => T,
+  options?: StateOptions<T>
+): ReadonlyState<T>;
+
 declare function loop<T, TElement extends HTMLElement>(
   stateArray: ReadonlyState<T[]>,
   container: TElement,
   renderItem: typeof RenderItem<T>
 ): TElement;
-declare function batch(batchFn: () => void): void;
 
 export type BauInstance = {
   tags: Tags;
@@ -159,7 +165,6 @@ export type BauInstance = {
   bind: typeof bind;
   derive: typeof derive;
   loop: typeof loop;
-  batch: typeof batch;
 };
 
 export default function Bau(input?: { window?: Window }): BauInstance;

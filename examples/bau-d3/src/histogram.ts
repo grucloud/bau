@@ -1,3 +1,4 @@
+// @ts-nocheck
 import "./style.css";
 import * as d3 from "d3";
 
@@ -22,7 +23,7 @@ export const makeHistogram = ({ id, sample }: any) => {
 
   const yScale = d3.scaleLinear().range([height, 0]).domain([0, 100]);
 
-  const makeYLines = () => d3.axisLeft().scale(yScale);
+  const makeYLines = () => d3.axisLeft(yScale);
 
   chart
     .append("g")

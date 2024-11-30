@@ -3,7 +3,7 @@ import { Context } from "@grucloud/bau-ui/context";
 
 import collapsible from "./collapsible";
 
-export default function (context: Context, options = {}) {
+export default function (context: Context) {
   const { bau, css } = context;
   const { div, ul, li, h3, button } = bau.tags;
 
@@ -49,12 +49,12 @@ export default function (context: Context, options = {}) {
     }
   `;
 
-  return function Accordion(...args) {
+  return function Accordion(...args: any[]) {
     let [{ data = [], ...props }] = toPropsAndChildren(args);
 
     const itemNameState = bau.state("");
 
-    const Collapsible = collapsible(context, {});
+    const Collapsible = collapsible(context);
 
     const onclick = (name: string) => () => {
       if (itemNameState.val == name) {
@@ -64,7 +64,7 @@ export default function (context: Context, options = {}) {
       }
     };
 
-    const AccordionItem = (item) => {
+    const AccordionItem = (item: any) => {
       const { Header, Content, name } = item;
       const AccordionHeader = () =>
         h3(
