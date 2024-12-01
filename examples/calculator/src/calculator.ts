@@ -28,7 +28,7 @@ const symbols = [
 
 const formatNumber = (num: string) => {
   const formatted = new Intl.NumberFormat(locale, {
-    maximumFractionDigits: 50,
+    maximumFractionDigits: 20,
   }).format(Number(num));
   return formatted.length < num.length ? num : formatted;
 };
@@ -82,7 +82,7 @@ export default function (context: Context) {
       display: grid;
       gap: 1rem;
       grid-template-columns: repeat(4, 1fr);
-      button {
+      & button {
         font-size: 1.8rem;
         font-weight: 700;
         border: none;

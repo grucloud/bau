@@ -17,12 +17,12 @@ export default function (context: Context) {
       letter-spacing: 0.1rem;
     }
 
-    label {
+    & label {
       font-size: 0.6rem;
       cursor: pointer;
     }
 
-    input {
+    & input {
       cursor: pointer;
       appearance: none;
       width: 1.2rem;
