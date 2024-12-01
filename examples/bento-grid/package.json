@@ -2,7 +2,7 @@
   "name": "frontendmentor-bento-grid",
   "homepage": "https://grucloud.github.io/bau/frontendmentor/bento-grid/",
   "private": true,
-  "version": "0.94.0",
+  "version": "0.95.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,7 +15,7 @@
     "vite": "^5.2.11"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.94.0",
-    "@grucloud/bau-css": "^0.94.0"
+    "@grucloud/bau": "^0.95.0",
+    "@grucloud/bau-css": "^0.95.0"
   }
 }
