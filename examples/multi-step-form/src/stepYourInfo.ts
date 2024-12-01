@@ -7,9 +7,7 @@ export default function (context: Context) {
   const className = css`
     display: flex;
     flex-direction: column;
-    h1 {
-    }
-    p {
+    & p {
       font-size: 0.9rem;
     }
   `;

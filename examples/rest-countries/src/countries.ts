@@ -40,7 +40,7 @@ export default function (context: Context, { store }: any) {
         color: var(--color);
         outline: none;
       }
-      figure {
+      & figure {
         > figcaption {
           padding: 1rem;
           > h1 {

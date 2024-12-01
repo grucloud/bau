@@ -120,7 +120,7 @@ export default function (context: Context) {
           padding-block: 2rem;
           max-width: 500px;
 
-          h1 + p,
+          & h1 + p,
           small {
             color: var(--font-color-secondary);
           }

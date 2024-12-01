@@ -122,15 +122,15 @@ export default function (context: Context) {
         id: "confirm-dialog",
         //open: true,
         class: css`
-          p {
+          & p {
             font-size: 0.7rem;
             font-weight: 400;
             color: var(--rose-400);
           }
-          button {
+          & button {
             margin-top: 1rem;
           }
-          ul {
+          & ul {
             padding: 1rem;
             background-color: var(--rose-100);
             > li {
@@ -261,7 +261,7 @@ export default function (context: Context) {
               background-color: inherit;
               border: none;
               display: flex;
-              img {
+              & img {
                 width: 1.25rem;
                 height: 1.25rem;
                 padding: 0.3rem;
@@ -335,7 +335,7 @@ export default function (context: Context) {
     section(
       {
         class: css`
-          h1 {
+          & h1 {
             font-size: 2.8rem;
           }
           .item-container {
@@ -396,14 +396,14 @@ export default function (context: Context) {
           display: flex;
           flex-direction: column;
           gap: 0.5rem;
-          h1 {
+          & h1 {
             color: var(--red);
           }
           .cart-empty {
             display: flex;
             flex-direction: column;
             align-items: center;
-            p {
+            & p {
               font-size: 0.8rem;
               color: var(--rose-500);
               text-align: center;
@@ -413,8 +413,8 @@ export default function (context: Context) {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            ul {
-              li {
+            & ul {
+              > li {
                 display: flex;
                 align-items: center;
                 list-style: none;
@@ -433,7 +433,7 @@ export default function (context: Context) {
                   color: var(--rose-500);
                   font-weight: 600;
                 }
-                button {
+                > button {
                   border: none;
                   display: flex;
                   padding: 0.5rem;

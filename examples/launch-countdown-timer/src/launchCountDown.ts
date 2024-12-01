@@ -185,7 +185,7 @@ export default function (context: Context) {
       gap: 1rem;
       align-items: center;
       justify-content: space-between;
-      main {
+      & main {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -193,7 +193,7 @@ export default function (context: Context) {
         align-items: center;
         gap: 5rem;
       }
-      h1 {
+      & h1 {
         font-size: 1.5rem;
         text-transform: uppercase;
         letter-spacing: 0.3rem;
@@ -212,7 +212,7 @@ export default function (context: Context) {
             gap: 0.5rem;
             margin: 0.5rem;
           }
-          small {
+          & small {
             color: var(--grayish-blue);
             text-transform: uppercase;
             font-weight: 700;

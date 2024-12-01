@@ -35,56 +35,56 @@ export default function (context: Context) {
       width: 100%;
       border-radius: 0.5rem;
     }
-    h1,
-    h2 {
+    & h1,
+    & h2 {
       font-family: "Young Serif";
     }
 
-    h1 {
+    & h1 {
       color: var(--Stone-900);
       font-weight: 400;
       font-size: 2.2em;
     }
-    h2 {
+    & h2 {
       color: var(--Brown-800);
       font-weight: 400;
     }
-    ul,
-    ol {
+    & ul,
+    & ol {
       padding-left: 1rem;
-      li {
+      > li {
         color: var(--WengeBrown);
         padding: 0.3rem;
         list-style-position: inside;
       }
     }
-    section.preparation-time {
+    & section.preparation-time {
       background-color: var(--Rose-50);
       padding: 1.2rem;
       border-radius: 0.7rem;
-      h3 {
+      & h3 {
         color: var(--Rose-800);
       }
     }
-    ol {
-      li::marker {
+    & ol {
+      > li::marker {
         font-weight: 700;
         color: var(--Brown-800);
       }
     }
-    table {
+    & table {
       width: 100%;
       border-collapse: collapse;
-      tbody {
-        tr {
+      & tbody {
+        & tr {
           border-bottom: 1px solid var(--Stone-150);
-          th {
+          & th {
             padding: 1rem;
             font-weight: normal;
             text-align: start;
             color: var(--Stone-600);
           }
-          td {
+          & td {
             font-weight: 700;
             color: var(--Rose-800);
           }

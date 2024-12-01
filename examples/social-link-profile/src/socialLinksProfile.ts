@@ -30,7 +30,7 @@ export default function (context: Context) {
     gap: 1rem;
     background-color: var(--grey-800);
     border-radius: 1rem;
-    figure {
+    & figure {
       display: flex;
       flex-direction: column;
       .profile-picture {
@@ -38,26 +38,26 @@ export default function (context: Context) {
         border-radius: 50%;
         margin: auto;
       }
-      figcaption {
+      & figcaption {
         text-align: center;
         .location {
           color: var(--green);
         }
       }
     }
-    p {
+    & p {
       text-align: center;
     }
-    ul {
+    & ul {
       align-self: stretch;
       padding: 0;
-      li {
+      > li {
         list-style: none;
         background-color: var(--grey-700);
         border-radius: 0.5rem;
         margin: 1rem 0;
         display: flex;
-        a {
+        & a {
           padding: 0.4rem 0;
           width: 100%;
           color: white;

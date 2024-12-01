@@ -21,7 +21,7 @@ export default function (context) {
       grid-template-areas: "section1" "section2" "section3" "section4" "section5" "section6" "section7" "section8";
     }
 
-    section {
+    & section {
       background-color: var(--clr-white);
       min-height: 100px;
       min-width: 100px;
@@ -31,21 +31,19 @@ export default function (context) {
       flex-direction: column;
       gap: 1rem;
       overflow: hidden;
-      h1 {
-      }
       &.section1 {
         grid-area: section1;
         text-align: center;
         background-color: var(--clr-primary-500);
         color: var(--clr-white);
         align-items: center;
-        h1 {
+        & h1 {
           font-size: 2rem;
           strong {
             color: var(--clr-secondary-500);
           }
         }
-        img {
+        & img {
           max-width: 200px;
         }
       }
@@ -58,11 +56,11 @@ export default function (context) {
         grid-area: section3;
         padding-bottom: 0;
         justify-content: space-between;
-        picture {
+        & picture {
           max-height: 100px;
           overflow: hidden;
         }
-        img {
+        & img {
           max-width: 250px;
         }
       }
@@ -77,10 +75,10 @@ export default function (context) {
           align-items: center;
         }
 
-        img {
+        & img {
           max-height: 200px;
         }
-        p {
+        & p {
           font-size: smaller;
         }
       }
@@ -94,21 +92,21 @@ export default function (context) {
         @media (max-width: 640px) {
           flex-direction: column;
         }
-        img {
+        & img {
           max-width: 200px;
           max-height: 200px;
         }
-        h1 {
+        & h1 {
           text-align: center;
         }
       }
 
       &.section6 {
         grid-area: section6;
-        h1 {
+        & h1 {
           font-size: xx-large;
         }
-        img {
+        & img {
           max-width: 300px;
         }
       }
@@ -117,14 +115,14 @@ export default function (context) {
         grid-area: section7;
         background-color: var(--clr-secondary-100);
         align-items: center;
-        h1 {
+        & h1 {
           font-size: 1.7rem;
           font-weight: 400;
         }
-        img {
+        & img {
           max-width: 150px;
         }
-        em {
+        & em {
           color: var(--clr-primary-500);
         }
       }
@@ -132,7 +130,7 @@ export default function (context) {
       &.section8 {
         grid-area: section8;
         background-color: var(--clr-secondary-500);
-        h1 {
+        & h1 {
           font-size: 1.7rem;
           font-weight: 400;
         }

@@ -9,10 +9,10 @@ export default function (context: Context) {
     margin: 1rem;
     border-radius: 0.5rem;
     background-color: var(--white);
-    h1 {
+    & h1 {
       font-size: 1.3rem;
     }
-    p {
+    & p {
       margin-block: 0.8rem;
       display: flex;
       flex-wrap: wrap;
@@ -26,7 +26,7 @@ export default function (context: Context) {
         gap: 0.5rem;
       }
     }
-    textarea {
+    & textarea {
       height: 4rem;
       padding: 0.2rem;
     }

@@ -21,7 +21,7 @@ export default function (context: Context) {
     }
     border-radius: 0.6rem;
     box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.1);
-    section {
+    & section {
       display: flex;
       flex-direction: column;
       padding: 1rem;
@@ -40,13 +40,13 @@ export default function (context: Context) {
 
         min-width: 250px;
 
-        h1 {
+        & h1 {
           color: var(--color);
         }
-        h2 {
+        & h2 {
           color: var(--white);
         }
-        p {
+        & p {
           color: var(--color);
           text-align: center;
           padding: 0 1rem;
@@ -74,7 +74,7 @@ export default function (context: Context) {
       }
       &.summary {
         min-width: 250px;
-        button {
+        & button {
           width: 100%;
           font-weight: 500;
           font-size: 1rem;
@@ -93,10 +93,10 @@ export default function (context: Context) {
           }
         }
       }
-      ul {
+      & ul {
         padding: 0;
         flex-grow: 1;
-        li {
+        > li {
           list-style: none;
           padding: 0.7rem 0.5rem;
           margin: 0.5rem 0rem;

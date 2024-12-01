@@ -15,7 +15,7 @@ export default function (context: Context) {
     background-color: var(--White);
     padding: 1rem;
     box-shadow: 10px 10px;
-    img {
+    & img {
       border-radius: 0.6rem;
     }
     .badge {
@@ -30,14 +30,14 @@ export default function (context: Context) {
       font-weight: 500;
       color: var(--Grey);
     }
-    figure {
+    & figure {
       display: inline-flex;
       align-items: center;
       gap: 1rem;
-      img {
+      & img {
         width: 36px;
       }
-      h3 {
+      & h3 {
         font-size: 1rem;
         font-weight: bold;
       }
