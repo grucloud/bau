@@ -30,7 +30,6 @@ export default function (context: Context) {
         class: css`
           display: flex;
           justify-content: space-between;
-
           gap: 0.5rem;
         `,
       },

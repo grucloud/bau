@@ -96,14 +96,14 @@ export default function (context) {
       padding-bottom: 4rem;
       background: url("./assets/images/pattern-bg-desktop.png") no-repeat 100%
         100% / cover;
-      h1 {
+      & h1 {
         color: white;
         font-size: 1.9rem;
       }
       .input-group {
         border: none;
         display: inline-flex;
-        input {
+        & input {
           font-size: 1.5rem;
           padding: 0.5rem 1rem;
           border: none;
@@ -113,7 +113,7 @@ export default function (context) {
             min-width: 40rem;
           }
         }
-        button {
+        & button {
           cursor: pointer;
           min-width: 3rem;
           border-bottom-right-radius: 0.5rem;
@@ -143,7 +143,7 @@ export default function (context) {
       z-index: 1000;
       padding: 0 2rem;
       width: 80%;
-      section {
+      & section {
         background-color: #fff;
         padding: 1rem;
         display: flex;
@@ -151,7 +151,7 @@ export default function (context) {
         flex-direction: column;
         gap: 0.5rem;
 
-        h4 {
+        & h4 {
           text-transform: uppercase;
           font-size: 0.825rem;
           font-weight: 500;
@@ -160,7 +160,7 @@ export default function (context) {
           color: var(--clr-grey-500);
         }
 
-        p {
+        & p {
           font-size: 1.7rem;
           font-weight: 500;
           &.timezone {

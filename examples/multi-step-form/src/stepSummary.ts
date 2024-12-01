@@ -48,35 +48,35 @@ export default function (
   const className = css`
     padding: 2rem;
     > table {
-      a {
+      & a {
         color: var(--font-color-secondary);
         font-weight: 400;
         font-size: 0.85rem;
       }
       background-color: var(--background-color-body);
       border-collapse: collapse;
-      th,
-      td {
+      & th,
+      & td {
         padding-inline: 1rem;
         padding-block: 0.5rem;
       }
-      td {
+      & td {
         text-align: right;
       }
-      thead {
+      & thead {
         border-bottom: 1px solid var(--color-emphasis-100);
-        td {
+        & td {
           font-weight: bold;
         }
       }
-      tbody {
+      & tbody {
         padding: 0.5rem;
-        th {
+        & th {
           color: var(--font-color-secondary);
           font-weight: 400;
           font-size: 0.9rem;
         }
-        td {
+        & td {
           font-size: 0.8rem;
         }
       }

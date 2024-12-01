@@ -43,17 +43,17 @@ export default function (context: Context) {
     .calculator-form {
       padding: 1rem;
       background-color: var(--white);
-      header {
+      & header {
         display: flex;
         justify-content: space-between;
-        button {
+        & button {
           text-decoration: underline;
           background: none;
           color: var(--grey-700);
         }
       }
-      form {
-        button[type="submit"] {
+      & form {
+        & button[type="submit"] {
           width: 100%;
           display: flex;
           align-items: center;
@@ -87,8 +87,8 @@ export default function (context: Context) {
         }
       }
 
-      p,
-      span {
+      & p,
+      & span {
         color: var(--grey-300);
       }
       .payments {
@@ -98,7 +98,7 @@ export default function (context: Context) {
         padding: 1rem;
         border-radius: 0.5rem;
         border-top: 3px solid var(--primary);
-        hr {
+        & hr {
           border: 1px solid var(--grey-900);
         }
         .monthly-payments-value {
@@ -196,7 +196,6 @@ export default function (context: Context) {
                 {
                   class: "input-unit",
                 },
-
                 input({
                   name: "term",
                   type: "number",

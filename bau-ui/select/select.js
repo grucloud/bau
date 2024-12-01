@@ -36,7 +36,7 @@ export default function (context, componentOptions = {}) {
       opacity: 0;
       border: 0;
     }
-    dialog {
+    & dialog {
       outline: none;
     }
     & button {

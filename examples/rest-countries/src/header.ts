@@ -15,10 +15,10 @@ export const header = (context: Context) => {
     padding-inline: 3rem;
     padding-block: 1rem;
     box-shadow: 0 0 3px 3px rgb(0 0 0 / 3%);
-    h1 {
+    & h1 {
       font-size: 1.5rem;
     }
-    label {
+    & label {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;

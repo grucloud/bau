@@ -20,27 +20,27 @@ export default function (context: Context) {
       padding: 2rem;
     }
 
-    h1 {
+    & h1 {
       margin: 0;
     }
-    picture {
-      img {
+    & picture {
+      & img {
         background-color: var(--clr-dark-500);
         border-radius: 50%;
         padding: 1rem;
       }
     }
-    p {
+    & p {
       color: var(--clr-neutral-300);
     }
-    ul {
+    & ul {
       padding: 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
 
-      li {
+      & li {
         list-style: none;
         display: inline-flex;
         align-items: center;
@@ -62,7 +62,7 @@ export default function (context: Context) {
         }
       }
     }
-    button {
+    & button {
       padding: 1rem 0;
       width: 100%;
       border-radius: 1rem;
@@ -83,7 +83,7 @@ export default function (context: Context) {
 
     .thankyou {
       align-items: center;
-      h1 {
+      & h1 {
         font-size: 2rem;
       }
       .badge {

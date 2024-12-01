@@ -29,16 +29,13 @@ export default function (context: Context) {
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
-            input {
+            & input {
               width: 0px;
             }
-            img {
-              //margin-bottom: 1rem;
-            }
-            p {
+            & p {
               line-height: 1.2rem;
             }
-            small {
+            & small {
               color: var(--font-color-secondary);
             }
           }

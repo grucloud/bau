@@ -7,8 +7,7 @@
   "scripts": {
     "dev": "bausaurus dev",
     "build": "bausaurus build",
-    "preview": "bausaurus preview",
-    "deploy": "gh-pages -d dist"
+    "preview": "bausaurus preview"
   },
   "dependencies": {
     "@grucloud/bau": "^0.94.0",
@@ -16,7 +15,6 @@
     "@grucloud/bau-ui": "^0.94.0",
     "@grucloud/bausaurus-core": "^0.94.0",
     "@grucloud/bausaurus-theme-classic": "^0.94.0",
-    "gh-pages": "5.0.0",
     "rubico": "2.0.1"
   },
   "devDependencies": {

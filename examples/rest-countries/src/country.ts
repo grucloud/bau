@@ -111,7 +111,7 @@ export default function (context: Context, { store }: any) {
             > li {
               padding-inline: 0.6rem;
               box-shadow: var(--shadow-s);
-              a {
+              & a {
                 text-decoration: none;
                 font-size: 0.75rem;
                 text-wrap: nowrap;

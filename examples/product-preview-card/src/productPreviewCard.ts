@@ -14,8 +14,8 @@ export default function (context: Context) {
       grid-template-columns: 1fr;
       grid-template-rows: auto 1fr;
     }
-    picture {
-      img {
+    & picture {
+      & img {
         display: block;
         width: 100%;
         border-radius: 1rem 0 0 1rem;
@@ -40,11 +40,11 @@ export default function (context: Context) {
         color: var(--paragraph-color);
         font-size: 1rem;
       }
-      h1 {
+      & h1 {
         font-family: "Fraunces", sans-serif;
         font-size: 2rem;
       }
-      p {
+      & p {
         color: var(--paragraph-color);
       }
       .price-container {
@@ -63,7 +63,7 @@ export default function (context: Context) {
         }
       }
 
-      button {
+      & button {
         width: 100%;
         border-radius: 1rem;
         background-color: var(--btn-and-current-price-color);

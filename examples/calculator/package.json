@@ -1,5 +1,6 @@
 {
   "name": "frontendmentor-calculator",
+  "homepage": "https://grucloud.github.io/bau/frontendmentor/calculator/",
   "private": true,
   "version": "0.94.0",
   "type": "module",
@@ -7,17 +8,19 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "deploy": "gh-pages -d ../../dist"
   },
   "devDependencies": {
+    "gh-pages": "6.1.1",
     "typescript": "^5.0.2",
-    "vite": "^5.2.11"
+    "vite": "^5.2.11",
+    "vitest": "2.1.4"
   },
   "dependencies": {
     "@grucloud/bau": "^0.94.0",
     "@grucloud/bau-css": "^0.94.0",
     "@grucloud/bau-ui": "^0.94.0",
-    "bignumber.js": "9.1.2",
-    "vitest": "2.1.4"
+    "bignumber.js": "9.1.2"
   }
 }
