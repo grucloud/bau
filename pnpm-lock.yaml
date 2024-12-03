@@ -768,6 +768,28 @@ importers:
         specifier: ^5.2.11
         version: 5.4.5
 
+  examples/job-listings-with-filtering:
+    dependencies:
+      '@grucloud/bau':
+        specifier: ^0.95.0
+        version: link:../../bau
+      '@grucloud/bau-css':
+        specifier: ^0.95.0
+        version: link:../../bau-css
+      '@grucloud/bau-ui':
+        specifier: ^0.95.0
+        version: link:../../bau-ui
+    devDependencies:
+      gh-pages:
+        specifier: 6.1.1
+        version: 6.1.1
+      typescript:
+        specifier: ^5.0.2
+        version: 5.6.3
+      vite:
+        specifier: ^5.2.11
+        version: 5.4.11
+
   examples/launch-countdown-timer:
     dependencies:
       '@grucloud/bau-ui':

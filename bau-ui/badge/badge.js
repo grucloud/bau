@@ -7,7 +7,6 @@ export default function (context, options = {}) {
   const className = css`
     position: relative;
     & span {
-      display: block;
       position: absolute;
       display: flex;
       align-items: center;

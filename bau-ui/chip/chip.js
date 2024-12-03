@@ -14,7 +14,6 @@ export default function (context, options = {}) {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    vertical-align: middle;
     &.clickable {
       cursor: pointer;
     }

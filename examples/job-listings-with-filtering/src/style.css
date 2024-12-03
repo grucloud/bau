@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Spartan:wght@500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/**
+### Primary
+
+- Desaturated Dark Cyan: hsl(180, 29%, 50%)
+
+### Neutral
+
+- Light Grayish Cyan (Background): hsl(180, 52%, 96%)
+- Light Grayish Cyan (Filter Tablets): hsl(180, 31%, 95%)
+- Dark Grayish Cyan: hsl(180, 8%, 52%)
+- Very Dark Grayish Cyan: hsl(180, 14%, 20%)
+
+
+*/
+:root {
+  --color-primary-h: 180;
+  --color-primary-base-s: 29%;
+  --color-primary-l: 50%;
+  --color-neutral-h: 180;
+  --color-neutral-base-s: 31%;
+  --color-neutral-l: 95%;
+  --font-color-primary: white;
+  --background-color: hsl(180, 52%, 96%);
+  --shadow: 0px 10px 20px -10px hsla(180, 29%, 50%, 0.4);
+}
+
+body {
+  background-color: var(--background-color);
+  font: 400 15px/1.6 "Spartan", sans-serif;
+  min-height: 100vh;
+  display: grid;
+}
