@@ -8,6 +8,10 @@ import chipDefault from "./chip-example-default.ts";
 // @ts-ignore
 import codeExampleDefault from "./chip-example-default.ts?raw";
 
+import chipCustom from "./chip-example-custom.ts";
+// @ts-ignore
+import codeExampleCustom from "./chip-example-custom.ts?raw";
+
 export const chipSpec = {
   title: "Chip",
   package: "chip",
@@ -22,6 +26,12 @@ export const chipSpec = {
       description: "A simple chip.",
       code: codeExampleDefault,
       createComponent: chipDefault,
+    },
+    {
+      title: "Custom",
+      description: "A custom chip.",
+      code: codeExampleCustom,
+      createComponent: chipCustom,
     },
   ],
   gridItem: chipGridItem,
