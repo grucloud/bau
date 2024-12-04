@@ -1,0 +1,24 @@
+{
+  "name": "frontendmentor-interactive-comments-section",
+  "homepage": "https://grucloud.github.io/bau/frontendmentor/interactive-comments-section/",
+  "private": true,
+  "version": "0.95.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d ../../dist"
+  },
+  "devDependencies": {
+    "gh-pages": "6.1.1",
+    "typescript": "^5.0.2",
+    "vite": "^5.2.11"
+  },
+  "dependencies": {
+    "@grucloud/bau": "^0.95.0",
+    "@grucloud/bau-css": "^0.95.0",
+    "@grucloud/bau-ui": "^0.95.0",
+    "dayjs": "1.11.13"
+  }
+}

@@ -15,6 +15,7 @@ Below is a list of projects implemented using _Bau_.
 | Contact Form | [live](https://grucloud.github.io/bau/frontendmentor/contact-form/) | [code](./contact-form) |
 | E-commerce Product Page | [live](https://grucloud.github.io/bau/frontendmentor/e-commerce-product-page/) | [code](./e-commerce-product-page) |
 | Faq Accordion | [live](https://grucloud.github.io/bau/frontendmentor/faq-accordion/) | [code](./faq-accordion) |
+| Interactive Comments Section | [live](https://grucloud.github.io/bau/frontendmentor/interactive-comments-section/) | [code](./interactive-comments-section) |
 | Interactive Rating Component | [live](https://grucloud.github.io/bau/frontendmentor/interactive-rating-component/) | [code](./interactive-rating-component) |
 | IP Address Tracker | [live](https://grucloud.github.io/bau/frontendmentor/ip-address-tracker/) | [code](./ip-address-tracker) |
 | Job Listing With Filtering | [live](https://grucloud.github.io/bau/frontendmentor/job-listings-with-filtering/) | [code](./job-listings-with-filtering) |

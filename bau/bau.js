@@ -85,16 +85,17 @@ export default function Bau(input) {
       isAttribute,
       op = [],
     } = binding;
-    const [method, result, args, data, parentProp] = op;
+    const [method, result, args, data, parentProp = []] = op;
     if (method && renderItem) {
-      methodToActionMapping(
-        element,
-        args,
-        (...args) => toDom(renderItem(...args)),
-        result,
-        data,
-        parentProp
-      )[method]?.call();
+      !parentProp.length &&
+        methodToActionMapping(
+          element,
+          args,
+          (...args) => toDom(renderItem(...args)),
+          result,
+          data,
+          parentProp
+        )[method]?.call();
     } else {
       let newElement = renderInferred
         ? renderInferred({
