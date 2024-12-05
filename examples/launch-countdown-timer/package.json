@@ -2,7 +2,7 @@
   "name": "frontendmentor-launch-countdown-timer",
   "homepage": "https://grucloud.github.io/bau/frontendmentor/launch-countdown-timer/",
   "private": true,
-  "version": "0.96.0",
+  "version": "0.97.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,6 +16,6 @@
     "vite": "^5.2.11"
   },
   "dependencies": {
-    "@grucloud/bau-ui": "^0.96.0"
+    "@grucloud/bau-ui": "^0.97.0"
   }
 }
