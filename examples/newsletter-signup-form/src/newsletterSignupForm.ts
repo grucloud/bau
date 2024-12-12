@@ -30,7 +30,7 @@ export default function (context: Context) {
       grid-template-areas: "image" "form";
       border-radius: 0;
     }
-    padding: 1rem;
+    padding-inline: 1rem;
     margin-inline: 1rem;
     background-color: var(--White);
     border-radius: 2rem;
