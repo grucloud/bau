@@ -260,6 +260,44 @@ const TestArrayReadIndex = () => {
   );
 };
 
+const TestArrayBufferInArray = () => {
+  const arrayBufferState = bau.state<ArrayBuffer[]>([
+    new ArrayBuffer(8),
+    new ArrayBuffer(16),
+  ]);
+  return article(
+    h1("Array Buffer in Array"),
+    ul(arrayBufferState.val.map((v) => li(v.byteLength)))
+  );
+};
+
+const TestArrayBufferInObject = () => {
+  const objState = bau.state<any>({
+    a: new ArrayBuffer(8),
+    b: new ArrayBuffer(16),
+  });
+  return article(
+    h1("Array Buffer in Object"),
+    ul(li(objState.val.a.byteLength), li(objState.val.b.byteLength))
+  );
+};
+
+const TestArrayTextDecoder = () => {
+  const itemsState = bau.state<any[]>([]);
+
+  const encoder = new TextEncoder();
+  for (let i = 0; i < 4; i++) {
+    itemsState.val.push({ name: `${i}`, body: encoder.encode(i.toString()) });
+  }
+
+  return article(
+    h1("TextDecoder"),
+    bau.loop(itemsState, ul(), (item) =>
+      li(new TextDecoder().decode(item.body))
+    )
+  );
+};
+
 const TestElementObject = () => {
   const cardState = bau.state({ name: "Freddy", rank: 2 });
   const cardLengthState = bau.derive(
@@ -924,6 +962,8 @@ const TestAttributeReturnArray = () => {
 };
 
 const App = ({}) => {
+  //return TestArrayTextDecoder();
+
   return div(
     h1("Bau testing with Typescript"),
 
@@ -983,7 +1023,10 @@ const App = ({}) => {
       TestBindArrayTable(),
       TestArrayOperation(),
       TestArrayLength(),
-      TestArrayReadIndex()
+      TestArrayReadIndex(),
+      TestArrayBufferInArray(),
+      TestArrayBufferInObject(),
+      TestArrayTextDecoder()
     ),
     section(
       h1("Object"),
