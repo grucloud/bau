@@ -10,6 +10,7 @@ Below is a list of projects implemented using _Bau_.
 
 | Name                          | Live                                                                                 | Code                                    |
 | ----------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------- |
+| Age Calculator App            | [live](https://grucloud.github.io/bau/frontendmentor/age-calculator-app/)            | [code](./age-calculator-app)            |
 | Bento Grid                    | [live](https://grucloud.github.io/bau/frontendmentor/bento-grid/)                    | [code](./bento-grid)                    |
 | Blog Preview Card             | [live](https://grucloud.github.io/bau/frontendmentor/blog-preview-card/)             | [code](./blog-preview-card)             |
 | Calculator                    | [live](https://grucloud.github.io/bau/frontendmentor/calculator/)                    | [code](./calculator)                    |
