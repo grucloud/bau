@@ -1,6 +1,7 @@
 name: Bau
 
 on:
+  pull_request:
   push:
     branches:
       - "*"
