@@ -22,6 +22,7 @@ Below is a list of projects implemented using _Bau_.
 | IP Address Tracker            | [live](https://grucloud.github.io/bau/frontendmentor/ip-address-tracker/)            | [code](./ip-address-tracker)            |
 | Job Listing With Filtering    | [live](https://grucloud.github.io/bau/frontendmentor/job-listings-with-filtering/)   | [code](./job-listings-with-filtering)   |
 | Launch Countdown Timer        | [live](https://grucloud.github.io/bau/frontendmentor/launch-countdown-timer/)        | [code](./launch-countdown-timer)        |
+| News Homepage                 | [live](https://grucloud.github.io/bau/frontendmentor/news-homepage/)                 | [code](./news-homepage)                 |
 | Newsletter Signup Form        | [live](https://grucloud.github.io/bau/frontendmentor/newsletter-signup-form/)        | [code](./newsletter-signup-form)        |
 | Mortgage Repayment Calculator | [live](https://grucloud.github.io/bau/frontendmentor/mortgage-repayment-calculator/) | [code](./mortgage-repayment-calculator) |
 | Multi Step Form               | [live](https://grucloud.github.io/bau/frontendmentor/multi-step-form/)               | [code](./multi-step-form)               |
