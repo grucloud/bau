@@ -25,6 +25,9 @@ jobs:
             - recursive: true
               args: [--no-frozen-lockfile]
 
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Build bau/examples/bau-ts-test
         working-directory: bau/examples/bau-ts-test
         run: |
