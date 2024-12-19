@@ -25,7 +25,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "bundle-visualizer": "vite-bundle-visualizer",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "devDependencies": {
     "happy-dom": "15.7.4",

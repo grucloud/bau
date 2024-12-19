@@ -19,7 +19,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "bundle-visualizer": "vite-bundle-visualizer",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "dependencies": {
     "@grucloud/bau": "^0.97.0"
