@@ -19,6 +19,11 @@ jobs:
         with:
           node-version: 20
 
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: |
+            - recursive: true
+
       - name: Build bau/examples/bau-ts-test
         working-directory: bau/examples/bau-ts-test
         run: |
