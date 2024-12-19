@@ -32,7 +32,7 @@ export interface BindInput {
   readonly deps: Deps;
   readonly render: (input: {
     element: HTMLElement;
-    readonly renderItem: RenderItem;
+    readonly renderItem: typeof RenderItem;
     readonly oldValues: any[];
   }) => (...args: readonly any[]) => HTMLElement | StatePrimitive;
   readonly renderItem?: typeof RenderItem;
@@ -135,7 +135,7 @@ export type TagFunc<Result extends HTMLElement> = (
   ...rest: readonly ChildDom[]
 ) => Result;
 
-type Tags = Readonly<Record<string, TagFunc<Element>>> & {
+type Tags = Readonly<Record<string, TagFunc<HTMLElement>>> & {
   [K in keyof HTMLElementTagNameMap]: TagFunc<HTMLElementTagNameMap[K]>;
 };
 
