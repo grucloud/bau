@@ -70,8 +70,6 @@ export type PropsHTMLElement<TElement extends HTMLElement> = {
     : ReplaceEventHandlerParameter<TElement[key], { target: TElement}>
 };
 
-type Kek = PropsHTMLElement<HTMLInputElement>['onchange']
-
 export type PropsLifecycle<TElement extends HTMLElement> = {
   bauCreated: (input: { element: TElement }) => void;
   bauMounted: (input: { element: TElement }) => void;
