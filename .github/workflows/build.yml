@@ -28,38 +28,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build bau/examples/bau-ts-test
-        working-directory: bau/examples/bau-ts-test
-        run: |
-          npm install
-          npm run build
+      - name: build
+        run: npm run build
 
-      - name: Build bau-ui/examples/bau-storybook
-        working-directory: bau-ui/examples/bau-storybook
-        run: |
-          npm install
-          npm run build
-
-      - name: Build bausaurus/example/bausaurus-doc
-        working-directory: bausaurus/example/bausaurus-doc
-        run: |
-          npm install
-          npm run build
-
-      - name: Build bausaurus/example/bausaurus-template
-        working-directory: bausaurus/example/bausaurus-template
-        run: |
-          npm install
-          npm run build
-
-      - name: Build examples/bau-kit
-        working-directory: examples/bau-kit
-        run: |
-          npm install
-          npm run build
-
-      - name: Build examples/todoapp
-        working-directory: examples/todoapp
-        run: |
-          npm install
-          npm run build
+      - name: test
+        run: npm run test
