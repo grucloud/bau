@@ -1045,7 +1045,7 @@ const App = ({}) => {
 };
 
 input({
-  type:"text",
+  type: "text",
   oninput: (event) => {
     console.log(event.data);
   },
