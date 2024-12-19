@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --soft-orange: hsl(35, 77%, 62%);
+  --soft-red: hsl(5, 85%, 63%);
+
+  --off-white: hsl(36, 100%, 99%);
+  --grayish-blue: hsl(233, 8%, 79%);
+  --dark-grayish-blue: hsl(236, 13%, 42%);
+  --very-dark-blue: hsl(240, 100%, 5%);
+
+  --color-primary-h: 259;
+  --color-primary-base-s: 100%;
+  --color-primary-l: 65%;
+
+  --color-neutral-h: 245;
+  --color-neutral-base-s: 18%;
+  --color-neutral-l: 26%;
+
+  --color-danger-h: 358;
+  --color-danger-base-s: 79%;
+  --color-danger-l: 66%;
+
+  --font-color-primary: white;
+  --background-color: white;
+}
+
+body {
+  font: 400 15px/1.5 "Inter", sans-serif;
+  min-height: 100vh;
+  display: grid;
+}

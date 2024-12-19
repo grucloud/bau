@@ -24,7 +24,7 @@
     "dev": "vite",
     "build": "vite build",
     "bundle-visualizer": "vite-bundle-visualizer",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@vitest/browser": "2.1.1",
