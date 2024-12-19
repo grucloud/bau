@@ -91,8 +91,7 @@ const TestInputOninput = () => {
     input({
       placeholder: "Enter username",
       value: inputState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
-        (inputState.val = target.value),
+      oninput: ({ target }) => (inputState.val = target.value),
     }),
     button(
       {
@@ -149,8 +148,7 @@ const TestInputCheckboxOninput = () => {
     input({
       type: "checkbox",
       checked: checkedState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
-        (checkedState.val = target.checked),
+      oninput: ({ target }) => (checkedState.val = target.checked),
     }),
     div("Is checked: ", () => (checkedState.val ? "Checked" : "Not Checked"))
   );

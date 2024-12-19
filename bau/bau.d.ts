@@ -42,63 +42,32 @@ export type BindAttributeFunc<TElement extends HTMLElement> = (input: {
   element: TElement;
 }) => Primitive | Function;
 
-type EventListener = (
-  event:
-    | InputEvent
-    | SubmitEvent
-    | Event
-    | AnimationEvent
-    | BeforeUnloadEvent
-    | BlobEvent
-    | ClipboardEvent
-    | CloseEvent
-    | CompositionEvent
-    | DeviceMotionEvent
-    | DeviceOrientationEvent
-    | DragEvent
-    | ErrorEvent
-    | FocusEvent
-    | FontFaceSetLoadEvent
-    | FormDataEvent
-    | GamepadEvent
-    | HashChangeEvent
-    | IDBVersionChangeEvent
-    | InputEvent
-    | KeyboardEvent
-    | MessageEvent
-    | MouseEvent
-    | OfflineAudioCompletionEvent
-    | PageTransitionEvent
-    | PaymentRequestUpdateEvent
-    | PointerEvent
-    | PopStateEvent
-    | ProgressEvent
-    | RTCDataChannelEvent
-    | RTCPeerConnectionIceEvent
-    | StorageEvent
-    | SubmitEvent
-    | TouchEvent
-    | TrackEvent
-    | TransitionEvent
-    | UIEvent
-    | WebGLContextEvent
-    | WheelEvent
-) => any;
-
 export type Props<TElement extends HTMLElement> = {
   readonly [key: string]:
     | PropValue
-    | EventListener
     | StateView<PropValue>
     | BindAttributeFunc<TElement>
     | DerivedProp;
 };
 
+// This helper will replace the Event parameter of an event handler
+// with something else (technically it takes the union of the Event and ReplaceWith)
+type ReplaceEventHandlerParameter<EventHandler, ReplaceWith> =
+  EventHandler extends (...args: infer Params) => infer R
+  ? (...args: {[K in keyof Params]: Params[K] extends Event ? Params[K] & ReplaceWith : Params[K]}) => R
+  : never;
+
 export type PropsHTMLElement<TElement extends HTMLElement> = {
-  readonly [key in keyof TElement]?:
-    | PropValue
-    | StateView<PropValue>
-    | BindAttributeFunc<TElement>;
+  readonly [
+    key in keyof TElement as key extends `on${string}`
+    ? key
+    : never
+  ]?: key extends 'oninput'
+    // we use InputEvent for 'oninput'
+    // this is not 100% type correct, but it is convenient and backwards compatible
+    ? ReplaceEventHandlerParameter<ReplaceEventHandlerParameter<TElement[key], { target: TElement}>, InputEvent>
+    // for all other events (and also for oninput) we set the target to TElement
+    : ReplaceEventHandlerParameter<TElement[key], { target: TElement}>
 };
 
 export type PropsLifecycle<TElement extends HTMLElement> = {
@@ -112,9 +81,8 @@ export type PropsLifecycle<TElement extends HTMLElement> = {
 };
 
 export type PropsAll<TElement extends HTMLElement> =
-  | PropsHTMLElement<TElement>
-  | PropsLifecycle<TElement>
-  | Props<TElement>
+  PropsLifecycle<TElement>
+  | (Props<TElement> & PropsHTMLElement<TElement>)
   | ChildDom;
 
 export type BindElementFunc = (input?: {

@@ -46,8 +46,7 @@ const TestDerived = () => {
     input({
       placeholder: "Enter username",
       value: inputState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
-        (inputState.val = target.value),
+      oninput: ({ target }) => (inputState.val = target.value),
     }),
     button(
       {

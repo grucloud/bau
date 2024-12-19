@@ -11,11 +11,14 @@ declare module "@grucloud/bau-ui/radioButtonGroup" {
   export type RadioButtonGroupProps = {
     name: string;
     value?: any;
-    oninput?: (event) => any;
+    oninput?: ({ target }: { target: HTMLInputElement }) => void;
     radios: RadioItem[];
   } & DefaultDesignProps;
 
-  type Component = import("../bau-ui").Component<RadioButtonGroupProps>;
+  type Component = import("../bau-ui").Component<
+    RadioButtonGroupProps,
+    HTMLInputElement
+  >;
 
   export default function (context: any, option?: ComponentOption): Component;
 }

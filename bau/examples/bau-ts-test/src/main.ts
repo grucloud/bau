@@ -506,8 +506,7 @@ const TestDerived = () => {
     input({
       placeholder: "Enter username",
       value: inputState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
-        (inputState.val = target.value),
+      oninput: ({ target }) => (inputState.val = target.value),
     }),
     button(
       {
@@ -532,8 +531,7 @@ const TestDerivedSideEffect = () => {
     input({
       placeholder: "Enter username",
       value: inputState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
-        (inputState.val = target.value),
+      oninput: ({ target }) => (inputState.val = target.value),
     })
   );
 };
@@ -753,8 +751,7 @@ const TestInputOninput = () => {
     input({
       placeholder: "Enter username",
       value: inputState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
-        (inputState.val = target.value),
+      oninput: ({ target }) => (inputState.val = target.value),
     }),
     button(
       {
@@ -776,8 +773,7 @@ const TestInputSearch = () => {
       type: "search",
       placeholder: "Search...",
       value: inputState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
-        (inputState.val = target.value),
+      oninput: ({ target }) => (inputState.val = target.value),
     }),
     button(
       {
@@ -820,7 +816,7 @@ const TestEventHandlingKeyUp = () => {
     input({
       type: "search",
       size: 25,
-      onkeyup: ({ target, key }: { key: string; target: HTMLInputElement }) => {
+      onkeyup: ({ target, key }) => {
         if (key == "Enter") {
           alert(target.value);
         }
@@ -838,8 +834,7 @@ const TestInputCheckboxOninput = () => {
     input({
       type: "checkbox",
       checked: checkedState,
-      oninput: ({ target }: { target: HTMLInputElement }) =>
-        (checkedState.val = target.checked),
+      oninput: ({ target }) => (checkedState.val = target.checked),
     }),
     div("Is checked: ", () => (checkedState.val ? "Checked" : "Not Checked"))
   );
@@ -1043,6 +1038,17 @@ const App = ({}) => {
     )
   );
 };
+
+input({
+  type: "text",
+  oninput: (event) => {
+    console.log(event.data);
+    console.log(event.target);
+  },
+  onchange: (event) => {
+    console.log(event.target.value);
+  },
+});
 
 const app = document.getElementById("app");
 app?.replaceChildren(App({}));
