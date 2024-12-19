@@ -23,6 +23,7 @@ jobs:
         with:
           run_install: |
             - recursive: true
+              args: [--no-frozen-lockfile]
 
       - name: Build bau/examples/bau-ts-test
         working-directory: bau/examples/bau-ts-test
