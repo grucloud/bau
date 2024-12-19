@@ -1044,5 +1044,10 @@ const App = ({}) => {
   );
 };
 
+input({
+  type:"text",
+  oninput: (event) => console.log(event.data),
+});
+
 const app = document.getElementById("app");
 app?.replaceChildren(App({}));
