@@ -36,7 +36,7 @@ export default (context: Context) => {
             name: "check",
             required: true,
             value: inputState,
-            oninput: (event: any) => (inputState.val = event.target.value),
+            oninput: ({ target }) => (inputState.val = target.value),
           })
         )
       ),
