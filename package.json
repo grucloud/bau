@@ -4,7 +4,10 @@
   "description": "A collection of lean ui libraries",
   "private": true,
   "homepage": "https://github.com/grucloud/bau",
-  "scripts": {},
+  "scripts": {
+    "build": "lerna run build",
+    "test": "lerna run test"
+  },
   "keywords": [],
   "author": "Frederic Heem",
   "license": "MIT",
@@ -15,5 +18,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/grucloud/bau"
-  }
+  },
+  "packageManager": "pnpm@8.15.9"
 }

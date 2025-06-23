@@ -15,6 +15,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     },
     test: {
       browser: {
+        provider: "webdriverio",
         enabled: true,
         name: "chrome", // browser name is required
       },
