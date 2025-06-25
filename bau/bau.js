@@ -370,7 +370,14 @@ export default function Bau(input) {
         for (let [k, v] of Object.entries(props)) {
           if (k == "bauUpdate") {
             element[k] = v;
-          } else if (k.startsWith("bau")) {
+          } else if (
+            [
+              "bauCreated",
+              "bauMounted",
+              "bauUnmounted",
+              "bauChildMutated",
+            ].includes(k)
+          ) {
           } else {
             let setter = isSettableProp(name, k, protoOf(element))
               ? (v) => v !== undefined && (element[k] = v)
