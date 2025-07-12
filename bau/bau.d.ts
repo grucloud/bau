@@ -1,5 +1,6 @@
 export type State<T> = {
   val: T;
+  rawVal: T;
 };
 
 export type ReadonlyState<T> = Readonly<State<T>>;
