@@ -956,6 +956,24 @@ const TestAttributeReturnArray = () => {
   );
 };
 
+const TestBind = () => {
+  const state = bau.state({ t: false });
+
+  const Loading = () =>
+    bau.bind({
+      deps: [state],
+      render: () => (toggle) => {
+        return toggle.t ? "ON" : "OFF";
+      },
+    });
+
+  return section(
+    h1("bau.bind"),
+    button({ onclick: () => (state.val.t = !state.val.t) }, "TOGGLE"),
+    div(Loading())
+  );
+};
+
 const App = ({}) => {
   //return TestArrayTextDecoder();
 
@@ -1035,6 +1053,11 @@ const App = ({}) => {
       TestAttributeReturnNull(),
       TestAttributeArray(),
       TestAttributeReturnArray()
+    ),
+    section(
+      h1("Bind"),
+      //
+      TestBind()
     )
   );
 };
