@@ -2,7 +2,7 @@
   "name": "frontendmentor-job-listings-with-filtering",
   "homepage": "https://grucloud.github.io/bau/frontendmentor/job-listings-with-filtering/",
   "private": true,
-  "version": "0.98.0",
+  "version": "0.99.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,8 +16,8 @@
     "vite": "^5.2.11"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.98.0",
-    "@grucloud/bau-css": "^0.98.0",
-    "@grucloud/bau-ui": "^0.98.0"
+    "@grucloud/bau": "^0.99.0",
+    "@grucloud/bau-css": "^0.99.0",
+    "@grucloud/bau-ui": "^0.99.0"
   }
 }
