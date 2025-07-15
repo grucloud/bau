@@ -3,7 +3,7 @@ let isObject = (val) => getType(val) == "Object";
 let isFunction = (obj) => getType(obj) == "Function";
 let isArrayOrObject = (obj) => ["Object", "Array"].includes(getType(obj));
 let protoOf = Object.getPrototypeOf;
-let toVal = (state) => (isState(state) ? state.val : state);
+let toVal = (state) => (isState(state) ? state.rawVal : state);
 let toArray = (el) => (Array.isArray(el) ? el : [el]);
 let isState = (state) => state?.__isState;
 let METHODS = ["splice", "push", "pop", "shift", "unshift", "sort", "reverse"];
