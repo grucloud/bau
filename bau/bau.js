@@ -342,7 +342,8 @@ export default function Bau(input) {
     (isSettablePropCache[tag + "," + key] =
       getPropDescriptor(proto, key)?.set ?? 0);
 
-  let observerRemovedNode = (element, bauUnmounted) =>
+  let observerRemovedNode = (element, bauUnmounted) => {
+    if (!element.parentNode) return;
     new _window.MutationObserver((mutationList, observer) => {
       mutationList
         .filter((record) => record.removedNodes)
@@ -354,6 +355,7 @@ export default function Bau(input) {
           )
         );
     }).observe(element.parentNode, { childList: true });
+  };
 
   let observerChildNode = (element, bauChildMutated) =>
     new _window.MutationObserver((mutationList, observer) =>
