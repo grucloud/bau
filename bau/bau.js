@@ -343,7 +343,6 @@ export default function Bau(input) {
       getPropDescriptor(proto, key)?.set ?? 0);
 
   let observerRemovedNode = (element, bauUnmounted) => {
-    if (!element.parentNode) return;
     new _window.MutationObserver((mutationList, observer) => {
       mutationList
         .filter((record) => record.removedNodes)
@@ -422,10 +421,14 @@ export default function Bau(input) {
           _window.requestAnimationFrame(() => element.focus());
         props.bauCreated?.({ element });
         props.bauMounted &&
-          _window.requestAnimationFrame(() => props.bauMounted({ element }));
+          _window.requestAnimationFrame(
+            () => element.isConnected && props.bauMounted({ element })
+          );
         props.bauUnmounted &&
-          _window.requestAnimationFrame(() =>
-            observerRemovedNode(element, props.bauUnmounted)
+          _window.requestAnimationFrame(
+            () =>
+              element.parentNode &&
+              observerRemovedNode(element, props.bauUnmounted)
           );
         return element;
       },
