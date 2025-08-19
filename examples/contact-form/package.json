@@ -2,7 +2,7 @@
   "name": "frontendmentor-contact-form",
   "homepage": "https://grucloud.github.io/bau/frontendmentor/contact-form/",
   "private": true,
-  "version": "0.101.0",
+  "version": "0.102.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,9 +16,9 @@
     "vite": "^5.2.11"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.101.0",
-    "@grucloud/bau-css": "^0.101.0",
-    "@grucloud/bau-ui": "^0.101.0",
+    "@grucloud/bau": "^0.102.0",
+    "@grucloud/bau-css": "^0.102.0",
+    "@grucloud/bau-ui": "^0.102.0",
     "bignumber.js": "9.1.2"
   }
 }
