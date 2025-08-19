@@ -2,7 +2,7 @@
   "name": "frontendmentor-product-preview-card",
   "homepage": "https://grucloud.github.io/bau/frontendmentor/product-preview-card/",
   "private": true,
-  "version": "0.100.0",
+  "version": "0.101.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,8 +16,8 @@
     "vite": "^5.2.11"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.100.0",
-    "@grucloud/bau-css": "^0.100.0",
-    "@grucloud/bau-ui": "^0.100.0"
+    "@grucloud/bau": "^0.101.0",
+    "@grucloud/bau-css": "^0.101.0",
+    "@grucloud/bau-ui": "^0.101.0"
   }
 }
