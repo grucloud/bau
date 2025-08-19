@@ -342,7 +342,7 @@ export default function Bau(input) {
     (isSettablePropCache[tag + "," + key] =
       getPropDescriptor(proto, key)?.set ?? 0);
 
-  let observerRemovedNode = (element, bauUnmounted) => {
+  let observerRemovedNode = (element, bauUnmounted = () => {}) => {
     new _window.MutationObserver((mutationList, observer) => {
       mutationList
         .filter((record) => record.removedNodes)
@@ -422,13 +422,10 @@ export default function Bau(input) {
         props.bauCreated?.({ element });
         props.bauMounted &&
           _window.requestAnimationFrame(
-            () => element.isConnected && props.bauMounted({ element })
-          );
-        props.bauUnmounted &&
-          _window.requestAnimationFrame(
             () =>
-              element.parentNode &&
-              observerRemovedNode(element, props.bauUnmounted)
+              element.isConnected &&
+              (observerRemovedNode(element, props.bauUnmounted),
+              props.bauMounted({ element }))
           );
         return element;
       },
