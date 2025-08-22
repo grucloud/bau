@@ -422,12 +422,12 @@ export default function Bau(input) {
           element.focus &&
           _window.requestAnimationFrame(() => element.focus());
         props.bauCreated?.({ element });
-        props.bauMounted &&
+        (props.bauMounted || props.bauUnmounted) &&
           _window.requestAnimationFrame(
             () =>
               element.isConnected &&
               (observerRemovedNode(element, props.bauUnmounted),
-              props.bauMounted({ element }))
+              props.bauMounted?.({ element }))
           );
         return element;
       },
