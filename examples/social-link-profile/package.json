@@ -2,7 +2,7 @@
   "name": "frontendmentor-social-link-profile",
   "homepage": "https://grucloud.github.io/bau/frontendmentor/social-link-profile/",
   "private": true,
-  "version": "0.102.0",
+  "version": "0.103.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,8 +16,8 @@
     "vite": "^5.2.11"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.102.0",
-    "@grucloud/bau-css": "^0.102.0",
-    "@grucloud/bau-ui": "^0.102.0"
+    "@grucloud/bau": "^0.103.0",
+    "@grucloud/bau-css": "^0.103.0",
+    "@grucloud/bau-ui": "^0.103.0"
   }
 }
