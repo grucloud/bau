@@ -13,7 +13,6 @@ describe("derive", async () => {
     assert.equal(a.val, 1);
     assert.equal(b.val, 2);
     a.val++;
-    await sleep();
     assert.equal(a.val, 2);
     assert.equal(b.val, 3);
   });
@@ -50,7 +49,6 @@ describe("derive", async () => {
     expect(spyc).toHaveBeenCalledTimes(1);
 
     a.val = 3;
-    await sleep();
     assert.equal(a.val, 3);
     assert.equal(b.val, 3 * 3);
     assert.equal(c.val, 9 * 9);
@@ -71,7 +69,6 @@ describe("derive", async () => {
 
     ++a.val;
     ++b.val;
-    await sleep();
     assert.equal(a.val, 2);
     assert.equal(b.val, 2);
     assert.equal(s.val, 4);
@@ -89,7 +86,6 @@ describe("derive", async () => {
     expect(spys).toHaveBeenCalledTimes(1);
 
     ++a.val;
-    await sleep();
     assert.equal(a.val, 2);
     assert.equal(b.val, 3);
     assert.equal(sum.val, 5);
