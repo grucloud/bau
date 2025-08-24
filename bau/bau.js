@@ -258,13 +258,11 @@ export default function Bau(input) {
       if (_state.computed && _state.dirty) {
         deriveInternal(_state.computed, _state);
       }
-      return (
-        _state.valProxy ??
-        ((_state.valProxy = isArrayOrObject(initVal)
-          ? createProxy(_state, initVal)
-          : initVal),
-        _state.valProxy)
-      );
+      return _state.valProxy !== undefined
+        ? _state.valProxy
+        : (_state.valProxy = isArrayOrObject(initVal)
+            ? createProxy(_state, initVal)
+            : initVal);
     },
     set val(value) {
       let state = this;
