@@ -112,6 +112,22 @@ describe("derive", async () => {
     expect(spys).toHaveBeenCalledTimes(2);
   });
 
+  it("returns undefined", () => {
+    const derived = bau.derive(() => undefined);
+    assert.strictEqual(derived.val, undefined);
+  });
+
+  it("returns 0", () => {
+    const derived = bau.derive(() => 0);
+    assert.strictEqual(derived.val, 0);
+  });
+
+  it("returns null", () => {
+    const derived = bau.derive(() => null);
+    assert.strictEqual(derived.val, null);
+  });
+
+
   it("updates incrementally", () => {
     const a = bau.state(false);
     const b = bau.state(false);
@@ -121,11 +137,11 @@ describe("derive", async () => {
       return 3;
     });
 
-    assert.equal(derived.val, 1);
+    assert.strictEqual(derived.val, 1);
     a.val = true;
-    assert.equal(derived.val, 2);
+    assert.strictEqual(derived.val, 2);
     b.val = true;
-    assert.equal(derived.val, 3);
+    assert.strictEqual(derived.val, 3);
   });
 
   it("updates when first null", () => {
@@ -137,10 +153,10 @@ describe("derive", async () => {
       return true;
     });
 
-    assert.equal(derived.val, null);
+    assert.strictEqual(derived.val, null);
     a.val = true;
     b.val = true;
-    assert.equal(derived.val, true);
+    assert.strictEqual(derived.val, true);
   });
 
   it("does not call derive when non-dependencies change", () => {
@@ -151,15 +167,15 @@ describe("derive", async () => {
       ++called;
       return a.val;
     });
-    assert.equal(derived.val, 0);
-    assert.equal(derived.val, 0);
-    assert.equal(called, 1);
+    assert.strictEqual(derived.val, 0);
+    assert.strictEqual(derived.val, 0);
+    assert.strictEqual(called, 1);
     ++a.val;
-    assert.equal(derived.val, 1);
-    assert.equal(derived.val, 1);
-    assert.equal(called, 2);
+    assert.strictEqual(derived.val, 1);
+    assert.strictEqual(derived.val, 1);
+    assert.strictEqual(called, 2);
     ++b.val;
-    assert.equal(derived.val, 1);
-    assert.equal(called, 2);
+    assert.strictEqual(derived.val, 1);
+    assert.strictEqual(called, 2);
   });
 });
