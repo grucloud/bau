@@ -2,7 +2,7 @@
   "name": "frontendmentor-blog-preview-card",
   "homepage": "https://grucloud.github.io/bau/frontendmentor/blog-preview-card/",
   "private": true,
-  "version": "0.103.0",
+  "version": "0.104.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,8 +16,8 @@
     "vite": "^5.2.11"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.103.0",
-    "@grucloud/bau-css": "^0.103.0",
-    "@grucloud/bau-ui": "^0.103.0"
+    "@grucloud/bau": "^0.104.0",
+    "@grucloud/bau-css": "^0.104.0",
+    "@grucloud/bau-ui": "^0.104.0"
   }
 }

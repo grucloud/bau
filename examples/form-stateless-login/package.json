@@ -1,7 +1,7 @@
 {
   "name": "bau-form-stateless-login",
   "private": true,
-  "version": "0.103.0",
+  "version": "0.104.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.103.0"
+    "@grucloud/bau": "^0.104.0"
   },
   "devDependencies": {
     "vite": "^5.2.11"
