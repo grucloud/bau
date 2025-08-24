@@ -13,7 +13,6 @@ describe("derive", async () => {
     assert.equal(a.val, 1);
     assert.equal(b.val, 2);
     a.val++;
-    await sleep();
     assert.equal(a.val, 2);
     assert.equal(b.val, 3);
   });
@@ -50,7 +49,6 @@ describe("derive", async () => {
     expect(spyc).toHaveBeenCalledTimes(1);
 
     a.val = 3;
-    await sleep();
     assert.equal(a.val, 3);
     assert.equal(b.val, 3 * 3);
     assert.equal(c.val, 9 * 9);
@@ -71,7 +69,6 @@ describe("derive", async () => {
 
     ++a.val;
     ++b.val;
-    await sleep();
     assert.equal(a.val, 2);
     assert.equal(b.val, 2);
     assert.equal(s.val, 4);
@@ -89,7 +86,6 @@ describe("derive", async () => {
     expect(spys).toHaveBeenCalledTimes(1);
 
     ++a.val;
-    await sleep();
     assert.equal(a.val, 2);
     assert.equal(b.val, 3);
     assert.equal(sum.val, 5);
@@ -114,5 +110,56 @@ describe("derive", async () => {
     await sleep();
     assert.equal(b.val, 1);
     expect(spys).toHaveBeenCalledTimes(2);
+  });
+
+  it("updates incrementally", () => {
+    const a = bau.state(false);
+    const b = bau.state(false);
+    const derived = bau.derive(() => {
+      if (!a.val) return 1;
+      if (!b.val) return 2;
+      return 3;
+    });
+
+    assert.equal(derived.val, 1);
+    a.val = true;
+    assert.equal(derived.val, 2);
+    b.val = true;
+    assert.equal(derived.val, 3);
+  });
+
+  it("updates when first null", () => {
+    const a = bau.state(false);
+    const b = bau.state(false);
+    const derived = bau.derive(() => {
+      if (!a.val) return null;
+      if (!b.val) return null;
+      return true;
+    });
+
+    assert.equal(derived.val, null);
+    a.val = true;
+    b.val = true;
+    assert.equal(derived.val, true);
+  });
+
+  it("does not call derive when non-dependencies change", () => {
+    const a = bau.state(0);
+    const b = bau.state(0);
+    let called = 0;
+    const derived = bau.derive(() => {
+      ++called;
+      return a.val;
+    });
+    assert.equal(derived.val, 0);
+    assert.equal(derived.val, 0);
+    assert.equal(called, 1);
+    ++a.val;
+    assert.equal(derived.val, 1);
+    assert.equal(derived.val, 1);
+    assert.equal(called, 2);
+    ++b.val;
+    assert.equal(derived.val, 1);
+    assert.equal(called, 2);
   });
 });

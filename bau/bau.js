@@ -52,6 +52,7 @@ export default function Bau(input) {
   let updateDom = (state, op) => {
     !_stateOps.length && _window.requestAnimationFrame(processDom);
     _stateOps.push([state, op]);
+    for (let l of state.listeners) l.state.dirty = true;
   };
 
   const processDom = () => {
@@ -249,10 +250,14 @@ export default function Bau(input) {
     rawVal: initVal,
     bindings: [],
     listeners: [],
+    dirty: false,
     __isState: true,
     get val() {
       let _state = this;
       _curDeps?.g?.add(_state);
+      if (_state.computed && _state.dirty) {
+        deriveInternal(_state.computed, _state);
+      }
       return (
         _state.valProxy ??
         ((_state.valProxy = isArrayOrObject(initVal)
@@ -304,12 +309,13 @@ export default function Bau(input) {
       )
     ))
       dep.listeners.push(listener);
+    state.dirty = false;
   };
 
   let derive = (computed, options) => {
     let state = createState(undefined, options);
+    state.computed = computed;
     deriveInternal(computed, state);
-    state.computed = true;
     return state;
   };
 
