@@ -115,4 +115,35 @@ describe("derive", async () => {
     assert.equal(b.val, 1);
     expect(spys).toHaveBeenCalledTimes(2);
   });
+
+  it("updates incrementally", () => {
+    const a = bau.state(false);
+    const b = bau.state(false);
+    const derived = bau.derive(() => {
+      if (!a.val) return 1;
+      if (!b.val) return 2;
+      return 3;
+    });
+
+    assert.equal(derived.val, 1);
+    a.val = true;
+    assert.equal(derived.val, 2);
+    b.val = true;
+    assert.equal(derived.val, 3);
+  });
+
+  it("updates when first null", () => {
+    const a = bau.state(false);
+    const b = bau.state(false);
+    const derived = bau.derive(() => {
+      if (!a.val) return null;
+      if (!b.val) return null;
+      return true;
+    });
+
+    assert.equal(derived.val, null);
+    a.val = true;
+    b.val = true;
+    assert.equal(derived.val, true);
+  });
 });
