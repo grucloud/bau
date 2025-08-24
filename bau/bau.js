@@ -275,11 +275,9 @@ export default function Bau(input) {
       if (isArrayOrObject(value)) {
         state.valProxy = createProxy(state, value);
         updateDom(state, ["assign", value]);
-        state.dirty = false;
       } else if (value !== oldVal) {
         state.valProxy = value;
         state.bindings.length + state.listeners.length && updateDom(state);
-        state.dirty = false;
       }
     },
   });
