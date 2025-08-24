@@ -146,4 +146,24 @@ describe("derive", async () => {
     b.val = true;
     assert.equal(derived.val, true);
   });
+
+  it("does not call derive when non-dependencies change", () => {
+    const a = bau.state(0);
+    const b = bau.state(0);
+    let called = 0;
+    const derived = bau.derive(() => {
+      ++called;
+      return a.val;
+    });
+    assert.equal(derived.val, 0);
+    assert.equal(derived.val, 0);
+    assert.equal(called, 1);
+    ++a.val;
+    assert.equal(derived.val, 1);
+    assert.equal(derived.val, 1);
+    assert.equal(called, 2);
+    ++b.val;
+    assert.equal(derived.val, 1);
+    assert.equal(called, 2);
+  });
 });
