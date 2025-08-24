@@ -309,7 +309,7 @@ export default function Bau(input) {
       )
     ))
       dep.listeners.push(listener);
-      state.dirty = false;
+    state.dirty = false;
   };
 
   let derive = (computed, options) => {
