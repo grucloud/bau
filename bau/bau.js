@@ -294,13 +294,7 @@ export default function Bau(input) {
   let deriveInternal = (computed, state) => {
     let deps = { g: new Set(), s: new Set() };
     state.val = runAndCaptureDeps(computed, deps);
-    return deps;
-  };
 
-  let derive = (computed, options) => {
-    let state = createState(undefined, options);
-    let deps = deriveInternal(computed, state);
-    state.computed = true;
     let listener = { computed, state };
     for (let dep of new Set(
       [...deps.g].filter(
@@ -310,6 +304,12 @@ export default function Bau(input) {
       )
     ))
       dep.listeners.push(listener);
+  };
+
+  let derive = (computed, options) => {
+    let state = createState(undefined, options);
+    deriveInternal(computed, state);
+    state.computed = true;
     return state;
   };
 
