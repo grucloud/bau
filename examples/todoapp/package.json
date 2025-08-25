@@ -1,7 +1,7 @@
 {
   "name": "van-playground",
   "private": true,
-  "version": "0.105.0",
+  "version": "0.106.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.105.0",
+    "@grucloud/bau": "^0.106.0",
     "todomvc-app-css": "2.4.3",
     "todomvc-common": "1.0.5"
   },

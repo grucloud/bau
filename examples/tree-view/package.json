@@ -1,7 +1,7 @@
 {
   "name": "bau-tree-view",
   "private": true,
-  "version": "0.105.0",
+  "version": "0.106.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.105.0"
+    "@grucloud/bau": "^0.106.0"
   },
   "devDependencies": {
     "vite": "^5.2.11"

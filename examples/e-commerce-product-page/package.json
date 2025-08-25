@@ -2,7 +2,7 @@
   "name": "frontendmentor-e-commerce-product-page",
   "homepage": "https://grucloud.github.io/bau/frontendmentor/e-commerce-product-page/",
   "private": true,
-  "version": "0.105.0",
+  "version": "0.106.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,10 +16,10 @@
     "vite": "^5.2.11"
   },
   "dependencies": {
-    "@grucloud/bau": "^0.105.0",
-    "@grucloud/bau-css": "^0.105.0",
-    "@grucloud/bau-router": "^0.105.0",
-    "@grucloud/bau-ui": "^0.105.0",
+    "@grucloud/bau": "^0.106.0",
+    "@grucloud/bau-css": "^0.106.0",
+    "@grucloud/bau-router": "^0.106.0",
+    "@grucloud/bau-ui": "^0.106.0",
     "bignumber.js": "9.1.2"
   }
 }
