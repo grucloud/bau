@@ -162,4 +162,25 @@ describe("derive", async () => {
     assert.equal(derived.val, 1);
     assert.equal(called, 2);
   });
+
+  it("does not recompute more than once per update", async () => {
+    const a = bau.state(0);
+    let called = 0;
+    const d = bau.derive(() => {
+      called++;
+      return a.val + 1;
+    });
+    // Initial compute
+    assert.strictEqual(d.val, 1);
+    assert.strictEqual(called, 1);
+    // Drive several recomputations to simulate potential duplicate subscriptions
+    a.val = 2; await sleep();
+    a.val = 3; await sleep();
+    a.val = 4; await sleep();
+    const before = called;
+    // A single update should trigger exactly one recompute
+    a.val = 5; await sleep();
+    assert.strictEqual(called - before, 1);
+    assert.strictEqual(d.val, 6);
+  });
 });

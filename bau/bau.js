@@ -301,14 +301,9 @@ export default function Bau(input) {
     state.val = runAndCaptureDeps(computed, deps);
 
     let listener = { computed, state };
-    for (let dep of new Set(
-      [...deps.g].filter(
-        (dep) =>
-          !deps.s.has(dep) &&
-          dep.listeners.every((listener) => !deps.g.has(listener.state))
-      )
-    ))
-      dep.listeners.push(listener);
+    for (let dep of new Set([...deps.g].filter((dep) => !deps.s.has(dep)))) {
+      if (!dep.listeners.some((l) => l.state === state)) dep.listeners.push(listener);
+    }
     state.dirty = false;
   };
 
