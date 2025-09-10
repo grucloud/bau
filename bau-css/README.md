@@ -102,6 +102,18 @@ _bau-css_ integrates seamlessly with UI libraries, here is a list of examples:
 - [Bau with bau-css](./examples/bau-bau-css)
 - [Vanilla JS with bau-css](./examples/vanillajs-bau-css)
 
+## Editor Support
+
+### VS Code
+
+There is no dedicated VS Code plugin for BauCss, but the (unmaintained) [styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) plugin is mostly compatible as long as `createGlobalStyles` is imported as `createGlobalStyle`. It provides completion and syntax highlighting for CSS inside template literals.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/14734ab8-63fb-4964-a66b-f630a883286c">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/651f15b9-4db2-485c-8b04-2273e8d30eed">
+  <img alt="VS Code screnshot" src="https://github.com/user-attachments/assets/651f15b9-4db2-485c-8b04-2273e8d30eed" width="510px">
+</picture>
+
 ## Contribution
 
 Bugs and suggestion can be discussed on its [GitHub project page](https://github.com/grucloud/bau/tree/main/bau-css).
